@@ -1,0 +1,64 @@
+Example LDAP Servers:
+
+ldap.virginia.edu 389 "o=University of Virginia,c=US"
+
+cn="Frank L. Hereford, Jr (flh)", ou=phs, ou=Unknown Payroll Dept Code, o=University of Virginia, c=US
+  facsimileTelephoneNumber: +1 434-924-4576
+  physicalDeliveryOfficeName: Physics Building
+  wirelessAccess: flh
+  eduPersonAffiliation: Faculty
+  eduPersonOrgDN: o=University of Virginia, c=US
+  objectClass: top
+  displayName: Frank L. Hereford
+  homePhone: +1 434-296-7578
+  ou: Unknown Payroll Dept Code-phs
+  description: Faculty
+  sn: Hereford
+  cVPN3000-IPSec-Banner1: Welcome flh to the UVa More Secure network
+  eduPersonPrincipalName: flh@virginia.edu
+  initials: L.
+  eduPersonScopedAffiliation: Faculty@virginia.edu
+  mail: flh@Virginia.EDU
+  UnixUid: 793
+  eduPersonOrgUnitDN: ou=Unknown Payroll Dept Code-phs, o=University of Virginia, c=US
+  givenName: Frank
+  cn: Frank L. Hereford, Jr (flh)
+  uid: flh
+  telephoneNumber: +1 434-924-3781
+  title: Professor Emeritus
+  cVPN3000-Access-Hours: Always
+  eduPersonPrimaryAffiliation: Faculty
+  generationQualifier: Jr
+  uvaDisplayDepartment: Physics
+  mailForwardingAddress: flh@cms.mail.virginia.edu
+  OfficeFax: +1 434-924-4576
+
+
+
+
+ldap.mit.edu 389 "dc=mit,dc=edu"
+
+cn=Richard M Stallman+employeeNumber=1bb4503de428dbb8e95917d16ce5dcef,ou=employees,dc=mit,dc=edu
+  eduPersonAffiliation: staff
+  eduPersonScopedAffiliation: staff@mit.edu
+  objectClass: top
+  o: Massachussetts Institute of Technology
+  eduPersonPrimaryAffiliation: staff
+  cn: Richard M Stallman
+  telephoneNumber: 617-253-8830
+  title: Visiting Scientist
+  ou: Computer Science & Artificial Intelligence Lab
+  eduPersonNickname: Richard M Stallman
+  physicalDeliveryOfficeName: 32-381
+  sn: Stallman
+  roomNumber: 32-381
+  givenName: Richard M
+  mail: rms@gnu.org
+
+
+
+
+
+ldap.rit.edu 389 "ou=people,dc=rit,dc=edu"
+
+

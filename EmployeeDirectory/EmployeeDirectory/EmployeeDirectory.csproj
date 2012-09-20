@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>EmployeeDirectory</RootNamespace>
+    <AssemblyName>EmployeeDirectory</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Compile Include="AssemblyInfo.cs" />
+    <Compile Include="Filter.cs" />
+    <Compile Include="IDirectoryService.cs" />
+    <Compile Include="LdapDirectoryService.cs" />
+    <Compile Include="Data\Person.cs" />
+    <Compile Include="Data\PropertyAttribute.cs" />
+    <Compile Include="Data\Search.cs" />
+    <Compile Include="Utilities\ImageDownloader.cs" />
+    <Compile Include="Data\SearchProperty.cs" />
+    <Compile Include="ViewModels\ErrorEventArgs.cs" />
+    <Compile Include="ViewModels\PersonViewModel.cs" />
+    <Compile Include="ViewModels\SearchViewModel.cs" />
+    <Compile Include="Utilities\Gravatar.cs" />
+    <Compile Include="MemoryDirectoryService.cs" />
+    <Compile Include="Utilities\CsvReader.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">
+      <Project>{7D5FA77D-740A-461F-96D0-E1B41C901BED}</Project>
+      <Name>Novell.Directory.Ldap</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Utilities\" />
+    <Folder Include="ViewModels\" />
+  </ItemGroup>
+</Project>

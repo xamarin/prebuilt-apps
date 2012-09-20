@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProductVersion>10.0.0</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8735A806-2338-4494-944F-5439944AFFB4}</ProjectGuid>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>EmployeeDirectory.iOS</RootNamespace>
+    <AssemblyName>EmployeeDirectoryiOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchProfiling>True</MtouchProfiling>
+    <MtouchLink>None</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>True</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>False</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>True</MtouchDebug>
+    <MtouchProfiling>True</MtouchProfiling>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <BuildIpa>True</BuildIpa>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>none</DebugType>
+    <Optimize>True</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>False</ConsolePause>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="UIViewControllerEx.cs" />
+    <Compile Include="..\EmployeeDirectory\Filter.cs">
+      <Link>EmployeeDirectory\Filter.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\IDirectoryService.cs">
+      <Link>EmployeeDirectory\IDirectoryService.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\LdapDirectoryService.cs">
+      <Link>EmployeeDirectory\LdapDirectoryService.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\Data\Person.cs">
+      <Link>EmployeeDirectory\Data\Person.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\Data\PropertyAttribute.cs">
+      <Link>EmployeeDirectory\Data\PropertyAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\Data\Search.cs">
+      <Link>EmployeeDirectory\Data\Search.cs</Link>
+    </Compile>
+    <Compile Include="SearchEditorView.cs" />
+    <Compile Include="..\EmployeeDirectory\Utilities\ImageDownloader.cs">
+      <Link>EmployeeDirectory\Utilities\ImageDownloader.cs</Link>
+    </Compile>
+    <Compile Include="UIKitImageDownloader.cs" />
+    <Compile Include="..\EmployeeDirectory\Data\SearchProperty.cs">
+      <Link>EmployeeDirectory\Data\SearchProperty.cs</Link>
+    </Compile>
+    <Compile Include="SearchViewController.cs" />
+    <Compile Include="..\EmployeeDirectory\ViewModels\ErrorEventArgs.cs">
+      <Link>EmployeeDirectory\ViewModels\ErrorEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\ViewModels\PersonViewModel.cs">
+      <Link>EmployeeDirectory\ViewModels\PersonViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\ViewModels\SearchViewModel.cs">
+      <Link>EmployeeDirectory\ViewModels\SearchViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\Utilities\Gravatar.cs">
+      <Link>EmployeeDirectory\Utilities\Gravatar.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\MemoryDirectoryService.cs">
+      <Link>EmployeeDirectory\MemoryDirectoryService.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\Utilities\CsvReader.cs">
+      <Link>EmployeeDirectory\Utilities\CsvReader.cs</Link>
+    </Compile>
+    <Compile Include="PersonViewController.cs" />
+    <Compile Include="FavoritesViewController.cs" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="EmployeeDirectory\" />
+    <Folder Include="EmployeeDirectory\Utilities\" />
+    <Folder Include="Images\" />
+    <Folder Include="EmployeeDirectory\ViewModels\" />
+    <Folder Include="Data\" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">
+      <Project>{7D5FA77D-740A-461F-96D0-E1B41C901BED}</Project>
+      <Name>Novell.Directory.Ldap</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Default-568h%402x.png" />
+    <Content Include="Images\Placeholder.jpg" />
+    <Content Include="Images\Placeholder%402x.jpg" />
+    <Content Include="..\Data\XamarinDirectory.csv">
+      <Link>Data\XamarinDirectory.csv</Link>
+    </Content>
+  </ItemGroup>
+</Project>
