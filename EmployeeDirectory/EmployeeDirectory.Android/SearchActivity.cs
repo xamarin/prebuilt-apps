@@ -35,7 +35,9 @@ namespace EmployeeDirectory.Android
 				SearchBase = "dc=mit,dc=edu",
 			};
 
-			searchViewModel = new SearchViewModel (service, new Search ("Default"));
+			searchViewModel = new SearchViewModel (service, new Search ("Default")) {
+				GroupByLastName = false,
+			};
 			searchViewModel.SearchCompleted += HandleSearchCompleted;
 
 			//
@@ -60,11 +62,18 @@ namespace EmployeeDirectory.Android
 
 				searchViewModel.Search ();
 			}
+
+
 		}
 
 		void HandleSearchCompleted (object sender, EventArgs e)
 		{
 			((PeopleGroupsAdapter)ListAdapter).ItemsSource = searchViewModel.GroupedPeople;
+		}
+
+		protected override void OnListItemClick (ListView l, View v, int position, long id)
+		{
+			Console.WriteLine (v);
 		}
 	}
 }

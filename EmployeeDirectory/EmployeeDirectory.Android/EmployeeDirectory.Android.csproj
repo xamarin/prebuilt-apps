@@ -96,6 +96,7 @@
       <Link>EmployeeDirectory\ViewModels\PeopleGroup.cs</Link>
     </Compile>
     <Compile Include="PeopleGroupsAdapter.cs" />
+    <Compile Include="PersonActivity.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -123,6 +124,11 @@
     <AndroidResource Include="Resources\xml\searchable.xml" />
     <AndroidResource Include="Resources\layout\SearchActivity.axml" />
     <AndroidResource Include="Resources\layout\PersonListItem.axml" />
+    <AndroidResource Include="Resources\layout\MainActivity.axml" />
+    <AndroidResource Include="Resources\layout\PersonActivity.axml" />
+    <AndroidResource Include="Resources\layout\GroupHeaderListItem.axml" />
+    <AndroidResource Include="Resources\drawable-mdpi\Placeholder.jpg" />
+    <AndroidResource Include="Resources\drawable-hdpi\Placeholder.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

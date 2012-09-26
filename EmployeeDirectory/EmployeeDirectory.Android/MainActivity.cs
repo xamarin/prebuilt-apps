@@ -17,6 +17,8 @@ namespace EmployeeDirectory.Android
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
+
+			SetContentView (Resource.Layout.MainActivity);
 		}
 
 		public override bool OnCreateOptionsMenu (IMenu menu)

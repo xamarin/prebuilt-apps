@@ -2,7 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
+    android:layout_height="fill_parent"
+    android:descendantFocusability="blocksDescendants">
     <LinearLayout
         android:orientation="horizontal"
         android:minWidth="25px"
@@ -19,24 +20,38 @@
             android:id="@+id/linearLayout2"
             android:layout_weight="1"
             android:gravity="center"
-            android:layout_marginLeft="4dip">
+            android:layout_marginLeft="8dip">
             <TextView
                 android:text="Medium Text"
                 android:textAppearance="?android:attr/textAppearanceMedium"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/NameTextView" />
+                android:id="@+id/NameTextView"
+                android:minLines="1"
+                android:maxLines="1"
+                android:ellipsize="end" />
             <TextView
                 android:text="Small Text"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/DetailsTextView" />
+                android:id="@+id/DetailsTextView"
+                android:minLines="1"
+                android:maxLines="1"
+                android:textColor="#666"
+                android:ellipsize="end" />
         </LinearLayout>
         <ImageButton
-            android:src="@android:drawable/ic_menu_gallery"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/ImageButton" />
+            android:src="@drawable/Placeholder"
+            android:layout_width="64dip"
+            android:layout_height="64dip"
+            android:id="@+id/ImageButton"
+            android:background="@null"
+            android:scaleType="fitCenter" />
     </LinearLayout>
+    <View
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:id="@+id/Divider"
+        android:background="#b8b8b8" />
 </LinearLayout>

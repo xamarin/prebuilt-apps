@@ -49,6 +49,17 @@ namespace EmployeeDirectory.ViewModels
 			set { search.Text = value.Trim (); }
 		}
 
+		bool groupByLastName = true;
+		public bool GroupByLastName {
+			get { return groupByLastName; }
+			set {
+				if (groupByLastName != value) {
+					groupByLastName = value;
+					SetGroupedPeople ();
+				}
+			}
+		}
+
 		#endregion
 
 
@@ -102,7 +113,7 @@ namespace EmployeeDirectory.ViewModels
 		/// </summary>
 		void SetGroupedPeople ()
 		{
-			GroupedPeople = PeopleGroup.CreateGroups (search.Results);
+			GroupedPeople = PeopleGroup.CreateGroups (search.Results, groupByLastName);
 		}
 
 		#endregion

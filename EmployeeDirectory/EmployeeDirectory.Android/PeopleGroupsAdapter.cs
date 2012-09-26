@@ -35,9 +35,10 @@ namespace EmployeeDirectory.Android
 
 					items.Clear ();
 					foreach (var g in itemsSource) {
-						items.Add (new GroupItem (g));
+						items.Add (new GroupHeaderItem (g));
+						var lastPerson = g.People.LastOrDefault ();
 						foreach (var p in g.People) {
-							items.Add (new PersonItem (p));
+							items.Add (new PersonItem (p, p == lastPerson));
 						}
 					}
 
@@ -59,7 +60,7 @@ namespace EmployeeDirectory.Android
 
 		public override int GetItemViewType (int position)
 		{
-			return items[position] is GroupItem ? 0 : 1;
+			return items[position] is GroupHeaderItem ? 0 : 1;
 		}
 
 		public override Java.Lang.Object GetItem (int position)
@@ -85,18 +86,25 @@ namespace EmployeeDirectory.Android
 				}
 				var nameTextView = v.FindViewById<TextView> (Resource.Id.NameTextView);
 				var detailsTextView = v.FindViewById<TextView> (Resource.Id.DetailsTextView);
+				var divider = v.FindViewById<View> (Resource.Id.Divider);
 
 				nameTextView.Text = personItem.Person.SafeDisplayName;
 				detailsTextView.Text = personItem.Person.TitleAndDepartment;
+				divider.Visibility = personItem.IsLastPersonInGroup ?
+						ViewStates.Invisible :
+						ViewStates.Visible;
 
 				return v;
 			}
 			else {
-				var v = convertView as TextView;
+				var v = convertView;
 				if (v == null) {
-					v = new TextView (context);
+					v = context.LayoutInflater.Inflate (Resource.Layout.GroupHeaderListItem, null);
 				}
-				v.Text = items[position].ToString ();
+				var headerTextView = v.FindViewById<TextView> (Resource.Id.HeaderTextView);
+
+				headerTextView.Text = ((GroupHeaderItem)item).Group.Title;
+
 				return v;
 			}
 		}
@@ -107,11 +115,11 @@ namespace EmployeeDirectory.Android
 			}
 		}
 
-		class GroupItem : Java.Lang.Object
+		class GroupHeaderItem : Java.Lang.Object
 		{
 			public PeopleGroup Group { get; private set; }
 			
-			public GroupItem (PeopleGroup group)
+			public GroupHeaderItem (PeopleGroup group)
 			{
 				Group = group;
 			}
@@ -125,10 +133,12 @@ namespace EmployeeDirectory.Android
 		class PersonItem : Java.Lang.Object
 		{
 			public Person Person { get; private set; }
+			public bool IsLastPersonInGroup { get; private set; }
 
-			public PersonItem (Person person)
+			public PersonItem (Person person, bool isLastPersonInGroup)
 			{
 				Person = person;
+				IsLastPersonInGroup = isLastPersonInGroup;
 			}
 
 			public override string ToString ()

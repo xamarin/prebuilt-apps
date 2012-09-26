@@ -16,13 +16,15 @@ namespace EmployeeDirectory.ViewModels
 			People = new List<Person> ();
 		}
 
-		public static ObservableCollection<PeopleGroup> CreateGroups (IEnumerable<Person> people)
+		public static ObservableCollection<PeopleGroup> CreateGroups (IEnumerable<Person> people, bool groupByLastName)
 		{
 			var pgs = new Dictionary<string, PeopleGroup> ();
 
 			foreach (var p in people.OrderBy (x => x.LastName)) {
 				
-				var g = p.SafeLastName.Substring (0, 1).ToUpperInvariant ();
+				var g = groupByLastName ?
+						p.SafeLastName.Substring (0, 1).ToUpperInvariant () :
+						p.SafeDisplayName.Substring (0, 1).ToUpperInvariant ();
 				
 				PeopleGroup pg;
 				if (!pgs.TryGetValue (g, out pg)) {

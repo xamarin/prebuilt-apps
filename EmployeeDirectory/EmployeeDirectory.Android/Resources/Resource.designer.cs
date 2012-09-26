@@ -50,6 +50,9 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f020007
 			public const int Icon = 2130837511;
 			
+			// aapt resource value: 0x7f020008
+			public const int Placeholder = 2130837512;
+			
 			private Drawable()
 			{
 			}
@@ -58,29 +61,38 @@ namespace EmployeeDirectory.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070003
-			public const int DetailsTextView = 2131165187;
-			
-			// aapt resource value: 0x7f070004
-			public const int ImageButton = 2131165188;
+			// aapt resource value: 0x7f070005
+			public const int DetailsTextView = 2131165189;
 			
 			// aapt resource value: 0x7f070007
-			public const int MenuSearch = 2131165191;
-			
-			// aapt resource value: 0x7f070002
-			public const int NameTextView = 2131165186;
-			
-			// aapt resource value: 0x7f070006
-			public const int emptyTextView = 2131165190;
+			public const int Divider = 2131165191;
 			
 			// aapt resource value: 0x7f070000
-			public const int linearLayout1 = 2131165184;
+			public const int HeaderTextView = 2131165184;
+			
+			// aapt resource value: 0x7f070006
+			public const int ImageButton = 2131165190;
+			
+			// aapt resource value: 0x7f07000a
+			public const int MenuSearch = 2131165194;
+			
+			// aapt resource value: 0x7f070004
+			public const int NameTextView = 2131165188;
+			
+			// aapt resource value: 0x7f070009
+			public const int emptyTextView = 2131165193;
+			
+			// aapt resource value: 0x7f070002
+			public const int linearLayout1 = 2131165186;
+			
+			// aapt resource value: 0x7f070003
+			public const int linearLayout2 = 2131165187;
+			
+			// aapt resource value: 0x7f070008
+			public const int progressBar1 = 2131165192;
 			
 			// aapt resource value: 0x7f070001
-			public const int linearLayout2 = 2131165185;
-			
-			// aapt resource value: 0x7f070005
-			public const int progressBar1 = 2131165189;
+			public const int view1 = 2131165185;
 			
 			private Id()
 			{
@@ -91,10 +103,19 @@ namespace EmployeeDirectory.Android
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int PersonListItem = 2130903040;
+			public const int GroupHeaderListItem = 2130903040;
 			
 			// aapt resource value: 0x7f030001
-			public const int SearchActivity = 2130903041;
+			public const int MainActivity = 2130903041;
+			
+			// aapt resource value: 0x7f030002
+			public const int PersonActivity = 2130903042;
+			
+			// aapt resource value: 0x7f030003
+			public const int PersonListItem = 2130903043;
+			
+			// aapt resource value: 0x7f030004
+			public const int SearchActivity = 2130903044;
 			
 			private Layout()
 			{
