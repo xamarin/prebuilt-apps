@@ -48,6 +48,7 @@
     <Compile Include="Utilities\Gravatar.cs" />
     <Compile Include="MemoryDirectoryService.cs" />
     <Compile Include="Utilities\CsvReader.cs" />
+    <Compile Include="ViewModels\PeopleGroup.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">

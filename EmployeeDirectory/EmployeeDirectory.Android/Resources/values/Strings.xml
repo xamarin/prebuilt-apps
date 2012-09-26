@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">Employees</string>
+	
+	<string name="SearchTabTitle">Search</string>
+	<string name="FavoritesTabTitle">Favorites</string>
+	
+	<string name="MenuSearch">Search</string>
+	<string name="SearchHint">Find employee</string>
+	
+	<string name="SearchingText">Searching...</string>
+	<string name="NoSearchResultsText">No results</string>
+</resources>

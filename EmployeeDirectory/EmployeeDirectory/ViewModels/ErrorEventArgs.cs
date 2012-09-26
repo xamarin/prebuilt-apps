@@ -1,6 +1,6 @@
 using System;
 
-namespace EmployeeDirectory
+namespace EmployeeDirectory.ViewModels
 {
 	public class ErrorEventArgs : EventArgs
 	{

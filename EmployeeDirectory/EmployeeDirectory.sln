@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novell.Directory.Ldap", "De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDirectory", "EmployeeDirectory\EmployeeDirectory.csproj", "{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDirectory.Android", "EmployeeDirectory.Android\EmployeeDirectory.Android.csproj", "{1F970077-7126-4E41-901F-DDEE795B32FC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -19,6 +21,22 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.AppStore|iPhone.Build.0 = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|iPhone.Build.0 = Release|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
@@ -69,6 +87,6 @@ Global
 		{8735A806-2338-4494-944F-5439944AFFB4}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = EmployeeDirectory.iOS\EmployeeDirectory.iOS.csproj
+		StartupItem = EmployeeDirectory.Android\EmployeeDirectory.Android.csproj
 	EndGlobalSection
 EndGlobal

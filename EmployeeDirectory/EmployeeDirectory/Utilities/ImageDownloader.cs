@@ -19,6 +19,8 @@ namespace EmployeeDirectory.Utilities
 
 		public ImageDownloader (TimeSpan cacheDuration)
 		{
+			this.cacheDuration = cacheDuration;
+
 			if (!store.DirectoryExists ("ImageCache")) {
 				store.CreateDirectory ("ImageCache");
 			}

@@ -4,7 +4,7 @@ using System.Collections.ObjectModel;
 using System.Collections.Generic;
 using System.Text;
 
-namespace EmployeeDirectory.Views
+namespace EmployeeDirectory.ViewModels
 {
 	public class PersonViewModel
 	{

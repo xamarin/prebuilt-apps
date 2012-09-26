@@ -1,6 +1,6 @@
 using System;
 using MonoTouch.UIKit;
-using EmployeeDirectory.Views;
+using EmployeeDirectory.ViewModels;
 using EmployeeDirectory.Data;
 using System.Linq;
 using System.Drawing;
