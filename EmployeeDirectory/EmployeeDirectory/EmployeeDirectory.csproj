@@ -49,6 +49,7 @@
     <Compile Include="MemoryDirectoryService.cs" />
     <Compile Include="Utilities\CsvReader.cs" />
     <Compile Include="ViewModels\PeopleGroup.cs" />
+    <Compile Include="Utilities\ThrottledHttp.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">

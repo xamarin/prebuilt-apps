@@ -8,13 +8,16 @@ namespace EmployeeDirectory.Utilities
 {
 	public abstract class ImageDownloader
 	{
-		IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication ();
+		readonly IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication ();
 
-		TimeSpan cacheDuration;
+		readonly ThrottledHttp http;
 
-		public ImageDownloader ()
+		readonly TimeSpan cacheDuration;
+
+		public ImageDownloader (int maxConcurrentDownloads = 2)
 			: this (TimeSpan.FromDays (1))
 		{
+			http = new ThrottledHttp (maxConcurrentDownloads);
 		}
 
 		public ImageDownloader (TimeSpan cacheDuration)
@@ -26,51 +29,44 @@ namespace EmployeeDirectory.Utilities
 			}
 		}
 
+		public bool HasLocallyCachedCopy (Uri uri)
+		{
+			var now = DateTime.UtcNow;
+
+			var filename = Uri.EscapeDataString (uri.AbsoluteUri);
+
+			var lastWriteTime = GetLastWriteTimeUtc (filename);
+
+			return lastWriteTime.HasValue &&
+				(now - lastWriteTime.Value) < cacheDuration;
+		}
+
 		public Task<object> GetImageAsync (Uri uri)
 		{
 			return Task.Factory.StartNew (() => {
-
-				var now = DateTime.UtcNow;
-
-				var filename = Uri.EscapeDataString (uri.AbsoluteUri);
-
-				var lastWriteTime = GetLastWriteTimeUtc (filename);
-
-				if (lastWriteTime.HasValue && (now - lastWriteTime.Value) < cacheDuration) {
-					using (var o = OpenStorage (filename, FileMode.Open)) {
-						return LoadImage (o);
-					}
-				}
-				else {
-					using (var d = DownloadAsync (uri).Result) {
-						using (var o = OpenStorage (filename, FileMode.Create)) {
-							d.CopyTo (o);
-						}
-					}
-					using (var o = OpenStorage (filename, FileMode.Open)) {
-						return LoadImage (o);
-					}
-				}
+				return GetImage (uri);
 			});
 		}
 
-		Task<Stream> DownloadAsync (Uri uri)
+		public object GetImage (Uri uri)
 		{
-			System.Diagnostics.Debug.WriteLine ("Downloading image: " + uri);
+			var filename = Uri.EscapeDataString (uri.AbsoluteUri);
 
-			var req = WebRequest.Create (uri);
-
-			var getTask = Task.Factory.FromAsync<WebResponse> (
-				req.BeginGetResponse, req.EndGetResponse, null);
-
-			return getTask.ContinueWith (task => {
-				if (task.IsFaulted) {
-					Console.WriteLine ("FAILED " + uri);
+			if (HasLocallyCachedCopy (uri)) {
+				using (var o = OpenStorage (filename, FileMode.Open)) {
+					return LoadImage (o);
 				}
-				var res = task.Result;
-				System.Diagnostics.Debug.WriteLine ("Downloaded image: " + uri);
-				return res.GetResponseStream ();
-			});
+			}
+			else {
+				using (var d = http.Get (uri)) {
+					using (var o = OpenStorage (filename, FileMode.Create)) {
+						d.CopyTo (o);
+					}
+				}
+				using (var o = OpenStorage (filename, FileMode.Open)) {
+					return LoadImage (o);
+				}
+			}
 		}
 
 		protected virtual DateTime? GetLastWriteTimeUtc (string fileName)

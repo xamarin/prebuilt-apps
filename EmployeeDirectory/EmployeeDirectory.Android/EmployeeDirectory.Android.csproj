@@ -99,6 +99,9 @@
     <Compile Include="PersonActivity.cs" />
     <Compile Include="AndroidImageDownloader.cs" />
     <Compile Include="PeopleGroupsListView.cs" />
+    <Compile Include="..\EmployeeDirectory\Utilities\ThrottledHttp.cs">
+      <Link>EmployeeDirectory\Utilities\ThrottledHttp.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

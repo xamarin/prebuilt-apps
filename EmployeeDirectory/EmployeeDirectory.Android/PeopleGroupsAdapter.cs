@@ -157,14 +157,25 @@ namespace EmployeeDirectory.Android
 
 		void StartImageDownload (ListView listView, int position, Person person)
 		{
-			if (imageDownloadsInProgress.Contains (person.Id)) return;
-			imageDownloadsInProgress.Add (person.Id);
+			if (imageDownloadsInProgress.Contains (person.Id))
+				return;
 
-			imageDownloader.GetImageAsync (Gravatar.GetUrl (person.Email, 100)).ContinueWith (t => {
-				if (!t.IsFaulted) {
-					FinishImageDownload (listView, position, person, (Bitmap)t.Result);
-				}
-			}, TaskScheduler.FromCurrentSynchronizationContext ());
+			var url = Gravatar.GetUrl (person.Email, 100);
+
+			if (imageDownloader.HasLocallyCachedCopy (url)) {
+
+				var image = imageDownloader.GetImage (url);
+				FinishImageDownload (listView, position, person, (Bitmap)image);
+
+			} else {
+				imageDownloadsInProgress.Add (person.Id);
+
+				imageDownloader.GetImageAsync (url).ContinueWith (t => {
+					if (!t.IsFaulted) {
+						FinishImageDownload (listView, position, person, (Bitmap)t.Result);
+					}
+				}, TaskScheduler.FromCurrentSynchronizationContext ());
+			}
 		}
 
 		void FinishImageDownload (ListView listView, int position, Person person, Bitmap image)

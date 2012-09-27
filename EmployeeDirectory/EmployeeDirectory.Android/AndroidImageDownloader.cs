@@ -17,9 +17,9 @@ namespace EmployeeDirectory.Android
 {
 	public class AndroidImageDownloader : ImageDownloader
 	{
-		protected override DateTime? GetLastWriteTimeUtc (string fileName)
+		public AndroidImageDownloader ()
+			: base (2)
 		{
-			return null;
 		}
 
 		protected override object LoadImage (System.IO.Stream stream)
