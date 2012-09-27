@@ -56,13 +56,19 @@ namespace EmployeeDirectory.Utilities
 
 		Task<Stream> DownloadAsync (Uri uri)
 		{
+			System.Diagnostics.Debug.WriteLine ("Downloading image: " + uri);
+
 			var req = WebRequest.Create (uri);
 
 			var getTask = Task.Factory.FromAsync<WebResponse> (
-			req.BeginGetResponse, req.EndGetResponse, null);
+				req.BeginGetResponse, req.EndGetResponse, null);
 
 			return getTask.ContinueWith (task => {
+				if (task.IsFaulted) {
+					Console.WriteLine ("FAILED " + uri);
+				}
 				var res = task.Result;
+				System.Diagnostics.Debug.WriteLine ("Downloaded image: " + uri);
 				return res.GetResponseStream ();
 			});
 		}

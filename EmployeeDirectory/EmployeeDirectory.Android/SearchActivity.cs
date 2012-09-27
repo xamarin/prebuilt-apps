@@ -62,8 +62,6 @@ namespace EmployeeDirectory.Android
 
 				searchViewModel.Search ();
 			}
-
-
 		}
 
 		void HandleSearchCompleted (object sender, EventArgs e)

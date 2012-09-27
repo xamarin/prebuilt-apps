@@ -5,7 +5,7 @@
     android:layout_height="fill_parent"
     android:minWidth="25px"
     android:minHeight="25px">
-    <ListView
+    <employeedirectory.android.PeopleGroupsListView
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="fill_parent"

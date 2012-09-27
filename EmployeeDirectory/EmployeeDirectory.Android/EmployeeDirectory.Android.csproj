@@ -97,6 +97,8 @@
     </Compile>
     <Compile Include="PeopleGroupsAdapter.cs" />
     <Compile Include="PersonActivity.cs" />
+    <Compile Include="AndroidImageDownloader.cs" />
+    <Compile Include="PeopleGroupsListView.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />

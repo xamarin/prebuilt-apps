@@ -13,11 +13,16 @@ using Android.Widget;
 using EmployeeDirectory.ViewModels;
 using System.Collections.ObjectModel;
 using EmployeeDirectory.Data;
+using Android.Graphics;
+using EmployeeDirectory.Utilities;
+using System.Threading.Tasks;
 
 namespace EmployeeDirectory.Android
 {
 	public class PeopleGroupsAdapter : BaseAdapter
 	{
+		readonly ImageDownloader imageDownloader = new AndroidImageDownloader ();
+
 		Activity context;
 
 		ICollection<PeopleGroup> itemsSource = new ObservableCollection<PeopleGroup> ();
@@ -80,19 +85,36 @@ namespace EmployeeDirectory.Android
 
 			if (personItem != null) {
 
+				var person = personItem.Person;
+
 				var v = convertView;
 				if (v == null) {
 					v = context.LayoutInflater.Inflate (Resource.Layout.PersonListItem, null);
 				}
+
 				var nameTextView = v.FindViewById<TextView> (Resource.Id.NameTextView);
 				var detailsTextView = v.FindViewById<TextView> (Resource.Id.DetailsTextView);
+				var imageButton = v.FindViewById<ImageButton> (Resource.Id.ImageButton);
 				var divider = v.FindViewById<View> (Resource.Id.Divider);
 
-				nameTextView.Text = personItem.Person.SafeDisplayName;
-				detailsTextView.Text = personItem.Person.TitleAndDepartment;
+				nameTextView.Text = person.SafeDisplayName;
+				detailsTextView.Text = person.TitleAndDepartment;
 				divider.Visibility = personItem.IsLastPersonInGroup ?
 						ViewStates.Invisible :
 						ViewStates.Visible;
+
+				if (images.ContainsKey (person.Id)) {
+					imageButton.SetImageBitmap (images[person.Id]);
+				}
+				else {
+					var listView = (PeopleGroupsListView)parent;
+					if (person.HasEmail && listView.ScrollState == ScrollState.Idle) {
+						StartImageDownload (listView, position, person);
+					}
+					else {
+						imageButton.SetImageResource (Resource.Drawable.Placeholder);
+					}
+				}
 
 				return v;
 			}
@@ -114,6 +136,60 @@ namespace EmployeeDirectory.Android
 				return items.Count;
 			}
 		}
+
+		#region Image Support
+
+		readonly Dictionary<string, Bitmap> images = new Dictionary<string, Bitmap> ();
+		readonly List<string> imageDownloadsInProgress = new List<string> ();
+
+		public void LoadImagesForOnscreenRows (ListView listView)
+		{
+			for (var position = listView.FirstVisiblePosition; position <= listView.LastVisiblePosition; position++) {
+				var personItem = items[position] as PersonItem;
+				if (personItem != null) {
+					var person = personItem.Person;
+					if (person.HasEmail && !images.ContainsKey (person.Id)) {
+						StartImageDownload (listView, position, person);
+					}
+				}
+			}
+		}
+
+		void StartImageDownload (ListView listView, int position, Person person)
+		{
+			if (imageDownloadsInProgress.Contains (person.Id)) return;
+			imageDownloadsInProgress.Add (person.Id);
+
+			imageDownloader.GetImageAsync (Gravatar.GetUrl (person.Email, 100)).ContinueWith (t => {
+				if (!t.IsFaulted) {
+					FinishImageDownload (listView, position, person, (Bitmap)t.Result);
+				}
+			}, TaskScheduler.FromCurrentSynchronizationContext ());
+		}
+
+		void FinishImageDownload (ListView listView, int position, Person person, Bitmap image)
+		{
+			images[person.Id] = image;
+			imageDownloadsInProgress.Remove (person.Id);
+
+			var personItem = (position < items.Count) ?
+					items[position] as PersonItem :
+					null;
+
+			if (personItem != null && personItem.Person == person) {
+
+				var firstPostion = listView.FirstVisiblePosition - listView.HeaderViewsCount;
+				var childIndex = position - firstPostion;
+
+				if (0 <= childIndex && childIndex < listView.ChildCount) {
+					var view = listView.GetChildAt (childIndex);
+					var imageButton = view.FindViewById<ImageButton> (Resource.Id.ImageButton);
+					imageButton.SetImageBitmap (image);
+				}
+			}
+		}
+
+		#endregion
 
 		class GroupHeaderItem : Java.Lang.Object
 		{

@@ -7,6 +7,8 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using EmployeeDirectory.ViewModels;
+using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory.Android
 {
@@ -19,6 +21,15 @@ namespace EmployeeDirectory.Android
 			base.OnCreate (bundle);
 
 			SetContentView (Resource.Layout.MainActivity);
+
+			ListAdapter = new PeopleGroupsAdapter (this) {
+				ItemsSource = PeopleGroup.CreateGroups (new[] {
+					new Person {
+						Name = "Frank A. Krueger",
+						Email = "fak@praeclarum.org"
+					},
+				}, false),
+			};
 		}
 
 		public override bool OnCreateOptionsMenu (IMenu menu)
