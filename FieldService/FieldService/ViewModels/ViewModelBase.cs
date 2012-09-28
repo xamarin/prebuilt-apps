@@ -5,40 +5,85 @@ using System.Linq;
 using System.Text;
 
 namespace FieldService.ViewModels {
-    public class ViewModelBase : INotifyPropertyChanged, IDataErrorInfo {
-        public event PropertyChangedEventHandler PropertyChanged = delegate { };
+    /// <summary>
+    /// Base class for all view models
+    /// - Implements INotifyPropertyChanged for WinRT
+    /// - Implements some basic validation logic
+    /// </summary>
+    public class ViewModelBase : INotifyPropertyChanged {
 
-        readonly Dictionary<string, string> errors = new Dictionary<string, string> ();
+        /// <summary>
+        /// Event for INotifyPropertyChanged
+        /// </summary>
+        public event PropertyChangedEventHandler PropertyChanged;
 
-        protected virtual void OnPropertyChanged (string propertyName)
+        readonly List<string> errors = new List<string> ();
+
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public ViewModelBase ()
         {
-            PropertyChanged (this, new PropertyChangedEventArgs (propertyName));
+            //Make sure validation is performed on startup
+            Validate ();
         }
 
+        /// <summary>
+        /// Protected method for firing PropertyChanged
+        /// </summary>
+        /// <param name="propertyName">The name of the property that changed</param>
+        protected virtual void OnPropertyChanged (string propertyName)
+        {
+            var method = PropertyChanged;
+            if (method != null) {
+                method (this, new PropertyChangedEventArgs (propertyName));
+            }
+        }
+
+        /// <summary>
+        /// Returns true if the current state of the ViewModel is valid
+        /// </summary>
         public bool IsValid
         {
             get { return errors.Count == 0; }
         }
 
-        protected Dictionary<string, string> Errors
+        /// <summary>
+        /// A list of errors if IsValid is false
+        /// </summary>
+        protected List<string> Errors
         {
             get { return errors; }
         }
 
+        /// <summary>
+        /// An aggregated error message
+        /// </summary>
         public virtual string Error
         {
             get
             {
-                return errors.Values.Aggregate (new StringBuilder (), (b, s) => b.AppendLine (s)).ToString ();
+                return errors.Aggregate (new StringBuilder (), (b, s) => b.AppendLine (s)).ToString ().Trim ();
             }
         }
 
-        public virtual string this [string columnName]
+        /// <summary>
+        /// Protected method for validating the ViewModel
+        /// - Fires PropertyChanged for IsValid and Errors
+        /// </summary>
+        protected virtual void Validate ()
         {
-            get
-            {
-                string error;
-                return errors.TryGetValue (columnName, out error) ? error : string.Empty;
+            OnPropertyChanged ("IsValid");
+            OnPropertyChanged ("Errors");
+        }
+
+        protected virtual void ValidateProperty (Func<bool> validate, string error)
+        {
+            if (validate ()) {
+                if (!Errors.Contains (error))
+                    Errors.Add (error);
+            } else {
+                Errors.Remove (error);
             }
         }
     }

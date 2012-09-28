@@ -22,8 +22,7 @@ namespace FieldService.Tests.ViewModels {
         public void NoUsername ()
         {
             Assert.That (viewModel.IsValid, Is.False);
-            Assert.That (viewModel ["Username"], Is.EqualTo ("Please enter a username."));
-            Assert.That (viewModel ["Password"], Is.EqualTo ("Please enter a password."));
+            Assert.That (viewModel.Error, Is.EqualTo ("Please enter a username." + Environment.NewLine + "Please enter a password."));
         }
 
         [Test]
@@ -32,8 +31,7 @@ namespace FieldService.Tests.ViewModels {
             viewModel.Username = "chucknorris";
 
             Assert.That (viewModel.IsValid, Is.False);
-            Assert.That (viewModel ["Username"], Is.EqualTo (string.Empty));
-            Assert.That (viewModel ["Password"], Is.EqualTo ("Please enter a password."));
+            Assert.That (viewModel.Error, Is.EqualTo ("Please enter a password."));
         }
 
         [Test]

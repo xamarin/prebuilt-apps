@@ -7,56 +7,69 @@ using System.Threading;
 using System.Threading.Tasks;
 
 namespace FieldService.ViewModels {
+    /// <summary>
+    /// ViewModel class for the Login screen
+    /// </summary>
     public class LoginViewModel : ViewModelBase {
         readonly IService service;
         string username;
         string password;
 
+        /// <summary>
+        /// Constructor, requires an IService
+        /// </summary>
+        /// <param name="service">IService implementation</param>
         public LoginViewModel (IService service)
         {
             this.service = service;
-
-            Username = string.Empty;
-            Password = string.Empty;
         }
 
+        /// <summary>
+        /// Username property
+        /// </summary>
         public string Username
         {
             get { return username; }
-            set { username = value; OnUsernameChanged (); }
+            set
+            {
+                username = value;
+                Validate ();
+                OnPropertyChanged ("Username");
+            }
         }
 
+        /// <summary>
+        /// Password property
+        /// </summary>
         public string Password
         {
             get { return password; }
-            set { password = value; OnPasswordChanged (); }
+            set
+            {
+                password = value;
+                Validate ();
+                OnPropertyChanged ("Password");
+            }
         }
 
+        /// <summary>
+        /// Performs an asynchronous login
+        /// </summary>
+        /// <returns></returns>
         public Task<bool> LoginAsync ()
         {
             return service.LoginAsync (username, password);
         }
 
-        void OnUsernameChanged ()
+        /// <summary>
+        /// Validation logic
+        /// </summary>
+        protected override void Validate ()
         {
-            string propertyName = "Username";
-            if (string.IsNullOrEmpty (username)) {
-                Errors [propertyName] = "Please enter a username.";
-            } else {
-                Errors.Remove (propertyName);
-            }
-            OnPropertyChanged (propertyName);
-        }
+            ValidateProperty (() => string.IsNullOrEmpty (username), Strings.UsernameValidation);
+            ValidateProperty (() => string.IsNullOrEmpty (password), Strings.PasswordValidation);
 
-        void OnPasswordChanged ()
-        {
-            string propertyName = "Password";
-            if (string.IsNullOrEmpty (password)) {
-                Errors [propertyName] = "Please enter a password.";
-            } else {
-                Errors.Remove (propertyName);
-            }
-            OnPropertyChanged (propertyName);
+            base.Validate ();
         }
     }
 }
