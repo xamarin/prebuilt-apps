@@ -114,6 +114,7 @@
     <Compile Include="..\EmployeeDirectory\ViewModels\ViewModel.cs">
       <Link>EmployeeDirectory\ViewModels\ViewModel.cs</Link>
     </Compile>
+    <Compile Include="PersonAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -160,6 +161,7 @@
     <AndroidResource Include="Resources\drawable-hdpi\btn_star_on_normal_holo_light.png" />
     <AndroidResource Include="Resources\drawable-mdpi\btn_rating_star_off_normal_holo_light.png" />
     <AndroidResource Include="Resources\drawable-mdpi\btn_rating_star_on_normal_holo_light.png" />
+    <AndroidResource Include="Resources\layout\PropertyListItem.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>

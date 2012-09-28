@@ -45,7 +45,7 @@ namespace EmployeeDirectory.Android
 
 			viewModel = new FavoritesViewModel (repo, groupByLastName: false);
 
-			ListAdapter = new PeopleGroupsAdapter (this) {
+			ListAdapter = new PeopleGroupsAdapter () {
 				ItemsSource = viewModel.Groups,
 			};
 		}

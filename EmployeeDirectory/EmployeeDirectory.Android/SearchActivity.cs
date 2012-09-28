@@ -46,7 +46,7 @@ namespace EmployeeDirectory.Android
 
 			SetContentView (Resource.Layout.SearchActivity);
 
-			ListAdapter = new PeopleGroupsAdapter (this) {
+			ListAdapter = new PeopleGroupsAdapter () {
 				ItemsSource = searchViewModel.GroupedPeople,
 			};
 

@@ -4,20 +4,21 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
     <TextView
+        android:text="Medium Text"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/ValueTextView"
+        android:layout_marginLeft="8dip"
+        android:layout_marginTop="8dip" />
+    <TextView
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/HeaderTextView"
-        android:textColor="@android:color/holo_blue_light"
+        android:id="@+id/NameTextView"
         android:textAllCaps="true"
-        android:textStyle="bold"
         android:layout_marginLeft="8dip"
-        android:layout_marginTop="12dip"
-        android:layout_marginBottom="4dip" />
-    <View
-        android:layout_width="fill_parent"
-        android:layout_height="1dip"
-        android:id="@+id/view1"
-        android:background="@android:color/holo_blue_light" />
+        android:layout_marginBottom="8dip"
+        android:textColor="#666" />
 </LinearLayout>

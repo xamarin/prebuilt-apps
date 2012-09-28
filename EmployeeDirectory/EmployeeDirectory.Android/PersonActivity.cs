@@ -18,7 +18,7 @@ using System.ComponentModel;
 namespace EmployeeDirectory.Android
 {
 	[Activity (Label = "Person", Theme = "@android:style/Theme.Holo.Light")]			
-	public class PersonActivity : Activity
+	public class PersonActivity : ListActivity
 	{
 		PersonViewModel viewModel;
 
@@ -46,6 +46,12 @@ namespace EmployeeDirectory.Android
 			//
 			viewModel = new PersonViewModel (person, MainActivity.SharedFavoritesRepository);
 			viewModel.PropertyChanged += HandleViewModelPropertyChanged;
+
+			//
+			// Setup the UI
+			//
+			ListView.Divider = null;
+			ListAdapter = new PersonAdapter (viewModel);
 
 			Title = person.SafeDisplayName;
 		}

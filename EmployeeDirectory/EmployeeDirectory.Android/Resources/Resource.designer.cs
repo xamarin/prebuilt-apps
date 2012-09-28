@@ -88,17 +88,20 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f070007
 			public const int ImageButton = 2131165191;
 			
-			// aapt resource value: 0x7f07000c
-			public const int MenuFavorite = 2131165196;
+			// aapt resource value: 0x7f07000d
+			public const int MenuFavorite = 2131165197;
 			
-			// aapt resource value: 0x7f07000b
-			public const int MenuSearch = 2131165195;
+			// aapt resource value: 0x7f07000c
+			public const int MenuSearch = 2131165196;
 			
 			// aapt resource value: 0x7f070005
 			public const int NameTextView = 2131165189;
 			
-			// aapt resource value: 0x7f07000a
-			public const int emptyTextView = 2131165194;
+			// aapt resource value: 0x7f070009
+			public const int ValueTextView = 2131165193;
+			
+			// aapt resource value: 0x7f07000b
+			public const int emptyTextView = 2131165195;
 			
 			// aapt resource value: 0x7f070003
 			public const int linearLayout1 = 2131165187;
@@ -106,8 +109,8 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f070004
 			public const int linearLayout2 = 2131165188;
 			
-			// aapt resource value: 0x7f070009
-			public const int progressBar1 = 2131165193;
+			// aapt resource value: 0x7f07000a
+			public const int progressBar1 = 2131165194;
 			
 			// aapt resource value: 0x7f070002
 			public const int textView1 = 2131165186;
@@ -136,7 +139,10 @@ namespace EmployeeDirectory.Android
 			public const int PersonListItem = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int SearchActivity = 2130903044;
+			public const int PropertyListItem = 2130903044;
+			
+			// aapt resource value: 0x7f030005
+			public const int SearchActivity = 2130903045;
 			
 			private Layout()
 			{

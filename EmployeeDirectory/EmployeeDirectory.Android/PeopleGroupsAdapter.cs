@@ -23,8 +23,6 @@ namespace EmployeeDirectory.Android
 	{
 		readonly ImageDownloader imageDownloader = new AndroidImageDownloader ();
 
-		Activity context;
-
 		ICollection<PeopleGroup> itemsSource = new ObservableCollection<PeopleGroup> ();
 
 		List<Java.Lang.Object> items = new List<Java.Lang.Object> ();
@@ -50,11 +48,6 @@ namespace EmployeeDirectory.Android
 					this.NotifyDataSetChanged ();
 				}
 			}
-		}
-
-		public PeopleGroupsAdapter (Activity context)
-		{
-			this.context = context;
 		}
 
 		public override int ViewTypeCount {
@@ -92,6 +85,8 @@ namespace EmployeeDirectory.Android
 
 		public override View GetView (int position, View convertView, ViewGroup parent)
 		{
+			var layoutInflater = ((Activity)parent.Context).LayoutInflater;
+
 			var item = items[position];
 			var personItem = item as PersonItem;
 
@@ -101,7 +96,7 @@ namespace EmployeeDirectory.Android
 
 				var v = convertView;
 				if (v == null) {
-					v = context.LayoutInflater.Inflate (Resource.Layout.PersonListItem, null);
+					v = layoutInflater.Inflate (Resource.Layout.PersonListItem, null);
 				}
 
 				var nameTextView = v.FindViewById<TextView> (Resource.Id.NameTextView);
@@ -133,7 +128,7 @@ namespace EmployeeDirectory.Android
 			else {
 				var v = convertView;
 				if (v == null) {
-					v = context.LayoutInflater.Inflate (Resource.Layout.GroupHeaderListItem, null);
+					v = layoutInflater.Inflate (Resource.Layout.GroupHeaderListItem, null);
 				}
 				var headerTextView = v.FindViewById<TextView> (Resource.Id.HeaderTextView);
 
