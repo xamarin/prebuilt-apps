@@ -8,6 +8,8 @@
 	<string name="MenuSearch">Search</string>
 	<string name="SearchHint">Find employee</string>
 	
+	<string name="NoFavoritesText">You do not have any favorites. Add them by searching for someone.</string>
+	
 	<string name="SearchingText">Searching...</string>
 	<string name="NoSearchResultsText">No results</string>
 </resources>

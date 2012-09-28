@@ -61,35 +61,38 @@ namespace EmployeeDirectory.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070005
-			public const int DetailsTextView = 2131165189;
+			// aapt resource value: 0x7f070006
+			public const int DetailsTextView = 2131165190;
 			
-			// aapt resource value: 0x7f070007
-			public const int Divider = 2131165191;
+			// aapt resource value: 0x7f070008
+			public const int Divider = 2131165192;
 			
 			// aapt resource value: 0x7f070000
 			public const int HeaderTextView = 2131165184;
 			
-			// aapt resource value: 0x7f070006
-			public const int ImageButton = 2131165190;
+			// aapt resource value: 0x7f070007
+			public const int ImageButton = 2131165191;
+			
+			// aapt resource value: 0x7f07000b
+			public const int MenuSearch = 2131165195;
+			
+			// aapt resource value: 0x7f070005
+			public const int NameTextView = 2131165189;
 			
 			// aapt resource value: 0x7f07000a
-			public const int MenuSearch = 2131165194;
-			
-			// aapt resource value: 0x7f070004
-			public const int NameTextView = 2131165188;
-			
-			// aapt resource value: 0x7f070009
-			public const int emptyTextView = 2131165193;
-			
-			// aapt resource value: 0x7f070002
-			public const int linearLayout1 = 2131165186;
+			public const int emptyTextView = 2131165194;
 			
 			// aapt resource value: 0x7f070003
-			public const int linearLayout2 = 2131165187;
+			public const int linearLayout1 = 2131165187;
 			
-			// aapt resource value: 0x7f070008
-			public const int progressBar1 = 2131165192;
+			// aapt resource value: 0x7f070004
+			public const int linearLayout2 = 2131165188;
+			
+			// aapt resource value: 0x7f070009
+			public const int progressBar1 = 2131165193;
+			
+			// aapt resource value: 0x7f070002
+			public const int textView1 = 2131165186;
 			
 			// aapt resource value: 0x7f070001
 			public const int view1 = 2131165185;
@@ -142,8 +145,11 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f050003
 			public const int MenuSearch = 2131034115;
 			
-			// aapt resource value: 0x7f050006
-			public const int NoSearchResultsText = 2131034118;
+			// aapt resource value: 0x7f050005
+			public const int NoFavoritesText = 2131034117;
+			
+			// aapt resource value: 0x7f050007
+			public const int NoSearchResultsText = 2131034119;
 			
 			// aapt resource value: 0x7f050004
 			public const int SearchHint = 2131034116;
@@ -151,8 +157,8 @@ namespace EmployeeDirectory.Android
 			// aapt resource value: 0x7f050001
 			public const int SearchTabTitle = 2131034113;
 			
-			// aapt resource value: 0x7f050005
-			public const int SearchingText = 2131034117;
+			// aapt resource value: 0x7f050006
+			public const int SearchingText = 2131034118;
 			
 			// aapt resource value: 0x7f050000
 			public const int app_name = 2131034112;

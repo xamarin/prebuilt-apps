@@ -146,6 +146,12 @@
     <Compile Include="..\EmployeeDirectory\Utilities\ThrottledHttp.cs">
       <Link>EmployeeDirectory\Utilities\ThrottledHttp.cs</Link>
     </Compile>
+    <Compile Include="..\EmployeeDirectory\Data\IFavoritesRepository.cs">
+      <Link>EmployeeDirectory\Data\IFavoritesRepository.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\Data\XmlFavoritesRepository.cs">
+      <Link>EmployeeDirectory\Data\XmlFavoritesRepository.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -73,6 +73,18 @@ namespace EmployeeDirectory.Android
 			return items[position];
 		}
 
+		public Person GetPerson (int position)
+		{
+			Person person = null;
+			if (0 <= position && position < items.Count) {
+				var personItem = items [position] as PersonItem;
+				if (personItem != null) {
+					person = personItem.Person;
+				}
+			}
+			return person;
+		}
+
 		public override long GetItemId (int position)
 		{
 			return 0;

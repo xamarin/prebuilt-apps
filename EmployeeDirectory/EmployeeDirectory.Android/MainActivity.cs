@@ -16,19 +16,27 @@ namespace EmployeeDirectory.Android
 	[MetaData ("android.app.default_searchable", Value = "employeedirectory.android.SearchActivity")]
 	public class MainActivity : ListActivity
 	{
+		IFavoritesRepository repo;
+		FavoritesViewModel viewModel;
+
 		protected override void OnCreate (Bundle bundle)
 		{
 			base.OnCreate (bundle);
 
+			//
+			// Load the favorites
+			//
+			repo = XmlFavoritesRepository.Open ("Favorites.xml");
+
+			viewModel = new FavoritesViewModel (repo, groupByLastName: false);
+
+			//
+			// Load the UI
+			//
 			SetContentView (Resource.Layout.MainActivity);
 
 			ListAdapter = new PeopleGroupsAdapter (this) {
-				ItemsSource = PeopleGroup.CreateGroups (new[] {
-					new Person {
-						Name = "Frank A. Krueger",
-						Email = "fak@praeclarum.org"
-					},
-				}, false),
+				ItemsSource = viewModel.Groups,
 			};
 		}
 
@@ -40,6 +48,14 @@ namespace EmployeeDirectory.Android
 			var searchInfo = searchManager.GetSearchableInfo (ComponentName);
 			searchView.SetSearchableInfo (searchInfo);
 			return base.OnCreateOptionsMenu (menu);
+		}
+
+		protected override void OnListItemClick (ListView l, View v, int position, long id)
+		{
+			var person = ((PeopleGroupsAdapter)ListAdapter).GetPerson (position);
+			if (person != null) {
+				StartActivity (PersonActivity.CreateIntent (this, person));
+			}
 		}
 	}
 }

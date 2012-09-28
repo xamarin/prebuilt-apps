@@ -30,6 +30,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Xml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -50,6 +51,9 @@
     <Compile Include="Utilities\CsvReader.cs" />
     <Compile Include="ViewModels\PeopleGroup.cs" />
     <Compile Include="Utilities\ThrottledHttp.cs" />
+    <Compile Include="Data\IFavoritesRepository.cs" />
+    <Compile Include="Data\XmlFavoritesRepository.cs" />
+    <Compile Include="ViewModels\FavoritesViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">

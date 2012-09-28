@@ -14,6 +14,10 @@ namespace EmployeeDirectory.ViewModels
 
 		public PersonViewModel (Person person)
 		{
+			if (person == null) {
+				throw new ArgumentNullException ("person");
+			}
+
 			Person = person;
 			PropertyGroups = new ObservableCollection<PropertyGroup> ();
 

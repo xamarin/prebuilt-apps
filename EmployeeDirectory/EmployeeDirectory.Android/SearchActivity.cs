@@ -71,7 +71,10 @@ namespace EmployeeDirectory.Android
 
 		protected override void OnListItemClick (ListView l, View v, int position, long id)
 		{
-			Console.WriteLine (v);
+			var person = ((PeopleGroupsAdapter)ListAdapter).GetPerson (position);
+			if (person != null) {
+				StartActivity (PersonActivity.CreateIntent (this, person));
+			}
 		}
 	}
 }

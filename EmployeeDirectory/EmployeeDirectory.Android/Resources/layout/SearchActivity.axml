@@ -26,8 +26,8 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:id="@+id/progressBar1"
-            android:layout_marginTop="20dip"
-            android:layout_marginBottom="20dip" />
+            android:layout_marginTop="80dip"
+            android:layout_marginBottom="80dip" />
         <TextView
             android:text="Searching..."
             android:id="@+id/emptyTextView"
