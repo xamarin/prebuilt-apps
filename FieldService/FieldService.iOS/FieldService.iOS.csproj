@@ -92,22 +92,22 @@
     <Compile Include="LoginController.designer.cs">
       <DependentUpon>LoginController.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\..\FieldService\Strings.cs">
+    <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
     </Compile>
-    <Compile Include="..\..\FieldService\Data\DefaultService.cs">
+    <Compile Include="..\FieldService\Data\DefaultService.cs">
       <Link>FieldService\Data\DefaultService.cs</Link>
     </Compile>
-    <Compile Include="..\..\FieldService\Data\IService.cs">
+    <Compile Include="..\FieldService\Data\IService.cs">
       <Link>FieldService\Data\IService.cs</Link>
     </Compile>
-    <Compile Include="..\..\FieldService\Utilities\Extensions.cs">
+    <Compile Include="..\FieldService\Utilities\Extensions.cs">
       <Link>FieldService\Utilities\Extensions.cs</Link>
     </Compile>
-    <Compile Include="..\..\FieldService\ViewModels\LoginViewModel.cs">
+    <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\..\FieldService\ViewModels\ViewModelBase.cs">
+    <Compile Include="..\FieldService\ViewModels\ViewModelBase.cs">
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
   </ItemGroup>
