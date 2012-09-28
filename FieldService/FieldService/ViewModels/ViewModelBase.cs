@@ -9,6 +9,7 @@ namespace FieldService.ViewModels {
     /// Base class for all view models
     /// - Implements INotifyPropertyChanged for WinRT
     /// - Implements some basic validation logic
+    /// - Implements some IsBusy logic
     /// </summary>
     public class ViewModelBase : INotifyPropertyChanged {
 
@@ -18,6 +19,7 @@ namespace FieldService.ViewModels {
         public event PropertyChangedEventHandler PropertyChanged;
 
         readonly List<string> errors = new List<string> ();
+        bool isBusy = false;
 
         /// <summary>
         /// Default constructor
@@ -84,6 +86,20 @@ namespace FieldService.ViewModels {
                     Errors.Add (error);
             } else {
                 Errors.Remove (error);
+            }
+        }
+
+        /// <summary>
+        /// Value inidicating if a spinner should be shown
+        /// </summary>
+        public bool IsBusy
+        {
+            get { return isBusy; }
+            set
+            {
+                isBusy = value;
+                Validate ();
+                OnPropertyChanged ("IsBusy");
             }
         }
     }

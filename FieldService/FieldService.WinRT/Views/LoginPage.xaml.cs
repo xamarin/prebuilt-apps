@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FieldService.Data;
+using FieldService.WinRT.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -12,18 +14,22 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
-namespace FieldService.WinRT
-{
+namespace FieldService.WinRT.Views {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page
-    {
-        public MainPage()
+    public sealed partial class LoginPage : Page {
+        readonly LoginViewModel loginViewModel;
+
+        public LoginPage ()
         {
-            this.InitializeComponent();
+            this.InitializeComponent ();
+
+            DataContext =
+                loginViewModel = new LoginViewModel (new DefaultService ());
+
+            username.TextChanged += (sender, e) => loginViewModel.Username = username.Text;
+            password.PasswordChanged += (sender, e) => loginViewModel.Password = password.Password;
         }
 
         /// <summary>
@@ -31,8 +37,10 @@ namespace FieldService.WinRT
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo (NavigationEventArgs e)
         {
+            username.Text = string.Empty;
+            password.Password = string.Empty;
         }
     }
 }

@@ -100,12 +100,6 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <!-- A reference to the entire .Net Framework and Windows SDK are automatically included -->
-    <EmbeddedResource Include="..\FieldService\Strings.resx">
-      <Link>FieldService\Strings.resx</Link>
-    </EmbeddedResource>
-  </ItemGroup>
-  <ItemGroup>
     <Compile Include="..\Dependencies\sqlite-net\src\SQLite.cs">
       <Link>FieldService\Data\SQLite.cs</Link>
     </Compile>
@@ -118,9 +112,11 @@
     <Compile Include="..\FieldService\Data\IService.cs">
       <Link>FieldService\Data\IService.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Strings.Designer.cs">
-      <Link>FieldService\Strings.Designer.cs</Link>
-      <DependentUpon>Strings.resx</DependentUpon>
+    <Compile Include="..\FieldService\Strings.cs">
+      <Link>FieldService\Strings.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Utilities\Extensions.cs">
+      <Link>FieldService\Utilities\Extensions.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
@@ -131,8 +127,10 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
-    <Compile Include="MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Views\LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -157,11 +155,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="MainPage.xaml">
+    <Page Include="Views\LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

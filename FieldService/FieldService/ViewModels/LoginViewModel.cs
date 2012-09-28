@@ -1,10 +1,12 @@
 ﻿using FieldService.Data;
+using FieldService.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Reflection;
 
 namespace FieldService.ViewModels {
     /// <summary>
@@ -58,7 +60,10 @@ namespace FieldService.ViewModels {
         /// <returns></returns>
         public Task<bool> LoginAsync ()
         {
-            return service.LoginAsync (username, password);
+            IsBusy = true;
+            var task = service.LoginAsync (username, password);
+            task.ContinueOnUIThread (t => IsBusy = false);
+            return task;
         }
 
         /// <summary>
