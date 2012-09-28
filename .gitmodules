@@ -1,0 +1,3 @@
+[submodule "FieldService/Dependencies/sqlite-net"]
+	path = FieldService/Dependencies/sqlite-net
+	url = https://github.com/praeclarum/sqlite-net.git
