@@ -127,6 +127,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Views\LoginPage.xaml.cs">

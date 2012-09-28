@@ -26,8 +26,15 @@
 
         <TextBox x:Name="username" Grid.Row="1" Grid.Column="1" Margin="5" VerticalAlignment="Center" />
         <PasswordBox x:Name="password" Grid.Row="2" Grid.Column="1" Margin="5" VerticalAlignment="Center" />
-        
-        <Button Grid.Row="3" Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5" Command="{Binding LoginCommand}">LOGIN</Button>
-        
+
+        <StackPanel 
+            Orientation="Horizontal" Grid.Row="3" Grid.Column="1"
+            HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Button 
+                Margin="5" Command="{Binding LoginCommand}">LOGIN</Button>
+            <ProgressRing 
+                IsActive="True"
+                Visibility="{Binding IsBusy, Converter={StaticResource BooleanConverter}}" />
+        </StackPanel>
     </Grid>
 </Page>
