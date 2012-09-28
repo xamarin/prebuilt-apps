@@ -111,6 +111,9 @@
     <Compile Include="..\EmployeeDirectory\ViewModels\FavoritesViewModel.cs">
       <Link>EmployeeDirectory\ViewModels\FavoritesViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\EmployeeDirectory\ViewModels\ViewModel.cs">
+      <Link>EmployeeDirectory\ViewModels\ViewModel.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
@@ -143,6 +146,20 @@
     <AndroidResource Include="Resources\layout\GroupHeaderListItem.axml" />
     <AndroidResource Include="Resources\drawable-mdpi\Placeholder.jpg" />
     <AndroidResource Include="Resources\drawable-hdpi\Placeholder.jpg" />
+    <AndroidResource Include="Resources\menu\PersonActivityOptionsMenu.xml" />
+    <AndroidResource Include="Resources\drawable-xhdpi\btn_star_off_normal_holo_light.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\btn_star_on_normal_holo_light.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_btn_search.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_search.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_search_holo_dark.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_search_holo_light.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_menu_star.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_search.png" />
+    <AndroidResource Include="Resources\drawable-xhdpi\ic_search_api_holo_light.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\btn_star_off_normal_holo_dark.png" />
+    <AndroidResource Include="Resources\drawable-hdpi\btn_star_on_normal_holo_light.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\btn_rating_star_off_normal_holo_light.png" />
+    <AndroidResource Include="Resources\drawable-mdpi\btn_rating_star_on_normal_holo_light.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
@@ -152,6 +169,7 @@
     <Folder Include="Resources\drawable-mdpi\" />
     <Folder Include="Resources\xml\" />
     <Folder Include="EmployeeDirectory\" />
+    <Folder Include="Resources\drawable-xhdpi\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">

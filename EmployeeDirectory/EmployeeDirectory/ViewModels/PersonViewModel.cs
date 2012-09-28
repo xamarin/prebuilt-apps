@@ -6,19 +6,22 @@ using System.Text;
 
 namespace EmployeeDirectory.ViewModels
 {
-	public class PersonViewModel
+	public class PersonViewModel : ViewModel
 	{
-		public Person Person { get; private set; }
+		readonly IFavoritesRepository favoritesRepository;
 
-		public ObservableCollection<PropertyGroup> PropertyGroups { get; private set; }
-
-		public PersonViewModel (Person person)
+		public PersonViewModel (Person person, IFavoritesRepository favoritesRepository)
 		{
 			if (person == null) {
 				throw new ArgumentNullException ("person");
 			}
+			if (favoritesRepository == null) {
+				throw new ArgumentNullException ("favoritesRepository");
+			}
 
 			Person = person;
+			this.favoritesRepository = favoritesRepository;
+
 			PropertyGroups = new ObservableCollection<PropertyGroup> ();
 
 			var general = new PropertyGroup ("General");
@@ -60,6 +63,16 @@ namespace EmployeeDirectory.ViewModels
 			if (address.Properties.Count > 0) {
 				PropertyGroups.Add (address);
 			}
+		}
+
+		#region View Data
+
+		public Person Person { get; private set; }
+
+		public ObservableCollection<PropertyGroup> PropertyGroups { get; private set; }
+
+		public bool IsFavorite {
+			get { return favoritesRepository.IsFavorite (Person); }
 		}
 
 		string AddressString {
@@ -134,6 +147,23 @@ namespace EmployeeDirectory.ViewModels
 			Twitter,
 			Address,
 		}
+
+		#endregion
+
+		#region Commands
+
+		public void ToggleFavorite ()
+		{			
+			if (favoritesRepository.IsFavorite (Person)) {
+				favoritesRepository.Delete (Person);
+			}
+			else {
+				favoritesRepository.InsertOrUpdate (Person);
+			}
+			OnPropertyChanged ("IsFavorite");
+		}
+
+		#endregion
 	}
 }
 

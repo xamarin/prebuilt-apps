@@ -13,13 +13,16 @@ using Android.Widget;
 using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
 using System.IO;
+using System.ComponentModel;
 
 namespace EmployeeDirectory.Android
 {
 	[Activity (Label = "Person", Theme = "@android:style/Theme.Holo.Light")]			
 	public class PersonActivity : Activity
 	{
-		PersonViewModel personViewModel;
+		PersonViewModel viewModel;
+
+		IMenuItem favoriteItem;
 
 		protected override void OnCreate (Bundle bundle)
 		{
@@ -41,9 +44,27 @@ namespace EmployeeDirectory.Android
 			//
 			// Load the View Model
 			//
-			personViewModel = new PersonViewModel (person);
+			viewModel = new PersonViewModel (person, MainActivity.SharedFavoritesRepository);
+			viewModel.PropertyChanged += HandleViewModelPropertyChanged;
 
 			Title = person.SafeDisplayName;
+		}
+
+		void HandleViewModelPropertyChanged (object sender, PropertyChangedEventArgs e)
+		{
+			if (e.PropertyName == "IsFavorite") {
+				UpdateFavoriteIcon ();
+			}
+		}
+
+		void UpdateFavoriteIcon ()
+		{
+			if (favoriteItem != null) {
+				favoriteItem.SetIcon (
+					viewModel.IsFavorite ?
+					Resource.Drawable.btn_rating_star_on_normal_holo_light :
+					Resource.Drawable.btn_rating_star_off_normal_holo_light);
+			}
 		}
 
 		/// <summary>
@@ -64,6 +85,25 @@ namespace EmployeeDirectory.Android
 			formatter.Serialize (personStream, person);
 			intent.PutExtra ("Person", personStream.ToArray ());
 			return intent;
+		}
+
+		public override bool OnCreateOptionsMenu (IMenu menu)
+		{
+			MenuInflater.Inflate (Resource.Menu.PersonActivityOptionsMenu, menu);
+			favoriteItem = menu.FindItem (Resource.Id.MenuFavorite);
+			UpdateFavoriteIcon ();
+			return true;
+		}
+
+		public override bool OnOptionsItemSelected (IMenuItem item)
+		{
+			if (item.ItemId == Resource.Id.MenuFavorite) {
+				viewModel.ToggleFavorite ();
+				return true;
+			}
+			else {
+				return base.OnOptionsItemSelected (item);
+			}
 		}
 	}
 }

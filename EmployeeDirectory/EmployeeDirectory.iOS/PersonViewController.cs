@@ -11,10 +11,10 @@ namespace EmployeeDirectory.iOS
 	{
 		PersonViewModel personViewModel;
 
-		public PersonViewController (Person person)
+		public PersonViewController (Person person, IFavoritesRepository favoritesRepository)
 			: base (UITableViewStyle.Grouped)
 		{
-			personViewModel = new PersonViewModel (person);
+			personViewModel = new PersonViewModel (person, favoritesRepository);
 
 			Title = person.SafeDisplayName;
 

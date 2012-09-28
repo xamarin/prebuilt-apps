@@ -152,6 +152,12 @@
     <Compile Include="..\EmployeeDirectory\Data\XmlFavoritesRepository.cs">
       <Link>EmployeeDirectory\Data\XmlFavoritesRepository.cs</Link>
     </Compile>
+    <Compile Include="..\EmployeeDirectory\ViewModels\ViewModel.cs">
+      <Link>EmployeeDirectory\ViewModels\ViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\ViewModels\FavoritesViewModel.cs">
+      <Link>EmployeeDirectory\ViewModels\FavoritesViewModel.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

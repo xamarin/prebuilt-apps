@@ -18,11 +18,14 @@ namespace EmployeeDirectory.iOS
 			System.Threading.Tasks.TaskScheduler.FromCurrentSynchronizationContext ();
 
 		SearchViewModel searchViewModel;
+		IFavoritesRepository favoritesRepository;
 
 		SearchEditorView editor;
 
-		public SearchViewController (IDirectoryService service, Search search)
+		public SearchViewController (Search search, IDirectoryService service, IFavoritesRepository favoritesRepository)
 		{
+			this.favoritesRepository = favoritesRepository;
+
 			searchViewModel = new SearchViewModel (service, search);
 
 			searchViewModel.Error += (sender, e) => this.ShowError ("Search Error", e.Exception);
@@ -125,7 +128,7 @@ namespace EmployeeDirectory.iOS
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				var person = ((PeopleDataSource)tableView.DataSource).GetPerson (indexPath);
-				var vc = new PersonViewController (person);
+				var vc = new PersonViewController (person, controller.favoritesRepository);
 				controller.NavigationController.PushViewController (vc, true);
 			}
 

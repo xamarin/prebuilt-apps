@@ -16,7 +16,12 @@ namespace EmployeeDirectory.Android
 	[MetaData ("android.app.default_searchable", Value = "employeedirectory.android.SearchActivity")]
 	public class MainActivity : ListActivity
 	{
-		IFavoritesRepository repo;
+		static IFavoritesRepository repo;
+
+		public static IFavoritesRepository SharedFavoritesRepository {
+			get { return repo; }
+		}
+
 		FavoritesViewModel viewModel;
 
 		protected override void OnCreate (Bundle bundle)
@@ -28,12 +33,17 @@ namespace EmployeeDirectory.Android
 			//
 			repo = XmlFavoritesRepository.Open ("Favorites.xml");
 
-			viewModel = new FavoritesViewModel (repo, groupByLastName: false);
-
 			//
 			// Load the UI
 			//
 			SetContentView (Resource.Layout.MainActivity);
+		}
+
+		protected override void OnStart ()
+		{
+			base.OnStart ();
+
+			viewModel = new FavoritesViewModel (repo, groupByLastName: false);
 
 			ListAdapter = new PeopleGroupsAdapter (this) {
 				ItemsSource = viewModel.Groups,

@@ -28,9 +28,13 @@ namespace EmployeeDirectory.iOS
 				SearchBase = "dc=mit,dc=edu",
 			};
 
+			//
+			// Load the favorites
+			//
+			var favoritesRepository = XmlFavoritesRepository.Open ("Favorites.xml");
 
 			//
-			//
+			// Load the last search
 			//
 			Search search = null;
 			try {
@@ -44,8 +48,8 @@ namespace EmployeeDirectory.iOS
 			//
 			// Build the UI
 			//
-			var searchViewController = new SearchViewController (service, search);
-			var favoritesViewController = new FavoritesViewController ();
+			var searchViewController = new SearchViewController (search, service, favoritesRepository);
+			var favoritesViewController = new FavoritesViewController (favoritesRepository);
 
 			var tabs = new UITabBarController ();
 			tabs.SetViewControllers (new UIViewController[] {
