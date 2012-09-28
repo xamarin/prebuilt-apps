@@ -42,5 +42,15 @@ namespace FieldService.WinRT.Views {
             username.Text = string.Empty;
             password.Password = string.Empty;
         }
+
+        protected override void OnKeyDown (KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter) {
+                e.Handled = true;
+                loginViewModel.LoginCommand.Invoke (null);
+            }
+
+            base.OnKeyDown (e);
+        }
     }
 }

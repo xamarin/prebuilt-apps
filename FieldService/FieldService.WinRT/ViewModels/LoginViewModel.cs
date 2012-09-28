@@ -27,7 +27,7 @@ namespace FieldService.WinRT.ViewModels {
             }, () => !IsBusy && IsValid);
         }
 
-        public ICommand LoginCommand
+        public RelayCommand LoginCommand
         {
             get { return loginCommand; }
         }
@@ -36,9 +36,16 @@ namespace FieldService.WinRT.ViewModels {
         {
             base.Validate ();
 
-            if (loginCommand != null) {
+            if (loginCommand != null)
                 loginCommand.InvalidateCanExecute ();
-            }
+        }
+
+        protected override void OnIsBusyChanged ()
+        {
+            base.OnIsBusyChanged ();
+
+            if (loginCommand != null)
+                loginCommand.InvalidateCanExecute ();
         }
     }
 }

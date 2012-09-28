@@ -18,6 +18,11 @@ namespace FieldService.ViewModels {
         /// </summary>
         public event PropertyChangedEventHandler PropertyChanged;
 
+        /// <summary>
+        /// Event for when IsBusy changes
+        /// </summary>
+        public event EventHandler IsBusyChanged;
+
         readonly List<string> errors = new List<string> ();
         bool isBusy = false;
 
@@ -97,10 +102,20 @@ namespace FieldService.ViewModels {
             get { return isBusy; }
             set
             {
-                isBusy = value;
-                Validate ();
-                OnPropertyChanged ("IsBusy");
+                if (isBusy != value) {
+                    isBusy = value;
+
+                    OnPropertyChanged ("IsBusy");
+                    OnIsBusyChanged ();
+                }
             }
+        }
+
+        protected virtual void OnIsBusyChanged ()
+        {
+            var method = IsBusyChanged;
+            if (method != null)
+                IsBusyChanged (this, EventArgs.Empty);
         }
     }
 }
