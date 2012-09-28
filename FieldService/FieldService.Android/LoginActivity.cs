@@ -6,6 +6,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using Android.OS;
+using FieldService.Utilities;
 using FieldService.ViewModels;
 using FieldService.Data;
 using System.Threading.Tasks;
@@ -39,10 +40,11 @@ namespace FieldService.Android {
                 loginViewModel.Username = userName.Text;
                 loginViewModel.Password = password.Text;
                 if (loginViewModel.IsValid) {
-                    Task<bool> success = loginViewModel.LoginAsync ();
-                    if (success.IsCompleted) {
-                        Toast.MakeText (this, "Login Success", ToastLength.Long).Show ();
-                    }
+                    button.Enabled = false;
+                    loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
+                        button.Enabled = true;
+                        Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
+                    });
                 }
             };
         }
