@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldService", "FieldServic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldService.WinRT", "FieldService.WinRT\FieldService.WinRT.csproj", "{30030704-F957-4F3D-9C9A-5168688441D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldService.Android", "FieldService.Android\FieldService.Android.csproj", "{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,18 @@ Global
 		{30030704-F957-4F3D-9C9A-5168688441D9}.Release|x86.ActiveCfg = Release|x86
 		{30030704-F957-4F3D-9C9A-5168688441D9}.Release|x86.Build.0 = Release|x86
 		{30030704-F957-4F3D-9C9A-5168688441D9}.Release|x86.Deploy.0 = Release|x86
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|ARM.ActiveCfg = Release|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|x64.ActiveCfg = Release|Any CPU
+		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

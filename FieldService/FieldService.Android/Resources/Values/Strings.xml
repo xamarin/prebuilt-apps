@@ -1,0 +1,7 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="Hello">Login</string>
+	<string name="ApplicationName">FieldService.Android</string>
+	<string name="Username">Username</string>
+	<string name="Password">Password</string>
+</resources>
