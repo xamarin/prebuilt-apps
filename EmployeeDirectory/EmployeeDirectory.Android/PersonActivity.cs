@@ -93,6 +93,11 @@ namespace EmployeeDirectory.Android
 			return intent;
 		}
 
+		protected override void OnListItemClick (ListView l, View v, int position, long id)
+		{
+			((PersonAdapter)ListAdapter).OnItemClick (position, v);
+		}
+
 		public override bool OnCreateOptionsMenu (IMenu menu)
 		{
 			MenuInflater.Inflate (Resource.Menu.PersonActivityOptionsMenu, menu);

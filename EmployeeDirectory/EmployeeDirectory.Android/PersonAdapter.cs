@@ -16,8 +16,6 @@ namespace EmployeeDirectory.Android
 {
 	public class PersonAdapter : BaseAdapter
 	{
-		PersonViewModel viewModel;
-
 		List<Item> items;
 
 		public PersonAdapter (PersonViewModel viewModel)
@@ -27,14 +25,41 @@ namespace EmployeeDirectory.Android
 			foreach (var pg in viewModel.PropertyGroups) {
 				items.Add (new MainHeaderItem (pg.Name));
 				foreach (var p in pg.Properties) {
-					items.Add (new PropertyItem (p));
+
+					PropertyItem item;
+
+					if (p.Type == PersonViewModel.PropertyType.Phone) {
+						item = new PhonePropertyItem (p);
+					}
+					else if (p.Type == PersonViewModel.PropertyType.Email) {
+						item = new EmailPropertyItem (p);
+					}
+					else if (p.Type == PersonViewModel.PropertyType.Url) {
+						item = new UrlPropertyItem (p);
+					}
+					else if (p.Type == PersonViewModel.PropertyType.Twitter) {
+						item = new TwitterPropertyItem (p);
+					}
+					else {
+						item = new PropertyItem (p);
+					}
+
+					items.Add (item);
 				}
+			}
+		}
+
+		public void OnItemClick (int position, View v)
+		{
+			if (0 <= position && position < items.Count) {
+				items[position].OnClick (v);
 			}
 		}
 
 		public override int ViewTypeCount {
 			get {
-				return 3;
+				// This is the number of different ViewTypes used in the Items
+				return 7;
 			}
 		}
 
@@ -76,6 +101,10 @@ namespace EmployeeDirectory.Android
 			}
 
 			public abstract View GetView (View convertView, ViewGroup parent);
+
+			public virtual void OnClick (View v)
+			{
+			}
 		}
 
 		class ImageItem : Item
@@ -125,29 +154,131 @@ namespace EmployeeDirectory.Android
 
 		class PropertyItem : Item
 		{
-			PersonViewModel.PropertyValue property;
+			public PersonViewModel.PropertyValue Property { get; private set; }
 
 			public PropertyItem (PersonViewModel.PropertyValue property)
-				: base (2)
+				: this (property, 2)
 			{
-				this.property = property;
 			}
+
+			protected PropertyItem (PersonViewModel.PropertyValue property, int viewType)
+				: base (viewType)
+			{
+				this.Property = property;
+			}
+
+			protected virtual int LayoutId { get { return Resource.Layout.PropertyListItem; } }
 
 			public override View GetView (View convertView, ViewGroup parent)
 			{
 				var v = convertView;
 				if (v == null) {
 					var inflater = ((Activity)parent.Context).LayoutInflater;
-					v = inflater.Inflate (Resource.Layout.PropertyListItem, null);
+					v = inflater.Inflate (LayoutId, null);
 				}
 
 				var nameTextView = v.FindViewById<TextView> (Resource.Id.NameTextView);
 				var valueTextView = v.FindViewById<TextView> (Resource.Id.ValueTextView);
 
-				nameTextView.Text = property.Name;
-				valueTextView.Text = property.Value;
+				nameTextView.Text = Property.Name;
+				valueTextView.Text = Property.Value;
 
 				return v;
+			}
+		}
+
+		class PhonePropertyItem : PropertyItem
+		{
+			public PhonePropertyItem (PersonViewModel.PropertyValue property)
+				: base (property, 3)
+			{
+			}
+
+			protected override int LayoutId {
+				get {
+					return Resource.Layout.PhonePropertyListItem;
+				}
+			}
+
+			public override void OnClick (View v)
+			{
+				var intent = new Intent (Intent.ActionCall, global::Android.Net.Uri.Parse (
+					"tel:" + Uri.EscapeDataString (Property.Value)));
+				v.Context.StartActivity (intent);
+			}
+		}
+
+		class EmailPropertyItem : PropertyItem
+		{
+			public EmailPropertyItem (PersonViewModel.PropertyValue property)
+				: base (property, 4)
+			{
+			}
+
+			protected override int LayoutId {
+				get {
+					return Resource.Layout.EmailPropertyListItem;
+				}
+			}
+
+			public override void OnClick (View v)
+			{
+				var intent = new Intent (Intent.ActionSend);
+				intent.SetType ("message/rfc822");
+				intent.PutExtra (Intent.ExtraEmail, new[] { Property.Value });
+				v.Context.StartActivity (Intent.CreateChooser (intent, "Send email"));
+			}
+		}
+
+		class UrlPropertyItem : PropertyItem
+		{
+			public UrlPropertyItem (PersonViewModel.PropertyValue property)
+				: this (property, 5)
+			{
+			}
+
+			protected UrlPropertyItem (PersonViewModel.PropertyValue property, int viewType)
+				: base (property, viewType)
+			{
+			}
+
+			protected override int LayoutId {
+				get {
+					return Resource.Layout.UrlPropertyListItem;
+				}
+			}
+
+			protected virtual Uri Url {
+				get {
+					return new Uri (Property.Value.ToUpperInvariant ().StartsWith ("HTTP") ?
+					                Property.Value :
+					                "http://" + Property.Value);
+				}
+			}
+
+			public override void OnClick (View v)
+			{
+				var intent = new Intent (Intent.ActionView, global::Android.Net.Uri.Parse (
+					Url.AbsoluteUri));
+				v.Context.StartActivity (intent);
+			}
+		}
+
+		class TwitterPropertyItem : UrlPropertyItem
+		{
+			public TwitterPropertyItem (PersonViewModel.PropertyValue property)
+				: base (property, 6)
+			{
+			}
+
+			protected override Uri Url {
+				get {
+					var username = Property.Value.Trim ();
+					if (username.StartsWith ("@")) {
+						username = username.Substring (1);
+					}
+					return new Uri ("http://twitter.com/" + username);
+				}
 			}
 		}
 

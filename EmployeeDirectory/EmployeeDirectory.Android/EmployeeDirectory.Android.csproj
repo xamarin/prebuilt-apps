@@ -162,6 +162,9 @@
     <AndroidResource Include="Resources\drawable-mdpi\btn_rating_star_off_normal_holo_light.png" />
     <AndroidResource Include="Resources\drawable-mdpi\btn_rating_star_on_normal_holo_light.png" />
     <AndroidResource Include="Resources\layout\PropertyListItem.axml" />
+    <AndroidResource Include="Resources\layout\PhonePropertyListItem.axml" />
+    <AndroidResource Include="Resources\layout\EmailPropertyListItem.axml" />
+    <AndroidResource Include="Resources\layout\UrlPropertyListItem.axml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <ItemGroup>
