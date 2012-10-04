@@ -35,12 +35,13 @@ namespace FieldService.Android {
             // Set our view from the "main" layout resource
             SetContentView (Resource.Layout.Main);
 
-            // Get our button from the layout resource,
+            // Get our controls from the layout resource,
             // and attach an event to it
             button = FindViewById<Button> (Resource.Id.MyButton);
             userName = FindViewById<EditText> (Resource.Id.userName);
             password = FindViewById<EditText> (Resource.Id.password);
 
+            //Set edit action listener to allow the next & go buttons on the input keyboard to interact with login.
             userName.SetOnEditorActionListener (this);
             password.SetOnEditorActionListener (this);
             
@@ -59,6 +60,7 @@ namespace FieldService.Android {
 
         public bool OnEditorAction (TextView v, global::Android.Views.InputMethods.ImeAction actionId, KeyEvent e)
         {
+            //go edit action will login
             if (actionId == global::Android.Views.InputMethods.ImeAction.Go) {
                 loginViewModel.Username = userName.Text;
                 loginViewModel.Password = password.Text;
@@ -72,6 +74,7 @@ namespace FieldService.Android {
                    methodManager.HideSoftInputFromInputMethod (v.WindowToken, HideSoftInputFlags.None);
                 }
                 return true;
+                //next action will set focus to password edit text.
             } else if(actionId == global::Android.Views.InputMethods.ImeAction.Next) {
                 password.RequestFocus ();
                 return true;
