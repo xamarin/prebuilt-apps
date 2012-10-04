@@ -137,5 +137,25 @@
     <Content Include="Images\login_box.png" />
     <Content Include="Images\logo.png" />
     <Content Include="Images\logo%402x.png" />
+    <Content Include="Images\accept%402x.png" />
+    <Content Include="Images\assignmentactive%402x.png" />
+    <Content Include="Images\assignmentblue%402x.png" />
+    <Content Include="Images\assignmentgrey%402x.png" />
+    <Content Include="Images\bluebar%402x.png" />
+    <Content Include="Images\decline%402x.png" />
+    <Content Include="Images\dropdown%402x.png" />
+    <Content Include="Images\iconsettings%402x.png" />
+    <Content Include="Images\numberbox%402x.png" />
+    <Content Include="Images\record_active%402x.png" />
+    <Content Include="Images\segementfront_active%402x.png" />
+    <Content Include="Images\segementfront%402x.png" />
+    <Content Include="Images\segementmid%402x.png" />
+    <Content Include="Images\segmentend_active%402x.png" />
+    <Content Include="Images\segmentend%402x.png" />
+    <Content Include="Images\segmentmid_active%402x.png" />
+    <Content Include="Images\smallgreybtn%402x.png" />
+    <Content Include="Images\timerfield%402x.png" />
+    <Content Include="Images\TopNav_Btn%402x.png" />
+    <Content Include="Images\topnav%402x.png" />
   </ItemGroup>
 </Project>
