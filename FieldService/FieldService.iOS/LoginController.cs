@@ -29,11 +29,10 @@ namespace FieldService.iOS
 		}
 		
 		#region View lifecycle
-		
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
 			username.EditingDidEnd += (sender, e) => loginViewModel.Username = username.Text;
 			password.EditingDidEnd += (sender, e) => loginViewModel.Password = password.Text;
 
