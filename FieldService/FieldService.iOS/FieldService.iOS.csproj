@@ -117,5 +117,6 @@
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <Folder Include="FieldService\" />
+    <Folder Include="Images\" />
   </ItemGroup>
 </Project>
