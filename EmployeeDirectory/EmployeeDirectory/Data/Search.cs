@@ -1,16 +1,15 @@
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
 
 namespace EmployeeDirectory.Data
 {
 	/// <summary>
 	/// Represents a search: a filter and the latest results.
 	/// </summary>
-	[Serializable]
 	public class Search
 	{
 		string name;
@@ -73,9 +72,9 @@ namespace EmployeeDirectory.Data
 		{
 			return Task.Factory.StartNew (() => {
 				var store = IsolatedStorageFile.GetUserStoreForApplication ();
-				var f = new BinaryFormatter ();
+                var serializer = new XmlSerializer (typeof (Search));
 				using (var stream = store.OpenFile (name + ".search", FileMode.Open)) {
-					var s = (Search)f.Deserialize (stream);
+					var s = (Search)serializer.Deserialize (stream);
 					s.Name = name;
 					return s;
 				}
@@ -88,9 +87,9 @@ namespace EmployeeDirectory.Data
 
 			return Task.Factory.StartNew (() => {
 				var store = IsolatedStorageFile.GetUserStoreForApplication ();
-				var f = new BinaryFormatter ();
+                var serializer = new XmlSerializer (typeof (Search));
 				using (var stream = store.OpenFile (Name + ".search", FileMode.Create)) {
-					lock (mutex) f.Serialize (stream, this);
+					lock (mutex) serializer.Serialize (stream, this);
 				}
 			});
 		}

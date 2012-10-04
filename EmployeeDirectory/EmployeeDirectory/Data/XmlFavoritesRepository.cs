@@ -8,7 +8,6 @@ using System.Xml;
 
 namespace EmployeeDirectory.Data
 {
-	[Serializable]
 	[XmlRoot ("Favorites")]
 	public class XmlFavoritesRepository : IFavoritesRepository
 	{
@@ -69,8 +68,11 @@ namespace EmployeeDirectory.Data
 
 		public void Delete (Person person)
 		{
-			var n = People.RemoveAll (x => x.Id == person.Id);
-			if (n > 0) {
+			var newPeopleQ = from p in People where p.Id != person.Id select p;
+			var newPeople = newPeopleQ.ToList ();
+			var n = People.Count - newPeople.Count;
+			People = newPeople;
+			if (n != 0) {
 				Save ();
 			}
 		}

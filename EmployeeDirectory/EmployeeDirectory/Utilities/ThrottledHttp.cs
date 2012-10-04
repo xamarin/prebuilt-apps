@@ -14,12 +14,9 @@ namespace EmployeeDirectory.Utilities
 	{
 		Semaphore throttle;
 
-		public TimeSpan Timeout { get; set; }
-
 		public ThrottledHttp (int maxConcurrent)
 		{
 			throttle = new Semaphore (maxConcurrent, maxConcurrent);
-			Timeout = TimeSpan.FromSeconds (5);
 		}
 
 		/// <summary>
@@ -34,7 +31,6 @@ namespace EmployeeDirectory.Utilities
 			throttle.WaitOne ();
 
 			var req = WebRequest.Create (uri);
-			req.Timeout = (int)Timeout.TotalMilliseconds;
 
 			var getTask = Task.Factory.FromAsync<WebResponse> (
 				req.BeginGetResponse, req.EndGetResponse, null);

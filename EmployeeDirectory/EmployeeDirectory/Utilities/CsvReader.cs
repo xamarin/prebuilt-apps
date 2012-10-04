@@ -4,18 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using System.Text;
+using System.Globalization;
 
 namespace EmployeeDirectory
 {
 	public class CsvReader<T>
 		where T : new ()
 	{
+		IFormatProvider formatProvider;
 		TextReader reader;
 
 		string[] headerNames;
 
 		public CsvReader (TextReader reader)
 		{
+			this.formatProvider = CultureInfo.InvariantCulture;
 			this.reader = reader;
 		}
 
@@ -29,7 +32,7 @@ namespace EmployeeDirectory
 			var props = new PropertyInfo[headerNames.Length];
 			for (var hi = 0; hi < props.Length; hi++) {
 				var p = typeof(T).GetProperty (headerNames[hi]);
-				if (p == null) throw new ApplicationException (
+				if (p == null) throw new Exception (
 					"Property '" + headerNames[hi] + "' not found in " + typeof (T).Name);
 				props[hi] = p;
 			}
@@ -77,7 +80,13 @@ namespace EmployeeDirectory
 				ch = reader.Read ();
 			}
 
-			prop.SetValue (r, Convert.ChangeType (sb.ToString ().Trim (), prop.PropertyType), null);
+			prop.SetValue (
+				r,
+				Convert.ChangeType (
+					sb.ToString ().Trim (), 
+					prop.PropertyType, 
+					formatProvider),
+				null);
 
 			return ch;
 		}
@@ -103,7 +112,7 @@ namespace EmployeeDirectory
 				}
 				else {
 					if (hasQuote) {
-						prop.SetValue (r, Convert.ChangeType (sb.ToString ().Trim (), prop.PropertyType), null);
+						prop.SetValue (r, Convert.ChangeType (sb.ToString ().Trim (), prop.PropertyType, formatProvider), null);
 						return ch;
 					}
 					else {
@@ -114,7 +123,7 @@ namespace EmployeeDirectory
 				ch = reader.Read ();
 			}
 
-			prop.SetValue (r, Convert.ChangeType (sb.ToString ().Trim (), prop.PropertyType), null);
+			prop.SetValue (r, Convert.ChangeType (sb.ToString ().Trim (), prop.PropertyType, formatProvider), null);
 			return ch;
 		}
 	}

@@ -6,7 +6,6 @@ namespace EmployeeDirectory
 	/// <summary>
 	/// Filter used to search an <see cref="IDirectoryService"/>.
 	/// </summary>
-	[Serializable]
 	public abstract class Filter
 	{
 		/// <summary>
@@ -54,7 +53,6 @@ namespace EmployeeDirectory
 	/// <summary>
 	/// Filter that enforces an AND relation on all its <see cref="Filters"/>.
 	/// </summary>
-	[Serializable]
 	public class AndFilter : Filter
 	{
 		/// <summary>
@@ -74,7 +72,6 @@ namespace EmployeeDirectory
 		}
 	}
 
-	[Serializable]
 	public class OrFilter : Filter
 	{
 		public List<Filter> Filters { get; set; }
@@ -91,7 +88,6 @@ namespace EmployeeDirectory
 		}
 	}
 
-	[Serializable]
 	public class NotFilter : Filter
 	{
 		public Filter InnerFilter { get; set; }
@@ -107,7 +103,6 @@ namespace EmployeeDirectory
 		}
 	}
 
-	[Serializable]
 	public class EqualsFilter : Filter
 	{
 		public string PropertyName { get; set; }
@@ -126,7 +121,6 @@ namespace EmployeeDirectory
 		}
 	}
 
-	[Serializable]
 	public class ContainsFilter : Filter
 	{
 		public string PropertyName { get; set; }

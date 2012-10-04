@@ -12,7 +12,6 @@ namespace EmployeeDirectory.Data
 	/// Derived from <a href="http://fsuid.fsu.edu/admin/lib/WinADLDAPAttributes.html#RANGE!B19">Windows AD LDAP Schema</a>
 	/// and <a href="http://www.zytrax.com/books/ldap/ape/core-schema.html">core.schema</a> from OpenLDAP.
 	/// </remarks>
-	[Serializable]
 	public class Person
 	{
 		string id;
