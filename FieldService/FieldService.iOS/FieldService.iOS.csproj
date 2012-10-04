@@ -119,4 +119,11 @@
     <Folder Include="FieldService\" />
     <Folder Include="Images\" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="Images\linenpattern%402x.png" />
+    <Content Include="Images\login_box%402x.png" />
+    <Content Include="Images\login_btn%402x.png" />
+    <Content Include="Images\login_inset%402x.png" />
+    <Content Include="Images\login_textfield%402x.png" />
+  </ItemGroup>
 </Project>
