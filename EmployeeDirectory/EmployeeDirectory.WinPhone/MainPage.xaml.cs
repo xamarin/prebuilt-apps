@@ -1,24 +1,30 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
 using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Animation;
-using System.Windows.Shapes;
+using EmployeeDirectory.Data;
+using EmployeeDirectory.ViewModels;
 using Microsoft.Phone.Controls;
 
 namespace EmployeeDirectory.WinPhone
 {
     public partial class MainPage : PhoneApplicationPage
     {
-        // Constructor
         public MainPage()
         {
             InitializeComponent();
+
+			DataContext = new FavoritesViewModel (App.Current.FavoritesRepository, true);
         }
+
+		void HandlePersonTapped (object sender, System.Windows.Input.GestureEventArgs e)
+		{
+			var person = ((FrameworkElement)sender).DataContext as Person;
+			if (person == null) return;
+
+			var url = string.Format (
+				"/PersonPage.xaml?src=favorites&id={0}",
+				Uri.EscapeDataString (person.Id));
+
+			NavigationService.Navigate (new Uri (url, UriKind.Relative));
+		}
     }
 }

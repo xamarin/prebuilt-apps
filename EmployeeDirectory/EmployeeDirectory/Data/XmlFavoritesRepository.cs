@@ -51,6 +51,11 @@ namespace EmployeeDirectory.Data
 			return People;
 		}
 
+		public Person FindById (string id)
+		{
+			return People.FirstOrDefault (x => x.Id == id);
+		}
+
 		public bool IsFavorite (Person person)
 		{
 			return People.Any (x => x.Id == person.Id);

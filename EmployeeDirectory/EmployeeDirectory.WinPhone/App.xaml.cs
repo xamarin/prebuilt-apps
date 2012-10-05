@@ -12,11 +12,22 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
+using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory.WinPhone
 {
     public partial class App : Application
     {
+		/// <summary>
+		/// Gets the App object for the current application.
+		/// </summary>
+		public new static App Current { get { return (App)Application.Current; } }
+
+		/// <summary>
+		/// Gets the <see cref="IFavoritesRepository" /> for the application.
+		/// </summary>
+		public IFavoritesRepository FavoritesRepository { get; private set; }
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -63,6 +74,37 @@ namespace EmployeeDirectory.WinPhone
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+			FavoritesRepository = XmlFavoritesRepository.Open ("Favorites.xml");
+			FavoritesRepository.InsertOrUpdate (new Person {
+				Name = "Frank A. Krueger",
+				Title = "Developer",
+				Email = "fak@praeclarum.org",
+				WebPage = "http://praeclarum.org",
+				Twitter = "@praeclarum",
+				MobileNumbers = new List<string> {
+					"555-123-4567",
+				},
+				Department = "Addons"
+			});
+
+			FavoritesRepository.InsertOrUpdate (new Person {
+				Name = "Jo Ann Buckner",
+				Title = "Lead",
+				Department = "Marketing"
+			});
+
+			FavoritesRepository.InsertOrUpdate (new Person {
+				Name = "James Clancey",
+				Title = "PM",
+				Department = "Addons",
+				Email = "clancey@xamarin.com",
+			});
+
+			FavoritesRepository.InsertOrUpdate (new Person {
+				Name = "James Christen",
+				Title = "Master",
+				Department = "Electronics"
+			});
         }
 
         // Code to execute when the application is activated (brought to foreground)

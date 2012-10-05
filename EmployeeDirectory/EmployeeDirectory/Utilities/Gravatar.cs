@@ -2,11 +2,11 @@ using System;
 using System.Linq;
 using System.Text;
 
-namespace EmployeeDirectory
+namespace EmployeeDirectory.Utilities
 {
 	public class Gravatar
 	{
-        static Func<byte[], byte[]> md5;
+        static readonly Func<byte[], byte[]> md5;
 
         static Gravatar ()
         {
@@ -26,7 +26,7 @@ namespace EmployeeDirectory
 				throw new ArgumentException ("Size must be greater than 0.", "size");
 			}
 
-			var hash = md5 (Encoding.UTF8.GetBytes (email));
+			var hash = md5 (Encoding.UTF8.GetBytes (email.Trim ()));
 			var hashString = string.Join ("", hash.Select (x => x.ToString ("x2")));
 			return new Uri ("http://www.gravatar.com/avatar/" + hashString + ".jpg?s=" + size + "&d=mm");
 		}

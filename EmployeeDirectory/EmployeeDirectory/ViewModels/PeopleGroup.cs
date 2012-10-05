@@ -6,7 +6,7 @@ using System.Linq;
 
 namespace EmployeeDirectory.ViewModels
 {
-	public class PeopleGroup
+	public class PeopleGroup : IEnumerable<Person>
 	{
 		public string Title { get; private set; }
 		public List<Person> People { get; private set; }
@@ -36,6 +36,16 @@ namespace EmployeeDirectory.ViewModels
 			}
 			
 			return new ObservableCollection<PeopleGroup> (pgs.Values.OrderBy (x => x.Title));
+		}
+
+		IEnumerator<Person> IEnumerable<Person>.GetEnumerator ()
+		{
+			return People.GetEnumerator ();
+		}
+
+		System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
+		{
+			return People.GetEnumerator ();
 		}
 	}
 }

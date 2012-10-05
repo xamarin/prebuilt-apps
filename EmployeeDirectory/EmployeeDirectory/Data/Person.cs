@@ -109,6 +109,13 @@ namespace EmployeeDirectory.Data
 		[Property (Group = "Organization", Ldap = "manager")]
 		public string Manager { get; set; }
 
+		#region Derived Properties
+
+		public Uri GravatarUrl {
+			get {
+				return HasEmail ? EmployeeDirectory.Utilities.Gravatar.GetUrl (Email, 80) : null;
+			}
+		}
 
 		public bool HasEmail {
 			get { return !string.IsNullOrWhiteSpace (Email); }
@@ -116,7 +123,7 @@ namespace EmployeeDirectory.Data
 
 		public string TitleAndDepartment {
 			get {
-				return (Title + " " + Department).Trim ();
+				return (Title + " - " + Department).Trim ();
 			}
 		}
 
@@ -163,6 +170,8 @@ namespace EmployeeDirectory.Data
 				}
 			}
 		}
+
+		#endregion
 
 		public Person ()
 		{
