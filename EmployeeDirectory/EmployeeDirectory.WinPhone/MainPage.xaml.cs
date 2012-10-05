@@ -10,10 +10,14 @@ namespace EmployeeDirectory.WinPhone
     {
         public MainPage()
         {
-            InitializeComponent();
-
-			DataContext = new FavoritesViewModel (App.Current.FavoritesRepository, true);
+            InitializeComponent();			
         }
+
+		protected override void OnNavigatedTo (System.Windows.Navigation.NavigationEventArgs e)
+		{
+			base.OnNavigatedTo (e);
+			DataContext = new FavoritesViewModel (App.Current.FavoritesRepository, true);
+		}
 
 		void HandlePersonTapped (object sender, System.Windows.Input.GestureEventArgs e)
 		{
@@ -25,6 +29,11 @@ namespace EmployeeDirectory.WinPhone
 				Uri.EscapeDataString (person.Id));
 
 			NavigationService.Navigate (new Uri (url, UriKind.Relative));
+		}
+
+		void HandleSearchClicked (object sender, EventArgs e)
+		{
+			NavigationService.Navigate (new Uri ("/SearchPage.xaml", UriKind.Relative));
 		}
     }
 }

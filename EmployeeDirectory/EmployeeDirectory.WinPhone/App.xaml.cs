@@ -28,6 +28,11 @@ namespace EmployeeDirectory.WinPhone
 		/// </summary>
 		public IFavoritesRepository FavoritesRepository { get; private set; }
 
+		/// <summary>
+		/// Gets the <see cref="IDirectoryService" /> for the application.
+		/// </summary>
+		public IDirectoryService DirectoryService { get; private set; }
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -74,6 +79,14 @@ namespace EmployeeDirectory.WinPhone
         // This code will not execute when the application is reactivated
         private void Application_Launching(object sender, LaunchingEventArgs e)
         {
+			// Load the directory
+			var dataUri = new Uri("EmployeeDirectory.WinPhone;component/Data/XamarinDirectory.csv", UriKind.Relative);
+			var dataInfo = GetResourceStream (dataUri);
+			using (var reader = new System.IO.StreamReader (dataInfo.Stream)) {
+				DirectoryService = new MemoryDirectoryService (new CsvReader<Person> (reader).ReadAll ());
+			}
+
+			// Load the favorites
 			FavoritesRepository = XmlFavoritesRepository.Open ("Favorites.xml");
 			FavoritesRepository.InsertOrUpdate (new Person {
 				Name = "Frank A. Krueger",

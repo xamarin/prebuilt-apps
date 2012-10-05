@@ -4,6 +4,7 @@ using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
+using Microsoft.Phone.Shell;
 
 namespace EmployeeDirectory.WinPhone
 {
@@ -27,7 +28,12 @@ namespace EmployeeDirectory.WinPhone
 			}
 
 			if (person != null) {
-				DataContext = new PersonViewModel (person, App.Current.FavoritesRepository);
+				var vm = new PersonViewModel (person, App.Current.FavoritesRepository);
+				vm.PropertyChanged += delegate {
+					UpdateFavoriteButtonIcon ();
+				};
+				DataContext = vm;
+				UpdateFavoriteButtonIcon ();
 			}
 		}
 
@@ -71,7 +77,7 @@ namespace EmployeeDirectory.WinPhone
 			task.Show ();
 		}
 
-		void HandlePropertyTapped (object sender, System.Windows.Input.GestureEventArgs e)
+		void HandlePropertyTap (object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			var prop = ((FrameworkElement)sender).DataContext as PersonViewModel.Property;
 			if (prop == null) return;
@@ -93,6 +99,25 @@ namespace EmployeeDirectory.WinPhone
 					HandleTwitterTapped (prop.Value);
 					break;
 			}
+		}
+
+		void UpdateFavoriteButtonIcon ()
+		{
+			var vm = (PersonViewModel)DataContext;
+			if (vm.IsFavorite) {
+				((ApplicationBarIconButton)ApplicationBar.Buttons [0]).IconUri = new Uri ("/Images/appbar.favs.removefrom.rest.png", UriKind.RelativeOrAbsolute);
+				((ApplicationBarIconButton)ApplicationBar.Buttons [0]).Text = "remove";
+			}
+			else {
+				((ApplicationBarIconButton)ApplicationBar.Buttons [0]).IconUri = new Uri ("/Images/appbar.favs.addto.rest.png", UriKind.RelativeOrAbsolute);
+				((ApplicationBarIconButton)ApplicationBar.Buttons [0]).Text = "favorite";
+			}
+		}
+
+		private void HandleFavoriteClick (object sender, EventArgs e)
+		{
+			var vm = (PersonViewModel)DataContext;
+			vm.ToggleFavorite ();
 		}
 	}
 }

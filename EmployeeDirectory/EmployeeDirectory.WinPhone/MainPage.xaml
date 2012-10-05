@@ -118,7 +118,10 @@
 
     <phone:PhoneApplicationPage.ApplicationBar>
         <shell:ApplicationBar IsVisible="True" IsMenuEnabled="True">
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar_button1.png" Text="Search"/>
+            <shell:ApplicationBarIconButton
+                IconUri="/Images/appbar.feature.search.rest.png"
+                Text="search"
+                Click="HandleSearchClicked"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
