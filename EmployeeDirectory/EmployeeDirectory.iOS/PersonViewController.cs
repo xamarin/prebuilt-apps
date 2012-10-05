@@ -75,7 +75,7 @@ namespace EmployeeDirectory.iOS
 				NSUrl.FromString ("http://maps.google.com/maps?q=" + Uri.EscapeDataString (address)));
 		}
 
-		void OnPropertySelected (PersonViewModel.PropertyValue property)
+		void OnPropertySelected (PersonViewModel.Property property)
 		{
 			switch (property.Type) {
 			case PersonViewModel.PropertyType.Phone:

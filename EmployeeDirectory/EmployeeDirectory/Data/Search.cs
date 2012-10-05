@@ -60,6 +60,11 @@ namespace EmployeeDirectory.Data
 		/// </summary>
 		readonly object mutex = new object ();
 
+		public Search ()
+			: this ("")
+		{
+		}
+
 		public Search (string name)
 		{
 			this.name = name;

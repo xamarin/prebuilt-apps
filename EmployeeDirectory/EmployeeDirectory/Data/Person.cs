@@ -123,7 +123,20 @@ namespace EmployeeDirectory.Data
 
 		public string TitleAndDepartment {
 			get {
-				return (Title + " - " + Department).Trim ();
+				var hasTitle = !string.IsNullOrEmpty (Title);
+				var hasDepartment = !string.IsNullOrEmpty (Department);
+				if (hasTitle && hasDepartment) {
+					return (Title + " - " + Department).Trim ();
+				}
+				else if (hasTitle && !hasDepartment) {
+					return Title.Trim ();
+				}
+				else if (!hasTitle && hasDepartment) {
+					return Department.Trim ();
+				}
+				else {
+					return "";
+				}
 			}
 		}
 

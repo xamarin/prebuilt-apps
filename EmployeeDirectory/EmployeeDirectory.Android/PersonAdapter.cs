@@ -23,7 +23,7 @@ namespace EmployeeDirectory.Android
 			items = new List<Item> ();
 
 			foreach (var pg in viewModel.PropertyGroups) {
-				items.Add (new MainHeaderItem (pg.Name));
+				items.Add (new MainHeaderItem (pg.Title));
 				foreach (var p in pg.Properties) {
 
 					PropertyItem item;
@@ -154,14 +154,14 @@ namespace EmployeeDirectory.Android
 
 		class PropertyItem : Item
 		{
-			public PersonViewModel.PropertyValue Property { get; private set; }
+			public PersonViewModel.Property Property { get; private set; }
 
-			public PropertyItem (PersonViewModel.PropertyValue property)
+			public PropertyItem (PersonViewModel.Property property)
 				: this (property, 2)
 			{
 			}
 
-			protected PropertyItem (PersonViewModel.PropertyValue property, int viewType)
+			protected PropertyItem (PersonViewModel.Property property, int viewType)
 				: base (viewType)
 			{
 				this.Property = property;
@@ -189,7 +189,7 @@ namespace EmployeeDirectory.Android
 
 		class PhonePropertyItem : PropertyItem
 		{
-			public PhonePropertyItem (PersonViewModel.PropertyValue property)
+			public PhonePropertyItem (PersonViewModel.Property property)
 				: base (property, 3)
 			{
 			}
@@ -210,7 +210,7 @@ namespace EmployeeDirectory.Android
 
 		class EmailPropertyItem : PropertyItem
 		{
-			public EmailPropertyItem (PersonViewModel.PropertyValue property)
+			public EmailPropertyItem (PersonViewModel.Property property)
 				: base (property, 4)
 			{
 			}
@@ -232,12 +232,12 @@ namespace EmployeeDirectory.Android
 
 		class UrlPropertyItem : PropertyItem
 		{
-			public UrlPropertyItem (PersonViewModel.PropertyValue property)
+			public UrlPropertyItem (PersonViewModel.Property property)
 				: this (property, 5)
 			{
 			}
 
-			protected UrlPropertyItem (PersonViewModel.PropertyValue property, int viewType)
+			protected UrlPropertyItem (PersonViewModel.Property property, int viewType)
 				: base (property, viewType)
 			{
 			}
@@ -266,7 +266,7 @@ namespace EmployeeDirectory.Android
 
 		class TwitterPropertyItem : UrlPropertyItem
 		{
-			public TwitterPropertyItem (PersonViewModel.PropertyValue property)
+			public TwitterPropertyItem (PersonViewModel.Property property)
 				: base (property, 6)
 			{
 			}
