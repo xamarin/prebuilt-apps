@@ -88,10 +88,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="LoginController.cs" />
-    <Compile Include="LoginController.designer.cs">
-      <DependentUpon>LoginController.cs</DependentUpon>
-    </Compile>
     <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
     </Compile>
@@ -110,6 +106,12 @@
     <Compile Include="..\FieldService\ViewModels\ViewModelBase.cs">
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
+    <Compile Include="Utilities\Theme.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LoginController.designer.cs">
+      <DependentUpon>LoginController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BaseController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -118,6 +120,8 @@
   <ItemGroup>
     <Folder Include="FieldService\" />
     <Folder Include="Images\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\linenpattern%402x.png" />
@@ -125,5 +129,9 @@
     <Content Include="Images\login_btn%402x.png" />
     <Content Include="Images\login_inset%402x.png" />
     <Content Include="Images\login_textfield%402x.png" />
+    <Content Include="Images\linenpattern.png" />
+    <Content Include="Images\login_btn.png" />
+    <Content Include="Images\login_inset.png" />
+    <Content Include="Images\login_textfield.png" />
   </ItemGroup>
 </Project>

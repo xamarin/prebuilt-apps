@@ -8,7 +8,7 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
-	public partial class LoginController : UIViewController
+	public partial class LoginController : BaseController
 	{
 		readonly LoginViewModel loginViewModel = new LoginViewModel(new DefaultService());
 
@@ -19,20 +19,14 @@ namespace FieldService.iOS
 					login.Enabled = !loginViewModel.IsBusy && loginViewModel.IsValid;
 			};
 		}
-		
-		public override void DidReceiveMemoryWarning ()
-		{
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning ();
-			
-			// Release any cached data, images, etc that aren't in use.
-		}
-		
-		#region View lifecycle
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
+			background.Image = Theme.LinenPattern;
+			box.Image = Theme.LoginBox;
+
 			username.EditingDidEnd += (sender, e) => loginViewModel.Username = username.Text;
 			password.EditingDidEnd += (sender, e) => loginViewModel.Password = password.Text;
 
@@ -55,14 +49,6 @@ namespace FieldService.iOS
 			// e.g. myOutlet.Dispose (); myOutlet = null;
 			
 			ReleaseDesignerOutlets ();
-		}
-		
-		#endregion
-		
-		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
-		{
-			// Return true for supported orientations
-			return true;
 		}
 	}
 }
