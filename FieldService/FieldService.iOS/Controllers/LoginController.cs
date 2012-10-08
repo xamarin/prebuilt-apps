@@ -26,6 +26,7 @@ namespace FieldService.iOS
 
 			background.Image = Theme.LinenPattern;
 			box.Image = Theme.LoginBox;
+			login.SetBackgroundImage (Theme.LoginButton, UIControlState.Normal);
 
 			username.EditingDidEnd += (sender, e) => loginViewModel.Username = username.Text;
 			password.EditingDidEnd += (sender, e) => loginViewModel.Password = password.Text;

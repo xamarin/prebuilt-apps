@@ -17,11 +17,18 @@ namespace FieldService.iOS
 			get { return linenPattern.Value; }
 		}
 
-		static Lazy<UIImage> loginBox = new Lazy<UIImage>(() => UIImage.FromFile("Images/login_box.png").CreateResizableImage (new UIEdgeInsets(40, 40, 40, 40)));
+		static Lazy<UIImage> loginBox = new Lazy<UIImage>(() => UIImage.FromFile("Images/login_box.png").CreateResizableImage (new UIEdgeInsets(21, 21, 21, 21)));
 		
 		public static UIImage LoginBox
 		{
 			get { return loginBox.Value; }
+		}
+
+		static Lazy<UIImage> loginButton = new Lazy<UIImage>(() => UIImage.FromFile("Images/login_btn.png").CreateResizableImage (new UIEdgeInsets(11, 8, 11, 8)));
+		
+		public static UIImage LoginButton
+		{
+			get { return loginButton.Value; }
 		}
 
 		public static void Apply()
