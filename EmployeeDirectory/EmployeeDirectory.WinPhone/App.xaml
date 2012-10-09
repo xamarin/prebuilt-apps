@@ -11,7 +11,7 @@
         <DataTemplate x:Key="PersonListItem">
             <Grid 
                 toolkit:TiltEffect.IsTiltEnabled="True"
-                Tap="HandlePersonTapped"
+                Tap="OnPersonListItemTap"
                 >
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60" />

@@ -69,7 +69,7 @@ namespace EmployeeDirectory.WinPhone
             }
         }
 
-		void HandlePersonTapped (object sender, System.Windows.Input.GestureEventArgs e)
+		void OnPersonListItemTap (object sender, System.Windows.Input.GestureEventArgs e)
 		{
 			var person = ((FrameworkElement)sender).DataContext as Person;
 			if (person == null) return;

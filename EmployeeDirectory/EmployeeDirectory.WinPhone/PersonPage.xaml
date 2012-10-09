@@ -53,7 +53,7 @@
                     <DataTemplate>
                         <StackPanel 
                             toolkit:TiltEffect.IsTiltEnabled="True"
-                            Tap="HandlePropertyTap">
+                            Tap="OnPropertyTap">
                             <TextBlock
                                     Text="{Binding Path=Value}"
                                     Style="{StaticResource PhoneTextLargeStyle}"
@@ -79,8 +79,11 @@
             <shell:ApplicationBarIconButton
                 IconUri="/Images/appbar.favs.addto.rest.png"
                 Text="favorite"
-                Click="HandleFavoriteClick"/>
-            <shell:ApplicationBarIconButton IconUri="/Images/appbar.pin.rest.png" Text="pin"/>
+                Click="OnFavoriteClick"/>
+            <shell:ApplicationBarIconButton
+                IconUri="/Images/appbar.pin.rest.png"
+                Text="pin"
+                Click="OnPinClick"/>
         </shell:ApplicationBar>
     </phone:PhoneApplicationPage.ApplicationBar>
 
