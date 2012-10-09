@@ -20,6 +20,8 @@ namespace FieldService.iOS
 
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
+			Theme.Apply ();
+
 			return true;
 		}
 
