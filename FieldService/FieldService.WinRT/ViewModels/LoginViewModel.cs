@@ -9,6 +9,10 @@ using FieldService.WinRT.Utilities;
 using Windows.UI.Popups;
 
 namespace FieldService.WinRT.ViewModels {
+    /// <summary>
+    /// WinRT version of the LoginViewModel
+    /// - We setup ICommand here
+    /// </summary>
     public class LoginViewModel : FieldService.ViewModels.LoginViewModel {
 
         readonly RelayCommand loginCommand;
@@ -27,6 +31,9 @@ namespace FieldService.WinRT.ViewModels {
             }, () => !IsBusy && IsValid);
         }
 
+        /// <summary>
+        /// LoginCommand for binding to a button
+        /// </summary>
         public RelayCommand LoginCommand
         {
             get { return loginCommand; }

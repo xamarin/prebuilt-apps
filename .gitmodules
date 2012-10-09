@@ -1,3 +1,6 @@
 [submodule "FieldService/Dependencies/sqlite-net"]
 	path = FieldService/Dependencies/sqlite-net
 	url = https://github.com/praeclarum/sqlite-net.git
+[submodule "FieldService/Dependencies/WinRTToolkit"]
+	path = FieldService/Dependencies/WinRTToolkit
+	url = https://git01.codeplex.com/winrtxamltoolkit

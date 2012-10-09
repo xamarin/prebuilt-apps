@@ -16,7 +16,7 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FieldService.WinRT.Views {
     /// <summary>
-    /// An empty page that can be used on its own or navigated to within a Frame.
+    /// The initial login page
     /// </summary>
     public sealed partial class LoginPage : Page {
         readonly LoginViewModel loginViewModel;
@@ -28,6 +28,7 @@ namespace FieldService.WinRT.Views {
             DataContext =
                 loginViewModel = new LoginViewModel (new DefaultService ());
 
+            //Generally I would use two-way bindings here, but UpdateSourceTrigger is not available in WinRT
             username.TextChanged += (sender, e) => loginViewModel.Username = username.Text;
             password.PasswordChanged += (sender, e) => loginViewModel.Password = password.Password;
         }
@@ -43,6 +44,10 @@ namespace FieldService.WinRT.Views {
             password.Password = string.Empty;
         }
 
+        /// <summary>
+        /// Used for hooking up enter key to login
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnKeyDown (KeyRoutedEventArgs e)
         {
             if (e.Key == Windows.System.VirtualKey.Enter) {
