@@ -31,6 +31,12 @@ namespace FieldService.iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UIView container { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIActivityIndicatorView indicator { get; set; }
+
+		[Action ("Login")]
+		partial void Login ();
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -67,6 +73,11 @@ namespace FieldService.iOS
 			if (container != null) {
 				container.Dispose ();
 				container = null;
+			}
+
+			if (indicator != null) {
+				indicator.Dispose ();
+				indicator = null;
 			}
 		}
 	}

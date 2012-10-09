@@ -15,8 +15,16 @@ namespace FieldService.iOS
 		public LoginController (IntPtr handle) : base (handle)
 		{
 			//Hook up ViewModel events
-			loginViewModel.IsBusyChanged += (sender, e) => UpdateLoginButton ();
-			loginViewModel.IsValidChanged += (sender, e) => UpdateLoginButton ();
+			loginViewModel.IsBusyChanged += (sender, e) => {
+				if (IsViewLoaded) {
+					indicator.Hidden = !loginViewModel.IsBusy;
+					login.Hidden = loginViewModel.IsBusy;
+				}
+			};
+			loginViewModel.IsValidChanged += (sender, e) => {
+				if (IsViewLoaded)
+					login.Enabled = loginViewModel.IsValid;
+			};
 		}
 
 		public override void ViewDidLoad ()
@@ -48,29 +56,22 @@ namespace FieldService.iOS
 			password.SetDidChangeNotification (text => loginViewModel.Password = text.Text);
 			password.ShouldReturn = _ => {
 				if (loginViewModel.IsValid) {
-					password.ResignFirstResponder ();
 					Login ();
 				}
 				return false;
 			};
-
-			login.TouchUpInside += (sender, e) => Login ();
 		}
 
-		private void Login()
+		partial void Login ()
 		{
+			password.ResignFirstResponder ();
+			
 			loginViewModel.LoginAsync ()
 				.ContinueOnUIThread (_ => {
 					
 					//We'll do something else here later
 					new UIAlertView("Success!", "Logged in.", null, "OK").Show ();
 				});
-		}
-
-		private void UpdateLoginButton()
-		{
-			if (IsViewLoaded)
-				login.Enabled = !loginViewModel.IsBusy && loginViewModel.IsValid;
 		}
 		
 		public override void ViewDidUnload ()
