@@ -38,11 +38,10 @@ namespace EmployeeDirectory.iOS
 			//
 			Search search = null;
 			try {
-				search = Search.OpenAsync ("Search").Result;
+				search = Search.Open ("Search.xml");
 			}
-			catch (Exception ex) {
-				Console.WriteLine (ex);
-				search = new Search ("Search");
+			catch (Exception) {
+				search = new Search ("Search.xml");
 			}
 
 			//

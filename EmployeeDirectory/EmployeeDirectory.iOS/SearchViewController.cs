@@ -68,7 +68,7 @@ namespace EmployeeDirectory.iOS
 
 		void LoadImagesForOnscreenRows ()
 		{
-			if (searchViewModel.GroupedPeople.Count > 0) {
+			if (searchViewModel.Groups.Count > 0) {
 
 				var visiblePaths = TableView.IndexPathsForVisibleRows;
 
@@ -104,8 +104,8 @@ namespace EmployeeDirectory.iOS
 			images [person.Id] = image;
 			imageDownloadsInProgress.Remove (person.Id);
 
-			if (indexPath.Section < searchViewModel.GroupedPeople.Count &&
-				indexPath.Row < searchViewModel.GroupedPeople [indexPath.Section].People.Count) {
+			if (indexPath.Section < searchViewModel.Groups.Count &&
+			    indexPath.Row < searchViewModel.Groups [indexPath.Section].People.Count) {
 
 				var cell = TableView.CellAt (indexPath);
 				if (cell != null) {
@@ -156,23 +156,23 @@ namespace EmployeeDirectory.iOS
 			}
 			public override string TitleForHeader (UITableView tableView, int section)
 			{
-				return controller.searchViewModel.GroupedPeople[section].Title;
+				return controller.searchViewModel.Groups [section].Title;
 			}
 			public override string[] SectionIndexTitles (UITableView tableView)
 			{
-				return controller.searchViewModel.GroupedPeople.Select (x => x.Title).ToArray ();
+				return controller.searchViewModel.Groups.Select (x => x.Title).ToArray ();
 			}
 			public override int NumberOfSections (UITableView tableView)
 			{
-				return controller.searchViewModel.GroupedPeople.Count;
+				return controller.searchViewModel.Groups.Count;
 			}
 			public override int RowsInSection (UITableView tableView, int section)
 			{
-				return controller.searchViewModel.GroupedPeople[section].People.Count;
+				return controller.searchViewModel.Groups [section].People.Count;
 			}
 			public Person GetPerson (NSIndexPath indexPath)
 			{
-				var personGroup = controller.searchViewModel.GroupedPeople[indexPath.Section];
+				var personGroup = controller.searchViewModel.Groups [indexPath.Section];
 				return personGroup.People[indexPath.Row];
 			}
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

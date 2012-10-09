@@ -87,6 +87,6 @@ Global
 		{8735A806-2338-4494-944F-5439944AFFB4}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = EmployeeDirectory.Android\EmployeeDirectory.Android.csproj
+		StartupItem = EmployeeDirectory.iOS\EmployeeDirectory.iOS.csproj
 	EndGlobalSection
 EndGlobal

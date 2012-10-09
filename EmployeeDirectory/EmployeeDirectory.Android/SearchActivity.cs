@@ -47,7 +47,7 @@ namespace EmployeeDirectory.Android
 			SetContentView (Resource.Layout.SearchActivity);
 
 			ListAdapter = new PeopleGroupsAdapter () {
-				ItemsSource = searchViewModel.GroupedPeople,
+				ItemsSource = searchViewModel.Groups,
 			};
 
 			//
@@ -66,7 +66,7 @@ namespace EmployeeDirectory.Android
 
 		void HandleSearchCompleted (object sender, EventArgs e)
 		{
-			((PeopleGroupsAdapter)ListAdapter).ItemsSource = searchViewModel.GroupedPeople;
+			((PeopleGroupsAdapter)ListAdapter).ItemsSource = searchViewModel.Groups;
 		}
 
 		protected override void OnListItemClick (ListView l, View v, int position, long id)

@@ -32,7 +32,7 @@ namespace EmployeeDirectory.ViewModels
 					return "Search";
 				}
 				else {
-					return search.Name;
+					return System.IO.Path.GetFileName (search.Name);
 				}
 			}
 		}
