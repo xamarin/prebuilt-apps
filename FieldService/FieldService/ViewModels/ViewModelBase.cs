@@ -23,6 +23,11 @@ namespace FieldService.ViewModels {
         /// </summary>
         public event EventHandler IsBusyChanged;
 
+        /// <summary>
+        /// Event for when IsValid changes
+        /// </summary>
+        public event EventHandler IsValidChanged;
+
         readonly List<string> errors = new List<string> ();
         bool isBusy = false;
 
@@ -42,9 +47,8 @@ namespace FieldService.ViewModels {
         protected virtual void OnPropertyChanged (string propertyName)
         {
             var method = PropertyChanged;
-            if (method != null) {
+            if (method != null)
                 method (this, new PropertyChangedEventArgs (propertyName));
-            }
         }
 
         /// <summary>
@@ -82,8 +86,17 @@ namespace FieldService.ViewModels {
         {
             OnPropertyChanged ("IsValid");
             OnPropertyChanged ("Errors");
+
+            var method = IsValidChanged;
+            if (method != null)
+                method (this, EventArgs.Empty);
         }
 
+        /// <summary>
+        /// Other viewmodels should call this when overriding Validate, to validate each property
+        /// </summary>
+        /// <param name="validate">Func to determine if a value is valid</param>
+        /// <param name="error">The error message to use if not valid</param>
         protected virtual void ValidateProperty (Func<bool> validate, string error)
         {
             if (validate ()) {
@@ -111,6 +124,9 @@ namespace FieldService.ViewModels {
             }
         }
 
+        /// <summary>
+        /// Other viewmodels can override this if something should be done when busy
+        /// </summary>
         protected virtual void OnIsBusyChanged ()
         {
             var method = IsBusyChanged;
