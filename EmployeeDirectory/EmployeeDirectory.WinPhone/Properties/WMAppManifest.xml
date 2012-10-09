@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 
 <Deployment xmlns="http://schemas.microsoft.com/windowsphone/2009/deployment" AppPlatformVersion="7.1">
-  <App xmlns="" ProductID="{4c5d31e0-c562-42f7-ad16-f6dc82128ede}" Title="EmployeeDirectory.WinPhone" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="EmployeeDirectory.WinPhone author" Description="Sample description" Publisher="EmployeeDirectory.WinPhone">
+  <App xmlns="" ProductID="{4c5d31e0-c562-42f7-ad16-f6dc82128ede}" Title="Employee Directory" RuntimeType="Silverlight" Version="1.0.0.0" Genre="apps.normal"  Author="Xamarin, Inc." Description="Sample contacts application" Publisher="Xamarin, Inc.">
     <IconPath IsRelative="true" IsResource="false">ApplicationIcon.png</IconPath>
     <Capabilities>
       <Capability Name="ID_CAP_GAMERSERVICES"/>

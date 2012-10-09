@@ -16,19 +16,10 @@ namespace EmployeeDirectory.WinPhone
 		protected override void OnNavigatedTo (System.Windows.Navigation.NavigationEventArgs e)
 		{
 			base.OnNavigatedTo (e);
-			DataContext = new FavoritesViewModel (App.Current.FavoritesRepository, true);
-		}
 
-		void HandlePersonTapped (object sender, System.Windows.Input.GestureEventArgs e)
-		{
-			var person = ((FrameworkElement)sender).DataContext as Person;
-			if (person == null) return;
-
-			var url = string.Format (
-				"/PersonPage.xaml?src=favorites&id={0}",
-				Uri.EscapeDataString (person.Id));
-
-			NavigationService.Navigate (new Uri (url, UriKind.Relative));
+			var viewModel = new FavoritesViewModel (App.Current.FavoritesRepository, true);
+			DataContext = viewModel;
+			InstructionsText.Visibility = viewModel.IsEmpty ? Visibility.Visible : Visibility.Collapsed;
 		}
 
 		void HandleSearchClicked (object sender, EventArgs e)

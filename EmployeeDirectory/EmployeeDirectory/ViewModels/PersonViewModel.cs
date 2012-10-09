@@ -25,7 +25,6 @@ namespace EmployeeDirectory.ViewModels
 			PropertyGroups = new ObservableCollection<PropertyGroup> ();
 
 			var general = new PropertyGroup ("General");
-			general.Add ("Name", person.SafeDisplayName, PropertyType.Generic);
 			general.Add ("Title", person.Title, PropertyType.Generic);
 			general.Add ("Department", person.Department, PropertyType.Generic);
 			general.Add ("Company", person.Company, PropertyType.Generic);

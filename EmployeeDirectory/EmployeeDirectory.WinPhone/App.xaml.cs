@@ -33,6 +33,11 @@ namespace EmployeeDirectory.WinPhone
 		/// </summary>
 		public IDirectoryService DirectoryService { get; private set; }
 
+		/// <summary>
+		/// Gets the last <see cref="Search" /> performed.
+		/// </summary>
+		public Search SavedSearch { get; private set; }
+
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
         /// </summary>
@@ -56,24 +61,25 @@ namespace EmployeeDirectory.WinPhone
             // Show graphics profiling information while debugging.
             if (System.Diagnostics.Debugger.IsAttached)
             {
-                // Display the current frame rate counters.
-                Application.Current.Host.Settings.EnableFrameRateCounter = true;
-
-                // Show the areas of the app that are being redrawn in each frame.
-                //Application.Current.Host.Settings.EnableRedrawRegions = true;
-
-                // Enable non-production analysis visualization mode, 
-                // which shows areas of a page that are handed off to GPU with a colored overlay.
-                //Application.Current.Host.Settings.EnableCacheVisualization = true;
-
                 // Disable the application idle detection by setting the UserIdleDetectionMode property of the
                 // application's PhoneApplicationService object to Disabled.
                 // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
                 // and consume battery power when the user is not using the phone.
                 PhoneApplicationService.Current.UserIdleDetectionMode = IdleDetectionMode.Disabled;
             }
-
         }
+
+		void HandlePersonTapped (object sender, System.Windows.Input.GestureEventArgs e)
+		{
+			var person = ((FrameworkElement)sender).DataContext as Person;
+			if (person == null) return;
+
+			var url = string.Format (
+				"/PersonPage.xaml?id={0}",
+				Uri.EscapeDataString (person.Id));
+
+			((Page)RootFrame.Content).NavigationService.Navigate (new Uri (url, UriKind.Relative));
+		}
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
@@ -88,36 +94,14 @@ namespace EmployeeDirectory.WinPhone
 
 			// Load the favorites
 			FavoritesRepository = XmlFavoritesRepository.Open ("Favorites.xml");
-			FavoritesRepository.InsertOrUpdate (new Person {
-				Name = "Frank A. Krueger",
-				Title = "Developer",
-				Email = "fak@praeclarum.org",
-				WebPage = "http://praeclarum.org",
-				Twitter = "@praeclarum",
-				MobileNumbers = new List<string> {
-					"555-123-4567",
-				},
-				Department = "Addons"
-			});
 
-			FavoritesRepository.InsertOrUpdate (new Person {
-				Name = "Jo Ann Buckner",
-				Title = "Lead",
-				Department = "Marketing"
-			});
-
-			FavoritesRepository.InsertOrUpdate (new Person {
-				Name = "James Clancey",
-				Title = "PM",
-				Department = "Addons",
-				Email = "clancey@xamarin.com",
-			});
-
-			FavoritesRepository.InsertOrUpdate (new Person {
-				Name = "James Christen",
-				Title = "Master",
-				Department = "Electronics"
-			});
+			// Load the search
+			try {
+				SavedSearch = Search.Open ("SavedSearch.xml");
+			}
+			catch (Exception) {
+				SavedSearch = new Search ("SavedSearch.xml");
+			}
         }
 
         // Code to execute when the application is activated (brought to foreground)

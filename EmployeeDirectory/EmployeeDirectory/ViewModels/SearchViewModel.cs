@@ -8,7 +8,7 @@ using System.Collections.ObjectModel;
 
 namespace EmployeeDirectory.ViewModels
 {
-	public class SearchViewModel
+	public class SearchViewModel : ViewModel
 	{
 		IDirectoryService service;
 		Search search;
@@ -37,7 +37,7 @@ namespace EmployeeDirectory.ViewModels
 			}
 		}
 
-		public ObservableCollection<PeopleGroup> GroupedPeople { get; private set; }
+		public ObservableCollection<PeopleGroup> Groups { get; private set; }
 
 		public SearchProperty SearchProperty {
 			get { return search.Property; }
@@ -46,7 +46,7 @@ namespace EmployeeDirectory.ViewModels
 
 		public string SearchText {
 			get { return search.Text; }
-			set { search.Text = value.Trim (); }
+			set { search.Text = value ?? ""; }
 		}
 
 		bool groupByLastName = true;
@@ -61,7 +61,6 @@ namespace EmployeeDirectory.ViewModels
 		}
 
 		#endregion
-
 
 		#region Commands
 
@@ -79,33 +78,33 @@ namespace EmployeeDirectory.ViewModels
 			//
 			// Perform the search
 			//
-			var tokenSource = new CancellationTokenSource ();
-			var token = tokenSource.Token;
-			service.SearchAsync (search.Filter, 200).ContinueWith (searchTask => {
-
-					if (searchTask.IsFaulted) {
-						var ev = Error;
-						if (ev != null) {
-							ev (this, new ErrorEventArgs (searchTask.Exception));
-						}
-					}
-					else {
-						search.Results = searchTask.Result.ToList ();
-						SetGroupedPeople ();
-						search.SaveAsync ();
-
-						var ev = SearchCompleted;
-						if (ev != null && !token.IsCancellationRequested) {
-							ev (this, EventArgs.Empty);
-						}
-					}
-
-				},
+			lastCancelSource = new CancellationTokenSource ();
+			var token = lastCancelSource.Token;
+			service.SearchAsync (search.Filter, 200).ContinueWith (
+				OnSearchCompleted,
 				token,
 				TaskContinuationOptions.None,
 				TaskScheduler.FromCurrentSynchronizationContext ());
+		}
 
-			lastCancelSource = tokenSource;
+		void OnSearchCompleted (Task<IList<Person>> searchTask)
+		{
+			if (searchTask.IsFaulted) {
+				var ev = Error;
+				if (ev != null) {
+					ev (this, new ErrorEventArgs (searchTask.Exception));
+				}
+			}
+			else {
+				search.Results = new Collection<Person> (searchTask.Result);
+				search.Save ();
+				SetGroupedPeople ();				
+
+				var ev = SearchCompleted;
+				if (ev != null) {
+					ev (this, EventArgs.Empty);
+				}
+			}
 		}
 
 		/// <summary>
@@ -113,7 +112,8 @@ namespace EmployeeDirectory.ViewModels
 		/// </summary>
 		void SetGroupedPeople ()
 		{
-			GroupedPeople = PeopleGroup.CreateGroups (search.Results, groupByLastName);
+			Groups = PeopleGroup.CreateGroups (search.Results, groupByLastName);
+			OnPropertyChanged ("Groups");
 		}
 
 		#endregion

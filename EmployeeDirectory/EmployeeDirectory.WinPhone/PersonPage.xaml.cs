@@ -5,6 +5,7 @@ using EmployeeDirectory.ViewModels;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Tasks;
 using Microsoft.Phone.Shell;
+using System.Linq;
 
 namespace EmployeeDirectory.WinPhone
 {
@@ -19,14 +20,15 @@ namespace EmployeeDirectory.WinPhone
 		{
 			base.OnNavigatedTo (e);
 
-			var src = NavigationContext.QueryString ["src"];
+			// Find the person
 			var id = NavigationContext.QueryString ["id"];
 
-			Person person = null;
-			if (src == "favorites") {
-				person = App.Current.FavoritesRepository.FindById (id);
+			var person = App.Current.FavoritesRepository.FindById (id);
+			if (person == null) {
+				person = App.Current.SavedSearch.Results.FirstOrDefault (x => x.Id == id);
 			}
 
+			// If we found them, display their details
 			if (person != null) {
 				var vm = new PersonViewModel (person, App.Current.FavoritesRepository);
 				vm.PropertyChanged += delegate {

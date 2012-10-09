@@ -28,86 +28,20 @@
         </StackPanel>
 
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0">
+            <TextBlock
+                x:Name="InstructionsText"
+                Text="You do not have any favorites. Add them by searching for someone."
+                Style="{StaticResource PhoneTextLargeStyle}" TextAlignment="Center" TextWrapping="Wrap" Margin="12,96,12,0" Foreground="{StaticResource PhoneSubtleBrush}"></TextBlock>
             <toolkit:LongListSelector
-                ItemsSource="{Binding Path=Groups}">
-                <toolkit:LongListSelector.GroupHeaderTemplate>
-                    <DataTemplate>
-                        <StackPanel
-                            toolkit:TiltEffect.IsTiltEnabled="True"
-                            HorizontalAlignment="Left"
-                            Margin="0,12,0,0">
-                            <Border 
-                                Background="{StaticResource PhoneAccentBrush}"
-                                Height="60"
-                                Width="60"
-                                Margin="0,10,0,4">
-                                <TextBlock
-                                    Text="{Binding Path=Title}"
-                                    Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                    Foreground="White" />
-                            </Border>
-                        </StackPanel>
-                    </DataTemplate>
-                </toolkit:LongListSelector.GroupHeaderTemplate>
+                ItemsSource="{Binding Path=Groups}"
+                ItemTemplate="{StaticResource PersonListItem}"
+                GroupHeaderTemplate="{StaticResource PersonGroupListHeader}"
+                GroupItemTemplate="{StaticResource PersonGroupListItem}">
                 <toolkit:LongListSelector.GroupItemsPanel>
                     <ItemsPanelTemplate>
                         <toolkit:WrapPanel/>
                     </ItemsPanelTemplate>
                 </toolkit:LongListSelector.GroupItemsPanel>
-                <toolkit:LongListSelector.GroupItemTemplate>
-                    <DataTemplate>
-                        <Border 
-                            Background="{StaticResource PhoneAccentBrush}"
-                            Width="100"
-                            Height="100"
-                            Margin="4,4,4,4"
-                            HorizontalAlignment="Left"
-                            VerticalAlignment="Bottom"
-                            toolkit:TiltEffect.IsTiltEnabled="True">
-                            <TextBlock 
-                                Text="{Binding Title}"
-                                Style="{StaticResource PhoneTextExtraLargeStyle}"
-                                Foreground="White" />
-                        </Border>
-                    </DataTemplate>
-                </toolkit:LongListSelector.GroupItemTemplate>
-                <toolkit:LongListSelector.ItemTemplate>
-                    <DataTemplate>
-                        <Grid 
-                            toolkit:TiltEffect.IsTiltEnabled="True"
-                            Tap="HandlePersonTapped">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="60" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="44" />
-                                <RowDefinition Height="30" />
-                            </Grid.RowDefinitions>
-                            <Image 
-                                Source="{Binding GravatarUrl}"
-                                Width="60"
-                                Height="60"
-                                Margin="0,6,0,0"
-                                Grid.Column="0"
-                                Grid.Row="0"
-                                Grid.RowSpan="2"/>
-                            <TextBlock
-                                Text="{Binding Path=SafeDisplayName}"
-                                Style="{StaticResource PhoneTextLargeStyle}"
-                                TextTrimming="WordEllipsis"
-                                Grid.Column="1"
-                                Grid.Row="0"/>
-                            <TextBlock
-                                Text="{Binding Path=TitleAndDepartment}"
-                                Style="{StaticResource PhoneTextSubtleStyle}"
-                                TextTrimming="WordEllipsis"
-                                Grid.Column="1"
-                                Grid.Row="1"
-                                Margin="12,-6,0,0"/>
-                        </Grid>
-                    </DataTemplate>
-                </toolkit:LongListSelector.ItemTemplate>
                 <toolkit:LongListSelector.ListFooter>
                     <Border
                         Height="100"/>

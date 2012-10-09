@@ -4,61 +4,22 @@ using System.Collections.Generic;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
 using System.Xml.Serialization;
+using System.Collections.ObjectModel;
 
 namespace EmployeeDirectory.Data
 {
 	/// <summary>
-	/// Represents a search: a filter and the latest results.
+	/// Represents a saved search: a filter and the latest results.
 	/// </summary>
 	public class Search
 	{
-		string name;
-		public string Name {
-			get { lock (mutex) return name; }
-			set { lock (mutex) name = value; }
-		}
+		public string Name { get; set; }
 
-		string text;
-		public string Text {
-			get { lock (mutex) return text; }
-			set { lock (mutex) text = value; }
-		}
+		public string Text { get; set; }
 
-		SearchProperty property;
-		public SearchProperty Property {
-			get { lock (mutex) return property; }
-			set { lock (mutex) property = value; }
-		}
+		public SearchProperty Property { get; set; }
 
-		public Filter Filter {
-			get {
-				lock (mutex) {
-					if (property == SearchProperty.All) {
-						return new OrFilter (
-							new ContainsFilter ("Name", text),
-							new ContainsFilter ("Title", text),
-							new ContainsFilter ("Department", text));
-					}
-					else {
-						var propName = property.ToString ();
-						return new ContainsFilter (propName, text);
-					}
-				}
-			}
-		}
-
-		List<Person> results;
-		public List<Person> Results {
-			get { lock (mutex) return results; }
-			set { lock (mutex) results = value; }
-		}
-
-		/// <summary>
-		/// A key used to lock this object to makes reads and writes
-		/// mutually exclusive. This is necessary so that we can save
-		/// this object asynchronously.
-		/// </summary>
-		readonly object mutex = new object ();
+		public Collection<Person> Results { get; set; }
 
 		public Search ()
 			: this ("")
@@ -67,36 +28,56 @@ namespace EmployeeDirectory.Data
 
 		public Search (string name)
 		{
-			this.name = name;
-			this.text = "";
-			this.property = SearchProperty.Name;
-			this.results = new List<Person> ();
+			this.Name = name;
+			this.Text = "";
+			this.Property = SearchProperty.Name;
+			this.Results = new Collection<Person> ();
 		}
 
-		public static Task<Search> OpenAsync (string name)
+		public Filter Filter
 		{
-			return Task.Factory.StartNew (() => {
-				var store = IsolatedStorageFile.GetUserStoreForApplication ();
-                var serializer = new XmlSerializer (typeof (Search));
-				using (var stream = store.OpenFile (name + ".search", FileMode.Open)) {
-					var s = (Search)serializer.Deserialize (stream);
-					s.Name = name;
-					return s;
+			get
+			{
+				var trimmed = Text.Trim ();
+				if (Property == SearchProperty.All) {
+					return new OrFilter (
+						new ContainsFilter ("Name", trimmed),
+						new ContainsFilter ("Title", trimmed),
+						new ContainsFilter ("Department", trimmed));
 				}
-			});
+				else {
+					var propName = Property.ToString ();
+					return new ContainsFilter (propName, trimmed);
+				}
+			}
 		}
 
-		public Task SaveAsync ()
+		public static Search Open (string name)
 		{
-			if (string.IsNullOrEmpty (Name)) throw new InvalidOperationException ("Name must be set.");
+			if (string.IsNullOrWhiteSpace (name)) {
+				throw new ArgumentException ("Name must be given.", "name");
+			}
 
-			return Task.Factory.StartNew (() => {
-				var store = IsolatedStorageFile.GetUserStoreForApplication ();
-                var serializer = new XmlSerializer (typeof (Search));
-				using (var stream = store.OpenFile (Name + ".search", FileMode.Create)) {
-					lock (mutex) serializer.Serialize (stream, this);
-				}
-			});
+			var store = IsolatedStorageFile.GetUserStoreForApplication ();
+			var serializer = new XmlSerializer (typeof (Search));
+			using (var stream = store.OpenFile (name, FileMode.Open)) {
+				var s = (Search)serializer.Deserialize (stream);
+				s.Name = name;
+				return s;
+			}
+		}
+
+		public void Save ()
+		{
+			if (string.IsNullOrWhiteSpace (Name)) {
+				throw new InvalidOperationException ("Name must be set.");
+			}
+
+			var store = IsolatedStorageFile.GetUserStoreForApplication ();
+			var serializer = new XmlSerializer (typeof (Search));
+			using (var stream = store.OpenFile (Name, FileMode.Create)) {
+				serializer.Serialize (stream, this);
+			}
 		}
 	}
 }

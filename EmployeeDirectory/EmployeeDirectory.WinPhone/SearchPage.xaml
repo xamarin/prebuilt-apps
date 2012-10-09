@@ -35,10 +35,12 @@
             </Grid.ColumnDefinitions>
             <TextBox
                 x:Name="SearchText"
-                Grid.Column="0" KeyDown="HandleSearchTextKeyDown" />
-            <Button
-               
-                Grid.Column="1" Click="HandleSearch">
+                Grid.Column="0"
+                KeyDown="HandleSearchTextKeyDown"
+                Text="{Binding Path=SearchText, Mode=TwoWay}"/>
+            <Button               
+                Grid.Column="1"
+                Click="HandleSearch">
                 <Button.Content>
                     <Image Source="Resources/search.rest.png"/>
                 </Button.Content>
@@ -47,8 +49,20 @@
 
         <Grid x:Name="ContentPanel" Grid.Row="2" Margin="12,0,12,0">
             <toolkit:LongListSelector
-                x:Name="SearchResults">
-                
+                x:Name="SearchResults"
+                ItemsSource="{Binding Path=Groups}"
+                ItemTemplate="{StaticResource PersonListItem}"
+                GroupHeaderTemplate="{StaticResource PersonGroupListHeader}"
+                GroupItemTemplate="{StaticResource PersonGroupListItem}">
+                <toolkit:LongListSelector.GroupItemsPanel>
+                    <ItemsPanelTemplate>
+                        <toolkit:WrapPanel/>
+                    </ItemsPanelTemplate>
+                </toolkit:LongListSelector.GroupItemsPanel>
+                <toolkit:LongListSelector.ListFooter>
+                    <Border
+                        Height="100"/>
+                </toolkit:LongListSelector.ListFooter>
             </toolkit:LongListSelector>
         </Grid>
     </Grid>

@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
+using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.WinPhone
 {
@@ -19,22 +20,27 @@ namespace EmployeeDirectory.WinPhone
 		{
 			InitializeComponent ();
 
+			DataContext = new SearchViewModel (App.Current.DirectoryService, App.Current.SavedSearch);
+
 			Loaded += HandleLoaded;
 		}
+
+		SearchViewModel ViewModel { get { return (SearchViewModel)DataContext; } }
 
 		bool IsValidSearchText
 		{
 			get
 			{
-				return string.IsNullOrWhiteSpace (SearchText.Text);
+				return !string.IsNullOrWhiteSpace (SearchText.Text);
 			}
 		}
-
+		
 		void HandleLoaded (object sender, RoutedEventArgs e)
-		{
+		{			
 			SearchText.Focus ();
+			SearchText.Select (SearchText.Text.Length, 0);
 		}
-
+		
 		void HandleSearchTextKeyDown (object sender, KeyEventArgs e)
 		{
 			if (e.Key == Key.Enter) {
@@ -45,7 +51,9 @@ namespace EmployeeDirectory.WinPhone
 
 		void HandleSearch (object sender, RoutedEventArgs e)
 		{
-
+			if (IsValidSearchText) {
+				ViewModel.Search ();
+			}
 		}
 	}
 }
