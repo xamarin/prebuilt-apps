@@ -58,11 +58,23 @@ namespace FieldService.iOS
 			get { return labelColor.Value; }
 		}
 
+		static Lazy<UIColor> indicatorColor = new Lazy<UIColor>(() => UIColor.FromRGB (0x77, 0x77, 0x77));
+		
+		public static UIColor IndicatorColor 
+		{
+			get { return indicatorColor.Value; }
+		}
+
 		#endregion
 
+		/// <summary>
+		/// Apply UIAppearance to this application, this is iOS's version of "styling"
+		/// </summary>
 		public static void Apply()
 		{
 			UILabel.Appearance.TextColor = LabelColor;
+
+			UIActivityIndicatorView.Appearance.Color = IndicatorColor;
 		}
 	}
 }

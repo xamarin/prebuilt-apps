@@ -135,5 +135,7 @@
     <Content Include="Images\login_inset.png" />
     <Content Include="Images\login_textfield.png" />
     <Content Include="Images\login_box.png" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logo%402x.png" />
   </ItemGroup>
 </Project>
