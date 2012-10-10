@@ -78,8 +78,13 @@ namespace FieldService.Android {
 
         private void Login ()
         {
+            //this hides the keyboard
+            var imm = (InputMethodManager)GetSystemService (Context.InputMethodService); 
+            imm.HideSoftInputFromWindow (password.WindowToken, HideSoftInputFlags.NotAlways);
+
             loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
-                login.Enabled = true;
+
+                //will do something else later.
                 Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
             });
         }
@@ -97,8 +102,6 @@ namespace FieldService.Android {
             if (actionId == ImeAction.Go) {
                 if (loginViewModel.IsValid) {
                     Login ();
-                    var methodManager = (InputMethodManager)GetSystemService (Context.InputMethodService);
-                    methodManager.HideSoftInputFromInputMethod (v.WindowToken, HideSoftInputFlags.None);
                 }
                 return true;
                 //next action will set focus to password edit text.
