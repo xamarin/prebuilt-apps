@@ -52,7 +52,7 @@
             android:text="Log In"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/login"
+            android:id="@+id/logIn"
             android:layout_below="@+id/password"
             android:layout_marginTop="43dp"
             android:layout_marginLeft="8dp"
@@ -76,9 +76,9 @@
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/loginIndicator"
-            android:layout_alignTop="@+id/login"
+            android:id="@+id/loginProgress"
+            android:layout_alignTop="@+id/logIn"
             android:layout_centerHorizontal="true"
-            android:visibility="visible" />
+            android:visibility="invisible" />
     </RelativeLayout>
 </RelativeLayout>

@@ -1,8 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="LoginDialog" parent="@android:style/Theme.Holo">
-    <item name="android:windowBackground">@android:color/transparent</item>
-  </style>
   <style name="CustomHoloTheme" parent="@android:style/Theme.Holo">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>

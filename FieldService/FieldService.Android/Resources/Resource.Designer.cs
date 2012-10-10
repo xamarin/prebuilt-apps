@@ -23,6 +23,17 @@ namespace FieldService.Android
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f040000
+			public const int blueclick = 2130968576;
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Drawable
 		{
 			
@@ -33,10 +44,13 @@ namespace FieldService.Android
 			public const int Icon = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int loginbox = 2130837506;
+			public const int login_button = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int XamarinTitle = 2130837507;
+			public const int loginbox = 2130837507;
+			
+			// aapt resource value: 0x7f020004
+			public const int XamarinTitle = 2130837508;
 			
 			private Drawable()
 			{
@@ -46,29 +60,32 @@ namespace FieldService.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int actionBar = 2131099648;
+			// aapt resource value: 0x7f070000
+			public const int actionBar = 2131165184;
 			
-			// aapt resource value: 0x7f060001
-			public const int actionBarTitle = 2131099649;
+			// aapt resource value: 0x7f070001
+			public const int actionBarTitle = 2131165185;
 			
-			// aapt resource value: 0x7f060003
-			public const int dialogImage = 2131099651;
+			// aapt resource value: 0x7f070003
+			public const int dialogImage = 2131165187;
 			
-			// aapt resource value: 0x7f060002
-			public const int dialogLayout = 2131099650;
+			// aapt resource value: 0x7f070002
+			public const int dialogLayout = 2131165186;
 			
-			// aapt resource value: 0x7f060004
-			public const int dialogTitle = 2131099652;
+			// aapt resource value: 0x7f070004
+			public const int dialogTitle = 2131165188;
 			
-			// aapt resource value: 0x7f060007
-			public const int logIn = 2131099655;
+			// aapt resource value: 0x7f070007
+			public const int logIn = 2131165191;
 			
-			// aapt resource value: 0x7f060006
-			public const int password = 2131099654;
+			// aapt resource value: 0x7f070008
+			public const int loginProgress = 2131165192;
 			
-			// aapt resource value: 0x7f060005
-			public const int userName = 2131099653;
+			// aapt resource value: 0x7f070006
+			public const int password = 2131165190;
+			
+			// aapt resource value: 0x7f070005
+			public const int userName = 2131165189;
 			
 			private Id()
 			{
@@ -79,7 +96,7 @@ namespace FieldService.Android
 		{
 			
 			// aapt resource value: 0x7f030000
-			public const int Main = 2130903040;
+			public const int Login = 2130903040;
 			
 			private Layout()
 			{
@@ -89,17 +106,17 @@ namespace FieldService.Android
 		public partial class String
 		{
 			
-			// aapt resource value: 0x7f040001
-			public const int ApplicationName = 2130968577;
+			// aapt resource value: 0x7f050001
+			public const int ApplicationName = 2131034113;
 			
-			// aapt resource value: 0x7f040000
-			public const int Hello = 2130968576;
+			// aapt resource value: 0x7f050000
+			public const int Hello = 2131034112;
 			
-			// aapt resource value: 0x7f040003
-			public const int Password = 2130968579;
+			// aapt resource value: 0x7f050003
+			public const int Password = 2131034115;
 			
-			// aapt resource value: 0x7f040002
-			public const int Username = 2130968578;
+			// aapt resource value: 0x7f050002
+			public const int Username = 2131034114;
 			
 			private String()
 			{
@@ -109,11 +126,8 @@ namespace FieldService.Android
 		public partial class Style
 		{
 			
-			// aapt resource value: 0x7f050001
-			public const int CustomHoloTheme = 2131034113;
-			
-			// aapt resource value: 0x7f050000
-			public const int LoginDialog = 2131034112;
+			// aapt resource value: 0x7f060000
+			public const int CustomHoloTheme = 2131099648;
 			
 			private Style()
 			{
