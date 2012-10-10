@@ -5,7 +5,7 @@ using MonoTouch.UIKit;
 namespace FieldService.iOS
 {
 	/// <summary>
-	/// Base controller for all controllers in app
+	/// Base controller for all controllers in application
 	/// </summary>
 	public class BaseController : UIViewController
 	{
@@ -17,39 +17,41 @@ namespace FieldService.iOS
 		/// </param>
 		public BaseController (IntPtr handle) : base (handle)
 		{
-			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.WillHideNotification, notification => {
-				OnKeyboardNotification(false, notification);
-			});
+			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.WillHideNotification, OnKeyboardNotification);
 			
-			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.WillShowNotification, notification => {
-				OnKeyboardNotification(true, notification);
-			});
+			NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.WillShowNotification, OnKeyboardNotification);
 		}
 
-		public override bool ShouldAutorotateToInterfaceOrientation (UIInterfaceOrientation toInterfaceOrientation)
-		{
-			return true;
-		}
-
+		/// <summary>
+		/// This is how orientation is setup on iOS 6
+		/// </summary>
 		public override bool ShouldAutorotate ()
 		{
 			return true;
 		}
 
+		/// <summary>
+		/// This is how orientation is setup on iOS 6
+		/// </summary>
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
 		{
 			return UIInterfaceOrientationMask.All;
 		}
 
-		private void OnKeyboardNotification(bool visible, NSNotification notification)
+		private void OnKeyboardNotification(NSNotification notification)
 		{
 			if (IsViewLoaded) {
 
+				//Check if the keyboard is becoming visible
+				bool visible = notification.Name == UIKeyboard.WillShowNotification;
+
+				//Start an animation, using values from the keyboard
 				UIView.BeginAnimations ("AnimateForKeyboard");
 				UIView.SetAnimationBeginsFromCurrentState (true);
 				UIView.SetAnimationDuration (UIKeyboard.AnimationDurationFromNotification (notification));
 				UIView.SetAnimationCurve ((UIViewAnimationCurve)UIKeyboard.AnimationCurveFromNotification (notification));
 
+				//Pass the notification, calculating keyboard height, etc.
 				bool landscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight;
 				if (visible) 
 				{
@@ -63,7 +65,8 @@ namespace FieldService.iOS
 
 					OnKeyboardChanged (visible, landscape ? keyboardFrame.Width : keyboardFrame.Height);
 				}
-				
+
+				//Commit the animation
 				UIView.CommitAnimations ();	
 			}
 		}
@@ -80,6 +83,18 @@ namespace FieldService.iOS
 		protected virtual void OnKeyboardChanged(bool visible, float height)
 		{
 
+		}
+
+		/// <summary>
+		/// Dispose the controller, need to unsubsribe from notifications
+		/// </summary>
+		protected override void Dispose (bool disposing)
+		{
+			NSNotificationCenter.DefaultCenter.RemoveObserver (this, UIKeyboard.WillHideNotification);
+			
+			NSNotificationCenter.DefaultCenter.RemoveObserver (this, UIKeyboard.WillShowNotification);
+
+			base.Dispose (disposing);
 		}
 	}
 }

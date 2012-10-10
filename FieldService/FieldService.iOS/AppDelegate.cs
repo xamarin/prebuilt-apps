@@ -6,18 +6,24 @@ using MonoTouch.UIKit;
 
 namespace FieldService.iOS
 {
-	// The UIApplicationDelegate for the application. This class is responsible for launching the 
-	// User Interface of the application, as well as listening (and optionally responding) to 
-	// application events from iOS.
+	/// <summary>
+	/// AppDelegate, the main callback for application-level events in iOS
+	/// </summary>
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
+		/// <summary>
+		/// Gets or sets the main window of the application
+		/// </value>
 		public override UIWindow Window
 		{
 			get;
 			set;
 		}
 
+		/// <summary>
+		/// This the main entry point for the app on iOS
+		/// </summary>
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			Theme.Apply ();
@@ -25,6 +31,9 @@ namespace FieldService.iOS
 			return true;
 		}
 
+		/// <summary>
+		/// This is how orientation is setup on iOS 6
+		/// </summary>
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations (UIApplication application, UIWindow forWindow)
 		{
 			return UIInterfaceOrientationMask.All;
