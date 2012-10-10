@@ -129,7 +129,7 @@
     </Compile>
     <Compile Include="Utilities\BooleanToVisibilityConverter.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
-    <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Utilities\DelegateCommand.cs" />
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>

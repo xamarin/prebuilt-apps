@@ -15,12 +15,12 @@ namespace FieldService.WinRT.ViewModels {
     /// </summary>
     public class LoginViewModel : FieldService.ViewModels.LoginViewModel {
 
-        readonly RelayCommand loginCommand;
+        readonly DelegateCommand loginCommand;
 
         public LoginViewModel (IService service)
             : base (service)
         {
-            loginCommand = new RelayCommand (async () => {
+            loginCommand = new DelegateCommand (async _ => {
 
                 bool success = await LoginAsync ();
                 if (success)
@@ -28,13 +28,13 @@ namespace FieldService.WinRT.ViewModels {
                 else
                     await new MessageDialog (Error).ShowAsync ();
 
-            }, () => !IsBusy && IsValid);
+            }, _ => !IsBusy && IsValid);
         }
 
         /// <summary>
         /// LoginCommand for binding to a button
         /// </summary>
-        public RelayCommand LoginCommand
+        public DelegateCommand LoginCommand
         {
             get { return loginCommand; }
         }
@@ -44,7 +44,7 @@ namespace FieldService.WinRT.ViewModels {
             base.Validate ();
 
             if (loginCommand != null)
-                loginCommand.InvalidateCanExecute ();
+                loginCommand.RaiseCanExecuteChanged ();
         }
 
         protected override void OnIsBusyChanged ()
@@ -52,7 +52,7 @@ namespace FieldService.WinRT.ViewModels {
             base.OnIsBusyChanged ();
 
             if (loginCommand != null)
-                loginCommand.InvalidateCanExecute ();
+                loginCommand.RaiseCanExecuteChanged ();
         }
     }
 }
