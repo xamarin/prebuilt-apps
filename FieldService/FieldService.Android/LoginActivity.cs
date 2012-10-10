@@ -12,16 +12,12 @@ namespace FieldService.Android {
     [Activity (Label = "Login", MainLauncher = true, Theme = "@style/CustomHoloTheme", Icon = "@drawable/icon")]
     public class LoginActivity : Activity, TextView.IOnEditorActionListener {
         readonly LoginViewModel loginViewModel;
-        readonly DefaultService serivce;
-        EditText password,
-            userName;
+        EditText password, userName;
         Button logIn;
 
         public LoginActivity ()
         {
-            serivce = new DefaultService();
-            loginViewModel = new LoginViewModel (serivce);
-            
+            loginViewModel = new LoginViewModel (new DefaultService());
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -54,10 +50,10 @@ namespace FieldService.Android {
             };
         }
 
-        public bool OnEditorAction (TextView v, global::Android.Views.InputMethods.ImeAction actionId, KeyEvent e)
+        public bool OnEditorAction (TextView v, ImeAction actionId, KeyEvent e)
         {
             //go edit action will login
-            if (actionId == global::Android.Views.InputMethods.ImeAction.Go) {
+            if (actionId == ImeAction.Go) {
                 loginViewModel.Username = userName.Text;
                 loginViewModel.Password = password.Text;
                 if (loginViewModel.IsValid) {
@@ -66,12 +62,12 @@ namespace FieldService.Android {
                         logIn.Enabled = true;
                         Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
                     });
-                   InputMethodManager methodManager = (InputMethodManager)GetSystemService (Context.InputMethodService);
+                   var methodManager = (InputMethodManager)GetSystemService (Context.InputMethodService);
                    methodManager.HideSoftInputFromInputMethod (v.WindowToken, HideSoftInputFlags.None);
                 }
                 return true;
                 //next action will set focus to password edit text.
-            } else if(actionId == global::Android.Views.InputMethods.ImeAction.Next) {
+            } else if(actionId == ImeAction.Next) {
                 password.RequestFocus ();
                 return true;
             }
