@@ -1,17 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using FieldService.Data;
+﻿using FieldService.Data;
 using FieldService.WinRT.ViewModels;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FieldService.WinRT.Views {
@@ -52,7 +42,7 @@ namespace FieldService.WinRT.Views {
         {
             if (e.Key == Windows.System.VirtualKey.Enter) {
                 e.Handled = true;
-                loginViewModel.LoginCommand.Invoke (null);
+                loginViewModel.LoginCommand.Invoke ();
             }
 
             base.OnKeyDown (e);
