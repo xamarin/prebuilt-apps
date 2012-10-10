@@ -1,25 +1,21 @@
-﻿using System;
-
-using Android.App;
+﻿using Android.App;
 using Android.Content;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
 using Android.OS;
+using Android.Views;
+using Android.Views.InputMethods;
+using Android.Widget;
+using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using FieldService.Data;
-using System.Threading.Tasks;
-using Android.Views.InputMethods;
 
 namespace FieldService.Android {
-    [Activity (Label = "Login", MainLauncher = true, Theme="@android:style/Theme.Holo", Icon = "@drawable/icon")]
+    [Activity (Label = "Login", MainLauncher = true, Theme = "@style/CustomHoloTheme", Icon = "@drawable/icon")]
     public class LoginActivity : Activity, TextView.IOnEditorActionListener {
-        private readonly LoginViewModel loginViewModel;
-        private readonly DefaultService serivce;
-        private EditText password,
+        readonly LoginViewModel loginViewModel;
+        readonly DefaultService serivce;
+        EditText password,
             userName;
-        private Button button;
+        Button logIn;
 
         public LoginActivity ()
         {
@@ -37,7 +33,7 @@ namespace FieldService.Android {
 
             // Get our controls from the layout resource,
             // and attach an event to it
-            button = FindViewById<Button> (Resource.Id.MyButton);
+            logIn = FindViewById<Button> (Resource.Id.logIn);
             userName = FindViewById<EditText> (Resource.Id.userName);
             password = FindViewById<EditText> (Resource.Id.password);
 
@@ -45,13 +41,13 @@ namespace FieldService.Android {
             userName.SetOnEditorActionListener (this);
             password.SetOnEditorActionListener (this);
             
-            button.Click += delegate {
+            logIn.Click += delegate {
                 loginViewModel.Username = userName.Text;
                 loginViewModel.Password = password.Text;
                 if (loginViewModel.IsValid) {
-                    button.Enabled = false;
+                    logIn.Enabled = false;
                     loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
-                        button.Enabled = true;
+                        logIn.Enabled = true;
                         Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
                     });
                 }
@@ -65,9 +61,9 @@ namespace FieldService.Android {
                 loginViewModel.Username = userName.Text;
                 loginViewModel.Password = password.Text;
                 if (loginViewModel.IsValid) {
-                    button.Enabled = false;
+                    logIn.Enabled = false;
                     loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
-                        button.Enabled = true;
+                        logIn.Enabled = true;
                         Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
                     });
                    InputMethodManager methodManager = (InputMethodManager)GetSystemService (Context.InputMethodService);
