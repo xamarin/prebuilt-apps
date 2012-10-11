@@ -1,3 +1,18 @@
+//
+//  Copyright 2012  Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+
 using System;
 using System.Drawing;
 using MonoTouch.Foundation;
@@ -10,8 +25,8 @@ namespace FieldService.iOS
 {
 	public partial class LoginController : BaseController
 	{
-		readonly LoginViewModel loginViewModel = new LoginViewModel(new SampleLoginService());
-
+		readonly LoginViewModel loginViewModel = new LoginViewModel (new SampleLoginService ());
+		
 		public LoginController (IntPtr handle) : base (handle)
 		{
 			//Hook up ViewModel events
@@ -41,7 +56,7 @@ namespace FieldService.iOS
 			//Text Fields
 			//I used LeftView as a quick way to add padding to a "plain" styled UITextField
 
-			username.LeftView = new UIView(new RectangleF(0, 0, 10, 10));
+			username.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
 			username.LeftViewMode = UITextFieldViewMode.Always;
 			username.Background = Theme.LoginTextField;
 			username.SetDidChangeNotification (text => loginViewModel.Username = text.Text);
@@ -50,7 +65,7 @@ namespace FieldService.iOS
 				return false;
 			};
 
-			password.LeftView = new UIView(new RectangleF(0, 0, 10, 10));
+			password.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
 			password.LeftViewMode = UITextFieldViewMode.Always;
 			password.Background = Theme.LoginTextField;
 			password.SetDidChangeNotification (text => loginViewModel.Password = text.Text);
@@ -69,9 +84,9 @@ namespace FieldService.iOS
 			loginViewModel.LoginAsync ()
 				.ContinueOnUIThread (_ => {
 					
-					//We'll do something else here later
-					new UIAlertView("Success!", "Logged in.", null, "OK").Show ();
-				});
+				//We'll do something else here later
+				new UIAlertView ("Success!", "Logged in.", null, "OK").Show ();
+			});
 		}
 		
 		public override void ViewDidUnload ()

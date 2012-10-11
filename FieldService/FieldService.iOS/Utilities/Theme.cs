@@ -1,3 +1,18 @@
+//
+//  Copyright 2012  Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+
 using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -12,53 +27,48 @@ namespace FieldService.iOS
 	{
 		#region Images
 
-		static Lazy<UIImage> linenPattern = new Lazy<UIImage>(() => UIImage.FromFile("Images/linenpattern.png").CreateResizableImage (new UIEdgeInsets()));
+		static Lazy<UIImage> linenPattern = new Lazy<UIImage> (() => UIImage.FromFile ("Images/linenpattern.png").CreateResizableImage (new UIEdgeInsets ()));
 
 		/// <summary>
 		/// Linen pattern background for use throughout the app
 		/// </summary>
-		public static UIImage LinenPattern
-		{
+		public static UIImage LinenPattern {
 			get { return linenPattern.Value; }
 		}
 
-		static Lazy<UIImage> loginBox = new Lazy<UIImage>(() => UIImage.FromFile("Images/login_box.png").CreateResizableImage (new UIEdgeInsets(21, 21, 21, 21)));
+		static Lazy<UIImage> loginBox = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_box.png").CreateResizableImage (new UIEdgeInsets (21, 21, 21, 21)));
 
 		/// <summary>
 		/// Login box on first screen
 		/// </summary>
-		public static UIImage LoginBox
-		{
+		public static UIImage LoginBox {
 			get { return loginBox.Value; }
 		}
 
-		static Lazy<UIImage> loginButton = new Lazy<UIImage>(() => UIImage.FromFile("Images/login_btn.png").CreateResizableImage (new UIEdgeInsets(11, 8, 11, 8)));
+		static Lazy<UIImage> loginButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_btn.png").CreateResizableImage (new UIEdgeInsets (11, 8, 11, 8)));
 
 		/// <summary>
 		/// Login button on first screen
 		/// </summary>
-		public static UIImage LoginButton
-		{
+		public static UIImage LoginButton {
 			get { return loginButton.Value; }
 		}
 
-		static Lazy<UIImage> loginTextField = new Lazy<UIImage>(() => UIImage.FromFile("Images/login_textfield.png").CreateResizableImage (new UIEdgeInsets(10, 10, 10, 10)));
+		static Lazy<UIImage> loginTextField = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_textfield.png").CreateResizableImage (new UIEdgeInsets (10, 10, 10, 10)));
 
 		/// <summary>
 		/// Login text field on first screen
 		/// </summary>
-		public static UIImage LoginTextField
-		{
+		public static UIImage LoginTextField {
 			get { return loginTextField.Value; }
 		}
 
-		static Lazy<UIImage> loginInset = new Lazy<UIImage>(() => UIImage.FromFile("Images/login_inset.png").CreateResizableImage (new UIEdgeInsets(12, 12, 12, 12)));
+		static Lazy<UIImage> loginInset = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_inset.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
 
 		/// <summary>
 		/// Login box on first screen, used in the logo's inset
 		/// </summary>
-		public static UIImage LoginInset
-		{
+		public static UIImage LoginInset {
 			get { return loginInset.Value; }
 		}
 
@@ -66,23 +76,21 @@ namespace FieldService.iOS
 
 		#region Colors
 
-		static Lazy<UIColor> labelColor = new Lazy<UIColor>(() => UIColor.FromRGB (0x33, 0x33, 0x33));
+		static Lazy<UIColor> labelColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x33, 0x33, 0x33));
 
 		/// <summary>
 		/// General label color for the entire app
 		/// </summary>
-		public static UIColor LabelColor 
-		{
+		public static UIColor LabelColor {
 			get { return labelColor.Value; }
 		}
 
-		static Lazy<UIColor> indicatorColor = new Lazy<UIColor>(() => UIColor.FromRGB (0x77, 0x77, 0x77));
+		static Lazy<UIColor> indicatorColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x77, 0x77, 0x77));
 
 		/// <summary>
 		/// General indicator color for the entire app
 		/// </summary>
-		public static UIColor IndicatorColor 
-		{
+		public static UIColor IndicatorColor {
 			get { return indicatorColor.Value; }
 		}
 
@@ -91,7 +99,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Apply UIAppearance to this application, this is iOS's version of "styling"
 		/// </summary>
-		public static void Apply()
+		public static void Apply ()
 		{
 			UILabel.Appearance.TextColor = LabelColor;
 

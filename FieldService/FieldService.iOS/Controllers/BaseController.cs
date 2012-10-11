@@ -1,3 +1,18 @@
+//
+//  Copyright 2012  Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+
 using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -38,7 +53,7 @@ namespace FieldService.iOS
 			return UIInterfaceOrientationMask.All;
 		}
 
-		private void OnKeyboardNotification(NSNotification notification)
+		private void OnKeyboardNotification (NSNotification notification)
 		{
 			if (IsViewLoaded) {
 
@@ -53,14 +68,11 @@ namespace FieldService.iOS
 
 				//Pass the notification, calculating keyboard height, etc.
 				bool landscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight;
-				if (visible) 
-				{
+				if (visible) {
 					var keyboardFrame = UIKeyboard.FrameEndFromNotification (notification);
 					
 					OnKeyboardChanged (visible, landscape ? keyboardFrame.Width : keyboardFrame.Height);
-				}
-				else
-				{
+				} else {
 					var keyboardFrame = UIKeyboard.FrameBeginFromNotification (notification);
 
 					OnKeyboardChanged (visible, landscape ? keyboardFrame.Width : keyboardFrame.Height);
@@ -80,7 +92,7 @@ namespace FieldService.iOS
 		/// <param name='height'>
 		/// Calculated height of the keyboard (width not generally needed here)
 		/// </param>
-		protected virtual void OnKeyboardChanged(bool visible, float height)
+		protected virtual void OnKeyboardChanged (bool visible, float height)
 		{
 
 		}
