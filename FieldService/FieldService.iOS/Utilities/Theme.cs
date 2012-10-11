@@ -27,7 +27,337 @@ namespace FieldService.iOS
 	{
 		#region Images
 
-		static Lazy<UIImage> linenPattern = new Lazy<UIImage> (() => UIImage.FromFile ("Images/linenpattern.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> accept = new Lazy<UIImage>(() => UIImage.FromFile("Images/accept.png").CreateResizableImage (new UIEdgeInsets(19,16,19,16)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Accept
+		{
+			get { return accept.Value; }
+		}
+
+		static Lazy<UIImage> addphoto = new Lazy<UIImage>(() => UIImage.FromFile("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets(18,19,21,19)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage AddPhoto
+		{
+			get { return addphoto.Value; }
+		}
+
+		static Lazy<UIImage> arrow_down = new Lazy<UIImage>(() => UIImage.FromFile("Images/arrow_down.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Arrow_Down
+		{
+			get { return arrow_down.Value; }
+		}
+
+		static Lazy<UIImage> arrow_up = new Lazy<UIImage>(() => UIImage.FromFile("Images/arrow_up.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Arrow_Up
+		{
+			get { return arrow_up.Value; }
+		}
+
+		static Lazy<UIImage> arrow = new Lazy<UIImage>(() => UIImage.FromFile("Images/arrow.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Arrow
+		{
+			get { return arrow.Value; }
+		}
+
+		static Lazy<UIImage> arrowwhite = new Lazy<UIImage>(() => UIImage.FromFile("Images/arrowwhite.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage ArrowWhite
+		{
+			get { return arrowwhite.Value; }
+		}
+
+		static Lazy<UIImage> assignmentactive = new Lazy<UIImage>(() => UIImage.FromFile("Images/assignmentactive.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage AssignmentActive
+		{
+			get { return assignmentactive.Value; }
+		}
+
+		static Lazy<UIImage> assignmentblue = new Lazy<UIImage>(() => UIImage.FromFile("Images/assignmentblue.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage AssignmentBlue
+		{
+			get { return assignmentblue.Value; }
+		}
+
+		static Lazy<UIImage> assignmentgrey = new Lazy<UIImage>(() => UIImage.FromFile("Images/assignmentgrey.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage AssignmentGrey
+		{
+			get { return assignmentgrey.Value; }
+		}
+
+		static Lazy<UIImage> backbutton = new Lazy<UIImage>(() => UIImage.FromFile("Images/backbutton.png").CreateResizableImage (new UIEdgeInsets(15,15,15,5)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage BackButton
+		{
+			get { return backbutton.Value; }
+		}
+
+		static Lazy<UIImage> bluebar = new Lazy<UIImage>(() => UIImage.FromFile("Images/bluebar.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage BlueBar
+		{
+			get { return bluebar.Value; }
+		}
+
+		static Lazy<UIImage> bluenavbutton = new Lazy<UIImage>(() => UIImage.FromFile("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets(6,6,6,6)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage BlueNavButton
+		{
+			get { return bluenavbutton.Value; }
+		}
+
+		static Lazy<UIImage> buttondark = new Lazy<UIImage>(() => UIImage.FromFile("Images/buttondark.png").CreateResizableImage (new UIEdgeInsets(16,17,17,17)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage ButtonDark
+		{
+			get { return buttondark.Value; }
+		}
+
+		static Lazy<UIImage> camera = new Lazy<UIImage>(() => UIImage.FromFile("Images/camera.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Camera
+		{
+			get { return camera.Value; }
+		}
+
+		static Lazy<UIImage> check_empty = new Lazy<UIImage>(() => UIImage.FromFile("Images/check_empty.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Check_Empty
+		{
+			get { return check_empty.Value; }
+		}
+
+		static Lazy<UIImage> check_filled = new Lazy<UIImage>(() => UIImage.FromFile("Images/check_filled.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Check_Filled
+		{
+			get { return check_filled.Value; }
+		}
+
+		static Lazy<UIImage> complete = new Lazy<UIImage>(() => UIImage.FromFile("Images/complete.png").CreateResizableImage (new UIEdgeInsets(16,16,16,16)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Complete
+		{
+			get { return complete.Value; }
+		}
+
+		static Lazy<UIImage> decline = new Lazy<UIImage>(() => UIImage.FromFile("Images/decline.png").CreateResizableImage (new UIEdgeInsets(19,16,19,16)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Decline
+		{
+			get { return decline.Value; }
+		}
+
+		static Lazy<UIImage> dropdown = new Lazy<UIImage>(() => UIImage.FromFile("Images/dropdown.png").CreateResizableImage (new UIEdgeInsets(6,39,6,6)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage DropDown
+		{
+			get { return dropdown.Value; }
+		}
+
+		static Lazy<UIImage> icon_pdf = new Lazy<UIImage>(() => UIImage.FromFile("Images/icon_pdf.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Icon_Pdf
+		{
+			get { return icon_pdf.Value; }
+		}
+
+		static Lazy<UIImage> iconactive = new Lazy<UIImage>(() => UIImage.FromFile("Images/iconactive.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage IconActive
+		{
+			get { return iconactive.Value; }
+		}
+
+		static Lazy<UIImage> iconcomplete = new Lazy<UIImage>(() => UIImage.FromFile("Images/iconcomplete.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage IconComplete
+		{
+			get { return iconcomplete.Value; }
+		}
+
+		static Lazy<UIImage> iconhold = new Lazy<UIImage>(() => UIImage.FromFile("Images/iconhold.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage IconHold
+		{
+			get { return iconhold.Value; }
+		}
+
+		static Lazy<UIImage> iconphone = new Lazy<UIImage>(() => UIImage.FromFile("Images/iconphone.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage IconPhone
+		{
+			get { return iconphone.Value; }
+		}
+
+		static Lazy<UIImage> iconphone_dark = new Lazy<UIImage>(() => UIImage.FromFile("Images/iconphone_dark.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage IconPhone_Dark
+		{
+			get { return iconphone_dark.Value; }
+		}
+
+		static Lazy<UIImage> iconsettings = new Lazy<UIImage>(() => UIImage.FromFile("Images/iconsettings.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage IconSettings
+		{
+			get { return iconsettings.Value; }
+		}
+
+		static Lazy<UIImage> inlay = new Lazy<UIImage>(() => UIImage.FromFile("Images/inlay.png").CreateResizableImage (new UIEdgeInsets(10, 10, 10, 10)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Inlay
+		{
+			get { return inlay.Value; }
+		}
+
+		static Lazy<UIImage> leftlist_end = new Lazy<UIImage>(() => UIImage.FromFile("Images/leftlist_end.png").CreateResizableImage (new UIEdgeInsets(12, 12, 12, 12)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage LeftList_End
+		{
+			get { return leftlist_end.Value; }
+		}
+
+		static Lazy<UIImage> leftlist_end_active = new Lazy<UIImage>(() => UIImage.FromFile("Images/leftlist_end_active.png").CreateResizableImage (new UIEdgeInsets(12, 12, 12, 12)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage LeftList_End_Active
+		{
+			get { return leftlist_end_active.Value; }
+		}
+
+		static Lazy<UIImage> leftlist_mid = new Lazy<UIImage>(() => UIImage.FromFile("Images/leftlist_mid.png").CreateResizableImage (new UIEdgeInsets(12, 12, 12, 12)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage LeftList_Mid
+		{
+			get { return leftlist_mid.Value; }
+		}
+
+		static Lazy<UIImage> leftlist_mid_active = new Lazy<UIImage>(() => UIImage.FromFile("Images/leftlist_mid_active.png").CreateResizableImage (new UIEdgeInsets(12, 12, 12, 12)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage LeftList_Mid_Active
+		{
+			get { return leftlist_mid_active.Value; }
+		}
+
+		static Lazy<UIImage> leftlist_top = new Lazy<UIImage>(() => UIImage.FromFile("Images/leftlist_top.png").CreateResizableImage (new UIEdgeInsets(12, 12, 12, 12)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage LeftList_Top
+		{
+			get { return leftlist_top.Value; }
+		}
+
+		static Lazy<UIImage> leftlist_top_active = new Lazy<UIImage>(() => UIImage.FromFile("Images/leftlist_top_active.png").CreateResizableImage (new UIEdgeInsets(12, 12, 12, 12)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage LeftList_Top_Active
+		{
+			get { return leftlist_top_active.Value; }
+		}
+
+		static Lazy<UIImage> linenPattern = new Lazy<UIImage>(() => UIImage.FromFile("Images/linenpattern.png").CreateResizableImage (new UIEdgeInsets()));
 
 		/// <summary>
 		/// Linen pattern background for use throughout the app
@@ -70,6 +400,256 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIImage LoginInset {
 			get { return loginInset.Value; }
+		}
+
+		static Lazy<UIImage> logo = new Lazy<UIImage>(() => UIImage.FromFile("Images/logo.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Logo
+		{
+			get { return logo.Value; }
+		}
+
+		static Lazy<UIImage> map = new Lazy<UIImage>(() => UIImage.FromFile("Images/map.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Map
+		{
+			get { return map.Value; }
+		}
+
+		static Lazy<UIImage> modal = new Lazy<UIImage>(() => UIImage.FromFile("Images/modal.png").CreateResizableImage (new UIEdgeInsets(65, 43, 38, 43)));
+		
+		/// <summary>
+		///
+		/// </summary>
+		public static UIImage Modal
+		{
+			get { return modal.Value; }
+		}
+
+		static Lazy<UIImage> modal_inlay = new Lazy<UIImage>(() => UIImage.FromFile("Images/modal_inlay.png").CreateResizableImage (new UIEdgeInsets(12, 12, 12, 12)));
+		
+		/// <summary>
+		///
+		/// </summary>
+		public static UIImage Modal_Inlay
+		{
+			get { return modal_inlay.Value; }
+		}
+
+		static Lazy<UIImage> numberbox = new Lazy<UIImage>(() => UIImage.FromFile("Images/modal_inlay.png").CreateResizableImage (new UIEdgeInsets(11, 11, 11, 11)));
+		
+		/// <summary>
+		///
+		/// </summary>
+		public static UIImage NumberBox
+		{
+			get { return numberbox.Value; }
+		}
+
+		static Lazy<UIImage> orangebar = new Lazy<UIImage>(() => UIImage.FromFile("Images/orangebar.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage OrangeBar
+		{
+			get { return orangebar.Value; }
+		}
+
+		static Lazy<UIImage> photoframe = new Lazy<UIImage>(() => UIImage.FromFile("Images/photoframe.png").CreateResizableImage (new UIEdgeInsets(10, 12, 15, 12)));
+		
+		/// <summary>
+		///
+		/// </summary>
+		public static UIImage PhotoFrame
+		{
+			get { return photoframe.Value; }
+		}
+
+		static Lazy<UIImage> record = new Lazy<UIImage>(() => UIImage.FromFile("Images/record.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Record
+		{
+			get { return record.Value; }
+		}
+
+		static Lazy<UIImage> record_active = new Lazy<UIImage>(() => UIImage.FromFile("Images/record_active.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Record_Active
+		{
+			get { return record_active.Value; }
+		}
+
+		static Lazy<UIImage> rightboxshadow = new Lazy<UIImage>(() => UIImage.FromFile("Images/rightboxshadow.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage RightBoxShadow
+		{
+			get { return rightboxshadow.Value; }
+		}
+
+		static Lazy<UIImage> row120 = new Lazy<UIImage>(() => UIImage.FromFile("Images/row120.png").CreateResizableImage (new UIEdgeInsets(25, 25, 25, 25)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Row120
+		{
+			get { return row120.Value; }
+		}
+
+		static Lazy<UIImage> row120end = new Lazy<UIImage>(() => UIImage.FromFile("Images/row120end.png").CreateResizableImage (new UIEdgeInsets(37, 37, 37, 37)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Row120End
+		{
+			get { return row120end.Value; }
+		}
+
+		static Lazy<UIImage> row180 = new Lazy<UIImage>(() => UIImage.FromFile("Images/row180.png").CreateResizableImage (new UIEdgeInsets(22, 22, 22, 22)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Row180
+		{
+			get { return row180.Value; }
+		}
+
+		static Lazy<UIImage> row180end = new Lazy<UIImage>(() => UIImage.FromFile("Images/row180end.png").CreateResizableImage (new UIEdgeInsets(45, 45, 45, 45)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage Row180End
+		{
+			get { return row180end.Value; }
+		}
+
+		static Lazy<UIImage> segmentend = new Lazy<UIImage>(() => UIImage.FromFile("Images/segmentend.png").CreateResizableImage (new UIEdgeInsets(6, 6, 6, 6)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage SegmentEnd
+		{
+			get { return segmentend.Value; }
+		}
+
+		static Lazy<UIImage> segmentend_active = new Lazy<UIImage>(() => UIImage.FromFile("Images/segmentend_active.png").CreateResizableImage (new UIEdgeInsets(6, 6, 6, 6)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage SegmentEnd_Active
+		{
+			get { return segmentend_active.Value; }
+		}
+
+		static Lazy<UIImage> segmentfront= new Lazy<UIImage>(() => UIImage.FromFile("Images/segmentfront.png").CreateResizableImage (new UIEdgeInsets(6, 6, 6, 6)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage SegmentFront
+		{
+			get { return segmentfront.Value; }
+		}
+
+		static Lazy<UIImage> segmentfront_active = new Lazy<UIImage>(() => UIImage.FromFile("Images/segmentfront_active.png").CreateResizableImage (new UIEdgeInsets(6, 6, 6, 6)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage SegmentFront_Active
+		{
+			get { return segmentfront_active.Value; }
+		}
+
+		static Lazy<UIImage> segmentmid = new Lazy<UIImage>(() => UIImage.FromFile("Images/segmentmid.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage SegmentMid
+		{
+			get { return segmentmid.Value; }
+		}
+
+		static Lazy<UIImage> segmentmid_active = new Lazy<UIImage>(() => UIImage.FromFile("Images/segmentmid_active.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage SegmentMid_Active
+		{
+			get { return segmentmid_active.Value; }
+		}
+
+		static Lazy<UIImage> smallgreybtn = new Lazy<UIImage>(() => UIImage.FromFile("Images/smallgreybtn.png").CreateResizableImage (new UIEdgeInsets(8, 8, 8, 8)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage SmallGreyBtn
+		{
+			get { return smallgreybtn.Value; }
+		}
+
+		static Lazy<UIImage> timerbg = new Lazy<UIImage>(() => UIImage.FromFile("Images/timerbg.png"));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage TimerBg
+		{
+			get { return timerbg.Value; }
+		}
+
+		static Lazy<UIImage> timerfield = new Lazy<UIImage>(() => UIImage.FromFile("Images/timerfield.png").CreateResizableImage (new UIEdgeInsets(6, 6, 6, 6)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage TimerField
+		{
+			get { return timerfield.Value; }
+		}
+
+		static Lazy<UIImage> topnav = new Lazy<UIImage>(() => UIImage.FromFile("Images/topnav.png").CreateResizableImage (new UIEdgeInsets(0, 0, 0, 0)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage TopNav
+		{
+			get { return topnav.Value; }
+		}
+
+		static Lazy<UIImage> topnavbtn = new Lazy<UIImage>(() => UIImage.FromFile("Images/topnavbtn.png").CreateResizableImage (new UIEdgeInsets(6, 6, 6, 6)));
+		
+		/// <summary>
+		/// 
+		/// </summary>
+		public static UIImage TopNavBtn
+		{
+			get { return topnavbtn.Value; }
 		}
 
 		#endregion
