@@ -17,7 +17,7 @@ namespace FieldService.WinRT.ViewModels {
 
         readonly DelegateCommand loginCommand;
 
-        public LoginViewModel (IService service)
+        public LoginViewModel (ILoginService service)
             : base (service)
         {
             loginCommand = new DelegateCommand (async _ => {

@@ -9,7 +9,7 @@ namespace FieldService.Data {
     /// <summary>
     /// Interface providing backend data to ViewModels
     /// </summary>
-    public interface IService {
+    public interface ILoginService {
 
         /// <summary>
         /// Asynchronous login

@@ -16,7 +16,7 @@ namespace FieldService.WinRT.Views {
             this.InitializeComponent ();
 
             DataContext =
-                loginViewModel = new LoginViewModel (new DefaultService ());
+                loginViewModel = new LoginViewModel (new SampleLoginService ());
 
             //Generally I would use two-way bindings here, but UpdateSourceTrigger is not available in WinRT
             username.TextChanged += (sender, e) => loginViewModel.Username = username.Text;

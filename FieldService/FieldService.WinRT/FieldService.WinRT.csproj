@@ -106,17 +106,17 @@
     <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
       <Link>FieldService\Data\SQLiteAsync.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Data\DefaultService.cs">
-      <Link>FieldService\Data\DefaultService.cs</Link>
+    <Compile Include="..\FieldService\Data\ILoginService.cs">
+      <Link>FieldService\Data\ILoginService.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Data\IService.cs">
-      <Link>FieldService\Data\IService.cs</Link>
+    <Compile Include="..\FieldService\Data\SampleLoginService.cs">
+      <Link>FieldService\Data\SampleLoginService.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Utilities\Extensions.cs">
-      <Link>FieldService\Utilities\Extensions.cs</Link>
+    <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
+      <Link>FieldService\Utilities\TaskExtensions.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
@@ -162,12 +162,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Dependencies\WinRTToolkit\WinRTXamlToolkit\WinRTXamlToolkit.csproj">
-      <Project>{7b7966be-213f-4b84-867d-2a0ccf61245f}</Project>
-      <Name>WinRTXamlToolkit</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>

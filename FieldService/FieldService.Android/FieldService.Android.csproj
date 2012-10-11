@@ -51,17 +51,17 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\FieldService\Data\DefaultService.cs">
-      <Link>FieldService\Data\DefaultService.cs</Link>
+    <Compile Include="..\FieldService\Data\ILoginService.cs">
+      <Link>FieldService\Data\ILoginService.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Data\IService.cs">
-      <Link>FieldService\Data\IService.cs</Link>
+    <Compile Include="..\FieldService\Data\SampleLoginService.cs">
+      <Link>FieldService\Data\SampleLoginService.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Utilities\Extensions.cs">
-      <Link>FieldService\Utilities\Extensions.cs</Link>
+    <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
+      <Link>FieldService\Utilities\TaskExtensions.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>

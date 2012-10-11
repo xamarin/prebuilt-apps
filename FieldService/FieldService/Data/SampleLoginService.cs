@@ -11,7 +11,7 @@ namespace FieldService.Data {
     /// Default IService implementation
     /// - uses a fake sleep, to emulate network interaction
     /// </summary>
-    public class DefaultService : IService {
+    public class SampleLoginService : ILoginService {
 
         //We are using NCrunch during development, we can remove this later to prevent confusion
 #if NCRUNCH

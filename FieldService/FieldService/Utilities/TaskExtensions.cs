@@ -8,7 +8,7 @@ namespace FieldService.Utilities {
     /// <summary>
     /// Class containing helper extension methods
     /// </summary>
-    public static class Extensions {
+    public static class TaskExtensions {
 
         /// <summary>
         /// Attaches a continuation on a task on the UI Thread

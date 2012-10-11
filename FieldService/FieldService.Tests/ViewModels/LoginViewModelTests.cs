@@ -15,7 +15,7 @@ namespace FieldService.Tests.ViewModels {
         [SetUp]
         public void SetUp ()
         {
-            viewModel = new LoginViewModel (new DefaultService ()); ;
+            viewModel = new LoginViewModel (new SampleLoginService ()); ;
         }
 
         [Test]

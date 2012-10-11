@@ -13,7 +13,7 @@ namespace FieldService.ViewModels {
     /// ViewModel class for the Login screen
     /// </summary>
     public class LoginViewModel : ViewModelBase {
-        readonly IService service;
+        readonly ILoginService service;
         string username;
         string password;
 
@@ -21,7 +21,7 @@ namespace FieldService.ViewModels {
         /// Constructor, requires an IService
         /// </summary>
         /// <param name="service">IService implementation</param>
-        public LoginViewModel (IService service)
+        public LoginViewModel (ILoginService service)
         {
             this.service = service;
         }
