@@ -23,9 +23,7 @@ namespace FieldService.iOS
 			if (callback == null)
 				throw new ArgumentNullException("callback");
 
-			NSNotificationCenter.DefaultCenter.AddObserver (UITextField.TextFieldTextDidChangeNotification, _ => {
-				callback(textField);
-			}, textField);
+			NSNotificationCenter.DefaultCenter.AddObserver (UITextField.TextFieldTextDidChangeNotification, _ => callback(textField), textField);
 		}
 	}
 }

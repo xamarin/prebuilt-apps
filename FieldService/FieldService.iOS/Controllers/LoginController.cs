@@ -10,7 +10,7 @@ namespace FieldService.iOS
 {
 	public partial class LoginController : BaseController
 	{
-		readonly LoginViewModel loginViewModel = new LoginViewModel(new DefaultService());
+		readonly LoginViewModel loginViewModel = new LoginViewModel(new SampleLoginService());
 
 		public LoginController (IntPtr handle) : base (handle)
 		{

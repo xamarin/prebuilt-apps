@@ -91,15 +91,6 @@
     <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Data\DefaultService.cs">
-      <Link>FieldService\Data\DefaultService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\IService.cs">
-      <Link>FieldService\Data\IService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Utilities\Extensions.cs">
-      <Link>FieldService\Utilities\Extensions.cs</Link>
-    </Compile>
     <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
     </Compile>
@@ -113,6 +104,15 @@
     </Compile>
     <Compile Include="Controllers\BaseController.cs" />
     <Compile Include="Utilities\Extensions.cs" />
+    <Compile Include="..\FieldService\Data\ILoginService.cs">
+      <Link>FieldService\Data\ILoginService.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\SampleLoginService.cs">
+      <Link>FieldService\Data\SampleLoginService.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
+      <Link>FieldService\Utilities\TaskExtensions.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -123,6 +123,8 @@
     <Folder Include="Images\" />
     <Folder Include="Utilities\" />
     <Folder Include="Controllers\" />
+    <Folder Include="FieldService\Data\" />
+    <Folder Include="FieldService\Utilities\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\linenpattern%402x.png" />
