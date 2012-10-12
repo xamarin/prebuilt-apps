@@ -27,14 +27,14 @@ namespace FieldService.iOS
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
-			assignmentViewModel = new AssignmentViewModel (new SampleAssignmentService ());
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-			tableView.DataSource = new DataSource (assignmentViewModel);
+			tableView.Source = new DataSource ();
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -44,13 +44,13 @@ namespace FieldService.iOS
 			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => tableView.ReloadData ());
 		}
 
-		private class DataSource : UITableViewDataSource
+		private class DataSource : UITableViewSource
 		{
 			readonly AssignmentViewModel assignmentViewModel;
 
-			public DataSource (AssignmentViewModel assignmentViewModel)
+			public DataSource ()
 			{
-				this.assignmentViewModel = assignmentViewModel;
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 			}
 
 			public override int RowsInSection (UITableView tableView, int section)

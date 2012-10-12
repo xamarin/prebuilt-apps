@@ -31,6 +31,9 @@ namespace FieldService.iOS
 		/// </param>
 		static void Main (string[] args)
 		{
+			//Setup our services for core library
+			Bootstrapper.Startup ();
+
 			// if you want to use a different Application Delegate class from "AppDelegate" you can specify it here.
 			UIApplication.Main (args, null, "AppDelegate");
 		}

@@ -24,10 +24,12 @@ namespace FieldService.iOS
 {
 	public partial class LoginController : BaseController
 	{
-		readonly LoginViewModel loginViewModel = new LoginViewModel (new SampleLoginService ());
+		readonly LoginViewModel loginViewModel;
 		
 		public LoginController (IntPtr handle) : base (handle)
 		{
+			loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
+
 			//Hook up ViewModel events
 			loginViewModel.IsBusyChanged += (sender, e) => {
 				if (IsViewLoaded) {

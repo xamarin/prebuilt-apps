@@ -157,6 +157,12 @@
     <Compile Include="..\FieldService\ViewModels\AssignmentViewModel.cs">
       <Link>FieldService\ViewModels\AssignmentViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Bootstrapper.cs">
+      <Link>FieldService\Bootstrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
+      <Link>FieldService\Utilities\ServiceContainer.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
