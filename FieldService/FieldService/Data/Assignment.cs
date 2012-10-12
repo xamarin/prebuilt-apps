@@ -46,6 +46,11 @@ namespace FieldService.Data {
         public string Title { get; set; }
 
         /// <summary>
+        /// Priority for the assignment
+        /// </summary>
+        public int Priority { get; set; }
+
+        /// <summary>
         /// An extended description for the job
         /// </summary>
         public string Description { get; set; }

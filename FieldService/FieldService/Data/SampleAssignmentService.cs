@@ -25,7 +25,7 @@ namespace FieldService.Data {
         {
             return Database.GetConnection ()
                 .Table<Assignment> ()
-                .OrderBy (a => a.Status)
+                .OrderBy (a => a.Priority)
                 .ToListAsync ();
         }
 
