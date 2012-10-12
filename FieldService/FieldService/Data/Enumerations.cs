@@ -18,13 +18,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FieldService.Data
-{
+namespace FieldService.Data {
     /// <summary>
     /// An enumeration for Assignment status
     /// </summary>
-    public enum AssignmentStatus
-    {
+    public enum AssignmentStatus {
         /// <summary>
         /// The assignment is new, it has not been accepted yet
         /// </summary>

@@ -19,31 +19,29 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FieldService.Data
-{
-    public class SampleAssignmentService : IAssignmentService
-    {
-        public Task<List<Assignment>> GetAssignments()
+namespace FieldService.Data {
+    public class SampleAssignmentService : IAssignmentService {
+        public Task<List<Assignment>> GetAssignmentsAsync ()
         {
-            return Database.GetConnection()
-                .Table<Assignment>()
+            return Database.GetConnection ()
+                .Table<Assignment> ()
                 .OrderBy (a => a.Status)
-                .ToListAsync();
+                .ToListAsync ();
         }
 
-        public Task<List<Item>> GetItems()
+        public Task<List<Item>> GetItemsAsync ()
         {
-            return Database.GetConnection()
-                .Table<Item>()
-                .OrderBy(i => i.Name)
-                .ToListAsync();
+            return Database.GetConnection ()
+                .Table<Item> ()
+                .OrderBy (i => i.Name)
+                .ToListAsync ();
         }
 
-        public Task<List<AssignmentItem>> GetItemsForAssignment(Assignment assignment)
+        public Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment)
         {
-            return Database.GetConnection()
-                .QueryAsync<AssignmentItem>(@"
-                    select AssignmentItem.* 
+            return Database.GetConnection ()
+                .QueryAsync<AssignmentItem> (@"
+                    select AssignmentItem.*, Item.Number, Item.Name
                     from AssignmentItem
                     inner join Item
                     on Item.ID = AssignmentItem.ID

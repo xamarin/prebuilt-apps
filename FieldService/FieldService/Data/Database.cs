@@ -20,15 +20,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 
-namespace FieldService.Data
-{
+namespace FieldService.Data {
     /// <summary>
     /// A helper class for working with SQLite
     /// </summary>
-    public static class Database
-    {
+    public static class Database {
 #if NCRUNCH
         private static readonly string Path = System.IO.Path.Combine (Environment.CurrentDirectory, "Database.db");
+
+        static Database()
+        {
+            Console.WriteLine("Database Path: " + Path);
+        }
 #else
         private const string Path = "Database.db";
 #endif
@@ -38,43 +41,40 @@ namespace FieldService.Data
         /// For use within the app on startup, this will create the database
         /// </summary>
         /// <returns></returns>
-        public static Task Initialize()
+        public static Task Initialize ()
         {
-            return CreateDatabase(new SQLiteAsyncConnection(Path, true));
+            return CreateDatabase (new SQLiteAsyncConnection (Path, true));
         }
 
         /// <summary>
         /// Global way to grab a connection to the database, make sure to wrap in a using
         /// </summary>
-        public static SQLiteAsyncConnection GetConnection()
+        public static SQLiteAsyncConnection GetConnection ()
         {
-            var connection = new SQLiteAsyncConnection(Path, true);
-            if (!initialized)
-            {
-                CreateDatabase(connection).Wait();
+            var connection = new SQLiteAsyncConnection (Path, true);
+            if (!initialized) {
+                CreateDatabase (connection).Wait ();
             }
             return connection;
         }
 
-        private static Task CreateDatabase(SQLiteAsyncConnection connection)
+        private static Task CreateDatabase (SQLiteAsyncConnection connection)
         {
-            return Task.Factory.StartNew(() =>
-            {
+            return Task.Factory.StartNew (() => {
                 //Create the tables
-                var createTask = connection.CreateTablesAsync(
-                    typeof(Assignment),
-                    typeof(Item),
-                    typeof(AssignmentItem));
-                createTask.Wait();
+                var createTask = connection.CreateTablesAsync (
+                    typeof (Assignment),
+                    typeof (Item),
+                    typeof (AssignmentItem));
+                createTask.Wait ();
 
                 //Count number of assignments
-                var countTask = connection.Table<Assignment>().CountAsync();
-                countTask.Wait();
+                var countTask = connection.Table<Assignment> ().CountAsync ();
+                countTask.Wait ();
 
                 //If no assignments exist, insert our initial data
-                if (countTask.Result == 0)
-                {
-                    var insertTask = connection.InsertAllAsync(new object[]
+                if (countTask.Result == 0) {
+                    var insertTask = connection.InsertAllAsync (new object []
                     {
                         //Some assignments
                         new Assignment
@@ -137,7 +137,7 @@ namespace FieldService.Data
                     });
 
                     //Wait for inserts
-                    insertTask.Wait();
+                    insertTask.Wait ();
 
                     //Mark database created
                     initialized = true;

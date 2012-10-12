@@ -19,14 +19,12 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FieldService.Data
-{
+namespace FieldService.Data {
     /// <summary>
     /// Link from an item to an assignment
     /// * determines items on an assignment and which have been used
     /// </summary>
-    public class AssignmentItem
-    {
+    public class AssignmentItem {
         /// <summary>
         /// ID of the assignment item, not really used
         /// </summary>
@@ -44,6 +42,16 @@ namespace FieldService.Data
         /// </summary>
         [Indexed]
         public int Assignment { get; set; }
+
+        /// <summary>
+        /// The item's name
+        /// </summary>
+        public string Name { get; private set; }
+
+        /// <summary>
+        /// The item's number
+        /// </summary>
+        public string Number { get; private set; }
 
         /// <summary>
         /// If the item was used

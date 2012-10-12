@@ -23,6 +23,9 @@ using System.Text;
 using System.Threading.Tasks;
 
 namespace FieldService.Tests.ViewModels {
+    /// <summary>
+    /// Test for LoginViewModel
+    /// </summary>
     [TestFixture]
     class LoginViewModelTests {
         LoginViewModel viewModel;

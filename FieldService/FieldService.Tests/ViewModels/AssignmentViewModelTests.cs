@@ -13,31 +13,37 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
+using FieldService.ViewModels;
+using NUnit.Framework;
 
-namespace FieldService.Data {
+namespace FieldService.Tests.ViewModels {
     /// <summary>
-    /// An item to be used on an assignment
+    /// Tests for AssignmentViewModel
     /// </summary>
-    public class Item {
-        /// <summary>
-        /// ID of the item
-        /// </summary>
-        [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+    [TestFixture]
+    public class AssignmentViewModelTests {
+        AssignmentViewModel viewModel;
 
-        /// <summary>
-        /// Name of the item
-        /// </summary>
-        public string Name { get; set; }
+        [SetUp]
+        public void SetUp ()
+        {
+            viewModel = new AssignmentViewModel (new Mocks.MockAssignmentService ());
+        }
 
-        /// <summary>
-        /// Number of the item
-        /// </summary>
-        public string Number { get; set; }
+        [Test]
+        public void Load ()
+        {
+            var task = viewModel.LoadAssignmentsAsync ();
+
+            Task.WaitAll (task);
+
+            Assert.That (viewModel.Assignments, Is.Not.Null);
+            Assert.That (viewModel.Assignments.Count, Is.Not.EqualTo(0));
+        }
     }
 }

@@ -21,54 +21,57 @@ using NUnit.Framework;
 using FieldService.Data;
 using System.Threading.Tasks;
 
-namespace FieldService.Tests.Data
-{
+namespace FieldService.Tests.Data {
     [TestFixture]
-    public class SampleAssignmentServiceTests
-    {
+    public class SampleAssignmentServiceTests {
         IAssignmentService service;
 
         [SetUp]
-        public void SetUp()
+        public void SetUp ()
         {
-            service = new SampleAssignmentService();
+            service = new SampleAssignmentService ();
         }
 
         [Test]
-        public void GetAssignments()
+        public void GetAssignments ()
         {
-            var task = service.GetAssignments();
+            var task = service.GetAssignmentsAsync ();
 
-            Task.WaitAll(task);
+            Task.WaitAll (task);
 
-            Assert.That(task.Result, Is.Not.Null);
-            Assert.That(task.Result.Count, Is.Not.EqualTo(0));
+            Assert.That (task.Result, Is.Not.Null);
+            Assert.That (task.Result.Count, Is.Not.EqualTo (0));
         }
 
         [Test]
-        public void GetItems()
+        public void GetItems ()
         {
-            var task = service.GetItems();
+            var task = service.GetItemsAsync ();
 
-            Task.WaitAll(task);
+            Task.WaitAll (task);
 
-            Assert.That(task.Result, Is.Not.Null);
-            Assert.That(task.Result.Count, Is.Not.EqualTo(0));
+            Assert.That (task.Result, Is.Not.Null);
+            Assert.That (task.Result.Count, Is.Not.EqualTo (0));
         }
 
         [Test]
-        public void GetAssignmentItems()
+        public void GetAssignmentItems ()
         {
-            var assignmentTask = service.GetAssignments();
+            var assignmentTask = service.GetAssignmentsAsync ();
 
-            Task.WaitAll(assignmentTask);
+            Task.WaitAll (assignmentTask);
 
-            var task = service.GetItemsForAssignment(assignmentTask.Result.First());
+            var task = service.GetItemsForAssignmentAsync (assignmentTask.Result.First ());
 
-            Task.WaitAll(task);
+            Task.WaitAll (task);
 
-            Assert.That(task.Result, Is.Not.Null);
-            Assert.That(task.Result.Count, Is.Not.EqualTo(0));
+            Assert.That (task.Result, Is.Not.Null);
+            Assert.That (task.Result.Count, Is.Not.EqualTo (0));
+
+            foreach (var item in task.Result) {
+                Assert.That (item.Name, Is.Not.Null);
+                Assert.That (item.Number, Is.Not.Null);
+            }
         }
     }
 }

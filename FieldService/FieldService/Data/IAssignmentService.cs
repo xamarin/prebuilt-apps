@@ -19,14 +19,24 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FieldService.Data
-{
-    public interface IAssignmentService
-    {
-        Task<List<Assignment>> GetAssignments();
+namespace FieldService.Data {
+    /// <summary>
+    /// Service for returning and saving assignment information
+    /// </summary>
+    public interface IAssignmentService {
+        /// <summary>
+        /// Gets a list of assignments
+        /// </summary>
+        Task<List<Assignment>> GetAssignmentsAsync ();
 
-        Task<List<Item>> GetItems();
+        /// <summary>
+        /// Gets a list of items
+        /// </summary>
+        Task<List<Item>> GetItemsAsync ();
 
-        Task<List<AssignmentItem>> GetItemsForAssignment(Assignment assignment);
+        /// <summary>
+        /// Gets a list of items for an assignment
+        /// </summary>
+        Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment);
     }
 }

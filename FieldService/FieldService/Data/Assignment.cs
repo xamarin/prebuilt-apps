@@ -19,13 +19,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace FieldService.Data
-{
+namespace FieldService.Data {
     /// <summary>
     /// An assignment is the "thing" or "job" the user is going to work on
     /// </summary>
-    public class Assignment
-    {
+    public class Assignment {
         /// <summary>
         /// Assignment ID
         /// </summary>
@@ -51,7 +49,7 @@ namespace FieldService.Data
         /// An extended description for the job
         /// </summary>
         public string Description { get; set; }
-        
+
         /// <summary>
         /// Date & time the assignment should start
         /// </summary>
@@ -85,7 +83,7 @@ namespace FieldService.Data
         {
             get
             {
-                return TimeSpan.FromTicks(Ticks);
+                return TimeSpan.FromTicks (Ticks);
             }
             set
             {
