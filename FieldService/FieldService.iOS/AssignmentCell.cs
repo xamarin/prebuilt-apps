@@ -23,11 +23,25 @@ namespace FieldService.iOS
 	{
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
+			SelectedBackgroundView = new UIView { BackgroundColor = Theme.AssignmentBlue };
+		}
+
+		public override void LayoutSubviews ()
+		{
+			base.LayoutSubviews ();
+
+			priority.TextColor = UIColor.White;
+			priorityBackground.Image = Theme.NumberBox;
+
+			numberAndDate.HighlightedTextColor =
+				title.HighlightedTextColor =
+				startAndEnd.HighlightedTextColor = Theme.LabelColor;
 		}
 
 		public void SetAssignment (Assignment assignment)
 		{
-			number.Text = "1";
+			BackgroundColor = assignment.Status == AssignmentStatus.Enroute ? Theme.AssignmentBlue : Theme.AssignmentGrey;
+			priority.Text = assignment.Priority.ToString ();
 			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
 			title.Text = assignment.Title;
 			startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());

@@ -12,7 +12,10 @@ namespace FieldService.iOS
 	partial class AssignmentCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel number { get; set; }
+		MonoTouch.UIKit.UIImageView priorityBackground { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel priority { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel numberAndDate { get; set; }
@@ -25,9 +28,14 @@ namespace FieldService.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (number != null) {
-				number.Dispose ();
-				number = null;
+			if (priorityBackground != null) {
+				priorityBackground.Dispose ();
+				priorityBackground = null;
+			}
+
+			if (priority != null) {
+				priority.Dispose ();
+				priority = null;
 			}
 
 			if (numberAndDate != null) {

@@ -280,18 +280,6 @@
     <Content Include="Images\row180%402x.png" />
     <Content Include="Images\row180end.png" />
     <Content Include="Images\row180end%402x.png" />
-    <Content Include="Images\segmentend_active.png" />
-    <Content Include="Images\segmentend_active%402x.png" />
-    <Content Include="Images\segmentend.png" />
-    <Content Include="Images\segmentend%402x.png" />
-    <Content Include="Images\segmentfront_active.png" />
-    <Content Include="Images\segmentfront_active%402x.png" />
-    <Content Include="Images\segmentfront.png" />
-    <Content Include="Images\segmentfront%402x.png" />
-    <Content Include="Images\segmentmid_active.png" />
-    <Content Include="Images\segmentmid_active%402x.png" />
-    <Content Include="Images\segmentmid.png" />
-    <Content Include="Images\segmentmid%402x.png" />
     <Content Include="Images\smallgreybtn.png" />
     <Content Include="Images\smallgreybtn%402x.png" />
     <Content Include="Images\timerbg.png" />
@@ -302,5 +290,7 @@
     <Content Include="Images\topnav%402x.png" />
     <Content Include="Images\topnavbtn.png" />
     <Content Include="Images\topnavbtn%402x.png" />
+    <Content Include="Images\toolbarshadow.png" />
+    <Content Include="Images\toolbarshadow%402x.png" />
   </ItemGroup>
 </Project>
