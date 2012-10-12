@@ -12,7 +12,6 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System;
 using System.Drawing;
 using MonoTouch.Foundation;
@@ -81,12 +80,7 @@ namespace FieldService.iOS
 		{
 			password.ResignFirstResponder ();
 			
-			loginViewModel.LoginAsync ()
-				.ContinueOnUIThread (_ => {
-					
-				//We'll do something else here later
-				new UIAlertView ("Success!", "Logged in.", null, "OK").Show ();
-			});
+			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => DismissViewController (true, null));
 		}
 		
 		public override void ViewDidUnload ()

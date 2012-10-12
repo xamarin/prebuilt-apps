@@ -99,11 +99,11 @@
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Utilities\Theme.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\LoginController.designer.cs">
+    <Compile Include="LoginController.cs" />
+    <Compile Include="LoginController.designer.cs">
       <DependentUpon>LoginController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="BaseController.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="..\FieldService\Data\ILoginService.cs">
       <Link>FieldService\Data\ILoginService.cs</Link>
@@ -114,6 +114,15 @@
     <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
       <Link>FieldService\Utilities\TaskExtensions.cs</Link>
     </Compile>
+    <Compile Include="AssignmentsController.cs" />
+    <Compile Include="AssignmentsController.designer.cs">
+      <DependentUpon>AssignmentsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MenuController.cs" />
+    <Compile Include="MenuController.designer.cs">
+      <DependentUpon>MenuController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MainController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -123,7 +132,6 @@
     <Folder Include="FieldService\" />
     <Folder Include="Images\" />
     <Folder Include="Utilities\" />
-    <Folder Include="Controllers\" />
     <Folder Include="FieldService\Data\" />
     <Folder Include="FieldService\Utilities\" />
   </ItemGroup>
