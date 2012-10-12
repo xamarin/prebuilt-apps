@@ -57,5 +57,16 @@ namespace FieldService.ViewModels {
                     return t.Result;
                 });
         }
+
+        public Task SaveAssignment (Assignment assignment)
+        {
+            IsBusy = true;
+            return service
+                .SaveAssignment (assignment)
+                .ContinueOnUIThread (t => {
+                    IsBusy = false;
+                    return t.Result;
+                });
+        }
     }
 }

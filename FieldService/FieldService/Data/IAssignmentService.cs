@@ -38,5 +38,11 @@ namespace FieldService.Data {
         /// Gets a list of items for an assignment
         /// </summary>
         Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment);
+
+        /// <summary>
+        /// Saves an assignment
+        /// </summary>
+        /// <returns></returns>
+        Task<int> SaveAssignment (Assignment assignment);
     }
 }

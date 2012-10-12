@@ -64,5 +64,11 @@ namespace FieldService.Tests.Mocks {
                 },
             });
         }
+
+
+        public Task<int> SaveAssignment (Assignment assignment)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
     }
 }

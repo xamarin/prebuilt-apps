@@ -49,5 +49,11 @@ namespace FieldService.Data {
                     order by Item.Name",
                     assignment.ID);
         }
+
+        public Task<int> SaveAssignment (Assignment assignment)
+        {
+            return Database.GetConnection ()
+                .UpdateAsync (assignment);
+        }
     }
 }

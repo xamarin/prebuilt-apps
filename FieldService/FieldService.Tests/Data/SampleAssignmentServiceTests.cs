@@ -44,6 +44,18 @@ namespace FieldService.Tests.Data {
         }
 
         [Test]
+        public void UpdateAssignment ()
+        {
+            var task = service.GetAssignmentsAsync ();
+            Task.WaitAll (task);
+            var assignment = task.Result.FirstOrDefault ();
+            assignment.Title = "New Title";
+            var saveTask = service.SaveAssignment (assignment);
+            saveTask.Wait ();
+            Assert.That (saveTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
         public void GetItems ()
         {
             var task = service.GetItemsAsync ();
