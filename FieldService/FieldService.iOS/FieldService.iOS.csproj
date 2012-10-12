@@ -123,6 +123,40 @@
       <DependentUpon>MenuController.cs</DependentUpon>
     </Compile>
     <Compile Include="MainController.cs" />
+    <Compile Include="AssignmentCell.cs" />
+    <Compile Include="AssignmentCell.designer.cs">
+      <DependentUpon>AssignmentCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Assignment.cs">
+      <Link>FieldService\Data\Assignment.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\AssignmentItem.cs">
+      <Link>FieldService\Data\AssignmentItem.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Database.cs">
+      <Link>FieldService\Data\Database.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Enumerations.cs">
+      <Link>FieldService\Data\Enumerations.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\IAssignmentService.cs">
+      <Link>FieldService\Data\IAssignmentService.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Item.cs">
+      <Link>FieldService\Data\Item.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\SampleAssignmentService.cs">
+      <Link>FieldService\Data\SampleAssignmentService.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\sqlite-net\src\SQLite.cs">
+      <Link>FieldService\Data\SQLite.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
+      <Link>FieldService\Data\SQLiteAsync.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\ViewModels\AssignmentViewModel.cs">
+      <Link>FieldService\ViewModels\AssignmentViewModel.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

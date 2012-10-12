@@ -39,6 +39,22 @@ namespace FieldService.iOS
 				loggedIn = true;
 			}
 		}
+        
+		/// <summary>
+		/// This is how orientation is setup on iOS 6
+		/// </summary>
+		public override bool ShouldAutorotate ()
+		{
+			return true;
+		}
+        
+		/// <summary>
+		/// This is how orientation is setup on iOS 6
+		/// </summary>
+		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
+		{
+			return UIInterfaceOrientationMask.All;
+		}
 	}
 }
 
