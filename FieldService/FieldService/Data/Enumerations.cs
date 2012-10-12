@@ -1,4 +1,4 @@
-﻿//
+//
 //  Copyright 2012  Xamarin Inc.
 //
 //    Licensed under the Apache License, Version 2.0 (the "License");
@@ -30,7 +30,7 @@ namespace FieldService.Data {
         /// <summary>
         /// The assignment has been accepted
         /// </summary>
-        Started = 1,
+        Accepted = 1,
         /// <summary>
         /// The user is enroute to the assignment
         /// </summary>

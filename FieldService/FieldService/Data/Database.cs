@@ -93,6 +93,15 @@ namespace FieldService.Data {
                             StartDate = DateTime.Now.AddDays(1),
                             EndDate = DateTime.Now.AddDays(1).AddHours(2),
                         },
+			new Assignment
+			{
+				ID = 3,
+				Priority = 3,
+				Title = "Assignment 2",
+				Status = AssignmentStatus.Accepted,
+				StartDate = DateTime.Now.AddDays(1),
+				EndDate = DateTime.Now.AddDays(1).AddHours(2),
+			},
 
                         //Some items
                         new Item
@@ -110,7 +119,7 @@ namespace FieldService.Data {
                         new Item
                         {
                             ID = 3,
-                            Name = "PVC Pip - Medium",
+                            Name = "PVC Pipe - Medium",
                             Number = "1003",
                         },
 
@@ -135,6 +144,11 @@ namespace FieldService.Data {
                             Assignment = 2,
                             Item = 3,
                         },
+			new AssignmentItem
+			{
+			    Assignment = 3,
+			    Item = 1,
+			},
 
                     });
 

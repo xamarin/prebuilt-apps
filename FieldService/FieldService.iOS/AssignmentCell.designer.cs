@@ -12,6 +12,12 @@ namespace FieldService.iOS
 	partial class AssignmentCell
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIButton accept { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton decline { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIImageView priorityBackground { get; set; }
 
 		[Outlet]
@@ -25,9 +31,40 @@ namespace FieldService.iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel startAndEnd { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton status { get; set; }
+
+		[Outlet]
+		TextButton contact { get; set; }
+
+		[Outlet]
+		TextButton address { get; set; }
+
+		[Action ("Accept")]
+		partial void Accept ();
+
+		[Action ("Decline")]
+		partial void Decline ();
+
+		[Action ("Contact")]
+		partial void Contact ();
+
+		[Action ("Address")]
+		partial void Address ();
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (accept != null) {
+				accept.Dispose ();
+				accept = null;
+			}
+
+			if (decline != null) {
+				decline.Dispose ();
+				decline = null;
+			}
+
 			if (priorityBackground != null) {
 				priorityBackground.Dispose ();
 				priorityBackground = null;
@@ -51,6 +88,21 @@ namespace FieldService.iOS
 			if (startAndEnd != null) {
 				startAndEnd.Dispose ();
 				startAndEnd = null;
+			}
+
+			if (status != null) {
+				status.Dispose ();
+				status = null;
+			}
+
+			if (contact != null) {
+				contact.Dispose ();
+				contact = null;
+			}
+
+			if (address != null) {
+				address.Dispose ();
+				address = null;
 			}
 		}
 	}

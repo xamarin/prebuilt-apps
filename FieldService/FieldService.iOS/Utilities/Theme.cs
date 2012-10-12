@@ -29,7 +29,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> accept = new Lazy<UIImage> (() => UIImage.FromFile ("Images/accept.png").CreateResizableImage (new UIEdgeInsets (19, 16, 19, 16)));
 		
 		/// <summary>
-		/// 
+		/// Accept button on assignments
 		/// </summary>
 		public static UIImage Accept {
 			get { return accept.Value; }
@@ -164,7 +164,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> decline = new Lazy<UIImage> (() => UIImage.FromFile ("Images/decline.png").CreateResizableImage (new UIEdgeInsets (19, 16, 19, 16)));
 		
 		/// <summary>
-		/// 
+		/// Decline button on assignments
 		/// </summary>
 		public static UIImage Decline {
 			get { return decline.Value; }
@@ -173,7 +173,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> dropdown = new Lazy<UIImage> (() => UIImage.FromFile ("Images/dropdown.png").CreateResizableImage (new UIEdgeInsets (6, 39, 6, 6)));
 		
 		/// <summary>
-		/// 
+		/// Drop down button image
 		/// </summary>
 		public static UIImage DropDown {
 			get { return dropdown.Value; }
@@ -476,13 +476,13 @@ namespace FieldService.iOS
 			get { return row180end.Value; }
 		}
 
-		static Lazy<UIImage> smallgreybtn = new Lazy<UIImage> (() => UIImage.FromFile ("Images/smallgreybtn.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8)));
+		static Lazy<UIImage> smallGreyButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/smallgreybtn.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8)));
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public static UIImage SmallGreyBtn {
-			get { return smallgreybtn.Value; }
+		public static UIImage SmallGreyButton {
+			get { return smallGreyButton.Value; }
 		}
 
 		static Lazy<UIImage> timerbg = new Lazy<UIImage> (() => UIImage.FromFile ("Images/timerbg.png"));
@@ -521,6 +521,24 @@ namespace FieldService.iOS
 			get { return barButtonItem.Value; }
 		}
 
+		static Lazy<UIImage> assignmentblue = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentblue.png").CreateResizableImage (new UIEdgeInsets()));
+		
+		/// <summary>
+		/// Cell background for selected assignment
+		/// </summary>
+		public static UIImage AssignmentBlue {
+			get { return assignmentblue.Value; }
+		}
+		
+		static Lazy<UIImage> assignmentgrey = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets()));
+		
+		/// <summary>
+		/// Cell background for assignment
+		/// </summary>
+		public static UIImage AssignmentGrey {
+			get { return assignmentgrey.Value; }
+		}
+
 		#endregion
 
 		#region Colors
@@ -541,24 +559,6 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIColor IndicatorColor {
 			get { return indicatorColor.Value; }
-		}
-
-		static Lazy<UIColor> assignmentblue = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/assignmentblue.png")));
-		
-		/// <summary>
-		/// Cell background for selected assignment
-		/// </summary>
-		public static UIColor AssignmentBlue {
-			get { return assignmentblue.Value; }
-		}
-		
-		static Lazy<UIColor> assignmentgrey = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/assignmentgrey.png")));
-		
-		/// <summary>
-		/// Cell background for assignment
-		/// </summary>
-		public static UIColor AssignmentGrey {
-			get { return assignmentgrey.Value; }
 		}
 
 		static Lazy<UIColor> segmentedTintColor = new Lazy<UIColor> (() => UIColor.FromRGB(0x18, 0xa0, 0xd2));
@@ -588,6 +588,8 @@ namespace FieldService.iOS
 			UISegmentedControl.Appearance.TintColor = SegmentedTintColor;
 
 			UIBarButtonItem.Appearance.SetBackgroundImage (BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+			UIButton.Appearance.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 		}
 	}
 }

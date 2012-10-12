@@ -17,8 +17,8 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UISegmentedControl segmentedControl { get; set; }
 
-		[Action ("OnSettings:")]
-		partial void OnSettings (MonoTouch.Foundation.NSObject sender);
+		[Action ("Settings:")]
+		partial void Settings (MonoTouch.Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

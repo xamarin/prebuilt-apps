@@ -137,7 +137,7 @@
                                     <navigationItem title="Assignments" id="ybc-Og-hdb">
                                         <barButtonItem key="rightBarButtonItem" image="Images/iconsettings.png" width="60" id="yir-oo-6f4">
                                             <connections>
-                                                <action selector="OnSettings:" destination="9SI-FO-E9U" id="QiR-cE-vzz"/>
+                                                <action selector="Settings:" destination="9SI-FO-E9U" id="8ma-Hq-HzC"/>
                                             </connections>
                                         </barButtonItem>
                                     </navigationItem>
@@ -206,14 +206,92 @@
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RIZ-br-ZQC">
+                                                    <rect key="frame" x="664" y="29" width="84" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="Decline">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="Decline" destination="MkX-Oz-VUV" eventType="touchUpInside" id="6Km-LH-elo"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rQD-76-nC2">
+                                                    <rect key="frame" x="562" y="29" width="84" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal" title="Accept">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="Accept" destination="MkX-Oz-VUV" eventType="touchUpInside" id="rLJ-Uy-lS0"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Hv9-WG-ZUM">
+                                                    <rect key="frame" x="562" y="29" width="186" height="37"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <inset key="contentEdgeInsets" minX="55" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal" title="Enroute">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xf0-lU-XUy" customClass="TextButton">
+                                                    <rect key="frame" x="342" y="11" width="200" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="Contact" destination="MkX-Oz-VUV" eventType="touchUpInside" id="l82-ps-Kch"/>
+                                                    </connections>
+                                                </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9TK-CJ-5Jq" customClass="TextButton">
+                                                    <rect key="frame" x="342" y="50" width="200" height="35"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="Address" destination="MkX-Oz-VUV" eventType="touchUpInside" id="C3k-U7-WI9"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <connections>
+                                            <outlet property="accept" destination="rQD-76-nC2" id="xBR-lE-FAk"/>
+                                            <outlet property="address" destination="9TK-CJ-5Jq" id="9E6-Mx-yqR"/>
+                                            <outlet property="contact" destination="xf0-lU-XUy" id="chU-sN-Fih"/>
+                                            <outlet property="decline" destination="RIZ-br-ZQC" id="YvE-ie-Ey4"/>
                                             <outlet property="numberAndDate" destination="Orp-zN-5oo" id="lEt-Od-2bp"/>
                                             <outlet property="priority" destination="hHD-O1-1US" id="9me-Uk-s3q"/>
                                             <outlet property="priorityBackground" destination="q0D-lK-Alg" id="EZW-Ng-fea"/>
                                             <outlet property="startAndEnd" destination="xsg-qr-dpY" id="4t7-6e-rnm"/>
+                                            <outlet property="status" destination="Hv9-WG-ZUM" id="u8i-KJ-SUW"/>
                                             <outlet property="title" destination="kjk-jV-Zxg" id="gdB-lD-OCS"/>
                                         </connections>
                                     </tableViewCell>
@@ -240,17 +318,26 @@
         <class className="AssignmentCell" superclassName="UITableViewCell">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentCell.h"/>
             <relationships>
+                <relationship kind="action" name="Accept"/>
+                <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="Contact"/>
+                <relationship kind="action" name="Decline"/>
+                <relationship kind="outlet" name="accept" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="address" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="contact" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="decline" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="title" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="AssignmentsController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentsController.h"/>
             <relationships>
-                <relationship kind="action" name="OnSettings:"/>
+                <relationship kind="action" name="Settings:"/>
                 <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
             </relationships>

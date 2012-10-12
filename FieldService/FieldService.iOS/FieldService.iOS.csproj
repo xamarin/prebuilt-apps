@@ -163,6 +163,10 @@
     <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
       <Link>FieldService\Utilities\ServiceContainer.cs</Link>
     </Compile>
+    <Compile Include="TextButton.cs" />
+    <Compile Include="TextButton.designer.cs">
+      <DependentUpon>TextButton.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

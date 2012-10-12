@@ -97,5 +97,11 @@ namespace FieldService.Data {
         }
 
         private long Ticks { get; set; }
+
+	public string StatusAsString { 
+		get { 
+			return Status == AssignmentStatus.InProgress ? "In Progress" : Status.ToString (); 
+		} 
+	}
     }
 }

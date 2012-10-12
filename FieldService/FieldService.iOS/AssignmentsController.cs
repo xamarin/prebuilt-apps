@@ -44,6 +44,11 @@ namespace FieldService.iOS
 			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => tableView.ReloadData ());
 		}
 
+		partial void Settings (NSObject sender)
+		{
+
+		}
+
 		private class DataSource : UITableViewSource
 		{
 			readonly AssignmentViewModel assignmentViewModel;
