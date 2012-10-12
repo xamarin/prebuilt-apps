@@ -80,6 +80,7 @@ namespace FieldService.Data {
                         new Assignment
                         {
                             ID = 1,
+                            Priority = 1,
                             Title = "Assignment 1",
                             StartDate = DateTime.Now,
                             EndDate = DateTime.Now.AddHours(2),
@@ -87,6 +88,7 @@ namespace FieldService.Data {
                         new Assignment
                         {
                             ID = 2,
+                            Priority = 2,
                             Title = "Assignment 2",
                             StartDate = DateTime.Now.AddDays(1),
                             EndDate = DateTime.Now.AddDays(1).AddHours(2),
