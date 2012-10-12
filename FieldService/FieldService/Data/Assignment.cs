@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -26,6 +27,12 @@ namespace FieldService.Data
     public class Assignment
     {
         /// <summary>
+        /// Assignment ID
+        /// </summary>
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; }
+
+        /// <summary>
         /// The assignment's status
         /// </summary>
         public AssignmentStatus Status { get; set; }
@@ -35,7 +42,15 @@ namespace FieldService.Data
         /// </summary>
         public string JobNumber { get; set; }
 
+        /// <summary>
+        /// Title for the job
+        /// </summary>
         public string Title { get; set; }
+
+        /// <summary>
+        /// An extended description for the job
+        /// </summary>
+        public string Description { get; set; }
         
         /// <summary>
         /// Date & time the assignment should start
@@ -61,5 +76,23 @@ namespace FieldService.Data
         /// Address for assignment
         /// </summary>
         public string Address { get; set; }
+
+        /// <summary>
+        /// The amount of time spent on this job
+        /// </summary>
+        [Ignore]
+        public TimeSpan Hours
+        {
+            get
+            {
+                return TimeSpan.FromTicks(Ticks);
+            }
+            set
+            {
+                Ticks = value.Ticks;
+            }
+        }
+
+        private long Ticks { get; set; }
     }
 }

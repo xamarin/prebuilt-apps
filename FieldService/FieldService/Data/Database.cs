@@ -1,0 +1,148 @@
+﻿//
+//  Copyright 2012  Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+
+using SQLite;
+using System.Linq;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Threading.Tasks;
+
+namespace FieldService.Data
+{
+    /// <summary>
+    /// A helper class for working with SQLite
+    /// </summary>
+    public static class Database
+    {
+#if NCRUNCH
+        private static readonly string Path = System.IO.Path.Combine (Environment.CurrentDirectory, "Database.db");
+#else
+        private const string Path = "Database.db";
+#endif
+        private static bool initialized = false;
+
+        /// <summary>
+        /// For use within the app on startup, this will create the database
+        /// </summary>
+        /// <returns></returns>
+        public static Task Initialize()
+        {
+            return CreateDatabase(new SQLiteAsyncConnection(Path, true));
+        }
+
+        /// <summary>
+        /// Global way to grab a connection to the database, make sure to wrap in a using
+        /// </summary>
+        public static SQLiteAsyncConnection GetConnection()
+        {
+            var connection = new SQLiteAsyncConnection(Path, true);
+            if (!initialized)
+            {
+                CreateDatabase(connection).Wait();
+            }
+            return connection;
+        }
+
+        private static Task CreateDatabase(SQLiteAsyncConnection connection)
+        {
+            return Task.Factory.StartNew(() =>
+            {
+                //Create the tables
+                var createTask = connection.CreateTablesAsync(
+                    typeof(Assignment),
+                    typeof(Item),
+                    typeof(AssignmentItem));
+                createTask.Wait();
+
+                //Count number of assignments
+                var countTask = connection.Table<Assignment>().CountAsync();
+                countTask.Wait();
+
+                //If no assignments exist, insert our initial data
+                if (countTask.Result == 0)
+                {
+                    var insertTask = connection.InsertAllAsync(new object[]
+                    {
+                        //Some assignments
+                        new Assignment
+                        {
+                            ID = 1,
+                            Title = "Assignment 1",
+                            StartDate = DateTime.Now,
+                            EndDate = DateTime.Now.AddHours(2),
+                        },
+                        new Assignment
+                        {
+                            ID = 2,
+                            Title = "Assignment 2",
+                            StartDate = DateTime.Now.AddDays(1),
+                            EndDate = DateTime.Now.AddDays(1).AddHours(2),
+                        },
+
+                        //Some items
+                        new Item
+                        {
+                            ID = 1,
+                            Name = "Sheet Metal Screws",
+                            Number = "1001",
+                        },
+                        new Item
+                        {
+                            ID = 2,
+                            Name = "PVC Pipe - Small",
+                            Number = "1002",
+                        },
+                        new Item
+                        {
+                            ID = 3,
+                            Name = "PVC Pip - Medium",
+                            Number = "1003",
+                        },
+
+                        //Some items on assignments
+                        new AssignmentItem
+                        {
+                            Assignment = 1,
+                            Item = 1,
+                        },
+                        new AssignmentItem
+                        {
+                            Assignment = 1,
+                            Item = 2,
+                        },
+                        new AssignmentItem
+                        {
+                            Assignment = 2,
+                            Item = 2,
+                        },
+                        new AssignmentItem
+                        {
+                            Assignment = 2,
+                            Item = 3,
+                        },
+
+                    });
+
+                    //Wait for inserts
+                    insertTask.Wait();
+
+                    //Mark database created
+                    initialized = true;
+                }
+            });
+        }
+    }
+}

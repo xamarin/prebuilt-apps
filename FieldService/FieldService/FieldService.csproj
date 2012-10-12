@@ -46,7 +46,12 @@
       <Link>Data\SQLiteAsync.cs</Link>
     </Compile>
     <Compile Include="Data\Assignment.cs" />
+    <Compile Include="Data\AssignmentItem.cs" />
+    <Compile Include="Data\Database.cs" />
     <Compile Include="Data\Enumerations.cs" />
+    <Compile Include="Data\IAssignmentService.cs" />
+    <Compile Include="Data\Item.cs" />
+    <Compile Include="Data\SampleAssignmentService.cs" />
     <Compile Include="Data\SampleLoginService.cs" />
     <Compile Include="Data\ILoginService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

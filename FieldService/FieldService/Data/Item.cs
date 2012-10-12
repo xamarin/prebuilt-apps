@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using SQLite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,33 +22,24 @@ using System.Text;
 namespace FieldService.Data
 {
     /// <summary>
-    /// An enumeration for Assignment status
+    /// An item to be used on an assignment
     /// </summary>
-    public enum AssignmentStatus
+    public class Item
     {
         /// <summary>
-        /// The assignment is new, it has not been accepted yet
+        /// ID of the item
         /// </summary>
-        New = 0,
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; }
+
         /// <summary>
-        /// The assignment has been accepted
+        /// Name of the item
         /// </summary>
-        Started = 1,
+        public string Name { get; set; }
+
         /// <summary>
-        /// The user is enroute to the assignment
+        /// Number of the item
         /// </summary>
-        Enroute = 2,
-        /// <summary>
-        /// The user is currently working on the assignment
-        /// </summary>
-        InProgress = 3,
-        /// <summary>
-        /// The user completed the assignment
-        /// </summary>
-        Complete = 4,
-        /// <summary>
-        /// The assignment was declined by the user
-        /// </summary>
-        Declined = 9999,
+        public string Number { get; set; }
     }
 }
