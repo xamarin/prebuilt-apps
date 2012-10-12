@@ -14,6 +14,8 @@
 //    limitations under the License.
 
 using System;
+using FieldService.Utilities;
+using FieldService.WinRT.ViewModels;
 using FieldService.WinRT.Views;
 using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
@@ -31,8 +33,14 @@ namespace FieldService.WinRT {
         /// </summary>
         public App ()
         {
-            this.InitializeComponent ();
-            this.Suspending += OnSuspending;
+            InitializeComponent ();
+            Suspending += OnSuspending;
+
+            //Register services for core library
+            Bootstrapper.Startup ();
+
+            //WinRT specific services
+            ServiceContainer.Register<LoginViewModel> ();
         }
 
         /// <summary>

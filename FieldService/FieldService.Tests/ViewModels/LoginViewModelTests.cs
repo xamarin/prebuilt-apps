@@ -21,6 +21,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FieldService.Utilities;
 
 namespace FieldService.Tests.ViewModels {
     /// <summary>
@@ -33,7 +34,9 @@ namespace FieldService.Tests.ViewModels {
         [SetUp]
         public void SetUp ()
         {
-            viewModel = new LoginViewModel (new SampleLoginService ()); ;
+            ServiceContainer.Register<ILoginService> (() => new SampleLoginService ());
+
+            viewModel = new LoginViewModel ();
         }
 
         [Test]

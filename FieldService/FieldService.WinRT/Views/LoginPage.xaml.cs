@@ -1,4 +1,5 @@
 ﻿using FieldService.Data;
+using FieldService.Utilities;
 using FieldService.WinRT.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
@@ -16,7 +17,7 @@ namespace FieldService.WinRT.Views {
             this.InitializeComponent ();
 
             DataContext =
-                loginViewModel = new LoginViewModel (new SampleLoginService ());
+                loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
             //Generally I would use two-way bindings here, but UpdateSourceTrigger is not available in WinRT
             username.TextChanged += (sender, e) => loginViewModel.Username = username.Text;

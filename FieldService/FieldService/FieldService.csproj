@@ -45,6 +45,7 @@
     <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
       <Link>Data\SQLiteAsync.cs</Link>
     </Compile>
+    <Compile Include="Bootstrapper.cs" />
     <Compile Include="Data\Assignment.cs" />
     <Compile Include="Data\AssignmentItem.cs" />
     <Compile Include="Data\Database.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Data\SampleLoginService.cs" />
     <Compile Include="Data\ILoginService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Utilities\ServiceContainer.cs" />
     <Compile Include="Strings.cs" />
     <Compile Include="Utilities\TaskExtensions.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />

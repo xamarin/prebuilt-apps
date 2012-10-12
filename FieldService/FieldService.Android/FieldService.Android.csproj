@@ -50,8 +50,38 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\Dependencies\sqlite-net\src\SQLite.cs">
+      <Link>FieldService\Data\SQLite.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
+      <Link>FieldService\Data\SQLiteAsync.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Bootstrapper.cs">
+      <Link>FieldService\Bootstrapper.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Assignment.cs">
+      <Link>FieldService\Data\Assignment.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\AssignmentItem.cs">
+      <Link>FieldService\Data\AssignmentItem.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Database.cs">
+      <Link>FieldService\Data\Database.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Enumerations.cs">
+      <Link>FieldService\Data\Enumerations.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\IAssignmentService.cs">
+      <Link>FieldService\Data\IAssignmentService.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Data\ILoginService.cs">
       <Link>FieldService\Data\ILoginService.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Item.cs">
+      <Link>FieldService\Data\Item.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\SampleAssignmentService.cs">
+      <Link>FieldService\Data\SampleAssignmentService.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Data\SampleLoginService.cs">
       <Link>FieldService\Data\SampleLoginService.cs</Link>
@@ -59,8 +89,14 @@
     <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
+      <Link>FieldService\Utilities\ServiceContainer.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
       <Link>FieldService\Utilities\TaskExtensions.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\ViewModels\AssignmentViewModel.cs">
+      <Link>FieldService\ViewModels\AssignmentViewModel.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>

@@ -17,37 +17,25 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using NUnit.Framework;
 
-namespace FieldService.Tests.ViewModels {
+namespace FieldService {
     /// <summary>
-    /// Tests for AssignmentViewModel
+    /// Class for registering services for the app
     /// </summary>
-    [TestFixture]
-    public class AssignmentViewModelTests {
-        AssignmentViewModel viewModel;
+    public static class Bootstrapper {
 
-        [SetUp]
-        public void SetUp ()
+        /// <summary>
+        /// Call on startup of the app, it configures ServiceContainer
+        /// </summary>
+        public static void Startup ()
         {
-            ServiceContainer.Register<IAssignmentService> (() => new Mocks.MockAssignmentService ());
-
-            viewModel = new AssignmentViewModel ();
-        }
-
-        [Test]
-        public void Load ()
-        {
-            var task = viewModel.LoadAssignmentsAsync ();
-
-            Task.WaitAll (task);
-
-            Assert.That (viewModel.Assignments, Is.Not.Null);
-            Assert.That (viewModel.Assignments.Count, Is.Not.EqualTo(0));
+            ServiceContainer.Register<ILoginService> (() => new SampleLoginService ());
+            ServiceContainer.Register<IAssignmentService> (() => new SampleAssignmentService ());
+            ServiceContainer.Register<LoginViewModel> ();
+            ServiceContainer.Register<AssignmentViewModel> ();
         }
     }
 }

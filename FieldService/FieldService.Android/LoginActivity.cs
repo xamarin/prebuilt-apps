@@ -37,7 +37,10 @@ namespace FieldService.Android {
         /// </summary>
         public LoginActivity ()
         {
-            loginViewModel = new LoginViewModel (new SampleLoginService ());
+            //Registers services for core library
+            Bootstrapper.Startup ();
+
+            loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
             //busy changed to hide log in button and show spinner
             loginViewModel.IsBusyChanged += (sender, e) => {

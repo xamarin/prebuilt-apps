@@ -29,9 +29,9 @@ namespace FieldService.ViewModels {
         readonly IAssignmentService service;
         List<Assignment> assignments = null;
 
-        public AssignmentViewModel (IAssignmentService service)
+        public AssignmentViewModel ()
         {
-            this.service = service;
+            service = ServiceContainer.Resolve<IAssignmentService> ();
         }
 
         /// <summary>

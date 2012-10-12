@@ -36,9 +36,9 @@ namespace FieldService.ViewModels {
         /// Constructor, requires an IService
         /// </summary>
         /// <param name="service">IService implementation</param>
-        public LoginViewModel (ILoginService service)
+        public LoginViewModel ()
         {
-            this.service = service;
+            service = ServiceContainer.Resolve<ILoginService> ();
         }
 
         /// <summary>
