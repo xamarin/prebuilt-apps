@@ -76,6 +76,10 @@ namespace FieldService.iOS
 				}
 				return false;
 			};
+
+			//Setup creation of some other controllers
+			ServiceContainer.Register<MainController> (() => (MainController)Storyboard.InstantiateViewController ("MainController"));
+			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)Storyboard.InstantiateViewController ("AssignmentsController"));
 		}
 
 		partial void Login ()
@@ -83,8 +87,8 @@ namespace FieldService.iOS
 			password.ResignFirstResponder ();
 			
 			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
-				var window = ServiceContainer.Resolve<UIWindow>();
-				window.RootViewController = (UIViewController)Storyboard.InstantiateViewController ("AssignmentsController");
+				var window = ServiceContainer.Resolve<UIWindow> ();
+				window.RootViewController = ServiceContainer.Resolve<AssignmentsController> ();
 			});
 		}
 		

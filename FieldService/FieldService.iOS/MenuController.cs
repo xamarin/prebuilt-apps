@@ -16,6 +16,7 @@ using System;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
@@ -34,7 +35,22 @@ namespace FieldService.iOS
 
 			//UI we have to setup from code
 			View.BackgroundColor = Theme.LinenLeft;
-			tableView.Source = new DataSource();
+			tableView.Source = new DataSource ();
+
+			//We use a button here, because we have to set custom values UIBarButtonItem doesn't support
+			var button = UIButton.FromType (UIButtonType.Custom);
+			button.Font = Theme.BoldFontOfSize (14);
+			button.SetTitle ("Assignments", UIControlState.Normal);
+			button.SetTitleColor (UIColor.White, UIControlState.Normal);
+			button.SetBackgroundImage (Theme.BackButton, UIControlState.Normal);
+			button.Frame = new RectangleF (0, 0, 120, 30);
+
+			var backButton = new UIBarButtonItem (button); 
+			button.TouchUpInside += (sender, e) => {
+				var window = ServiceContainer.Resolve<UIWindow> ();
+				window.RootViewController = ServiceContainer.Resolve<AssignmentsController> ();
+			};
+			navigationBar.TopItem.LeftBarButtonItem = backButton;
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -50,37 +66,37 @@ namespace FieldService.iOS
 
 			public DataSource ()
 			{
-				summaryCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";
 				summaryCell.BackgroundColor = UIColor.Clear;	
 				summaryCell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
 				summaryCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
 
-				mapCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				mapCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				mapCell.TextLabel.Text = "Map";
 				mapCell.BackgroundColor = UIColor.Clear;	
 				mapCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 				mapCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
 
-				itemsCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				itemsCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				itemsCell.TextLabel.Text = "Items";
 				itemsCell.BackgroundColor = UIColor.Clear;	
 				itemsCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 				itemsCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
 
-				laborCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				laborCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				laborCell.TextLabel.Text = "Labor Hours";
 				laborCell.BackgroundColor = UIColor.Clear;	
 				laborCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 				laborCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
 
-				expensesCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				expensesCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				expensesCell.TextLabel.Text = "Expenses";
 				expensesCell.BackgroundColor = UIColor.Clear;
 				expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 				expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
 
-				confirmationCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				confirmationCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				confirmationCell.TextLabel.Text = "Confirmations";
 				confirmationCell.BackgroundColor = UIColor.Clear;	
 				confirmationCell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
@@ -108,7 +124,7 @@ namespace FieldService.iOS
 				case 5:
 					return confirmationCell;
 				default:
-					throw new IndexOutOfRangeException();
+					throw new IndexOutOfRangeException ();
 				}
 			}
 		}

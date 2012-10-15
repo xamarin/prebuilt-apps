@@ -78,8 +78,8 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				var window = ServiceContainer.Resolve<UIWindow>();
-				window.RootViewController = (UIViewController)controller.Storyboard.InstantiateViewController ("MainController");
+				var window = ServiceContainer.Resolve<UIWindow> ();
+				window.RootViewController = ServiceContainer.Resolve<MainController> ();
 			}
 		}
 	}

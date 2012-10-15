@@ -626,7 +626,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Transitions the window, for a fullscreen transition
 		/// </summary>
-		public static void TransitionWindow(UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCurlDown)
+		public static void TransitionWindow(UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCrossDissolve)
 		{
 			UIView.Transition (ServiceContainer.Resolve <UIWindow>(), .3, options, delegate { }, delegate { });
 		}
