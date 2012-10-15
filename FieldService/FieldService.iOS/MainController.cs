@@ -39,6 +39,14 @@ namespace FieldService.iOS
 				loggedIn = true;
 			}
 		}
+
+		public override void PerformSegue (string identifier, NSObject sender)
+		{
+			base.PerformSegue (identifier, sender);
+
+			//Force ShouldHideViewController to refresh
+			DidRotate (InterfaceOrientation);
+		}
         
 		/// <summary>
 		/// This is how orientation is setup on iOS 6

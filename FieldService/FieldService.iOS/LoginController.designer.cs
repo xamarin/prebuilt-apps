@@ -21,9 +21,6 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UIButton login { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView background { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UIImageView box { get; set; }
 
 		[Outlet]
@@ -53,11 +50,6 @@ namespace FieldService.iOS
 			if (login != null) {
 				login.Dispose ();
 				login = null;
-			}
-
-			if (background != null) {
-				background.Dispose ();
-				background = null;
 			}
 
 			if (box != null) {

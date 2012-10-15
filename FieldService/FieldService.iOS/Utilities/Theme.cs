@@ -251,67 +251,58 @@ namespace FieldService.iOS
 			get { return inlay.Value; }
 		}
 
-		static Lazy<UIImage> leftlist_end = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_end.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
+		static Lazy<UIImage> leftListEnd = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_end.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
 		
 		/// <summary>
-		/// 
+		/// Active image for the last item in MenuController's tableView
 		/// </summary>
-		public static UIImage LeftList_End {
-			get { return leftlist_end.Value; }
+		public static UIImage LeftListEnd {
+			get { return leftListEnd.Value; }
 		}
 
-		static Lazy<UIImage> leftlist_end_active = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_end_active.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
+		static Lazy<UIImage> leftListEndActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_end_active.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
 		
 		/// <summary>
-		/// 
+		/// Image for the last item in MenuController's tableView
 		/// </summary>
-		public static UIImage LeftList_End_Active {
-			get { return leftlist_end_active.Value; }
+		public static UIImage LeftListEndActive {
+			get { return leftListEndActive.Value; }
 		}
 
-		static Lazy<UIImage> leftlist_mid = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_mid.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
+		static Lazy<UIImage> leftListMid = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_mid.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
 		
 		/// <summary>
-		/// 
+		/// Image for a middle item in MenuController's tableView
 		/// </summary>
-		public static UIImage LeftList_Mid {
-			get { return leftlist_mid.Value; }
+		public static UIImage LeftListMid {
+			get { return leftListMid.Value; }
 		}
 
-		static Lazy<UIImage> leftlist_mid_active = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_mid_active.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
+		static Lazy<UIImage> leftListMidActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_mid_active.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
 		
 		/// <summary>
-		/// 
+		/// Active image for a middle item in MenuController's tableView
 		/// </summary>
-		public static UIImage LeftList_Mid_Active {
-			get { return leftlist_mid_active.Value; }
+		public static UIImage LeftListMidActive {
+			get { return leftListMidActive.Value; }
 		}
 
-		static Lazy<UIImage> leftlist_top = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_top.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
+		static Lazy<UIImage> leftListTop = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_top.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
 		
 		/// <summary>
-		/// 
+		/// Image for the first item in MenuController's tableView
 		/// </summary>
-		public static UIImage LeftList_Top {
-			get { return leftlist_top.Value; }
+		public static UIImage LeftListTop {
+			get { return leftListTop.Value; }
 		}
 
-		static Lazy<UIImage> leftlist_top_active = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_top_active.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
+		static Lazy<UIImage> leftListTopActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/leftlist_top_active.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
 		
 		/// <summary>
-		/// 
+		/// Active image for the first item in MenuController's tableView
 		/// </summary>
-		public static UIImage LeftList_Top_Active {
-			get { return leftlist_top_active.Value; }
-		}
-
-		static Lazy<UIImage> linenPattern = new Lazy<UIImage> (() => UIImage.FromFile ("Images/linenpattern.png").CreateResizableImage (new UIEdgeInsets ()));
-
-		/// <summary>
-		/// Linen pattern background for use throughout the app
-		/// </summary>
-		public static UIImage LinenPattern {
-			get { return linenPattern.Value; }
+		public static UIImage LeftListTopActive {
+			get { return leftListTopActive.Value; }
 		}
 
 		static Lazy<UIImage> loginBox = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_box.png").CreateResizableImage (new UIEdgeInsets (21, 21, 21, 21)));
@@ -568,6 +559,15 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIColor SegmentedTintColor {
 			get { return segmentedTintColor.Value; }
+		}
+
+		static Lazy<UIColor> linenPattern = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/linenpattern.png")));
+		
+		/// <summary>
+		/// Linen pattern background for use throughout the app
+		/// </summary>
+		public static UIColor LinenPattern {
+			get { return linenPattern.Value; }
 		}
 
 		#endregion

@@ -171,6 +171,10 @@
     <Compile Include="..\FieldService\Utilities\DataExtensions.cs">
       <Link>FieldService\Utilities\DataExtensions.cs</Link>
     </Compile>
+    <Compile Include="AssignmentDetailsController.cs" />
+    <Compile Include="AssignmentDetailsController.designer.cs">
+      <DependentUpon>AssignmentDetailsController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
