@@ -17,6 +17,9 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UISegmentedControl segmentedControl { get; set; }
 
+		[Outlet]
+		FieldService.iOS.AssignmentCell activeAssignment { get; set; }
+
 		[Action ("Settings:")]
 		partial void Settings (MonoTouch.Foundation.NSObject sender);
 		
@@ -30,6 +33,11 @@ namespace FieldService.iOS
 			if (segmentedControl != null) {
 				segmentedControl.Dispose ();
 				segmentedControl = null;
+			}
+
+			if (activeAssignment != null) {
+				activeAssignment.Dispose ();
+				activeAssignment = null;
 			}
 		}
 	}
