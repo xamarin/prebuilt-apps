@@ -65,6 +65,7 @@ namespace FieldService.Data {
                 var createTask = connection.CreateTablesAsync (
                     typeof (Assignment),
                     typeof (Item),
+                    typeof (Labor),
                     typeof (AssignmentItem));
                 createTask.Wait ();
 

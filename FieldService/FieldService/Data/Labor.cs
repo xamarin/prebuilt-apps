@@ -42,6 +42,12 @@ namespace FieldService.Data {
         public string Description { get; set; }
 
         /// <summary>
+        /// Link to an assignment
+        /// </summary>
+        [Indexed]
+        public int Assignment { get; set; }
+
+        /// <summary>
         /// The duration of this labor expressed in hours
         /// </summary>
         [Ignore]

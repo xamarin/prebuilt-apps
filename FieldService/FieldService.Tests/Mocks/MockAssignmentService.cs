@@ -70,5 +70,10 @@ namespace FieldService.Tests.Mocks {
         {
             return Task.Factory.StartNew (() => 1);
         }
+
+        public Task<int> SaveLabor (Labor labor)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
     }
 }

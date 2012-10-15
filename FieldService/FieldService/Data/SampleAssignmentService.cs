@@ -55,5 +55,11 @@ namespace FieldService.Data {
             return Database.GetConnection ()
                 .UpdateAsync (assignment);
         }
+
+        public Task<int> SaveLabor (Labor labor)
+        {
+            return Database.GetConnection ()
+                .InsertAsync (labor);
+        }
     }
 }

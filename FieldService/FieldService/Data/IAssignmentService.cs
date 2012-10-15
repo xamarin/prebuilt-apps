@@ -44,5 +44,11 @@ namespace FieldService.Data {
         /// </summary>
         /// <returns></returns>
         Task<int> SaveAssignment (Assignment assignment);
+
+        /// <summary>
+        /// Saves a labor entry
+        /// </summary>
+        /// <returns></returns>
+        Task<int> SaveLabor (Labor labor);
     }
 }
