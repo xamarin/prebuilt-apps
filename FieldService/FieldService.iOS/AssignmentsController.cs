@@ -67,7 +67,7 @@ namespace FieldService.iOS
 			{
 				var assignment = assignmentViewModel.Assignments [indexPath.Row];
 				var cell = tableView.DequeueReusableCell ("AssignmentCell") as AssignmentCell;
-				cell.SetAssignment (assignment);
+				cell.SetAssignment (assignment, indexPath);
 				return cell;
 			}
 		}

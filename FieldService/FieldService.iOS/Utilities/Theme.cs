@@ -591,6 +591,25 @@ namespace FieldService.iOS
 
 			UIButton.Appearance.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 		}
+
+		const string FontName = "HelveticaNeue-Medium";
+		const string BoldFontName = "HelveticaNeue-Bold";
+
+		/// <summary>
+		/// Returns the default font with a certain size
+		/// </summary>
+		public static UIFont FontOfSize(float size)
+		{
+			return UIFont.FromName (FontName, size);
+		}
+
+		/// <summary>
+		/// Returns the default font with a certain size
+		/// </summary>
+		public static UIFont BoldFontOfSize(float size)
+		{
+			return UIFont.FromName (BoldFontName, size);
+		}
 	}
 }
 

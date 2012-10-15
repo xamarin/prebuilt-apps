@@ -18,24 +18,33 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Data;
+using FieldService.ViewModels;
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
 	public partial class AssignmentCell : UITableViewCell
 	{
+		readonly AssignmentViewModel assignmentViewModel;
 		bool loaded = false;
 		UIImageView statusImage;
+		NSIndexPath indexPath;
+		Assignment assignment;
 
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+
 			SelectedBackgroundView = new UIImageView { Image = Theme.AssignmentBlue };
 		}
 
-		public void SetAssignment (Assignment assignment)
+		public void SetAssignment (Assignment assignment, NSIndexPath indexPath)
 		{
+			this.assignment = assignment;
+			this.indexPath = indexPath;
+
 			//First check things that need to be setup the first time around
-			if (!loaded)
-			{
+			if (!loaded) {
 				BackgroundView = new UIImageView ();
 
 				var frame = status.Frame;
@@ -68,6 +77,7 @@ namespace FieldService.iOS
 			contact.TopLabel.Text = assignment.ContactName;
 			contact.BottomLabel.Text = assignment.ContactPhone;
 			address.TopLabel.Text = assignment.Address;
+			address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
 
 			if (assignment.Status == AssignmentStatus.New) {
 				status.Hidden = true;
@@ -102,12 +112,16 @@ namespace FieldService.iOS
 
 		partial void Accept ()
 		{
+			assignment.Status = AssignmentStatus.Accepted;
 
+			SaveAssignment ();
 		}
 
 		partial void Decline ()
 		{
+			assignment.Status = AssignmentStatus.Declined;
 
+			SaveAssignment ();
 		}
 
 		partial void Contact ()
@@ -118,6 +132,15 @@ namespace FieldService.iOS
 		partial void Address ()
 		{
 
+		}
+
+		private void SaveAssignment ()
+		{
+			assignmentViewModel.SaveAssignment (assignment)
+				.ContinueOnUIThread (t => {
+					var tableView = Superview as UITableView;
+					tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+				});
 		}
 
 		protected override void Dispose (bool disposing)
