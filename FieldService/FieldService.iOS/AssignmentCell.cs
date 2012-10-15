@@ -30,6 +30,7 @@ namespace FieldService.iOS
 		UIImageView statusImage;
 		NSIndexPath indexPath;
 		Assignment assignment;
+		AssignmentStatusSheet statusSheet;
 
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
@@ -134,13 +135,29 @@ namespace FieldService.iOS
 
 		}
 
+		partial void ChangeStatus ()
+		{
+			statusSheet = new AssignmentStatusSheet ();
+			statusSheet.Dismissed += (sender, e) => {
+				if (e.ButtonIndex != -1) {
+					assignment.Status = statusSheet.Status;
+
+					SaveAssignment ();
+				}
+
+				statusSheet.Dispose ();
+				statusSheet = null;
+			};
+			statusSheet.ShowFrom (status.Frame, this, true);
+		}
+
 		private void SaveAssignment ()
 		{
 			assignmentViewModel.SaveAssignment (assignment)
 				.ContinueOnUIThread (t => {
-					var tableView = Superview as UITableView;
-					tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
-				});
+				var tableView = Superview as UITableView;
+				tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+			});
 		}
 
 		protected override void Dispose (bool disposing)

@@ -167,6 +167,8 @@
     <Compile Include="TextButton.designer.cs">
       <DependentUpon>TextButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="AssignmentStatusSheet.cs" />
+    <Compile Include="FieldService\Utilities\DataExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

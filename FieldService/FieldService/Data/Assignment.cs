@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using FieldService.Utilities;
 
 namespace FieldService.Data
 {
@@ -113,7 +114,7 @@ namespace FieldService.Data
 
 		public string StatusAsString { 
 			get { 
-				return Status == AssignmentStatus.InProgress ? "In Progress" : Status.ToString (); 
+				return Status.ToUserString (); 
 			} 
 		}
 	}

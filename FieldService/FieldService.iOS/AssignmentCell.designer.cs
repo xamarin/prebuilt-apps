@@ -36,10 +36,10 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UIButton status { get; set; }
 
 		[Outlet]
-		TextButton contact { get; set; }
+		FieldService.iOS.TextButton contact { get; set; }
 
 		[Outlet]
-		TextButton address { get; set; }
+		FieldService.iOS.TextButton address { get; set; }
 
 		[Action ("Accept")]
 		partial void Accept ();
@@ -52,6 +52,9 @@ namespace FieldService.iOS
 
 		[Action ("Address")]
 		partial void Address ();
+
+		[Action ("ChangeStatus")]
+		partial void ChangeStatus ();
 		
 		void ReleaseDesignerOutlets ()
 		{

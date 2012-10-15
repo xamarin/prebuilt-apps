@@ -17,7 +17,7 @@
                 </splitViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Yqr-sC-1WH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-3161" y="-192"/>
+            <point key="canvasLocation" x="-1053" y="-212"/>
         </scene>
         <!--Menu Controller-->
         <scene sceneID="kLI-xI-oW9">
@@ -31,7 +31,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fDL-JW-Lup" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2164" y="-1252"/>
+            <point key="canvasLocation" x="-56" y="-1272"/>
         </scene>
         <!--Login Controller-->
         <scene sceneID="4">
@@ -120,7 +120,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2179" y="1000"/>
+            <point key="canvasLocation" x="-71" y="980"/>
         </scene>
         <!--Assignments Controller-->
         <scene sceneID="gdB-Mk-vxQ">
@@ -248,6 +248,9 @@
                                                     <state key="highlighted">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
+                                                    <connections>
+                                                        <action selector="ChangeStatus" destination="MkX-Oz-VUV" eventType="touchUpInside" id="xWp-eC-09r"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xf0-lU-XUy" customClass="TextButton">
                                                     <rect key="frame" x="342" y="11" width="200" height="35"/>
@@ -307,7 +310,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPw-b0-RQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-2179" y="-192"/>
+            <point key="canvasLocation" x="-71" y="-212"/>
         </scene>
     </scenes>
     <resources>
@@ -320,11 +323,12 @@
             <relationships>
                 <relationship kind="action" name="Accept"/>
                 <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="ChangeStatus"/>
                 <relationship kind="action" name="Contact"/>
                 <relationship kind="action" name="Decline"/>
                 <relationship kind="outlet" name="accept" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="address" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="contact" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
                 <relationship kind="outlet" name="decline" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
@@ -361,6 +365,9 @@
         </class>
         <class className="MenuController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MenuController.h"/>
+        </class>
+        <class className="TextButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextButton.h"/>
         </class>
     </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
