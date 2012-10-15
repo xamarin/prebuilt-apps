@@ -48,4 +48,22 @@ namespace FieldService.Data {
         /// </summary>
         Declined = 9999,
     }
+
+    /// <summary>
+    /// An enumeration for Assignment status
+    /// </summary>
+    public enum LaborType {
+        /// <summary>
+        /// The labor counts as standard hourly labor
+        /// </summary>
+        Hourly = 0,
+        /// <summary>
+        /// The labor counts as over time
+        /// </summary>
+        OverTime = 1,
+        /// <summary>
+        /// The labor counts as holiday time
+        /// </summary>
+        HolidayTime = 2,
+    }
 }

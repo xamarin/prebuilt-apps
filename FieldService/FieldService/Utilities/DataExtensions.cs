@@ -23,6 +23,20 @@ namespace FieldService.Utilities
 		{
 			return status == AssignmentStatus.InProgress ? "In Progress" : status.ToString ();
 		}
+
+                public static string ToUserString (this LaborType type)
+                {
+                    switch (type) {
+                        case LaborType.Hourly:
+                            return "Hourly";
+                        case LaborType.OverTime:
+                            return "Over Time";
+                        case LaborType.HolidayTime:
+                            return "Holiday Time";
+                        default:
+                            return type.ToString ();
+                    }
+                }
 	}
 }
 
