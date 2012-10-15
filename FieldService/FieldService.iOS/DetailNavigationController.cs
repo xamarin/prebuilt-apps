@@ -13,42 +13,17 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using MonoTouch.UIKit;
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
-	[Register("MainController")]
-	public class MainController : UISplitViewController
+	public partial class DetailNavigationController : UINavigationController
 	{
-		public MainController (IntPtr handle) : base(handle)
+		public DetailNavigationController (IntPtr handle) : base (handle)
 		{
 
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-
-			Theme.TransitionWindow ();
-		}
-
-		/// <summary>
-		/// This is how orientation is setup on iOS 6
-		/// </summary>
-		public override bool ShouldAutorotate ()
-		{
-			return true;
-		}
-        
-		/// <summary>
-		/// This is how orientation is setup on iOS 6
-		/// </summary>
-		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
-		{
-			return UIInterfaceOrientationMask.All;
 		}
 	}
 }
-

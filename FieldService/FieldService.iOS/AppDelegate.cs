@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
@@ -40,6 +41,8 @@ namespace FieldService.iOS
 		/// </summary>
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
+			ServiceContainer.Register (Window);
+
 			//Apply our UI theme
 			Theme.Apply ();
 

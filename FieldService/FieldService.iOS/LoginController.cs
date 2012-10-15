@@ -82,7 +82,10 @@ namespace FieldService.iOS
 		{
 			password.ResignFirstResponder ();
 			
-			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => DismissViewController (true, null));
+			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
+				var window = ServiceContainer.Resolve<UIWindow>();
+				window.RootViewController = (UIViewController)Storyboard.InstantiateViewController ("AssignmentsController");
+			});
 		}
 		
 		public override void ViewDidUnload ()

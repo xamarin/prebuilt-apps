@@ -175,6 +175,10 @@
     <Compile Include="AssignmentDetailsController.designer.cs">
       <DependentUpon>AssignmentDetailsController.cs</DependentUpon>
     </Compile>
+    <Compile Include="DetailNavigationController.cs" />
+    <Compile Include="DetailNavigationController.designer.cs">
+      <DependentUpon>DetailNavigationController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -304,5 +308,7 @@
     <Content Include="Images\topnavbtn%402x.png" />
     <Content Include="Images\toolbarshadow.png" />
     <Content Include="Images\toolbarshadow%402x.png" />
+    <Content Include="Images\linen_left.png" />
+    <Content Include="Images\linen_left%402x.png" />
   </ItemGroup>
 </Project>

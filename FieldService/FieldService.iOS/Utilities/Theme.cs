@@ -15,6 +15,7 @@
 using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
@@ -92,7 +93,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> backbutton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/backbutton.png").CreateResizableImage (new UIEdgeInsets (15, 15, 15, 5)));
 		
 		/// <summary>
-		/// 
+		/// Standard back button for UINavigationBar
 		/// </summary>
 		public static UIImage BackButton {
 			get { return backbutton.Value; }
@@ -179,13 +180,13 @@ namespace FieldService.iOS
 			get { return dropdown.Value; }
 		}
 
-		static Lazy<UIImage> icon_pdf = new Lazy<UIImage> (() => UIImage.FromFile ("Images/icon_pdf.png"));
+		static Lazy<UIImage> iconPdf = new Lazy<UIImage> (() => UIImage.FromFile ("Images/icon_pdf.png"));
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public static UIImage Icon_Pdf {
-			get { return icon_pdf.Value; }
+		public static UIImage IconPdf {
+			get { return iconPdf.Value; }
 		}
 
 		static Lazy<UIImage> iconactive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconactive.png"));
@@ -215,22 +216,22 @@ namespace FieldService.iOS
 			get { return iconhold.Value; }
 		}
 
-		static Lazy<UIImage> iconphone = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconphone.png"));
+		static Lazy<UIImage> iconPhone = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconphone.png"));
 		
 		/// <summary>
 		/// 
 		/// </summary>
 		public static UIImage IconPhone {
-			get { return iconphone.Value; }
+			get { return iconPhone.Value; }
 		}
 
-		static Lazy<UIImage> iconphone_dark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconphone_dark.png"));
+		static Lazy<UIImage> iconPhoneDark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconphone_dark.png"));
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public static UIImage IconPhone_Dark {
-			get { return iconphone_dark.Value; }
+		public static UIImage IconPhoneDark {
+			get { return iconPhoneDark.Value; }
 		}
 
 		static Lazy<UIImage> iconsettings = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconsettings.png"));
@@ -570,6 +571,15 @@ namespace FieldService.iOS
 			get { return linenPattern.Value; }
 		}
 
+		static Lazy<UIColor> linenLeft = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/linen_left.png")));
+		
+		/// <summary>
+		/// Linen pattern background for the left menu
+		/// </summary>
+		public static UIColor LinenLeft {
+			get { return linenLeft.Value; }
+		}
+
 		#endregion
 
 		/// <summary>
@@ -588,6 +598,8 @@ namespace FieldService.iOS
 			UISegmentedControl.Appearance.TintColor = SegmentedTintColor;
 
 			UIBarButtonItem.Appearance.SetBackgroundImage (BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+			UIBarButtonItem.Appearance.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
 
 			UIButton.Appearance.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 		}
@@ -609,6 +621,14 @@ namespace FieldService.iOS
 		public static UIFont BoldFontOfSize(float size)
 		{
 			return UIFont.FromName (BoldFontName, size);
+		}
+
+		/// <summary>
+		/// Transitions the window, for a fullscreen transition
+		/// </summary>
+		public static void TransitionWindow(UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCurlDown)
+		{
+			UIView.Transition (ServiceContainer.Resolve <UIWindow>(), .3, options, delegate { }, delegate { });
 		}
 	}
 }

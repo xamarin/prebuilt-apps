@@ -15,22 +15,7 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UITableView tableView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITableViewCell summaryCell { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITableViewCell mapCell { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITableViewCell itemsCell { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITableViewCell laborCell { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITableViewCell expensesCell { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UITableViewCell confirmationsCell { get; set; }
+		MonoTouch.UIKit.UINavigationBar navigationBar { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -39,34 +24,9 @@ namespace FieldService.iOS
 				tableView = null;
 			}
 
-			if (summaryCell != null) {
-				summaryCell.Dispose ();
-				summaryCell = null;
-			}
-
-			if (mapCell != null) {
-				mapCell.Dispose ();
-				mapCell = null;
-			}
-
-			if (itemsCell != null) {
-				itemsCell.Dispose ();
-				itemsCell = null;
-			}
-
-			if (laborCell != null) {
-				laborCell.Dispose ();
-				laborCell = null;
-			}
-
-			if (expensesCell != null) {
-				expensesCell.Dispose ();
-				expensesCell = null;
-			}
-
-			if (confirmationsCell != null) {
-				confirmationsCell.Dispose ();
-				confirmationsCell = null;
+			if (navigationBar != null) {
+				navigationBar.Dispose ();
+				navigationBar = null;
 			}
 		}
 	}

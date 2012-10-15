@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
@@ -21,7 +22,7 @@ namespace FieldService.iOS
 	/// <summary>
 	/// This controller holds the main menu for assignments
 	/// </summary>
-	public partial class MenuController : UITableViewController
+	public partial class MenuController : UIViewController
 	{
 		public MenuController (IntPtr handle) : base (handle)
 		{
@@ -32,37 +33,84 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI we have to setup from code
-			tableView.BackgroundColor = Theme.LinenPattern;
+			View.BackgroundColor = Theme.LinenLeft;
+			tableView.Source = new DataSource();
+		}
 
-			summaryCell.TextLabel.Text = "Summary";
-			summaryCell.BackgroundColor = UIColor.Clear;	
-			summaryCell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
-			summaryCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
 
-			mapCell.TextLabel.Text = "Map";
-			mapCell.BackgroundColor = UIColor.Clear;	
-			mapCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-			mapCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+			tableView.SelectRow (NSIndexPath.FromRowSection (0, 0), false, UITableViewScrollPosition.Top);
+		}
 
-			itemsCell.TextLabel.Text = "Items";
-			itemsCell.BackgroundColor = UIColor.Clear;	
-			itemsCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-			itemsCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+		private class DataSource : UITableViewSource
+		{
+			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, confirmationCell;
 
-			laborCell.TextLabel.Text = "Labor Hours";
-			laborCell.BackgroundColor = UIColor.Clear;	
-			laborCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-			laborCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+			public DataSource ()
+			{
+				summaryCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				summaryCell.TextLabel.Text = "Summary";
+				summaryCell.BackgroundColor = UIColor.Clear;	
+				summaryCell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
+				summaryCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
 
-			expensesCell.TextLabel.Text = "Expenses";
-			expensesCell.BackgroundColor = UIColor.Clear;
-			expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-			expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+				mapCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				mapCell.TextLabel.Text = "Map";
+				mapCell.BackgroundColor = UIColor.Clear;	
+				mapCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+				mapCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
 
-			confirmationsCell.TextLabel.Text = "Confirmations";
-			confirmationsCell.BackgroundColor = UIColor.Clear;	
-			confirmationsCell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
-			confirmationsCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
+				itemsCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				itemsCell.TextLabel.Text = "Items";
+				itemsCell.BackgroundColor = UIColor.Clear;	
+				itemsCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+				itemsCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+
+				laborCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				laborCell.TextLabel.Text = "Labor Hours";
+				laborCell.BackgroundColor = UIColor.Clear;	
+				laborCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+				laborCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+
+				expensesCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				expensesCell.TextLabel.Text = "Expenses";
+				expensesCell.BackgroundColor = UIColor.Clear;
+				expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+				expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+
+				confirmationCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				confirmationCell.TextLabel.Text = "Confirmations";
+				confirmationCell.BackgroundColor = UIColor.Clear;	
+				confirmationCell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
+				confirmationCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
+			}
+
+			public override int RowsInSection (UITableView tableview, int section)
+			{
+				return 6;
+			}
+
+			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
+			{
+				switch (indexPath.Row) {
+				case 0:
+					return summaryCell;
+				case 1:
+					return mapCell;
+				case 2:
+					return itemsCell;
+				case 3:
+					return laborCell;
+				case 4:
+					return expensesCell;
+				case 5:
+					return confirmationCell;
+				default:
+					throw new IndexOutOfRangeException();
+				}
+			}
 		}
 	}
 }

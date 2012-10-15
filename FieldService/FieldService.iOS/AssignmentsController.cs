@@ -34,12 +34,15 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
-			tableView.Source = new DataSource ();
+			View.BackgroundColor = Theme.LinenPattern;
+			tableView.Source = new DataSource (this);
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
+
+			Theme.TransitionWindow ();
 
 			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => tableView.ReloadData ());
 		}
@@ -52,9 +55,11 @@ namespace FieldService.iOS
 		private class DataSource : UITableViewSource
 		{
 			readonly AssignmentViewModel assignmentViewModel;
-
-			public DataSource ()
+			readonly AssignmentsController controller;
+				
+			public DataSource (AssignmentsController controller)
 			{
+				this.controller = controller;
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 			}
 
@@ -69,6 +74,12 @@ namespace FieldService.iOS
 				var cell = tableView.DequeueReusableCell ("AssignmentCell") as AssignmentCell;
 				cell.SetAssignment (assignment, indexPath);
 				return cell;
+			}
+
+			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			{
+				var window = ServiceContainer.Resolve<UIWindow>();
+				window.RootViewController = (UIViewController)controller.Storyboard.InstantiateViewController ("MainController");
 			}
 		}
 	}
