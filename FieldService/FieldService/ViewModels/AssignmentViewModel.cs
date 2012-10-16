@@ -128,15 +128,9 @@ namespace FieldService.ViewModels {
                 assignment != activeAssignment &&
                 assignment.Status == AssignmentStatus.Active) {
 
-
-
-                //Set the active assignment to hold
+                //Set the active assignment to hold and save it
                 activeAssignment.Status = AssignmentStatus.Hold;
-
-                task = task.ContinueWith (t => {
-                    service.SaveAssignment (activeAssignment).Wait ();
-                    return t.Result;
-                });
+                task = task.ContinueWith (_ => service.SaveAssignment (activeAssignment)).Unwrap ();
             }
 
             //Attach a task to set IsBusy
