@@ -64,5 +64,21 @@ namespace FieldService.Tests.ViewModels {
 
             Assert.That(viewModel.IsBusy, Is.False);
         }
+
+        [Test]
+        public void SaveAssignmentToggle ()
+        {
+            var loadTask = viewModel.LoadAssignmentsAsync ();
+            loadTask.Wait ();
+
+            var assignment = viewModel.Assignments.First ();
+            assignment.Status = AssignmentStatus.Active;
+
+            var task = viewModel.SaveAssignment (assignment);
+            task.Wait ();
+
+            Assert.That (viewModel.ActiveAssignment, Is.Not.Null);
+            Assert.That (viewModel.ActiveAssignment, Is.EqualTo(assignment));    
+        }
     }
 }
