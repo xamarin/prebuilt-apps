@@ -4,4 +4,8 @@
 	<string name="ApplicationName">FieldService.Android</string>
 	<string name="Username">Username</string>
 	<string name="Password">Password</string>
+  <string name="PriorityTab">Priority</string>
+  <string name="MapTab">Map View</string>
+  <string name="Accept">Accept</string>
+  <string name="Decline">Decline</string>
 </resources>

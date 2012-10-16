@@ -160,18 +160,18 @@
         android:layout_marginRight="10dp"
         android:gravity="right">
         <Button
-            android:text="Accept"
+            android:text="@string/Accept"
             android:id="@+id/assignmentAccept"
             android:background="@drawable/accept_assignment"
             android:textColor="@android:color/black"
-            android:layout_width="100dp"
+            android:layout_width="95dp"
             android:layout_height="42dp"
             android:layout_marginBottom="5dp"
             android:layout_marginTop="5dp"
             android:layout_gravity="center_vertical" />
         <Button
-            android:text="Decline"
-            android:layout_width="100dp"
+            android:text="@string/Decline"
+            android:layout_width="95dp"
             android:layout_height="42dp"
             android:id="@+id/assignmentDecline"
             android:background="@drawable/decline_assignment"

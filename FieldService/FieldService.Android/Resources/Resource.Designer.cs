@@ -147,6 +147,9 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070001
 			public const int assignmentJob = 2131165185;
 			
+			// aapt resource value: 0x7f070013
+			public const int assignmentListView = 2131165203;
+			
 			// aapt resource value: 0x7f070005
 			public const int assignmentMapIcon = 2131165189;
 			
@@ -158,6 +161,9 @@ namespace FieldService.Android
 			
 			// aapt resource value: 0x7f070002
 			public const int assignmentPhoneIcon = 2131165186;
+			
+			// aapt resource value: 0x7f070012
+			public const int assignmentSelectedItem = 2131165202;
 			
 			// aapt resource value: 0x7f07000c
 			public const int assignmentStatus = 2131165196;
@@ -174,47 +180,44 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070009
 			public const int assignmentTimerText = 2131165193;
 			
-			// aapt resource value: 0x7f070012
-			public const int assignmentsListView = 2131165202;
-			
-			// aapt resource value: 0x7f070018
-			public const int dialogImage = 2131165208;
-			
-			// aapt resource value: 0x7f070017
-			public const int dialogLayout = 2131165207;
+			// aapt resource value: 0x7f070014
+			public const int assignmentsListView = 2131165204;
 			
 			// aapt resource value: 0x7f070019
-			public const int dialogTitle = 2131165209;
+			public const int dialogImage = 2131165209;
 			
-			// aapt resource value: 0x7f070015
-			public const int distanceButton = 2131165205;
+			// aapt resource value: 0x7f070018
+			public const int dialogLayout = 2131165208;
 			
-			// aapt resource value: 0x7f07001e
-			public const int listview_background_shape = 2131165214;
+			// aapt resource value: 0x7f07001a
+			public const int dialogTitle = 2131165210;
 			
-			// aapt resource value: 0x7f07001c
-			public const int logIn = 2131165212;
+			// aapt resource value: 0x7f07001f
+			public const int listview_background_shape = 2131165215;
 			
 			// aapt resource value: 0x7f07001d
-			public const int loginProgress = 2131165213;
+			public const int logIn = 2131165213;
+			
+			// aapt resource value: 0x7f07001e
+			public const int loginProgress = 2131165214;
+			
+			// aapt resource value: 0x7f070017
+			public const int mapViewButton = 2131165207;
+			
+			// aapt resource value: 0x7f07001c
+			public const int password = 2131165212;
 			
 			// aapt resource value: 0x7f070016
-			public const int mapViewButton = 2131165206;
+			public const int priorityButton = 2131165206;
 			
-			// aapt resource value: 0x7f07001b
-			public const int password = 2131165211;
-			
-			// aapt resource value: 0x7f070014
-			public const int priorityButton = 2131165204;
-			
-			// aapt resource value: 0x7f070013
-			public const int radioGroup1 = 2131165203;
+			// aapt resource value: 0x7f070015
+			public const int radioGroup1 = 2131165205;
 			
 			// aapt resource value: 0x7f070008
 			public const int timerLinearLayout = 2131165192;
 			
-			// aapt resource value: 0x7f07001a
-			public const int userName = 2131165210;
+			// aapt resource value: 0x7f07001b
+			public const int userName = 2131165211;
 			
 			private Id()
 			{
@@ -244,14 +247,26 @@ namespace FieldService.Android
 		public partial class String
 		{
 			
+			// aapt resource value: 0x7f050006
+			public const int Accept = 2131034118;
+			
 			// aapt resource value: 0x7f050001
 			public const int ApplicationName = 2131034113;
+			
+			// aapt resource value: 0x7f050007
+			public const int Decline = 2131034119;
 			
 			// aapt resource value: 0x7f050000
 			public const int Hello = 2131034112;
 			
+			// aapt resource value: 0x7f050005
+			public const int MapTab = 2131034117;
+			
 			// aapt resource value: 0x7f050003
 			public const int Password = 2131034115;
+			
+			// aapt resource value: 0x7f050004
+			public const int PriorityTab = 2131034116;
 			
 			// aapt resource value: 0x7f050002
 			public const int Username = 2131034114;

@@ -16,12 +16,18 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/XamarinTitle" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="54dp"
+        android:id="@+id/assignmentSelectedItem"
+        android:layout_above="@+id/assignmentListView" />
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:id="@+id/assignmentsListView"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="54dp" />
+        android:layout_below="@+id/assignmentSelectedItem" />
     <RadioGroup
         android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
@@ -35,33 +41,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:checked="true"
-            android:text="Priority"
-            android:gravity="bottom"
-            android:paddingBottom="20dp"
+            android:text="@string/PriorityTab"
+            android:gravity="center_horizontal"
             android:button="@null"
-            android:background="@drawable/radio_selector"
-            android:textColor="@color/radio_selector_color" />
-        <RadioButton
-            android:id="@+id/distanceButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
-            android:text="Distance"
-            android:button="@null"
-            android:gravity="bottom"
-            android:paddingBottom="20dp"
-            android:background="@drawable/radio_selector"
-            android:textColor="@color/radio_selector_color" />
+            android:textColor="@color/radio_selector_color"
+            android:background="@null"
+            android:drawableBottom="@drawable/radio_selector"
+            android:drawablePadding="5dp" />
         <RadioButton
             android:id="@+id/mapViewButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="5dp"
-            android:text="Map View"
-            android:paddingBottom="20dp"
-            android:gravity="bottom"
-            android:background="@drawable/radio_selector"
+            android:text="@string/MapTab"
+            android:gravity="center_horizontal"
+            android:background="@null"
             android:button="@null"
-            android:textColor="@color/radio_selector_color" />
+            android:textColor="@color/radio_selector_color"
+            android:drawableBottom="@drawable/radio_selector"
+            android:drawablePadding="5dp" />
     </RadioGroup>
 </RelativeLayout>

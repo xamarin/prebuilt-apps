@@ -126,9 +126,6 @@
     <AndroidResource Include="Resources\Layout\LoginLayout.axml" />
     <AndroidResource Include="Resources\Layout\SimpleSpinnerItem.axml" />
     <AndroidResource Include="Resources\Layout-land\AssignmentItemLayout.axml" />
-    <AndroidResource Include="Resources\Layout-land\AssignmentsLayout.axml" />
-    <AndroidResource Include="Resources\Layout-land\LoginLayout.axml" />
-    <AndroidResource Include="Resources\Layout-land\SimpleSpinnerItem.axml" />
     <AndroidResource Include="Resources\layout-port\AssignmentItemLayout.axml" />
   </ItemGroup>
   <ItemGroup>
