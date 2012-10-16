@@ -22,6 +22,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
+using System.Text;
 
 namespace FieldService.Android {
     public class AssignmentsAdapter : ArrayAdapter<Assignment> {
@@ -55,7 +56,6 @@ namespace FieldService.Android {
             view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentoffwhite));
             var number = view.FindViewById<TextView> (Resource.Id.assignmentItemNumber);
             var job = view.FindViewById<TextView> (Resource.Id.assignmentJob);
-            var distance = view.FindViewById<TextView> (Resource.Id.assignmentDistance);
             var name = view.FindViewById<TextView> (Resource.Id.assignmentName);
             var phone = view.FindViewById<TextView> (Resource.Id.assignmentPhone);
             var address = view.FindViewById<TextView> (Resource.Id.assignmentAddress);
@@ -74,7 +74,7 @@ namespace FieldService.Android {
             } else {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
-                timer.Text = string.Format ("{0} hr {1} min\n{2}", 10, 10, assignment.Status == AssignmentStatus.Active ? "RESUME" : "START");
+                timerText.Text = string.Format ("{0} hr {1} min\n{2}", 10, 10, assignment.Status == AssignmentStatus.Active ? "RESUME" : "START");
 
                 List<string> status = new List<string> ();
                 foreach (var item in Enum.GetValues (typeof (AssignmentStatus))) {
@@ -100,10 +100,16 @@ namespace FieldService.Android {
 
             number.Text = assignment.JobNumber;
             job.Text = assignment.Title;
-            distance.Text = string.Empty;
             name.Text = assignment.ContactName;
             phone.Text = assignment.ContactPhone;
-            address.Text = assignment.Address;
+            StringBuilder builder = new StringBuilder ();
+            builder.AppendLine (assignment.Address);
+            builder.Append (assignment.City);
+            builder.Append (",");
+            builder.Append (assignment.State);
+            builder.Append (" ");
+            builder.Append (assignment.Zip);
+            address.Text = builder.ToString ();
 
             return view;
         }        

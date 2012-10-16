@@ -125,6 +125,11 @@
     <AndroidResource Include="Resources\Layout\AssignmentsLayout.axml" />
     <AndroidResource Include="Resources\Layout\LoginLayout.axml" />
     <AndroidResource Include="Resources\Layout\SimpleSpinnerItem.axml" />
+    <AndroidResource Include="Resources\Layout-land\AssignmentItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-land\AssignmentsLayout.axml" />
+    <AndroidResource Include="Resources\Layout-land\LoginLayout.axml" />
+    <AndroidResource Include="Resources\Layout-land\SimpleSpinnerItem.axml" />
+    <AndroidResource Include="Resources\layout-port\AssignmentItemLayout.axml" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -158,6 +163,7 @@
     <AndroidResource Include="Resources\Drawable\TimerPause.png" />
     <AndroidResource Include="Resources\Drawable\TimerRecord.png" />
     <AndroidResource Include="Resources\Color\radio_selector_color.xml" />
+    <AndroidResource Include="Resources\Drawable\timer_selector.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
