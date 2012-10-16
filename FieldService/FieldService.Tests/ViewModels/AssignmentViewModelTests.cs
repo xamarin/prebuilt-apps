@@ -77,8 +77,8 @@ namespace FieldService.Tests.ViewModels {
             var task = viewModel.SaveAssignment (assignment);
             task.Wait ();
 
-            Assert.That (viewModel.ActiveAssignment, Is.Not.Null);
-            Assert.That (viewModel.ActiveAssignment, Is.EqualTo(assignment));    
+            Assert.That (viewModel.IsBusy, Is.False);
+            Assert.That (viewModel.ActiveAssignment.Status, Is.EqualTo (AssignmentStatus.Hold));
         }
     }
 }

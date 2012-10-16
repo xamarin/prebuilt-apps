@@ -32,6 +32,15 @@ namespace FieldService.Tests.Mocks {
                 new Assignment
                 {
                     ID = 1,
+                    Status = AssignmentStatus.Active,
+                    Title = "active test assignment",
+                    StartDate = DateTime.Now,
+                    EndDate = DateTime.Now.AddHours(2),
+                },
+                new Assignment
+                {
+                    ID = 2,
+                    Status = AssignmentStatus.New,
                     Title = "test assignment",
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddHours(2),
