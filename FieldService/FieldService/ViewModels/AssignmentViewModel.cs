@@ -74,12 +74,28 @@ namespace FieldService.ViewModels {
         public Task SaveAssignment (Assignment assignment)
         {
             IsBusy = true;
-            return service
-                .SaveAssignment (assignment)
-                .ContinueOnUIThread (t => {
-                    IsBusy = false;
+
+            //Save the assignment
+            var task = service.SaveAssignment (assignment);
+
+            //If the active assignment
+            if (activeAssignment != null &&
+                assignment != activeAssignment &&
+                assignment.Status == AssignmentStatus.Active) {
+
+                //Set the active assignment to hold
+                activeAssignment.Status = AssignmentStatus.Hold;
+                task = task.ContinueWith (t => {
+                    service.SaveAssignment (activeAssignment).Wait ();
                     return t.Result;
                 });
+            }
+
+            //Attach a task to set IsBusy
+            return task.ContinueOnUIThread (t => {
+                IsBusy = false;
+                return t.Result;
+            });
         }
     }
 }
