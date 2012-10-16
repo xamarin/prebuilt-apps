@@ -19,11 +19,6 @@ namespace FieldService.Utilities
 {
 	public static class DataExtensions
 	{
-		public static string ToUserString(this AssignmentStatus status)
-		{
-			return status == AssignmentStatus.InProgress ? "In Progress" : status.ToString ();
-		}
-
                 public static string ToUserString (this LaborType type)
                 {
                     switch (type) {

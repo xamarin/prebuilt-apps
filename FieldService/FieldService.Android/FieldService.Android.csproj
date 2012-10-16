@@ -80,6 +80,9 @@
     <Compile Include="..\FieldService\Data\Item.cs">
       <Link>FieldService\Data\Item.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\Labor.cs">
+      <Link>FieldService\Data\Labor.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Data\SampleAssignmentService.cs">
       <Link>FieldService\Data\SampleAssignmentService.cs</Link>
     </Compile>
@@ -88,6 +91,9 @@
     </Compile>
     <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Utilities\DataExtensions.cs">
+      <Link>FieldService\Utilities\DataExtensions.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
       <Link>FieldService\Utilities\ServiceContainer.cs</Link>

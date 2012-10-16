@@ -57,7 +57,7 @@ namespace FieldService.Tests.ViewModels {
             loadTask.Wait();
 
             var assignment = viewModel.Assignments.First();
-            assignment.Status = AssignmentStatus.Accepted;
+            assignment.Status = AssignmentStatus.Hold;
 
             var task = viewModel.SaveAssignment(assignment);
             task.Wait();

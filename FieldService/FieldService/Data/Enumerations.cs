@@ -28,21 +28,17 @@ namespace FieldService.Data {
         /// </summary>
         New = 0,
         /// <summary>
-        /// The assignment has been accepted
+        /// The assignment has been accepted, but not started
         /// </summary>
-        Accepted = 1,
+        Hold = 1,
         /// <summary>
         /// The user is enroute to the assignment
         /// </summary>
-        Enroute = 2,
-        /// <summary>
-        /// The user is currently working on the assignment
-        /// </summary>
-        InProgress = 3,
+        Active = 2,
         /// <summary>
         /// The user completed the assignment
         /// </summary>
-        Complete = 4,
+        Complete = 3,
         /// <summary>
         /// The assignment was declined by the user
         /// </summary>

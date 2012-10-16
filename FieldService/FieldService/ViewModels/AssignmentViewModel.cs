@@ -13,13 +13,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using FieldService.Data;
-using FieldService.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FieldService.Data;
+using FieldService.Utilities;
 
 namespace FieldService.ViewModels {
     /// <summary>
@@ -27,11 +27,21 @@ namespace FieldService.ViewModels {
     /// </summary>
     public class AssignmentViewModel : ViewModelBase {
         readonly IAssignmentService service;
-        List<Assignment> assignments = null;
+        List<Assignment> assignments;
+        Assignment activeAssignment;
 
         public AssignmentViewModel ()
         {
             service = ServiceContainer.Resolve<IAssignmentService> ();
+        }
+
+        /// <summary>
+        /// The current active assignment, this can be null
+        /// </summary>
+        public Assignment ActiveAssignment
+        {
+            get { return activeAssignment; }
+            set { activeAssignment = value; OnPropertyChanged ("ActiveAssignment"); }
         }
 
         /// <summary>
@@ -52,7 +62,10 @@ namespace FieldService.ViewModels {
             return service
                 .GetAssignmentsAsync ()
                 .ContinueOnUIThread (t => {
-                    Assignments = t.Result;
+                    //Grab the active assignment
+                    ActiveAssignment = t.Result.FirstOrDefault (a => a.Status == AssignmentStatus.Active);
+                    //Grab everything besides the active assignment
+                    Assignments = t.Result.Where (a => a.Status != AssignmentStatus.Active).ToList ();
                     IsBusy = false;
                     return t.Result;
                 });
