@@ -113,6 +113,8 @@
     <Compile Include="..\FieldService\ViewModels\ViewModelBase.cs">
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
+    <Compile Include="AssignmentsActivity.cs" />
+    <Compile Include="AssignmentsAdapter.cs" />
     <Compile Include="LoginActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -142,6 +144,18 @@
     <AndroidResource Include="Resources\Drawable\loginbox.9.png" />
     <AndroidResource Include="Resources\Values\Colors.xml" />
     <AndroidResource Include="Resources\Drawable\login_button.xml" />
+    <AndroidResource Include="Resources\Drawable\accept_assignment.xml" />
+    <AndroidResource Include="Resources\Drawable\blueRectangle.xml" />
+    <AndroidResource Include="Resources\Drawable\decline_assignment.xml" />
+    <AndroidResource Include="Resources\Drawable\EnrouteImage.png" />
+    <AndroidResource Include="Resources\Drawable\HoldImage.png" />
+    <AndroidResource Include="Resources\Drawable\MapIcon.png" />
+    <AndroidResource Include="Resources\Drawable\PhoneIcon.png" />
+    <AndroidResource Include="Resources\Drawable\radio_selector.xml" />
+    <AndroidResource Include="Resources\Drawable\roundedblack.png" />
+    <AndroidResource Include="Resources\Drawable\smallBlueRectangle.xml" />
+    <AndroidResource Include="Resources\Drawable\TimerPause.png" />
+    <AndroidResource Include="Resources\Drawable\TimerRecord.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
