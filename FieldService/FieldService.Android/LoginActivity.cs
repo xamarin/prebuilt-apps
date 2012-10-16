@@ -103,7 +103,9 @@ namespace FieldService.Android {
             loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
 
                 //will do something else later.
-                Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
+                //Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
+                StartActivity (typeof (AssignmentsActivity));
+                Finish ();
             });
         }
 

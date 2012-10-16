@@ -33,7 +33,7 @@ namespace FieldService.Data {
             Console.WriteLine("Database Path: " + Path);
         }
 #else
-        private const string Path = "Database.db";
+        private static readonly string Path = System.IO.Path.Combine (Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments), "Database.db");
 #endif
         private static bool initialized = false;
 
