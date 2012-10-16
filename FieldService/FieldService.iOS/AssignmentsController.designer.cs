@@ -106,6 +106,11 @@ namespace FieldService.iOS
 				address.Dispose ();
 				address = null;
 			}
+
+			if (status != null) {
+				status.Dispose ();
+				status = null;
+			}
 		}
 	}
 }

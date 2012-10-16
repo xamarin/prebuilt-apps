@@ -38,6 +38,16 @@ namespace FieldService.iOS
 			View.BackgroundColor = Theme.LinenPattern;
 			tableView.Source = new DataSource (this);
 			assignmentBackground.Image = Theme.AssignmentActive;
+			contact.IconImage = Theme.IconPhone;
+			address.IconImage = Theme.Map;
+			priority.TextColor = UIColor.White;
+			priorityBackground.Image = Theme.NumberBox;
+
+			status.StatusChanged += (sender, e) => {
+				assignmentViewModel
+					.SaveAssignment (assignmentViewModel.ActiveAssignment)
+					.ContinueOnUIThread (_ => ReloadAssignments ());
+			};
 
 			SetActiveAssignmentVisible (false, false);
 		}
@@ -48,6 +58,11 @@ namespace FieldService.iOS
 
 			Theme.TransitionWindow ();
 
+			ReloadAssignments ();
+		}
+
+		public void ReloadAssignments()
+		{
 			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
 				if (assignmentViewModel.ActiveAssignment == null) {
 					SetActiveAssignmentVisible (false);
@@ -55,9 +70,14 @@ namespace FieldService.iOS
 					SetActiveAssignmentVisible (true);
 					LoadActiveAssignment ();
 				}
-
+				
 				tableView.ReloadData ();
 			});
+		}
+
+		public void ReloadSingleRow(NSIndexPath indexPath)
+		{
+			tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
 		}
 
 		private void SetActiveAssignmentVisible (bool visible, bool animate = true)
@@ -100,6 +120,7 @@ namespace FieldService.iOS
 			contact.BottomLabel.Text = assignment.ContactPhone;
 			address.TopLabel.Text = assignment.Address;
 			address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
+			status.Assignment = assignment;
 		}
 
 		partial void Settings (NSObject sender)

@@ -29,7 +29,6 @@ namespace FieldService.iOS
 		bool loaded = false;
 		NSIndexPath indexPath;
 		Assignment assignment;
-		AssignmentStatusSheet statusSheet;
 
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
@@ -59,6 +58,7 @@ namespace FieldService.iOS
 
 				contact.IconImage = Theme.IconPhone;
 				address.IconImage = Theme.Map;
+				status.StatusChanged += (sender, e) => SaveAssignment ();
 
 				loaded = true;
 			}
@@ -83,7 +83,7 @@ namespace FieldService.iOS
 				accept.Hidden =
 					decline.Hidden = true;
 
-				status.Status = assignment.Status;
+				status.Assignment = assignment;
 			}
 		}
 
@@ -111,29 +111,15 @@ namespace FieldService.iOS
 
 		}
 
-		partial void ChangeStatus ()
-		{
-			statusSheet = new AssignmentStatusSheet ();
-			statusSheet.Dismissed += (sender, e) => {
-				if (e.ButtonIndex != -1) {
-					assignment.Status = statusSheet.Status;
-
-					SaveAssignment ();
-				}
-
-				statusSheet.Dispose ();
-				statusSheet = null;
-			};
-			statusSheet.ShowFrom (status.Frame, this, true);
-		}
-
 		private void SaveAssignment ()
 		{
 			assignmentViewModel.SaveAssignment (assignment)
 				.ContinueOnUIThread (t => {
-					if (indexPath != null) {
-						var tableView = Superview as UITableView;
-						tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+					var controller = ServiceContainer.Resolve<AssignmentsController> ();
+					if (assignment.Status == AssignmentStatus.Active) {
+						controller.ReloadAssignments ();
+					} else {
+						controller.ReloadSingleRow (indexPath);
 					}
 				});
 		}

@@ -52,9 +52,6 @@ namespace FieldService.iOS
 
 		[Action ("Address")]
 		partial void Address ();
-
-		[Action ("ChangeStatus")]
-		partial void ChangeStatus ();
 		
 		void ReleaseDesignerOutlets ()
 		{

@@ -24,7 +24,7 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class TextButton : UIButton
 	{
-		const int Spacing = 5;
+		const int Spacing = 4;
 		const int IconBackgroundSize = 30;
 		readonly UIButton icon;
 
@@ -36,10 +36,10 @@ namespace FieldService.iOS
 			icon.UserInteractionEnabled = false;
 			AddSubview (icon);
 
-			TopLabel = new UILabel { BackgroundColor = UIColor.Clear, Font = Theme.BoldFontOfSize (12), HighlightedTextColor = UIColor.Black };
+			TopLabel = new UILabel { BackgroundColor = UIColor.Clear, Font = Theme.BoldFontOfSize (11), HighlightedTextColor = UIColor.Black };
 			AddSubview (TopLabel);
 
-			BottomLabel = new UILabel { BackgroundColor = UIColor.Clear, Font = Theme.FontOfSize (12), HighlightedTextColor = UIColor.Black };
+			BottomLabel = new UILabel { BackgroundColor = UIColor.Clear, Font = Theme.FontOfSize (11), HighlightedTextColor = UIColor.Black };
 			AddSubview (BottomLabel);
 		}
 

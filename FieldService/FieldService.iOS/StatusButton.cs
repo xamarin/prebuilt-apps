@@ -26,7 +26,10 @@ namespace FieldService.iOS
 	public partial class StatusButton : UIButton
 	{
 		UIImageView statusImage;
-		AssignmentStatus status;
+		Assignment assignment;
+		AssignmentStatusSheet statusSheet;
+
+		public event EventHandler StatusChanged;
 
 		public StatusButton (IntPtr handle) : base (handle)
 		{
@@ -35,22 +38,47 @@ namespace FieldService.iOS
 			AddSubview (new UIImageView (new RectangleF (frame.Width - 23, (frame.Height - 7) / 2, 13, 7)) { Image = Theme.Arrow });
 			
 			SetBackgroundImage (Theme.DropDown, UIControlState.Normal);
+
+			TouchUpInside += OnTouchUpInside;
 		}
 
-		public AssignmentStatus Status
+		public Assignment Assignment
 		{
-			get { return status; }
+			get { return assignment; }
 			set
 			{
-				if (status != value)
+				if (assignment != value)
 				{
-					status = value;
+					assignment = value;
 
 					//Update the button
-					statusImage.Image = ImageForStatus (status);
-					SetTitle (status.ToString (), UIControlState.Normal);
+					statusImage.Image = ImageForStatus (assignment.Status);
+					SetTitle (assignment.Status.ToString (), UIControlState.Normal);
 				}
 			}
+		}
+
+		private void OnTouchUpInside(object sender, EventArgs e)
+		{
+			statusSheet = new AssignmentStatusSheet ();
+			statusSheet.Dismissed += OnStatusSheetDismissed;
+			statusSheet.ShowFrom (Frame, Superview, true);
+		}
+
+		private void OnStatusSheetDismissed(object sender, UIButtonEventArgs e)
+		{
+			if (e.ButtonIndex != -1) {
+				assignment.Status = statusSheet.Status;
+				
+				var method = StatusChanged;
+				if (method != null) {
+					method(this, EventArgs.Empty);
+				}
+			}
+
+			statusSheet.Dismissed -= OnStatusSheetDismissed;
+			statusSheet.Dispose ();
+			statusSheet = null;
 		}
 
 		private UIImage ImageForStatus (AssignmentStatus status)
