@@ -46,8 +46,8 @@
             android:button="@null"
             android:textColor="@color/radio_selector_color"
             android:background="@null"
-            android:drawableBottom="@drawable/radio_selector"
-            android:drawablePadding="5dp" />
+            android:drawablePadding="5dp"
+            android:drawableBottom="@drawable/smallBlueRectangle" />
         <RadioButton
             android:id="@+id/mapViewButton"
             android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
             android:background="@null"
             android:button="@null"
             android:textColor="@color/radio_selector_color"
-            android:drawableBottom="@drawable/radio_selector"
+            android:drawableBottom="@drawable/smallBlueRectangle"
             android:drawablePadding="5dp" />
     </RadioGroup>
 </RelativeLayout>

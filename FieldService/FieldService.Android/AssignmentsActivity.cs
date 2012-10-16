@@ -80,6 +80,7 @@ namespace FieldService.Android {
                 var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, assignmentViewModel.Assignments);
                 assignmentsListView.Adapter = adapter;
             });
+            priority.Checked = true;
         }
 
         /// <summary>

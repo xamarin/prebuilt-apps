@@ -154,7 +154,6 @@
     <AndroidResource Include="Resources\Drawable\HoldImage.png" />
     <AndroidResource Include="Resources\Drawable\MapIcon.png" />
     <AndroidResource Include="Resources\Drawable\PhoneIcon.png" />
-    <AndroidResource Include="Resources\Drawable\radio_selector.xml" />
     <AndroidResource Include="Resources\Drawable\roundedblack.png" />
     <AndroidResource Include="Resources\Drawable\smallBlueRectangle.xml" />
     <AndroidResource Include="Resources\Drawable\TimerPause.png" />
