@@ -81,13 +81,13 @@ namespace FieldService.iOS
 			get { return arrowwhite.Value; }
 		}
 
-		static Lazy<UIImage> assignmentactive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentactive.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> assignmentActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentactive.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
-		/// 
+		/// Active assignment background
 		/// </summary>
 		public static UIImage AssignmentActive {
-			get { return assignmentactive.Value; }
+			get { return assignmentActive.Value; }
 		}
 
 		static Lazy<UIImage> backbutton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/backbutton.png").CreateResizableImage (new UIEdgeInsets (15, 15, 15, 5)));
@@ -513,22 +513,22 @@ namespace FieldService.iOS
 			get { return barButtonItem.Value; }
 		}
 
-		static Lazy<UIImage> assignmentblue = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentblue.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> assignmentBlue = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentblue.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// Cell background for selected assignment
 		/// </summary>
 		public static UIImage AssignmentBlue {
-			get { return assignmentblue.Value; }
+			get { return assignmentBlue.Value; }
 		}
 		
-		static Lazy<UIImage> assignmentgrey = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> assignmentGrey = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// Cell background for assignment
 		/// </summary>
 		public static UIImage AssignmentGrey {
-			get { return assignmentgrey.Value; }
+			get { return assignmentGrey.Value; }
 		}
 
 		#endregion

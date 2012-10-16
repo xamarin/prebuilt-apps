@@ -39,7 +39,7 @@ namespace FieldService.iOS
 			tableView.Source = new DataSource (this);
 			assignmentBackground.Image = Theme.AssignmentActive;
 
-			SetActiveAssignment (false, false);
+			SetActiveAssignmentVisible (false, false);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -50,16 +50,17 @@ namespace FieldService.iOS
 
 			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
 				if (assignmentViewModel.ActiveAssignment == null) {
-					SetActiveAssignment (false);
+					SetActiveAssignmentVisible (false);
 				} else {
-					SetActiveAssignment (true);
+					SetActiveAssignmentVisible (true);
+					LoadActiveAssignment ();
 				}
 
 				tableView.ReloadData ();
 			});
 		}
 
-		private void SetActiveAssignment (bool visible, bool animate = true)
+		private void SetActiveAssignmentVisible (bool visible, bool animate = true)
 		{
 			if (visible != activeAssignmentVisible) {
 				if (animate) {
@@ -71,7 +72,7 @@ namespace FieldService.iOS
 				activeAssignment.Alpha = visible ? 1 : 0;
 
 				var frame = tableView.Frame;
-				float height = 97;
+				float height = 95;
 				if (visible) {
 					frame.Y += height;
 					frame.Height -= height;
@@ -86,6 +87,19 @@ namespace FieldService.iOS
 				}
 				activeAssignmentVisible = visible;
 			}
+		}
+
+		private void LoadActiveAssignment()
+		{
+			var assignment = assignmentViewModel.ActiveAssignment;
+			priority.Text = assignment.Priority.ToString ();
+			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
+			title.Text = assignment.Title;
+			startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+			contact.TopLabel.Text = assignment.ContactName;
+			contact.BottomLabel.Text = assignment.ContactPhone;
+			address.TopLabel.Text = assignment.Address;
+			address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
 		}
 
 		partial void Settings (NSObject sender)
