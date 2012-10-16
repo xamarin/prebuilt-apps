@@ -32,9 +32,9 @@ namespace FieldService.Data {
         public int ID { get; set; }
 
         /// <summary>
-        /// A name to identify the expense
+        /// A category to identify the expense
         /// </summary>
-        public string Category { get; set; }
+        public ExpenseCategory Category { get; set; }
 
         /// <summary>
         /// An extended description of the expense
@@ -47,9 +47,22 @@ namespace FieldService.Data {
         public decimal Cost { get; set; }
 
         /// <summary>
+        /// An attached photo
+        /// </summary>
+        public Byte[] Photo { get; set; }
+
+        /// <summary>
         /// Link to an assignment
         /// </summary>
         [Indexed]
         public int Assignment { get; set; }
+
+        public string TypeAsString
+        {
+            get
+            {
+                return Category.ToUserString ();
+            }
+        }
     }
 }
