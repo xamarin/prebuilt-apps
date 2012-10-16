@@ -1,0 +1,168 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:background="@android:color/white"
+    android:layout_height="wrap_content">
+    <TextView
+        android:background="@drawable/roundedblack"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentItemNumber"
+        android:layout_marginLeft="20dp"
+        android:layout_gravity="center_vertical"
+        android:textColor="@color/assignmentoffwhite"
+        android:gravity="center" />
+    <TextView
+        android:text="#78690 9/13/12 Furnace Repair"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentJob"
+        android:textSize="12dp"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:maxWidth="100dp" />
+    <TextView
+        android:text="12 mi."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentDistance"
+        android:textSize="12dp"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:maxWidth="100dp" />
+    <TextView
+        android:text="Jonathan Franklin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentName"
+        android:textSize="12dp"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="20dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:maxWidth="100dp" />
+    <ImageView
+        android:src="@drawable/PhoneIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentPhoneIcon"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/roundedblack"
+        android:scaleType="centerInside" />
+    <TextView
+        android:text="270-796-5063"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentPhone"
+        android:textSize="12dp"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:maxWidth="100dp" />
+    <ImageView
+        android:src="@drawable/MapIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentMapIcon"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/roundedblack"
+        android:scaleType="centerInside" />
+    <TextView
+        android:text="2425 Nashville Road Bowling Green, KY 42101"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentAddress"
+        android:textSize="12dp"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:layout_gravity="center_vertical"
+        android:maxWidth="150dp" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentTimerLayout"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp"
+        android:layout_gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        <TextView
+            android:text="10 hr 10 min START"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/assignmentTimerText"
+            android:gravity="right"
+            android:textColor="@android:color/black"
+            android:maxWidth="100dp"
+            android:layout_gravity="center_vertical" />
+        <ToggleButton
+            android:layout_width="47dp"
+            android:layout_height="46dp"
+            android:id="@+id/assignmentTimer"
+            android:background="@drawable/TimerRecord"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="5dp"
+            android:textOff=""
+            android:textOn="" />
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="20dp">
+            <ImageView
+                android:src="@drawable/EnrouteImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/assignmentStatusImage"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="5dp" />
+            <Spinner
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/assignmentStatus"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_vertical"
+                android:textSize="14dp"
+                android:textColor="@color/greyspinnertext" />
+        </LinearLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/assignmentButtonLayout"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="20dp"
+        android:visibility="visible"
+        android:layout_marginRight="10dp">
+        <Button
+            android:text="Accept"
+            android:id="@+id/assignmentAccept"
+            android:background="@drawable/accept_assignment"
+            android:textColor="@android:color/black"
+            android:layout_width="130dp"
+            android:layout_height="42dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginTop="5dp"
+            android:layout_gravity="center_vertical" />
+        <Button
+            android:text="Decline"
+            android:layout_width="130dp"
+            android:layout_height="42dp"
+            android:id="@+id/assignmentDecline"
+            android:background="@drawable/decline_assignment"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+</LinearLayout>

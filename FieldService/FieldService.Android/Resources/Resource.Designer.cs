@@ -26,8 +26,29 @@ namespace FieldService.Android
 		public partial class Color
 		{
 			
+			// aapt resource value: 0x7f040006
+			public const int assignmentblue = 2130968582;
+			
+			// aapt resource value: 0x7f040007
+			public const int assignmentgrey = 2130968583;
+			
+			// aapt resource value: 0x7f040005
+			public const int assignmentoffwhite = 2130968581;
+			
+			// aapt resource value: 0x7f040001
+			public const int blueassignmentbutton = 2130968577;
+			
 			// aapt resource value: 0x7f040000
 			public const int blueclick = 2130968576;
+			
+			// aapt resource value: 0x7f040002
+			public const int greybutton = 2130968578;
+			
+			// aapt resource value: 0x7f040004
+			public const int greyheadertext = 2130968580;
+			
+			// aapt resource value: 0x7f040003
+			public const int greyspinnertext = 2130968579;
 			
 			private Color()
 			{
@@ -38,19 +59,55 @@ namespace FieldService.Android
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int actionbar = 2130837504;
+			public const int accept_assignment = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int Icon = 2130837505;
+			public const int actionbar = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int login_button = 2130837506;
+			public const int blueRectangle = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int loginbox = 2130837507;
+			public const int decline_assignment = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int XamarinTitle = 2130837508;
+			public const int EnrouteImage = 2130837508;
+			
+			// aapt resource value: 0x7f020005
+			public const int HoldImage = 2130837509;
+			
+			// aapt resource value: 0x7f020006
+			public const int Icon = 2130837510;
+			
+			// aapt resource value: 0x7f020007
+			public const int login_button = 2130837511;
+			
+			// aapt resource value: 0x7f020008
+			public const int loginbox = 2130837512;
+			
+			// aapt resource value: 0x7f020009
+			public const int MapIcon = 2130837513;
+			
+			// aapt resource value: 0x7f02000a
+			public const int PhoneIcon = 2130837514;
+			
+			// aapt resource value: 0x7f02000b
+			public const int radio_selector = 2130837515;
+			
+			// aapt resource value: 0x7f02000c
+			public const int roundedblack = 2130837516;
+			
+			// aapt resource value: 0x7f02000d
+			public const int smallBlueRectangle = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int TimerPause = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int TimerRecord = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int XamarinTitle = 2130837520;
 			
 			private Drawable()
 			{
@@ -74,6 +131,9 @@ namespace FieldService.Android
 			
 			// aapt resource value: 0x7f070004
 			public const int dialogTitle = 2131165188;
+			
+			// aapt resource value: 0x7f070009
+			public const int listview_background_shape = 2131165193;
 			
 			// aapt resource value: 0x7f070007
 			public const int logIn = 2131165191;

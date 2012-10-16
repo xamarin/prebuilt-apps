@@ -1,4 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
   <color name="blueclick">#33B5E5</color>
+  <color name="blueassignmentbutton">#9DE5F7</color>
+  <color name="greybutton">#DBDBDB</color>
+  <color name="greyspinnertext">#7C7C7C</color>
+  <color name="greyheadertext">#707070</color>
+  <color name="assignmentoffwhite">#F9F9F9</color>
+  <color name="assignmentblue">#D8F4FF</color>
+  <color name="assignmentgrey">#EAE9E9</color>
 </resources>
