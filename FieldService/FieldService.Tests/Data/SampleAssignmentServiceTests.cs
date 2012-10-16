@@ -89,6 +89,19 @@ namespace FieldService.Tests.Data {
         }
 
         [Test]
+        public void SaveExpenseUpdate ()
+        {
+            var expense = new Expense ();
+            expense.Description = "New Description";
+            var saveTask = service.SaveExpense (expense);
+            saveTask.Wait ();
+            expense.Description = "New Description 2";
+            saveTask = service.SaveExpense (expense);
+            saveTask.Wait ();
+            Assert.That (saveTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
         public void GetItems ()
         {
             var task = service.GetItemsAsync ();

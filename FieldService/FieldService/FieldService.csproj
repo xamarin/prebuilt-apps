@@ -48,6 +48,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Data\Assignment.cs" />
     <Compile Include="Data\AssignmentItem.cs" />
+    <Compile Include="Data\Expense.cs" />
     <Compile Include="Data\Labor.cs" />
     <Compile Include="Data\Database.cs" />
     <Compile Include="Data\Enumerations.cs" />
