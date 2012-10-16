@@ -47,6 +47,18 @@ namespace FieldService.iOS
 		[Outlet]
 		FieldService.iOS.StatusButton status { get; set; }
 
+		[Outlet]
+		MonoTouch.UIKit.UIImageView timerBackgroundImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel timerLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton record { get; set; }
+
+		[Action ("Record")]
+		partial void Record ();
+
 		[Action ("ActiveAssignmentSelected")]
 		partial void ActiveAssignmentSelected ();
 
@@ -113,6 +125,21 @@ namespace FieldService.iOS
 			if (status != null) {
 				status.Dispose ();
 				status = null;
+			}
+
+			if (timerBackgroundImage != null) {
+				timerBackgroundImage.Dispose ();
+				timerBackgroundImage = null;
+			}
+
+			if (timerLabel != null) {
+				timerLabel.Dispose ();
+				timerLabel = null;
+			}
+
+			if (record != null) {
+				record.Dispose ();
+				record = null;
 			}
 		}
 	}

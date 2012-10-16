@@ -35,6 +35,7 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			//Setup UI that is required from code
 			View.BackgroundColor = Theme.LinenPattern;
 			tableView.Source = new DataSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
@@ -42,6 +43,8 @@ namespace FieldService.iOS
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
+			record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
+			timerBackgroundImage.Image = Theme.TimerField;
 
 			status.StatusChanged += (sender, e) => {
 				assignmentViewModel
@@ -59,6 +62,48 @@ namespace FieldService.iOS
 			Theme.TransitionWindow ();
 
 			ReloadAssignments ();
+		}
+
+		/// <summary>
+		/// We override this to show/hide some controls during rotation
+		/// </summary>
+		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			bool wasPortrait = InterfaceOrientation == UIInterfaceOrientation.Portrait || InterfaceOrientation == UIInterfaceOrientation.PortraitUpsideDown;
+			bool willBePortrait = toInterfaceOrientation == UIInterfaceOrientation.Portrait || toInterfaceOrientation == UIInterfaceOrientation.PortraitUpsideDown;
+			bool wasLandscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeRight || InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft;
+			bool willBeLandscape = toInterfaceOrientation == UIInterfaceOrientation.LandscapeRight || toInterfaceOrientation == UIInterfaceOrientation.LandscapeLeft;
+
+			if (wasPortrait && willBeLandscape)
+			{
+				SetContactVisible (true, duration);
+			}
+			else if (wasLandscape && willBePortrait)
+			{
+				SetContactVisible (false, duration);
+			}
+
+			base.WillRotate (toInterfaceOrientation, duration);
+		}
+
+		/// <summary>
+		/// This is uses to show/hide contact and address on rotation
+		/// </summary>
+		private void SetContactVisible (bool visible, double duration)
+		{
+			UIView.BeginAnimations ("SetContactVisible");
+			UIView.SetAnimationDuration (duration);
+			UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+
+			if (visible) {
+				contact.Alpha = 
+					address.Alpha = 1;
+			} else {
+				contact.Alpha = 
+					address.Alpha = 0;
+			}
+
+			UIView.CommitAnimations ();
 		}
 
 		/// <summary>
@@ -86,6 +131,9 @@ namespace FieldService.iOS
 			tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
 		}
 
+		/// <summary>
+		/// Event when the active assignment is clicked
+		/// </summary>
 		partial void ActiveAssignmentSelected ()
 		{
 			var window = ServiceContainer.Resolve<UIWindow> ();
@@ -141,11 +189,17 @@ namespace FieldService.iOS
 			status.Assignment = assignment;
 		}
 
+		/// <summary>
+		/// Event when the settings toolbar item is clicked
+		/// </summary>
 		partial void Settings (NSObject sender)
 		{
 
 		}
 
+		/// <summary>
+		/// Data source for the tableView of assignments
+		/// </summary>
 		private class DataSource : UITableViewSource
 		{
 			readonly AssignmentViewModel assignmentViewModel;

@@ -408,19 +408,19 @@ namespace FieldService.iOS
 		static Lazy<UIImage> record = new Lazy<UIImage> (() => UIImage.FromFile ("Images/record.png"));
 		
 		/// <summary>
-		/// 
+		/// Image for the record button
 		/// </summary>
 		public static UIImage Record {
 			get { return record.Value; }
 		}
 
-		static Lazy<UIImage> record_active = new Lazy<UIImage> (() => UIImage.FromFile ("Images/record_active.png"));
+		static Lazy<UIImage> recordActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/record_active.png"));
 		
 		/// <summary>
-		/// 
+		/// Image for the record button when toggled on
 		/// </summary>
-		public static UIImage Record_Active {
-			get { return record_active.Value; }
+		public static UIImage RecordActive {
+			get { return recordActive.Value; }
 		}
 
 		static Lazy<UIImage> rightboxshadow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/rightboxshadow.png"));
@@ -477,19 +477,19 @@ namespace FieldService.iOS
 			get { return smallGreyButton.Value; }
 		}
 
-		static Lazy<UIImage> timerbg = new Lazy<UIImage> (() => UIImage.FromFile ("Images/timerbg.png"));
+		static Lazy<UIImage> timerBackground = new Lazy<UIImage> (() => UIImage.FromFile ("Images/timerbg.png"));
 		
 		/// <summary>
-		/// 
+		/// Background image for the large timer
 		/// </summary>
-		public static UIImage TimerBg {
-			get { return timerbg.Value; }
+		public static UIImage TimerBackground {
+			get { return timerBackground.Value; }
 		}
 
 		static Lazy<UIImage> timerfield = new Lazy<UIImage> (() => UIImage.FromFile ("Images/timerfield.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
-		/// 
+		/// Background for the timer field on the active assignment
 		/// </summary>
 		public static UIImage TimerField {
 			get { return timerfield.Value; }
