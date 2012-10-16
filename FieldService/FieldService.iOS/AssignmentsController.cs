@@ -24,6 +24,7 @@ namespace FieldService.iOS
 	public partial class AssignmentsController : UIViewController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
+		bool activeAssignmentVisible = true;
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
@@ -36,6 +37,9 @@ namespace FieldService.iOS
 
 			View.BackgroundColor = Theme.LinenPattern;
 			tableView.Source = new DataSource (this);
+			assignmentBackground.Image = Theme.AssignmentActive;
+
+			SetActiveAssignment (false, false);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -44,7 +48,44 @@ namespace FieldService.iOS
 
 			Theme.TransitionWindow ();
 
-			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => tableView.ReloadData ());
+			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
+				if (assignmentViewModel.ActiveAssignment == null) {
+					SetActiveAssignment (false);
+				} else {
+					SetActiveAssignment (true);
+				}
+
+				tableView.ReloadData ();
+			});
+		}
+
+		private void SetActiveAssignment (bool visible, bool animate = true)
+		{
+			if (visible != activeAssignmentVisible) {
+				if (animate) {
+					UIView.BeginAnimations ("ChangeActiveAssignment");
+					UIView.SetAnimationDuration (.3);
+					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+				}
+
+				activeAssignment.Alpha = visible ? 1 : 0;
+
+				var frame = tableView.Frame;
+				float height = 97;
+				if (visible) {
+					frame.Y += height;
+					frame.Height -= height;
+				} else {
+					frame.Y -= height;
+					frame.Height += height;
+				}
+				tableView.Frame = frame;
+
+				if (animate) {
+					UIView.CommitAnimations ();
+				}
+				activeAssignmentVisible = visible;
+			}
 		}
 
 		partial void Settings (NSObject sender)
@@ -55,11 +96,9 @@ namespace FieldService.iOS
 		private class DataSource : UITableViewSource
 		{
 			readonly AssignmentViewModel assignmentViewModel;
-			readonly AssignmentsController controller;
 				
 			public DataSource (AssignmentsController controller)
 			{
-				this.controller = controller;
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 			}
 

@@ -18,7 +18,31 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UISegmentedControl segmentedControl { get; set; }
 
 		[Outlet]
-		FieldService.iOS.AssignmentCell activeAssignment { get; set; }
+		MonoTouch.UIKit.UIView activeAssignment { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView assignmentBackground { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView priorityBackground { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel priority { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel numberAndDate { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel title { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel startAndEnd { get; set; }
+
+		[Outlet]
+		FieldService.iOS.TextButton contact { get; set; }
+
+		[Outlet]
+		FieldService.iOS.TextButton address { get; set; }
 
 		[Action ("Settings:")]
 		partial void Settings (MonoTouch.Foundation.NSObject sender);
@@ -38,6 +62,46 @@ namespace FieldService.iOS
 			if (activeAssignment != null) {
 				activeAssignment.Dispose ();
 				activeAssignment = null;
+			}
+
+			if (assignmentBackground != null) {
+				assignmentBackground.Dispose ();
+				assignmentBackground = null;
+			}
+
+			if (priorityBackground != null) {
+				priorityBackground.Dispose ();
+				priorityBackground = null;
+			}
+
+			if (priority != null) {
+				priority.Dispose ();
+				priority = null;
+			}
+
+			if (numberAndDate != null) {
+				numberAndDate.Dispose ();
+				numberAndDate = null;
+			}
+
+			if (title != null) {
+				title.Dispose ();
+				title = null;
+			}
+
+			if (startAndEnd != null) {
+				startAndEnd.Dispose ();
+				startAndEnd = null;
+			}
+
+			if (contact != null) {
+				contact.Dispose ();
+				contact = null;
+			}
+
+			if (address != null) {
+				address.Dispose ();
+				address = null;
 			}
 		}
 	}

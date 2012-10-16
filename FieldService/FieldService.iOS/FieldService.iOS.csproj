@@ -179,6 +179,12 @@
     <Compile Include="DetailNavigationController.designer.cs">
       <DependentUpon>DetailNavigationController.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\FieldService\Data\Labor.cs">
+      <Link>FieldService\Data\Labor.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\Data\Expense.cs">
+      <Link>FieldService\Data\Expense.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

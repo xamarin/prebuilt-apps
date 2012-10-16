@@ -75,13 +75,13 @@ namespace FieldService.iOS
 		static Lazy<UIImage> arrowwhite = new Lazy<UIImage> (() => UIImage.FromFile ("Images/arrowwhite.png"));
 		
 		/// <summary>
-		/// 
+		/// Image for the active assignment
 		/// </summary>
 		public static UIImage ArrowWhite {
 			get { return arrowwhite.Value; }
 		}
 
-		static Lazy<UIImage> assignmentactive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentactive.png"));
+		static Lazy<UIImage> assignmentactive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentactive.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// 
@@ -513,7 +513,7 @@ namespace FieldService.iOS
 			get { return barButtonItem.Value; }
 		}
 
-		static Lazy<UIImage> assignmentblue = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentblue.png").CreateResizableImage (new UIEdgeInsets()));
+		static Lazy<UIImage> assignmentblue = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentblue.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// Cell background for selected assignment
@@ -522,7 +522,7 @@ namespace FieldService.iOS
 			get { return assignmentblue.Value; }
 		}
 		
-		static Lazy<UIImage> assignmentgrey = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets()));
+		static Lazy<UIImage> assignmentgrey = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// Cell background for assignment
@@ -553,7 +553,7 @@ namespace FieldService.iOS
 			get { return indicatorColor.Value; }
 		}
 
-		static Lazy<UIColor> segmentedTintColor = new Lazy<UIColor> (() => UIColor.FromRGB(0x18, 0xa0, 0xd2));
+		static Lazy<UIColor> segmentedTintColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x18, 0xa0, 0xd2));
 		
 		/// <summary>
 		/// Tint color for UISegmentedControl
@@ -610,7 +610,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Returns the default font with a certain size
 		/// </summary>
-		public static UIFont FontOfSize(float size)
+		public static UIFont FontOfSize (float size)
 		{
 			return UIFont.FromName (FontName, size);
 		}
@@ -618,7 +618,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Returns the default font with a certain size
 		/// </summary>
-		public static UIFont BoldFontOfSize(float size)
+		public static UIFont BoldFontOfSize (float size)
 		{
 			return UIFont.FromName (BoldFontName, size);
 		}
@@ -626,9 +626,11 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Transitions the window, for a fullscreen transition
 		/// </summary>
-		public static void TransitionWindow(UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCrossDissolve)
+		public static void TransitionWindow (UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCrossDissolve)
 		{
-			UIView.Transition (ServiceContainer.Resolve <UIWindow>(), .3, options, delegate { }, delegate { });
+			UIView.Transition (ServiceContainer.Resolve <UIWindow> (), .3, options, delegate {
+			}, delegate {
+			});
 		}
 	}
 }

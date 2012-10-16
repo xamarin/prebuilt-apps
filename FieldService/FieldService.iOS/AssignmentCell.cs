@@ -70,7 +70,7 @@ namespace FieldService.iOS
 			}
 
 			//Now make any changes dependant on the assignment passed in
-			((UIImageView)BackgroundView).Image = assignment.Status == AssignmentStatus.Enroute ? Theme.AssignmentBlue : Theme.AssignmentGrey;
+			((UIImageView)BackgroundView).Image = Theme.AssignmentGrey;
 			priority.Text = assignment.Priority.ToString ();
 			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
 			title.Text = assignment.Title;
@@ -90,20 +90,19 @@ namespace FieldService.iOS
 					decline.Hidden = true;
 
 				statusImage.Image = ImageForStatus (assignment.Status);
-				status.SetTitle (assignment.StatusAsString, UIControlState.Normal);
+				status.SetTitle (assignment.Status.ToString (), UIControlState.Normal);
 			}
 		}
 
 		private UIImage ImageForStatus (AssignmentStatus status)
 		{
 			switch (status) {
-			case AssignmentStatus.Enroute:
+			case AssignmentStatus.Active:
 			case AssignmentStatus.Complete:
 				return Theme.IconActive;
 			case AssignmentStatus.Declined:
 				return Theme.IconComplete;
-			case AssignmentStatus.InProgress:
-			case AssignmentStatus.Accepted:
+			case AssignmentStatus.Hold:
 			case AssignmentStatus.New:
 				return Theme.IconHold;
 			default:
@@ -113,7 +112,7 @@ namespace FieldService.iOS
 
 		partial void Accept ()
 		{
-			assignment.Status = AssignmentStatus.Accepted;
+			assignment.Status = AssignmentStatus.Hold;
 
 			SaveAssignment ();
 		}
@@ -155,9 +154,11 @@ namespace FieldService.iOS
 		{
 			assignmentViewModel.SaveAssignment (assignment)
 				.ContinueOnUIThread (t => {
-				var tableView = Superview as UITableView;
-				tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
-			});
+					if (indexPath != null) {
+						var tableView = Superview as UITableView;
+						tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
+					}
+				});
 		}
 
 		protected override void Dispose (bool disposing)

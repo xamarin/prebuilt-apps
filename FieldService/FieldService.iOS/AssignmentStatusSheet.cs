@@ -25,7 +25,7 @@ namespace FieldService.iOS
 		public AssignmentStatusSheet ()
 		{
 			foreach (AssignmentStatus status in Enum.GetValues (typeof(AssignmentStatus))) {
-				AddButton (status.ToUserString ());
+				AddButton (status.ToString ());
 			}
 
 			Dismissed += (sender, e) => Index = e.ButtonIndex;
