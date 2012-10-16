@@ -44,6 +44,9 @@ namespace FieldService.iOS
 		[Outlet]
 		FieldService.iOS.TextButton address { get; set; }
 
+		[Outlet]
+		FieldService.iOS.StatusButton status { get; set; }
+
 		[Action ("Settings:")]
 		partial void Settings (MonoTouch.Foundation.NSObject sender);
 		

@@ -33,13 +33,13 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UILabel startAndEnd { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton status { get; set; }
-
-		[Outlet]
 		FieldService.iOS.TextButton contact { get; set; }
 
 		[Outlet]
 		FieldService.iOS.TextButton address { get; set; }
+
+		[Outlet]
+		FieldService.iOS.StatusButton status { get; set; }
 
 		[Action ("Accept")]
 		partial void Accept ();
@@ -93,11 +93,6 @@ namespace FieldService.iOS
 				startAndEnd = null;
 			}
 
-			if (status != null) {
-				status.Dispose ();
-				status = null;
-			}
-
 			if (contact != null) {
 				contact.Dispose ();
 				contact = null;
@@ -106,6 +101,11 @@ namespace FieldService.iOS
 			if (address != null) {
 				address.Dispose ();
 				address = null;
+			}
+
+			if (status != null) {
+				status.Dispose ();
+				status = null;
 			}
 		}
 	}

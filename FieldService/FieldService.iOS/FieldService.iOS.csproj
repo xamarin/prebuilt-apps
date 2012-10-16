@@ -185,6 +185,10 @@
     <Compile Include="..\FieldService\Data\Expense.cs">
       <Link>FieldService\Data\Expense.cs</Link>
     </Compile>
+    <Compile Include="StatusButton.cs" />
+    <Compile Include="StatusButton.designer.cs">
+      <DependentUpon>StatusButton.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

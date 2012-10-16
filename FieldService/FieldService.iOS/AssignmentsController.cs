@@ -65,7 +65,7 @@ namespace FieldService.iOS
 			if (visible != activeAssignmentVisible) {
 				if (animate) {
 					UIView.BeginAnimations ("ChangeActiveAssignment");
-					UIView.SetAnimationDuration (.3);
+					UIView.SetAnimationDuration (.5);
 					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
 				}
 

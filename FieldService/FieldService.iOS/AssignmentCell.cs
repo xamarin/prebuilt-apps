@@ -27,7 +27,6 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		bool loaded = false;
-		UIImageView statusImage;
 		NSIndexPath indexPath;
 		Assignment assignment;
 		AssignmentStatusSheet statusSheet;
@@ -48,11 +47,6 @@ namespace FieldService.iOS
 			if (!loaded) {
 				BackgroundView = new UIImageView ();
 
-				var frame = status.Frame;
-				status.AddSubview (statusImage = new UIImageView (new RectangleF (14, (frame.Height - 16) / 2, 16, 16)));
-				status.AddSubview (new UIImageView (new RectangleF (frame.Width - 23, (frame.Height - 7) / 2, 13, 7)) { Image = Theme.Arrow });
-
-				status.SetBackgroundImage (Theme.DropDown, UIControlState.Normal);
 				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
 				priority.TextColor = 
@@ -89,24 +83,7 @@ namespace FieldService.iOS
 				accept.Hidden =
 					decline.Hidden = true;
 
-				statusImage.Image = ImageForStatus (assignment.Status);
-				status.SetTitle (assignment.Status.ToString (), UIControlState.Normal);
-			}
-		}
-
-		private UIImage ImageForStatus (AssignmentStatus status)
-		{
-			switch (status) {
-			case AssignmentStatus.Active:
-			case AssignmentStatus.Complete:
-				return Theme.IconActive;
-			case AssignmentStatus.Declined:
-				return Theme.IconComplete;
-			case AssignmentStatus.Hold:
-			case AssignmentStatus.New:
-				return Theme.IconHold;
-			default:
-				throw new InvalidOperationException ("No picture for status: " + status);
+				status.Status = assignment.Status;
 			}
 		}
 
