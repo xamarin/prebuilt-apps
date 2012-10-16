@@ -147,10 +147,21 @@
                                 <rect key="frame" x="0.0" y="44" width="768" height="99"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="xyF-uJ-J6X">
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IVt-PH-pyz">
                                         <rect key="frame" x="0.0" y="0.0" width="768" height="99"/>
                                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                    </imageView>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="ActiveAssignmentSelected" destination="9SI-FO-E9U" eventType="touchUpInside" id="rSZ-jw-4Jz"/>
+                                        </connections>
+                                    </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="IFe-Hn-KDO">
                                         <rect key="frame" x="30" y="34" width="34" height="25"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -379,6 +390,9 @@
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <accessibility key="accessibilityConfiguration">
+                            <accessibilityTraits key="traits" none="YES" button="YES"/>
+                        </accessibility>
                     </view>
                     <navigationItem key="navigationItem" title="Assignments" id="KSy-FT-X6a">
                         <barButtonItem key="rightBarButtonItem" image="Images/iconsettings.png" width="60" id="yir-oo-6f4">
@@ -388,9 +402,9 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="activeAssignment" destination="7qz-aP-fVk" id="VAj-zg-hxL"/>
+                        <outlet property="activeAssignment" destination="7qz-aP-fVk" id="DXQ-Lh-64i"/>
                         <outlet property="address" destination="w99-Xm-MF4" id="6ps-ql-eDL"/>
-                        <outlet property="assignmentBackground" destination="xyF-uJ-J6X" id="Qu3-TK-EeU"/>
+                        <outlet property="assignmentButton" destination="IVt-PH-pyz" id="BOv-nh-7RQ"/>
                         <outlet property="contact" destination="b06-fw-Ka7" id="Fyk-fc-cIt"/>
                         <outlet property="numberAndDate" destination="edc-gH-eoM" id="DB9-qC-Qec"/>
                         <outlet property="priority" destination="dYL-OX-IS7" id="bYY-jF-Nv8"/>
@@ -467,10 +481,11 @@
         <class className="AssignmentsController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentsController.h"/>
             <relationships>
+                <relationship kind="action" name="ActiveAssignmentSelected"/>
                 <relationship kind="action" name="Settings:"/>
                 <relationship kind="outlet" name="activeAssignment" candidateClass="UIView"/>
                 <relationship kind="outlet" name="address" candidateClass="TextButton"/>
-                <relationship kind="outlet" name="assignmentBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="assignmentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
                 <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priority" candidateClass="UILabel"/>

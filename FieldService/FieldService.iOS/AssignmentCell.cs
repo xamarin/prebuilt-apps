@@ -51,10 +51,6 @@ namespace FieldService.iOS
 				priority.TextColor = 
 					priority.HighlightedTextColor = UIColor.White;
 				priorityBackground.Image = Theme.NumberBox;
-				
-				numberAndDate.HighlightedTextColor =
-					title.HighlightedTextColor =
-					startAndEnd.HighlightedTextColor = Theme.LabelColor;
 
 				contact.IconImage = Theme.IconPhone;
 				address.IconImage = Theme.Map;
@@ -122,6 +118,23 @@ namespace FieldService.iOS
 						controller.ReloadSingleRow (indexPath);
 					}
 				});
+		}
+
+		/// <summary>
+		/// We override this to remove some highlighting behavior we don't want
+		/// </summary>
+		public override void SetHighlighted (bool highlighted, bool animated)
+		{
+			base.SetHighlighted (highlighted, animated);
+
+			numberAndDate.Highlighted = 
+				title.Highlighted = 
+				startAndEnd.Highlighted =
+				accept.Highlighted = 
+				decline.Highlighted = 
+				status.Highlighted = 
+				contact.Highlighted =
+				address.Highlighted = false;
 		}
 
 		protected override void Dispose (bool disposing)

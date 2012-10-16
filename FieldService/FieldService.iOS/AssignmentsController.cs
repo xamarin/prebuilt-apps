@@ -37,7 +37,7 @@ namespace FieldService.iOS
 
 			View.BackgroundColor = Theme.LinenPattern;
 			tableView.Source = new DataSource (this);
-			assignmentBackground.Image = Theme.AssignmentActive;
+			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
@@ -61,6 +61,9 @@ namespace FieldService.iOS
 			ReloadAssignments ();
 		}
 
+		/// <summary>
+		/// Reloads the entire list of assignments
+		/// </summary>
 		public void ReloadAssignments()
 		{
 			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
@@ -75,11 +78,23 @@ namespace FieldService.iOS
 			});
 		}
 
+		/// <summary>
+		/// Reloads a single row
+		/// </summary>
 		public void ReloadSingleRow(NSIndexPath indexPath)
 		{
 			tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
 		}
 
+		partial void ActiveAssignmentSelected ()
+		{
+			var window = ServiceContainer.Resolve<UIWindow> ();
+			window.RootViewController = ServiceContainer.Resolve<MainController> ();
+		}
+
+		/// <summary>
+		/// Sets the visibility of the active assignment, with a nice animation
+		/// </summary>
 		private void SetActiveAssignmentVisible (bool visible, bool animate = true)
 		{
 			if (visible != activeAssignmentVisible) {
@@ -109,6 +124,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Sets the active assignment's views
+		/// </summary>
 		private void LoadActiveAssignment()
 		{
 			var assignment = assignmentViewModel.ActiveAssignment;

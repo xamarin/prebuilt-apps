@@ -21,7 +21,7 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UIView activeAssignment { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView assignmentBackground { get; set; }
+		MonoTouch.UIKit.UIButton assignmentButton { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIImageView priorityBackground { get; set; }
@@ -47,6 +47,9 @@ namespace FieldService.iOS
 		[Outlet]
 		FieldService.iOS.StatusButton status { get; set; }
 
+		[Action ("ActiveAssignmentSelected")]
+		partial void ActiveAssignmentSelected ();
+
 		[Action ("Settings:")]
 		partial void Settings (MonoTouch.Foundation.NSObject sender);
 		
@@ -67,9 +70,9 @@ namespace FieldService.iOS
 				activeAssignment = null;
 			}
 
-			if (assignmentBackground != null) {
-				assignmentBackground.Dispose ();
-				assignmentBackground = null;
+			if (assignmentButton != null) {
+				assignmentButton.Dispose ();
+				assignmentButton = null;
 			}
 
 			if (priorityBackground != null) {
