@@ -66,6 +66,7 @@ namespace FieldService.Data {
                     typeof (Assignment),
                     typeof (Item),
                     typeof (Labor),
+                    typeof (Expense),
                     typeof (AssignmentItem));
                 createTask.Wait ();
 

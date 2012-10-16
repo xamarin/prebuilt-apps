@@ -58,8 +58,18 @@ namespace FieldService.Data {
 
         public Task<int> SaveLabor (Labor labor)
         {
-            return Database.GetConnection ()
-                .InsertAsync (labor);
+            if (labor.ID == 0)
+                return Database.GetConnection ().InsertAsync (labor);
+            else
+                return Database.GetConnection ().UpdateAsync (labor);
+        }
+
+        public Task<int> SaveExpense (Expense expense)
+        {
+            if (expense.ID == 0)
+                return Database.GetConnection ().InsertAsync (expense);
+            else
+                return Database.GetConnection ().UpdateAsync (expense);
         }
     }
 }

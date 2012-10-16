@@ -22,9 +22,9 @@ using FieldService.Utilities;
 
 namespace FieldService.Data {
     /// <summary>
-    /// Labor to be performed on an assignment
+    /// An expense associated with an assignment
     /// </summary>
-    public class Labor {
+    public class Expense {
         /// <summary>
         /// ID of the item
         /// </summary>
@@ -32,45 +32,24 @@ namespace FieldService.Data {
         public int ID { get; set; }
 
         /// <summary>
-        /// Type of labor performed
+        /// A name to identify the expense
         /// </summary>
-        public LaborType Type { get; set; }
+        public string Category { get; set; }
 
         /// <summary>
-        /// An extended description for the job
+        /// An extended description of the expense
         /// </summary>
         public string Description { get; set; }
+
+        /// <summary>
+        /// The cost of the expense
+        /// </summary>
+        public decimal Cost { get; set; }
 
         /// <summary>
         /// Link to an assignment
         /// </summary>
         [Indexed]
         public int Assignment { get; set; }
-
-        /// <summary>
-        /// The duration of this labor expressed in hours
-        /// </summary>
-        [Ignore]
-        public TimeSpan Hours
-        {
-            get
-            {
-                return TimeSpan.FromTicks (Ticks);
-            }
-            set
-            {
-                Ticks = value.Ticks;
-            }
-        }
-
-        private long Ticks { get; set; }
-
-        public string TypeAsString
-        {
-            get
-            {
-                return Type.ToUserString ();
-            }
-        }
     }
 }

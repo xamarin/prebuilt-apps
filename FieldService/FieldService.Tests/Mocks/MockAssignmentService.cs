@@ -75,5 +75,10 @@ namespace FieldService.Tests.Mocks {
         {
             return Task.Factory.StartNew (() => 1);
         }
+
+        public Task<int> SaveExpense (Expense expense)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
     }
 }

@@ -46,7 +46,7 @@ namespace FieldService.Data {
     }
 
     /// <summary>
-    /// An enumeration for Assignment status
+    /// An enumeration for Labor types
     /// </summary>
     public enum LaborType {
         /// <summary>
@@ -61,5 +61,28 @@ namespace FieldService.Data {
         /// The labor counts as holiday time
         /// </summary>
         HolidayTime = 2,
+    }
+
+
+    /// <summary>
+    /// An enumeration for Expense categories
+    /// </summary>
+    public enum ExpenseCategory {
+        /// <summary>
+        /// Expense for gas and travel
+        /// </summary>
+        Gas = 0,
+        /// <summary>
+        /// Expense for meals and food
+        /// </summary>
+        Food = 1,
+        /// <summary>
+        /// Expense for supplies
+        /// </summary>
+        Supplies = 2,
+        /// <summary>
+        /// Other expenses
+        /// </summary>
+        Other = 3,
     }
 }

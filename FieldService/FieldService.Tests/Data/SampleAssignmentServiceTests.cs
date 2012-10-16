@@ -56,11 +56,34 @@ namespace FieldService.Tests.Data {
         }
 
         [Test]
-        public void SaveLabor ()
+        public void SaveLaborInsert ()
         {
             var labor = new Labor ();
             labor.Description = "New Description";
             var saveTask = service.SaveLabor (labor);
+            saveTask.Wait ();
+            Assert.That (saveTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void SaveLaborUpdate ()
+        {
+            var labor = new Labor ();
+            labor.Description = "New Description";
+            var saveTask = service.SaveLabor (labor);
+            saveTask.Wait ();
+            labor.Description = "New Description 2";
+            saveTask = service.SaveLabor (labor);
+            saveTask.Wait ();
+            Assert.That (saveTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void SaveExpenseInsert ()
+        {
+            var expense = new Expense ();
+            expense.Description = "New Description";
+            var saveTask = service.SaveExpense (expense);
             saveTask.Wait ();
             Assert.That (saveTask.Result, Is.EqualTo (1));
         }

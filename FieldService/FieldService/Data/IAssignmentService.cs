@@ -50,5 +50,11 @@ namespace FieldService.Data {
         /// </summary>
         /// <returns></returns>
         Task<int> SaveLabor (Labor labor);
+
+        /// <summary>
+        /// Saves an expense entry
+        /// </summary>
+        /// <returns></returns>
+        Task<int> SaveExpense (Expense expense);
     }
 }
