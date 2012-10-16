@@ -71,6 +71,9 @@
     <Compile Include="..\FieldService\Data\Enumerations.cs">
       <Link>FieldService\Data\Enumerations.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\Expense.cs">
+      <Link>FieldService\Data\Expense.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Data\IAssignmentService.cs">
       <Link>FieldService\Data\IAssignmentService.cs</Link>
     </Compile>
