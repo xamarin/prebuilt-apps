@@ -119,5 +119,27 @@ namespace FieldService.Data {
             return Database.GetConnection ()
                 .DeleteAsync (expense);
         }
+
+        public Task<int> SaveTimerEntry (TimerEntry entry)
+        {
+            //If the ID is zero, it's an insert, also set the ID to 1
+            if (entry.ID == 0) {
+                entry.ID = 1;
+                return Database.GetConnection ().InsertAsync (entry);
+            } else {
+                return Database.GetConnection ().UpdateAsync (entry);
+            }
+        }
+
+        public Task<int> DeleteTimerEntry (TimerEntry entry)
+        {
+            return Database.GetConnection ().DeleteAsync (entry);
+        }
+
+        public Task<TimerEntry> GetTimerEntryAsync ()
+        {
+            //Just return the first row
+            return Database.GetConnection ().FindAsync<TimerEntry> (_ => true);
+        }
     }
 }

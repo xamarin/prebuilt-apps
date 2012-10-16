@@ -71,9 +71,10 @@ namespace FieldService.Data
                 var createTask = connection.CreateTablesAsync(
                     typeof(Assignment),
                     typeof(Item),
+                    typeof(AssignmentItem),
                     typeof(Labor),
                     typeof(Expense),
-                    typeof(AssignmentItem));
+                    typeof(TimerEntry));
                 createTask.Wait();
 
                 //Count number of assignments

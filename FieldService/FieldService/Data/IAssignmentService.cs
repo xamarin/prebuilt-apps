@@ -52,51 +52,58 @@ namespace FieldService.Data {
         /// <summary>
         /// Saves an assignment
         /// </summary>
-        /// <returns></returns>
         Task<int> SaveAssignment (Assignment assignment);
 
         /// <summary>
         /// Saves an assignment item
         /// </summary>
-        /// <returns></returns>
         Task<int> SaveAssignmentItem (AssignmentItem assignmentItem);
 
         /// <summary>
         /// Saves a labor entry
         /// </summary>
-        /// <returns></returns>
         Task<int> SaveLabor (Labor labor);
 
         /// <summary>
         /// Saves an expense entry
         /// </summary>
-        /// <returns></returns>
         Task<int> SaveExpense (Expense expense);
 
         /// <summary>
         /// Deletes an assignment
         /// </summary>
-        /// <returns></returns>
         Task<int> DeleteAssignment (Assignment assignment);
 
         /// <summary>
         /// Deletes an assignment item
         /// </summary>
-        /// <returns></returns>
         Task<int> DeleteAssignmentItem (AssignmentItem AssignmentItem);
 
         /// <summary>
         /// Deletes a labor entry
         /// </summary>
-        /// <returns></returns>
         Task<int> DeleteLabor (Labor labor);
 
         /// <summary>
         /// Deletes an expense entry
         /// </summary>
-        /// <returns></returns>
         Task<int> DeleteExpense (Expense expense);
-        
 
+        /// <summary>
+        /// Saves a timer entry to record an assignment
+        /// </summary>
+        /// <param name="entry"></param>
+        Task<int> SaveTimerEntry (TimerEntry entry);
+
+        /// <summary>
+        /// Deletes a timer entry to stop recording an assignment
+        /// </summary>
+        /// <param name="entry"></param>
+        Task<int> DeleteTimerEntry (TimerEntry entry);
+
+        /// <summary>
+        /// Retrieves the stored timer entry if there was one
+        /// </summary>
+        Task<TimerEntry> GetTimerEntryAsync ();
     }
 }

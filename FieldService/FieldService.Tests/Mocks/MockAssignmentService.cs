@@ -102,7 +102,6 @@ namespace FieldService.Tests.Mocks {
             });
         }
 
-
         public Task<int> SaveAssignment (Assignment assignment)
         {
             return Task.Factory.StartNew (() => 1);
@@ -141,6 +140,21 @@ namespace FieldService.Tests.Mocks {
         public Task<int> DeleteExpense (Expense expense)
         {
             return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<int> SaveTimerEntry (TimerEntry entry)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<int> DeleteTimerEntry (TimerEntry entry)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<TimerEntry> GetTimerEntryAsync ()
+        {
+            return Task.Factory.StartNew (() => new TimerEntry { Date = DateTime.Now.AddHours (-1) });
         }
     }
 }

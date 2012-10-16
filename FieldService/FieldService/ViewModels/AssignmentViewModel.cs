@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 using FieldService.Data;
 using FieldService.Utilities;
 
@@ -27,12 +28,41 @@ namespace FieldService.ViewModels {
     /// </summary>
     public class AssignmentViewModel : ViewModelBase {
         readonly IAssignmentService service;
+        readonly Timer timer;
+        TimeSpan hours = TimeSpan.Zero;
         List<Assignment> assignments;
         Assignment activeAssignment;
+        TimerEntry timerEntry;
 
         public AssignmentViewModel ()
         {
             service = ServiceContainer.Resolve<IAssignmentService> ();
+
+            var taskSource = new TaskCompletionSource<TimeSpan> ();
+
+            timer = new Timer (1000);
+            timer.Elapsed += (sender, e) => {
+                taskSource.SetResult (hours.Add (TimeSpan.FromSeconds (1)));
+                taskSource.Task.ContinueOnUIThread (t => Hours = t.Result);
+            };
+        }
+
+        /// <summary>
+        /// True if the active assignment is recording hours
+        /// </summary>
+        public bool Recording
+        {
+            get { return timer.Enabled; }
+            set { timer.Enabled = value; OnPropertyChanged ("Recording"); }
+        }
+
+        /// <summary>
+        /// Number of accumulated hours on the active assignment
+        /// </summary>
+        public TimeSpan Hours
+        {
+            get { return hours; }
+            set { hours = value; OnPropertyChanged("Hours"); }
         }
 
         /// <summary>
@@ -71,6 +101,21 @@ namespace FieldService.ViewModels {
                 });
         }
 
+        /// <summary>
+        /// Loads the timer entry
+        /// </summary>
+        public Task LoadTimerEntry ()
+        {
+            IsBusy = true;
+            return service
+                .GetTimerEntryAsync ()
+                .ContinueOnUIThread (t => {
+                    IsBusy = false;
+                    timerEntry = t.Result;
+                    return t.Result;
+                });
+        }
+
         public Task SaveAssignment (Assignment assignment)
         {
             IsBusy = true;
@@ -83,8 +128,11 @@ namespace FieldService.ViewModels {
                 assignment != activeAssignment &&
                 assignment.Status == AssignmentStatus.Active) {
 
+
+
                 //Set the active assignment to hold
                 activeAssignment.Status = AssignmentStatus.Hold;
+
                 task = task.ContinueWith (t => {
                     service.SaveAssignment (activeAssignment).Wait ();
                     return t.Result;
@@ -96,6 +144,32 @@ namespace FieldService.ViewModels {
                 IsBusy = false;
                 return t.Result;
             });
+        }
+
+        public Task Record ()
+        {
+            IsBusy = true;
+            Recording = true;
+
+            if (timerEntry == null)
+                timerEntry = new TimerEntry ();
+            timerEntry.Date = DateTime.Now;
+
+            return service
+                .SaveTimerEntry(timerEntry)
+                .ContinueOnUIThread(t => IsBusy = false);
+        }
+
+        public Task Pause ()
+        {
+            IsBusy = true;
+            Recording = false;
+
+            //TODO: save a labor entry
+
+            return service
+                .DeleteTimerEntry (timerEntry)
+                .ContinueOnUIThread (t => IsBusy = false);
         }
     }
 }

@@ -57,6 +57,7 @@
     <Compile Include="Data\SampleAssignmentService.cs" />
     <Compile Include="Data\SampleLoginService.cs" />
     <Compile Include="Data\ILoginService.cs" />
+    <Compile Include="Data\TimerEntry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\ServiceContainer.cs" />
     <Compile Include="Strings.cs" />
