@@ -74,7 +74,7 @@ namespace FieldService.Android {
             } else {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
-                timer.Text = string.Format ("{0} hr {1} min\n{2}", 10, 10, assignment.Status == AssignmentStatus.InProgress ? "RESUME" : "START");
+                timer.Text = string.Format ("{0} hr {1} min\n{2}", 10, 10, assignment.Status == AssignmentStatus.Active ? "RESUME" : "START");
 
                 List<string> status = new List<string> ();
                 foreach (var item in Enum.GetValues (typeof (AssignmentStatus))) {

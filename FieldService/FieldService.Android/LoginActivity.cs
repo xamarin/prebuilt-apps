@@ -63,7 +63,7 @@ namespace FieldService.Android {
             base.OnCreate (bundle);
 
             // Set our view from the "main" layout resource
-            SetContentView (Resource.Layout.Login);
+            SetContentView (Resource.Layout.LoginLayout);
 
             // Get our controls from the layout resource,
             // and attach an event to it

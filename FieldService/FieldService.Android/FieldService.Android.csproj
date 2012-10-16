@@ -157,7 +157,7 @@
     <AndroidResource Include="Resources\Drawable\smallBlueRectangle.xml" />
     <AndroidResource Include="Resources\Drawable\TimerPause.png" />
     <AndroidResource Include="Resources\Drawable\TimerRecord.png" />
-    <AndroidResource Include="Resources\Drawable\radio_selector_color.xml" />
+    <AndroidResource Include="Resources\Color\radio_selector_color.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
