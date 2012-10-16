@@ -72,6 +72,14 @@ namespace FieldService.Data {
                 .UpdateAsync (assignment);
         }
 
+        public Task<int> SaveAssignmentItem (AssignmentItem assignmentItem)
+        {
+            if (assignmentItem.ID == 0)
+                return Database.GetConnection ().InsertAsync (assignmentItem);
+            else
+                return Database.GetConnection ().UpdateAsync (assignmentItem);
+        }
+
         public Task<int> SaveLabor (Labor labor)
         {
             if (labor.ID == 0)
@@ -86,6 +94,30 @@ namespace FieldService.Data {
                 return Database.GetConnection ().InsertAsync (expense);
             else
                 return Database.GetConnection ().UpdateAsync (expense);
+        }
+
+        public Task<int> DeleteAssignment (Assignment assignment)
+        {
+            return Database.GetConnection ()
+                .DeleteAsync (assignment);
+        }
+
+        public Task<int> DeleteAssignmentItem (AssignmentItem assignmentItem)
+        {
+            return Database.GetConnection ()
+                .DeleteAsync (assignmentItem);
+        }
+
+        public Task<int> DeleteLabor (Labor labor)
+        {
+            return Database.GetConnection ()
+                .DeleteAsync (labor);
+        }
+
+        public Task<int> DeleteExpense (Expense expense)
+        {
+            return Database.GetConnection ()
+                .DeleteAsync (expense);
         }
     }
 }

@@ -56,6 +56,12 @@ namespace FieldService.Data {
         Task<int> SaveAssignment (Assignment assignment);
 
         /// <summary>
+        /// Saves an assignment item
+        /// </summary>
+        /// <returns></returns>
+        Task<int> SaveAssignmentItem (AssignmentItem assignmentItem);
+
+        /// <summary>
         /// Saves a labor entry
         /// </summary>
         /// <returns></returns>
@@ -66,5 +72,31 @@ namespace FieldService.Data {
         /// </summary>
         /// <returns></returns>
         Task<int> SaveExpense (Expense expense);
+
+        /// <summary>
+        /// Deletes an assignment
+        /// </summary>
+        /// <returns></returns>
+        Task<int> DeleteAssignment (Assignment assignment);
+
+        /// <summary>
+        /// Deletes an assignment item
+        /// </summary>
+        /// <returns></returns>
+        Task<int> DeleteAssignmentItem (AssignmentItem AssignmentItem);
+
+        /// <summary>
+        /// Deletes a labor entry
+        /// </summary>
+        /// <returns></returns>
+        Task<int> DeleteLabor (Labor labor);
+
+        /// <summary>
+        /// Deletes an expense entry
+        /// </summary>
+        /// <returns></returns>
+        Task<int> DeleteExpense (Expense expense);
+        
+
     }
 }

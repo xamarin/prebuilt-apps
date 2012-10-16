@@ -56,6 +56,32 @@ namespace FieldService.Tests.Data {
         }
 
         [Test]
+        public void SaveAssignmentItemInsert ()
+        {
+            var assignmentItem = new AssignmentItem ();
+            assignmentItem.Item = 1;
+            assignmentItem.Assignment = 1;
+            var saveTask = service.SaveAssignmentItem (assignmentItem);
+            saveTask.Wait ();
+            Assert.That (saveTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void SaveAssignmentItemUpdate ()
+        {
+            var assignmentItem = new AssignmentItem ();
+            assignmentItem.Item = 1;
+            assignmentItem.Assignment = 1;
+            var saveTask = service.SaveAssignmentItem (assignmentItem);
+            saveTask.Wait ();
+            assignmentItem.Item = 1;
+            assignmentItem.Assignment = 2;
+            saveTask = service.SaveAssignmentItem (assignmentItem);
+            saveTask.Wait ();
+            Assert.That (saveTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
         public void SaveLaborInsert ()
         {
             var labor = new Labor ();
@@ -170,6 +196,59 @@ namespace FieldService.Tests.Data {
                 Assert.That (expense.Description, Is.Not.Null);
                 Assert.That (expense.Category, Is.Not.Null);
             }
+        }
+
+        [Test]
+        public void DeleteAssignment()
+        {
+            var task = service.GetAssignmentsAsync ();
+            Task.WaitAll (task);
+            var assignment = task.Result.FirstOrDefault ();
+            assignment.Title = "New Title";
+            var saveTask = service.SaveAssignment (assignment);
+            saveTask.Wait ();
+
+            var deleteTask = service.DeleteAssignment (assignment);
+            deleteTask.Wait ();
+            Assert.That (deleteTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void DeleteAssignmentItem ()
+        {
+            var assignmentItem = new AssignmentItem ();
+            var saveTask = service.SaveAssignmentItem (assignmentItem);
+            saveTask.Wait ();
+
+            var deleteTask = service.DeleteAssignmentItem (assignmentItem);
+            deleteTask.Wait ();
+            Assert.That (deleteTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void DeleteLabor ()
+        {
+            var labor = new Labor ();
+            labor.Description = "New Description";
+            var saveTask = service.SaveLabor (labor);
+            saveTask.Wait ();
+
+            var deleteTask = service.DeleteLabor (labor);
+            deleteTask.Wait ();
+            Assert.That (deleteTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void DeleteExpense ()
+        {
+            var expense = new Expense ();
+            expense.Description = "New Description";
+            var saveTask = service.SaveExpense (expense);
+            saveTask.Wait ();
+
+            var deleteTask = service.DeleteExpense (expense);
+            deleteTask.Wait ();
+            Assert.That (deleteTask.Result, Is.EqualTo (1));
         }
     }
 }

@@ -99,12 +99,37 @@ namespace FieldService.Tests.Mocks {
             return Task.Factory.StartNew (() => 1);
         }
 
+        public Task<int> SaveAssignmentItem (AssignmentItem assignmentItem)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
         public Task<int> SaveLabor (Labor labor)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
         public Task<int> SaveExpense (Expense expense)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<int> DeleteAssignment (Assignment assignment)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<int> DeleteAssignmentItem (AssignmentItem assignmentItem)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<int> DeleteLabor (Labor labor)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<int> DeleteExpense (Expense expense)
         {
             return Task.Factory.StartNew (() => 1);
         }
