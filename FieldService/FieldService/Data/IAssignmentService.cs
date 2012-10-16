@@ -40,6 +40,16 @@ namespace FieldService.Data {
         Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment);
 
         /// <summary>
+        /// Gets a list of labor hours for an assignment
+        /// </summary>
+        Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment);
+
+        /// <summary>
+        /// Gets a list of expenses for an assignment
+        /// </summary>
+        Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment);
+
+        /// <summary>
         /// Saves an assignment
         /// </summary>
         /// <returns></returns>

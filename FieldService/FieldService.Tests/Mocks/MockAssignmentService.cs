@@ -65,6 +65,34 @@ namespace FieldService.Tests.Mocks {
             });
         }
 
+        public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment)
+        {
+            return Task.Factory.StartNew (() => new List<Labor> ()
+            {
+                new Labor
+                {
+                    ID = 1,
+                    Assignment = 1,
+                    Description = "New Labor",
+                    Type = LaborType.Hourly,
+                },
+            });
+        }
+
+        public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment)
+        {
+            return Task.Factory.StartNew (() => new List<Expense> ()
+            {
+                new Expense
+                {
+                    ID = 1,
+                    Assignment = 1,
+                    Description = "New Expense",
+                    Category = ExpenseCategory.Other,
+                },
+            });
+        }
+
 
         public Task<int> SaveAssignment (Assignment assignment)
         {

@@ -50,6 +50,22 @@ namespace FieldService.Data {
                     assignment.ID);
         }
 
+        public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment)
+        {
+            return Database.GetConnection ()
+                .Table<Labor> ()
+                .Where (l => l.Assignment == assignment.ID)
+                .ToListAsync ();
+        }
+
+        public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment)
+        {
+            return Database.GetConnection ()
+                .Table<Expense> ()
+                .Where (e => e.Assignment == assignment.ID)
+                .ToListAsync ();
+        }
+
         public Task<int> SaveAssignment (Assignment assignment)
         {
             return Database.GetConnection ()

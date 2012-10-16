@@ -113,7 +113,7 @@ namespace FieldService.Data {
 			{
 			    ID = 3,
 			    Priority = 3,
-			    Title = "Assignment 2",
+			    Title = "Assignment 3",
 			    ContactName = "Mr. Important",
 			    ContactPhone = "1.212.242.2555",
 			    Address = "1 Big Road",
@@ -172,6 +172,73 @@ namespace FieldService.Data {
 			    Item = 1,
 			},
 
+                        //Some labor for assignments
+                        new Labor
+                        {
+                            Assignment = 1,
+                            ID = 1,
+                            Description = "Sheet Metal Screw Sorting",
+                            Hours = TimeSpan.FromHours(10),
+                            Type = LaborType.HolidayTime,
+                        },
+                        new Labor
+                        {
+                            Assignment = 1,
+                            ID = 2,
+                            Description = "Pipe Fitting",
+                            Hours = TimeSpan.FromHours(4),
+                            Type = LaborType.Hourly,
+                        },
+                        new Labor
+                        {
+                            Assignment = 2,
+                            ID = 3,
+                            Description = "Attaching Sheet Metal To PVC Pipe",
+                            Hours = TimeSpan.FromHours(8),
+                            Type = LaborType.OverTime,
+                        },
+                        new Labor
+                        {
+                            Assignment = 3,
+                            ID = 4,
+                            Description = "Sheet Metal / Pipe Decoupling",
+                            Hours = TimeSpan.FromHours(4),
+                            Type = LaborType.Hourly,
+                        },
+
+                        //Some expenses for assignments
+                        new Expense
+                        {
+                            Assignment = 1,
+                            ID = 1,
+                            Description = "Filled up tank at Speedway",
+                            Category = ExpenseCategory.Gas,
+                            Cost = 40.5M,
+                        },
+                        new Expense
+                        {
+                            Assignment = 1,
+                            ID = 2,
+                            Description = "Tasty Hot Dog from Speedway",
+                            Category = ExpenseCategory.Food,
+                            Cost = 0.99M,
+                        },
+                        new Expense
+                        {
+                            Assignment = 2,
+                            ID = 3,
+                            Description = "Duct Tape",
+                            Category = ExpenseCategory.Supplies,
+                            Cost = 3.5M,
+                        },
+                        new Expense
+                        {
+                            Assignment = 3,
+                            ID = 4,
+                            Description = "Passable Hot Dog from Speedway",
+                            Category = ExpenseCategory.Food,
+                            Cost = 0.99M,
+                        },
                     });
 
                     //Wait for inserts

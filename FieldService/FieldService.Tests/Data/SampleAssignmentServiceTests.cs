@@ -131,5 +131,45 @@ namespace FieldService.Tests.Data {
                 Assert.That (item.Number, Is.Not.Null);
             }
         }
+
+        [Test]
+        public void GetAssignmentLabor ()
+        {
+            var assignmentTask = service.GetAssignmentsAsync ();
+
+            Task.WaitAll (assignmentTask);
+
+            var task = service.GetLaborForAssignmentAsync (assignmentTask.Result.First ());
+
+            Task.WaitAll (task);
+
+            Assert.That (task.Result, Is.Not.Null);
+            Assert.That (task.Result.Count, Is.Not.EqualTo (0));
+
+            foreach (var labor in task.Result) {
+                Assert.That (labor.Description, Is.Not.Null);
+                Assert.That (labor.Type, Is.Not.Null);
+            }
+        }
+
+        [Test]
+        public void GetAssignmentExpenses ()
+        {
+            var assignmentTask = service.GetAssignmentsAsync ();
+
+            Task.WaitAll (assignmentTask);
+
+            var task = service.GetExpensesForAssignmentAsync (assignmentTask.Result.First ());
+
+            Task.WaitAll (task);
+
+            Assert.That (task.Result, Is.Not.Null);
+            Assert.That (task.Result.Count, Is.Not.EqualTo (0));
+
+            foreach (var expense in task.Result) {
+                Assert.That (expense.Description, Is.Not.Null);
+                Assert.That (expense.Category, Is.Not.Null);
+            }
+        }
     }
 }
