@@ -96,14 +96,14 @@ namespace FieldService.Data {
         public string Zip { get; set; }
 
         /// <summary>
-        /// Longitude of assignment
-        /// </summary>
-        public float Longitude { get; set; }
-
-        /// <summary>
         /// Latitude of assignment
         /// </summary>
         public float Latitude { get; set; }
+
+        /// <summary>
+        /// Longitude of assignment
+        /// </summary>
+        public float Longitude { get; set; }
 
         /// <summary>
         /// The amount of time spent on this job
