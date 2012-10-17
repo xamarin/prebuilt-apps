@@ -13,12 +13,15 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.MapKit;
 using FieldService.ViewModels;
 using FieldService.Data;
 using FieldService.Utilities;
+using MonoTouch.CoreLocation;
+using MonoTouch.AddressBook;
 
 namespace FieldService.iOS
 {
@@ -64,7 +67,7 @@ namespace FieldService.iOS
 
 			//Load the current timer status
 			record.Enabled = false;
-			assignmentViewModel.LoadTimerEntryAsync().ContinueOnUIThread (_ => {
+			assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
 				record.Enabled = true;
 				if (assignmentViewModel.Recording) {
 					record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
@@ -93,12 +96,9 @@ namespace FieldService.iOS
 			bool wasLandscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeRight || InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft;
 			bool willBeLandscape = toInterfaceOrientation == UIInterfaceOrientation.LandscapeRight || toInterfaceOrientation == UIInterfaceOrientation.LandscapeLeft;
 
-			if (wasPortrait && willBeLandscape)
-			{
+			if (wasPortrait && willBeLandscape) {
 				SetContactVisible (true, duration);
-			}
-			else if (wasLandscape && willBePortrait)
-			{
+			} else if (wasLandscape && willBePortrait) {
 				SetContactVisible (false, duration);
 			}
 
@@ -128,7 +128,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Reloads the entire list of assignments
 		/// </summary>
-		public void ReloadAssignments()
+		public void ReloadAssignments ()
 		{
 			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
 				if (assignmentViewModel.ActiveAssignment == null) {
@@ -145,7 +145,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Reloads a single row
 		/// </summary>
-		public void ReloadSingleRow(NSIndexPath indexPath)
+		public void ReloadSingleRow (NSIndexPath indexPath)
 		{
 			tableView.ReloadRows (new NSIndexPath[] { indexPath }, UITableViewRowAnimation.Fade);
 		}
@@ -194,7 +194,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets the active assignment's views
 		/// </summary>
-		private void LoadActiveAssignment()
+		private void LoadActiveAssignment ()
 		{
 			var assignment = assignmentViewModel.ActiveAssignment;
 			priority.Text = assignment.Priority.ToString ();
@@ -217,15 +217,15 @@ namespace FieldService.iOS
 			if (assignmentViewModel.Recording) {
 				assignmentViewModel.Pause ()
 					.ContinueOnUIThread (t => {
-						record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
-						record.Enabled = true;
-					});
+					record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
+					record.Enabled = true;
+				});
 			} else {
 				assignmentViewModel.Record ()
 					.ContinueOnUIThread (t => {
-						record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
-						record.Enabled = true;
-					});
+					record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
+					record.Enabled = true;
+				});
 			}
 		}
 
@@ -244,7 +244,7 @@ namespace FieldService.iOS
 		{
 			if (segmentedControl.SelectedSegment == 1) {
 				if (mapView == null) {
-					mapView = new MKMapView(tableView.Frame) { 
+					mapView = new MKMapView (tableView.Frame) { 
 						ShowsUserLocation = true,
 						AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
 					};
@@ -253,12 +253,40 @@ namespace FieldService.iOS
 				UIView.Transition (tableView, mapView, .3, UIViewAnimationOptions.TransitionCurlUp, delegate {
 					mapView.RemoveAnnotations (mapView.Annotations);
 
+					List<MKPlacemark> placemarks = new List<MKPlacemark>();
+					if (assignmentViewModel.ActiveAssignment != null) {
+						var assignment = assignmentViewModel.ActiveAssignment;
+						if (assignment.Latitude != 0 && assignment.Longitude != 0)
+							placemarks.Add (ToPlacemark (assignment));
+					}
+
+					foreach (var assignment in assignmentViewModel.Assignments) {
+						if (assignment.Latitude != 0 && assignment.Longitude != 0)
+							placemarks.Add (ToPlacemark (assignment));
+					}
+
+					if (placemarks.Count > 0)
+						mapView.AddAnnotation (placemarks.ToArray ());
 				});
 			} else {
 				UIView.Transition (mapView, tableView, .3, UIViewAnimationOptions.TransitionCurlDown, delegate {
 					ReloadAssignments ();
 				});
 			}
+		}
+
+		/// <summary>
+		/// Creates an MKPlacemark for an assignment
+		/// </summary>
+		private MKPlacemark ToPlacemark (Assignment assignment)
+		{
+			var address = new PersonAddress ();
+			address.Street = assignment.Address;
+			address.City = assignment.City;
+			address.State = assignment.State;
+			address.Zip = assignment.Zip;
+			
+			return new MKPlacemark (new CLLocationCoordinate2D (assignment.Latitude, assignment.Longitude), address.Dictionary);
 		}
 
 		/// <summary>
