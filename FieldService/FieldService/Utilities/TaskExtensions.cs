@@ -55,5 +55,21 @@ namespace FieldService.Utilities {
             return task.ContinueWith<T> (callback, TaskScheduler.FromCurrentSynchronizationContext ());
 #endif
         }
+
+        /// <summary>
+        /// A quick helper to be able to chain 2 tasks together
+        /// </summary>
+        public static Task ContinueWith (this Task task, Task continuation)
+        {
+            return task.ContinueWith (t => continuation).Unwrap ();
+        }
+
+        /// <summary>
+        /// A quick helper to be able to chain 2 tasks together
+        /// </summary>
+        public static Task<T> ContinueWith<T> (this Task task, Task<T> continuation)
+        {
+            return task.ContinueWith (t => continuation).Unwrap ();
+        }
     }
 }

@@ -18,7 +18,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+#if NETFX_CORE
+using Timer = FieldService.WinRT.Utilities.Timer;
+#else
 using System.Timers;
+#endif
 using FieldService.Data;
 using FieldService.Utilities;
 
@@ -130,7 +134,7 @@ namespace FieldService.ViewModels {
 
                 //Set the active assignment to hold and save it
                 activeAssignment.Status = AssignmentStatus.Hold;
-                task = task.ContinueWith (_ => service.SaveAssignment (activeAssignment)).Unwrap ();
+                task = task.ContinueWith (service.SaveAssignment (activeAssignment));
             }
 
             //Attach a task to set IsBusy

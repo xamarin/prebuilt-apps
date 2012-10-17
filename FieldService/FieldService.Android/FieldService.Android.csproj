@@ -92,6 +92,9 @@
     <Compile Include="..\FieldService\Data\SampleLoginService.cs">
       <Link>FieldService\Data\SampleLoginService.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\TimerEntry.cs">
+      <Link>FieldService\Data\TimerEntry.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
     </Compile>

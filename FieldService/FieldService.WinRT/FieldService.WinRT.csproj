@@ -142,6 +142,9 @@
     <Compile Include="..\FieldService\Data\SampleLoginService.cs">
       <Link>FieldService\Data\SampleLoginService.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\TimerEntry.cs">
+      <Link>FieldService\Data\TimerEntry.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Strings.cs">
       <Link>FieldService\Strings.cs</Link>
     </Compile>
@@ -168,6 +171,7 @@
     </Compile>
     <Compile Include="Utilities\BooleanToVisibilityConverter.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
+    <Compile Include="Utilities\Timer.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
