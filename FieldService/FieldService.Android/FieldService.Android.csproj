@@ -124,7 +124,6 @@
     <Compile Include="MapViewActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="RotateView.cs" />
     <Compile Include="SpinnerAdapter.cs" />
   </ItemGroup>
   <ItemGroup>

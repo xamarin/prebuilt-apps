@@ -49,20 +49,12 @@ namespace FieldService.Data {
         /// <summary>
         /// An attached photo
         /// </summary>
-        public Byte[] Photo { get; set; }
+        public byte[] Photo { get; set; }
 
         /// <summary>
         /// Link to an assignment
         /// </summary>
         [Indexed]
         public int Assignment { get; set; }
-
-        public string TypeAsString
-        {
-            get
-            {
-                return Category.ToUserString ();
-            }
-        }
     }
 }

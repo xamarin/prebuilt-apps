@@ -138,8 +138,11 @@ namespace FieldService.ViewModels {
                     IsBusy = false;
                     timerEntry = t.Result;
                     if (timerEntry != null) {
-                        Hours = (DateTime.Now - timerEntry.Date);
-                        timer.Enabled = true;
+                        Hours = timerEntry.AccumulatedHours;
+                        if (timerEntry.Playing) {
+                            Hours += (DateTime.Now - timerEntry.Date);
+                            timer.Enabled = true;
+                        }
                     }
                     return timerEntry;
                 });
@@ -176,6 +179,7 @@ namespace FieldService.ViewModels {
 
             if (timerEntry == null)
                 timerEntry = new TimerEntry ();
+            timerEntry.Playing = true;
             timerEntry.Date = DateTime.Now;
 
             return service
@@ -188,10 +192,12 @@ namespace FieldService.ViewModels {
             IsBusy = true;
             Recording = false;
 
-            //TODO: save a labor entry
+            timerEntry.AccumulatedHours += (DateTime.Now - timerEntry.Date);
+            timerEntry.Playing = false;
+            timerEntry.Date = DateTime.Now;
 
             return service
-                .DeleteTimerEntry (timerEntry)
+                .SaveTimerEntry(timerEntry)
                 .ContinueOnUIThread (t => {
                     timerEntry = null;
                     IsBusy = false;

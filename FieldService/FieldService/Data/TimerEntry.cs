@@ -10,10 +10,21 @@ namespace FieldService.Data {
     /// </summary>
     public class TimerEntry {
         [PrimaryKey]
-        public int ID { get; internal set; }
+        public int ID { get; set; }
+
+        [Ignore]
+        public TimeSpan AccumulatedHours 
+        { 
+            get { return TimeSpan.FromTicks(AccumulatedTicks); }
+            set { AccumulatedTicks = value.Ticks; }
+        }
+
+        public long AccumulatedTicks { get; set; }
+
+        public bool Playing { get; set; }
 
         /// <summary>
-        /// The time the entry was made
+        /// The time the entry was started
         /// </summary>
         public DateTime Date { get; set; }
     }

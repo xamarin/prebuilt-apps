@@ -149,7 +149,7 @@ namespace FieldService.Tests.Data {
 
             Task.WaitAll (assignmentTask);
 
-            var task = service.GetItemsForAssignmentAsync (assignmentTask.Result.First ());
+            var task = service.GetItemsForAssignmentAsync (assignmentTask.Result.First (a => a.ID == 1));
 
             Task.WaitAll (task);
 

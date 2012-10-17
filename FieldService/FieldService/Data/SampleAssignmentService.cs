@@ -24,9 +24,14 @@ namespace FieldService.Data {
         public Task<List<Assignment>> GetAssignmentsAsync ()
         {
             return Database.GetConnection ()
-                .Table<Assignment> ()
-                .OrderBy (a => a.Priority)
-                .ToListAsync ();
+                .QueryAsync<Assignment> (@"
+                    select Assignment.*, SUM(Labor.Ticks) as TotalTicks
+                    from Assignment
+                    left outer join Labor
+                    on Assignment.ID = Labor.Assignment
+                    group by Assignment.ID
+                    order by Assignment.Status
+                ");
         }
 
         public Task<List<Item>> GetItemsAsync ()

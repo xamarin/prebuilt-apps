@@ -20,7 +20,7 @@ namespace FieldService.Utilities
 {
 	public static class DataExtensions
 	{
-            private static Regex _enumRegex = new Regex (@"[^\w\d_]", RegexOptions.Compiled);
+            private static Regex _enumRegex = new Regex (@"[^\w\d_]");
 
                 public static string ToUserString (this LaborType type)
                 {
@@ -33,22 +33,6 @@ namespace FieldService.Utilities
                             return "Holiday Time";
                         default:
                             return type.ToString ();
-                    }
-                }
-
-                public static string ToUserString (this ExpenseCategory category)
-                {
-                    switch (category) {
-                        case ExpenseCategory.Food:
-                            return "Foor";
-                        case ExpenseCategory.Gas:
-                            return "Gas";
-                        case ExpenseCategory.Supplies:
-                            return "Supplies";
-                        case ExpenseCategory.Other:
-                            return "Other";
-                        default:
-                            return category.ToString ();
                     }
                 }
 

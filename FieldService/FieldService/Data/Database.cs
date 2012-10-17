@@ -28,14 +28,7 @@ namespace FieldService.Data
     /// </summary>
     public static class Database
     {
-#if NCRUNCH
-        private static readonly string Path = System.IO.Path.Combine (Environment.CurrentDirectory, "Database.db");
-
-        static Database()
-        {
-            Console.WriteLine("Database Path: " + Path);
-        }
-#elif NETFX_CORE
+#if NETFX_CORE
         private static readonly string Path = "Database.db"; //TODO: change this later
 #else
         private static readonly string Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Database.db");

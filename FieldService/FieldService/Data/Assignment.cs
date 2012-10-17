@@ -106,6 +106,20 @@ namespace FieldService.Data {
         public float Longitude { get; set; }
 
         /// <summary>
+        /// Total labor hours for the assignment
+        /// </summary>
+        [Ignore]
+        public TimeSpan TotalHours
+        {
+            get { return TimeSpan.FromTicks (TotalTicks); }
+        }
+
+        /// <summary>
+        /// Total labor hours for the assignment (in ticks)
+        /// </summary>
+        public long TotalTicks { get; private set; }
+
+        /// <summary>
         /// The amount of time spent on this job
         /// </summary>
         [Ignore]

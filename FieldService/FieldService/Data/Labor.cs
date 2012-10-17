@@ -63,7 +63,10 @@ namespace FieldService.Data {
             }
         }
 
-        private long Ticks { get; set; }
+        /// <summary>
+        /// Labor hours for the assignment (in ticks)
+        /// </summary>
+        public long Ticks { get; set; }
 
         public string TypeAsString
         {
