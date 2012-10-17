@@ -462,7 +462,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> row180 = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row180.png").CreateResizableImage (new UIEdgeInsets (22, 22, 22, 22)));
 		
 		/// <summary>
-		/// 
+		/// Background image for assignment description view
 		/// </summary>
 		public static UIImage Row180 {
 			get { return row180.Value; }

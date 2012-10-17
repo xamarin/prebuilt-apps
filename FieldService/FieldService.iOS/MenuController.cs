@@ -63,7 +63,6 @@ namespace FieldService.iOS
 			navigationBar.TopItem.LeftBarButtonItem = backButton;
 
 			timerBackground.Image = Theme.TimerBackground;
-			timerLabel.Text = "00:00:00";
 			timerLabelBackground.Image = Theme.TimerField;
 
 			status.StatusChanged += (sender, e) => {

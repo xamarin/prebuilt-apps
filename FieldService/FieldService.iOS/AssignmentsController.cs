@@ -56,7 +56,6 @@ namespace FieldService.iOS
 			priorityBackground.Image = Theme.NumberBox;
 			record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
 			timerBackgroundImage.Image = Theme.TimerField;
-			timerLabel.Text = "00:00:00";
 			toolbarShadow.Image = Theme.ToolbarShadow;
 
 			status.StatusChanged += (sender, e) => {
@@ -167,7 +166,10 @@ namespace FieldService.iOS
 		partial void ActiveAssignmentSelected ()
 		{
 			var window = ServiceContainer.Resolve<UIWindow> ();
-			window.RootViewController = ServiceContainer.Resolve<MainController> ();
+			var mainController = ServiceContainer.Resolve<MainController> ();
+			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
+			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
+			window.RootViewController = mainController;
 		}
 
 		/// <summary>
@@ -356,7 +358,10 @@ namespace FieldService.iOS
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				var window = ServiceContainer.Resolve<UIWindow> ();
-				window.RootViewController = ServiceContainer.Resolve<MainController> ();
+				var mainController = ServiceContainer.Resolve<MainController> ();
+				var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
+				assignmentController.Assignment = assignmentViewModel.Assignments[indexPath.Row];
+				window.RootViewController = mainController;
 			}
 		}
 
@@ -403,7 +408,15 @@ namespace FieldService.iOS
 			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
 			{
 				var window = ServiceContainer.Resolve<UIWindow> ();
-				window.RootViewController = ServiceContainer.Resolve<MainController> ();
+				var mainController = ServiceContainer.Resolve<MainController> ();
+				var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
+				assignmentController.Assignment = GetAssignment (view.Annotation as MKPlacemark);
+				window.RootViewController = mainController;
+			}
+
+			private Assignment GetAssignment(MKPlacemark annotation)
+			{
+				return ((AssignmentHolder)annotation.AddressDictionary[new NSString("Assignment")]).Assignment;
 			}
 		}
 

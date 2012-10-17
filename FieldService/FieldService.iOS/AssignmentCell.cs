@@ -112,7 +112,7 @@ namespace FieldService.iOS
 			assignmentViewModel.SaveAssignment (assignment)
 				.ContinueOnUIThread (t => {
 					var controller = ServiceContainer.Resolve<AssignmentsController> ();
-					if (assignment.Status == AssignmentStatus.Active) {
+					if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
 						controller.ReloadAssignments ();
 					} else {
 						controller.ReloadSingleRow (indexPath);
