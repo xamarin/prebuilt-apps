@@ -29,6 +29,11 @@ namespace FieldService.iOS
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+			assignmentViewModel.HoursChanged += (sender, e) => {
+				if (IsViewLoaded) {
+					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+				}
+			};
 		}
 
 		public override void ViewDidLoad ()
@@ -45,6 +50,7 @@ namespace FieldService.iOS
 			priorityBackground.Image = Theme.NumberBox;
 			record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
 			timerBackgroundImage.Image = Theme.TimerField;
+			timerLabel.Text = "00:00:00";
 
 			status.StatusChanged += (sender, e) => {
 				assignmentViewModel
@@ -53,6 +59,17 @@ namespace FieldService.iOS
 			};
 
 			SetActiveAssignmentVisible (false, false);
+
+			//Load the current timer status
+			record.Enabled = false;
+			assignmentViewModel.LoadTimerEntryAsync().ContinueOnUIThread (_ => {
+				record.Enabled = true;
+				if (assignmentViewModel.Recording) {
+					record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
+				} else {
+					record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
+				}
+			});
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -187,6 +204,27 @@ namespace FieldService.iOS
 			address.TopLabel.Text = assignment.Address;
 			address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
 			status.Assignment = assignment;
+		}
+
+		/// <summary>
+		/// Event when record button is pressed
+		/// </summary>
+		partial void Record ()
+		{
+			record.Enabled = false;
+			if (assignmentViewModel.Recording) {
+				assignmentViewModel.Pause ()
+					.ContinueOnUIThread (t => {
+						record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
+						record.Enabled = true;
+					});
+			} else {
+				assignmentViewModel.Record ()
+					.ContinueOnUIThread (t => {
+						record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
+						record.Enabled = true;
+					});
+			}
 		}
 
 		/// <summary>

@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -42,6 +43,7 @@ namespace FieldService.iOS
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			ServiceContainer.Register (Window);
+			ServiceContainer.Register <ISynchronizeInvoke>(() => new SynchronizeInvoke());
 
 			//Apply our UI theme
 			Theme.Apply ();

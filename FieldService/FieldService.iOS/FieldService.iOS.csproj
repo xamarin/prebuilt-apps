@@ -189,6 +189,10 @@
     <Compile Include="StatusButton.designer.cs">
       <DependentUpon>StatusButton.cs</DependentUpon>
     </Compile>
+    <Compile Include="..\FieldService\Data\TimerEntry.cs">
+      <Link>FieldService\Data\TimerEntry.cs</Link>
+    </Compile>
+    <Compile Include="Utilities\SynchronizeInvoke.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
