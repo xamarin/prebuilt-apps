@@ -25,6 +25,16 @@ namespace FieldService.Data {
     /// </summary>
     public class Assignment {
         /// <summary>
+        /// This is the list of status types an assignment can be changed to
+        /// </summary>
+        public static readonly AssignmentStatus [] AvailableStatuses = new AssignmentStatus []
+        {
+            AssignmentStatus.Hold,
+            AssignmentStatus.Active,
+            AssignmentStatus.Complete,
+        };
+
+        /// <summary>
         /// Assignment ID
         /// </summary>
         [PrimaryKey, AutoIncrement]

@@ -29,9 +29,10 @@ namespace FieldService.Data {
                     from Assignment
                     left outer join Labor
                     on Assignment.ID = Labor.Assignment
+                    where Assignment.Status != ?
                     group by Assignment.ID
                     order by Assignment.Status
-                ");
+                ", AssignmentStatus.Declined);
         }
 
         public Task<List<Item>> GetItemsAsync ()

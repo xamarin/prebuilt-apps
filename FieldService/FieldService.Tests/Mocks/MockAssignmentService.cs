@@ -154,7 +154,7 @@ namespace FieldService.Tests.Mocks {
 
         public Task<TimerEntry> GetTimerEntryAsync ()
         {
-            return Task.Factory.StartNew (() => new TimerEntry { Date = DateTime.Now.AddHours (-1) });
+            return Task.Factory.StartNew (() => new TimerEntry { Date = DateTime.Now.AddHours (-1), Playing = true });
         }
     }
 }

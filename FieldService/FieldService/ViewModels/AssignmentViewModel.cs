@@ -113,7 +113,6 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task LoadAssignmentsAsync ()
         {
-            IsBusy = true;
             return service
                 .GetAssignmentsAsync ()
                 .ContinueOnUIThread (t => {
@@ -121,7 +120,6 @@ namespace FieldService.ViewModels {
                     ActiveAssignment = t.Result.FirstOrDefault (a => a.Status == AssignmentStatus.Active);
                     //Grab everything besides the active assignment
                     Assignments = t.Result.Where (a => a.Status != AssignmentStatus.Active).ToList ();
-                    IsBusy = false;
                     return t.Result;
                 });
         }
@@ -131,11 +129,9 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task LoadTimerEntryAsync ()
         {
-            IsBusy = true;
             return service
                 .GetTimerEntryAsync ()
                 .ContinueOnUIThread (t => {
-                    IsBusy = false;
                     timerEntry = t.Result;
                     if (timerEntry != null) {
                         Hours = timerEntry.AccumulatedHours;
@@ -150,31 +146,34 @@ namespace FieldService.ViewModels {
 
         public Task SaveAssignment (Assignment assignment)
         {
-            IsBusy = true;
-
             //Save the assignment
-            var task = service.SaveAssignment (assignment);
+            Task task = service.SaveAssignment (assignment);
 
-            //If the active assignment
+            //If the active assignment should be put on hold
             if (activeAssignment != null &&
                 assignment != activeAssignment &&
                 assignment.Status == AssignmentStatus.Active) {
 
                 //Set the active assignment to hold and save it
                 activeAssignment.Status = AssignmentStatus.Hold;
+                if (Recording) {
+                    task = task.ContinueWith (Pause ());
+                }
                 task = task.ContinueWith (service.SaveAssignment (activeAssignment));
             }
 
-            //Attach a task to set IsBusy
-            return task.ContinueOnUIThread (t => {
-                IsBusy = false;
-                return t.Result;
-            });
+            //If we are saving the active assignment, we need to pause it
+            if (assignment == activeAssignment &&
+                assignment.Status != AssignmentStatus.Active &&
+                Recording) {
+                task = task.ContinueWith (Pause ());
+            }
+
+            return task;
         }
 
         public Task Record ()
         {
-            IsBusy = true;
             Recording = true;
 
             if (timerEntry == null)
@@ -182,26 +181,18 @@ namespace FieldService.ViewModels {
             timerEntry.Playing = true;
             timerEntry.Date = DateTime.Now;
 
-            return service
-                .SaveTimerEntry(timerEntry)
-                .ContinueOnUIThread(t => IsBusy = false);
+            return service.SaveTimerEntry (timerEntry);
         }
 
         public Task Pause ()
         {
-            IsBusy = true;
             Recording = false;
 
             timerEntry.AccumulatedHours += (DateTime.Now - timerEntry.Date);
             timerEntry.Playing = false;
             timerEntry.Date = DateTime.Now;
 
-            return service
-                .SaveTimerEntry(timerEntry)
-                .ContinueOnUIThread (t => {
-                    timerEntry = null;
-                    IsBusy = false;
-                });
+            return service.SaveTimerEntry (timerEntry);
         }
     }
 }
