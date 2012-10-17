@@ -44,29 +44,29 @@ namespace FieldService.Tests.ViewModels {
         {
             var task = viewModel.LoadAssignmentsAsync ();
 
-            Task.WaitAll (task);
+            task.Wait ();
 
             Assert.That (viewModel.Assignments, Is.Not.Null);
-            Assert.That (viewModel.Assignments.Count, Is.Not.EqualTo(0));
+            Assert.That (viewModel.Assignments.Count, Is.Not.EqualTo (0));
         }
 
         [Test]
-        public void SaveAssignment()
+        public void SaveAssignment ()
         {
             var loadTask = viewModel.LoadAssignmentsAsync ();
-            loadTask.Wait();
+            loadTask.Wait ();
 
-            var assignment = viewModel.Assignments.First();
+            var assignment = viewModel.Assignments.First ();
             assignment.Status = AssignmentStatus.Hold;
 
-            var task = viewModel.SaveAssignment(assignment);
-            task.Wait();
+            var task = viewModel.SaveAssignment (assignment);
+            task.Wait ();
 
-            Assert.That(viewModel.IsBusy, Is.False);
+            Assert.That (viewModel.IsBusy, Is.False);
         }
 
         [Test]
-        public void SaveAssignmentToggle ()
+        public void SaveAssignmentAsActive ()
         {
             var loadTask = viewModel.LoadAssignmentsAsync ();
             loadTask.Wait ();
@@ -79,6 +79,43 @@ namespace FieldService.Tests.ViewModels {
 
             Assert.That (viewModel.IsBusy, Is.False);
             Assert.That (viewModel.ActiveAssignment.Status, Is.EqualTo (AssignmentStatus.Hold));
+        }
+
+        [Test]
+        public void Record ()
+        {
+            var task = viewModel.Record ();
+
+            task.Wait ();
+
+            System.Threading.Thread.Sleep (1500);
+
+            Assert.That (viewModel.Recording, Is.True);
+            Assert.That ((int)viewModel.Hours.TotalSeconds, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void Pause ()
+        {
+            var task = viewModel.Record ();
+
+            task.Wait ();
+
+            task = viewModel.Pause ();
+
+            task.Wait ();
+
+            Assert.That (viewModel.Recording, Is.False);
+        }
+
+        [Test]
+        public void LoadTimerEntry ()
+        {
+            var task = viewModel.LoadTimerEntryAsync ();
+
+            task.Wait ();
+
+            Assert.That ((int)viewModel.Hours.TotalHours, Is.EqualTo (1));
         }
     }
 }

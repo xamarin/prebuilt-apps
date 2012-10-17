@@ -108,7 +108,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads the timer entry
         /// </summary>
-        public Task LoadTimerEntry ()
+        public Task LoadTimerEntryAsync ()
         {
             IsBusy = true;
             return service
@@ -116,7 +116,10 @@ namespace FieldService.ViewModels {
                 .ContinueOnUIThread (t => {
                     IsBusy = false;
                     timerEntry = t.Result;
-                    return t.Result;
+                    if (timerEntry != null) {
+                        Hours = (DateTime.Now - timerEntry.Date);
+                    }
+                    return timerEntry;
                 });
         }
 
@@ -167,7 +170,10 @@ namespace FieldService.ViewModels {
 
             return service
                 .DeleteTimerEntry (timerEntry)
-                .ContinueOnUIThread (t => IsBusy = false);
+                .ContinueOnUIThread (t => {
+                    timerEntry = null;
+                    IsBusy = false;
+                });
         }
     }
 }

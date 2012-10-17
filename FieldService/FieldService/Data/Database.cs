@@ -19,6 +19,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using FieldService.Utilities;
 
 namespace FieldService.Data
 {
@@ -40,6 +41,15 @@ namespace FieldService.Data
         private static readonly string Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Database.db");
 #endif
         private static bool initialized = false;
+        private static readonly Type [] tableTypes = new Type []
+        {
+            typeof(Assignment),
+            typeof(Item),
+            typeof(AssignmentItem),
+            typeof(Labor),
+            typeof(Expense),
+            typeof(TimerEntry),
+        };
 
         /// <summary>
         /// For use within the app on startup, this will create the database
@@ -63,18 +73,27 @@ namespace FieldService.Data
             return connection;
         }
 
+        /// <summary>
+        /// A helper method to reset the database
+        /// </summary>
+        public static Task DropTables ()
+        {
+            var connection = new SQLiteAsyncConnection (Path, true);
+            return connection
+                .DropTableAsync<Assignment> ()
+                .ContinueWith (connection.DropTableAsync<Item> ())
+                .ContinueWith (connection.DropTableAsync<AssignmentItem> ())
+                .ContinueWith (connection.DropTableAsync<Labor> ())
+                .ContinueWith (connection.DropTableAsync<Expense> ())
+                .ContinueWith (connection.DropTableAsync<TimerEntry> ());
+        }
+
         private static Task CreateDatabase(SQLiteAsyncConnection connection)
         {
             return Task.Factory.StartNew(() =>
             {
                 //Create the tables
-                var createTask = connection.CreateTablesAsync(
-                    typeof(Assignment),
-                    typeof(Item),
-                    typeof(AssignmentItem),
-                    typeof(Labor),
-                    typeof(Expense),
-                    typeof(TimerEntry));
+                var createTask = connection.CreateTablesAsync (tableTypes);
                 createTask.Wait();
 
                 //Count number of assignments

@@ -17,9 +17,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using NUnit.Framework;
-using FieldService.Data;
 using System.Threading.Tasks;
+using FieldService.Data;
+using FieldService.Utilities;
+using NUnit.Framework;
 
 namespace FieldService.Tests.Data {
     [TestFixture]
@@ -29,6 +30,9 @@ namespace FieldService.Tests.Data {
         [SetUp]
         public void SetUp ()
         {
+            var task = Database.DropTables ().ContinueWith (Database.Initialize ());
+            task.Wait ();
+
             service = new SampleAssignmentService ();
         }
 
@@ -248,6 +252,62 @@ namespace FieldService.Tests.Data {
 
             var deleteTask = service.DeleteExpense (expense);
             deleteTask.Wait ();
+            Assert.That (deleteTask.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void SaveTimerEntry ()
+        {
+            var task = service.SaveTimerEntry (new TimerEntry { Date = DateTime.Now.AddHours (-1) });
+
+            task.Wait ();
+
+            Assert.That (task.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void UpdateTimerEntry ()
+        {
+            var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
+            var task = service.SaveTimerEntry (entry);
+
+            task.Wait ();
+
+            entry.Date = entry.Date.AddHours (2);
+            task = service.SaveTimerEntry (entry);
+
+            Assert.That (task.Result, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void GetTimerEntry ()
+        {
+            var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
+            var task = service.SaveTimerEntry (entry);
+
+            task.Wait ();
+
+            var getTask = service.GetTimerEntryAsync ();
+
+            getTask.Wait ();
+            
+            var result = getTask.Result;
+            Assert.That (entry.ID, Is.EqualTo (result.ID));
+            Assert.That (entry.Date, Is.EqualTo (result.Date));
+        }
+
+        [Test]
+        public void DeleteTimerEntry ()
+        {
+            var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
+            var task = service.SaveTimerEntry (entry);
+
+            task.Wait ();
+
+            var deleteTask = service.DeleteTimerEntry (entry);
+
+            deleteTask.Wait ();
+
             Assert.That (deleteTask.Result, Is.EqualTo (1));
         }
     }
