@@ -15,6 +15,7 @@
 using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MonoTouch.MapKit;
 using FieldService.ViewModels;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -25,6 +26,7 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		bool activeAssignmentVisible = true;
+		MKMapView mapView;
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
@@ -233,6 +235,30 @@ namespace FieldService.iOS
 		partial void Settings (NSObject sender)
 		{
 
+		}
+
+		/// <summary>
+		/// Event when user changes the current tab
+		/// </summary>
+		partial void TabChanged ()
+		{
+			if (segmentedControl.SelectedSegment == 1) {
+				if (mapView == null) {
+					mapView = new MKMapView(tableView.Frame) { 
+						ShowsUserLocation = true,
+						AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+					};
+				}
+
+				UIView.Transition (tableView, mapView, .3, UIViewAnimationOptions.TransitionCurlUp, delegate {
+					mapView.RemoveAnnotations (mapView.Annotations);
+
+				});
+			} else {
+				UIView.Transition (mapView, tableView, .3, UIViewAnimationOptions.TransitionCurlDown, delegate {
+					ReloadAssignments ();
+				});
+			}
 		}
 
 		/// <summary>

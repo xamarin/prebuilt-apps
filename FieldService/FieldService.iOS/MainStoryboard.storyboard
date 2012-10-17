@@ -266,15 +266,17 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="uPB-sI-7YD"/>
-                                    <barButtonItem width="300" style="plain" id="8Oh-Ai-HXY">
+                                    <barButtonItem width="200" style="plain" id="8Oh-Ai-HXY">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="i90-DF-PWb">
-                                            <rect key="frame" x="234" y="7" width="300" height="30"/>
+                                            <rect key="frame" x="284" y="7" width="200" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Priority"/>
-                                                <segment title="Distance"/>
                                                 <segment title="Map View"/>
                                             </segments>
+                                            <connections>
+                                                <action selector="TabChanged" destination="9SI-FO-E9U" eventType="valueChanged" id="ddt-GK-TPZ"/>
+                                            </connections>
                                         </segmentedControl>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="ZNN-Xj-oI8"/>
@@ -514,6 +516,7 @@
                 <relationship kind="action" name="ActiveAssignmentSelected"/>
                 <relationship kind="action" name="Record"/>
                 <relationship kind="action" name="Settings:"/>
+                <relationship kind="action" name="TabChanged"/>
                 <relationship kind="outlet" name="activeAssignment" candidateClass="UIView"/>
                 <relationship kind="outlet" name="address" candidateClass="TextButton"/>
                 <relationship kind="outlet" name="assignmentButton" candidateClass="UIButton"/>

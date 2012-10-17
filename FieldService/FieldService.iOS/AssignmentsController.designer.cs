@@ -56,14 +56,17 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIButton record { get; set; }
 
-		[Action ("Record")]
-		partial void Record ();
-
 		[Action ("ActiveAssignmentSelected")]
 		partial void ActiveAssignmentSelected ();
 
+		[Action ("Record")]
+		partial void Record ();
+
 		[Action ("Settings:")]
 		partial void Settings (MonoTouch.Foundation.NSObject sender);
+
+		[Action ("TabChanged")]
+		partial void TabChanged ();
 		
 		void ReleaseDesignerOutlets ()
 		{
