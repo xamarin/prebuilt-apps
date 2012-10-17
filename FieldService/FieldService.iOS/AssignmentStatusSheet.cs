@@ -24,7 +24,7 @@ namespace FieldService.iOS
 	{
 		public AssignmentStatusSheet ()
 		{
-			foreach (AssignmentStatus status in Enum.GetValues (typeof(AssignmentStatus))) {
+			foreach (AssignmentStatus status in Assignment.AvailableStatuses) {
 				AddButton (status.ToString ());
 			}
 
@@ -40,7 +40,7 @@ namespace FieldService.iOS
 			get { 
 				if (Index == -1)
 					return (AssignmentStatus)(-1);
-				return (AssignmentStatus)Enum.GetValues (typeof(AssignmentStatus)).GetValue (Index);
+				return Assignment.AvailableStatuses[Index];
 			}
 		}
 	}

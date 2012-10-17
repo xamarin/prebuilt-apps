@@ -174,6 +174,7 @@ namespace FieldService.iOS
 
 				activeAssignment.Alpha = visible ? 1 : 0;
 
+				//Modify the tableView's frame
 				var frame = tableView.Frame;
 				float height = 95;
 				if (visible) {
@@ -184,6 +185,19 @@ namespace FieldService.iOS
 					frame.Height += height;
 				}
 				tableView.Frame = frame;
+
+				//Now apply to mapView, if it has been created
+				if (mapView != null) {
+					frame = mapView.Frame;
+					if (visible) {
+						frame.Y += height;
+						frame.Height -= height;
+					} else {
+						frame.Y -= height;
+						frame.Height += height;
+					}
+					mapView.Frame = frame;
+				}
 
 				if (animate) {
 					UIView.CommitAnimations ();
