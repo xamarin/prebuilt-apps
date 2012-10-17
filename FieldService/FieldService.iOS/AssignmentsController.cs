@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -47,7 +48,7 @@ namespace FieldService.iOS
 
 			//Setup UI that is required from code
 			View.BackgroundColor = Theme.LinenPattern;
-			tableView.Source = new DataSource (this);
+			tableView.Source = new TableSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;
@@ -247,11 +248,12 @@ namespace FieldService.iOS
 					mapView = new MKMapView (tableView.Frame) { 
 						ShowsUserLocation = true,
 						AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+						Delegate = new MapViewDelegate(),
 					};
 				}
 
 				UIView.Transition (tableView, mapView, .3, UIViewAnimationOptions.TransitionCurlUp, delegate {
-					mapView.RemoveAnnotations (mapView.Annotations);
+					mapView.RemoveAnnotations (mapView.Annotations.OfType<MKPlacemark> ().ToArray ());
 
 					List<MKPlacemark> placemarks = new List<MKPlacemark>();
 					if (assignmentViewModel.ActiveAssignment != null) {
@@ -266,7 +268,7 @@ namespace FieldService.iOS
 					}
 
 					if (placemarks.Count > 0)
-						mapView.AddAnnotation (placemarks.ToArray ());
+						mapView.AddPlacemarks (placemarks.ToArray ());
 				});
 			} else {
 				UIView.Transition (mapView, tableView, .3, UIViewAnimationOptions.TransitionCurlDown, delegate {
@@ -281,22 +283,23 @@ namespace FieldService.iOS
 		private MKPlacemark ToPlacemark (Assignment assignment)
 		{
 			var address = new PersonAddress ();
-			address.Street = assignment.Address;
+			address.Street = assignment.Title + " - " + assignment.Address;
 			address.City = assignment.City;
 			address.State = assignment.State;
-			address.Zip = assignment.Zip;
-			
+			address.Country = string.Empty;
+			address.Dictionary[new NSString("Assignment")] = new AssignmentHolder(assignment);
+
 			return new MKPlacemark (new CLLocationCoordinate2D (assignment.Latitude, assignment.Longitude), address.Dictionary);
 		}
 
 		/// <summary>
 		/// Data source for the tableView of assignments
 		/// </summary>
-		private class DataSource : UITableViewSource
+		private class TableSource : UITableViewSource
 		{
 			readonly AssignmentViewModel assignmentViewModel;
 				
-			public DataSource (AssignmentsController controller)
+			public TableSource (AssignmentsController controller)
 			{
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 			}
@@ -318,6 +321,66 @@ namespace FieldService.iOS
 			{
 				var window = ServiceContainer.Resolve<UIWindow> ();
 				window.RootViewController = ServiceContainer.Resolve<MainController> ();
+			}
+		}
+
+		private class MapViewDelegate : MKMapViewDelegate
+		{
+			const string UserIdentifier = "UserAnnotation";
+			const string AssignmentIdentifier = "AssignmentAnnotation";
+			readonly UIPopoverController popoverController;
+
+			public MapViewDelegate ()
+			{
+				popoverController = new UIPopoverController(new UIViewController());
+				popoverController.PopoverContentSize = new System.Drawing.SizeF(100, 100);
+			}
+
+			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, NSObject annotation)
+			{
+				var userLocation = annotation as MKUserLocation;
+				if (userLocation != null ) {
+					var annotationView = mapView.DequeueReusableAnnotation (UserIdentifier) as MKPinAnnotationView;
+					if (annotationView == null) {
+						annotationView = new MKPinAnnotationView(annotation, UserIdentifier);
+						annotationView.CanShowCallout = true;
+						annotationView.AnimatesDrop = false;
+					} else {
+						annotationView.Annotation = annotation;
+					}
+					return annotationView;
+				} else {
+					var annotationView = mapView.DequeueReusableAnnotation (AssignmentIdentifier) as MKPinAnnotationView;
+					if (annotationView == null) {
+						annotationView = new MKPinAnnotationView(annotation, AssignmentIdentifier);
+						annotationView.PinColor = MKPinAnnotationColor.Green;
+						annotationView.AnimatesDrop = true;
+						annotationView.CanShowCallout = true;
+						annotationView.RightCalloutAccessoryView = UIButton.FromType (UIButtonType.DetailDisclosure);
+					} else {
+						annotationView.Annotation = annotation;
+					}
+					return annotationView;
+				}
+			}
+
+			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
+			{
+				var window = ServiceContainer.Resolve<UIWindow> ();
+				window.RootViewController = ServiceContainer.Resolve<MainController> ();
+			}
+		}
+
+		private class AssignmentHolder : NSObject
+		{
+			public Assignment Assignment {
+				get;
+				private set;
+			}
+
+			public AssignmentHolder (Assignment assignment)
+			{
+				Assignment = assignment;
 			}
 		}
 	}

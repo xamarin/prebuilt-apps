@@ -35,7 +35,7 @@ namespace FieldService.iOS
 
 			//UI we have to setup from code
 			View.BackgroundColor = Theme.LinenLeft;
-			tableView.Source = new DataSource ();
+			tableView.Source = new TableSource ();
 
 			//We use a button here, because we have to set custom values UIBarButtonItem doesn't support
 			var button = UIButton.FromType (UIButtonType.Custom);
@@ -60,11 +60,11 @@ namespace FieldService.iOS
 			tableView.SelectRow (NSIndexPath.FromRowSection (0, 0), false, UITableViewScrollPosition.Top);
 		}
 
-		private class DataSource : UITableViewSource
+		private class TableSource : UITableViewSource
 		{
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, confirmationCell;
 
-			public DataSource ()
+			public TableSource ()
 			{
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";
