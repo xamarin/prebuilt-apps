@@ -139,6 +139,7 @@ namespace FieldService.ViewModels {
                     timerEntry = t.Result;
                     if (timerEntry != null) {
                         Hours = (DateTime.Now - timerEntry.Date);
+                        timer.Enabled = true;
                     }
                     return timerEntry;
                 });
