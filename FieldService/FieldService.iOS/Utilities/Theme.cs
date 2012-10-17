@@ -423,13 +423,22 @@ namespace FieldService.iOS
 			get { return recordActive.Value; }
 		}
 
-		static Lazy<UIImage> rightboxshadow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/rightboxshadow.png"));
+		static Lazy<UIImage> rightBoxShadow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/rightboxshadow.png"));
 		
 		/// <summary>
 		/// 
 		/// </summary>
 		public static UIImage RightBoxShadow {
-			get { return rightboxshadow.Value; }
+			get { return rightBoxShadow.Value; }
+		}
+
+		static Lazy<UIImage> toolbarShadow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/toolbarshadow.png"));
+		
+		/// <summary>
+		/// Shadow for placing under toolbars
+		/// </summary>
+		public static UIImage ToolbarShadow {
+			get { return toolbarShadow.Value; }
 		}
 
 		static Lazy<UIImage> row120 = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row120.png").CreateResizableImage (new UIEdgeInsets (25, 25, 25, 25)));

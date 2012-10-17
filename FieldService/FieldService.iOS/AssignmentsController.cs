@@ -57,6 +57,7 @@ namespace FieldService.iOS
 			record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
 			timerBackgroundImage.Image = Theme.TimerField;
 			timerLabel.Text = "00:00:00";
+			toolbarShadow.Image = Theme.ToolbarShadow;
 
 			status.StatusChanged += (sender, e) => {
 				assignmentViewModel
@@ -82,9 +83,18 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
+			//Apply animation
 			Theme.TransitionWindow ();
-
+			//Load our assignments
 			ReloadAssignments ();
+			//Apply the current orientation
+			if (InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight) {
+				contact.Alpha = 
+					address.Alpha = 1;
+			} else {
+				contact.Alpha = 
+					address.Alpha = 0;
+			}
 		}
 
 		/// <summary>
@@ -175,8 +185,8 @@ namespace FieldService.iOS
 				activeAssignment.Alpha = visible ? 1 : 0;
 
 				//Modify the tableView's frame
-				var frame = tableView.Frame;
 				float height = 95;
+				var frame = tableView.Frame;
 				if (visible) {
 					frame.Y += height;
 					frame.Height -= height;
@@ -185,6 +195,15 @@ namespace FieldService.iOS
 					frame.Height += height;
 				}
 				tableView.Frame = frame;
+
+				//Modify the toolbar shadow
+				frame = toolbarShadow.Frame;
+				if (visible) {
+					frame.Y += height;
+				} else {
+					frame.Y -= height;
+				}
+				toolbarShadow.Frame = frame;
 
 				//Now apply to mapView, if it has been created
 				if (mapView != null) {
@@ -289,6 +308,9 @@ namespace FieldService.iOS
 					ReloadAssignments ();
 				});
 			}
+
+			//Bring the toolbarShadow to the front, UIView.Transition() puts it behind
+			View.BringSubviewToFront (toolbarShadow);
 		}
 
 		/// <summary>

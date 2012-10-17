@@ -56,6 +56,9 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIButton record { get; set; }
 
+		[Outlet]
+		MonoTouch.UIKit.UIImageView toolbarShadow { get; set; }
+
 		[Action ("ActiveAssignmentSelected")]
 		partial void ActiveAssignmentSelected ();
 
@@ -143,6 +146,11 @@ namespace FieldService.iOS
 			if (record != null) {
 				record.Dispose ();
 				record = null;
+			}
+
+			if (toolbarShadow != null) {
+				toolbarShadow.Dispose ();
+				toolbarShadow = null;
 			}
 		}
 	}

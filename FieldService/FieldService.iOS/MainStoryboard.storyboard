@@ -135,7 +135,7 @@
                                         <rect key="frame" x="20" y="78" width="200" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="10 hr 50 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uaa-qB-aSU">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="uaa-qB-aSU">
                                         <rect key="frame" x="20" y="79" width="200" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -313,7 +313,7 @@
                                         <rect key="frame" x="307" y="29" width="130" height="36"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                     </imageView>
-                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="10 hr 50 min" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hxL-lP-Z7g">
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="00:00:00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="hxL-lP-Z7g">
                                         <rect key="frame" x="307" y="29" width="130" height="34"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -487,6 +487,10 @@
                                     </tableViewCell>
                                 </prototypes>
                             </tableView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="EFU-QE-2TR">
+                                <rect key="frame" x="0.0" y="182" width="768" height="4"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <accessibility key="accessibilityConfiguration">
@@ -509,6 +513,7 @@
                         <outlet property="timerBackgroundImage" destination="eY1-jf-8HJ" id="PNF-e8-dCN"/>
                         <outlet property="timerLabel" destination="hxL-lP-Z7g" id="SI9-s0-akU"/>
                         <outlet property="title" destination="dDV-BQ-22g" id="tqs-f0-mXH"/>
+                        <outlet property="toolbarShadow" destination="EFU-QE-2TR" id="IZL-aJ-TDo"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPw-b0-RQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -595,6 +600,7 @@
                 <relationship kind="outlet" name="timerBackgroundImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbarShadow" candidateClass="UIImageView"/>
             </relationships>
         </class>
         <class className="DetailNavigationController" superclassName="UINavigationController">
