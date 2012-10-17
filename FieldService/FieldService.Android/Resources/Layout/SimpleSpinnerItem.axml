@@ -2,5 +2,7 @@
 <TextView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:textSize="14dp"
-    android:textColor="@color/greyspinnertext" />
+    android:textSize="18dp"
+    android:textColor="@color/greyspinnertext"
+    android:background="@android:color/white"
+    android:id="@+id/simpleSpinnerTextView" />

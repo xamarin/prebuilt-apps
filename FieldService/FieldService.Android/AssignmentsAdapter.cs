@@ -31,7 +31,7 @@ namespace FieldService.Android {
 
         AssignmentViewModel assignmentViewModel;
         IList<Assignment> assignments;
-        Assignment activeAssignment;
+        List<string> assignmentStatus;
         int resourceId;
 
         public AssignmentsAdapter (Context context, int resourceId, IList<Assignment> assignments)
@@ -54,6 +54,7 @@ namespace FieldService.Android {
             if (assignments.Count > position) {
                 assignment = assignments [position];
             }
+            
             if(assignment == null)
             {
                 return view;   
@@ -74,46 +75,59 @@ namespace FieldService.Android {
             var timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
             var accept = view.FindViewById<Button> (Resource.Id.assignmentAccept);
             var decline = view.FindViewById<Button> (Resource.Id.assignmentDecline);
-            
+
             if (assignment.Status == AssignmentStatus.New) {
                 buttonLayout.Visibility = ViewStates.Visible;
                 timerLayout.Visibility = ViewStates.Gone;
+                accept.Tag = position;
+                decline.Tag = position;
             } else {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
                 timerlinearLayout.Visibility = ViewStates.Gone;
 
-                List<string> status = new List<string> ();
+                assignmentStatus = new List<string> ();
                 foreach (var item in Enum.GetValues (typeof (AssignmentStatus))) {
-                    status.Add (item.ToString ());
+                    assignmentStatus.Add (item.ToString ());
                 }
                 spinner.Tag = position;
-                var adapter = new ArrayAdapter<string> (Context, Android.Resource.Layout.SimpleSpinnerItem, status);
+                var adapter = new SpinnerAdapter (assignmentStatus, ServiceContainer.Resolve<AssignmentsActivity> ());
                 spinner.Adapter = adapter;
+
+                switch (assignment.Status) {
+                    case AssignmentStatus.Active:
+                    case AssignmentStatus.New:
+                        break;
+                    default:
+                        spinner.SetSelection (assignmentStatus.IndexOf (assignment.Status.ToString ()));
+                        break;
+                }
+
                 spinner.ItemSelected += (sender, e) => {
-                    var selected = status.ElementAtOrDefault (e.Position);
+                    var selected = assignmentStatus.ElementAtOrDefault (e.Position);
                     if (selected != null) {
                         switch (selected) {
-                            case "Active":
-                                view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentblue));
-                                spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
-                                activeAssignment = GetItem (int.Parse (spinner.Tag.ToString ()));
-                                activeAssignment.Status = AssignmentStatus.Active;
+                            case "Active": {
+                                    view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentblue));
+                                    spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
+                                    spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
+                                    var activeAssignment = GetItem (int.Parse (e.Parent.Tag.ToString ()));
+                                    activeAssignment.Status = AssignmentStatus.Active;
+                                    SaveAssignment (activeAssignment);
+                                }
                                 break;
-                            default:
-                                view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
-                                spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
+                            default: {
+                                    view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
+                                    spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
+                                    spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
+                                    var activeAssignment = GetItem (int.Parse (e.Parent.Tag.ToString ()));
+                                    activeAssignment.Status = (AssignmentStatus)DataExtensions.ToEnum (typeof (AssignmentStatus), selected);
+                                    SaveAssignment (activeAssignment);
+                                }
                                 break;
                         }
                     }
                 };
-                switch (assignment.Status) {
-                    case AssignmentStatus.Active:
-                        break;
-                    default:
-                        spinner.SetSelection (status.IndexOf (assignment.Status.ToString ()));
-                        break;
-                }
             }
 
             number.Text = assignment.Priority.ToString();
@@ -128,22 +142,13 @@ namespace FieldService.Android {
         }
 
         /// <summary>
-        /// Activate the timer for keeping track of the active assignments time.
-        /// </summary>
-        /// <param name="timerChanged"></param>
-        private void TimerCheckedChanged (bool timerChanged)
-        {
-            
-        }
-
-        /// <summary>
         /// Save assignment to the view model.
         /// </summary>
-        private void SaveAssignment ()
+        private void SaveAssignment (Assignment assignment)
         {
-            assignmentViewModel.SaveAssignment (activeAssignment).ContinueOnUIThread (_ => {
+            assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
                 var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
-                if (activeAssignment.Status == AssignmentStatus.Active) {
+                if (assignment.Status == AssignmentStatus.Active) {
                     activity.ReloadAssignments ();
                 } else {
 
@@ -154,13 +159,17 @@ namespace FieldService.Android {
         public void OnClick (View v)
         {
             switch (v.Id) {
-                case Resource.Id.assignmentAccept:
-                    activeAssignment.Status = AssignmentStatus.Active;
-                    SaveAssignment ();
+                case Resource.Id.assignmentAccept: {
+                        var activeAssignment = GetItem (int.Parse (v.Tag.ToString ()));
+                        activeAssignment.Status = AssignmentStatus.Active;
+                        SaveAssignment (activeAssignment);
+                    }
                     break;
-                case Resource.Id.assignmentDecline:
-                    activeAssignment.Status = AssignmentStatus.Declined;
-                    SaveAssignment ();
+                case Resource.Id.assignmentDecline: {
+                        var activeAssignment = GetItem (int.Parse (v.Tag.ToString ()));
+                        activeAssignment.Status = AssignmentStatus.Declined;
+                        SaveAssignment (activeAssignment);
+                    }
                     break;
                 default:
                     break;

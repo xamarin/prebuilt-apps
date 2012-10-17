@@ -43,6 +43,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.GoogleMaps" />
     <Reference Include="mscorlib" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -118,18 +119,30 @@
     </Compile>
     <Compile Include="AssignmentsActivity.cs" />
     <Compile Include="AssignmentsAdapter.cs" />
+    <Compile Include="AssignmentTabActivity.cs" />
     <Compile Include="LoginActivity.cs" />
+    <Compile Include="MapViewActivity.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="RotateView.cs" />
+    <Compile Include="SpinnerAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
-    <AndroidResource Include="Resources\Layout\AssignmentItemLayout.axml" />
-    <AndroidResource Include="Resources\Layout\AssignmentsLayout.axml" />
+    <AndroidResource Include="Resources\Layout\AssignmentsTabsLayout.axml" />
     <AndroidResource Include="Resources\Layout\LoginLayout.axml" />
     <AndroidResource Include="Resources\Layout\SimpleSpinnerItem.axml" />
     <AndroidResource Include="Resources\Layout-land\AssignmentItemLayout.axml" />
     <AndroidResource Include="Resources\layout-port\AssignmentItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-land\AssignmentsLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\layout-port\AssignmentsLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\MapViewLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -148,7 +161,9 @@
     <AndroidResource Include="Resources\Drawable\XamarinTitle.png" />
     <AndroidResource Include="Resources\Drawable\actionbar.png" />
     <AndroidResource Include="Resources\Drawable\loginbox.9.png" />
-    <AndroidResource Include="Resources\Values\Colors.xml" />
+    <AndroidResource Include="Resources\Values\Colors.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
     <AndroidResource Include="Resources\Drawable\login_button.xml" />
     <AndroidResource Include="Resources\Drawable\accept_assignment.xml" />
     <AndroidResource Include="Resources\Drawable\blueRectangle.xml" />

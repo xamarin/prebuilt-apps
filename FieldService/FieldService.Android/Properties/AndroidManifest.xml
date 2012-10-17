@@ -3,4 +3,5 @@
   <uses-sdk android:minSdkVersion="15" android:targetSdkVersion="15" />
   <application android:label="FieldService">
   </application>
+  <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 </manifest>

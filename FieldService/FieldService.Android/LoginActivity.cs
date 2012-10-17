@@ -104,7 +104,7 @@ namespace FieldService.Android {
 
                 //will do something else later.
                 //Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
-                StartActivity (typeof (AssignmentsActivity));
+                StartActivity (typeof (AssignmentTabActivity));
                 Finish ();
             });
         }

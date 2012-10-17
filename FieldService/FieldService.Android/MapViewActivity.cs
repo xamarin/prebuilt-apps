@@ -1,40 +1,28 @@
-//
-//  Copyright 2012  Xamarin Inc.
-//
-//    Licensed under the Apache License, Version 2.0 (the "License");
-//    you may not use this file except in compliance with the License.
-//    You may obtain a copy of the License at
-//
-//        http://www.apache.org/licenses/LICENSE-2.0
-//
-//    Unless required by applicable law or agreed to in writing, software
-//    distributed under the License is distributed on an "AS IS" BASIS,
-//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-//    See the License for the specific language governing permissions and
-//    limitations under the License.
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FieldService.ViewModels;
-using FieldService.Utilities;
+using Android.GoogleMaps;
 using FieldService.Data;
+using FieldService.Utilities;
+using FieldService.ViewModels;
+using Android.Hardware;
 
 namespace FieldService.Android {
-    [Activity (Label = "Assignments", Theme = "@style/CustomHoloTheme")]
-    public class AssignmentsActivity : Activity {
-        readonly AssignmentViewModel assignmentViewModel;
-        ListView assignmentsListView;
-        RelativeLayout assignmentActiveLayout;
+    [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
+    public class MapViewActivity : MapActivity {
+        AssignmentViewModel assignmentViewModel;
+        RelativeLayout assignmentMapViewLayout;
+        MapView mapView;
+        MyLocationOverlay myLocation;
 
-        public AssignmentsActivity ()
+        public MapViewActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
         }
@@ -43,60 +31,60 @@ namespace FieldService.Android {
         {
             base.OnCreate (bundle);
 
-            SetContentView (Resource.Layout.AssignmentsLayout);
+            // Create your application here
+            SetContentView (Resource.Layout.MapViewLayout);
 
-            assignmentsListView = FindViewById<ListView> (Resource.Id.assignmentsListView);
-            assignmentActiveLayout = FindViewById<RelativeLayout> (Resource.Id.assignmentSelectedItem);
+            assignmentMapViewLayout = FindViewById<RelativeLayout> (Resource.Id.mapViewAssignmentLayout);
+            mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
 
-            ServiceContainer.Register<AssignmentsActivity> (this);
+            if (assignmentViewModel.ActiveAssignment != null) {
+                SetAssignment (true);
+            } else {
+                SetAssignment (false);
+            }
+
+            myLocation = new MyLocationOverlay (this, mapView);
+            myLocation.RunOnFirstFix (() => {
+                mapView.Controller.AnimateTo (myLocation.MyLocation);
+            });
+            mapView.Controller.SetZoom (5);
+            mapView.Clickable = true;
+            mapView.Enabled = true;
+            mapView.SetBuiltInZoomControls (true);
         }
 
-
-        /// <summary>
-        /// Overrides resume so we can refresh the list when the activity is loaded.
-        /// </summary>
         protected override void OnResume ()
         {
             base.OnResume ();
 
             assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
-                var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, assignmentViewModel.Assignments);
-                assignmentsListView.Adapter = adapter;
-            });
-        }
+                foreach (var item in assignmentViewModel.Assignments) {
+                    //var overlay = new OverlayItem(new GeoPoint(item
 
-        /// <summary>
-        /// manual refreshing assignments list
-        /// </summary>
-        public void ReloadAssignments ()
-        {
-            assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
-                if (assignmentViewModel.ActiveAssignment == null) {
-                    SetActiveAssignmentVisible (false);
-                } else {
-                    SetActiveAssignmentVisible (true);
                 }
+                myLocation.EnableMyLocation ();
             });
         }
 
-        /// <summary>
-        /// Activate the timer for keeping track of the active assignments time.
-        /// </summary>
-        /// <param name="timerChanged"></param>
-        private void TimerCheckedChanged (bool timerChanged)
+        protected override void OnStop ()
         {
-
+            myLocation.DisableMyLocation ();
+            base.OnStop ();
         }
 
-        private void SetActiveAssignmentVisible (bool visible)
+        protected override bool IsRouteDisplayed
+        {
+            get { return false; }
+        }
+
+        private void SetAssignment (bool visible)
         {
             if (visible) {
                 View view = null;
-                assignmentActiveLayout.Visibility = ViewStates.Visible;
                 var assignment = assignmentViewModel.ActiveAssignment;
                 //look at layouts children to get view
-                if (assignmentActiveLayout.ChildCount > 0) {
-                    view = assignmentActiveLayout.GetChildAt (0);
+                if (assignmentMapViewLayout.ChildCount > 0) {
+                    view = assignmentMapViewLayout.GetChildAt (0);
 
                 } else {
                     view = new View (this);
@@ -139,16 +127,17 @@ namespace FieldService.Android {
                     }
                 };
                 spinner.SetSelection (status.IndexOf (assignment.Status.ToString ()));
-                number.Text = assignment.Priority.ToString();
-                job.Text = string.Format("#{0} {1}\n{2}", assignment.JobNumber,  assignment.StartDate.ToShortDateString(), assignment.Title);
+                number.Text = assignment.Priority.ToString ();
+                job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.Title);
                 name.Text = assignment.ContactName;
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
                 timerText.Text = string.Format ("{0} hr {1} min\n{2}", "10", "59", "START");
-                
-                assignmentActiveLayout.AddView (view);
+
             } else {
-                assignmentActiveLayout.Visibility = ViewStates.Gone;
+                if (assignmentMapViewLayout.ChildCount > 0) {
+                    assignmentMapViewLayout.RemoveViewAt (0);
+                }
             }
         }
     }

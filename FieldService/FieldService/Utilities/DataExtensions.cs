@@ -13,12 +13,15 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Text.RegularExpressions;
 using FieldService.Data;
 
 namespace FieldService.Utilities
 {
 	public static class DataExtensions
 	{
+            private static Regex _enumRegex = new Regex (@"[^\w\d_]", RegexOptions.Compiled);
+
                 public static string ToUserString (this LaborType type)
                 {
                     switch (type) {
@@ -46,6 +49,19 @@ namespace FieldService.Utilities
                             return "Other";
                         default:
                             return category.ToString ();
+                    }
+                }
+
+                public static object ToEnum (Type enumType, string value)
+                {
+                    try {
+                        if (!string.IsNullOrEmpty (value)) {
+                            return Enum.Parse (enumType, _enumRegex.Replace (value, string.Empty), true);
+                        } else {
+                            return Activator.CreateInstance (enumType);
+                        }
+                    } catch {
+                        return Activator.CreateInstance (enumType);
                     }
                 }
 	}

@@ -4,171 +4,179 @@
     android:layout_width="fill_parent"
     android:background="@android:color/white"
     android:layout_height="wrap_content">
-    <TextView
-        android:background="@drawable/roundedblack"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/assignmentItemNumber"
-        android:layout_marginLeft="20dp"
-        android:layout_gravity="center_vertical"
-        android:textColor="@color/assignmentoffwhite"
-        android:gravity="center" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/assignmentJob"
-        android:textSize="12dp"
-        android:textColor="@android:color/black"
-        android:layout_marginLeft="20dp"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_vertical"
-        android:maxWidth="100dp"
-        android:minWidth="100dp" />
+  <TextView
+      android:background="@drawable/roundedblack"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/assignmentItemNumber"
+      android:layout_marginLeft="20dp"
+      android:layout_gravity="center_vertical"
+      android:textColor="@color/assignmentoffwhite"
+      android:gravity="center" />
+  <TextView
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/assignmentJob"
+      android:textSize="12dp"
+      android:textColor="@android:color/black"
+      android:layout_marginLeft="20dp"
+      android:gravity="center_vertical"
+      android:layout_gravity="center_vertical"
+      android:maxWidth="100dp"
+      android:minWidth="100dp" />
+  <LinearLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:orientation="vertical"
+      android:layout_marginTop="5dp"
+      android:layout_marginBottom="5dp"
+      android:layout_marginLeft="10dp">
     <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_vertical">
-        <ImageView
-            android:src="@drawable/PhoneIcon"
-            android:id="@+id/assignmentPhoneIcon"
-            android:background="@drawable/roundedblack"
-            android:scaleType="centerInside"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="2dp" />
-        <TextView
-            android:id="@+id/assignmentName"
-            android:textSize="12dp"
-            android:textColor="@android:color/black"
-            android:maxWidth="100dp"
-            android:minWidth="100dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/assignmentPhoneIcon"
-            android:layout_marginLeft="10dp" />
-        <TextView
-            android:id="@+id/assignmentPhone"
-            android:textSize="12dp"
-            android:textColor="@android:color/black"
-            android:gravity="center_vertical"
-            android:maxWidth="100dp"
-            android:minWidth="100dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/assignmentName"
-            android:layout_alignLeft="@id/assignmentName" />
-        <ImageView
-            android:src="@drawable/MapIcon"
-            android:id="@+id/assignmentMapIcon"
-            android:background="@drawable/roundedblack"
-            android:scaleType="centerInside"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/assignmentPhone"
-            android:layout_marginTop="12dp" />
-        <TextView
-            android:id="@+id/assignmentAddress"
-            android:textSize="12dp"
-            android:textColor="@android:color/black"
-            android:maxWidth="150dp"
-            android:minWidth="150dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/assignmentPhone"
-            android:layout_toRightOf="@+id/assignmentMapIcon"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="10dp" />
+        android:layout_height="wrap_content">
+      <ImageView
+          android:src="@drawable/PhoneIcon"
+          android:id="@+id/assignmentPhoneIcon"
+          android:background="@drawable/roundedblack"
+          android:scaleType="centerInside"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="2dp" />
+      <TextView
+          android:id="@+id/assignmentName"
+          android:textSize="12dp"
+          android:textColor="@android:color/black"
+          android:maxWidth="100dp"
+          android:minWidth="100dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toRightOf="@+id/assignmentPhoneIcon"
+          android:layout_marginLeft="10dp" />
+      <TextView
+          android:id="@+id/assignmentPhone"
+          android:textSize="12dp"
+          android:textColor="@android:color/black"
+          android:gravity="center_vertical"
+          android:maxWidth="100dp"
+          android:minWidth="100dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/assignmentName"
+          android:layout_alignLeft="@+id/assignmentName" />
     </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+      <ImageView
+          android:src="@drawable/MapIcon"
+          android:id="@+id/assignmentMapIcon"
+          android:background="@drawable/roundedblack"
+          android:scaleType="centerInside"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/assignmentPhone"
+          android:layout_marginTop="12dp" />
+      <TextView
+          android:id="@+id/assignmentAddress"
+          android:textSize="12dp"
+          android:textColor="@android:color/black"
+          android:maxWidth="150dp"
+          android:minWidth="150dp"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_below="@+id/assignmentPhone"
+          android:layout_toRightOf="@+id/assignmentMapIcon"
+          android:layout_marginLeft="10dp"
+          android:layout_marginTop="10dp" />
+    </RelativeLayout>
+  </LinearLayout>
+  <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/assignmentTimerLayout"
+      android:layout_marginLeft="10dp"
+      android:layout_marginRight="10dp"
+      android:layout_gravity="center_vertical|right"
+      android:orientation="vertical"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="5dp">
     <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/assignmentTimerLayout"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_gravity="center_vertical|right"
-        android:orientation="vertical"
-        android:layout_marginBottom="5dp"
-        android:layout_marginTop="5dp">
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/timerLinearLayout"
-            android:layout_alignParentRight="true"
-            android:gravity="right">
-            <TextView
-                android:id="@+id/assignmentTimerText"
-                android:gravity="right"
-                android:textColor="@android:color/black"
-                android:maxWidth="85dp"
-                android:minWidth="85dp"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="5dp" />
-            <ToggleButton
-                android:id="@+id/assignmentTimer"
-                android:background="@drawable/timer_selector"
-                android:textOff=""
-                android:textOn=""
-                android:layout_width="47dp"
-                android:layout_height="46dp"
-                android:layout_marginLeft="20dp" />
-        </LinearLayout>
-        <LinearLayout
-            android:orientation="horizontal"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/timerLinearLayout"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="5dp"
-            android:layout_alignLeft="@+id/timerLinearLayout"
-            android:gravity="right">
-            <ImageView
-                android:src="@drawable/EnrouteImage"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/assignmentStatusImage"
-                android:layout_gravity="center_vertical"
-                android:layout_marginRight="5dp"
-                android:layout_below="@id/assignmentTimerText" />
-            <Spinner
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:id="@+id/assignmentStatus"
-                android:layout_centerHorizontal="true"
-                android:layout_marginLeft="5dp"
-                android:layout_below="@id/assignmentTimer" />
-        </LinearLayout>
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/assignmentButtonLayout"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="20dp"
-        android:visibility="gone"
-        android:layout_marginRight="10dp"
+        android:id="@+id/timerLinearLayout"
+        android:layout_alignParentRight="true"
         android:gravity="right">
-        <Button
-            android:text="Accept"
-            android:id="@+id/assignmentAccept"
-            android:background="@drawable/accept_assignment"
-            android:textColor="@android:color/black"
-            android:layout_width="110dp"
-            android:layout_height="42dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginTop="5dp"
-            android:layout_gravity="center_vertical" />
-        <Button
-            android:text="Decline"
-            android:layout_width="110dp"
-            android:layout_height="42dp"
-            android:id="@+id/assignmentDecline"
-            android:background="@drawable/decline_assignment"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="5dp"
-            android:layout_gravity="center_vertical" />
+      <TextView
+          android:id="@+id/assignmentTimerText"
+          android:gravity="right"
+          android:textColor="@android:color/black"
+          android:maxWidth="85dp"
+          android:minWidth="85dp"
+          android:layout_width="wrap_content"
+          android:layout_height="fill_parent" />
+      <ToggleButton
+          android:id="@+id/assignmentTimer"
+          android:background="@drawable/timer_selector"
+          android:textOff=""
+          android:textOn=""
+          android:layout_width="47dp"
+          android:layout_height="46dp"
+          android:layout_marginLeft="20dp" />
     </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/timerLinearLayout"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="5dp"
+        android:layout_alignLeft="@+id/timerLinearLayout"
+        android:gravity="right">
+      <ImageView
+          android:src="@drawable/EnrouteImage"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:id="@+id/assignmentStatusImage"
+          android:layout_gravity="center_vertical"
+          android:layout_marginRight="5dp"
+          android:layout_below="@id/assignmentTimerText" />
+      <Spinner
+          android:layout_width="100dp"
+          android:layout_height="wrap_content"
+          android:id="@+id/assignmentStatus"
+          android:layout_centerHorizontal="true"
+          android:layout_marginLeft="5dp"
+          android:layout_below="@id/assignmentTimer" />
+    </LinearLayout>
+  </LinearLayout>
+  <LinearLayout
+      android:layout_width="fill_parent"
+      android:layout_height="wrap_content"
+      android:id="@+id/assignmentButtonLayout"
+      android:layout_gravity="center_vertical"
+      android:layout_marginLeft="10dp"
+      android:visibility="gone"
+      android:layout_marginRight="10dp"
+      android:gravity="right">
+    <Button
+        android:text="@string/Accept"
+        android:id="@+id/assignmentAccept"
+        android:background="@drawable/accept_assignment"
+        android:textColor="@android:color/black"
+        android:layout_width="95dp"
+        android:layout_height="42dp"
+        android:layout_marginBottom="5dp"
+        android:layout_marginTop="5dp"
+        android:layout_gravity="center_vertical" />
+    <Button
+        android:text="@string/Decline"
+        android:layout_width="95dp"
+        android:layout_height="42dp"
+        android:id="@+id/assignmentDecline"
+        android:background="@drawable/decline_assignment"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical" />
+  </LinearLayout>
 </LinearLayout>

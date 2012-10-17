@@ -16,20 +16,6 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/XamarinTitle" />
-    <RelativeLayout
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="54dp"
-        android:id="@+id/assignmentSelectedItem"
-        android:layout_above="@+id/assignmentListView" />
-    <ListView
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:id="@+id/assignmentsListView"
-        android:layout_below="@+id/assignmentSelectedItem"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
     <TabHost
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -39,7 +25,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:id="@+id/linearLayout1">
             <TabWidget
                 android:id="@android:id/tabs"
                 android:layout_width="match_parent"
