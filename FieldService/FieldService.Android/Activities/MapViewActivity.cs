@@ -1,4 +1,17 @@
-using System;
+//
+//  Copyright 2012  Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,8 +24,11 @@ using Android.Widget;
 using Android.GoogleMaps;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.Android.Utilities;
 using FieldService.ViewModels;
 using Android.Hardware;
+using Android.Graphics.Drawables;
+using System;
 
 namespace FieldService.Android {
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
@@ -37,17 +53,12 @@ namespace FieldService.Android {
             assignmentMapViewLayout = FindViewById<RelativeLayout> (Resource.Id.mapViewAssignmentLayout);
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
 
-            if (assignmentViewModel.ActiveAssignment != null) {
-                SetAssignment (true);
-            } else {
-                SetAssignment (false);
-            }
-
             myLocation = new MyLocationOverlay (this, mapView);
             myLocation.RunOnFirstFix (() => {
                 mapView.Controller.AnimateTo (myLocation.MyLocation);
             });
-            mapView.Controller.SetZoom (5);
+            mapView.Overlays.Add (myLocation);
+            mapView.Controller.SetZoom (8);
             mapView.Clickable = true;
             mapView.Enabled = true;
             mapView.SetBuiltInZoomControls (true);
@@ -59,16 +70,35 @@ namespace FieldService.Android {
 
             assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
                 foreach (var item in assignmentViewModel.Assignments) {
-                    //var overlay = new OverlayItem(new GeoPoint(item
-
+                    var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6() , item.Longitude.ToIntE6()),
+                        item.Title, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
+                    Drawable drawable = null;
+                    switch (item.Status) {
+                        case AssignmentStatus.Hold:
+                            drawable = Resources.GetDrawable (Resource.Drawable.AcceptedAssignmentIcon);
+                            break;
+                        case AssignmentStatus.Active:
+                            drawable = Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon);
+                            break;
+                        default:
+                            drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
+                            break;
+                    }
+                    mapView.Overlays.Add (new MapOverlayItem (drawable, overlay));
                 }
                 myLocation.EnableMyLocation ();
+                if (assignmentViewModel.ActiveAssignment != null) {
+                    SetAssignment (true);
+                } else {
+                    SetAssignment (false);
+                }
             });
         }
 
         protected override void OnStop ()
         {
             myLocation.DisableMyLocation ();
+            mapView.Overlays.Clear ();
             base.OnStop ();
         }
 
