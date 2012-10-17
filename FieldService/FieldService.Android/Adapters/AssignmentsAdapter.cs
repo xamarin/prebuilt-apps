@@ -14,17 +14,14 @@
 //    limitations under the License.
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
-using System.Collections.ObjectModel;
+using System.Linq;
 using Android.Content;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
-using System.Text;
-using FieldService.ViewModels;
 using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.Android {
     public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener {
@@ -121,7 +118,7 @@ namespace FieldService.Android {
                                     spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
                                     var activeAssignment = GetItem (int.Parse (e.Parent.Tag.ToString ()));
-                                    activeAssignment.Status = (AssignmentStatus)DataExtensions.ToEnum (typeof (AssignmentStatus), selected);
+                                    activeAssignment.Status = (AssignmentStatus)FieldService.Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
                                     SaveAssignment (activeAssignment);
                                 }
                                 break;
