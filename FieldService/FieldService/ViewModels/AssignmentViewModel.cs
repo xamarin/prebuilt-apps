@@ -38,6 +38,11 @@ namespace FieldService.ViewModels {
         Assignment activeAssignment;
         TimerEntry timerEntry;
 
+        /// <summary>
+        /// Event when Hours is updated
+        /// </summary>
+        public event EventHandler HoursChanged;
+
         public AssignmentViewModel ()
         {
             service = ServiceContainer.Resolve<IAssignmentService> ();
@@ -66,7 +71,19 @@ namespace FieldService.ViewModels {
         public TimeSpan Hours
         {
             get { return hours; }
-            set { hours = value; OnPropertyChanged("Hours"); }
+            set { hours = value; OnHoursChanged (); }
+        }
+
+        /// <summary>
+        /// Called when Hours changes
+        /// </summary>
+        protected virtual void OnHoursChanged ()
+        {
+            OnPropertyChanged ("Hours");
+
+            var method = HoursChanged;
+            if (method != null)
+                HoursChanged (this, EventArgs.Empty);
         }
 
         /// <summary>
