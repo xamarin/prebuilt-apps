@@ -45,22 +45,22 @@ namespace FieldService.iOS
 			get { return addphoto.Value; }
 		}
 
-		static Lazy<UIImage> arrow_down = new Lazy<UIImage> (() => UIImage.FromFile ("Images/arrow_down.png"));
+		static Lazy<UIImage> arrowDown = new Lazy<UIImage> (() => UIImage.FromFile ("Images/arrow_down.png"));
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public static UIImage Arrow_Down {
-			get { return arrow_down.Value; }
+		public static UIImage ArrowDown {
+			get { return arrowDown.Value; }
 		}
 
-		static Lazy<UIImage> arrow_up = new Lazy<UIImage> (() => UIImage.FromFile ("Images/arrow_up.png"));
+		static Lazy<UIImage> arrowUp = new Lazy<UIImage> (() => UIImage.FromFile ("Images/arrow_up.png"));
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public static UIImage Arrow_Up {
-			get { return arrow_up.Value; }
+		public static UIImage ArrowUp {
+			get { return arrowUp.Value; }
 		}
 
 		static Lazy<UIImage> arrow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/arrow.png"));
@@ -135,22 +135,22 @@ namespace FieldService.iOS
 			get { return camera.Value; }
 		}
 
-		static Lazy<UIImage> check_empty = new Lazy<UIImage> (() => UIImage.FromFile ("Images/check_empty.png"));
+		static Lazy<UIImage> checkEmpty = new Lazy<UIImage> (() => UIImage.FromFile ("Images/check_empty.png"));
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public static UIImage Check_Empty {
-			get { return check_empty.Value; }
+		public static UIImage CheckEmpty {
+			get { return checkEmpty.Value; }
 		}
 
-		static Lazy<UIImage> check_filled = new Lazy<UIImage> (() => UIImage.FromFile ("Images/check_filled.png"));
+		static Lazy<UIImage> checkFilled = new Lazy<UIImage> (() => UIImage.FromFile ("Images/check_filled.png"));
 		
 		/// <summary>
 		/// 
 		/// </summary>
-		public static UIImage Check_Filled {
-			get { return check_filled.Value; }
+		public static UIImage CheckFilled {
+			get { return checkFilled.Value; }
 		}
 
 		static Lazy<UIImage> complete = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
@@ -628,9 +628,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public static void TransitionWindow (UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCrossDissolve)
 		{
-			UIView.Transition (ServiceContainer.Resolve <UIWindow> (), .3, options, delegate {
-			}, delegate {
-			});
+			UIView.Transition (ServiceContainer.Resolve <UIWindow> (), .3, options, delegate { }, delegate { });
 		}
 	}
 }

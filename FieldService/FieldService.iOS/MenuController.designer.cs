@@ -16,6 +16,24 @@ namespace FieldService.iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UINavigationBar navigationBar { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIView timerView { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView timerBackground { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel timerLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView timerLabelBackground { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton record { get; set; }
+
+		[Outlet]
+		FieldService.iOS.StatusButton status { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -27,6 +45,36 @@ namespace FieldService.iOS
 			if (navigationBar != null) {
 				navigationBar.Dispose ();
 				navigationBar = null;
+			}
+
+			if (timerView != null) {
+				timerView.Dispose ();
+				timerView = null;
+			}
+
+			if (timerBackground != null) {
+				timerBackground.Dispose ();
+				timerBackground = null;
+			}
+
+			if (timerLabel != null) {
+				timerLabel.Dispose ();
+				timerLabel = null;
+			}
+
+			if (timerLabelBackground != null) {
+				timerLabelBackground.Dispose ();
+				timerLabelBackground = null;
+			}
+
+			if (record != null) {
+				record.Dispose ();
+				record = null;
+			}
+
+			if (status != null) {
+				status.Dispose ();
+				status = null;
 			}
 		}
 	}

@@ -67,7 +67,7 @@ namespace FieldService.iOS
 
 		private void OnStatusSheetDismissed(object sender, UIButtonEventArgs e)
 		{
-			if (e.ButtonIndex != -1 && assignment.Status != statusSheet.Status) {
+			if (e.ButtonIndex != -1 && assignment != null && assignment.Status != statusSheet.Status) {
 				assignment.Status = statusSheet.Status;
 				
 				var method = StatusChanged;
