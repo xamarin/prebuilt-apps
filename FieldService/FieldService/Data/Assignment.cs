@@ -19,97 +19,108 @@ using System.Linq;
 using System.Text;
 using FieldService.Utilities;
 
-namespace FieldService.Data
-{
-	/// <summary>
-	/// An assignment is the "thing" or "job" the user is going to work on
-	/// </summary>
-	public class Assignment
-	{
-		/// <summary>
-		/// Assignment ID
-		/// </summary>
-		[PrimaryKey, AutoIncrement]
-		public int ID { get; set; }
+namespace FieldService.Data {
+    /// <summary>
+    /// An assignment is the "thing" or "job" the user is going to work on
+    /// </summary>
+    public class Assignment {
+        /// <summary>
+        /// Assignment ID
+        /// </summary>
+        [PrimaryKey, AutoIncrement]
+        public int ID { get; set; }
 
-		/// <summary>
-		/// The assignment's status
-		/// </summary>
-		public AssignmentStatus Status { get; set; }
+        /// <summary>
+        /// The assignment's status
+        /// </summary>
+        public AssignmentStatus Status { get; set; }
 
-		/// <summary>
-		/// A job number
-		/// </summary>
-		public string JobNumber { get; set; }
+        /// <summary>
+        /// A job number
+        /// </summary>
+        public string JobNumber { get; set; }
 
-		/// <summary>
-		/// Title for the job
-		/// </summary>
-		public string Title { get; set; }
+        /// <summary>
+        /// Title for the job
+        /// </summary>
+        public string Title { get; set; }
 
-		/// <summary>
-		/// Priority for the assignment
-		/// </summary>
-		public int Priority { get; set; }
+        /// <summary>
+        /// Priority for the assignment
+        /// </summary>
+        public int Priority { get; set; }
 
-		/// <summary>
-		/// An extended description for the job
-		/// </summary>
-		public string Description { get; set; }
+        /// <summary>
+        /// An extended description for the job
+        /// </summary>
+        public string Description { get; set; }
 
-		/// <summary>
-		/// Date & time the assignment should start
-		/// </summary>
-		public DateTime StartDate { get; set; }
+        /// <summary>
+        /// Date & time the assignment should start
+        /// </summary>
+        public DateTime StartDate { get; set; }
 
-		/// <summary>
-		/// Date & time the assignment should end
-		/// </summary>
-		public DateTime EndDate { get; set; }
+        /// <summary>
+        /// Date & time the assignment should end
+        /// </summary>
+        public DateTime EndDate { get; set; }
 
-		/// <summary>
-		/// Name of the contact
-		/// </summary>
-		public string ContactName { get; set; }
+        /// <summary>
+        /// Name of the contact
+        /// </summary>
+        public string ContactName { get; set; }
 
-		/// <summary>
-		/// Phone number for the contact
-		/// </summary>
-		public string ContactPhone { get; set; }
+        /// <summary>
+        /// Phone number for the contact
+        /// </summary>
+        public string ContactPhone { get; set; }
 
-		/// <summary>
-		/// Address for assignment
-		/// </summary>
-		public string Address { get; set; }
+        /// <summary>
+        /// Address for assignment
+        /// </summary>
+        public string Address { get; set; }
 
-		/// <summary>
-		/// City for the assignment
-		/// </summary>
-		public string City { get; set; }
+        /// <summary>
+        /// City for the assignment
+        /// </summary>
+        public string City { get; set; }
 
-		/// <summary>
-		/// State of the assignment
-		/// </summary>
-		public string State { get; set; }
+        /// <summary>
+        /// State of the assignment
+        /// </summary>
+        public string State { get; set; }
 
-		/// <summary>
-		/// Zip code for the assignment
-		/// </summary>
-		public string Zip { get; set; }
+        /// <summary>
+        /// Zip code for the assignment
+        /// </summary>
+        public string Zip { get; set; }
 
-		/// <summary>
-		/// The amount of time spent on this job
-		/// </summary>
-		[Ignore]
-		public TimeSpan Hours {
-			get {
-				return TimeSpan.FromTicks (Ticks);
-			}
-			set {
-				Ticks = value.Ticks;
-			}
-		}
+        /// <summary>
+        /// Longitude of assignment
+        /// </summary>
+        public float Longitude { get; set; }
 
-		private long Ticks { get; set; }
-	}
+        /// <summary>
+        /// Latitude of assignment
+        /// </summary>
+        public float Latitude { get; set; }
+
+        /// <summary>
+        /// The amount of time spent on this job
+        /// </summary>
+        [Ignore]
+        public TimeSpan Hours
+        {
+            get
+            {
+                return TimeSpan.FromTicks (Ticks);
+            }
+            set
+            {
+                Ticks = value.Ticks;
+            }
+        }
+
+        private long Ticks { get; set; }
+    }
 }
