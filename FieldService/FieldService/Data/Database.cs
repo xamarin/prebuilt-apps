@@ -367,7 +367,7 @@ namespace FieldService.Data
                         new Expense
                         {
                             Assignment = 1,
-                            Description = "Tasty Hot Dog from Speedway",
+                            Description = "Hot Dog from Speedway",
                             Category = ExpenseCategory.Food,
                             Cost = 0.99M,
                         },
@@ -381,16 +381,16 @@ namespace FieldService.Data
                         new Expense
                         {
                             Assignment = 3,
-                            Description = "Passable Hot Dog from Speedway",
+                            Description = "Taquito from Speedway",
                             Category = ExpenseCategory.Food,
                             Cost = 0.99M,
                         },
                         new Expense
                         {
                             Assignment = 5,
-                            Description = "Cost of Android being herp derp",
+                            Description = "Toll Road",
                             Category = ExpenseCategory.Other,
-                            Cost = 255.5M,
+                            Cost = 1,
                         },
                         new Expense
                         {
@@ -411,21 +411,21 @@ namespace FieldService.Data
                             Assignment = 8,
                             Description = "Cleaning Supplies",
                             Category = ExpenseCategory.Supplies,
-                            Cost = .006M,
+                            Cost = 1.99M,
                         },
                         new Expense
                         {
                             Assignment = 9,
                             Description = "Ingredients",
                             Category = ExpenseCategory.Food,
-                            Cost = .0001M,
+                            Cost = 1.99M,
                         },
                         new Expense
                         {
                             Assignment = 10,
                             Description = "Universal Stuff",
                             Category = ExpenseCategory.Supplies,
-                            Cost = 9.1M,
+                            Cost = 99.99M,
                         },
                     });
 
