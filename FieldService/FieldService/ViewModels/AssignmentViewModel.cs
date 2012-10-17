@@ -15,16 +15,18 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FieldService.Data;
+using FieldService.Utilities;
+
 #if NETFX_CORE
 using Timer = FieldService.WinRT.Utilities.Timer;
 #else
 using System.Timers;
 #endif
-using FieldService.Data;
-using FieldService.Utilities;
 
 namespace FieldService.ViewModels {
     /// <summary>
@@ -47,12 +49,14 @@ namespace FieldService.ViewModels {
         {
             service = ServiceContainer.Resolve<IAssignmentService> ();
 
-            var taskSource = new TaskCompletionSource<TimeSpan> ();
-
             timer = new Timer (1000);
+
+#if !NETFX_CORE
+            //This causes our timer to fire it's events on the UI thread
+            timer.SynchronizingObject = ServiceContainer.Resolve<ISynchronizeInvoke> ();
+#endif
             timer.Elapsed += (sender, e) => {
-                taskSource.SetResult (hours.Add (TimeSpan.FromSeconds (1)));
-                taskSource.Task.ContinueOnUIThread (t => Hours = t.Result);
+                Hours = hours.Add (TimeSpan.FromSeconds (1));
             };
         }
 

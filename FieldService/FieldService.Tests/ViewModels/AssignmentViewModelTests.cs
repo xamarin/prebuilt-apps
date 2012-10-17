@@ -15,6 +15,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace FieldService.Tests.ViewModels {
         [SetUp]
         public void SetUp ()
         {
+            ServiceContainer.Register<ISynchronizeInvoke> (() => new Mocks.MockSynchronizeInvoke ());
             ServiceContainer.Register<IAssignmentService> (() => new Mocks.MockAssignmentService ());
 
             viewModel = new AssignmentViewModel ();

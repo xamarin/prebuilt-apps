@@ -45,6 +45,7 @@
   <ItemGroup>
     <Compile Include="Data\SampleAssignmentServiceTests.cs" />
     <Compile Include="Mocks\MockAssignmentService.cs" />
+    <Compile Include="Mocks\MockSynchronizeInvoke.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AssignmentViewModelTests.cs" />
     <Compile Include="ViewModels\LoginViewModelTests.cs" />
