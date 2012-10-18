@@ -30,7 +30,7 @@ namespace FieldService.Data {
                            (SELECT COUNT(AssignmentItem.ID) FROM AssignmentItem WHERE Assignment.ID = AssignmentItem.Assignment) AS TotalItems,       
                            (SELECT SUM(Expense.Cost) FROM Expense WHERE Assignment.ID = Expense.Assignment) AS TotalExpenses
                     from Assignment
-                    order by Assignment.Status
+                    order by Assignment.Priority
                 ", AssignmentStatus.Declined);
         }
 

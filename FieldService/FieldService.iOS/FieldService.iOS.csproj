@@ -190,6 +190,7 @@
     </Compile>
     <Compile Include="Utilities\SynchronizeInvoke.cs" />
     <Compile Include="Utilities\UIKitExtensions.cs" />
+    <Compile Include="Utilities\ClrWrapper.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

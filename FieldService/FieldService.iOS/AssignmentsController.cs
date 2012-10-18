@@ -48,10 +48,6 @@ namespace FieldService.iOS
 					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 				}
 			};
-
-			//This is just a fix for now, so AssignmentDetailsController get's loaded
-			//I will clean up ServiceContainer registrations later
-			ServiceContainer.Resolve <MainController>();
 		}
 
 		public override void ViewDidLoad ()
@@ -76,6 +72,7 @@ namespace FieldService.iOS
 					.ContinueOnUIThread (_ => ReloadAssignments ());
 			};
 
+			//Start the active assignment out as not visible
 			SetActiveAssignmentVisible (false, false);
 
 			//Load the current timer status
@@ -292,18 +289,18 @@ namespace FieldService.iOS
 
 
 				UIView.Transition (tableView, mapView, .3, UIViewAnimationOptions.TransitionCurlUp, delegate {
-					mapView.RemoveAnnotations (mapView.Annotations.OfType<MKPlacemark> ().ToArray ());
+					mapView.ClearPlacemarks ();
 
 					List<MKPlacemark> placemarks = new List<MKPlacemark>();
 					if (assignmentViewModel.ActiveAssignment != null) {
 						var assignment = assignmentViewModel.ActiveAssignment;
 						if (assignment.Latitude != 0 && assignment.Longitude != 0)
-							placemarks.Add (ToPlacemark (assignment));
+							placemarks.Add (assignment.ToPlacemark ());
 					}
 
 					foreach (var assignment in assignmentViewModel.Assignments) {
 						if (assignment.Latitude != 0 && assignment.Longitude != 0)
-							placemarks.Add (ToPlacemark (assignment));
+							placemarks.Add (assignment.ToPlacemark ());
 					}
 
 					if (placemarks.Count > 0)
@@ -320,21 +317,6 @@ namespace FieldService.iOS
 
 			//Bring the toolbarShadow to the front, UIView.Transition() puts it behind
 			View.BringSubviewToFront (toolbarShadow);
-		}
-
-		/// <summary>
-		/// Creates an MKPlacemark for an assignment
-		/// </summary>
-		private MKPlacemark ToPlacemark (Assignment assignment)
-		{
-			var address = new PersonAddress ();
-			address.Street = assignment.Title + " - " + assignment.Address;
-			address.City = assignment.City;
-			address.State = assignment.State;
-			address.Country = string.Empty;
-			address.Dictionary[new NSString("Assignment")] = new AssignmentHolder(assignment);
-
-			return new MKPlacemark (new CLLocationCoordinate2D (assignment.Latitude, assignment.Longitude), address.Dictionary);
 		}
 
 		/// <summary>
@@ -431,23 +413,7 @@ namespace FieldService.iOS
 			/// </summary>
 			private Assignment GetAssignment(MKPlacemark annotation)
 			{
-				return ((AssignmentHolder)annotation.AddressDictionary[new NSString("Assignment")]).Assignment;
-			}
-		}
-
-		/// <summary>
-		/// This is just an NSObject for wrapping an Assignment
-		/// </summary>
-		private class AssignmentHolder : NSObject
-		{
-			public Assignment Assignment {
-				get;
-				private set;
-			}
-
-			public AssignmentHolder (Assignment assignment)
-			{
-				Assignment = assignment;
+				return annotation.AddressDictionary[new NSString("Assignment")].UnwrapObject<Assignment>();
 			}
 		}
 	}

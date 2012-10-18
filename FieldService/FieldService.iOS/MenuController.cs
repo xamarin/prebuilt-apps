@@ -62,6 +62,8 @@ namespace FieldService.iOS
 			timerLabelBackground.Image = Theme.TimerField;
 
 			status.StatusChanged += (sender, e) => SaveAssignment ();
+
+			tableView.SelectRow (NSIndexPath.FromRowSection (0, 0), false, UITableViewScrollPosition.Top);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -69,7 +71,6 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			UpdateAssignment ();
-			tableView.SelectRow (NSIndexPath.FromRowSection (0, 0), false, UITableViewScrollPosition.Top);
 		}
 
 		/// <summary>
@@ -120,9 +121,12 @@ namespace FieldService.iOS
 		{
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, confirmationCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
+			readonly AssignmentDetailsController detailsController;
 
 			public TableSource ()
 			{
+				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";
 				summaryCell.TextLabel.TextColor = UIColor.White;
@@ -180,6 +184,11 @@ namespace FieldService.iOS
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				return cells[indexPath.Row];
+			}
+
+			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			{
+				detailsController.SectionSelected (indexPath.Row);
 			}
 
 			protected override void Dispose (bool disposing)

@@ -83,6 +83,7 @@ namespace FieldService.iOS
 			//Setup creation of some other controllers, this should be moved somewhere
 			ServiceContainer.Register<MainController> (() => (MainController)Storyboard.InstantiateViewController ("MainController"));
 			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)Storyboard.InstantiateViewController ("AssignmentsController"));
+			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)Storyboard.InstantiateViewController ("AssignmentDetailsController"));
 		}
 
 		partial void Login ()

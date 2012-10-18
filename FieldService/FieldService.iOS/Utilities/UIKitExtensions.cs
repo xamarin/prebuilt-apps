@@ -14,8 +14,13 @@
 //    limitations under the License.
 
 using System;
+using System.Linq;
+using MonoTouch.AddressBook;
+using MonoTouch.CoreLocation;
 using MonoTouch.Foundation;
+using MonoTouch.MapKit;
 using MonoTouch.UIKit;
+using FieldService.Data;
 
 namespace FieldService.iOS
 {
@@ -55,6 +60,29 @@ namespace FieldService.iOS
 		public static bool IsPortrait(this UIInterfaceOrientation orientation)
 		{
 			return orientation == UIInterfaceOrientation.Portrait || orientation == UIInterfaceOrientation.PortraitUpsideDown;
+		}
+
+		/// <summary>
+		/// Creates an MKPlacemark for an assignment
+		/// </summary>
+		public static MKPlacemark ToPlacemark (this Assignment assignment)
+		{
+			var address = new PersonAddress ();
+			address.Street = assignment.Title + " - " + assignment.Address;
+			address.City = assignment.City;
+			address.State = assignment.State;
+			address.Country = string.Empty;
+			address.Dictionary[new NSString("Assignment")] = assignment.WrapObject();
+			
+			return new MKPlacemark (new CLLocationCoordinate2D (assignment.Latitude, assignment.Longitude), address.Dictionary);
+		}
+
+		/// <summary>
+		/// Clears all MKPlacemarks for a map view
+		/// </summary>
+		public static void ClearPlacemarks(this MKMapView mapView)
+		{
+			mapView.RemoveAnnotations (mapView.Annotations.OfType<MKPlacemark> ().ToArray ());;
 		}
 	}
 }

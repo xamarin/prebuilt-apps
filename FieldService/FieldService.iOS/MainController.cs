@@ -20,7 +20,7 @@ using FieldService.Utilities;
 namespace FieldService.iOS
 {
 	/// <summary>
-	/// The main split controller in the app - I may remove this if I don't end up with custom code here
+	/// The main split controller in the app
 	/// </summary>
 	[Register("MainController")]
 	public class MainController : UISplitViewController
@@ -28,6 +28,17 @@ namespace FieldService.iOS
 		public MainController (IntPtr handle) : base(handle)
 		{
 
+		}
+
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+
+			ViewControllers = new UIViewController[]
+			{
+				ViewControllers[0],
+				new UINavigationController(ServiceContainer.Resolve<AssignmentDetailsController>()),
+			};
 		}
 
 		/// <summary>

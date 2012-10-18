@@ -15,6 +15,7 @@
 using System;
 using System.Drawing;
 using MonoTouch.Foundation;
+using MonoTouch.MapKit;
 using MonoTouch.UIKit;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -28,6 +29,8 @@ namespace FieldService.iOS
 	public partial class AssignmentDetailsController : UIViewController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
+		UIView lastSelectedView;
+		MKMapView mapView;
 
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
 		{
@@ -49,6 +52,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI that is required to be setup from code
+			lastSelectedView = container;
 			View.BackgroundColor = Theme.LinenPattern;
 			assignmentBackground.Image = Theme.AssignmentActive;
 			contact.IconImage = Theme.IconPhone;
@@ -92,12 +96,46 @@ namespace FieldService.iOS
 			UpdateAssignment ();
 		}
 
+
+		/// <summary>
+		/// Called when a menu item in MenuController is selected
+		/// </summary>
+		public void SectionSelected(int index) 
+		{
+			UIView nextView = null;
+			switch (index) {
+			case 0:
+				//Summary
+				nextView = container;
+				break;
+			case 1:
+				//Map
+				if (mapView == null) {
+					mapView = new MKMapView();
+					mapView.ShowsUserLocation = true;
+					mapView.AutoresizingMask = container.AutoresizingMask;
+				}
+
+				nextView = mapView;
+				break;
+			default:
+				break;
+			}
+
+			nextView.Frame = lastSelectedView.Frame;
+			UIView.Transition (lastSelectedView, nextView, .3, UIViewAnimationOptions.TransitionCrossDissolve, () => {
+				lastSelectedView = nextView;
+				UpdateAssignment ();
+			});
+		}
+
 		/// <summary>
 		/// Sets up the UI for the assignment
 		/// </summary>
 		private void UpdateAssignment ()
 		{
 			if (Assignment != null && IsViewLoaded) {
+
 				priority.Text = Assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("#{0} {1}", Assignment.JobNumber, Assignment.StartDate.Date.ToShortDateString ());
 				title.Text = Assignment.Title;
@@ -106,13 +144,8 @@ namespace FieldService.iOS
 				contact.BottomLabel.Text = Assignment.ContactPhone;
 				address.TopLabel.Text = Assignment.Address;
 				address.BottomLabel.Text = string.Format ("{0}, {1} {2}", Assignment.City, Assignment.State, Assignment.Zip);
-				description.Text = Assignment.Description;
-				descriptionTitle.Text = Assignment.Title;
 				status.Assignment = Assignment;
-				items.Text = Assignment.TotalItems.ToString ();
-				hours.Text = Assignment.TotalHours.TotalHours.ToString ("0.0");
-				expenses.Text = Assignment.TotalExpenses.ToString ("$0.00");
-				
+
 				if (Assignment.Status == AssignmentStatus.New) {
 					status.Hidden = true;
 					decline.Hidden =
@@ -121,6 +154,17 @@ namespace FieldService.iOS
 					status.Hidden = false;
 					decline.Hidden =
 						accept.Hidden = true;
+				}
+
+				if (container == lastSelectedView) {
+					description.Text = Assignment.Description;
+					descriptionTitle.Text = Assignment.Title;
+					items.Text = Assignment.TotalItems.ToString ();
+					hours.Text = Assignment.TotalHours.TotalHours.ToString ("0.0");
+					expenses.Text = Assignment.TotalExpenses.ToString ("$0.00");
+				} else if (mapView == lastSelectedView) {
+					mapView.ClearPlacemarks ();
+					mapView.AddPlacemark (Assignment.ToPlacemark());
 				}
 			}
 		}

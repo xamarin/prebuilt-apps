@@ -12,6 +12,9 @@ namespace FieldService.iOS
 	partial class AssignmentDetailsController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIView container { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UILabel description { get; set; }
 
 		[Outlet]
@@ -91,6 +94,11 @@ namespace FieldService.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (container != null) {
+				container.Dispose ();
+				container = null;
+			}
+
 			if (description != null) {
 				description.Dispose ();
 				description = null;
