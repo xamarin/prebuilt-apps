@@ -41,21 +41,36 @@ namespace FieldService.Tests.Data {
         {
             var task = service.GetAssignmentsAsync ();
 
-            Task.WaitAll (task);
+            task.Wait ();
 
             Assert.That (task.Result, Is.Not.Null);
             Assert.That (task.Result.Count, Is.Not.EqualTo (0));
         }
 
         [Test]
+        public void GetAssignmentAndCheckTotalHours ()
+        {
+            var assignmentTask = service.GetAssignmentsAsync ();
+
+            assignmentTask.Wait ();
+
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.ID == 1);
+
+            Assert.That (assignment.TotalHours, Is.EqualTo (TimeSpan.FromHours (14)));
+        }
+
+        [Test]
         public void SaveAssignment ()
         {
             var task = service.GetAssignmentsAsync ();
-            Task.WaitAll (task);
+            task.Wait ();
+
             var assignment = task.Result.FirstOrDefault ();
             assignment.Title = "New Title";
+
             var saveTask = service.SaveAssignment (assignment);
             saveTask.Wait ();
+
             Assert.That (saveTask.Result, Is.EqualTo (1));
         }
 
@@ -65,8 +80,10 @@ namespace FieldService.Tests.Data {
             var assignmentItem = new AssignmentItem ();
             assignmentItem.Item = 1;
             assignmentItem.Assignment = 1;
+
             var saveTask = service.SaveAssignmentItem (assignmentItem);
             saveTask.Wait ();
+
             Assert.That (saveTask.Result, Is.EqualTo (1));
         }
 
@@ -76,12 +93,15 @@ namespace FieldService.Tests.Data {
             var assignmentItem = new AssignmentItem ();
             assignmentItem.Item = 1;
             assignmentItem.Assignment = 1;
+
             var saveTask = service.SaveAssignmentItem (assignmentItem);
             saveTask.Wait ();
+
             assignmentItem.Item = 1;
             assignmentItem.Assignment = 2;
             saveTask = service.SaveAssignmentItem (assignmentItem);
             saveTask.Wait ();
+
             Assert.That (saveTask.Result, Is.EqualTo (1));
         }
 
@@ -90,8 +110,10 @@ namespace FieldService.Tests.Data {
         {
             var labor = new Labor ();
             labor.Description = "New Description";
+
             var saveTask = service.SaveLabor (labor);
             saveTask.Wait ();
+
             Assert.That (saveTask.Result, Is.EqualTo (1));
         }
 
@@ -100,11 +122,14 @@ namespace FieldService.Tests.Data {
         {
             var labor = new Labor ();
             labor.Description = "New Description";
+
             var saveTask = service.SaveLabor (labor);
             saveTask.Wait ();
+
             labor.Description = "New Description 2";
             saveTask = service.SaveLabor (labor);
             saveTask.Wait ();
+
             Assert.That (saveTask.Result, Is.EqualTo (1));
         }
 
@@ -113,8 +138,10 @@ namespace FieldService.Tests.Data {
         {
             var expense = new Expense ();
             expense.Description = "New Description";
+
             var saveTask = service.SaveExpense (expense);
             saveTask.Wait ();
+
             Assert.That (saveTask.Result, Is.EqualTo (1));
         }
 
@@ -123,11 +150,14 @@ namespace FieldService.Tests.Data {
         {
             var expense = new Expense ();
             expense.Description = "New Description";
+
             var saveTask = service.SaveExpense (expense);
             saveTask.Wait ();
+
             expense.Description = "New Description 2";
             saveTask = service.SaveExpense (expense);
             saveTask.Wait ();
+
             Assert.That (saveTask.Result, Is.EqualTo (1));
         }
 
@@ -234,6 +264,7 @@ namespace FieldService.Tests.Data {
         {
             var labor = new Labor ();
             labor.Description = "New Description";
+
             var saveTask = service.SaveLabor (labor);
             saveTask.Wait ();
 
@@ -247,6 +278,7 @@ namespace FieldService.Tests.Data {
         {
             var expense = new Expense ();
             expense.Description = "New Description";
+
             var saveTask = service.SaveExpense (expense);
             saveTask.Wait ();
 

@@ -128,23 +128,5 @@ namespace FieldService.Data {
         /// Total labor hours for the assignment (in ticks)
         /// </summary>
         public long TotalTicks { get; private set; }
-
-        /// <summary>
-        /// The amount of time spent on this job
-        /// </summary>
-        [Ignore]
-        public TimeSpan Hours
-        {
-            get
-            {
-                return TimeSpan.FromTicks (Ticks);
-            }
-            set
-            {
-                Ticks = value.Ticks;
-            }
-        }
-
-        private long Ticks { get; set; }
     }
 }
