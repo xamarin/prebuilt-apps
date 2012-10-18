@@ -645,6 +645,16 @@ namespace FieldService.iOS
 			//Peform an animation
 			UIView.Transition (window, .3, options, delegate { }, delegate { });
 		}
+
+		/// <summary>
+		/// Registers controllers for the app in the ServiceContainer
+		/// </summary>
+		public static void SetupControllers(UIStoryboard storyboard)
+		{
+			ServiceContainer.Register<MainController> (() => (MainController)storyboard.InstantiateViewController ("MainController"));
+			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)storyboard.InstantiateViewController ("AssignmentsController"));
+			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)storyboard.InstantiateViewController ("AssignmentDetailsController"));
+		}
 	}
 }
 

@@ -42,9 +42,9 @@ namespace FieldService.iOS
 		/// </summary>
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
+			//Register some services
 			ServiceContainer.Register (Window);
 			ServiceContainer.Register <ISynchronizeInvoke>(() => new SynchronizeInvoke());
-
 			//Apply our UI theme
 			Theme.Apply ();
 

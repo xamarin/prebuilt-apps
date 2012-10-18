@@ -119,7 +119,7 @@ namespace FieldService.iOS
 				nextView = mapView;
 				break;
 			default:
-				break;
+				return; //This means this section isn't done yet
 			}
 
 			nextView.Frame = lastSelectedView.Frame;

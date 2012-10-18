@@ -50,6 +50,8 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			Theme.SetupControllers (Storyboard);
+
 			//Set up any properties on views that must be done from code
 
 			View.BackgroundColor = Theme.LinenPattern;
@@ -79,11 +81,6 @@ namespace FieldService.iOS
 				}
 				return false;
 			};
-
-			//Setup creation of some other controllers, this should be moved somewhere
-			ServiceContainer.Register<MainController> (() => (MainController)Storyboard.InstantiateViewController ("MainController"));
-			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)Storyboard.InstantiateViewController ("AssignmentsController"));
-			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)Storyboard.InstantiateViewController ("AssignmentDetailsController"));
 		}
 
 		partial void Login ()
