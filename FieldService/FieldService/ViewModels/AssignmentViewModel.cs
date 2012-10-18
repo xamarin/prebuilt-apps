@@ -45,6 +45,11 @@ namespace FieldService.ViewModels {
         /// </summary>
         public event EventHandler HoursChanged;
 
+        /// <summary>
+        /// Event when Recording is changed
+        /// </summary>
+        public event EventHandler RecordingChanged;
+
         public AssignmentViewModel ()
         {
             service = ServiceContainer.Resolve<IAssignmentService> ();
@@ -66,7 +71,18 @@ namespace FieldService.ViewModels {
         public bool Recording
         {
             get { return timer.Enabled; }
-            set { timer.Enabled = value; OnPropertyChanged ("Recording"); }
+            set { timer.Enabled = value; OnRecordingChanged (); }
+        }
+
+        /// <summary>
+        /// Called when Recording changes
+        /// </summary>
+        protected virtual void OnRecordingChanged ()
+        {
+            OnPropertyChanged ("Recording");
+            var method = RecordingChanged;
+            if (method != null)
+                RecordingChanged (this, EventArgs.Empty);
         }
 
         /// <summary>
