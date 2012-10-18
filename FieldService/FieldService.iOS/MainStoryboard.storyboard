@@ -674,8 +674,83 @@
                                     </label>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uhp-Ma-NLJ">
                                         <rect key="frame" x="40" y="49" width="678" height="100"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="j8t-Lu-dE1">
+                                <rect key="frame" x="20" y="337" width="728" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="bF6-7F-E3x">
+                                        <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Items" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yhM-Ac-ybs">
+                                        <rect key="frame" x="20" y="19" width="65" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Llg-km-Qxc">
+                                        <rect key="frame" x="607" y="20" width="101" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="IvS-JF-tkO">
+                                <rect key="frame" x="20" y="405" width="728" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="4Qa-T9-xvc">
+                                        <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Labor Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PlY-rM-m0N">
+                                        <rect key="frame" x="20" y="19" width="115" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yx6-yH-h3l">
+                                        <rect key="frame" x="607" y="20" width="101" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="TVx-Xy-mgs">
+                                <rect key="frame" x="20" y="473" width="728" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="vbv-E5-1rM">
+                                        <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Expenses" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fuu-gf-2YZ">
+                                        <rect key="frame" x="20" y="19" width="80" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q5g-IS-DLh">
+                                        <rect key="frame" x="607" y="20" width="101" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
@@ -694,6 +769,15 @@
                         <outlet property="description" destination="Uhp-Ma-NLJ" id="Sd9-m4-pW8"/>
                         <outlet property="descriptionBackground" destination="9iC-n9-UDF" id="U9F-GG-1KB"/>
                         <outlet property="descriptionTitle" destination="J6x-UJ-Z0O" id="zey-XA-mUX"/>
+                        <outlet property="expenses" destination="q5g-IS-DLh" id="IdW-RG-re5"/>
+                        <outlet property="expensesBackground" destination="vbv-E5-1rM" id="7d5-Po-YdJ"/>
+                        <outlet property="expensesLabel" destination="fuu-gf-2YZ" id="Ahg-mz-zXx"/>
+                        <outlet property="hours" destination="Yx6-yH-h3l" id="dNb-9n-DlI"/>
+                        <outlet property="hoursBackground" destination="4Qa-T9-xvc" id="Qc3-Hq-BhK"/>
+                        <outlet property="hoursLabel" destination="PlY-rM-m0N" id="hNj-dT-e4I"/>
+                        <outlet property="items" destination="Llg-km-Qxc" id="Bqb-ek-t04"/>
+                        <outlet property="itemsBackground" destination="bF6-7F-E3x" id="ftu-IA-F5o"/>
+                        <outlet property="itemsLabel" destination="yhM-Ac-ybs" id="3Cj-5W-vtq"/>
                         <outlet property="numberAndDate" destination="fDS-oz-GV6" id="7NH-xC-Tfh"/>
                         <outlet property="priority" destination="MUh-5u-F3W" id="jwF-uD-xTj"/>
                         <outlet property="priorityBackground" destination="hTH-7w-2JA" id="f8L-Dv-hj8"/>
@@ -745,6 +829,15 @@
                 <relationship kind="outlet" name="description" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="descriptionBackground" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="descriptionTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expenses" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expensesBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="expensesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hours" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hoursBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="hoursLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="items" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemsBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="itemsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>

@@ -246,7 +246,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> inlay = new Lazy<UIImage> (() => UIImage.FromFile ("Images/inlay.png").CreateResizableImage (new UIEdgeInsets (10, 10, 10, 10)));
 		
 		/// <summary>
-		/// 
+		/// An image for the bevel on the assignment summary page
 		/// </summary>
 		public static UIImage Inlay {
 			get { return inlay.Value; }

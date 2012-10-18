@@ -56,6 +56,33 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIButton decline { get; set; }
 
+		[Outlet]
+		MonoTouch.UIKit.UIImageView itemsBackground { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView hoursBackground { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIImageView expensesBackground { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel itemsLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel items { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel hoursLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel hours { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel expensesLabel { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel expenses { get; set; }
+
 		[Action ("Accept")]
 		partial void Accept ();
 
@@ -137,6 +164,51 @@ namespace FieldService.iOS
 			if (decline != null) {
 				decline.Dispose ();
 				decline = null;
+			}
+
+			if (itemsBackground != null) {
+				itemsBackground.Dispose ();
+				itemsBackground = null;
+			}
+
+			if (hoursBackground != null) {
+				hoursBackground.Dispose ();
+				hoursBackground = null;
+			}
+
+			if (expensesBackground != null) {
+				expensesBackground.Dispose ();
+				expensesBackground = null;
+			}
+
+			if (itemsLabel != null) {
+				itemsLabel.Dispose ();
+				itemsLabel = null;
+			}
+
+			if (items != null) {
+				items.Dispose ();
+				items = null;
+			}
+
+			if (hoursLabel != null) {
+				hoursLabel.Dispose ();
+				hoursLabel = null;
+			}
+
+			if (hours != null) {
+				hours.Dispose ();
+				hours = null;
+			}
+
+			if (expensesLabel != null) {
+				expensesLabel.Dispose ();
+				expensesLabel = null;
+			}
+
+			if (expenses != null) {
+				expenses.Dispose ();
+				expenses = null;
 			}
 		}
 	}

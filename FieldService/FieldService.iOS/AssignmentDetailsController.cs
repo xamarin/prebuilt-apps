@@ -58,6 +58,16 @@ namespace FieldService.iOS
 			descriptionBackground.Image = Theme.Row180End;
 			accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 			decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
+			itemsBackground.Image = 
+				hoursBackground.Image = 
+				expensesBackground.Image = Theme.Inlay;
+			itemsLabel.TextColor =
+				items.TextColor =
+				hoursLabel.TextColor = 
+				hours.TextColor =
+				expensesLabel.TextColor =
+				expenses.TextColor = UIColor.White;
+
 
 			//Setup our toolbar
 			var label = new UILabel (new RectangleF(0, 0, 100, 36)) { 
@@ -100,6 +110,9 @@ namespace FieldService.iOS
 				description.Text = Assignment.Description;
 				descriptionTitle.Text = Assignment.Title;
 				status.Assignment = Assignment;
+				items.Text = Assignment.TotalItems.ToString ();
+				hours.Text = Assignment.TotalHours.TotalHours.ToString ("0.0");
+				expenses.Text = Assignment.TotalExpenses.ToString ("$0.00");
 				
 				if (Assignment.Status == AssignmentStatus.New) {
 					status.Hidden = true;
