@@ -589,6 +589,15 @@ namespace FieldService.iOS
 			get { return linenLeft.Value; }
 		}
 
+		static Lazy<UIColor> checkboxTextColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x7f, 0x7f, 0x7f));
+		
+		/// <summary>
+		/// Color for the checkbox on items
+		/// </summary>
+		public static UIColor CheckboxTextColor {
+			get { return checkboxTextColor.Value; }
+		}
+
 		#endregion
 
 		/// <summary>

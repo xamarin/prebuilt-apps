@@ -62,7 +62,7 @@ namespace FieldService.iOS
 			title.Text = string.Format("Items ({0})", detailsController.Assignment.TotalItems);
 
 			assignmentViewModel
-				.LoadAssignmentItemsAsync (detailsController.Assignment)
+				.LoadAssignmentItems (detailsController.Assignment)
 				.ContinueOnUIThread (_ => tableView.ReloadData ());
 		}
 

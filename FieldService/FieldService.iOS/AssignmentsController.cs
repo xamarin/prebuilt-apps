@@ -77,7 +77,7 @@ namespace FieldService.iOS
 
 			//Load the current timer status
 			record.Enabled = false;
-			assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
+			assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
 				record.Enabled = true;
 				if (assignmentViewModel.Recording) {
 					record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
@@ -147,7 +147,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadAssignments ()
 		{
-			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
+			assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
 				if (assignmentViewModel.ActiveAssignment == null) {
 					SetActiveAssignmentVisible (false);
 				} else {
