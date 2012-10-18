@@ -38,7 +38,7 @@ namespace FieldService.Android {
             this.resourceId = resourceId;
             this.assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
         }
-                
+
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             Assignment assignment = null;
@@ -51,10 +51,9 @@ namespace FieldService.Android {
             if (assignments.Count > position) {
                 assignment = assignments [position];
             }
-            
-            if(assignment == null)
-            {
-                return view;   
+
+            if (assignment == null) {
+                return view;
             }
 
             view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentoffwhite));
@@ -92,7 +91,6 @@ namespace FieldService.Android {
                 spinner.Adapter = adapter;
 
                 switch (assignment.Status) {
-                    case AssignmentStatus.Active:
                     case AssignmentStatus.New:
                         break;
                     default:
@@ -105,21 +103,23 @@ namespace FieldService.Android {
                     if (selected != null) {
                         switch (selected) {
                             case "Active": {
+                                    var index = int.Parse (e.Parent.Tag.ToString ());
                                     view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentblue));
                                     spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    var activeAssignment = GetItem (int.Parse (e.Parent.Tag.ToString ()));
+                                    var activeAssignment = GetItem (index);
                                     activeAssignment.Status = AssignmentStatus.Active;
-                                    SaveAssignment (activeAssignment);
+                                    SaveAssignment (activeAssignment, index);
                                 }
                                 break;
                             default: {
+                                    var index = int.Parse (e.Parent.Tag.ToString ());
                                     view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
                                     spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    var activeAssignment = GetItem (int.Parse (e.Parent.Tag.ToString ()));
+                                    var activeAssignment = GetItem (index);
                                     activeAssignment.Status = (AssignmentStatus)FieldService.Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
-                                    SaveAssignment (activeAssignment);
+                                    SaveAssignment (activeAssignment, index);
                                 }
                                 break;
                         }
@@ -127,7 +127,7 @@ namespace FieldService.Android {
                 };
             }
 
-            number.Text = assignment.Priority.ToString();
+            number.Text = assignment.Priority.ToString ();
             job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.Title);
             name.Text = assignment.ContactName;
             phone.Text = assignment.ContactPhone;
@@ -141,14 +141,15 @@ namespace FieldService.Android {
         /// <summary>
         /// Save assignment to the view model.
         /// </summary>
-        private void SaveAssignment (Assignment assignment)
+        private void SaveAssignment (Assignment assignment, int index)
         {
             assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
                 var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
-                if (assignment.Status == AssignmentStatus.Active) {
+                if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
                     activity.ReloadAssignments ();
                 } else {
-
+                    //not sure how to refresh 1 list item yet.
+                    
                 }
             });
         }
@@ -157,15 +158,17 @@ namespace FieldService.Android {
         {
             switch (v.Id) {
                 case Resource.Id.assignmentAccept: {
-                        var activeAssignment = GetItem (int.Parse (v.Tag.ToString ()));
+                        var index = int.Parse (v.Tag.ToString ());
+                        var activeAssignment = GetItem (index);
                         activeAssignment.Status = AssignmentStatus.Active;
-                        SaveAssignment (activeAssignment);
+                        SaveAssignment (activeAssignment, index);
                     }
                     break;
                 case Resource.Id.assignmentDecline: {
-                        var activeAssignment = GetItem (int.Parse (v.Tag.ToString ()));
+                        var index = int.Parse (v.Tag.ToString ());
+                        var activeAssignment = GetItem (index);
                         activeAssignment.Status = AssignmentStatus.Declined;
-                        SaveAssignment (activeAssignment);
+                        SaveAssignment (activeAssignment, index);
                     }
                     break;
                 default:

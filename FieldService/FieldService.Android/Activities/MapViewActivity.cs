@@ -34,7 +34,7 @@ namespace FieldService.Android {
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
     public class MapViewActivity : MapActivity {
         AssignmentViewModel assignmentViewModel;
-        RelativeLayout assignmentMapViewLayout;
+        LinearLayout assignmentMapViewLayout;
         MapView mapView;
         MyLocationOverlay myLocation;
 
@@ -50,7 +50,7 @@ namespace FieldService.Android {
             // Create your application here
             SetContentView (Resource.Layout.MapViewLayout);
 
-            assignmentMapViewLayout = FindViewById<RelativeLayout> (Resource.Id.mapViewAssignmentLayout);
+            assignmentMapViewLayout = FindViewById<LinearLayout> (Resource.Id.mapViewAssignmentLayout);
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
 
             myLocation = new MyLocationOverlay (this, mapView);
@@ -68,37 +68,36 @@ namespace FieldService.Android {
         {
             base.OnResume ();
 
-            assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
-                foreach (var item in assignmentViewModel.Assignments) {
-                    var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6() , item.Longitude.ToIntE6()),
-                        item.Title, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
-                    Drawable drawable = null;
-                    switch (item.Status) {
-                        case AssignmentStatus.Hold:
-                            drawable = Resources.GetDrawable (Resource.Drawable.AcceptedAssignmentIcon);
-                            break;
-                        case AssignmentStatus.Active:
-                            drawable = Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon);
-                            break;
-                        default:
-                            drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
-                            break;
-                    }
-                    mapView.Overlays.Add (new MapOverlayItem (drawable, overlay));
+            foreach (var item in assignmentViewModel.Assignments) {
+                var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
+                    item.Title, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
+                Drawable drawable = null;
+                switch (item.Status) {
+                    case AssignmentStatus.Hold:
+                        drawable = Resources.GetDrawable (Resource.Drawable.AcceptedAssignmentIcon);
+                        break;
+                    case AssignmentStatus.Active:
+                        drawable = Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon);
+                        break;
+                    default:
+                        drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
+                        break;
                 }
-                myLocation.EnableMyLocation ();
-                if (assignmentViewModel.ActiveAssignment != null) {
-                    SetAssignment (true);
-                } else {
-                    SetAssignment (false);
-                }
-            });
+                mapView.Overlays.Add (new MapOverlayItem (this, drawable, overlay));
+            }
+            myLocation.EnableMyLocation ();
+            if (assignmentViewModel.ActiveAssignment != null) {
+                SetAssignment (true);
+            } else {
+                SetAssignment (false);
+            }
         }
 
         protected override void OnStop ()
         {
             myLocation.DisableMyLocation ();
             mapView.Overlays.Clear ();
+            assignmentMapViewLayout.RemoveAllViews ();
             base.OnStop ();
         }
 
@@ -110,18 +109,19 @@ namespace FieldService.Android {
         private void SetAssignment (bool visible)
         {
             if (visible) {
-                View view = null;
+                assignmentMapViewLayout.Visibility = ViewStates.Visible;
                 var assignment = assignmentViewModel.ActiveAssignment;
+                View view = null;
                 //look at layouts children to get view
                 if (assignmentMapViewLayout.ChildCount > 0) {
                     view = assignmentMapViewLayout.GetChildAt (0);
-
                 } else {
                     view = new View (this);
                     LayoutInflater inflator = (LayoutInflater)GetSystemService (Context.LayoutInflaterService);
                     view = inflator.Inflate (Resource.Layout.AssignmentItemLayout, null);
+                    assignmentMapViewLayout.AddView (view);
                 }
-
+                view.LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent);
                 view.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
                 var number = view.FindViewById<TextView> (Resource.Id.assignmentItemNumber);
                 var job = view.FindViewById<TextView> (Resource.Id.assignmentJob);
@@ -150,8 +150,10 @@ namespace FieldService.Android {
                             case "Active":
                                 break;
                             default:
-                                view.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentgrey));
-                                spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
+                                assignment.Status = (AssignmentStatus)FieldService.Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
+                                assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+                                    SetAssignment (false);
+                                });
                                 break;
                         }
                     }
@@ -163,11 +165,8 @@ namespace FieldService.Android {
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
                 timerText.Text = string.Format ("{0} hr {1} min\n{2}", "10", "59", "START");
-
             } else {
-                if (assignmentMapViewLayout.ChildCount > 0) {
-                    assignmentMapViewLayout.RemoveViewAt (0);
-                }
+                assignmentMapViewLayout.Visibility = ViewStates.Gone;
             }
         }
     }

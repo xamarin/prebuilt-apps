@@ -32,7 +32,7 @@ namespace FieldService.Android {
     public class AssignmentsActivity : Activity {
         readonly AssignmentViewModel assignmentViewModel;
         ListView assignmentsListView;
-        RelativeLayout assignmentActiveLayout;
+        LinearLayout assignmentActiveLayout;
 
         public AssignmentsActivity ()
         {
@@ -46,7 +46,7 @@ namespace FieldService.Android {
             SetContentView (Resource.Layout.AssignmentsLayout);
 
             assignmentsListView = FindViewById<ListView> (Resource.Id.assignmentsListView);
-            assignmentActiveLayout = FindViewById<RelativeLayout> (Resource.Id.assignmentSelectedItem);
+            assignmentActiveLayout = FindViewById<LinearLayout> (Resource.Id.assignmentSelectedItem);
 
             ServiceContainer.Register<AssignmentsActivity> (this);
         }
@@ -60,6 +60,11 @@ namespace FieldService.Android {
             base.OnResume ();
 
             assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
+                if (assignmentViewModel.ActiveAssignment != null) {
+                    SetActiveAssignmentVisible (true);
+                } else {
+                    SetActiveAssignmentVisible (false);
+                }
                 var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, assignmentViewModel.Assignments);
                 assignmentsListView.Adapter = adapter;
             });
@@ -71,12 +76,25 @@ namespace FieldService.Android {
         public void ReloadAssignments ()
         {
             assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
-                if (assignmentViewModel.ActiveAssignment == null) {
-                    SetActiveAssignmentVisible (false);
-                } else {
+                if (assignmentViewModel.ActiveAssignment != null) {
                     SetActiveAssignmentVisible (true);
+                } else {
+                    SetActiveAssignmentVisible (false);
                 }
+                var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, assignmentViewModel.Assignments);
+                assignmentsListView.Adapter = adapter;
             });
+        }
+
+
+        public void ReloadSingleListItem (int index)
+        {
+            if (assignmentsListView.FirstVisiblePosition < index && index > assignmentsListView.LastVisiblePosition) {
+                var view = assignmentsListView.GetChildAt (index);
+                if (view != null) {
+                    view.Invalidate ();
+                }
+            }
         }
 
         /// <summary>
@@ -97,13 +115,13 @@ namespace FieldService.Android {
                 //look at layouts children to get view
                 if (assignmentActiveLayout.ChildCount > 0) {
                     view = assignmentActiveLayout.GetChildAt (0);
-
                 } else {
                     view = new View (this);
                     LayoutInflater inflator = (LayoutInflater)GetSystemService (Context.LayoutInflaterService);
                     view = inflator.Inflate (Resource.Layout.AssignmentItemLayout, null);
+                    assignmentActiveLayout.AddView (view);                    
                 }
-
+                view.LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent);
                 view.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
                 var number = view.FindViewById<TextView> (Resource.Id.assignmentItemNumber);
                 var job = view.FindViewById<TextView> (Resource.Id.assignmentJob);
@@ -132,8 +150,10 @@ namespace FieldService.Android {
                             case "Active":
                                 break;
                             default:
-                                view.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentgrey));
-                                spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
+                                assignment.Status = (AssignmentStatus)FieldService.Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
+                                assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+                                    ReloadAssignments ();
+                                });
                                 break;
                         }
                     }
@@ -146,7 +166,6 @@ namespace FieldService.Android {
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
                 timerText.Text = string.Format ("{0} hr {1} min\n{2}", "10", "59", "START");
                 
-                assignmentActiveLayout.AddView (view);
             } else {
                 assignmentActiveLayout.Visibility = ViewStates.Gone;
             }

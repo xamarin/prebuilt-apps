@@ -13,17 +13,22 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using Android.App;
+using Android.Content;
 using Android.GoogleMaps;
+using Android.Graphics;
 using Android.Graphics.Drawables;
 
 namespace FieldService.Android {
     public class MapOverlayItem : ItemizedOverlay {
-
         OverlayItem item;
-        public MapOverlayItem (Drawable overlayDrawable, OverlayItem overlay)
+        Context context;
+
+        public MapOverlayItem (Context context, Drawable overlayDrawable, OverlayItem overlay)
             : base (overlayDrawable)
         {
             item = overlay;
+            this.context = context;
 
             BoundCenterBottom (overlayDrawable);
             Populate ();
@@ -37,6 +42,15 @@ namespace FieldService.Android {
         public override int Size ()
         {
             return 1;
+        }
+
+        protected override bool OnTap (int index)
+        {
+            var dialog = new AlertDialog.Builder (context);
+            dialog.SetTitle (item.Title);
+            dialog.SetMessage (item.Snippet);
+            dialog.Show ();
+            return true;
         }
     }
 }

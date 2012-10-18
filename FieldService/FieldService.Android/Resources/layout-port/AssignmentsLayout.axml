@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent">
-    <RelativeLayout
+    android:layout_height="fill_parent"
+    android:orientation="vertical">
+    <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:id="@+id/assignmentSelectedItem"
-        android:layout_above="@+id/assignmentListView" />
+        android:id="@+id/assignmentSelectedItem" />
     <ListView
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:id="@+id/assignmentsListView"
-        android:layout_below="@+id/assignmentSelectedItem"
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp" />
-</RelativeLayout>
+</LinearLayout>

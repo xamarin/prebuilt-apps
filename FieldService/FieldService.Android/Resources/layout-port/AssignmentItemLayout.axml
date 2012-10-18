@@ -96,7 +96,7 @@
       android:id="@+id/assignmentTimerLayout"
       android:layout_marginLeft="10dp"
       android:layout_marginRight="10dp"
-      android:layout_gravity="center_vertical|right"
+      android:layout_gravity="center_vertical"
       android:orientation="vertical"
       android:layout_marginBottom="5dp"
       android:layout_marginTop="5dp">
@@ -146,6 +146,7 @@
           android:layout_height="wrap_content"
           android:id="@+id/assignmentStatus"
           android:layout_centerHorizontal="true"
+          android:background="@android:color/transparent"
           android:layout_marginLeft="5dp"
           android:layout_below="@id/assignmentTimer" />
     </LinearLayout>

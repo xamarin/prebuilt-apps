@@ -87,7 +87,7 @@
         android:visibility="visible">
       <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/timerLinearLayout">
           <TextView
@@ -128,9 +128,8 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/assignmentStatus"
                 android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
                 android:layout_gravity="center_vertical"
-                android:textSize="14dp"
-                android:textColor="@color/greyspinnertext"
                 android:minWidth="100dp" />
         </LinearLayout>
     </LinearLayout>
@@ -163,14 +162,4 @@
             android:layout_marginLeft="5dp"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
-<!-- Widget Inserted Conflict | id:@+id/assignmentTimerLayout | @+id/assignmentStatusImage -->
-<!-- Widget Inserted Conflict | id:@+id/assignmentTimerLayout | @+id/linearLayout1 -->
-<!-- Widget Removed Conflict | id:@+id/assignmentTimerLayout -->
-<!-- Widget Removed Conflict | id:@+id/assignmentTimerLayout -->
-<!-- Property Change Conflict | id:@+id/timerLinearLayout | gravity=right -->
-<!-- Property Change Conflict | id:@+id/timerLinearLayout | gravity removed -->
-<!-- Property Change Conflict | id:@+id/timerLinearLayout | gravity=right -->
-<!-- Property Change Conflict | id:@+id/assignmentTimerLayout, not-exact-match | gravity=right -->
-<!-- Property Change Conflict | source:port, id:@+id/assignmentName | text removed -->
-<!-- Property Change Conflict | source:port, id:@+id/assignmentAddress | text removed -->
 </LinearLayout>
