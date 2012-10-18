@@ -47,19 +47,12 @@ namespace FieldService.iOS
 			View.BackgroundColor = Theme.LinenLeft;
 			tableView.Source = new TableSource ();
 
-			//We use a button here, because we have to set custom values UIBarButtonItem doesn't support
-			var button = UIButton.FromType (UIButtonType.Custom);
-			button.Font = Theme.BoldFontOfSize (14);
-			button.SetTitle ("Assignments", UIControlState.Normal);
-			button.SetTitleColor (UIColor.White, UIControlState.Normal);
-			button.SetBackgroundImage (Theme.BackButton, UIControlState.Normal);
-			button.Frame = new RectangleF (0, 0, 120, 28);
-
-			var backButton = new UIBarButtonItem (button); 
-			button.TouchUpInside += (sender, e) => {
+			var backButton = new UIBarButtonItem ("Assignments", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				var window = ServiceContainer.Resolve<UIWindow> ();
 				window.RootViewController = ServiceContainer.Resolve<AssignmentsController> ();
-			};
+			});
+			backButton.SetBackgroundImage (Theme.BackButton, UIControlState.Normal, UIBarMetrics.Default);
+			backButton.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			navigationBar.TopItem.LeftBarButtonItem = backButton;
 
 			timerBackground.Image = Theme.TimerBackground;

@@ -15,6 +15,9 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UILabel description { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UILabel descriptionTitle { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIImageView priorityBackground { get; set; }
 
 		[Outlet]
@@ -46,12 +49,29 @@ namespace FieldService.iOS
 
 		[Outlet]
 		FieldService.iOS.StatusButton status { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton accept { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton decline { get; set; }
+
+		[Action ("Accept")]
+		partial void Accept ();
+
+		[Action ("Decline")]
+		partial void Decline ();
 		
 		void ReleaseDesignerOutlets ()
 		{
 			if (description != null) {
 				description.Dispose ();
 				description = null;
+			}
+
+			if (descriptionTitle != null) {
+				descriptionTitle.Dispose ();
+				descriptionTitle = null;
 			}
 
 			if (priorityBackground != null) {
@@ -107,6 +127,16 @@ namespace FieldService.iOS
 			if (status != null) {
 				status.Dispose ();
 				status = null;
+			}
+
+			if (accept != null) {
+				accept.Dispose ();
+				accept = null;
+			}
+
+			if (decline != null) {
+				decline.Dispose ();
+				decline = null;
 			}
 		}
 	}

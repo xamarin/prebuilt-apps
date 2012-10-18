@@ -47,14 +47,11 @@ namespace FieldService.iOS
 			get { return assignment; }
 			set
 			{
-				if (assignment != value)
-				{
-					assignment = value;
-
-					//Update the button
-					statusImage.Image = ImageForStatus (assignment.Status);
-					SetTitle (assignment.Status.ToString (), UIControlState.Normal);
-				}
+				assignment = value;
+				
+				//Update the button
+				statusImage.Image = ImageForStatus (assignment.Status);
+				SetTitle (assignment.Status.ToString (), UIControlState.Normal);
 			}
 		}
 

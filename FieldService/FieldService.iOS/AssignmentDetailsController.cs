@@ -13,10 +13,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.iOS
 {
@@ -25,9 +27,13 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AssignmentDetailsController : UIViewController
 	{
+		readonly AssignmentViewModel assignmentViewModel;
+
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
 		{
 			ServiceContainer.Register (this);
+
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
 		public Assignment Assignment {
@@ -47,13 +53,39 @@ namespace FieldService.iOS
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
 			descriptionBackground.Image = Theme.Row180End;
+			accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
+			decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
+
+			//Setup our toolbar
+			var label = new UILabel (new RectangleF(0, 0, 100, 36)) { 
+				Text = "Description",
+				TextColor = UIColor.White,
+				BackgroundColor = UIColor.Clear,
+				Font = Theme.BoldFontOfSize (16),
+			};
+			var descriptionButton = new UIBarButtonItem(label);
+			var viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, delegate {	});
+			viewHistory.SetBackgroundImage (Theme.BlueNavButton, UIControlState.Normal, UIBarMetrics.Default);
+			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
+			toolbar.Items = new UIBarButtonItem[] { descriptionButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), viewHistory };
+
+			//Events
+			status.StatusChanged += (sender, e) => SaveAssignment ();
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
 
-			if (Assignment != null) {
+			UpdateAssignment ();
+		}
+
+		/// <summary>
+		/// Sets up the UI for the assignment
+		/// </summary>
+		private void UpdateAssignment ()
+		{
+			if (Assignment != null && IsViewLoaded) {
 				priority.Text = Assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("#{0} {1}", Assignment.JobNumber, Assignment.StartDate.Date.ToShortDateString ());
 				title.Text = Assignment.Title;
@@ -63,8 +95,47 @@ namespace FieldService.iOS
 				address.TopLabel.Text = Assignment.Address;
 				address.BottomLabel.Text = string.Format ("{0}, {1} {2}", Assignment.City, Assignment.State, Assignment.Zip);
 				description.Text = Assignment.Description;
+				descriptionTitle.Text = Assignment.Title;
 				status.Assignment = Assignment;
+				
+				if (Assignment.Status == AssignmentStatus.New) {
+					status.Hidden = true;
+					decline.Hidden =
+						accept.Hidden = false;
+				} else {
+					status.Hidden = false;
+					decline.Hidden =
+						accept.Hidden = true;
+				}
 			}
+		}
+
+		/// <summary>
+		/// Event when accept button is clicked
+		/// </summary>
+		partial void Accept ()
+		{
+			Assignment.Status = AssignmentStatus.Hold;
+
+			SaveAssignment ();
+		}
+
+		/// <summary>
+		/// Event when decline button is clicked
+		/// </summary>
+		partial void Decline ()
+		{
+			Assignment.Status = AssignmentStatus.Declined;
+			
+			SaveAssignment ();
+		}
+
+		/// <summary>
+		/// Saves the assignment.
+		/// </summary>
+		private void SaveAssignment ()
+		{
+			assignmentViewModel.SaveAssignment (Assignment).ContinueOnUIThread (t => UpdateAssignment ());
 		}
 	}
 }

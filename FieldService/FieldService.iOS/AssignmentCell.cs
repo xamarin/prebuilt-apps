@@ -107,6 +107,9 @@ namespace FieldService.iOS
 
 		}
 
+		/// <summary>
+		/// Saves the assignment.
+		/// </summary>
 		private void SaveAssignment ()
 		{
 			assignmentViewModel.SaveAssignment (assignment)
