@@ -45,6 +45,12 @@ namespace FieldService.Data
         };
 
         /// <summary>
+	/// This is just a test description, we just put it on all the assignments for now
+	/// </summary>
+	private const string Description = "This is the desription created for this specific assignment. It would include helpful information related to the assignment, and you would probably want to read it.  Important information would be here, like which tools to use and what needs to be done for the assignment.";
+
+
+        /// <summary>
         /// For use within the app on startup, this will create the database
         /// </summary>
         /// <returns></returns>
@@ -103,8 +109,9 @@ namespace FieldService.Data
                         {
                             ID = 1,
                             Priority = 1,
-                            JobNumber = "1",
+                            JobNumber = "2001",
                             Title = "Assignment 1",
+                            Description = Description,
 			    ContactName = "Miguel de Icaza",
 			    ContactPhone = "1.232.234.2352",
 			    Address = "306 5th Street",
@@ -121,8 +128,9 @@ namespace FieldService.Data
                         {
                             ID = 2,
                             Priority = 2,
-                            JobNumber = "2",
+                            JobNumber = "2002",
                             Title = "Assignment 2",
+                            Description = Description,
 			    ContactName = "Greg Shackles",
 			    ContactPhone = "1.232.234.2112",
 			    Address = "316 Avalon Cir",
@@ -139,8 +147,9 @@ namespace FieldService.Data
 			{
 			    ID = 3,
 			    Priority = 3,
-                            JobNumber = "3",
+                            JobNumber = "3113",
 			    Title = "Assignment 3",
+                            Description = Description,
 			    ContactName = "Xamarin",
 			    ContactPhone = "1.855.926.2746",
 			    Address = "1796 18th Street",
@@ -157,8 +166,9 @@ namespace FieldService.Data
 			{
 			    ID = 4,
 			    Priority = 4,
-                            JobNumber = "4",
+                            JobNumber = "3114",
 			    Title = "Assignment 4",
+                            Description = Description,
                             ContactName = "HERB",
                             ContactPhone = "270.796.5063",
                             Address = "2425 Nashville Road",
@@ -175,8 +185,9 @@ namespace FieldService.Data
 			{
 			    ID = 5,
 			    Priority = 5,
-                            JobNumber = "5",
+                            JobNumber = "4445",
 			    Title = "Assignment 5",
+                            Description = Description,
                             ContactName = "Google",
                             ContactPhone = "650.253.0000",
                             Address = "1600 Amphitheatre Parkway",
@@ -193,8 +204,9 @@ namespace FieldService.Data
 			{
 			    ID = 6,
 			    Priority = 6,
-                            JobNumber = "6",
+                            JobNumber = "4446",
 			    Title = "Assignment 6",
+                            Description = Description,
                             ContactName = "Hershey",
                             ContactPhone = "717.298.1298",
                             Address = "200 Crystal A Drive",
@@ -211,8 +223,9 @@ namespace FieldService.Data
 			{
 			    ID = 7,
 			    Priority = 7,
-                            JobNumber = "7",
+                            JobNumber = "5677",
 			    Title = "Assignment 7",
+                            Description = Description,
                             ContactName = "Microsoft",
                             ContactPhone = "425.882.8080",
                             Address = "1 157th Avenue Northeast",
@@ -229,8 +242,9 @@ namespace FieldService.Data
 			{
 			    ID = 8,
 			    Priority = 8,
-                            JobNumber = "8",
+                            JobNumber = "5678",
 			    Title = "Assignment 8",
+                            Description = Description,
                             ContactName = "The Empire",
                             ContactPhone = "212.736.3100",
                             Address = "350 5th Avenue",
@@ -247,8 +261,9 @@ namespace FieldService.Data
                         {
 			    ID = 9,
 			    Priority = 9,
-                            JobNumber = "9",
+                            JobNumber = "7809",
 			    Title = "Assignment 9",
+                            Description = Description,
 			    ContactName = "The Shire",
                             ContactPhone = "360.748.3720",
                             Address = "465 Northwest Chehalis Avenue",
@@ -265,8 +280,9 @@ namespace FieldService.Data
                         {
 			    ID = 10,
 			    Priority = 10,
-                            JobNumber = "10",
+                            JobNumber = "7810",
 			    Title = "Assignment 10",
+                            Description = Description,
                             ContactName = "Universal Studios",
                             ContactPhone = "800.864.8377",
                             Address = "100 Universal City Plaza",
@@ -278,7 +294,6 @@ namespace FieldService.Data
                             Status = AssignmentStatus.New,
 			    StartDate = DateTime.Now.AddDays(1),
 			    EndDate = DateTime.Now.AddDays(1).AddHours(2),
-                            
 			},
 
                         //Some items
