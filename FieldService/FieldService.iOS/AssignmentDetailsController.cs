@@ -26,7 +26,7 @@ namespace FieldService.iOS
 	/// <summary>
 	/// Controller for the assignment summary page
 	/// </summary>
-	public partial class AssignmentDetailsController : UIViewController
+	public partial class AssignmentDetailsController : BaseController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		UIView lastSelectedView;
@@ -118,6 +118,17 @@ namespace FieldService.iOS
 
 				nextView = mapView;
 				break;
+			case 2:
+			{
+				//Items
+				var controller = ServiceContainer.Resolve<ItemsViewController>();
+				nextView = controller.View;
+
+				//Manually fire the event
+				controller.ViewWillAppear (true);
+
+				break;
+			}
 			default:
 				return; //This means this section isn't done yet
 			}
