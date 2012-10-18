@@ -43,6 +43,10 @@ namespace FieldService.iOS
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 				}
 			};
+
+			//This is just a fix for now, so AssignmentDetailsController get's loaded
+			//I will clean up ServiceContainer registrations later
+			ServiceContainer.Resolve <MainController>();
 		}
 
 		public override void ViewDidLoad ()
@@ -85,8 +89,6 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
-			//Apply animation
-			Theme.TransitionWindow ();
 			//Load our assignments
 			ReloadAssignments ();
 			//Apply the current orientation
@@ -168,11 +170,9 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void ActiveAssignmentSelected ()
 		{
-			var window = ServiceContainer.Resolve<UIWindow> ();
-			var mainController = ServiceContainer.Resolve<MainController> ();
 			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
 			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
-			window.RootViewController = mainController;
+			Theme.TransitionController <MainController>();
 		}
 
 		/// <summary>
@@ -360,11 +360,9 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				var window = ServiceContainer.Resolve<UIWindow> ();
-				var mainController = ServiceContainer.Resolve<MainController> ();
 				var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
 				assignmentController.Assignment = assignmentViewModel.Assignments[indexPath.Row];
-				window.RootViewController = mainController;
+				Theme.TransitionController <MainController>();
 			}
 		}
 
@@ -419,11 +417,9 @@ namespace FieldService.iOS
 			/// </summary>
 			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
 			{
-				var window = ServiceContainer.Resolve<UIWindow> ();
-				var mainController = ServiceContainer.Resolve<MainController> ();
 				var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
 				assignmentController.Assignment = GetAssignment (view.Annotation as MKPlacemark);
-				window.RootViewController = mainController;
+				Theme.TransitionController <MainController>();
 			}
 
 			/// <summary>

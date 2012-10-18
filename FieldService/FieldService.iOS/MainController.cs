@@ -30,13 +30,6 @@ namespace FieldService.iOS
 
 		}
 
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-
-			Theme.TransitionWindow ();
-		}
-
 		/// <summary>
 		/// This is how orientation is setup on iOS 6
 		/// </summary>

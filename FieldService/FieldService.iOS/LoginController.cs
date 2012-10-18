@@ -80,7 +80,7 @@ namespace FieldService.iOS
 				return false;
 			};
 
-			//Setup creation of some other controllers
+			//Setup creation of some other controllers, this should be moved somewhere
 			ServiceContainer.Register<MainController> (() => (MainController)Storyboard.InstantiateViewController ("MainController"));
 			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)Storyboard.InstantiateViewController ("AssignmentsController"));
 		}
@@ -89,10 +89,7 @@ namespace FieldService.iOS
 		{
 			password.ResignFirstResponder ();
 			
-			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
-				var window = ServiceContainer.Resolve<UIWindow> ();
-				window.RootViewController = ServiceContainer.Resolve<AssignmentsController> ();
-			});
+			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => Theme.TransitionController<AssignmentsController>());
 		}
 		
 		public override void ViewDidUnload ()

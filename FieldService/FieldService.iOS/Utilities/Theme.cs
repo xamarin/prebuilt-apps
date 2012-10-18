@@ -633,11 +633,17 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
-		/// Transitions the window, for a fullscreen transition
+		/// Transitions a controller to the rootViewController, for a fullscreen transition
 		/// </summary>
-		public static void TransitionWindow (UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCrossDissolve)
+		public static void TransitionController<T> (UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCrossDissolve)
+			where T : UIViewController
 		{
-			UIView.Transition (ServiceContainer.Resolve <UIWindow> (), .3, options, delegate { }, delegate { });
+			var controller = ServiceContainer.Resolve <T>();
+			var window = ServiceContainer.Resolve<UIWindow>();
+			window.RootViewController = controller;
+
+			//Peform an animation
+			UIView.Transition (window, .3, options, delegate { }, delegate { });
 		}
 	}
 }
