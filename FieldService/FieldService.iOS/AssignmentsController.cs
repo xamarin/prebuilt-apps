@@ -29,7 +29,7 @@ namespace FieldService.iOS
 	/// <summary>
 	/// Controller for the main list of assignments
 	/// </summary>
-	public partial class AssignmentsController : UIViewController
+	public partial class AssignmentsController : BaseController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		bool activeAssignmentVisible = true;

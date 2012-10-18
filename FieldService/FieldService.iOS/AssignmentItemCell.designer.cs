@@ -1,0 +1,33 @@
+// WARNING
+//
+// This file has been generated automatically by MonoDevelop to store outlets and
+// actions made in the Xcode designer. If it is removed, they will be lost.
+// Manual changes to this file may not be handled correctly.
+//
+using MonoTouch.Foundation;
+
+namespace FieldService.iOS
+{
+	[Register ("AssignmentItemCell")]
+	partial class AssignmentItemCell
+	{
+		[Outlet]
+		MonoTouch.UIKit.UILabel label { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UIButton checkBox { get; set; }
+		
+		void ReleaseDesignerOutlets ()
+		{
+			if (label != null) {
+				label.Dispose ();
+				label = null;
+			}
+
+			if (checkBox != null) {
+				checkBox.Dispose ();
+				checkBox = null;
+			}
+		}
+	}
+}

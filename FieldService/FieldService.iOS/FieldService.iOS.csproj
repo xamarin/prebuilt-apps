@@ -191,6 +191,14 @@
     <Compile Include="Utilities\SynchronizeInvoke.cs" />
     <Compile Include="Utilities\UIKitExtensions.cs" />
     <Compile Include="Utilities\ClrWrapper.cs" />
+    <Compile Include="ItemsViewController.cs" />
+    <Compile Include="ItemsViewController.designer.cs">
+      <DependentUpon>ItemsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AssignmentItemCell.cs" />
+    <Compile Include="AssignmentItemCell.designer.cs">
+      <DependentUpon>AssignmentItemCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

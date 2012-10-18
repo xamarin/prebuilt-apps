@@ -138,7 +138,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> checkEmpty = new Lazy<UIImage> (() => UIImage.FromFile ("Images/check_empty.png"));
 		
 		/// <summary>
-		/// 
+		/// Checkbox unchecked image
 		/// </summary>
 		public static UIImage CheckEmpty {
 			get { return checkEmpty.Value; }
@@ -147,7 +147,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> checkFilled = new Lazy<UIImage> (() => UIImage.FromFile ("Images/check_filled.png"));
 		
 		/// <summary>
-		/// 
+		/// Checkbox checked image
 		/// </summary>
 		public static UIImage CheckFilled {
 			get { return checkFilled.Value; }
@@ -654,6 +654,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register<MainController> (() => (MainController)storyboard.InstantiateViewController ("MainController"));
 			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)storyboard.InstantiateViewController ("AssignmentsController"));
 			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)storyboard.InstantiateViewController ("AssignmentDetailsController"));
+			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));
 		}
 	}
 }

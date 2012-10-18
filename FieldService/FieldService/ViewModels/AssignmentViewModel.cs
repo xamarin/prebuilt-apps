@@ -37,6 +37,7 @@ namespace FieldService.ViewModels {
         readonly Timer timer;
         TimeSpan hours = TimeSpan.Zero;
         List<Assignment> assignments;
+        List<AssignmentItem> assignmentItems;
         Assignment activeAssignment;
         TimerEntry timerEntry;
 
@@ -125,6 +126,15 @@ namespace FieldService.ViewModels {
         }
 
         /// <summary>
+        /// List of assignment items
+        /// </summary>
+        public List<AssignmentItem> AssignmentItems
+        {
+            get { return assignmentItems; }
+            set { assignmentItems = value; OnPropertyChanged ("AssignmentItems"); }
+        }
+
+        /// <summary>
         /// Loads the assignments asynchronously
         /// </summary>
         public Task LoadAssignmentsAsync ()
@@ -158,6 +168,16 @@ namespace FieldService.ViewModels {
                     }
                     return timerEntry;
                 });
+        }
+
+        /// <summary>
+        /// Loads a list of items for an assignment
+        /// </summary>
+        public Task LoadAssignmentItemsAsync (Assignment assignment)
+        {
+            return service
+                .GetItemsForAssignmentAsync (assignment)
+                .ContinueOnUIThread (t => assignmentItems = t.Result);
         }
 
         public Task SaveAssignment (Assignment assignment)
