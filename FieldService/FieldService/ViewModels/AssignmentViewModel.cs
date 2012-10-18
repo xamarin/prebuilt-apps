@@ -137,7 +137,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads the assignments asynchronously
         /// </summary>
-        public Task LoadAssignmentsAsync ()
+        public Task LoadAssignments ()
         {
             return service
                 .GetAssignmentsAsync ()
@@ -153,7 +153,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads the timer entry
         /// </summary>
-        public Task LoadTimerEntryAsync ()
+        public Task LoadTimerEntry ()
         {
             return service
                 .GetTimerEntryAsync ()
@@ -173,13 +173,24 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads a list of items for an assignment
         /// </summary>
-        public Task LoadAssignmentItemsAsync (Assignment assignment)
+        public Task LoadAssignmentItems (Assignment assignment)
         {
             return service
                 .GetItemsForAssignmentAsync (assignment)
                 .ContinueOnUIThread (t => assignmentItems = t.Result);
         }
 
+        /// <summary>
+        /// Saves an assignment item
+        /// </summary>
+        public Task SaveAssignmentItem (AssignmentItem item)
+        {
+            return service.SaveAssignmentItem (item);
+        }
+
+        /// <summary>
+        /// Saves an assignment, and applies any needed changes to the active one
+        /// </summary>
         public Task SaveAssignment (Assignment assignment)
         {
             //Save the assignment
@@ -208,6 +219,9 @@ namespace FieldService.ViewModels {
             return task;
         }
 
+        /// <summary>
+        /// Starts timer
+        /// </summary>
         public Task Record ()
         {
             Recording = true;
@@ -220,6 +234,9 @@ namespace FieldService.ViewModels {
             return service.SaveTimerEntry (timerEntry);
         }
 
+        /// <summary>
+        /// Pauses timer
+        /// </summary>
         public Task Pause ()
         {
             Recording = false;

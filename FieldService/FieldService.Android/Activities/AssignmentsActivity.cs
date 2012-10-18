@@ -59,7 +59,7 @@ namespace FieldService.Android {
         {
             base.OnResume ();
 
-            assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
+            assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.ActiveAssignment != null) {
                     SetActiveAssignmentVisible (true);
                 } else {
@@ -75,7 +75,7 @@ namespace FieldService.Android {
         /// </summary>
         public void ReloadAssignments ()
         {
-            assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
+            assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.ActiveAssignment != null) {
                     SetActiveAssignmentVisible (true);
                 } else {

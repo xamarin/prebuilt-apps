@@ -44,7 +44,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void Load ()
         {
-            var task = viewModel.LoadAssignmentsAsync ();
+            var task = viewModel.LoadAssignments ();
 
             task.Wait ();
 
@@ -55,7 +55,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void SaveAssignment ()
         {
-            var loadTask = viewModel.LoadAssignmentsAsync ();
+            var loadTask = viewModel.LoadAssignments ();
             loadTask.Wait ();
 
             var assignment = viewModel.Assignments.First ();
@@ -70,7 +70,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void SaveAssignmentAsActive ()
         {
-            var loadTask = viewModel.LoadAssignmentsAsync ();
+            var loadTask = viewModel.LoadAssignments ();
             loadTask.Wait ();
 
             var assignment = viewModel.Assignments.First ();
@@ -113,7 +113,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadTimerEntry ()
         {
-            var task = viewModel.LoadTimerEntryAsync ();
+            var task = viewModel.LoadTimerEntry ();
 
             task.Wait ();
 
@@ -123,7 +123,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadAssignmentItems ()
         {
-            var task = viewModel.LoadAssignmentItemsAsync (new Assignment ());
+            var task = viewModel.LoadAssignmentItems (new Assignment ());
 
             task.Wait ();
 
