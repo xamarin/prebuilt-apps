@@ -286,7 +286,7 @@
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="b06-fw-Ka7" customClass="TextButton">
-                                        <rect key="frame" x="352" y="11" width="200" height="35"/>
+                                        <rect key="frame" x="352" y="11" width="180" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -298,7 +298,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="w99-Xm-MF4" customClass="TextButton">
-                                        <rect key="frame" x="352" y="50" width="200" height="35"/>
+                                        <rect key="frame" x="352" y="50" width="180" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -427,7 +427,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="xf0-lU-XUy" customClass="TextButton">
-                                                    <rect key="frame" x="342" y="11" width="200" height="35"/>
+                                                    <rect key="frame" x="342" y="11" width="180" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal">
@@ -442,7 +442,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="9TK-CJ-5Jq" customClass="TextButton">
-                                                    <rect key="frame" x="342" y="50" width="200" height="35"/>
+                                                    <rect key="frame" x="342" y="50" width="180" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <state key="normal">
@@ -520,10 +520,10 @@
             </objects>
             <point key="canvasLocation" x="-79" y="988"/>
         </scene>
-        <!--Detail Navigation Controller-->
+        <!--Navigation Controller-->
         <scene sceneID="2gO-Th-d53">
             <objects>
-                <navigationController definesPresentationContext="YES" id="0Zt-xg-aFX" customClass="DetailNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="0Zt-xg-aFX" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" barStyle="blackOpaque" id="b4e-SX-rin">
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
@@ -584,7 +584,7 @@
                                         <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                     </label>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="efx-m0-uSq" customClass="TextButton">
-                                        <rect key="frame" x="352" y="11" width="200" height="35"/>
+                                        <rect key="frame" x="310" y="11" width="180" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -596,7 +596,7 @@
                                         </state>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="OnY-Me-zjm" customClass="TextButton">
-                                        <rect key="frame" x="352" y="50" width="200" height="35"/>
+                                        <rect key="frame" x="310" y="50" width="180" height="35"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                         <state key="normal">
@@ -778,9 +778,6 @@
                 <relationship kind="outlet" name="title" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="toolbarShadow" candidateClass="UIImageView"/>
             </relationships>
-        </class>
-        <class className="DetailNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/DetailNavigationController.h"/>
         </class>
         <class className="LoginController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginController.h"/>

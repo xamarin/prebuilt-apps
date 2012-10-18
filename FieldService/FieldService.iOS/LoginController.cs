@@ -22,6 +22,9 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Controller for the login screen
+	/// </summary>
 	public partial class LoginController : BaseController
 	{
 		readonly LoginViewModel loginViewModel;

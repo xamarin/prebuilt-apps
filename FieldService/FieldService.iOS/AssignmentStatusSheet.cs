@@ -20,10 +20,15 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// A UIActionSheet that provides AssignmentStatus as a selection
+	/// </summary>
 	public class AssignmentStatusSheet : UIActionSheet
 	{
 		public AssignmentStatusSheet ()
 		{
+			Index = -1;
+
 			foreach (AssignmentStatus status in Assignment.AvailableStatuses) {
 				AddButton (status.ToString ());
 			}
@@ -36,6 +41,9 @@ namespace FieldService.iOS
 			private set;
 		}
 
+		/// <summary>
+		/// The selected status
+		/// </summary>
 		public AssignmentStatus Status {
 			get { 
 				if (Index == -1)

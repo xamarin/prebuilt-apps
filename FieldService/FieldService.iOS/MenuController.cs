@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Collections.Generic;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -78,9 +79,13 @@ namespace FieldService.iOS
 			tableView.SelectRow (NSIndexPath.FromRowSection (0, 0), false, UITableViewScrollPosition.Top);
 		}
 
+		/// <summary>
+		/// The table source - has static cells
+		/// </summary>
 		private class TableSource : UITableViewSource
 		{
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, confirmationCell;
+			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
 
 			public TableSource ()
 			{
@@ -90,6 +95,7 @@ namespace FieldService.iOS
 				summaryCell.BackgroundColor = UIColor.Clear;	
 				summaryCell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
 				summaryCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
+				cells.Add (summaryCell);
 
 				mapCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				mapCell.TextLabel.Text = "Map";
@@ -97,6 +103,7 @@ namespace FieldService.iOS
 				mapCell.BackgroundColor = UIColor.Clear;	
 				mapCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 				mapCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+				cells.Add (mapCell);
 
 				itemsCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				itemsCell.TextLabel.Text = "Items";
@@ -104,6 +111,7 @@ namespace FieldService.iOS
 				itemsCell.BackgroundColor = UIColor.Clear;	
 				itemsCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 				itemsCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+				cells.Add (itemsCell);
 
 				laborCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				laborCell.TextLabel.Text = "Labor Hours";
@@ -111,6 +119,7 @@ namespace FieldService.iOS
 				laborCell.BackgroundColor = UIColor.Clear;	
 				laborCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 				laborCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+				cells.Add (laborCell);
 
 				expensesCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				expensesCell.TextLabel.Text = "Expenses";
@@ -118,6 +127,7 @@ namespace FieldService.iOS
 				expensesCell.BackgroundColor = UIColor.Clear;
 				expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 				expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+				cells.Add (expensesCell);
 
 				confirmationCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				confirmationCell.TextLabel.Text = "Confirmations";
@@ -125,31 +135,27 @@ namespace FieldService.iOS
 				confirmationCell.BackgroundColor = UIColor.Clear;	
 				confirmationCell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
 				confirmationCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
+				cells.Add (confirmationCell);
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return 6;
+				return cells.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				switch (indexPath.Row) {
-				case 0:
-					return summaryCell;
-				case 1:
-					return mapCell;
-				case 2:
-					return itemsCell;
-				case 3:
-					return laborCell;
-				case 4:
-					return expensesCell;
-				case 5:
-					return confirmationCell;
-				default:
-					throw new IndexOutOfRangeException ();
+				return cells[indexPath.Row];
+			}
+
+			protected override void Dispose (bool disposing)
+			{
+				foreach (var cell in cells) {
+					cell.Dispose();
 				}
+				cells.Clear ();
+
+				base.Dispose (disposing);
 			}
 		}
 	}

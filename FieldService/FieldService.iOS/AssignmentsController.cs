@@ -26,6 +26,9 @@ using MonoTouch.AddressBook;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Controller for the main list of assignments
+	/// </summary>
 	public partial class AssignmentsController : UIViewController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
@@ -365,6 +368,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Delegate for the map view
+		/// </summary>
 		private class MapViewDelegate : MKMapViewDelegate
 		{
 			const string UserIdentifier = "UserAnnotation";
@@ -377,6 +383,9 @@ namespace FieldService.iOS
 				popoverController.PopoverContentSize = new System.Drawing.SizeF(100, 100);
 			}
 
+			/// <summary>
+			/// Returns our custom MKAnnotationView
+			/// </summary>
 			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, NSObject annotation)
 			{
 				var userLocation = annotation as MKUserLocation;
@@ -405,6 +414,9 @@ namespace FieldService.iOS
 				}
 			}
 
+			/// <summary>
+			/// This is the callback for when the detail disclosure is clicked
+			/// </summary>
 			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
 			{
 				var window = ServiceContainer.Resolve<UIWindow> ();
@@ -414,12 +426,18 @@ namespace FieldService.iOS
 				window.RootViewController = mainController;
 			}
 
+			/// <summary>
+			/// This pulls out an assignment we placed in a MKPlacemark
+			/// </summary>
 			private Assignment GetAssignment(MKPlacemark annotation)
 			{
 				return ((AssignmentHolder)annotation.AddressDictionary[new NSString("Assignment")]).Assignment;
 			}
 		}
 
+		/// <summary>
+		/// This is just an NSObject for wrapping an Assignment
+		/// </summary>
 		private class AssignmentHolder : NSObject
 		{
 			public Assignment Assignment {

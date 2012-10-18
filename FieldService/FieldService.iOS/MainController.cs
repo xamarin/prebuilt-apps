@@ -19,6 +19,9 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// The main split controller in the app - I may remove this if I don't end up with custom code here
+	/// </summary>
 	[Register("MainController")]
 	public class MainController : UISplitViewController
 	{

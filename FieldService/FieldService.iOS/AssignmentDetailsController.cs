@@ -36,6 +36,9 @@ namespace FieldService.iOS
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
+		/// <summary>
+		/// Gets or sets the assignment to be shown
+		/// </summary>
 		public Assignment Assignment {
 			get;
 			set;

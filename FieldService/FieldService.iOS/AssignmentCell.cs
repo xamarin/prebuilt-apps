@@ -23,6 +23,9 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Table cell for an assignment
+	/// </summary>
 	public partial class AssignmentCell : UITableViewCell
 	{
 		readonly AssignmentViewModel assignmentViewModel;
@@ -37,6 +40,9 @@ namespace FieldService.iOS
 			SelectedBackgroundView = new UIImageView { Image = Theme.AssignmentBlue };
 		}
 
+		/// <summary>
+		/// Sets up the assignment for the cell
+		/// </summary>
 		public void SetAssignment (Assignment assignment, NSIndexPath indexPath)
 		{
 			this.assignment = assignment;
@@ -83,6 +89,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Event when the accept button is clicked
+		/// </summary>
 		partial void Accept ()
 		{
 			assignment.Status = AssignmentStatus.Hold;
@@ -90,6 +99,9 @@ namespace FieldService.iOS
 			SaveAssignment ();
 		}
 
+		/// <summary>
+		/// Event when the decline button is clicked
+		/// </summary>
 		partial void Decline ()
 		{
 			assignment.Status = AssignmentStatus.Declined;
@@ -97,14 +109,20 @@ namespace FieldService.iOS
 			SaveAssignment ();
 		}
 
+		/// <summary>
+		/// Event when the contact button is clicked
+		/// </summary>
 		partial void Contact ()
 		{
-
+			//TODO: find out what this should do? I could try launching tel://thenumber
 		}
 
+		/// <summary>
+		/// Event when the address is clicked
+		/// </summary>
 		partial void Address ()
 		{
-
+			//TODO: take us to the map
 		}
 
 		/// <summary>
