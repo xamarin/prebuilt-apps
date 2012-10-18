@@ -155,7 +155,7 @@
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
                                         <connections>
-                                            <action selector="Record" destination="9SI-FO-E9U" eventType="touchUpInside" id="2fS-4S-gTA"/>
+                                            <action selector="Record" destination="3fg-bz-aRY" eventType="touchUpInside" id="2el-aI-KfF"/>
                                         </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="old-2v-nee" customClass="StatusButton">
@@ -891,6 +891,7 @@
         <class className="MenuController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MenuController.h"/>
             <relationships>
+                <relationship kind="action" name="Record"/>
                 <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="record" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="status" candidateClass="StatusButton"/>

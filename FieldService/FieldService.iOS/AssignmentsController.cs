@@ -43,6 +43,11 @@ namespace FieldService.iOS
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 				}
 			};
+			assignmentViewModel.RecordingChanged += (sender, e) => {
+				if (IsViewLoaded) {
+					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				}
+			};
 
 			//This is just a fix for now, so AssignmentDetailsController get's loaded
 			//I will clean up ServiceContainer registrations later
@@ -92,7 +97,7 @@ namespace FieldService.iOS
 			//Load our assignments
 			ReloadAssignments ();
 			//Apply the current orientation
-			if (InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight) {
+			if (InterfaceOrientation.IsLandscape ()) {
 				contact.Alpha = 
 					address.Alpha = 1;
 			} else {
@@ -106,10 +111,10 @@ namespace FieldService.iOS
 		/// </summary>
 		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
-			bool wasPortrait = InterfaceOrientation == UIInterfaceOrientation.Portrait || InterfaceOrientation == UIInterfaceOrientation.PortraitUpsideDown;
-			bool willBePortrait = toInterfaceOrientation == UIInterfaceOrientation.Portrait || toInterfaceOrientation == UIInterfaceOrientation.PortraitUpsideDown;
-			bool wasLandscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeRight || InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft;
-			bool willBeLandscape = toInterfaceOrientation == UIInterfaceOrientation.LandscapeRight || toInterfaceOrientation == UIInterfaceOrientation.LandscapeLeft;
+			bool wasPortrait = InterfaceOrientation.IsPortrait ();
+			bool willBePortrait = toInterfaceOrientation.IsPortrait ();
+			bool wasLandscape = InterfaceOrientation.IsLandscape ();
+			bool willBeLandscape = toInterfaceOrientation.IsLandscape ();
 
 			if (wasPortrait && willBeLandscape) {
 				SetContactVisible (true, duration);
@@ -254,17 +259,9 @@ namespace FieldService.iOS
 		{
 			record.Enabled = false;
 			if (assignmentViewModel.Recording) {
-				assignmentViewModel.Pause ()
-					.ContinueOnUIThread (t => {
-					record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
-					record.Enabled = true;
-				});
+				assignmentViewModel.Pause ().ContinueOnUIThread (t => record.Enabled = true);
 			} else {
-				assignmentViewModel.Record ()
-					.ContinueOnUIThread (t => {
-					record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
-					record.Enabled = true;
-				});
+				assignmentViewModel.Record ().ContinueOnUIThread (t => record.Enabled = true);
 			}
 		}
 
@@ -285,10 +282,14 @@ namespace FieldService.iOS
 				if (mapView == null) {
 					mapView = new MKMapView (tableView.Frame) { 
 						ShowsUserLocation = true,
-						AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight,
+						AutoresizingMask = tableView.AutoresizingMask,
 						Delegate = new MapViewDelegate(),
 					};
+				} else {
+					//This fixes a bug when rotating and flipping views
+					mapView.Frame = tableView.Frame;
 				}
+
 
 				UIView.Transition (tableView, mapView, .3, UIViewAnimationOptions.TransitionCurlUp, delegate {
 					mapView.RemoveAnnotations (mapView.Annotations.OfType<MKPlacemark> ().ToArray ());
@@ -309,6 +310,9 @@ namespace FieldService.iOS
 						mapView.AddPlacemarks (placemarks.ToArray ());
 				});
 			} else {
+				//This fixes a bug when rotating and flipping views
+				tableView.Frame = mapView.Frame;
+
 				UIView.Transition (mapView, tableView, .3, UIViewAnimationOptions.TransitionCurlDown, delegate {
 					ReloadAssignments ();
 				});

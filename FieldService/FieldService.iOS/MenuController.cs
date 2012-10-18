@@ -38,6 +38,11 @@ namespace FieldService.iOS
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 				}
 			};
+			assignmentViewModel.RecordingChanged += (sender, e) => {
+				if (IsViewLoaded) {
+					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				}
+			};
 		}
 
 		public override void ViewDidLoad ()
@@ -56,24 +61,56 @@ namespace FieldService.iOS
 			timerBackground.Image = Theme.TimerBackground;
 			timerLabelBackground.Image = Theme.TimerField;
 
-			status.StatusChanged += (sender, e) => {
-				//TODO: do something
-			};
+			status.StatusChanged += (sender, e) => SaveAssignment ();
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
 
-			if (assignmentViewModel.ActiveAssignment != null) {
-				status.Assignment = assignmentViewModel.ActiveAssignment;
-				timerView.Hidden = false;
-				timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-				record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
-			} else {
-				timerView.Hidden = true;
-			}
+			UpdateAssignment ();
 			tableView.SelectRow (NSIndexPath.FromRowSection (0, 0), false, UITableViewScrollPosition.Top);
+		}
+
+		/// <summary>
+		/// Sets up the UI for the active assignment
+		/// </summary>
+		public void UpdateAssignment()
+		{
+			if (IsViewLoaded) {
+				if (assignmentViewModel.ActiveAssignment != null && assignmentViewModel.ActiveAssignment.Status == FieldService.Data.AssignmentStatus.Active) {
+					status.Assignment = assignmentViewModel.ActiveAssignment;
+					timerView.Alpha = 1;
+					timerView.Hidden = false;
+					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				} else {
+					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
+						() => timerView.Alpha = 0, 
+						() => timerView.Hidden = true);
+				}
+			}
+		}
+
+		/// <summary>
+		/// Saves the assignment.
+		/// </summary>
+		private void SaveAssignment ()
+		{
+			assignmentViewModel.SaveAssignment (assignmentViewModel.ActiveAssignment).ContinueOnUIThread (t => UpdateAssignment ());
+		}
+
+		/// <summary>
+		/// Event for when the record button is clicked
+		/// </summary>
+		partial void Record ()
+		{
+			record.Enabled = false;
+			if (assignmentViewModel.Recording) {
+				assignmentViewModel.Pause ().ContinueOnUIThread (t => record.Enabled = true);
+			} else {
+				assignmentViewModel.Record ().ContinueOnUIThread (t => record.Enabled = true);
+			}
 		}
 
 		/// <summary>

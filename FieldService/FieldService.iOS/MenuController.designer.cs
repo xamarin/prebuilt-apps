@@ -34,6 +34,9 @@ namespace FieldService.iOS
 
 		[Outlet]
 		FieldService.iOS.StatusButton status { get; set; }
+
+		[Action ("Record")]
+		partial void Record ();
 		
 		void ReleaseDesignerOutlets ()
 		{

@@ -68,7 +68,6 @@ namespace FieldService.iOS
 				expensesLabel.TextColor =
 				expenses.TextColor = UIColor.White;
 
-
 			//Setup our toolbar
 			var label = new UILabel (new RectangleF(0, 0, 100, 36)) { 
 				Text = "Description",

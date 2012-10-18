@@ -22,7 +22,7 @@ namespace FieldService.iOS
 	/// <summary>
 	/// Helper class with extension methods
 	/// </summary>
-	public static class Extensions
+	public static class UIKitExtensions
 	{
 		/// <summary>
 		/// Sets a callback for registering text changed notifications on a UITextField
@@ -39,6 +39,22 @@ namespace FieldService.iOS
 				throw new ArgumentNullException ("callback");
 
 			NSNotificationCenter.DefaultCenter.AddObserver (UITextField.TextFieldTextDidChangeNotification, _ => callback (textField), textField);
+		}
+
+		/// <summary>
+		/// Returns true if is landscape
+		/// </summary>
+		public static bool IsLandscape(this UIInterfaceOrientation orientation)
+		{
+			return orientation == UIInterfaceOrientation.LandscapeLeft || orientation == UIInterfaceOrientation.LandscapeRight;
+		}
+
+		/// <summary>
+		/// Returns true if is portrait
+		/// </summary>
+		public static bool IsPortrait(this UIInterfaceOrientation orientation)
+		{
+			return orientation == UIInterfaceOrientation.Portrait || orientation == UIInterfaceOrientation.PortraitUpsideDown;
 		}
 	}
 }

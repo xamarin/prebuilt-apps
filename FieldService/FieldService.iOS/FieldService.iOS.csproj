@@ -105,7 +105,6 @@
       <DependentUpon>LoginController.cs</DependentUpon>
     </Compile>
     <Compile Include="BaseController.cs" />
-    <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="..\FieldService\Data\ILoginService.cs">
       <Link>FieldService\Data\ILoginService.cs</Link>
     </Compile>
@@ -190,6 +189,7 @@
       <Link>FieldService\Data\TimerEntry.cs</Link>
     </Compile>
     <Compile Include="Utilities\SynchronizeInvoke.cs" />
+    <Compile Include="Utilities\UIKitExtensions.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
