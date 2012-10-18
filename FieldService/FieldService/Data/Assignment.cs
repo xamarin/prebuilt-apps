@@ -128,5 +128,15 @@ namespace FieldService.Data {
         /// Total labor hours for the assignment (in ticks)
         /// </summary>
         public long TotalTicks { get; private set; }
+
+        /// <summary>
+        /// Total number of items
+        /// </summary>
+        public int TotalItems { get; private set; }
+
+        /// <summary>
+        /// Total cost of expenses
+        /// </summary>
+        public decimal TotalExpenses { get; private set; }
     }
 }

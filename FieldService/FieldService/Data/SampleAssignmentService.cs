@@ -25,12 +25,11 @@ namespace FieldService.Data {
         {
             return Database.GetConnection ()
                 .QueryAsync<Assignment> (@"
-                    select Assignment.*, SUM(Labor.Ticks) as TotalTicks
+                    select Assignment.*, 
+                           (SELECT SUM(Labor.Ticks) FROM Labor WHERE Assignment.ID = Labor.Assignment) as TotalTicks,       
+                           (SELECT COUNT(AssignmentItem.ID) FROM AssignmentItem WHERE Assignment.ID = AssignmentItem.Assignment) AS TotalItems,       
+                           (SELECT SUM(Expense.Cost) FROM Expense WHERE Assignment.ID = Expense.Assignment) AS TotalExpenses
                     from Assignment
-                    left outer join Labor
-                    on Assignment.ID = Labor.Assignment
-                    where Assignment.Status != ?
-                    group by Assignment.ID
                     order by Assignment.Status
                 ", AssignmentStatus.Declined);
         }

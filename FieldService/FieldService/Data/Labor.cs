@@ -12,12 +12,8 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using SQLite;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using FieldService.Utilities;
 
 namespace FieldService.Data {
@@ -53,14 +49,8 @@ namespace FieldService.Data {
         [Ignore]
         public TimeSpan Hours
         {
-            get
-            {
-                return TimeSpan.FromTicks (Ticks);
-            }
-            set
-            {
-                Ticks = value.Ticks;
-            }
+            get { return TimeSpan.FromTicks (Ticks); }
+            set { Ticks = value.Ticks; }
         }
 
         /// <summary>
@@ -68,6 +58,10 @@ namespace FieldService.Data {
         /// </summary>
         public long Ticks { get; set; }
 
+        /// <summary>
+        /// A nicely string formatted version of Type
+        /// </summary>
+        [Ignore]
         public string TypeAsString
         {
             get

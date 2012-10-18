@@ -60,6 +60,30 @@ namespace FieldService.Tests.Data {
         }
 
         [Test]
+        public void GetAssignmentAndCheckTotalItems ()
+        {
+            var assignmentTask = service.GetAssignmentsAsync ();
+
+            assignmentTask.Wait ();
+
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.ID == 1);
+
+            Assert.That (assignment.TotalItems, Is.EqualTo (2));
+        }
+
+        [Test]
+        public void GetAssignmentAndCheckTotalExpenses ()
+        {
+            var assignmentTask = service.GetAssignmentsAsync ();
+
+            assignmentTask.Wait ();
+
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.ID == 1);
+
+            Assert.That (assignment.TotalExpenses, Is.EqualTo (41.49M));
+        }
+
+        [Test]
         public void SaveAssignment ()
         {
             var task = service.GetAssignmentsAsync ();
