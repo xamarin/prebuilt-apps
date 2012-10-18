@@ -36,5 +36,12 @@ namespace FieldService.Android.Utilities {
         {
             return (int)(value * 1000000);
         }
+
+        public static int ToInt (this string s)
+        {
+            var value = 0;
+            int.TryParse (s, out value);
+            return value;
+        }
     }
 }

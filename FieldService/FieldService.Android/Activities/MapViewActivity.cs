@@ -37,10 +37,14 @@ namespace FieldService.Android {
         LinearLayout assignmentMapViewLayout;
         MapView mapView;
         MyLocationOverlay myLocation;
+        List<string> assignmentStatus = new List<string> ();
 
         public MapViewActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            foreach (var item in Assignment.AvailableStatuses) {
+                assignmentStatus.Add (item.ToString ());
+            }
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -58,7 +62,7 @@ namespace FieldService.Android {
                 mapView.Controller.AnimateTo (myLocation.MyLocation);
             });
             mapView.Overlays.Add (myLocation);
-            mapView.Controller.SetZoom (8);
+            mapView.Controller.SetZoom (5);
             mapView.Clickable = true;
             mapView.Enabled = true;
             mapView.SetBuiltInZoomControls (true);
@@ -138,19 +142,21 @@ namespace FieldService.Android {
 
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
-                List<string> status = new List<string> ();
-                foreach (var item in Enum.GetValues (typeof (AssignmentStatus))) {
-                    status.Add (item.ToString ());
-                }
-                spinner.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleSpinnerItem, status);
+
+                spinner.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleSpinnerItem, assignmentStatus);
+                spinner.SetSelection (assignmentStatus.IndexOf (assignment.Status.ToString ()));
+                spinner.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
+                spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
+
                 spinner.ItemSelected += (sender, e) => {
-                    var selected = status.ElementAtOrDefault (e.Position);
-                    if (selected != null) {
+                    var selected = assignmentStatus.ElementAtOrDefault (e.Position);
+                    var status = (AssignmentStatus)Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
+                    if (status != assignment.Status) {
                         switch (selected) {
                             case "Active":
                                 break;
                             default:
-                                assignment.Status = (AssignmentStatus)FieldService.Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
+                                assignment.Status = status;
                                 assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
                                     SetAssignment (false);
                                 });
@@ -158,7 +164,6 @@ namespace FieldService.Android {
                         }
                     }
                 };
-                spinner.SetSelection (status.IndexOf (assignment.Status.ToString ()));
                 number.Text = assignment.Priority.ToString ();
                 job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.Title);
                 name.Text = assignment.ContactName;

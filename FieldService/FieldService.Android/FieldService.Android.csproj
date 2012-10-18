@@ -122,6 +122,7 @@
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
+    <Compile Include="CustomSpinner.cs" />
     <Compile Include="Maps\MapOverlayItem.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

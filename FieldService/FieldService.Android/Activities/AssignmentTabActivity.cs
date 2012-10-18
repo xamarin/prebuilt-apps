@@ -29,7 +29,8 @@ namespace FieldService.Android {
     [Activity (Label = "Assignment Tabs", Theme = "@style/CustomHoloTheme")]
     public class AssignmentTabActivity : Activity{
         LocalActivityManager localManger;
-
+        TabHost tabHost;
+        const string CURRENT_TAB = "currentTab";
         public AssignmentTabActivity ()
         {
             ServiceContainer.Register<ISynchronizeInvoke> (() => new SynchronizeInvoke { Activity = this });
@@ -41,7 +42,7 @@ namespace FieldService.Android {
 
             SetContentView (Resource.Layout.AssignmentsTabsLayout);
 
-            var tabHost = FindViewById<TabHost> (Resource.Id.assingmentTabHost);
+            tabHost = FindViewById<TabHost> (Resource.Id.assingmentTabHost);
             localManger = new LocalActivityManager (this, true);
             localManger.DispatchCreate (savedInstanceState);
             tabHost.Setup (localManger);
@@ -59,7 +60,12 @@ namespace FieldService.Android {
             tabHost.AddTab (assignmentsSpec);
             tabHost.AddTab (mapViewSpec);
 
-            tabHost.CurrentTab = 0;
+            if (savedInstanceState != null) {
+                var currentTab = savedInstanceState.GetInt (CURRENT_TAB);
+                tabHost.CurrentTab = currentTab;
+            } else {
+                tabHost.CurrentTab = 0;
+            }
         }
 
         protected override void OnResume ()
@@ -72,6 +78,12 @@ namespace FieldService.Android {
         {
             localManger.DispatchPause (IsFinishing);
             base.OnPause ();
+        }
+
+        protected override void OnSaveInstanceState (Bundle outState)
+        {
+            base.OnSaveInstanceState (outState);
+            outState.PutInt (CURRENT_TAB, tabHost.CurrentTab);
         }
     }
 }
