@@ -12,7 +12,6 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,9 +21,10 @@ using Android.Widget;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Orientation = Android.Content.Res.Orientation;
 
 namespace FieldService.Android {
-    public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener {
+    public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener{
 
         AssignmentViewModel assignmentViewModel;
         IList<Assignment> assignments;
@@ -37,6 +37,11 @@ namespace FieldService.Android {
             this.assignments = assignments;
             this.resourceId = resourceId;
             this.assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+
+            assignmentStatus = new List<string> ();
+            foreach (var item in Assignment.AvailableStatuses) {
+                assignmentStatus.Add (item.ToString ());
+            }
         }
 
         public override View GetView (int position, View convertView, ViewGroup parent)
@@ -56,7 +61,6 @@ namespace FieldService.Android {
                 return view;
             }
 
-            view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentoffwhite));
             var number = view.FindViewById<TextView> (Resource.Id.assignmentItemNumber);
             var job = view.FindViewById<TextView> (Resource.Id.assignmentJob);
             var name = view.FindViewById<TextView> (Resource.Id.assignmentName);
@@ -77,48 +81,43 @@ namespace FieldService.Android {
                 timerLayout.Visibility = ViewStates.Gone;
                 accept.Tag = position;
                 decline.Tag = position;
+                view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentoffwhite));
+
             } else {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
-                timerlinearLayout.Visibility = ViewStates.Gone;
+                timerlinearLayout.Visibility = Context.Resources.Configuration.Orientation == Orientation.Landscape ? ViewStates.Invisible : ViewStates.Gone;
 
-                assignmentStatus = new List<string> ();
-                foreach (var item in Enum.GetValues (typeof (AssignmentStatus))) {
-                    assignmentStatus.Add (item.ToString ());
-                }
                 spinner.Tag = position;
                 var adapter = new SpinnerAdapter (assignmentStatus, ServiceContainer.Resolve<AssignmentsActivity> ());
                 spinner.Adapter = adapter;
 
-                switch (assignment.Status) {
-                    case AssignmentStatus.New:
-                        break;
-                    default:
-                        spinner.SetSelection (assignmentStatus.IndexOf (assignment.Status.ToString ()));
-                        break;
-                }
+                spinner.SetSelection (assignmentStatus.IndexOf (assignment.Status.ToString ()));
+                view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
+                spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
 
                 spinner.ItemSelected += (sender, e) => {
                     var selected = assignmentStatus.ElementAtOrDefault (e.Position);
-                    if (selected != null) {
+                    var index = int.Parse (e.Parent.Tag.ToString ());
+                    var activeAssignment = GetItem (index);
+                    var status = (AssignmentStatus)Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
+                    if (activeAssignment.Status != status) {
                         switch (selected) {
                             case "Active": {
-                                    var index = int.Parse (e.Parent.Tag.ToString ());
                                     view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentblue));
                                     spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    var activeAssignment = GetItem (index);
+                                    spinner.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentblue));
                                     activeAssignment.Status = AssignmentStatus.Active;
                                     SaveAssignment (activeAssignment, index);
                                 }
                                 break;
                             default: {
-                                    var index = int.Parse (e.Parent.Tag.ToString ());
                                     view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
                                     spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    var activeAssignment = GetItem (index);
-                                    activeAssignment.Status = (AssignmentStatus)FieldService.Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
+                                    spinner.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
+                                    activeAssignment.Status = status;
                                     SaveAssignment (activeAssignment, index);
                                 }
                                 break;
@@ -149,7 +148,7 @@ namespace FieldService.Android {
                     activity.ReloadAssignments ();
                 } else {
                     //not sure how to refresh 1 list item yet.
-                    
+                    activity.ReloadSingleListItem (index);
                 }
             });
         }
@@ -160,7 +159,7 @@ namespace FieldService.Android {
                 case Resource.Id.assignmentAccept: {
                         var index = int.Parse (v.Tag.ToString ());
                         var activeAssignment = GetItem (index);
-                        activeAssignment.Status = AssignmentStatus.Active;
+                        activeAssignment.Status = AssignmentStatus.Hold;
                         SaveAssignment (activeAssignment, index);
                     }
                     break;

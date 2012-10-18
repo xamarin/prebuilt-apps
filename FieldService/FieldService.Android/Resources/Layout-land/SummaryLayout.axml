@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+    <ImageView
+        android:id="@+id/actionBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:background="@drawable/actionbar" />
+    <ImageView
+        android:id="@+id/actionBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/XamarinTitle" />
+    <fragment
+        android:name="com.fieldservice.android.fragments.NavigationFragment"
+        android:id="@+id/navigationFragment"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="55dp" />
+    <fragment
+        android:name="com.fieldservice.android.fragments.NavigationFragment"
+        android:id="@+id/timerFragment"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_toRightOf="@id/navigationFragment"
+        android:layout_alignTop="@+id/navigationFragment" />
+</RelativeLayout>

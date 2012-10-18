@@ -33,10 +33,15 @@ namespace FieldService.Android {
         readonly AssignmentViewModel assignmentViewModel;
         ListView assignmentsListView;
         LinearLayout assignmentActiveLayout;
+        List<string> assignmentStatus = new List<string> ();
 
         public AssignmentsActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+
+            foreach (var item in Assignment.AvailableStatuses) {
+                assignmentStatus.Add (item.ToString ());
+            }
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -86,10 +91,13 @@ namespace FieldService.Android {
             });
         }
 
-
+        /// <summary>
+        /// Reload the view in the listview by itself without calling to reload the list.
+        /// </summary>
+        /// <param name="index"></param>
         public void ReloadSingleListItem (int index)
         {
-            if (assignmentsListView.FirstVisiblePosition < index && index > assignmentsListView.LastVisiblePosition) {
+            if (assignmentsListView.FirstVisiblePosition < index && index < assignmentsListView.LastVisiblePosition) {
                 var view = assignmentsListView.GetChildAt (index);
                 if (view != null) {
                     view.Invalidate ();
@@ -106,6 +114,10 @@ namespace FieldService.Android {
 
         }
 
+        /// <summary>
+        /// Set the active assignment at the top of the list.
+        /// </summary>
+        /// <param name="visible">boolean to set the layout visible or not</param>
         private void SetActiveAssignmentVisible (bool visible)
         {
             if (visible) {
@@ -138,27 +150,28 @@ namespace FieldService.Android {
 
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
-                List<string> status = new List<string> ();
-                foreach (var item in Enum.GetValues (typeof (AssignmentStatus))) {
-                    status.Add (item.ToString ());
-                }
-                spinner.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleSpinnerItem, status);
+
+                spinner.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleSpinnerItem, assignmentStatus);
+                spinner.SetSelection (assignmentStatus.IndexOf (assignment.Status.ToString ()));
+                spinner.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
+                spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
+
                 spinner.ItemSelected += (sender, e) => {
-                    var selected = status.ElementAtOrDefault (e.Position);
-                    if (selected != null) {
-                        switch (selected) {
-                            case "Active":
-                                break;
-                            default:
-                                assignment.Status = (AssignmentStatus)FieldService.Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
-                                assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
-                                    ReloadAssignments ();
-                                });
-                                break;
+                        var selected = assignmentStatus.ElementAtOrDefault (e.Position);
+                        var status = (AssignmentStatus)Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
+                        if (status != assignment.Status) {
+                            switch (selected) {
+                                case "Active":
+                                    break;
+                                default:
+                                    assignment.Status = status;
+                                    assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+                                        ReloadAssignments ();
+                                    });
+                                    break;
+                            }
                         }
-                    }
                 };
-                spinner.SetSelection (status.IndexOf (assignment.Status.ToString ()));
                 number.Text = assignment.Priority.ToString();
                 job.Text = string.Format("#{0} {1}\n{2}", assignment.JobNumber,  assignment.StartDate.ToShortDateString(), assignment.Title);
                 name.Text = assignment.ContactName;

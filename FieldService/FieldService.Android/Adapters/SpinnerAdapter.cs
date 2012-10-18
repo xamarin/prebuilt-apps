@@ -14,9 +14,9 @@
 //    limitations under the License.
 using System.Collections.Generic;
 using System.Linq;
-
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 
@@ -61,6 +61,7 @@ namespace FieldService.Android {
 
             var textView = view.FindViewById<TextView> (Resource.Id.simpleSpinnerTextView);
             textView.Text = item;
+            textView.SetBackgroundColor (Color.White);
 
             return view;
         }
