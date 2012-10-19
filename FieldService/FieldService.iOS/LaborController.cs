@@ -19,6 +19,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.Data;
 
 namespace FieldService.iOS
 {
@@ -38,6 +39,14 @@ namespace FieldService.iOS
 
 			laborViewModel = ServiceContainer.Resolve <LaborViewModel> ();
 			detailsController = ServiceContainer.Resolve <AssignmentDetailsController> ();
+		}
+
+		/// <summary>
+		/// Gets or sets the labor entry being edited
+		/// </summary>
+		public Labor Labor {
+			get;
+			set;
 		}
 
 		public override void ViewDidLoad ()
@@ -61,7 +70,13 @@ namespace FieldService.iOS
 			edit.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
 			edit.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
-			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, (sender, e) => PerformSegue ("AddLabor", this));
+			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, (sender, e) => {
+				Labor = new Labor {
+					Type = LaborType.Hourly,
+					Assignment = detailsController.Assignment.ID,
+				};
+				PerformSegue ("AddLabor", this);
+			});
 			addItem.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			

@@ -228,6 +228,7 @@
     <Compile Include="AddLaborController.designer.cs">
       <DependentUpon>AddLaborController.cs</DependentUpon>
     </Compile>
+    <Compile Include="LaborTypeSheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

@@ -20,28 +20,27 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
-	/// <summary>
-	/// A UIActionSheet that provides AssignmentStatus as a selection
-	/// </summary>
-	public class AssignmentStatusSheet : UIActionSheet
+	public class LaborTypeSheet : UIActionSheet
 	{
-		public AssignmentStatusSheet ()
+		readonly LaborType[] types;
+
+		public LaborTypeSheet ()
 		{
-			foreach (AssignmentStatus status in Assignment.AvailableStatuses) {
-				AddButton (status.ToString ());
+			types = (LaborType[])Enum.GetValues (typeof(LaborType));
+
+			foreach (LaborType type in types) {
+				AddButton (type.ToUserString ());
 			}
 
 			Dismissed += (sender, e) => {
 				if (e.ButtonIndex != -1)
-					Status = Assignment.AvailableStatuses[e.ButtonIndex];
+					Type = types[e.ButtonIndex];
 			};
 		}
-		
-		/// <summary>
-		/// The selected status
-		/// </summary>
-		public AssignmentStatus? Status {
-			get;
+
+		public LaborType? Type
+		{
+			get; 
 			private set;
 		}
 	}

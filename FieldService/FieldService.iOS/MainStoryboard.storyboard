@@ -820,7 +820,7 @@
         <!--Add Labor Controller-->
         <scene sceneID="EYo-cS-Qo6">
             <objects>
-                <viewController id="K64-ym-iGF" customClass="AddLaborController" sceneMemberID="viewController">
+                <viewController modalPresentationStyle="formSheet" id="K64-ym-iGF" customClass="AddLaborController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UQg-Ke-8Ie">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -836,6 +836,11 @@
                                     </barButtonItem>
                                 </items>
                             </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="aPK-A4-3Yc">
+                                <rect key="frame" x="0.0" y="44" width="540" height="576"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -843,6 +848,7 @@
                     <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="cancel" destination="9oi-3l-2q6" id="gP4-aV-MQM"/>
+                        <outlet property="tableView" destination="aPK-A4-3Yc" id="2pU-rl-TbZ"/>
                         <outlet property="toolbar" destination="7Gg-0v-iXJ" id="lbr-G7-4RD"/>
                     </connections>
                 </viewController>
@@ -1061,6 +1067,7 @@
             <relationships>
                 <relationship kind="action" name="Cancel:"/>
                 <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>

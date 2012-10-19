@@ -17,6 +17,9 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIBarButtonItem cancel { get; set; }
 
+		[Outlet]
+		MonoTouch.UIKit.UITableView tableView { get; set; }
+
 		[Action ("Cancel:")]
 		partial void Cancel (MonoTouch.Foundation.NSObject sender);
 		
@@ -30,6 +33,11 @@ namespace FieldService.iOS
 			if (cancel != null) {
 				cancel.Dispose ();
 				cancel = null;
+			}
+
+			if (tableView != null) {
+				tableView.Dispose ();
+				tableView = null;
 			}
 		}
 	}
