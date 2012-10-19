@@ -42,5 +42,27 @@ namespace FieldService.Tests.ViewModels {
 
             Assert.That (viewModel.Items.Count, Is.GreaterThan (0));
         }
+
+        [Test]
+        public void SaveAssignmentItem ()
+        {
+            var assignment = new Assignment();
+            var task = viewModel.SaveAssignmentItem (assignment, new AssignmentItem ());
+
+            task.Wait ();
+
+            Assert.That (assignment.TotalItems, Is.EqualTo (1));
+        }
+
+        [Test]
+        public void DeleteAssignmentItem ()
+        {
+            var assignment = new Assignment { TotalItems = 1 };
+            var task = viewModel.DeleteAssignmentItem (assignment, new AssignmentItem ());
+
+            task.Wait ();
+
+            Assert.That (assignment.TotalItems, Is.EqualTo (0));
+        }
     }
 }

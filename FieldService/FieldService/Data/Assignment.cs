@@ -132,7 +132,7 @@ namespace FieldService.Data {
         /// <summary>
         /// Total number of items
         /// </summary>
-        public int TotalItems { get; private set; }
+        public int TotalItems { get; set; }
 
         /// <summary>
         /// Total cost of expenses

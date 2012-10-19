@@ -75,16 +75,22 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Saves an assignment item
         /// </summary>
-        public Task SaveAssignmentItem (AssignmentItem item)
+        public Task SaveAssignmentItem (Assignment assignment, AssignmentItem item)
         {
+            //If it's a new item
+            if (item.ID == 0)
+                assignment.TotalItems++;
+
             return service.SaveAssignmentItem (item);
         }
 
         /// <summary>
         /// Deletes an assignment item
         /// </summary>
-        public Task DeleteAssignmentItem (AssignmentItem item)
+        public Task DeleteAssignmentItem (Assignment assignment, AssignmentItem item)
         {
+            assignment.TotalItems--;
+
             return service.DeleteAssignmentItem (item);
         }
     }

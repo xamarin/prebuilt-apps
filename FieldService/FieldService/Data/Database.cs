@@ -84,7 +84,8 @@ namespace FieldService.Data
                 .ContinueWith (connection.DropTableAsync<AssignmentItem> ())
                 .ContinueWith (connection.DropTableAsync<Labor> ())
                 .ContinueWith (connection.DropTableAsync<Expense> ())
-                .ContinueWith (connection.DropTableAsync<TimerEntry> ());
+                .ContinueWith (connection.DropTableAsync<TimerEntry> ())
+                .ContinueWith (_ => initialized = false);
         }
 
         private static Task CreateDatabase(SQLiteAsyncConnection connection)
