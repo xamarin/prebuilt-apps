@@ -102,7 +102,7 @@ namespace FieldService.iOS
 				if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
 					title.Text = "Labor Hours";
 				else
-					title.Text = string.Format ("Labor Hours ({0})", laborViewModel.LaborHours.Count);
+					title.Text = string.Format ("Labor Hours ({0:0.0})", laborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
 				tableView.ReloadData ();
 			});
 		}

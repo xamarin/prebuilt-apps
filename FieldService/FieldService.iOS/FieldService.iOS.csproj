@@ -224,6 +224,10 @@
     <Compile Include="LaborCell.designer.cs">
       <DependentUpon>LaborCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="AddLaborController.cs" />
+    <Compile Include="AddLaborController.designer.cs">
+      <DependentUpon>AddLaborController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

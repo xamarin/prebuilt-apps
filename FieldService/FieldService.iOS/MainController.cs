@@ -39,6 +39,8 @@ namespace FieldService.iOS
 				ViewControllers[0],
 				new UINavigationController(ServiceContainer.Resolve<AssignmentDetailsController>()),
 			};
+
+			Delegate = new SplitDelegate();
 		}
 
 		/// <summary>
@@ -55,6 +57,33 @@ namespace FieldService.iOS
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
 		{
 			return UIInterfaceOrientationMask.All;
+		}
+
+		/// <summary>
+		/// Delegate for split view controller
+		/// </summary>
+		private class SplitDelegate : UISplitViewControllerDelegate
+		{
+			readonly AssignmentDetailsController detailsController;
+
+			public SplitDelegate ()
+			{
+				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+			}
+
+			public override void WillHideViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem barButtonItem, UIPopoverController pc)
+			{
+				barButtonItem.Title = "Menu";
+				barButtonItem.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+				barButtonItem.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
+
+				detailsController.NavigationItem.SetLeftBarButtonItem(barButtonItem, true);
+			}
+
+			public override void WillShowViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem button)
+			{
+				detailsController.NavigationItem.SetLeftBarButtonItem(null, true);
+			}
 		}
 	}
 }

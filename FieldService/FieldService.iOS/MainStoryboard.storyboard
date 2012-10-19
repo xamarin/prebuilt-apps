@@ -810,11 +810,45 @@
                     <connections>
                         <outlet property="tableView" destination="upD-6H-x5q" id="heE-zv-CLJ"/>
                         <outlet property="toolbar" destination="r7p-Ld-1YW" id="miB-ap-V67"/>
+                        <segue destination="K64-ym-iGF" kind="modal" identifier="AddLabor" id="fza-Z7-eJ2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NKK-iO-zUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1704" y="616"/>
+        </scene>
+        <!--Add Labor Controller-->
+        <scene sceneID="EYo-cS-Qo6">
+            <objects>
+                <viewController id="K64-ym-iGF" customClass="AddLaborController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="UQg-Ke-8Ie">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="7Gg-0v-iXJ">
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <barButtonItem title="Cancel" id="9oi-3l-2q6">
+                                        <connections>
+                                            <action selector="Cancel:" destination="K64-ym-iGF" id="HgN-08-LvQ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="cancel" destination="9oi-3l-2q6" id="gP4-aV-MQM"/>
+                        <outlet property="toolbar" destination="7Gg-0v-iXJ" id="lbr-G7-4RD"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vmP-sC-Td3" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2574" y="631"/>
         </scene>
         <!--Add Item Controller-->
         <scene sceneID="RXg-cv-DOj">
@@ -1019,6 +1053,14 @@
                 <relationship kind="action" name="Cancel:"/>
                 <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="AddLaborController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddLaborController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
