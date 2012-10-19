@@ -6,26 +6,22 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/listView1" />
+        android:id="@+id/navigationListView" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/linearLayout1"
         android:layout_marginTop="20dp">
         <ImageView
-            android:src="@android:drawable/ic_menu_gallery"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:id="@+id/fragmentStatusImage" />
         <Spinner
             android:id="@+id/fragmentStatus"
-            android:entries="Item 1"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
     <RelativeLayout
-        android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp">

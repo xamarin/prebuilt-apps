@@ -118,14 +118,18 @@
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Activities\AssignmentsActivity.cs" />
+    <Compile Include="Activities\SummaryActivity.cs" />
     <Compile Include="Adapters\AssignmentsAdapter.cs" />
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
+    <Compile Include="Fragments\ContentFragment.cs" />
+    <Compile Include="Fragments\NavigationFragment.cs" />
     <Compile Include="Maps\MapOverlayItem.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
+    <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\Extensions.cs" />
     <Compile Include="Utilities\SynchronizeInvoke.cs" />
   </ItemGroup>
@@ -144,6 +148,15 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\MapViewLayout.axml">
       <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout-land\SummaryLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\NavigationLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\NavigationListItemLayout.axml">
+      <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
@@ -183,6 +196,7 @@
     <AndroidResource Include="Resources\Drawable\AcceptedAssignmentIcon.png" />
     <AndroidResource Include="Resources\Drawable\ActiveAssignmentIcon.png" />
     <AndroidResource Include="Resources\Drawable\NewAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable\SelectedItem.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

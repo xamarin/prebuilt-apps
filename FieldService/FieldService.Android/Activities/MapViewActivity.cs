@@ -37,14 +37,10 @@ namespace FieldService.Android {
         LinearLayout assignmentMapViewLayout;
         MapView mapView;
         MyLocationOverlay myLocation;
-        List<string> assignmentStatus = new List<string> ();
 
         public MapViewActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
-            foreach (var item in Assignment.AvailableStatuses) {
-                assignmentStatus.Add (item.ToString ());
-            }
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -143,20 +139,19 @@ namespace FieldService.Android {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
 
-                spinner.Adapter = new ArrayAdapter<string> (this, Android.Resource.Layout.SimpleSpinnerItem, assignmentStatus);
-                spinner.SetSelection (assignmentStatus.IndexOf (assignment.Status.ToString ()));
+                spinner.Adapter = new SpinnerAdapter(Assignment.AvailableStatuses, this);
+                spinner.SetSelection (Assignment.AvailableStatuses.ToList().IndexOf (assignment.Status));
                 spinner.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
                 spinner.ItemSelected += (sender, e) => {
-                    var selected = assignmentStatus.ElementAtOrDefault (e.Position);
-                    var status = (AssignmentStatus)Android.Utilities.Extensions.ToEnum (typeof (AssignmentStatus), selected);
-                    if (status != assignment.Status) {
+                    var selected = Assignment.AvailableStatuses.ElementAtOrDefault (e.Position);
+                    if (selected != assignment.Status) {
                         switch (selected) {
-                            case "Active":
+                            case AssignmentStatus.Active:
                                 break;
                             default:
-                                assignment.Status = status;
+                                assignment.Status = selected;
                                 assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
                                     SetAssignment (false);
                                 });

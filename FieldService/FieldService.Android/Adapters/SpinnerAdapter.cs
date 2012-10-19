@@ -19,15 +19,18 @@ using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using FieldService.Data;
 
 namespace FieldService.Android {
     public class SpinnerAdapter : BaseAdapter, ISpinnerAdapter {
         List<string> items;
         Activity activity;
-        public SpinnerAdapter (List<string> items, Activity activity)
+        public SpinnerAdapter (AssignmentStatus[] items, Activity activity)
             : base ()
         {
-            this.items = items;
+            foreach (var item in items) {
+                this.items.Add (item.ToString());
+            }
             this.activity = activity;
         }
 
@@ -64,6 +67,12 @@ namespace FieldService.Android {
             textView.SetBackgroundColor (Color.White);
 
             return view;
+        }
+
+        protected override void Dispose (bool disposing)
+        {
+            activity = null;
+            base.Dispose (disposing);
         }
     }
 }

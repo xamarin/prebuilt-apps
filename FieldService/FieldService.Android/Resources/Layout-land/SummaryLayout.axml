@@ -22,12 +22,20 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp" />
+        android:layout_marginTop="55dp"
+        android:minWidth="220dp" />
     <fragment
         android:name="com.fieldservice.android.fragments.NavigationFragment"
-        android:id="@+id/timerFragment"
+        android:id="@+id/contentFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_toRightOf="@id/navigationFragment"
         android:layout_alignTop="@+id/navigationFragment" />
+    <TextView
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/summaryAssignmentTitle"
+        android:layout_alignLeft="@id/contentFragment"
+        android:layout_marginTop="15dp" />
 </RelativeLayout>
