@@ -27,11 +27,13 @@ namespace FieldService.iOS
 	public partial class AssignmentItemCell : UITableViewCell
 	{
 		readonly ItemViewModel itemViewModel;
+		readonly AssignmentDetailsController detailsController;
 		AssignmentItem item;
 
 		public AssignmentItemCell (IntPtr handle) : base (handle)
 		{
 			itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
+			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 
 		public void SetItem(AssignmentItem item)
@@ -57,7 +59,9 @@ namespace FieldService.iOS
 			item.Used = !item.Used;
 			SetChecked (item.Used);
 
-			itemViewModel.SaveAssignmentItem (item).ContinueOnUIThread (_ => checkBox.Enabled = true);
+			itemViewModel
+				.SaveAssignmentItem (detailsController.Assignment, item)
+				.ContinueOnUIThread (_ => checkBox.Enabled = true);
 		}
 
 		protected override void Dispose (bool disposing)

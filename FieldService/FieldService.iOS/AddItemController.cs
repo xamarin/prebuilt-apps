@@ -117,7 +117,7 @@ namespace FieldService.iOS
 			{
 				var item = GetItem (indexPath);
 				tableView.UserInteractionEnabled = false;
-				itemViewModel.SaveAssignmentItem (new AssignmentItem {
+				itemViewModel.SaveAssignmentItem (detailController.Assignment, new AssignmentItem {
 					Item = item.ID,
 					Assignment = detailController.Assignment.ID,
 				})

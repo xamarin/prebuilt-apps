@@ -72,6 +72,16 @@ namespace FieldService.iOS
 			ReloadItems ();
 		}
 
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+
+			if (tableView.Editing) {
+				edit.Title = "Edit";
+				tableView.SetEditing (false, true);
+			}
+		}
+
 		public void ReloadItems()
 		{
 			itemViewModel
@@ -92,11 +102,13 @@ namespace FieldService.iOS
 		{
 			readonly ItemViewModel itemViewModel;
 			readonly ItemsViewController itemController;
+			readonly AssignmentDetailsController detailsController;
 			const string Identifier = "AssignmentItemCell";
 
 			public TableSource ()
 			{
 				itemController = ServiceContainer.Resolve<ItemsViewController>();
+				detailsController = ServiceContainer.Resolve <AssignmentDetailsController>();
 				itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
 			}
 
@@ -108,7 +120,7 @@ namespace FieldService.iOS
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				itemViewModel
-					.DeleteAssignmentItem (itemViewModel.AssignmentItems[indexPath.Row])
+					.DeleteAssignmentItem (detailsController.Assignment, itemViewModel.AssignmentItems[indexPath.Row])
 					.ContinueOnUIThread (_ => itemController.ReloadItems ());
 			}
 
