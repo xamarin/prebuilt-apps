@@ -48,6 +48,7 @@
     <Compile Include="Mocks\MockSynchronizeInvoke.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AssignmentViewModelTests.cs" />
+    <Compile Include="ViewModels\ItemViewModelTests.cs" />
     <Compile Include="ViewModels\LoginViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>

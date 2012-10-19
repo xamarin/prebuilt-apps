@@ -119,15 +119,5 @@ namespace FieldService.Tests.ViewModels {
 
             Assert.That ((int)viewModel.Hours.TotalHours, Is.EqualTo (1));
         }
-
-        [Test]
-        public void LoadAssignmentItems ()
-        {
-            var task = viewModel.LoadAssignmentItems (new Assignment ());
-
-            task.Wait ();
-
-            Assert.That (viewModel.AssignmentItems.Count, Is.GreaterThan (0));
-        }
     }
 }
