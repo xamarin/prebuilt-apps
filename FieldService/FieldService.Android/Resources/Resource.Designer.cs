@@ -74,58 +74,64 @@ namespace FieldService.Android
 			public const int actionbar = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int ActiveAssignmentIcon = 2130837507;
+			public const int active_assignment_selector = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int blueRectangle = 2130837508;
+			public const int ActiveAssignmentIcon = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int decline_assignment = 2130837509;
+			public const int assignment_list_selector = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int EnrouteImage = 2130837510;
+			public const int blueRectangle = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int HoldImage = 2130837511;
+			public const int decline_assignment = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int Icon = 2130837512;
+			public const int EnrouteImage = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int login_button = 2130837513;
+			public const int HoldImage = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int loginbox = 2130837514;
+			public const int Icon = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int MapIcon = 2130837515;
+			public const int login_button = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int NewAssignmentIcon = 2130837516;
+			public const int loginbox = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int PhoneIcon = 2130837517;
+			public const int MapIcon = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int roundedblack = 2130837518;
+			public const int NewAssignmentIcon = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int SelectedItem = 2130837519;
+			public const int PhoneIcon = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int smallBlueRectangle = 2130837520;
+			public const int roundedblack = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int timer_selector = 2130837521;
+			public const int SelectedItem = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int TimerPause = 2130837522;
+			public const int smallBlueRectangle = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int TimerRecord = 2130837523;
+			public const int timer_selector = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int XamarinTitle = 2130837524;
+			public const int TimerPause = 2130837524;
+			
+			// aapt resource value: 0x7f020015
+			public const int TimerRecord = 2130837525;
+			
+			// aapt resource value: 0x7f020016
+			public const int XamarinTitle = 2130837526;
 			
 			private Drawable()
 			{

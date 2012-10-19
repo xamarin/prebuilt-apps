@@ -13,7 +13,7 @@ using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
-namespace FieldService.Android.Activities {
+namespace FieldService.Android {
     [Activity (Label = "Summary", Theme = "@style/CustomHoloTheme")]
     public class SummaryActivity : Activity {
         AssignmentViewModel assignmentViewModel;
@@ -38,6 +38,8 @@ namespace FieldService.Android.Activities {
                 var index = bundle.GetInt ("index", -1);
                 if (index != -1) {
                     assignment = assignmentViewModel.Assignments [index];
+                } else {
+                    assignment = assignmentViewModel.ActiveAssignment;
                 }
             }
 

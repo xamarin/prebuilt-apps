@@ -32,7 +32,7 @@ using System;
 
 namespace FieldService.Android {
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
-    public class MapViewActivity : MapActivity {
+    public class MapViewActivity : MapActivity, View.IOnClickListener {
         AssignmentViewModel assignmentViewModel;
         LinearLayout assignmentMapViewLayout;
         MapView mapView;
@@ -53,6 +53,7 @@ namespace FieldService.Android {
             assignmentMapViewLayout = FindViewById<LinearLayout> (Resource.Id.mapViewAssignmentLayout);
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
 
+            assignmentMapViewLayout.SetOnClickListener (this);
             myLocation = new MyLocationOverlay (this, mapView);
             myLocation.RunOnFirstFix (() => {
                 mapView.Controller.AnimateTo (myLocation.MyLocation);
@@ -132,7 +133,7 @@ namespace FieldService.Android {
                     assignmentMapViewLayout.AddView (view);
                 }
                 view.LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent);
-                view.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
+                view.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.active_assignment_selector));
                 var number = view.FindViewById<TextView> (Resource.Id.assignmentItemNumber);
                 var job = view.FindViewById<TextView> (Resource.Id.assignmentJob);
                 var name = view.FindViewById<TextView> (Resource.Id.assignmentName);
@@ -180,6 +181,13 @@ namespace FieldService.Android {
                 timerText.Text = string.Format ("{0} hr {1} min\n{2}", "10", "59", "START");
             } else {
                 assignmentMapViewLayout.Visibility = ViewStates.Gone;
+            }
+        }
+
+        public void OnClick (View v)
+        {
+            if (v.Id == Resource.Id.mapViewAssignmentLayout) {
+
             }
         }
     }

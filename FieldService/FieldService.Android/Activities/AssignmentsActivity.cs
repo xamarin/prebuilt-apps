@@ -26,10 +26,11 @@ using Android.Widget;
 using FieldService.ViewModels;
 using FieldService.Utilities;
 using FieldService.Data;
+using FieldService.Android.Utilities;
 
 namespace FieldService.Android {
     [Activity (Label = "Assignments", Theme = "@style/CustomHoloTheme")]
-    public class AssignmentsActivity : Activity {
+    public class AssignmentsActivity : Activity, View.IOnClickListener {
         readonly AssignmentViewModel assignmentViewModel;
         ListView assignmentsListView;
         LinearLayout assignmentActiveLayout;
@@ -48,9 +49,10 @@ namespace FieldService.Android {
             assignmentsListView = FindViewById<ListView> (Resource.Id.assignmentsListView);
             assignmentActiveLayout = FindViewById<LinearLayout> (Resource.Id.assignmentSelectedItem);
 
+            assignmentActiveLayout.SetOnClickListener (this);
+            assignmentsListView.ItemClick += assignmentsListView_ItemClick;
             ServiceContainer.Register<AssignmentsActivity> (this);
         }
-
 
         /// <summary>
         /// Overrides resume so we can refresh the list when the activity is loaded.
@@ -129,7 +131,7 @@ namespace FieldService.Android {
                     assignmentActiveLayout.AddView (view);                    
                 }
                 view.LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent);
-                view.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
+                view.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.active_assignment_selector));
                 var number = view.FindViewById<TextView> (Resource.Id.assignmentItemNumber);
                 var job = view.FindViewById<TextView> (Resource.Id.assignmentJob);
                 var name = view.FindViewById<TextView> (Resource.Id.assignmentName);
@@ -175,6 +177,25 @@ namespace FieldService.Android {
                 
             } else {
                 assignmentActiveLayout.Visibility = ViewStates.Gone;
+            }
+        }
+
+        private void AssignmentSelected (int index)
+        {
+            var intent = new Intent (this, typeof (SummaryActivity));
+            intent.PutExtra (Constants.BUNDLE_INDEX, index);
+            StartActivity (intent);
+        }
+
+        private void assignmentsListView_ItemClick (object sender, AdapterView.ItemClickEventArgs e)
+        {
+            
+        }
+
+        public void OnClick (View v)
+        {
+            if (v.Id == Resource.Id.assignmentSelectedItem) {
+                AssignmentSelected (-1);
             }
         }
     }

@@ -30,7 +30,6 @@ namespace FieldService.Android {
     public class AssignmentTabActivity : Activity{
         LocalActivityManager localManger;
         TabHost tabHost;
-        const string CURRENT_TAB = "currentTab";
         public AssignmentTabActivity ()
         {
             ServiceContainer.Register<ISynchronizeInvoke> (() => new SynchronizeInvoke { Activity = this });
@@ -61,7 +60,7 @@ namespace FieldService.Android {
             tabHost.AddTab (mapViewSpec);
 
             if (savedInstanceState != null) {
-                var currentTab = savedInstanceState.GetInt (CURRENT_TAB);
+                var currentTab = savedInstanceState.GetInt (Constants.CURRENT_TAB);
                 tabHost.CurrentTab = currentTab;
             } else {
                 tabHost.CurrentTab = 0;
@@ -83,7 +82,7 @@ namespace FieldService.Android {
         protected override void OnSaveInstanceState (Bundle outState)
         {
             base.OnSaveInstanceState (outState);
-            outState.PutInt (CURRENT_TAB, tabHost.CurrentTab);
+            outState.PutInt (Constants.CURRENT_TAB, tabHost.CurrentTab);
         }
     }
 }

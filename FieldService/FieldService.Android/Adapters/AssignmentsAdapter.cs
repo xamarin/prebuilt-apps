@@ -75,19 +75,18 @@ namespace FieldService.Android {
                 timerLayout.Visibility = ViewStates.Gone;
                 accept.Tag = position;
                 decline.Tag = position;
-                view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentoffwhite));
 
             } else {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
                 timerlinearLayout.Visibility = Context.Resources.Configuration.Orientation == Orientation.Landscape ? ViewStates.Invisible : ViewStates.Gone;
 
+                spinner.Focusable = false;
                 spinner.Tag = position;
                 var adapter = new SpinnerAdapter (Assignment.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> ());
                 spinner.Adapter = adapter;
 
                 spinner.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (assignment.Status));
-                view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
                 spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
 
                 spinner.ItemSelected += (sender, e) => {
@@ -97,7 +96,6 @@ namespace FieldService.Android {
                     if (activeAssignment.Status != selected) {
                         switch (selected) {
                             case AssignmentStatus.Active: {
-                                    view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentblue));
                                     spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
                                     spinner.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentblue));
@@ -106,7 +104,6 @@ namespace FieldService.Android {
                                 }
                                 break;
                             default: {
-                                    view.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
                                     spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
                                     spinner.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));

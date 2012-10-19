@@ -12,5 +12,7 @@
         android:layout_height="fill_parent"
         android:id="@+id/assignmentsListView"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:listSelector="@drawable/assignment_list_selector"
+        android:background="@android:color/white" />
 </LinearLayout>

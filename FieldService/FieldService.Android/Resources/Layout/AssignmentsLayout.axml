@@ -29,7 +29,9 @@
         android:id="@+id/assignmentsListView"
         android:layout_below="@+id/assignmentSelectedItem"
         android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" />
+        android:layout_marginRight="5dp"
+        android:listSelector="@drawable/assignment_list_selector"
+        android:background="@android:color/white" />
     <TabHost
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

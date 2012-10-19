@@ -2,7 +2,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="horizontal"
     android:layout_width="fill_parent"
-    android:background="@android:color/white"
     android:layout_height="wrap_content">
     <TextView
         android:background="@drawable/roundedblack"
@@ -85,30 +84,31 @@
         android:orientation="horizontal"
         android:gravity="right"
         android:visibility="visible">
-      <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/timerLinearLayout">
-          <TextView
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:id="@+id/assignmentTimerText"
-              android:gravity="right"
-              android:textColor="@android:color/black"
-              android:maxWidth="85dp"
-              android:layout_gravity="center_vertical"
-              android:minWidth="85dp" />
-          <ToggleButton
-              android:layout_width="47dp"
-              android:layout_height="46dp"
-              android:id="@+id/assignmentTimer"
-              android:background="@drawable/timer_selector"
-              android:layout_marginTop="5dp"
-              android:layout_marginLeft="10dp"
-              android:layout_marginBottom="5dp"
-              android:textOff=""
-              android:textOn="" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/timerLinearLayout">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/assignmentTimerText"
+                android:gravity="right"
+                android:textColor="@android:color/black"
+                android:maxWidth="85dp"
+                android:layout_gravity="center_vertical"
+                android:minWidth="85dp" />
+            <ToggleButton
+                android:layout_width="47dp"
+                android:layout_height="46dp"
+                android:id="@+id/assignmentTimer"
+                android:background="@drawable/timer_selector"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginBottom="5dp"
+                android:focusable="false"
+                android:textOff=""
+                android:textOn="" />
         </LinearLayout>
         <LinearLayout
             android:layout_width="fill_parent"
@@ -130,6 +130,7 @@
                 android:layout_centerHorizontal="true"
                 android:background="@android:color/transparent"
                 android:layout_gravity="center_vertical"
+                android:focusable="false"
                 android:minWidth="100dp" />
         </LinearLayout>
     </LinearLayout>
@@ -150,6 +151,7 @@
             android:layout_width="110dp"
             android:layout_height="42dp"
             android:layout_marginBottom="5dp"
+            android:focusable="false"
             android:layout_marginTop="5dp"
             android:layout_gravity="center_vertical" />
         <Button
@@ -159,6 +161,7 @@
             android:id="@+id/assignmentDecline"
             android:background="@drawable/decline_assignment"
             android:textColor="@android:color/black"
+            android:focusable="false"
             android:layout_marginLeft="5dp"
             android:layout_gravity="center_vertical" />
     </LinearLayout>

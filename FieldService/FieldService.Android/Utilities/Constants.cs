@@ -13,5 +13,7 @@ using Android.Widget;
 namespace FieldService.Android.Utilities {
     public static class Constants {
         public static List<string> Navigation = new List<string> () { "Summary", "Map", "Items", "Labor Hours", "Expenses", "History", "Documents", "Confirmations" };
+        public const string BUNDLE_INDEX = "index",
+            CURRENT_TAB = "currentTab";
     }
 }
