@@ -24,6 +24,14 @@ namespace FieldService.iOS
 	public class BaseController : UIViewController
 	{
 		/// <summary>
+		/// Constructor for use when controller is not in a storyboard
+		/// </summary>
+		public BaseController ()
+		{
+			
+		}
+
+		/// <summary>
 		/// Required constructor for Storyboard to work
 		/// </summary>
 		/// <param name='handle'>

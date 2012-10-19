@@ -188,7 +188,7 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				detailsController.SectionSelected (indexPath.Row);
+				detailsController.SectionSelected (tableView, indexPath);
 			}
 
 			protected override void Dispose (bool disposing)

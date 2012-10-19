@@ -45,6 +45,8 @@ namespace FieldService.iOS
 			//Register some services
 			ServiceContainer.Register (Window);
 			ServiceContainer.Register <ISynchronizeInvoke>(() => new SynchronizeInvoke());
+			ServiceContainer.Register <MapController>();
+
 			//Apply our UI theme
 			Theme.Apply ();
 

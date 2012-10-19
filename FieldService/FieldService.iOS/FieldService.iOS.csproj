@@ -202,6 +202,11 @@
     <Compile Include="..\FieldService\ViewModels\ItemViewModel.cs">
       <Link>FieldService\ViewModels\ItemViewModel.cs</Link>
     </Compile>
+    <Compile Include="SummaryController.cs" />
+    <Compile Include="SummaryController.designer.cs">
+      <DependentUpon>SummaryController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="MapController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

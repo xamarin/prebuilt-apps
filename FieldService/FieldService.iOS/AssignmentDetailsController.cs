@@ -29,8 +29,9 @@ namespace FieldService.iOS
 	public partial class AssignmentDetailsController : BaseController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
-		UIView lastSelectedView;
-		MKMapView mapView;
+		UIViewController lastChildController;
+		MapController mapController;
+		SummaryController summaryController;
 
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
 		{
@@ -52,38 +53,16 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI that is required to be setup from code
-			lastSelectedView = container;
-			View.BackgroundColor = Theme.LinenPattern;
+			container.BackgroundColor = View.BackgroundColor = Theme.LinenPattern;
 			assignmentBackground.Image = Theme.AssignmentActive;
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
-			descriptionBackground.Image = Theme.Row180End;
 			accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 			decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
-			itemsBackground.Image = 
-				hoursBackground.Image = 
-				expensesBackground.Image = Theme.Inlay;
-			itemsLabel.TextColor =
-				items.TextColor =
-				hoursLabel.TextColor = 
-				hours.TextColor =
-				expensesLabel.TextColor =
-				expenses.TextColor = UIColor.White;
-
-			//Setup our toolbar
-			var label = new UILabel (new RectangleF(0, 0, 100, 36)) { 
-				Text = "Description",
-				TextColor = UIColor.White,
-				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
-			};
-			var descriptionButton = new UIBarButtonItem(label);
-			var viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, delegate {	});
-			viewHistory.SetBackgroundImage (Theme.BlueNavButton, UIControlState.Normal, UIBarMetrics.Default);
-			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
-			toolbar.Items = new UIBarButtonItem[] { descriptionButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), viewHistory };
+			lastChildController =
+				summaryController = ServiceContainer.Resolve <SummaryController>();
 
 			//Events
 			status.StatusChanged += (sender, e) => SaveAssignment ();
@@ -96,47 +75,43 @@ namespace FieldService.iOS
 			UpdateAssignment ();
 		}
 
-
 		/// <summary>
 		/// Called when a menu item in MenuController is selected
 		/// </summary>
-		public void SectionSelected(int index) 
+		public void SectionSelected(UITableView tableView, NSIndexPath indexPath) 
 		{
-			UIView nextView = null;
-			switch (index) {
+			UIViewController nextChildController;
+			switch (indexPath.Row) {
 			case 0:
 				//Summary
-				nextView = container;
+				nextChildController = summaryController;
 				break;
 			case 1:
 				//Map
-				if (mapView == null) {
-					mapView = new MKMapView();
-					mapView.ShowsUserLocation = true;
-					mapView.AutoresizingMask = container.AutoresizingMask;
+				if (mapController == null) {
+					mapController = ServiceContainer.Resolve <MapController>();
 				}
-
-				nextView = mapView;
+				nextChildController = mapController;
 				break;
 			case 2:
-			{
 				//Items
-				var controller = ServiceContainer.Resolve<ItemsViewController>();
-				nextView = controller.View;
-
-				//Manually fire the event
-				controller.ViewWillAppear (true);
-
+				nextChildController = ServiceContainer.Resolve<ItemsViewController>();
 				break;
-			}
 			default:
 				return; //This means this section isn't done yet
 			}
 
-			nextView.Frame = lastSelectedView.Frame;
-			UIView.Transition (lastSelectedView, nextView, .3, UIViewAnimationOptions.TransitionCrossDissolve, () => {
-				lastSelectedView = nextView;
-				UpdateAssignment ();
+			//Return if it's the same controller
+			if (lastChildController == nextChildController) 
+				return;
+
+			AddChildViewController (nextChildController);
+
+			tableView.UserInteractionEnabled = false;
+			Transition (lastChildController, nextChildController, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate {
+				lastChildController.RemoveFromParentViewController ();
+				lastChildController = nextChildController;
+				tableView.UserInteractionEnabled = true;
 			});
 		}
 
@@ -165,17 +140,6 @@ namespace FieldService.iOS
 					status.Hidden = false;
 					decline.Hidden =
 						accept.Hidden = true;
-				}
-
-				if (container == lastSelectedView) {
-					description.Text = Assignment.Description;
-					descriptionTitle.Text = Assignment.Title;
-					items.Text = Assignment.TotalItems.ToString ();
-					hours.Text = Assignment.TotalHours.TotalHours.ToString ("0.0");
-					expenses.Text = Assignment.TotalExpenses.ToString ("$0.00");
-				} else if (mapView == lastSelectedView) {
-					mapView.ClearPlacemarks ();
-					mapView.AddPlacemark (Assignment.ToPlacemark());
 				}
 			}
 		}

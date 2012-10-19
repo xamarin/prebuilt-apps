@@ -637,116 +637,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <view contentMode="scaleToFill" id="K80-PY-7lH">
+                            <containerView contentMode="scaleToFill" id="KW3-If-Y5C">
                                 <rect key="frame" x="0.0" y="95" width="768" height="909"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <subviews>
-                                    <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="ILL-XU-sxZ">
-                                        <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <items/>
-                                    </toolbar>
-                                    <view contentMode="scaleToFill" id="i38-Qx-TLV">
-                                        <rect key="frame" x="0.0" y="44" width="768" height="180"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="9iC-n9-UDF">
-                                                <rect key="frame" x="0.0" y="0.0" width="768" height="180"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J6x-UJ-Z0O">
-                                                <rect key="frame" x="40" y="20" width="135" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uhp-Ma-NLJ">
-                                                <rect key="frame" x="40" y="49" width="678" height="100"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" id="j8t-Lu-dE1">
-                                        <rect key="frame" x="20" y="244" width="728" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="bF6-7F-E3x">
-                                                <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Items" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yhM-Ac-ybs">
-                                                <rect key="frame" x="20" y="19" width="65" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Llg-km-Qxc">
-                                                <rect key="frame" x="607" y="20" width="101" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" id="IvS-JF-tkO">
-                                        <rect key="frame" x="20" y="312" width="728" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="4Qa-T9-xvc">
-                                                <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Labor Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PlY-rM-m0N">
-                                                <rect key="frame" x="20" y="19" width="115" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yx6-yH-h3l">
-                                                <rect key="frame" x="607" y="20" width="101" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                    <view contentMode="scaleToFill" id="TVx-Xy-mgs">
-                                        <rect key="frame" x="20" y="380" width="728" height="60"/>
-                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="vbv-E5-1rM">
-                                                <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
-                                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                            </imageView>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Expenses" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fuu-gf-2YZ">
-                                                <rect key="frame" x="20" y="19" width="80" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                            <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q5g-IS-DLh">
-                                                <rect key="frame" x="607" y="20" width="101" height="21"/>
-                                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
-                                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                <nil key="highlightedColor"/>
-                                            </label>
-                                        </subviews>
-                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                    </view>
-                                </subviews>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                            </view>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="Uec-i7-601" kind="embed" id="aVQ-x4-K2v"/>
+                                </connections>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
@@ -756,27 +654,14 @@
                         <outlet property="address" destination="OnY-Me-zjm" id="293-xD-2wQ"/>
                         <outlet property="assignmentBackground" destination="Mb1-Dq-oyc" id="kKI-j7-D76"/>
                         <outlet property="contact" destination="efx-m0-uSq" id="1XT-8R-JUM"/>
-                        <outlet property="container" destination="K80-PY-7lH" id="uBX-zu-WMt"/>
+                        <outlet property="container" destination="KW3-If-Y5C" id="zEX-xo-hN5"/>
                         <outlet property="decline" destination="6tg-OC-TM9" id="IOQ-h2-xHb"/>
-                        <outlet property="description" destination="Uhp-Ma-NLJ" id="Sd9-m4-pW8"/>
-                        <outlet property="descriptionBackground" destination="9iC-n9-UDF" id="U9F-GG-1KB"/>
-                        <outlet property="descriptionTitle" destination="J6x-UJ-Z0O" id="zey-XA-mUX"/>
-                        <outlet property="expenses" destination="q5g-IS-DLh" id="IdW-RG-re5"/>
-                        <outlet property="expensesBackground" destination="vbv-E5-1rM" id="7d5-Po-YdJ"/>
-                        <outlet property="expensesLabel" destination="fuu-gf-2YZ" id="Ahg-mz-zXx"/>
-                        <outlet property="hours" destination="Yx6-yH-h3l" id="dNb-9n-DlI"/>
-                        <outlet property="hoursBackground" destination="4Qa-T9-xvc" id="Qc3-Hq-BhK"/>
-                        <outlet property="hoursLabel" destination="PlY-rM-m0N" id="hNj-dT-e4I"/>
-                        <outlet property="items" destination="Llg-km-Qxc" id="Bqb-ek-t04"/>
-                        <outlet property="itemsBackground" destination="bF6-7F-E3x" id="ftu-IA-F5o"/>
-                        <outlet property="itemsLabel" destination="yhM-Ac-ybs" id="3Cj-5W-vtq"/>
                         <outlet property="numberAndDate" destination="fDS-oz-GV6" id="7NH-xC-Tfh"/>
                         <outlet property="priority" destination="MUh-5u-F3W" id="jwF-uD-xTj"/>
                         <outlet property="priorityBackground" destination="hTH-7w-2JA" id="f8L-Dv-hj8"/>
                         <outlet property="startAndEnd" destination="OCM-yb-feu" id="83J-pX-j2V"/>
                         <outlet property="status" destination="DFP-0O-eKA" id="zot-Uj-9h1"/>
                         <outlet property="title" destination="OyC-6N-jwX" id="bQx-XN-7gT"/>
-                        <outlet property="toolbar" destination="ILL-XU-sxZ" id="rsT-cF-Qb1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="US3-qf-4Ef" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -851,7 +736,142 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3g-Og-K0q" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="808" y="-212"/>
+            <point key="canvasLocation" x="912" y="-212"/>
+        </scene>
+        <!--Summary Controller-->
+        <scene sceneID="vk9-Ht-q4D">
+            <objects>
+                <viewController id="Uec-i7-601" customClass="SummaryController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="K80-PY-7lH">
+                        <rect key="frame" x="0.0" y="0.0" width="768" height="909"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="ILL-XU-sxZ">
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items/>
+                            </toolbar>
+                            <view contentMode="scaleToFill" id="i38-Qx-TLV">
+                                <rect key="frame" x="0.0" y="44" width="768" height="180"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="9iC-n9-UDF">
+                                        <rect key="frame" x="0.0" y="0.0" width="768" height="180"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="J6x-UJ-Z0O">
+                                        <rect key="frame" x="40" y="20" width="135" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="15"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Uhp-Ma-NLJ">
+                                        <rect key="frame" x="40" y="49" width="678" height="100"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="14"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="j8t-Lu-dE1">
+                                <rect key="frame" x="20" y="244" width="728" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="bF6-7F-E3x">
+                                        <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Items" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="yhM-Ac-ybs">
+                                        <rect key="frame" x="20" y="19" width="65" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Llg-km-Qxc">
+                                        <rect key="frame" x="607" y="20" width="101" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="IvS-JF-tkO">
+                                <rect key="frame" x="20" y="312" width="728" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="4Qa-T9-xvc">
+                                        <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Labor Hours" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="PlY-rM-m0N">
+                                        <rect key="frame" x="20" y="19" width="115" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="0.0" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="Yx6-yH-h3l">
+                                        <rect key="frame" x="607" y="20" width="101" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="TVx-Xy-mgs">
+                                <rect key="frame" x="20" y="380" width="728" height="60"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="vbv-E5-1rM">
+                                        <rect key="frame" x="0.0" y="0.0" width="728" height="60"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Expenses" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="fuu-gf-2YZ">
+                                        <rect key="frame" x="20" y="19" width="80" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$0.00" textAlignment="right" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="q5g-IS-DLh">
+                                        <rect key="frame" x="607" y="20" width="101" height="21"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <toolbarItems/>
+                    <connections>
+                        <outlet property="description" destination="Uhp-Ma-NLJ" id="6ll-P5-ck3"/>
+                        <outlet property="descriptionBackground" destination="9iC-n9-UDF" id="71S-ca-6ih"/>
+                        <outlet property="descriptionTitle" destination="J6x-UJ-Z0O" id="9ft-SW-Qde"/>
+                        <outlet property="expenses" destination="q5g-IS-DLh" id="P9T-5C-cGO"/>
+                        <outlet property="expensesBackground" destination="vbv-E5-1rM" id="3Nd-cN-yD8"/>
+                        <outlet property="expensesLabel" destination="fuu-gf-2YZ" id="F4X-Qq-1zb"/>
+                        <outlet property="hours" destination="Yx6-yH-h3l" id="SyK-xt-vup"/>
+                        <outlet property="hoursBackground" destination="4Qa-T9-xvc" id="JjP-1F-fQD"/>
+                        <outlet property="hoursLabel" destination="PlY-rM-m0N" id="fD9-fb-M1a"/>
+                        <outlet property="items" destination="Llg-km-Qxc" id="pp3-9w-fZm"/>
+                        <outlet property="itemsBackground" destination="bF6-7F-E3x" id="MNh-Ov-Fjd"/>
+                        <outlet property="itemsLabel" destination="yhM-Ac-ybs" id="qB0-wV-cGf"/>
+                        <outlet property="toolbar" destination="ILL-XU-sxZ" id="uP0-Kd-L8F"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="1jU-Yf-kgl" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="912" y="548"/>
         </scene>
     </scenes>
     <resources>
@@ -889,25 +909,12 @@
                 <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
                 <relationship kind="outlet" name="container" candidateClass="UIView"/>
                 <relationship kind="outlet" name="decline" candidateClass="UIButton"/>
-                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="descriptionBackground" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="descriptionTitle" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="expenses" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="expensesBackground" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="expensesLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="hours" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="hoursBackground" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="hoursLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="items" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="itemsBackground" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="itemsLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
                 <relationship kind="outlet" name="title" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
             </relationships>
         </class>
         <class className="AssignmentItemCell" superclassName="UITableViewCell">
@@ -982,6 +989,24 @@
         </class>
         <class className="StatusButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/StatusButton.h"/>
+        </class>
+        <class className="SummaryController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SummaryController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="descriptionTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expenses" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expensesBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="expensesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hours" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hoursBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="hoursLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="items" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemsBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="itemsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
         </class>
         <class className="TextButton" superclassName="UIButton">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/TextButton.h"/>
