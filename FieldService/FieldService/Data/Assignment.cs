@@ -122,6 +122,7 @@ namespace FieldService.Data {
         public TimeSpan TotalHours
         {
             get { return TimeSpan.FromTicks (TotalTicks); }
+            set { TotalTicks = value.Ticks; }
         }
 
         /// <summary>

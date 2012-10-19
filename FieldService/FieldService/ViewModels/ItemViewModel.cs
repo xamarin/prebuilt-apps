@@ -77,11 +77,14 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task SaveAssignmentItem (Assignment assignment, AssignmentItem item)
         {
-            //If it's a new item
-            if (item.ID == 0)
-                assignment.TotalItems++;
+            bool newItem = item.ID == 0;
 
-            return service.SaveAssignmentItem (item);
+            return service
+                .SaveAssignmentItem (item)
+                .ContinueWith (t => {
+                    if (newItem)
+                        assignment.TotalItems++;
+                });
         }
 
         /// <summary>
@@ -89,9 +92,9 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task DeleteAssignmentItem (Assignment assignment, AssignmentItem item)
         {
-            assignment.TotalItems--;
-
-            return service.DeleteAssignmentItem (item);
+            return service
+                .DeleteAssignmentItem (item)
+                .ContinueWith (t => assignment.TotalItems--);
         }
     }
 }

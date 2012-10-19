@@ -83,6 +83,7 @@ namespace FieldService.Tests.Mocks {
                     ID = 1,
                     Assignment = 1,
                     Description = "New Labor",
+                    Hours = TimeSpan.FromHours(1),
                     Type = LaborType.Hourly,
                 },
             });
