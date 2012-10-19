@@ -441,40 +441,40 @@ namespace FieldService.iOS
 			get { return toolbarShadow.Value; }
 		}
 
-		static Lazy<UIImage> row120 = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row120.png").CreateResizableImage (new UIEdgeInsets (25, 25, 25, 25)));
+		static Lazy<UIImage> rowPress = new Lazy<UIImage> (() => UIImage.FromFile ("Images/rowpress.png").CreateResizableImage (new UIEdgeInsets (25, 25, 25, 25)));
 		
 		/// <summary>
 		/// Image for row in labor hours
 		/// </summary>
-		public static UIImage Row120 {
-			get { return row120.Value; }
+		public static UIImage RowPress {
+			get { return rowPress.Value; }
 		}
 
-		static Lazy<UIImage> row120Press = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row120press.png").CreateResizableImage (new UIEdgeInsets (25, 25, 25, 25)));
+		static Lazy<UIImage> row = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row.png").CreateResizableImage (new UIEdgeInsets (22, 22, 22, 22)));
 		
 		/// <summary>
-		/// Image for row in labor hours
+		/// Background image for a table row
 		/// </summary>
-		public static UIImage Row120Press {
-			get { return row120Press.Value; }
+		public static UIImage Row {
+			get { return row.Value; }
 		}
 
-		static Lazy<UIImage> row180 = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row180.png").CreateResizableImage (new UIEdgeInsets (22, 22, 22, 22)));
+		static Lazy<UIImage> rowEnd = new Lazy<UIImage> (() => UIImage.FromFile ("Images/rowend.png").CreateResizableImage (new UIEdgeInsets (45, 45, 45, 45)));
 		
 		/// <summary>
-		/// Background image for assignment description view
+		/// Background image for the end of a table row
 		/// </summary>
-		public static UIImage Row180 {
-			get { return row180.Value; }
+		public static UIImage RowEnd {
+			get { return rowEnd.Value; }
 		}
 
-		static Lazy<UIImage> row180end = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row180end.png").CreateResizableImage (new UIEdgeInsets (45, 45, 45, 45)));
+		static Lazy<UIImage> rowShadow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/rowshadow.png").CreateResizableImage (new UIEdgeInsets (0, 90, 0, 90)));
 		
 		/// <summary>
-		/// 
+		/// Bottom shadow for a row
 		/// </summary>
-		public static UIImage Row180End {
-			get { return row180end.Value; }
+		public static UIImage RowShadow {
+			get { return rowShadow.Value; }
 		}
 
 		static Lazy<UIImage> smallGreyButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/smallgreybtn.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8)));

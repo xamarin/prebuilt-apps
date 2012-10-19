@@ -39,7 +39,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI that has to be setup from code
-			descriptionBackground.Image = Theme.Row180End;
+			descriptionBackground.Image = Theme.RowEnd;
 			itemsBackground.Image = 
 				hoursBackground.Image = 
 				expensesBackground.Image = Theme.Inlay;

@@ -339,10 +339,6 @@
     <Content Include="Images\record%402x.png" />
     <Content Include="Images\rightboxshadow.png" />
     <Content Include="Images\rightboxshadow%402x.png" />
-    <Content Include="Images\row120.png" />
-    <Content Include="Images\row120%402x.png" />
-    <Content Include="Images\row180end.png" />
-    <Content Include="Images\row180end%402x.png" />
     <Content Include="Images\smallgreybtn.png" />
     <Content Include="Images\smallgreybtn%402x.png" />
     <Content Include="Images\timerbg.png" />
@@ -357,9 +353,13 @@
     <Content Include="Images\toolbarshadow%402x.png" />
     <Content Include="Images\linen_left.png" />
     <Content Include="Images\linen_left%402x.png" />
-    <Content Include="Images\row120press.png" />
-    <Content Include="Images\row120press%402x.png" />
-    <Content Include="Images\row120shadow.png" />
-    <Content Include="Images\row120shadow%402x.png" />
+    <Content Include="Images\row.png" />
+    <Content Include="Images\row%402x.png" />
+    <Content Include="Images\rowend.png" />
+    <Content Include="Images\rowend%402x.png" />
+    <Content Include="Images\rowpress.png" />
+    <Content Include="Images\rowpress%402x.png" />
+    <Content Include="Images\rowshadow.png" />
+    <Content Include="Images\rowshadow%402x.png" />
   </ItemGroup>
 </Project>

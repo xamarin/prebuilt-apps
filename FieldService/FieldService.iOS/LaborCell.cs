@@ -27,8 +27,8 @@ namespace FieldService.iOS
 	{
 		public LaborCell (IntPtr handle) : base (handle)
 		{
-			BackgroundView = new UIImageView { Image = Theme.Row120 };
-			SelectedBackgroundView = new UIImageView { Image = Theme.Row120Press };
+			BackgroundView = new UIImageView { Image = Theme.Row };
+			SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
 		}
 
 		/// <summary>
