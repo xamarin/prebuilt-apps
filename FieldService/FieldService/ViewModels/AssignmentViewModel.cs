@@ -150,11 +150,8 @@ namespace FieldService.ViewModels {
                 .ContinueOnUIThread (t => {
                     timerEntry = t.Result;
                     if (timerEntry != null) {
-                        Hours = timerEntry.AccumulatedHours;
-                        if (timerEntry.Playing) {
-                            Hours += (DateTime.Now - timerEntry.Date);
-                            timer.Enabled = true;
-                        }
+                        Hours = (DateTime.Now - timerEntry.Date);
+                        timer.Enabled = true;
                     }
                     return timerEntry;
                 });
@@ -196,11 +193,13 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task Record ()
         {
+            if (activeAssignment == null)
+                return Task.Factory.StartNew (delegate { });
+
             Recording = true;
 
             if (timerEntry == null)
                 timerEntry = new TimerEntry ();
-            timerEntry.Playing = true;
             timerEntry.Date = DateTime.Now;
 
             return service.SaveTimerEntry (timerEntry);
@@ -211,13 +210,21 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task Pause ()
         {
+            if (activeAssignment == null)
+                return Task.Factory.StartNew (delegate { });
+
             Recording = false;
 
-            timerEntry.AccumulatedHours += (DateTime.Now - timerEntry.Date);
-            timerEntry.Playing = false;
-            timerEntry.Date = DateTime.Now;
+            var labor = new Labor {
+                Type = LaborType.Hourly,
+                Assignment = activeAssignment.ID,
+                Hours = (DateTime.Now - timerEntry.Date),
+            };
 
-            return service.SaveTimerEntry (timerEntry);
+            return service
+                .SaveLabor (labor)
+                .ContinueWith (service.DeleteTimerEntry (timerEntry))
+                .ContinueOnUIThread (_ => Hours = TimeSpan.Zero);
         }
     }
 }

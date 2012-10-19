@@ -12,17 +12,6 @@ namespace FieldService.Data {
         [PrimaryKey]
         public int ID { get; set; }
 
-        [Ignore]
-        public TimeSpan AccumulatedHours 
-        { 
-            get { return TimeSpan.FromTicks(AccumulatedTicks); }
-            set { AccumulatedTicks = value.Ticks; }
-        }
-
-        public long AccumulatedTicks { get; set; }
-
-        public bool Playing { get; set; }
-
         /// <summary>
         /// The time the entry was started
         /// </summary>

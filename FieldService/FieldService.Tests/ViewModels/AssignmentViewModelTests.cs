@@ -86,6 +86,10 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void Record ()
         {
+            var loadTask = viewModel.LoadAssignments ();
+
+            loadTask.Wait ();
+
             var task = viewModel.Record ();
 
             task.Wait ();
@@ -99,15 +103,22 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void Pause ()
         {
+            var loadTask = viewModel.LoadAssignments ();
+
+            loadTask.Wait ();
+
             var task = viewModel.Record ();
 
             task.Wait ();
+
+            System.Threading.Thread.Sleep (1500);
 
             task = viewModel.Pause ();
 
             task.Wait ();
 
             Assert.That (viewModel.Recording, Is.False);
+            Assert.That (viewModel.Hours, Is.EqualTo(TimeSpan.Zero));
         }
 
         [Test]
