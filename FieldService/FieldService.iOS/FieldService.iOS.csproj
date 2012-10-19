@@ -361,5 +361,7 @@
     <Content Include="Images\rowpress%402x.png" />
     <Content Include="Images\rowshadow.png" />
     <Content Include="Images\rowshadow%402x.png" />
+    <Content Include="Images\assignmentactiveblue.png" />
+    <Content Include="Images\assignmentactiveblue%402x.png" />
   </ItemGroup>
 </Project>

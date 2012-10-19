@@ -90,6 +90,15 @@ namespace FieldService.iOS
 			get { return assignmentActive.Value; }
 		}
 
+		static Lazy<UIImage> assignmentActiveBlue = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentactiveblue.png").CreateResizableImage (new UIEdgeInsets ()));
+		
+		/// <summary>
+		/// Active assignment background when pressed
+		/// </summary>
+		public static UIImage AssignmentActiveBlue {
+			get { return assignmentActiveBlue.Value; }
+		}
+
 		static Lazy<UIImage> backbutton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/backbutton.png").CreateResizableImage (new UIEdgeInsets (15, 15, 15, 5)));
 		
 		/// <summary>
