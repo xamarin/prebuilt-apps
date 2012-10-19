@@ -31,6 +31,8 @@ namespace FieldService.iOS
 		
 		public LoginController (IntPtr handle) : base (handle)
 		{
+			ServiceContainer.Register (this);
+
 			loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
 			//Hook up ViewModel events

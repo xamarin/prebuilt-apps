@@ -30,7 +30,6 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		UIViewController lastChildController;
-		MapController mapController;
 		SummaryController summaryController;
 
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
@@ -88,14 +87,15 @@ namespace FieldService.iOS
 				break;
 			case 1:
 				//Map
-				if (mapController == null) {
-					mapController = ServiceContainer.Resolve <MapController>();
-				}
-				nextChildController = mapController;
+				nextChildController = ServiceContainer.Resolve <MapController>();
 				break;
 			case 2:
 				//Items
 				nextChildController = ServiceContainer.Resolve<ItemsViewController>();
+				break;
+			case 3:
+				//Labor Hours
+				nextChildController = ServiceContainer.Resolve<LaborController>();
 				break;
 			default:
 				return; //This means this section isn't done yet

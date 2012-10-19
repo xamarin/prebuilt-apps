@@ -27,7 +27,7 @@ namespace FieldService.iOS
 	{
 		public MainController (IntPtr handle) : base(handle)
 		{
-
+			ServiceContainer.Register (this);
 		}
 
 		public override void ViewDidLoad ()

@@ -58,10 +58,17 @@ namespace FieldService.iOS
 				Font = Theme.BoldFontOfSize (16),
 			};
 			var descriptionButton = new UIBarButtonItem(label);
-			var viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, delegate {	});
-			viewHistory.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
-			toolbar.Items = new UIBarButtonItem[] { descriptionButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), viewHistory };
+
+			//Removed temporarily
+//			var viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, delegate {	});
+//			viewHistory.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+//			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
+
+			toolbar.Items = new UIBarButtonItem[] { 
+				descriptionButton, 
+				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
+				//viewHistory 
+			};
 
 			//Temporarily hide expenses
 			expenses.Hidden = 

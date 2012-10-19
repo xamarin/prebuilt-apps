@@ -11,36 +11,39 @@
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
-//    limitations under the License.
+//    limitations under the License.using System;
 using System;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using FieldService.ViewModels;
 using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.iOS
 {
-	public partial class ItemsViewController : BaseController
+	/// <summary>
+	/// Controller for the labor section
+	/// </summary>
+	public partial class LaborController : BaseController
 	{
+		readonly LaborViewModel laborViewModel;
 		readonly AssignmentDetailsController detailsController;
-		readonly ItemViewModel itemViewModel;
 		UILabel title;
 		UIBarButtonItem edit, addItem;
 
-		public ItemsViewController (IntPtr handle) : base (handle)
+		public LaborController (IntPtr handle) : base (handle)
 		{
 			ServiceContainer.Register (this);
 
-			itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
-			detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
+			laborViewModel = ServiceContainer.Resolve <LaborViewModel> ();
+			detailsController = ServiceContainer.Resolve <AssignmentDetailsController> ();
 		}
 
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
 
-			//UI that must be setup from code
+			//UI to setup from code
 			View.BackgroundColor = Theme.LinenPattern;
 
 			title = new UILabel (new RectangleF (0, 0, 100, 36)) { 
@@ -49,24 +52,25 @@ namespace FieldService.iOS
 				Font = Theme.BoldFontOfSize (16),
 			};
 			var titleButton = new UIBarButtonItem (title);
-
+			
 			edit = new UIBarButtonItem ("Edit", UIBarButtonItemStyle.Bordered, delegate {
 				edit.Title = tableView.Editing ? "Edit" : "Done";
 				tableView.SetEditing (!tableView.Editing, true);
 			});
 			edit.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
 			edit.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-
-			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, (sender, e) => PerformSegue ("AddItem", this));
+			
+			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, (sender, e) => PerformSegue ("AddLabor", this));
 			addItem.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-
+			
 			toolbar.Items = new UIBarButtonItem[] {
 				titleButton,
 				new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace),
 				edit,
 				addItem
 			};
+
 			tableView.Source = new TableSource ();
 		}
 
@@ -74,69 +78,70 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
-			ReloadItems ();
+			ReloadLabor ();
 		}
 
 		public override void ViewWillDisappear (bool animated)
 		{
 			base.ViewWillDisappear (animated);
-
+			
 			if (tableView.Editing) {
 				edit.Title = "Edit";
 				tableView.SetEditing (false, true);
 			}
 		}
 
-		public void ReloadItems ()
+		/// <summary>
+		/// Reload the labor hours
+		/// </summary>
+		public void ReloadLabor ()
 		{
-			itemViewModel.LoadAssignmentItems (detailsController.Assignment)
+			laborViewModel.LoadLaborHours (detailsController.Assignment)
 				.ContinueOnUIThread (_ => {
-				if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
-					title.Text = "Items";
+				if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
+					title.Text = "Labor Hours";
 				else
-					title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
+					title.Text = string.Format ("Labor Hours ({0})", laborViewModel.LaborHours.Count);
 				tableView.ReloadData ();
 			});
 		}
 
 		/// <summary>
-		/// Table source of items
+		/// Table source for labor hours
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
-			readonly ItemViewModel itemViewModel;
-			readonly ItemsViewController itemController;
-			readonly AssignmentDetailsController detailsController;
-			const string Identifier = "AssignmentItemCell";
+			readonly LaborViewModel laborViewModel;
+			const string Identifier = "LaborCell";
 
 			public TableSource ()
 			{
-				itemController = ServiceContainer.Resolve<ItemsViewController> ();
-				detailsController = ServiceContainer.Resolve <AssignmentDetailsController> ();
-				itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
-			}
-
-			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
-			{
-				return true;
-			}
-
-			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
-			{
-				itemViewModel
-					.DeleteAssignmentItem (detailsController.Assignment, itemViewModel.AssignmentItems [indexPath.Row])
-					.ContinueOnUIThread (_ => itemController.ReloadItems ());
+				laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return itemViewModel.AssignmentItems == null ? 0 : itemViewModel.AssignmentItems.Count;
+				return laborViewModel.LaborHours == null ? 0 : laborViewModel.LaborHours.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				var cell = tableView.DequeueReusableCell (Identifier) as AssignmentItemCell;
-				cell.SetItem (itemViewModel.AssignmentItems [indexPath.Row]);
+				var labor = laborViewModel.LaborHours [indexPath.Row];
+				var cell = tableView.DequeueReusableCell (Identifier);
+				if (cell == null) {
+					cell = new UITableViewCell (UITableViewCellStyle.Value1, Identifier);
+					//Turn on wordwrap
+					cell.DetailTextLabel.Lines = 0; 
+					cell.DetailTextLabel.LineBreakMode = UILineBreakMode.WordWrap;
+					//Add a new label as an accessory
+					cell.AccessoryView = new UILabel (new RectangleF (0, 0, 80, 40))
+					{
+
+					};
+				}
+				cell.TextLabel.Text = labor.TypeAsString;
+				cell.DetailTextLabel.Text = labor.Description;
+				((UILabel)cell.AccessoryView).Text = labor.Hours.TotalHours.ToString ("0.0");
 				return cell;
 			}
 		}

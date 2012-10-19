@@ -216,6 +216,10 @@
     <Compile Include="..\FieldService\ViewModels\LaborViewModel.cs">
       <Link>FieldService\ViewModels\LaborViewModel.cs</Link>
     </Compile>
+    <Compile Include="LaborController.cs" />
+    <Compile Include="LaborController.designer.cs">
+      <DependentUpon>LaborController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
