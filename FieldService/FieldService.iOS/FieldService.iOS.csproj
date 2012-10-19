@@ -220,6 +220,10 @@
     <Compile Include="LaborController.designer.cs">
       <DependentUpon>LaborController.cs</DependentUpon>
     </Compile>
+    <Compile Include="LaborCell.cs" />
+    <Compile Include="LaborCell.designer.cs">
+      <DependentUpon>LaborCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -331,8 +335,6 @@
     <Content Include="Images\rightboxshadow%402x.png" />
     <Content Include="Images\row120.png" />
     <Content Include="Images\row120%402x.png" />
-    <Content Include="Images\row120end.png" />
-    <Content Include="Images\row120end%402x.png" />
     <Content Include="Images\row180.png" />
     <Content Include="Images\row180%402x.png" />
     <Content Include="Images\row180end.png" />

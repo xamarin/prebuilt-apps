@@ -11,9 +11,39 @@ namespace FieldService.iOS
 	[Register ("LaborCell")]
 	partial class LaborCell
 	{
+		[Outlet]
+		MonoTouch.UIKit.UIImageView backgroundImage { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel type { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel description { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel hours { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (backgroundImage != null) {
+				backgroundImage.Dispose ();
+				backgroundImage = null;
+			}
+
+			if (type != null) {
+				type.Dispose ();
+				type = null;
+			}
+
+			if (description != null) {
+				description.Dispose ();
+				description = null;
+			}
+
+			if (hours != null) {
+				hours.Dispose ();
+				hours = null;
+			}
 		}
 	}
 }

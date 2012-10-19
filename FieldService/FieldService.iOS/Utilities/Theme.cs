@@ -444,19 +444,10 @@ namespace FieldService.iOS
 		static Lazy<UIImage> row120 = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row120.png").CreateResizableImage (new UIEdgeInsets (25, 25, 25, 25)));
 		
 		/// <summary>
-		/// 
+		/// Image for row in labor hours
 		/// </summary>
 		public static UIImage Row120 {
 			get { return row120.Value; }
-		}
-
-		static Lazy<UIImage> row120end = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row120end.png").CreateResizableImage (new UIEdgeInsets (37, 37, 37, 37)));
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		public static UIImage Row120End {
-			get { return row120end.Value; }
 		}
 
 		static Lazy<UIImage> row180 = new Lazy<UIImage> (() => UIImage.FromFile ("Images/row180.png").CreateResizableImage (new UIEdgeInsets (22, 22, 22, 22)));

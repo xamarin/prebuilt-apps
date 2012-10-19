@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 using System;
+using System.Linq;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
@@ -46,7 +47,7 @@ namespace FieldService.iOS
 			//UI to setup from code
 			View.BackgroundColor = Theme.LinenPattern;
 
-			title = new UILabel (new RectangleF (0, 0, 100, 36)) { 
+			title = new UILabel (new RectangleF (0, 0, 160, 36)) { 
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (16),
@@ -127,21 +128,8 @@ namespace FieldService.iOS
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				var labor = laborViewModel.LaborHours [indexPath.Row];
-				var cell = tableView.DequeueReusableCell (Identifier);
-				if (cell == null) {
-					cell = new UITableViewCell (UITableViewCellStyle.Value1, Identifier);
-					//Turn on wordwrap
-					cell.DetailTextLabel.Lines = 0; 
-					cell.DetailTextLabel.LineBreakMode = UILineBreakMode.WordWrap;
-					//Add a new label as an accessory
-					cell.AccessoryView = new UILabel (new RectangleF (0, 0, 80, 40))
-					{
-
-					};
-				}
-				cell.TextLabel.Text = labor.TypeAsString;
-				cell.DetailTextLabel.Text = labor.Description;
-				((UILabel)cell.AccessoryView).Text = labor.Hours.TotalHours.ToString ("0.0");
+				var cell = tableView.DequeueReusableCell (Identifier) as LaborCell;
+				cell.SetLabor (labor);
 				return cell;
 			}
 		}
