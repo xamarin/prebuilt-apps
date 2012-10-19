@@ -68,29 +68,39 @@ namespace FieldService.Android {
         {
             base.OnResume ();
 
-            foreach (var item in assignmentViewModel.Assignments) {
-                var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
-                    item.Title, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
-                Drawable drawable = null;
-                switch (item.Status) {
-                    case AssignmentStatus.Hold:
-                        drawable = Resources.GetDrawable (Resource.Drawable.AcceptedAssignmentIcon);
-                        break;
-                    case AssignmentStatus.Active:
-                        drawable = Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon);
-                        break;
-                    default:
-                        drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
-                        break;
-                }
-                mapView.Overlays.Add (new MapOverlayItem (this, drawable, overlay));
-            }
+            UpdateLocations ();
             myLocation.EnableMyLocation ();
             if (assignmentViewModel.ActiveAssignment != null) {
                 SetAssignment (true);
             } else {
                 SetAssignment (false);
             }
+        }
+
+        private void UpdateLocations ()
+        {
+            assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
+                foreach (var item in assignmentViewModel.Assignments) {
+                    var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
+                        item.Title, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
+                    Drawable drawable = null;
+                    switch (item.Status) {
+                        case AssignmentStatus.Hold:
+                            drawable = Resources.GetDrawable (Resource.Drawable.AcceptedAssignmentIcon);
+                            break;
+                        default:
+                            drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
+                            break;
+                    }
+                    mapView.Overlays.Add (new MapOverlayItem (this, drawable, overlay));
+                }
+                if (assignmentViewModel.ActiveAssignment != null) {
+                    var activeOverlay = new OverlayItem (new GeoPoint (assignmentViewModel.ActiveAssignment.Latitude.ToIntE6 (), assignmentViewModel.ActiveAssignment.Longitude.ToIntE6 ()),
+                        assignmentViewModel.ActiveAssignment.Title, string.Format ("{0} {1}, {2} {3}", assignmentViewModel.ActiveAssignment.Address,
+                        assignmentViewModel.ActiveAssignment.City, assignmentViewModel.ActiveAssignment.State, assignmentViewModel.ActiveAssignment.Zip));
+                    mapView.Overlays.Add (new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), activeOverlay));
+                }
+            });
         }
 
         protected override void OnStop ()
@@ -139,8 +149,8 @@ namespace FieldService.Android {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
 
-                spinner.Adapter = new SpinnerAdapter(Assignment.AvailableStatuses, this);
-                spinner.SetSelection (Assignment.AvailableStatuses.ToList().IndexOf (assignment.Status));
+                spinner.Adapter = new SpinnerAdapter (Assignment.AvailableStatuses, this);
+                spinner.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 spinner.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
@@ -154,6 +164,9 @@ namespace FieldService.Android {
                                 assignment.Status = selected;
                                 assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
                                     SetAssignment (false);
+                                    mapView.Overlays.Clear ();
+                                    mapView.Overlays.Add (myLocation);
+                                    UpdateLocations ();
                                 });
                                 break;
                         }

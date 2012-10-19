@@ -28,6 +28,7 @@ namespace FieldService.Android {
         public SpinnerAdapter (AssignmentStatus[] items, Activity activity)
             : base ()
         {
+            this.items = new List<string> ();
             foreach (var item in items) {
                 this.items.Add (item.ToString());
             }
