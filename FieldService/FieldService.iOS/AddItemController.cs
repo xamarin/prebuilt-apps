@@ -48,7 +48,7 @@ namespace FieldService.iOS
 				Text = "Items",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
+				Font = Theme.BoldFontOfSize (18),
 			};
 			var items = new UIBarButtonItem(label);
 

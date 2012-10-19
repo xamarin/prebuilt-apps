@@ -128,16 +128,29 @@ namespace FieldService.iOS
 		private class TableSource : UITableViewSource
 		{
 			readonly LaborViewModel laborViewModel;
+			readonly LaborController laborController;
 			const string Identifier = "LaborCell";
 
 			public TableSource ()
 			{
 				laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+				laborController = ServiceContainer.Resolve<LaborController> ();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
 				return laborViewModel.LaborHours == null ? 0 : laborViewModel.LaborHours.Count;
+			}
+
+			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			{
+				laborController.Labor = laborViewModel.LaborHours[indexPath.Row];
+				laborController.PerformSegue ("AddLabor", laborController);
+
+				BeginInvokeOnMainThread (() => {
+					var cell = tableView.CellAt (indexPath);
+					cell.SetSelected (false, true);
+				});
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

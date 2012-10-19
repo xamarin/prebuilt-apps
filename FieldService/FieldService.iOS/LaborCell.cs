@@ -27,6 +27,8 @@ namespace FieldService.iOS
 	{
 		public LaborCell (IntPtr handle) : base (handle)
 		{
+			BackgroundView = new UIImageView { Image = Theme.Row120 };
+			SelectedBackgroundView = new UIImageView { Image = Theme.Row120Press };
 		}
 
 		/// <summary>
@@ -34,7 +36,6 @@ namespace FieldService.iOS
 		/// </summary>
 		public void SetLabor(Labor labor)
 		{
-			backgroundImage.Image = Theme.Row120;
 			type.Text = labor.TypeAsString;
 			description.Text = labor.Description;
 			hours.Text = labor.Hours.TotalHours.ToString ("0.0");

@@ -58,6 +58,7 @@ namespace FieldService.iOS
 			View.BackgroundColor = Theme.LinenPattern;
 			tableView.Source = new TableSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
+			assignmentButton.SetBackgroundImage (Theme.AssignmentBlue, UIControlState.Highlighted);
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;

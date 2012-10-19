@@ -52,7 +52,7 @@ namespace FieldService.iOS
 				Text = "Labor",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
+				Font = Theme.BoldFontOfSize (18),
 			};
 			var labor = new UIBarButtonItem(label);
 
@@ -97,6 +97,7 @@ namespace FieldService.iOS
 			readonly UITableViewCell typeCell, hoursCell, descriptionCell;
 			readonly UILabel type;
 			readonly UITextView description;
+			readonly HoursField hours;
 			LaborTypeSheet laborSheet;
 			
 			public TableSource ()
@@ -115,18 +116,22 @@ namespace FieldService.iOS
 				hoursCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				hoursCell.TextLabel.Text = "Hours";
 				hoursCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				hoursCell.AccessoryView = hours = new HoursField(new RectangleF(0, 0, 200, 44));
+				hours.ValueChanged += (sender, e) => laborController.Labor.Hours = TimeSpan.FromHours (hours.Value);
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new UITextView(new RectangleF(0, 0, 500, 400))
+				descriptionCell.AccessoryView = description = new UITextView(new RectangleF(0, 0, 470, 400))
 				{
 					BackgroundColor = UIColor.Clear,
 				};
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				description.SetDidChangeNotification (d => laborController.Labor.Description = d.Text);
 			}
 
 			public void Load (Labor labor)
 			{
 				type.Text = labor.TypeAsString;
+				hours.Value = labor.Hours.TotalHours;
 				description.Text = labor.Description;
 			}
 
@@ -147,20 +152,26 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Section == 0 && indexPath.Row == 0) {
-					laborSheet = new LaborTypeSheet();
-					laborSheet.Dismissed += (sender, e) => {
-						var labor = laborController.Labor;
-						if (laborSheet.Type.HasValue && labor.Type != laborSheet.Type) {
-							labor.Type = laborSheet.Type.Value;
+				if (indexPath.Section == 0) {
+					if (indexPath.Row == 0) {
+						laborSheet = new LaborTypeSheet();
+						laborSheet.Dismissed += (sender, e) => {
+							var labor = laborController.Labor;
+							if (laborSheet.Type.HasValue && labor.Type != laborSheet.Type) {
+								labor.Type = laborSheet.Type.Value;
 
-							Load (labor);
-						}
+								Load (labor);
+							}
 
-						laborSheet.Dispose ();
-						laborSheet = null;
-					};
-					laborSheet.ShowFrom (typeCell.Frame, tableView, true);
+							laborSheet.Dispose ();
+							laborSheet = null;
+						};
+						laborSheet.ShowFrom (typeCell.Frame, tableView, true);
+					} else {
+						hours.BecomeFirstResponder ();
+					}
+				} else {
+					description.BecomeFirstResponder ();
 				}
 			}
 
@@ -180,6 +191,7 @@ namespace FieldService.iOS
 				descriptionCell.Dispose ();
 				type.Dispose ();
 				description.Dispose ();
+				hours.Dispose ();
 				
 				base.Dispose (disposing);
 			}

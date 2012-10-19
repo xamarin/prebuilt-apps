@@ -12,9 +12,6 @@ namespace FieldService.iOS
 	partial class LaborCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIImageView backgroundImage { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UILabel type { get; set; }
 
 		[Outlet]
@@ -25,11 +22,6 @@ namespace FieldService.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (backgroundImage != null) {
-				backgroundImage.Dispose ();
-				backgroundImage = null;
-			}
-
 			if (type != null) {
 				type.Dispose ();
 				type = null;

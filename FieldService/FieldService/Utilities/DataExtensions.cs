@@ -32,6 +32,13 @@ namespace FieldService.Utilities
                             return type.ToString ();
                     }
                 }
+
+		public static double ToDouble (this string text)
+		{
+			double x;
+			double.TryParse (text, out x);
+			return x;
+		}
 	}
 }
 

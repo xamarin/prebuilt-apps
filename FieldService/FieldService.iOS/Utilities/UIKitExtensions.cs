@@ -32,18 +32,23 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets a callback for registering text changed notifications on a UITextField
 		/// </summary>
-		/// <param name='textField'>
-		/// Text field to listen events for
-		/// </param>
-		/// <param name='callback'>
-		/// Callback to handle the event
-		/// </param>
 		public static void SetDidChangeNotification (this UITextField textField, Action<UITextField> callback)
 		{
 			if (callback == null)
 				throw new ArgumentNullException ("callback");
 
 			NSNotificationCenter.DefaultCenter.AddObserver (UITextField.TextFieldTextDidChangeNotification, _ => callback (textField), textField);
+		}
+
+		/// <summary>
+		/// Sets a callback for registering text changed notifications on a UITextField
+		/// </summary>
+		public static void SetDidChangeNotification (this UITextView textView, Action<UITextView> callback)
+		{
+			if (callback == null)
+				throw new ArgumentNullException ("callback");
+			
+			NSNotificationCenter.DefaultCenter.AddObserver (UITextView.TextDidChangeNotification, _ => callback (textView), textView);
 		}
 
 		/// <summary>
