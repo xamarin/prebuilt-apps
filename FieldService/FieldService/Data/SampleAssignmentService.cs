@@ -49,7 +49,7 @@ namespace FieldService.Data {
                     select AssignmentItem.*, Item.Number, Item.Name
                     from AssignmentItem
                     inner join Item
-                    on Item.ID = AssignmentItem.ID
+                    on Item.ID = AssignmentItem.Item
                     where AssignmentItem.Assignment = ?
                     order by Item.Name",
                     assignment.ID);

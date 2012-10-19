@@ -55,11 +55,11 @@ namespace FieldService.iOS
 				tableView.SetEditing (!tableView.Editing, true);
 			});
 			edit.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-			edit.SetBackgroundImage (Theme.BlueNavButton, UIControlState.Normal, UIBarMetrics.Default);
+			edit.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			addItem = new UIBarButtonItem("Add Item", UIBarButtonItemStyle.Bordered, delegate { });
+			addItem = new UIBarButtonItem("Add Item", UIBarButtonItemStyle.Bordered, (sender, e) => PerformSegue ("AddItem", this));
 			addItem.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-			addItem.SetBackgroundImage (Theme.BlueNavButton, UIControlState.Normal, UIBarMetrics.Default);
+			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			toolbar.Items = new UIBarButtonItem[] { titleButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), edit, addItem };
 			tableView.Source = new TableSource ();
@@ -69,8 +69,6 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
-			title.Text = string.Format("Items ({0})", detailsController.Assignment.TotalItems);
-
 			ReloadItems ();
 		}
 
@@ -78,7 +76,13 @@ namespace FieldService.iOS
 		{
 			itemViewModel
 				.LoadAssignmentItems (detailsController.Assignment)
-				.ContinueOnUIThread (_ => tableView.ReloadData ());
+				.ContinueOnUIThread (_ => {
+					if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
+						title.Text = "Items";
+					else
+						title.Text = string.Format("Items ({0})", itemViewModel.AssignmentItems.Count);
+					tableView.ReloadData ();
+				});
 		}
 
 		/// <summary>
@@ -105,7 +109,7 @@ namespace FieldService.iOS
 			{
 				itemViewModel
 					.DeleteAssignmentItem (itemViewModel.AssignmentItems[indexPath.Row])
-					.ContinueWith (_ => itemController.ReloadItems ());
+					.ContinueOnUIThread (_ => itemController.ReloadItems ());
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)

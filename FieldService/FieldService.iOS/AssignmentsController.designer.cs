@@ -12,6 +12,9 @@ namespace FieldService.iOS
 	partial class AssignmentsController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UIBarButtonItem settings { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITableView tableView { get; set; }
 
 		[Outlet]
@@ -73,6 +76,11 @@ namespace FieldService.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (settings != null) {
+				settings.Dispose ();
+				settings = null;
+			}
+
 			if (tableView != null) {
 				tableView.Dispose ();
 				tableView = null;

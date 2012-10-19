@@ -65,6 +65,7 @@ namespace FieldService.iOS
 			record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
 			timerBackgroundImage.Image = Theme.TimerField;
 			toolbarShadow.Image = Theme.ToolbarShadow;
+			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			status.StatusChanged += (sender, e) => {
 				assignmentViewModel

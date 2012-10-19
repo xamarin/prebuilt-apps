@@ -59,7 +59,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetItemsAsync ()
-                .ContinueOnUIThread (t => items = t.Result);
+                .ContinueOnUIThread (t => Items = t.Result);
         }
 
         /// <summary>
@@ -69,7 +69,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetItemsForAssignmentAsync (assignment)
-                .ContinueOnUIThread (t => assignmentItems = t.Result);
+                .ContinueOnUIThread (t => AssignmentItems = t.Result);
         }
 
         /// <summary>

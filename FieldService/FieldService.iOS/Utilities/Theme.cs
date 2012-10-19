@@ -108,13 +108,13 @@ namespace FieldService.iOS
 			get { return bluebar.Value; }
 		}
 
-		static Lazy<UIImage> blueNavButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
+		static Lazy<UIImage> barButonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
 		/// Button image for blue toolbar buttons
 		/// </summary>
-		public static UIImage BlueNavButton {
-			get { return blueNavButton.Value; }
+		public static UIImage BarButtonItem {
+			get { return barButonItem.Value; }
 		}
 
 		static Lazy<UIImage> buttondark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/buttondark.png").CreateResizableImage (new UIEdgeInsets (16, 17, 17, 17)));
@@ -513,13 +513,13 @@ namespace FieldService.iOS
 			get { return topnav.Value; }
 		}
 
-		static Lazy<UIImage> barButtonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/topnavbtn.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
+		static Lazy<UIImage> darkBarButtonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/topnavbtn.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
 		/// Background image for UIBarButtonItem
 		/// </summary>
-		public static UIImage BarButtonItem {
-			get { return barButtonItem.Value; }
+		public static UIImage DarkBarButtonItem {
+			get { return darkBarButtonItem.Value; }
 		}
 
 		static Lazy<UIImage> assignmentBlue = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentblue.png").CreateResizableImage (new UIEdgeInsets ()));
@@ -614,8 +614,6 @@ namespace FieldService.iOS
 			UIToolbar.Appearance.SetBackgroundImage (BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 			UISegmentedControl.Appearance.TintColor = SegmentedTintColor;
-
-			UIBarButtonItem.Appearance.SetBackgroundImage (BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			UIBarButtonItem.Appearance.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
 

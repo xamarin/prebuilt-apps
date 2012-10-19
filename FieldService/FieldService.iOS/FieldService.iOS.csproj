@@ -207,6 +207,12 @@
       <DependentUpon>SummaryController.cs</DependentUpon>
     </Compile>
     <Compile Include="MapController.cs" />
+    <Compile Include="AddItemController.cs" />
+    <Compile Include="AddItemController.designer.cs">
+      <DependentUpon>AddItemController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\ISearchSource.cs" />
+    <Compile Include="Utilities\SearchDisplay.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
