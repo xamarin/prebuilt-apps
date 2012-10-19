@@ -32,5 +32,15 @@ namespace FieldService.Tests.ViewModels {
 
             Assert.That (viewModel.AssignmentItems.Count, Is.GreaterThan (0));
         }
+
+        [Test]
+        public void LoadItems ()
+        {
+            var task = viewModel.LoadItems ();
+
+            task.Wait ();
+
+            Assert.That (viewModel.Items.Count, Is.GreaterThan (0));
+        }
     }
 }

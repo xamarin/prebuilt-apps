@@ -27,6 +27,7 @@ namespace FieldService.ViewModels {
     public class ItemViewModel : ViewModelBase {
         readonly IAssignmentService service;
         List<AssignmentItem> assignmentItems;
+        List<Item> items;
 
         public ItemViewModel ()
         {
@@ -34,12 +35,31 @@ namespace FieldService.ViewModels {
         }
 
         /// <summary>
-        /// List of assignment items
+        /// List of items with an assignment
         /// </summary>
         public List<AssignmentItem> AssignmentItems
         {
             get { return assignmentItems; }
             set { assignmentItems = value; OnPropertyChanged ("AssignmentItems"); }
+        }
+
+        /// <summary>
+        /// List of items
+        /// </summary>
+        public List<Item> Items
+        {
+            get { return items; }
+            set { items = value; OnPropertyChanged ("Items"); }
+        }
+
+        /// <summary>
+        /// Loads all the available items
+        /// </summary>
+        public Task LoadItems ()
+        {
+            return service
+                .GetItemsAsync ()
+                .ContinueOnUIThread (t => items = t.Result);
         }
 
         /// <summary>
