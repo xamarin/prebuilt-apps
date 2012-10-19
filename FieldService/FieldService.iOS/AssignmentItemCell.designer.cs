@@ -16,6 +16,9 @@ namespace FieldService.iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UIButton checkBox { get; set; }
+
+		[Action ("Checked")]
+		partial void Checked ();
 		
 		void ReleaseDesignerOutlets ()
 		{

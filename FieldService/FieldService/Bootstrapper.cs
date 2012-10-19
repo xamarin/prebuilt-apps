@@ -36,6 +36,7 @@ namespace FieldService {
             ServiceContainer.Register<IAssignmentService> (() => new SampleAssignmentService ());
             ServiceContainer.Register<LoginViewModel> ();
             ServiceContainer.Register<AssignmentViewModel> ();
+	    ServiceContainer.Register<ItemViewModel> ();
         }
     }
 }

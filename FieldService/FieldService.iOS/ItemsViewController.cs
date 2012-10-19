@@ -24,13 +24,15 @@ namespace FieldService.iOS
 	public partial class ItemsViewController : BaseController
 	{
 		readonly AssignmentDetailsController detailsController;
-		readonly AssignmentViewModel assignmentViewModel;
+		readonly ItemViewModel itemViewModel;
 		UILabel title;
-		UIBarButtonItem addItem;
+		UIBarButtonItem edit, addItem;
 
 		public ItemsViewController (IntPtr handle) : base (handle)
 		{
-			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+			ServiceContainer.Register (this);
+
+			itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
 		}
 
@@ -48,10 +50,18 @@ namespace FieldService.iOS
 			};
 			var titleButton = new UIBarButtonItem(title);
 
+			edit = new UIBarButtonItem("Edit", UIBarButtonItemStyle.Bordered, delegate {
+				edit.Title = tableView.Editing ? "Edit" : "Done";
+				tableView.SetEditing (!tableView.Editing, true);
+			});
+			edit.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
+			edit.SetBackgroundImage (Theme.BlueNavButton, UIControlState.Normal, UIBarMetrics.Default);
+
 			addItem = new UIBarButtonItem("Add Item", UIBarButtonItemStyle.Bordered, delegate { });
 			addItem.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
+			addItem.SetBackgroundImage (Theme.BlueNavButton, UIControlState.Normal, UIBarMetrics.Default);
 
-			toolbar.Items = new UIBarButtonItem[] { titleButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), addItem };
+			toolbar.Items = new UIBarButtonItem[] { titleButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), edit, addItem };
 			tableView.Source = new TableSource ();
 		}
 
@@ -61,7 +71,12 @@ namespace FieldService.iOS
 
 			title.Text = string.Format("Items ({0})", detailsController.Assignment.TotalItems);
 
-			assignmentViewModel
+			ReloadItems ();
+		}
+
+		public void ReloadItems()
+		{
+			itemViewModel
 				.LoadAssignmentItems (detailsController.Assignment)
 				.ContinueOnUIThread (_ => tableView.ReloadData ());
 		}
@@ -71,23 +86,37 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
-			readonly AssignmentViewModel assignmentViewModel;
+			readonly ItemViewModel itemViewModel;
+			readonly ItemsViewController itemController;
 			const string Identifier = "AssignmentItemCell";
 
 			public TableSource ()
 			{
-				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+				itemController = ServiceContainer.Resolve<ItemsViewController>();
+				itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
+			}
+
+			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
+			{
+				return true;
+			}
+
+			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
+			{
+				itemViewModel
+					.DeleteAssignmentItem (itemViewModel.AssignmentItems[indexPath.Row])
+					.ContinueWith (_ => itemController.ReloadItems ());
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return assignmentViewModel.AssignmentItems == null ? 0 : assignmentViewModel.AssignmentItems.Count;
+				return itemViewModel.AssignmentItems == null ? 0 : itemViewModel.AssignmentItems.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				var cell = tableView.DequeueReusableCell (Identifier) as AssignmentItemCell;
-				cell.SetItem (assignmentViewModel.AssignmentItems[indexPath.Row]);
+				cell.SetItem (itemViewModel.AssignmentItems[indexPath.Row]);
 				return cell;
 			}
 		}

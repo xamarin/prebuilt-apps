@@ -16,28 +16,30 @@ using System;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Data;
+using FieldService.ViewModels;
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Table cell for assignment items
+	/// </summary>
 	public partial class AssignmentItemCell : UITableViewCell
 	{
+		readonly ItemViewModel itemViewModel;
 		AssignmentItem item;
-		bool loaded = false;
 
 		public AssignmentItemCell (IntPtr handle) : base (handle)
 		{
+			itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
 		}
 
 		public void SetItem(AssignmentItem item)
 		{
-			//Only needs to happen once
-			if (!loaded) {
-				loaded = true;
-			}
-
 			this.item = item;
 			label.Text = item.Name + " " + item.Number;
 			checkBox.SetTitleColor (Theme.CheckboxTextColor, UIControlState.Normal);
+			checkBox.SetTitleColor (Theme.LabelColor, UIControlState.Highlighted);
 			SetChecked (item.Used);
 		}
 
@@ -47,6 +49,15 @@ namespace FieldService.iOS
 				checkBox.SetImage (Theme.CheckFilled, UIControlState.Normal);
 			else
 				checkBox.SetImage (Theme.CheckEmpty, UIControlState.Normal);
+		}
+
+		partial void Checked ()
+		{
+			checkBox.Enabled = false;
+			item.Used = !item.Used;
+			SetChecked (item.Used);
+
+			itemViewModel.SaveAssignmentItem (item).ContinueOnUIThread (_ => checkBox.Enabled = true);
 		}
 
 		protected override void Dispose (bool disposing)
