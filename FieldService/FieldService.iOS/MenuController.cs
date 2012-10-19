@@ -159,13 +159,14 @@ namespace FieldService.iOS
 				laborCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
 				cells.Add (laborCell);
 
-				expensesCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				expensesCell.TextLabel.Text = "Expenses";
-				expensesCell.TextLabel.TextColor = UIColor.White;
-				expensesCell.BackgroundColor = UIColor.Clear;
-				expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-				expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
-				cells.Add (expensesCell);
+				//Removed temporarily
+//				expensesCell = new UITableViewCell (UITableViewCellStyle.Default, null);
+//				expensesCell.TextLabel.Text = "Expenses";
+//				expensesCell.TextLabel.TextColor = UIColor.White;
+//				expensesCell.BackgroundColor = UIColor.Clear;
+//				expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+//				expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+//				cells.Add (expensesCell);
 
 				confirmationCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				confirmationCell.TextLabel.Text = "Confirmations";

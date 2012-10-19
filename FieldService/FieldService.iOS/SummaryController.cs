@@ -62,6 +62,11 @@ namespace FieldService.iOS
 			viewHistory.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			toolbar.Items = new UIBarButtonItem[] { descriptionButton, new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), viewHistory };
+
+			//Temporarily hide expenses
+			expenses.Hidden = 
+				expensesLabel.Hidden =
+				expensesBackground.Hidden = true;
 		}
 
 		public override void ViewWillAppear (bool animated)

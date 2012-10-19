@@ -213,6 +213,9 @@
     </Compile>
     <Compile Include="Utilities\ISearchSource.cs" />
     <Compile Include="Utilities\SearchDisplay.cs" />
+    <Compile Include="..\FieldService\ViewModels\LaborViewModel.cs">
+      <Link>FieldService\ViewModels\LaborViewModel.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
