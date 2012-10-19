@@ -17,20 +17,11 @@
         android:layout_marginTop="15dp"
         android:src="@drawable/XamarinTitle" />
     <fragment
-        android:name="fieldservice.android.fragments.NavigationFragment"
-        android:id="@+id/navigationFragment"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp"
-        android:minWidth="220dp" />
-    <fragment
         android:name="fieldservice.android.fragments.ContentFragment"
         android:id="@+id/contentFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_toRightOf="@id/navigationFragment"
-        android:layout_alignTop="@+id/navigationFragment" />
+        android:layout_marginTop="55dp" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
