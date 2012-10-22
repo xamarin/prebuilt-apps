@@ -13,8 +13,7 @@ namespace FieldService.Android.Fragments {
         ListView navigationListView;
         Spinner navigationStatus;
         ImageView navigationStatusImage;
-        TextView timerHours,
-            timerMinutes;
+        TextView timerHours;
         ToggleButton timer;
         RelativeLayout timerLayout;
         int lastposition,
@@ -42,7 +41,6 @@ namespace FieldService.Android.Fragments {
             navigationStatusImage = view.FindViewById<ImageView> (Resource.Id.fragmentStatusImage);
             timerLayout = view.FindViewById<RelativeLayout> (Resource.Id.fragmentTimerTextLayout);
             timer = view.FindViewById<ToggleButton> (Resource.Id.fragmentTimer);
-            timerMinutes = view.FindViewById<TextView> (Resource.Id.fragmentMinutes);
             timerHours = view.FindViewById<TextView> (Resource.Id.fragmentHours);
 
             navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
@@ -72,8 +70,24 @@ namespace FieldService.Android.Fragments {
                     timerLayout.Visibility = ViewStates.Visible;
                     navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
                     navigationStatus.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
-                    timerMinutes.Text = assignmentViewModel.Hours.ToString ("hh");
-                    timerHours.Text = assignmentViewModel.Hours.ToString ("mm");
+                    timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+
+                    assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+                        if (assignmentViewModel.Recording) {
+                            timer.Checked = true;
+                        } else {
+                            timer.Checked = false;
+                        }
+                    });
+
+                    timer.CheckedChange += (sender, e) => {
+                        timer.Enabled = false;
+                        if (assignmentViewModel.Recording) {
+                            assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
+                        } else {
+                            assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
+                        }
+                    };
                 } else {
                     navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
                     timerLayout.Visibility = ViewStates.Gone;
@@ -124,7 +138,24 @@ namespace FieldService.Android.Fragments {
             if (navItemView != null) {
                 OnItemClick (navigationListView, navItemView, listViewIndex, 0);
             }
+            assignmentViewModel.HoursChanged += HoursChanged;
             base.OnResume ();
+        }
+
+        public override void OnPause ()
+        {
+            assignmentViewModel.HoursChanged -= HoursChanged;
+            Assignment = null;
+            base.OnPause ();
+        }
+
+        private void HoursChanged (object sender, System.EventArgs e)
+        {
+            if (timerHours != null) {
+                Activity.RunOnUiThread (() => {
+                    timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+                    });
+            }
         }
     }
 }

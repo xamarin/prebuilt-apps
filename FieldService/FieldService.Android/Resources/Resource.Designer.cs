@@ -213,8 +213,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070014
 			public const int assingmentTabHost = 2131165204;
 			
-			// aapt resource value: 0x7f070035
-			public const int contentFragment = 2131165237;
+			// aapt resource value: 0x7f070034
+			public const int contentFragment = 2131165236;
 			
 			// aapt resource value: 0x7f070022
 			public const int dialogImage = 2131165218;
@@ -228,17 +228,14 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f07002e
 			public const int fragmentHours = 2131165230;
 			
-			// aapt resource value: 0x7f07002f
-			public const int fragmentMinutes = 2131165231;
-			
 			// aapt resource value: 0x7f07002c
 			public const int fragmentStatus = 2131165228;
 			
 			// aapt resource value: 0x7f07002b
 			public const int fragmentStatusImage = 2131165227;
 			
-			// aapt resource value: 0x7f070030
-			public const int fragmentTimer = 2131165232;
+			// aapt resource value: 0x7f07002f
+			public const int fragmentTimer = 2131165231;
 			
 			// aapt resource value: 0x7f07002d
 			public const int fragmentTimerTextLayout = 2131165229;
@@ -249,8 +246,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070015
 			public const int linearLayout1 = 2131165205;
 			
-			// aapt resource value: 0x7f070037
-			public const int listview_background_shape = 2131165239;
+			// aapt resource value: 0x7f070036
+			public const int listview_background_shape = 2131165238;
 			
 			// aapt resource value: 0x7f070026
 			public const int logIn = 2131165222;
@@ -261,23 +258,23 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070028
 			public const int mapViewAssignmentLayout = 2131165224;
 			
-			// aapt resource value: 0x7f070034
-			public const int navigationFragment = 2131165236;
+			// aapt resource value: 0x7f070033
+			public const int navigationFragment = 2131165235;
 			
 			// aapt resource value: 0x7f07002a
 			public const int navigationListView = 2131165226;
 			
-			// aapt resource value: 0x7f070032
-			public const int navigationListViewImage = 2131165234;
-			
 			// aapt resource value: 0x7f070031
-			public const int navigationListViewText = 2131165233;
+			public const int navigationListViewImage = 2131165233;
+			
+			// aapt resource value: 0x7f070030
+			public const int navigationListViewText = 2131165232;
 			
 			// aapt resource value: 0x7f070025
 			public const int password = 2131165221;
 			
-			// aapt resource value: 0x7f070033
-			public const int simpleSpinnerTextView = 2131165235;
+			// aapt resource value: 0x7f070032
+			public const int simpleSpinnerTextView = 2131165234;
 			
 			// aapt resource value: 0x7f070019
 			public const int summaryAddress = 2131165209;
@@ -297,8 +294,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f07001f
 			public const int summaryAssignmentLaborHours = 2131165215;
 			
-			// aapt resource value: 0x7f070036
-			public const int summaryAssignmentTitle = 2131165238;
+			// aapt resource value: 0x7f070035
+			public const int summaryAssignmentTitle = 2131165237;
 			
 			// aapt resource value: 0x7f070017
 			public const int summaryContactName = 2131165207;

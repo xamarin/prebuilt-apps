@@ -34,6 +34,8 @@ namespace FieldService.Android {
         readonly AssignmentViewModel assignmentViewModel;
         ListView assignmentsListView;
         LinearLayout assignmentActiveLayout;
+        ToggleButton timer;
+        TextView timerText;
 
         public AssignmentsActivity ()
         {
@@ -61,6 +63,8 @@ namespace FieldService.Android {
         {
             base.OnResume ();
 
+            assignmentViewModel.HoursChanged += HoursChanged;
+
             assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.ActiveAssignment != null) {
                     SetActiveAssignmentVisible (true);
@@ -70,6 +74,24 @@ namespace FieldService.Android {
                 var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, assignmentViewModel.Assignments);
                 assignmentsListView.Adapter = adapter;
             });
+        }
+
+        private void HoursChanged (object sender, EventArgs e)
+        {
+            if (timerText != null) {
+                RunOnUiThread (() => {
+                    timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+                });
+            }
+        }
+        
+        protected override void OnPause ()
+        {
+            base.OnPause ();
+            timer = null;
+            timerText = null;
+
+            assignmentViewModel.HoursChanged -= HoursChanged;
         }
 
         /// <summary>
@@ -91,7 +113,7 @@ namespace FieldService.Android {
         /// <summary>
         /// Reload the view in the listview by itself without calling to reload the list.
         /// </summary>
-        /// <param name="index"></param>
+        /// <param name="index">index of the list view item to reload</param>
         public void ReloadSingleListItem (int index)
         {
             if (assignmentsListView.FirstVisiblePosition < index && index < assignmentsListView.LastVisiblePosition) {
@@ -100,15 +122,6 @@ namespace FieldService.Android {
                     assignmentsListView.Adapter.GetView (index, view, assignmentsListView);
                 }
             }
-        }
-
-        /// <summary>
-        /// Activate the timer for keeping track of the active assignments time.
-        /// </summary>
-        /// <param name="timerChanged"></param>
-        private void TimerCheckedChanged (bool timerChanged)
-        {
-
         }
 
         /// <summary>
@@ -128,7 +141,7 @@ namespace FieldService.Android {
                     view = new View (this);
                     LayoutInflater inflator = (LayoutInflater)GetSystemService (Context.LayoutInflaterService);
                     view = inflator.Inflate (Resource.Layout.AssignmentItemLayout, null);
-                    assignmentActiveLayout.AddView (view);                    
+                    assignmentActiveLayout.AddView (view);
                 }
                 view.LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent);
                 view.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.active_assignment_selector));
@@ -142,39 +155,56 @@ namespace FieldService.Android {
                 var timerlinearLayout = view.FindViewById<LinearLayout> (Resource.Id.timerLinearLayout);
                 var spinner = view.FindViewById<Spinner> (Resource.Id.assignmentStatus);
                 var spinnerImage = view.FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
-                var timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
-                var timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
+                timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
+                timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
+
+                assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+                    if (assignmentViewModel.Recording) {
+                        timer.Checked = true;
+                    } else {
+                        timer.Checked = false;
+                    }
+                });
+
+                timer.CheckedChange += (sender, e) => {
+                    timer.Enabled = false;
+                    if (assignmentViewModel.Recording) {
+                        assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
+                    } else {
+                        assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
+                    }
+                };
 
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
 
                 spinner.Adapter = new SpinnerAdapter (Assignment.AvailableStatuses, this);
-                spinner.SetSelection (Assignment.AvailableStatuses.ToList().IndexOf (assignment.Status));
+                spinner.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 spinner.SetBackgroundColor (Resources.GetColor (Resource.Color.assignmentblue));
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
                 spinner.ItemSelected += (sender, e) => {
-                        var selected = Assignment.AvailableStatuses.ElementAtOrDefault (e.Position);
-                        if (selected != assignment.Status) {
-                            switch (selected) {
-                                case AssignmentStatus.Active:
-                                    break;
-                                default:
-                                    assignment.Status = selected;
-                                    assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
-                                        ReloadAssignments ();
-                                    });
-                                    break;
-                            }
+                    var selected = Assignment.AvailableStatuses.ElementAtOrDefault (e.Position);
+                    if (selected != assignment.Status) {
+                        switch (selected) {
+                            case AssignmentStatus.Active:
+                                break;
+                            default:
+                                assignment.Status = selected;
+                                assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+                                    ReloadAssignments ();
+                                });
+                                break;
                         }
+                    }
                 };
-                number.Text = assignment.Priority.ToString();
-                job.Text = string.Format("#{0} {1}\n{2}", assignment.JobNumber,  assignment.StartDate.ToShortDateString(), assignment.Title);
+                number.Text = assignment.Priority.ToString ();
+                job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.Title);
                 name.Text = assignment.ContactName;
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
-                timerText.Text = string.Format ("{0} hr {1} min\n{2}", assignmentViewModel.Hours.ToString("hh"), assignmentViewModel.Hours.ToString("mm"), "START");
-                
+                timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+
             } else {
                 assignmentActiveLayout.Visibility = ViewStates.Gone;
             }

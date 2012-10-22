@@ -37,6 +37,8 @@ namespace FieldService.Android {
         LinearLayout assignmentMapViewLayout;
         MapView mapView;
         MyLocationOverlay myLocation;
+        TextView timerText;
+        ToggleButton timer;
 
         public MapViewActivity ()
         {
@@ -71,6 +73,9 @@ namespace FieldService.Android {
 
             UpdateLocations ();
             myLocation.EnableMyLocation ();
+
+            assignmentViewModel.HoursChanged += HoursChanged;
+
             if (assignmentViewModel.ActiveAssignment != null) {
                 SetAssignment (true);
             } else {
@@ -104,6 +109,13 @@ namespace FieldService.Android {
             });
         }
 
+        protected override void OnPause ()
+        {
+            base.OnPause ();
+
+            assignmentViewModel.HoursChanged -= HoursChanged;
+        }
+
         protected override void OnStop ()
         {
             myLocation.DisableMyLocation ();
@@ -112,6 +124,15 @@ namespace FieldService.Android {
             base.OnStop ();
         }
 
+        private void HoursChanged (object sender, EventArgs e)
+        {
+            if (timerText != null) {
+                RunOnUiThread (() => {
+                    timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+                });
+            }
+        }
+        
         protected override bool IsRouteDisplayed
         {
             get { return false; }
@@ -144,8 +165,25 @@ namespace FieldService.Android {
                 var timerlinearLayout = view.FindViewById<LinearLayout> (Resource.Id.timerLinearLayout);
                 var spinner = view.FindViewById<Spinner> (Resource.Id.assignmentStatus);
                 var spinnerImage = view.FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
-                var timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
-                var timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
+                timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
+                timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
+
+                assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+                    if (assignmentViewModel.Recording) {
+                        timer.Checked = true;
+                    } else {
+                        timer.Checked = false;
+                    }
+                });
+
+                timer.CheckedChange += (sender, e) => {
+                    timer.Enabled = false;
+                    if (assignmentViewModel.Recording) {
+                        assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
+                    } else {
+                        assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
+                    }
+                };
 
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
@@ -178,7 +216,8 @@ namespace FieldService.Android {
                 name.Text = assignment.ContactName;
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
-                timerText.Text = string.Format ("{0} hr {1} min\n{2}", assignmentViewModel.Hours.ToString ("hh"), assignmentViewModel.Hours.ToString ("mm"), "START");
+                timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+
             } else {
                 assignmentMapViewLayout.Visibility = ViewStates.Gone;
             }

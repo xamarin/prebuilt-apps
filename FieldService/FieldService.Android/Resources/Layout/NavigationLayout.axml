@@ -31,21 +31,12 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:id="@+id/fragmentTimerTextLayout">
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <TextView
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragmentHours"
-                android:textSize="20dp" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/fragmentMinutes"
-                android:textSize="20dp" />
-        </LinearLayout>
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/fragmentHours"
+            android:layout_alignParentLeft="true"
+            android:textSize="16dp" />
         <ToggleButton
             android:layout_width="47dp"
             android:layout_height="46dp"
