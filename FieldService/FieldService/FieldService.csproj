@@ -54,6 +54,7 @@
     <Compile Include="Data\Enumerations.cs" />
     <Compile Include="Data\IAssignmentService.cs" />
     <Compile Include="Data\Item.cs" />
+    <Compile Include="Data\Photo.cs" />
     <Compile Include="Data\SampleAssignmentService.cs" />
     <Compile Include="Data\SampleLoginService.cs" />
     <Compile Include="Data\ILoginService.cs" />
@@ -66,6 +67,7 @@
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PhotoViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
     <Compile Include="Utilities\DataExtensions.cs" />
   </ItemGroup>

@@ -51,6 +51,7 @@
     <Compile Include="ViewModels\ItemViewModelTests.cs" />
     <Compile Include="ViewModels\LaborViewModelTests.cs" />
     <Compile Include="ViewModels\LoginViewModelTests.cs" />
+    <Compile Include="ViewModels\PhotoViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\FieldService\FieldService.csproj">

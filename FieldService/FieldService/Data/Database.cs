@@ -42,6 +42,7 @@ namespace FieldService.Data
             typeof(Labor),
             typeof(Expense),
             typeof(TimerEntry),
+            typeof(Photo),
         };
 
         /// <summary>

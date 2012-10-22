@@ -92,18 +92,31 @@ namespace FieldService.Data {
         /// <summary>
         /// Saves a timer entry to record an assignment
         /// </summary>
-        /// <param name="entry"></param>
         Task<int> SaveTimerEntry (TimerEntry entry);
 
         /// <summary>
         /// Deletes a timer entry to stop recording an assignment
         /// </summary>
-        /// <param name="entry"></param>
         Task<int> DeleteTimerEntry (TimerEntry entry);
 
         /// <summary>
         /// Retrieves the stored timer entry if there was one
         /// </summary>
         Task<TimerEntry> GetTimerEntryAsync ();
+
+        /// <summary>
+        /// Retrieves all the photos for an assignment
+        /// </summary>
+        Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment);
+
+        /// <summary>
+        /// Saves a photo for an assignment
+        /// </summary>
+        Task<int> SavePhoto (Photo photo);
+
+        /// <summary>
+        /// Deletes a photo
+        /// </summary>
+        Task<int> DeletePhoto (Photo photo);
     }
 }

@@ -71,6 +71,14 @@ namespace FieldService.Data {
                 .ToListAsync ();
         }
 
+        public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment)
+        {
+            return Database.GetConnection ()
+                .Table<Photo> ()
+                .Where (p => p.Assignment == assignment.ID)
+                .ToListAsync ();
+        }
+
         public Task<int> SaveAssignment (Assignment assignment)
         {
             return Database.GetConnection ()
@@ -101,28 +109,37 @@ namespace FieldService.Data {
                 return Database.GetConnection ().UpdateAsync (expense);
         }
 
+        public Task<int> SavePhoto (Photo photo)
+        {
+            if (photo.ID == 0)
+                return Database.GetConnection ().InsertAsync (photo);
+            else
+                return Database.GetConnection ().UpdateAsync (photo);
+        }
+
         public Task<int> DeleteAssignment (Assignment assignment)
         {
-            return Database.GetConnection ()
-                .DeleteAsync (assignment);
+            return Database.GetConnection ().DeleteAsync (assignment);
         }
 
         public Task<int> DeleteAssignmentItem (AssignmentItem assignmentItem)
         {
-            return Database.GetConnection ()
-                .DeleteAsync (assignmentItem);
+            return Database.GetConnection ().DeleteAsync (assignmentItem);
         }
 
         public Task<int> DeleteLabor (Labor labor)
         {
-            return Database.GetConnection ()
-                .DeleteAsync (labor);
+            return Database.GetConnection ().DeleteAsync (labor);
         }
 
         public Task<int> DeleteExpense (Expense expense)
         {
-            return Database.GetConnection ()
-                .DeleteAsync (expense);
+            return Database.GetConnection ().DeleteAsync (expense);
+        }
+
+        public Task<int> DeletePhoto (Photo photo)
+        {
+            return Database.GetConnection ().DeleteAsync (photo);
         }
 
         public Task<int> SaveTimerEntry (TimerEntry entry)
