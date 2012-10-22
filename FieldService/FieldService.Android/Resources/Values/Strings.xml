@@ -9,4 +9,7 @@
   <string name="Accept">Accept</string>
   <string name="Decline">Decline</string>
   <string name="Xamarin">Xamarin</string>
+  <string name="Expenses">Expenses</string>
+  <string name="Items">Items</string>
+  <string name="LaborHours">Labor Hours</string>
 </resources>

@@ -53,19 +53,13 @@ namespace FieldService.Android.Fragments {
             var adapter = new NavigationAdapter (this.Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
             navigationListView.OnItemClickListener = this;
             navigationListView.Adapter = adapter;
-            var navItemView = navigationListView.GetChildAt (listViewIndex);
-            if (navItemView != null)
-            {
-                OnItemClick (navigationListView, navItemView, listViewIndex, 0);
-            }
             return view;
         }
 
         private void SaveAssignment ()
         {
             assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
-                var activity = (SummaryActivity)Activity;
-                activity.ReloadNavigation ();
+                Assignment = assignment;
                 });
         }
 
@@ -122,6 +116,15 @@ namespace FieldService.Android.Fragments {
         {
             base.OnSaveInstanceState (outState);
             outState.PutInt (Constants.BUNDLE_INDEX, lastposition);
+        }
+
+        public override void OnResume ()
+        {
+            var navItemView = navigationListView.GetChildAt (listViewIndex);
+            if (navItemView != null) {
+                OnItemClick (navigationListView, navItemView, listViewIndex, 0);
+            }
+            base.OnResume ();
         }
     }
 }

@@ -109,42 +109,44 @@
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="@color/assignmentblue"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp">
+            android:background="@color/assignmentblue">
             <TextView
-                android:text="Items"
+                android:text="@string/Items"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:id="@+id/textView1"
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"
                 android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:paddingTop="20dp"
+                android:paddingBottom="20dp" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/summaryAssignmentItems"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
         <RelativeLayout
             android:background="@color/assignmentblue"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:id="@+id/relativeLayout1"
             android:layout_marginTop="10dp">
             <TextView
-                android:text="Labor Hours"
+                android:text="@string/LaborHours"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
+                android:layout_centerVertical="true"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
             <TextView
@@ -153,32 +155,34 @@
                 android:id="@+id/summaryAssignmentLaborHours"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black" />
         </RelativeLayout>
         <RelativeLayout
             android:background="@color/assignmentblue"
-            android:paddingBottom="20dp"
-            android:paddingTop="20dp"
-            android:id="@+id/relativeLayout1"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
             android:layout_marginTop="10dp">
             <TextView
-                android:text="Expenses"
+                android:text="@string/Expenses"
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_marginLeft="10dp"
+                android:paddingBottom="20dp"
+                android:paddingTop="20dp"
                 android:textSize="20dp"
                 android:textColor="@android:color/black"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_centerVertical="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/summaryAssignmentExpenses"
                 android:layout_alignParentRight="true"
                 android:layout_marginRight="10dp"
+                android:layout_centerVertical="true"
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:textColor="@android:color/black" />
