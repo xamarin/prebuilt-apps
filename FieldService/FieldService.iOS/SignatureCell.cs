@@ -20,6 +20,9 @@ using FieldService.Data;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// The table cell for adding signatures to an assignment
+	/// </summary>
 	public partial class SignatureCell : UITableViewCell
 	{
 		Assignment assignment;

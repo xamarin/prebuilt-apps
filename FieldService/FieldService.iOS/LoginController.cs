@@ -66,12 +66,14 @@ namespace FieldService.iOS
 			box.Image = Theme.LoginBox;
 			logoBackground.Image = Theme.LoginInset;
 			login.SetBackgroundImage (Theme.LoginButton, UIControlState.Normal);
+			companyName.TextColor = Theme.LabelColor;
 
 			//Text Fields
 			//I used LeftView as a quick way to add padding to a "plain" styled UITextField
 
 			username.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
 			username.LeftViewMode = UITextFieldViewMode.Always;
+			username.TextColor = Theme.LabelColor;
 			username.Background = Theme.LoginTextField;
 			username.SetDidChangeNotification (text => loginViewModel.Username = text.Text);
 			username.ShouldReturn = _ => {
@@ -81,6 +83,7 @@ namespace FieldService.iOS
 
 			password.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
 			password.LeftViewMode = UITextFieldViewMode.Always;
+			password.TextColor = Theme.LabelColor;
 			password.Background = Theme.LoginTextField;
 			password.SetDidChangeNotification (text => loginViewModel.Password = text.Text);
 			password.ShouldReturn = _ => {
@@ -96,13 +99,6 @@ namespace FieldService.iOS
 			password.ResignFirstResponder ();
 			
 			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => Theme.TransitionController<AssignmentsController>());
-		}
-		
-		public override void ViewDidUnload ()
-		{
-			base.ViewDidUnload ();
-			
-			ReleaseDesignerOutlets ();
 		}
 
 		protected override void OnKeyboardChanged (bool visible, float height)

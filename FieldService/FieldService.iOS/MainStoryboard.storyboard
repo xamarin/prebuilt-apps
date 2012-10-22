@@ -89,6 +89,7 @@
                     <navigationItem key="navigationItem" id="ebQ-qO-7PC"/>
                     <connections>
                         <outlet property="box" destination="1qh-og-QUy" id="uGy-Y7-1Hl"/>
+                        <outlet property="companyName" destination="BzU-Gu-Q24" id="0im-4U-hGX"/>
                         <outlet property="container" destination="gBG-KT-4A3" id="Rvi-NA-fZm"/>
                         <outlet property="indicator" destination="01i-DL-uqY" id="yiU-j7-afK"/>
                         <outlet property="login" destination="bPd-Oc-3cd" id="IGQ-xQ-6sZ"/>
@@ -1351,6 +1352,7 @@
             <relationships>
                 <relationship kind="action" name="Login"/>
                 <relationship kind="outlet" name="box" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="container" candidateClass="UIView"/>
                 <relationship kind="outlet" name="indicator" candidateClass="UIActivityIndicatorView"/>
                 <relationship kind="outlet" name="login" candidateClass="UIButton"/>

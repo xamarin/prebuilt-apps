@@ -130,6 +130,7 @@ namespace FieldService.iOS
 				descriptionCell.AccessoryView = description = new UITextView(new RectangleF(0, 0, 470, 400))
 				{
 					BackgroundColor = UIColor.Clear,
+					TextColor = Theme.LabelColor,
 				};
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				description.SetDidChangeNotification (d => laborController.Labor.Description = d.Text);

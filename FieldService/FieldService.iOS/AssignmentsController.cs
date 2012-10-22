@@ -68,6 +68,11 @@ namespace FieldService.iOS
 			toolbarShadow.Image = Theme.ToolbarShadow;
 			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
+			timerLabel.TextColor =
+				numberAndDate.TextColor =
+				title.TextColor =
+				startAndEnd.TextColor = Theme.LabelColor;
+
 			status.StatusChanged += (sender, e) => {
 				assignmentViewModel
 					.SaveAssignment (assignmentViewModel.ActiveAssignment)

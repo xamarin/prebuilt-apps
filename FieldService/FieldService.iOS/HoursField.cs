@@ -119,6 +119,7 @@ namespace FieldService.iOS
 			{
 				TextAlignment = UITextAlignment.Right,
 				VerticalAlignment = UIControlContentVerticalAlignment.Center,
+				TextColor = Theme.LabelColor,
 			};
 			textField.EditingDidBegin += (sender, e) => {
 				var method = EditingDidBegin;

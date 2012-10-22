@@ -39,6 +39,7 @@ namespace FieldService.iOS
 		public void SetItem(AssignmentItem item)
 		{
 			this.item = item;
+			label.TextColor = Theme.LabelColor;
 			label.Text = item.Name + " " + item.Number;
 			checkBox.SetTitleColor (Theme.CheckboxTextColor, UIControlState.Normal);
 			checkBox.SetTitleColor (Theme.LabelColor, UIControlState.Highlighted);

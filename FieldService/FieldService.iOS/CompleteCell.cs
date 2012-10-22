@@ -20,6 +20,9 @@ using FieldService.Data;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// The table cell to complete an assignment
+	/// </summary>
 	public partial class CompleteCell : UITableViewCell
 	{
 		Assignment assignment;

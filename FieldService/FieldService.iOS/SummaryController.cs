@@ -49,6 +49,8 @@ namespace FieldService.iOS
 				hours.TextColor =
 				expensesLabel.TextColor =
 				expenses.TextColor = UIColor.White;
+			description.TextColor =
+				descriptionTitle.TextColor = Theme.LabelColor;
 
 			//Setup our toolbar
 			var label = new UILabel (new RectangleF(0, 0, 100, 36)) { 

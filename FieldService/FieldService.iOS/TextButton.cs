@@ -36,10 +36,20 @@ namespace FieldService.iOS
 			icon.UserInteractionEnabled = false;
 			AddSubview (icon);
 
-			TopLabel = new UILabel { BackgroundColor = UIColor.Clear, Font = Theme.BoldFontOfSize (11), HighlightedTextColor = UIColor.Black };
+			TopLabel = new UILabel { 
+				BackgroundColor = UIColor.Clear, 
+				Font = Theme.BoldFontOfSize (11), 
+				TextColor = Theme.LabelColor,
+				HighlightedTextColor = UIColor.Black,
+			};
 			AddSubview (TopLabel);
 
-			BottomLabel = new UILabel { BackgroundColor = UIColor.Clear, Font = Theme.FontOfSize (11), HighlightedTextColor = UIColor.Black };
+			BottomLabel = new UILabel { 
+				BackgroundColor = UIColor.Clear, 
+				Font = Theme.FontOfSize (11), 
+				TextColor = Theme.LabelColor,
+				HighlightedTextColor = UIColor.Black,
+			};
 			AddSubview (BottomLabel);
 		}
 

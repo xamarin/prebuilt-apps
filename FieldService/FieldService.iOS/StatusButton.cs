@@ -36,7 +36,8 @@ namespace FieldService.iOS
 			var frame = Frame;
 			AddSubview (statusImage = new UIImageView (new RectangleF (14, (frame.Height - 16) / 2, 16, 16)));
 			AddSubview (new UIImageView (new RectangleF (frame.Width - 23, (frame.Height - 7) / 2, 13, 7)) { Image = Theme.Arrow });
-			
+
+			SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 			SetBackgroundImage (Theme.DropDown, UIControlState.Normal);
 
 			TouchUpInside += OnTouchUpInside;

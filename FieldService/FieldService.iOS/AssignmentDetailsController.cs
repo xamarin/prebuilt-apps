@@ -63,6 +63,10 @@ namespace FieldService.iOS
 			lastChildController =
 				summaryController = ServiceContainer.Resolve <SummaryController>();
 
+			numberAndDate.TextColor =
+				title.TextColor =
+				startAndEnd.TextColor = Theme.LabelColor;
+
 			//Events
 			status.StatusChanged += (sender, e) => SaveAssignment ();
 		}

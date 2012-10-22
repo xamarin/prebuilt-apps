@@ -40,6 +40,10 @@ namespace FieldService.iOS
 			description.Text = labor.Description;
 			hours.Text = labor.Hours.TotalHours.ToString ("0.0");
 
+			type.TextColor =
+				description.TextColor =
+				hours.TextColor = Theme.LabelColor;
+
 			type.HighlightedTextColor = 
 				description.HighlightedTextColor =
 				hours.HighlightedTextColor = Theme.LabelColor;

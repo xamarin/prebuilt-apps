@@ -58,6 +58,10 @@ namespace FieldService.iOS
 					priority.HighlightedTextColor = UIColor.White;
 				priorityBackground.Image = Theme.NumberBox;
 
+				numberAndDate.TextColor =
+					title.TextColor =
+					startAndEnd.TextColor = Theme.LabelColor;
+
 				contact.IconImage = Theme.IconPhone;
 				address.IconImage = Theme.Map;
 				status.StatusChanged += (sender, e) => SaveAssignment ();

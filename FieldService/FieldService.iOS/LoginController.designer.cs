@@ -18,6 +18,9 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UITextField password { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UILabel companyName { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIButton login { get; set; }
 
 		[Outlet]
@@ -45,6 +48,11 @@ namespace FieldService.iOS
 			if (password != null) {
 				password.Dispose ();
 				password = null;
+			}
+
+			if (companyName != null) {
+				companyName.Dispose ();
+				companyName = null;
 			}
 
 			if (login != null) {
