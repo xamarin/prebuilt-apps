@@ -12,7 +12,7 @@ using Android.Widget;
 using FieldService.Data;
 
 namespace FieldService.Android.Fragments {
-    public class ContentFragment : Fragment{
+    public class SummaryFragment : Fragment{
         TextView number,
             name,
             phone,
@@ -26,7 +26,7 @@ namespace FieldService.Android.Fragments {
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
-            var view = inflater.Inflate (Resource.Layout.ContentLayout, container, true);
+            var view = inflater.Inflate (Resource.Layout.SummaryLayout, container, true);
 
             number = view.FindViewById<TextView> (Resource.Id.summaryItemNumber);
             name = view.FindViewById<TextView> (Resource.Id.summaryContactName);

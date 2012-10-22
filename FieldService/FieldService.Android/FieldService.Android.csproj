@@ -136,7 +136,7 @@
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
     <Compile Include="Adapters\NavigationAdapter.cs" />
-    <Compile Include="Fragments\ContentFragment.cs" />
+    <Compile Include="Fragments\SummaryFragment.cs" />
     <Compile Include="Fragments\NavigationFragment.cs" />
     <Compile Include="Maps\MapOverlayItem.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -162,7 +162,7 @@
     <AndroidResource Include="Resources\Layout\MapViewLayout.axml">
       <SubType>Designer</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout-land\SummaryLayout.axml">
+    <AndroidResource Include="Resources\Layout-land\SummaryFragmentLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\NavigationLayout.axml">
@@ -171,10 +171,10 @@
     <AndroidResource Include="Resources\Layout\NavigationListItemLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-port\SummaryLayout.axml">
+    <AndroidResource Include="Resources\layout-port\SummaryFragmentLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\ContentLayout.axml">
+    <AndroidResource Include="Resources\Layout\SummaryLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

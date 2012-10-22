@@ -19,7 +19,7 @@ namespace FieldService.Android {
     public class SummaryActivity : Activity {
         AssignmentViewModel assignmentViewModel;
         NavigationFragment navigationFragment;
-        ContentFragment contentFragment;
+        SummaryFragment contentFragment;
         Assignment assignment;
 
         public SummaryActivity ()
@@ -31,7 +31,7 @@ namespace FieldService.Android {
         {
             base.OnCreate (bundle);
 
-            SetContentView (Resource.Layout.SummaryLayout);
+            SetContentView (Resource.Layout.SummaryFragmentLayout);
 
             assignment = null;
             if (Intent != null) {
@@ -48,7 +48,7 @@ namespace FieldService.Android {
                 navigationFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragment);
                 navigationFragment.Assignment = assignment;
             }
-            contentFragment = FragmentManager.FindFragmentById<ContentFragment> (Resource.Id.contentFragment);
+            contentFragment = FragmentManager.FindFragmentById<SummaryFragment> (Resource.Id.contentFragment);
             contentFragment.Assignment = assignment;
 
             if (assignment != null) {
