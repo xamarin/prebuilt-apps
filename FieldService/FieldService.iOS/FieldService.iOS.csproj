@@ -249,6 +249,7 @@
     <Compile Include="CompleteCell.designer.cs">
       <DependentUpon>CompleteCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="SignatureController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

@@ -46,6 +46,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register (Window);
 			ServiceContainer.Register <ISynchronizeInvoke>(() => new SynchronizeInvoke());
 			ServiceContainer.Register <MapController>();
+			ServiceContainer.Register <SignatureController>();
 
 			//Apply our UI theme
 			Theme.Apply ();

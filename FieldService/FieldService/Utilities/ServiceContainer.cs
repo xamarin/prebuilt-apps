@@ -15,7 +15,7 @@ namespace FieldService.Utilities {
         public static void Register<T> ()
             where T : new ()
         {
-            services [typeof (T)] = new Lazy<object> (() => Activator.CreateInstance (typeof (T)));
+            services [typeof (T)] = new Lazy<object> (() => new T());
         }
 
         public static void Register<T> (Func<object> function)

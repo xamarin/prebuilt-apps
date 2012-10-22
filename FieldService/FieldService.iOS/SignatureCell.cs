@@ -17,6 +17,7 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Data;
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
@@ -42,7 +43,8 @@ namespace FieldService.iOS
 
 		partial void AddSignature ()
 		{
-
+			var signatureController = ServiceContainer.Resolve<SignatureController>();
+			signatureController.PresentFromRect (Frame, Superview, UIPopoverArrowDirection.Up, true);
 		}
 	}
 }
