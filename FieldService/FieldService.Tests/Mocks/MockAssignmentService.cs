@@ -157,5 +157,20 @@ namespace FieldService.Tests.Mocks {
         {
             return Task.Factory.StartNew (() => new TimerEntry { Date = DateTime.Now.AddHours (-1) });
         }
+
+        public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment)
+        {
+            return Task.Factory.StartNew (() => new List<Photo> { new Photo { Assignment = assignment.ID, Image = new byte [0] } });
+        }
+
+        public Task<int> SavePhoto (Photo photo)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<int> DeletePhoto (Photo photo)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
     }
 }
