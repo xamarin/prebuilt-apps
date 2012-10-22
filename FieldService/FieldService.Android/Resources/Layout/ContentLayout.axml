@@ -113,15 +113,13 @@
             <TextView
                 android:text="@string/Items"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/textView1"
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
-                android:layout_centerVertical="true"
-                android:paddingTop="20dp"
-                android:paddingBottom="20dp" />
+                android:layout_centerVertical="true" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -141,11 +139,9 @@
             <TextView
                 android:text="@string/LaborHours"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
                 android:textSize="20dp"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
                 android:layout_centerVertical="true"
                 android:textColor="@android:color/black"
                 android:textStyle="bold" />
@@ -168,10 +164,8 @@
             <TextView
                 android:text="@string/Expenses"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:paddingBottom="20dp"
-                android:paddingTop="20dp"
                 android:textSize="20dp"
                 android:textColor="@android:color/black"
                 android:textStyle="bold"
