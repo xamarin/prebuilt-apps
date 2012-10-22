@@ -17,6 +17,8 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using Signature.iPhone;
+using FieldService.Data;
+using FieldService.ViewModels;
 using FieldService.Utilities;
 
 namespace FieldService.iOS
@@ -31,12 +33,19 @@ namespace FieldService.iOS
 
 		private class ContentController : UIViewController
 		{
+			readonly AssignmentViewModel assignmentViewModel;
+			readonly AssignmentDetailsController detailsController;
+			readonly ConfirmationController confirmationController;
 			SignatureView signatureView;
 			UIBarButtonItem cancel;
 			UIBarButtonItem save;
 
 			public ContentController ()
 			{
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+				confirmationController = ServiceContainer.Resolve<ConfirmationController>();
+
 				Title = "Add Signature";
 			}
 
@@ -52,9 +61,25 @@ namespace FieldService.iOS
 				cancel.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 				save = new UIBarButtonItem("Save", UIBarButtonItemStyle.Bordered, (sender, e) => {
-					var signatureController = ServiceContainer.Resolve<SignatureController>();
-					signatureController.Dismiss (true);
+
+					if (signatureView.IsBlank) {
+						new UIAlertView(string.Empty, "No signature!", null, "Ok").Show ();
+						return;
+					}
+
+					var assignment = detailsController.Assignment;
+					assignment.Signature = signatureView.GetImage ().ToByteArray ();
+
+					assignmentViewModel.SaveAssignment (assignment)
+						.ContinueOnUIThread (_ => {
+							//Dismiss controller
+							var signatureController = ServiceContainer.Resolve<SignatureController>();
+							signatureController.Dismiss (true);
+							//Reload the confirmation screen
+							confirmationController.ReloadConfirmation ();
+						});
 				});
+
 				save.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 				save.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 

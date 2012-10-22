@@ -49,6 +49,19 @@ namespace FieldService.iOS
 			signatureTableView.Source = new SignatureTableSource();
 		}
 
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+
+			ReloadConfirmation ();
+		}
+
+		public void ReloadConfirmation()
+		{
+			photoTableView.ReloadData ();
+			signatureTableView.ReloadData ();
+		}
+
 		partial void AddPhoto ()
 		{
 

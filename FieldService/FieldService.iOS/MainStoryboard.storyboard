@@ -819,7 +819,7 @@
                 <viewController storyboardIdentifier="ConfirmationController" id="I8f-BB-M1O" customClass="ConfirmationController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="bGb-v7-Y1E">
                         <rect key="frame" x="0.0" y="20" width="768" height="630"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="Dl0-Wi-NkM">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
@@ -828,11 +828,11 @@
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="5DK-NN-TzP">
                                 <rect key="frame" x="20" y="44" width="354" height="586"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <label key="tableHeaderView" opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="   Photos" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="x2A-Ym-9yQ">
                                     <rect key="frame" x="0.0" y="0.0" width="354" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                     <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
@@ -863,11 +863,11 @@
                             </tableView>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="15" sectionFooterHeight="15" id="x1g-gj-n2w">
                                 <rect key="frame" x="394" y="44" width="354" height="586"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <view key="tableHeaderView" contentMode="scaleToFill" id="aBD-xw-EwU">
                                     <rect key="frame" x="0.0" y="0.0" width="354" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="   Signature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="H0d-pe-csv">
                                             <rect key="frame" x="0.0" y="0.0" width="120" height="44"/>
@@ -890,7 +890,7 @@
                                 </view>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="pE8-ZO-d3d">
                                     <rect key="frame" x="0.0" y="239" width="354" height="44"/>
-                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Note: After completing the assignment, you will no longer be able to access it." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2Ke-Oa-bvv">
                                             <rect key="frame" x="42" y="0.0" width="270" height="44"/>
@@ -926,12 +926,30 @@
                                                         <action selector="AddSignature" destination="Gfk-lW-8LA" eventType="touchUpInside" id="0l8-K6-fwo"/>
                                                     </connections>
                                                 </button>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="75G-VY-ZNf">
+                                                    <rect key="frame" x="7" y="5" width="340" height="79"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <inset key="contentEdgeInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
+                                                    <state key="normal">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                        <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <state key="highlighted">
+                                                        <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="AddPhoto" destination="I8f-BB-M1O" eventType="touchUpInside" id="af5-HD-niF"/>
+                                                        <action selector="AddSignature" destination="Gfk-lW-8LA" eventType="touchUpInside" id="eDG-8a-gpK"/>
+                                                    </connections>
+                                                </button>
                                             </subviews>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         </view>
                                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                         <connections>
                                             <outlet property="addSignature" destination="fPr-bu-Ofj" id="AcE-ox-6rz"/>
+                                            <outlet property="signature" destination="75G-VY-ZNf" id="SHw-6s-rXt"/>
                                         </connections>
                                     </tableViewCell>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="CompleteCell" id="Yjt-bD-PyC" customClass="CompleteCell">
@@ -942,10 +960,10 @@
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tb7-Rx-MtN">
-                                                    <rect key="frame" x="10" y="7" width="334" height="79"/>
+                                                    <rect key="frame" x="7" y="7" width="340" height="79"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
-                                                    <inset key="contentEdgeInsets" minX="0.0" minY="2" maxX="0.0" maxY="0.0"/>
+                                                    <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="2"/>
                                                     <state key="normal" title="Complete">
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                         <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
@@ -1383,6 +1401,7 @@
             <relationships>
                 <relationship kind="action" name="AddSignature"/>
                 <relationship kind="outlet" name="addSignature" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signature" candidateClass="UIButton"/>
             </relationships>
         </class>
         <class className="StatusButton" superclassName="UIButton">

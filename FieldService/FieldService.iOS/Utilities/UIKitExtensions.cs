@@ -15,6 +15,7 @@
 
 using System;
 using System.Linq;
+using System.Runtime.InteropServices;
 using MonoTouch.AddressBook;
 using MonoTouch.CoreLocation;
 using MonoTouch.Foundation;
@@ -88,6 +89,33 @@ namespace FieldService.iOS
 		public static void ClearPlacemarks(this MKMapView mapView)
 		{
 			mapView.RemoveAnnotations (mapView.Annotations.OfType<MKPlacemark> ().ToArray ());;
+		}
+
+		/// <summary>
+		/// Loads a UIImage from a byte array
+		/// </summary>
+		public static UIImage ToUIImage(this byte[] bytes)
+		{
+			using (var data = NSData.FromArray (bytes))
+			{
+				return UIImage.LoadFromData (data);
+			}
+		}
+
+		/// <summary>
+		/// Converts a UIImage to a byte array
+		/// </summary>
+		public static byte[] ToByteArray(this UIImage image)
+		{
+			using (image)
+			{
+				using (var data = image.AsJPEG ())
+				{
+					byte[] bytes = new byte[data.Length];
+					Marshal.Copy (data.Bytes, bytes, 0, (int)data.Length);
+					return bytes;
+				}
+			}
 		}
 	}
 }

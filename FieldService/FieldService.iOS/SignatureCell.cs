@@ -26,19 +26,36 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class SignatureCell : UITableViewCell
 	{
-		Assignment assignment;
+		UIImage image;
 
 		public SignatureCell (IntPtr handle) : base (handle)
 		{
 			BackgroundView = new UIImageView { Image = Theme.Inlay };
 		}
 
-		public void SetAssignment(Assignment assignment) 
+		public void SetAssignment (Assignment assignment)
 		{
-			this.assignment = assignment;
+			if (assignment.Signature == null) {
+				signature.Hidden = true;
+				signature.SetBackgroundImage (null, UIControlState.Normal);
 
-			addSignature.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
-			addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
+				addSignature.Hidden = false;
+				addSignature.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
+				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
+
+				if (image != null) {
+					image.Dispose ();
+					image = null;
+				}
+			} else {
+				image = assignment.Signature.ToUIImage ();
+				signature.Hidden = false;
+				signature.SetBackgroundImage (image, UIControlState.Normal);
+				signature.Layer.CornerRadius = 7;
+				signature.ClipsToBounds = true;
+
+				addSignature.Hidden = true;
+			}
 		}
 
 		partial void AddSignature ()

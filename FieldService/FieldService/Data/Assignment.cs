@@ -66,12 +66,12 @@ namespace FieldService.Data {
         public string Description { get; set; }
 
         /// <summary>
-        /// Date & time the assignment should start
+	/// Date and time the assignment should start
         /// </summary>
         public DateTime StartDate { get; set; }
 
         /// <summary>
-        /// Date & time the assignment should end
+        /// Date and time the assignment should end
         /// </summary>
         public DateTime EndDate { get; set; }
 
@@ -114,6 +114,11 @@ namespace FieldService.Data {
         /// Longitude of assignment
         /// </summary>
         public float Longitude { get; set; }
+
+	/// <summary>
+	/// Gets or sets the signature.
+	/// </summary>
+	public byte[] Signature { get; set; }
 
         /// <summary>
         /// Total labor hours for the assignment

@@ -14,6 +14,9 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIButton addSignature { get; set; }
 
+		[Outlet]
+		MonoTouch.UIKit.UIButton signature { get; set; }
+
 		[Action ("AddSignature")]
 		partial void AddSignature ();
 		
@@ -22,6 +25,11 @@ namespace FieldService.iOS
 			if (addSignature != null) {
 				addSignature.Dispose ();
 				addSignature = null;
+			}
+
+			if (signature != null) {
+				signature.Dispose ();
+				signature = null;
 			}
 		}
 	}
