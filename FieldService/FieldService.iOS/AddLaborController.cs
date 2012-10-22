@@ -83,6 +83,13 @@ namespace FieldService.iOS
 			tableSource.Load (laborController.Labor);
 		}
 
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+
+			laborController.ReloadLabor ();
+		}
+
 		partial void Cancel (NSObject sender)
 		{
 			DismissViewController (true, delegate {	});

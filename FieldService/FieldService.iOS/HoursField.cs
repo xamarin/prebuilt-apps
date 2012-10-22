@@ -118,6 +118,7 @@ namespace FieldService.iOS
 			textField = new UITextField
 			{
 				TextAlignment = UITextAlignment.Right,
+				VerticalAlignment = UIControlContentVerticalAlignment.Center,
 			};
 			textField.EditingDidBegin += (sender, e) => {
 				var method = EditingDidBegin;
@@ -148,12 +149,15 @@ namespace FieldService.iOS
 		public override void LayoutSubviews ()
 		{
 			var frame = Frame;
-			frame.Width -= ButtonSize.Width * 2 + Spacing;
+			frame.X =
+				frame.Y = 0;
+			frame.Width -= ButtonSize.Width * 2;
+			frame.Width -= Spacing * 2;
 			textField.Frame = frame;
 
 			float height = (frame.Height - ButtonSize.Height) / 2;
-			up.Frame = new RectangleF (new PointF(frame.Width - Spacing, height), ButtonSize);
-			down.Frame = new RectangleF (new PointF (ButtonSize.Width + frame.Width - Spacing, height), ButtonSize);
+			up.Frame = new RectangleF (new PointF(frame.Width + Spacing, height), ButtonSize);
+			down.Frame = new RectangleF (new PointF (ButtonSize.Width + frame.Width + Spacing, height), ButtonSize);
 		}
 	}
 }

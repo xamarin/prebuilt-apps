@@ -48,6 +48,12 @@ namespace FieldService.iOS
 			};
 		}
 
+		public override bool HandlesKeyboardNotifications {
+			get {
+				return true;
+			}
+		}
+
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
