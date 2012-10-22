@@ -171,6 +171,15 @@ namespace FieldService.iOS
 			get { return complete.Value; }
 		}
 
+		static Lazy<UIImage> deleteButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/deletebutton.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
+		
+		/// <summary>
+		/// Image for the delete button
+		/// </summary>
+		public static UIImage DeleteButton {
+			get { return deleteButton.Value; }
+		}
+
 		static Lazy<UIImage> decline = new Lazy<UIImage> (() => UIImage.FromFile ("Images/decline.png").CreateResizableImage (new UIEdgeInsets (19, 16, 19, 16)));
 		
 		/// <summary>
@@ -405,7 +414,7 @@ namespace FieldService.iOS
 			get { return orangebar.Value; }
 		}
 
-		static Lazy<UIImage> photoframe = new Lazy<UIImage> (() => UIImage.FromFile ("Images/photoframe.png").CreateResizableImage (new UIEdgeInsets (10, 12, 15, 12)));
+		static Lazy<UIImage> photoframe = new Lazy<UIImage> (() => UIImage.FromFile ("Images/photoframe.png").CreateResizableImage (new UIEdgeInsets (35, 35, 35, 35)));
 		
 		/// <summary>
 		/// Photo border image that looks like a picture frame

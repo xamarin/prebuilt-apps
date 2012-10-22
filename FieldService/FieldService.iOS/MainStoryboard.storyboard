@@ -980,7 +980,6 @@
                                                         <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="AddPhoto" destination="I8f-BB-M1O" eventType="touchUpInside" id="af5-HD-niF"/>
                                                         <action selector="AddSignature" destination="Gfk-lW-8LA" eventType="touchUpInside" id="eDG-8a-gpK"/>
                                                     </connections>
                                                 </button>

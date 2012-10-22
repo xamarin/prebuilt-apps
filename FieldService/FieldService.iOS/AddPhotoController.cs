@@ -31,6 +31,7 @@ namespace FieldService.iOS
 		readonly AssignmentDetailsController detailsController;
 		readonly PhotoViewModel photoViewModel;
 		UIImage image;
+		UIAlertView alertView;
 
 		public AddPhotoController (IntPtr handle) : base (handle)
 		{
@@ -48,9 +49,14 @@ namespace FieldService.iOS
 			//UI setup from code
 			photoFrame.Image = Theme.PhotoFrame;
 			descriptionBackground.Image = Theme.ModalInlay;
+			description.ShouldReturn = t => {
+				t.ResignFirstResponder ();
+				return true;
+			};
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			cancel.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-			deleteButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
+			deleteButton.SetBackgroundImage (Theme.DeleteButton, UIControlState.Normal);
+			deleteButton.SetTitleColor (UIColor.White, UIControlState.Normal);
 			
 			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
 				Text = "Photo",
@@ -113,12 +119,22 @@ namespace FieldService.iOS
 
 		partial void DeletePhoto ()
 		{
-			photoViewModel
-				.DeletePhoto (detailsController.Assignment, confirmationController.Photo)
-				.ContinueOnUIThread (_ => {
-					confirmationController.ReloadConfirmation ();
-					DismissViewController (true, delegate { });
-				});
+			alertView = new UIAlertView("Delete?", "Are you sure?", null, "Yes", "No");
+			alertView.Dismissed += (sender, e) => {
+
+				if (e.ButtonIndex == 0) {
+					photoViewModel
+						.DeletePhoto (detailsController.Assignment, confirmationController.Photo)
+						.ContinueOnUIThread (_ => {
+							confirmationController.ReloadConfirmation ();
+							DismissViewController (true, delegate { });
+						});
+				}
+
+				alertView.Dispose ();
+				alertView = null;
+			};
+			alertView.Show ();
 		}
 
 		partial void Cancel (NSObject sender)

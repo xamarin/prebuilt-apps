@@ -397,5 +397,7 @@
     <Content Include="Images\rowshadow%402x.png" />
     <Content Include="Images\assignmentactiveblue.png" />
     <Content Include="Images\assignmentactiveblue%402x.png" />
+    <Content Include="Images\deletebutton.png" />
+    <Content Include="Images\deletebutton%402x.png" />
   </ItemGroup>
 </Project>

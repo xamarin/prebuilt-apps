@@ -24,8 +24,13 @@ namespace FieldService.iOS
 {
 	public partial class ConfirmationController : BaseController
 	{
+		readonly PhotoViewModel photoViewModel;
+		readonly AssignmentDetailsController detailController;
+
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
+			photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
+			detailController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 
 		public Photo Photo {
@@ -65,13 +70,14 @@ namespace FieldService.iOS
 
 		public void ReloadConfirmation ()
 		{
-			photoTableView.ReloadData ();
+			photoViewModel.LoadPhotos (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
+
 			signatureTableView.ReloadData ();
 		}
 
 		partial void AddPhoto ()
 		{
-			Photo = new Photo { Date = DateTime.Now };
+			Photo = new Photo { Assignment = detailController.Assignment.ID, Date = DateTime.Now };
 
 			PerformSegue ("AddPhoto", this);
 		}
