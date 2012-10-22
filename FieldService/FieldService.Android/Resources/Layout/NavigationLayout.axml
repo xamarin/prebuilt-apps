@@ -6,12 +6,14 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
+        android:listSelector="@drawable/navigation_selector"
         android:id="@+id/navigationListView" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:background="@color/navigationitemselected">
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"

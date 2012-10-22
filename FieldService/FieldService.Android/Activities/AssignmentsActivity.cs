@@ -189,7 +189,7 @@ namespace FieldService.Android {
 
         private void assignmentsListView_ItemClick (object sender, AdapterView.ItemClickEventArgs e)
         {
-            
+            AssignmentSelected (e.Position);
         }
 
         public void OnClick (View v)

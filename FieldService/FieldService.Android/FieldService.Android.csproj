@@ -129,6 +129,7 @@
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
+    <Compile Include="Adapters\NavigationAdapter.cs" />
     <Compile Include="Fragments\ContentFragment.cs" />
     <Compile Include="Fragments\NavigationFragment.cs" />
     <Compile Include="Maps\MapOverlayItem.cs" />
@@ -211,6 +212,8 @@
     <AndroidResource Include="Resources\Drawable\SelectedItem.png" />
     <AndroidResource Include="Resources\Drawable\active_assignment_selector.xml" />
     <AndroidResource Include="Resources\Drawable\assignment_list_selector.xml" />
+    <AndroidResource Include="Resources\Menu\menu.xml" />
+    <AndroidResource Include="Resources\Drawable\navigation_selector.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

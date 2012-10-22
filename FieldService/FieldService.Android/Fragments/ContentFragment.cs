@@ -13,29 +13,47 @@ using FieldService.Data;
 
 namespace FieldService.Android.Fragments {
     public class ContentFragment : Fragment{
+        TextView number,
+            name,
+            phone,
+            address;
+
+        public override void OnCreate (Bundle savedInstanceState)
+        {
+            base.OnCreate (savedInstanceState);
+            SetHasOptionsMenu (true);
+        }
+
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.ContentLayout, container, true);
 
-            var number = view.FindViewById<TextView> (Resource.Id.summaryItemNumber);
-            var name = view.FindViewById<TextView> (Resource.Id.summaryContactName);
-            var phone = view.FindViewById<TextView> (Resource.Id.summaryPhoneNumber);
-            var address = view.FindViewById<TextView> (Resource.Id.summaryAddress);
+            number = view.FindViewById<TextView> (Resource.Id.summaryItemNumber);
+            name = view.FindViewById<TextView> (Resource.Id.summaryContactName);
+            phone = view.FindViewById<TextView> (Resource.Id.summaryPhoneNumber);
+            address = view.FindViewById<TextView> (Resource.Id.summaryAddress);
 
-            if (Assignment != null && Assignment.Status == AssignmentStatus.Active) {
-                number.Text = Assignment.Priority.ToString();
-                name.Text = Assignment.ContactName;
-                phone.Text = Assignment.ContactPhone;
-                address.Text = string.Format ("{0}\n{1}, {2} {3}", Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip);
-            }
             return view;
+        }
+
+        public override void OnCreateOptionsMenu (IMenu menu, MenuInflater inflater)
+        {
+            inflater.Inflate (Resource.Menu.menu, menu);   
+            base.OnCreateOptionsMenu (menu, inflater);
         }
 
         public Assignment Assignment
         {
-            get;
-            set;
+            set
+            {
+                if (value != null && value.Status == AssignmentStatus.Active) {
+                    number.Text = value.Priority.ToString ();
+                    name.Text = value.ContactName;
+                    phone.Text = value.ContactPhone;
+                    address.Text = string.Format ("{0}\n{1}, {2} {3}", value.Address, value.City, value.State, value.Zip);
+                }
+            }
         }
     }
 }

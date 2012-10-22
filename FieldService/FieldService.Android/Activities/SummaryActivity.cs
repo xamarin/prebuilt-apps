@@ -20,6 +20,7 @@ namespace FieldService.Android {
         AssignmentViewModel assignmentViewModel;
         NavigationFragment navigationFragment;
         ContentFragment contentFragment;
+        Assignment assignment;
 
         public SummaryActivity ()
         {
@@ -32,9 +33,9 @@ namespace FieldService.Android {
 
             SetContentView (Resource.Layout.SummaryLayout);
 
-            Assignment assignment = null;
-            if (bundle != null) {
-                var index = bundle.GetInt ("index", -1);
+            assignment = null;
+            if (Intent != null) {
+                var index = Intent.GetIntExtra ("index", -1);
                 if (index != -1) {
                     assignment = assignmentViewModel.Assignments [index];
                 } else {
@@ -48,9 +49,19 @@ namespace FieldService.Android {
                 navigationFragment.Assignment = assignment;
             }
             contentFragment = FragmentManager.FindFragmentById<ContentFragment> (Resource.Id.contentFragment);
+            contentFragment.Assignment = assignment;
 
             if (assignment != null) {
                 title.Text = string.Format ("#{0} {1} {2}", assignment.JobNumber, assignment.Title, assignment.StartDate.ToShortDateString ());
+            }
+        }
+
+        protected override void OnResume ()
+        {
+            base.OnResume ();
+            contentFragment.Assignment = assignment;
+            if (navigationFragment != null) {
+                navigationFragment.Assignment = assignment;
             }
         }
     }

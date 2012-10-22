@@ -19,18 +19,18 @@
     <fragment
         android:name="fieldservice.android.fragments.NavigationFragment"
         android:id="@+id/navigationFragment"
-        android:layout_width="wrap_content"
+        android:layout_width="220dp"
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp"
-        android:minWidth="220dp" />
+        android:layout_marginTop="55dp" />
     <fragment
         android:name="fieldservice.android.fragments.ContentFragment"
         android:id="@+id/contentFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_toRightOf="@id/navigationFragment"
-        android:layout_alignTop="@+id/navigationFragment" />
+        android:layout_alignTop="@+id/navigationFragment"
+        android:background="@android:color/white" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"

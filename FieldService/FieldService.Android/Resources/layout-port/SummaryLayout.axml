@@ -21,12 +21,14 @@
         android:id="@+id/contentFragment"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="55dp" />
+        android:layout_marginTop="55dp"
+        android:background="@android:color/white" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/summaryAssignmentTitle"
-        android:layout_alignLeft="@id/contentFragment"
-        android:layout_marginTop="15dp" />
+        android:layout_marginTop="15dp"
+        android:layout_toRightOf="@id/actionBarTitle"
+        android:layout_marginLeft="20dp" />
 </RelativeLayout>
