@@ -19,6 +19,7 @@ using MonoTouch.UIKit;
 using FieldService.Utilities;
 using FieldService.Data;
 using FieldService.ViewModels;
+using Xamarin.Media;
 
 namespace FieldService.iOS
 {
@@ -30,6 +31,7 @@ namespace FieldService.iOS
 		readonly ConfirmationController confirmationController;
 		readonly AssignmentDetailsController detailsController;
 		readonly PhotoViewModel photoViewModel;
+		MediaPicker picker;
 		UIImage image;
 		UIAlertView alertView;
 
@@ -45,6 +47,9 @@ namespace FieldService.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
+			//Setup Xamarin Mobile
+			picker = new MediaPicker();
 
 			//UI setup from code
 			photoFrame.Image = Theme.PhotoFrame;
@@ -98,8 +103,8 @@ namespace FieldService.iOS
 				if (image != null)
 					image.Dispose ();
 
-				this.photo.Image =
-					image = photo.Image.ToUIImage ();
+				image = photo.Image.ToUIImage ();
+				this.photo.SetImage (image, UIControlState.Normal);
 				description.Text = photo.Description;
 				date.Text = photo.Date.ToShortDateString ();
 				time.Text = photo.Date.ToShortTimeString ();
@@ -112,8 +117,8 @@ namespace FieldService.iOS
 
 			if (image != null) {
 				image.Dispose ();
-				photo.Image = 
-					image = null;
+				image = null;
+				photo.SetImage(null, UIControlState.Normal);
 			}
 		}
 
@@ -135,6 +140,27 @@ namespace FieldService.iOS
 				alertView = null;
 			};
 			alertView.Show ();
+		}
+
+		partial void Choose ()
+		{
+			if (!picker.IsCameraAvailable) {
+				new UIAlertView(string.Empty, "Sorry, no camera available.", null, "Ok").Show ();
+				return;
+			}
+
+			picker.TakePhotoAsync (new StoreCameraMediaOptions {
+				Name = "FieldService.jpg",
+				Directory = "FieldService",
+			}).ContinueOnUIThread (t => {
+
+				if (t.IsCanceled)
+					return t.Result;
+
+				image = t.Result.GetStream().ToUIImage();
+				photo.SetImage (image, UIControlState.Normal);
+				return t.Result;
+			});
 		}
 
 		partial void Cancel (NSObject sender)

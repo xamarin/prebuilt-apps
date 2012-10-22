@@ -27,7 +27,7 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UILabel date { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView photo { get; set; }
+		MonoTouch.UIKit.UIButton photo { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIImageView photoFrame { get; set; }
@@ -43,6 +43,9 @@ namespace FieldService.iOS
 
 		[Action ("Cancel:")]
 		partial void Cancel (MonoTouch.Foundation.NSObject sender);
+
+		[Action ("Choose")]
+		partial void Choose ();
 		
 		void ReleaseDesignerOutlets ()
 		{

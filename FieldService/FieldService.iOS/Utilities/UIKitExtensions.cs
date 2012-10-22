@@ -12,7 +12,6 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
@@ -55,7 +54,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Returns true if is landscape
 		/// </summary>
-		public static bool IsLandscape(this UIInterfaceOrientation orientation)
+		public static bool IsLandscape (this UIInterfaceOrientation orientation)
 		{
 			return orientation == UIInterfaceOrientation.LandscapeLeft || orientation == UIInterfaceOrientation.LandscapeRight;
 		}
@@ -63,7 +62,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Returns true if is portrait
 		/// </summary>
-		public static bool IsPortrait(this UIInterfaceOrientation orientation)
+		public static bool IsPortrait (this UIInterfaceOrientation orientation)
 		{
 			return orientation == UIInterfaceOrientation.Portrait || orientation == UIInterfaceOrientation.PortraitUpsideDown;
 		}
@@ -78,7 +77,7 @@ namespace FieldService.iOS
 			address.City = assignment.City;
 			address.State = assignment.State;
 			address.Country = string.Empty;
-			address.Dictionary[new NSString("Assignment")] = assignment.WrapObject();
+			address.Dictionary [new NSString ("Assignment")] = assignment.WrapObject ();
 			
 			return new MKPlacemark (new CLLocationCoordinate2D (assignment.Latitude, assignment.Longitude), address.Dictionary);
 		}
@@ -86,21 +85,34 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Clears all MKPlacemarks for a map view
 		/// </summary>
-		public static void ClearPlacemarks(this MKMapView mapView)
+		public static void ClearPlacemarks (this MKMapView mapView)
 		{
-			mapView.RemoveAnnotations (mapView.Annotations.OfType<MKPlacemark> ().ToArray ());;
+			mapView.RemoveAnnotations (mapView.Annotations.OfType<MKPlacemark> ().ToArray ());
+			;
 		}
 
 		/// <summary>
 		/// Loads a UIImage from a byte array
 		/// </summary>
-		public static UIImage ToUIImage(this byte[] bytes)
+		public static UIImage ToUIImage (this byte[] bytes)
 		{
 			if (bytes == null)
 				return null;
 
-			using (var data = NSData.FromArray (bytes))
-			{
+			using (var data = NSData.FromArray (bytes)) {
+				return UIImage.LoadFromData (data);
+			}
+		}
+
+		/// <summary>
+		/// Loads a UIImage from a Stream
+		/// </summary>
+		public static UIImage ToUIImage (this System.IO.Stream stream)
+		{
+			if (stream == null)
+				return null;
+
+			using (var data = NSData.FromStream (stream)) {
 				return UIImage.LoadFromData (data);
 			}
 		}
@@ -108,15 +120,13 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Converts a UIImage to a byte array
 		/// </summary>
-		public static byte[] ToByteArray(this UIImage image)
+		public static byte[] ToByteArray (this UIImage image)
 		{
 			if (image == null)
 				return null;
 
-			using (image)
-			{
-				using (var data = image.AsJPEG ())
-				{
+			using (image) {
+				using (var data = image.AsJPEG ()) {
 					byte[] bytes = new byte[data.Length];
 					Marshal.Copy (data.Bytes, bytes, 0, (int)data.Length);
 					return bytes;

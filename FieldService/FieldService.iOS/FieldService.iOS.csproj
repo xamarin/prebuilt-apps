@@ -90,6 +90,9 @@
     <Reference Include="SignatureView.iPhone">
       <HintPath>..\Dependencies\SignatureView\iOS\SignatureView.iPhone.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Mobile">
+      <HintPath>..\Dependencies\Xamarin.Mobile\iOS\Xamarin.Mobile.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -107,11 +110,6 @@
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Utilities\Theme.cs" />
-    <Compile Include="LoginController.cs" />
-    <Compile Include="LoginController.designer.cs">
-      <DependentUpon>LoginController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="BaseController.cs" />
     <Compile Include="..\FieldService\Data\ILoginService.cs">
       <Link>FieldService\Data\ILoginService.cs</Link>
     </Compile>
@@ -120,19 +118,6 @@
     </Compile>
     <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
       <Link>FieldService\Utilities\TaskExtensions.cs</Link>
-    </Compile>
-    <Compile Include="AssignmentsController.cs" />
-    <Compile Include="AssignmentsController.designer.cs">
-      <DependentUpon>AssignmentsController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MenuController.cs" />
-    <Compile Include="MenuController.designer.cs">
-      <DependentUpon>MenuController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MainController.cs" />
-    <Compile Include="AssignmentCell.cs" />
-    <Compile Include="AssignmentCell.designer.cs">
-      <DependentUpon>AssignmentCell.cs</DependentUpon>
     </Compile>
     <Compile Include="..\FieldService\Data\Assignment.cs">
       <Link>FieldService\Data\Assignment.cs</Link>
@@ -170,17 +155,8 @@
     <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
       <Link>FieldService\Utilities\ServiceContainer.cs</Link>
     </Compile>
-    <Compile Include="TextButton.cs" />
-    <Compile Include="TextButton.designer.cs">
-      <DependentUpon>TextButton.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AssignmentStatusSheet.cs" />
     <Compile Include="..\FieldService\Utilities\DataExtensions.cs">
       <Link>FieldService\Utilities\DataExtensions.cs</Link>
-    </Compile>
-    <Compile Include="AssignmentDetailsController.cs" />
-    <Compile Include="AssignmentDetailsController.designer.cs">
-      <DependentUpon>AssignmentDetailsController.cs</DependentUpon>
     </Compile>
     <Compile Include="..\FieldService\Data\Labor.cs">
       <Link>FieldService\Data\Labor.cs</Link>
@@ -188,82 +164,109 @@
     <Compile Include="..\FieldService\Data\Expense.cs">
       <Link>FieldService\Data\Expense.cs</Link>
     </Compile>
-    <Compile Include="StatusButton.cs" />
-    <Compile Include="StatusButton.designer.cs">
-      <DependentUpon>StatusButton.cs</DependentUpon>
-    </Compile>
     <Compile Include="..\FieldService\Data\TimerEntry.cs">
       <Link>FieldService\Data\TimerEntry.cs</Link>
     </Compile>
     <Compile Include="Utilities\SynchronizeInvoke.cs" />
     <Compile Include="Utilities\UIKitExtensions.cs" />
     <Compile Include="Utilities\ClrWrapper.cs" />
-    <Compile Include="ItemsViewController.cs" />
-    <Compile Include="ItemsViewController.designer.cs">
-      <DependentUpon>ItemsViewController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AssignmentItemCell.cs" />
-    <Compile Include="AssignmentItemCell.designer.cs">
-      <DependentUpon>AssignmentItemCell.cs</DependentUpon>
-    </Compile>
     <Compile Include="..\FieldService\ViewModels\ItemViewModel.cs">
       <Link>FieldService\ViewModels\ItemViewModel.cs</Link>
-    </Compile>
-    <Compile Include="SummaryController.cs" />
-    <Compile Include="SummaryController.designer.cs">
-      <DependentUpon>SummaryController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="MapController.cs" />
-    <Compile Include="AddItemController.cs" />
-    <Compile Include="AddItemController.designer.cs">
-      <DependentUpon>AddItemController.cs</DependentUpon>
     </Compile>
     <Compile Include="Utilities\ISearchSource.cs" />
     <Compile Include="Utilities\SearchDisplay.cs" />
     <Compile Include="..\FieldService\ViewModels\LaborViewModel.cs">
       <Link>FieldService\ViewModels\LaborViewModel.cs</Link>
     </Compile>
-    <Compile Include="LaborController.cs" />
-    <Compile Include="LaborController.designer.cs">
-      <DependentUpon>LaborController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LaborCell.cs" />
-    <Compile Include="LaborCell.designer.cs">
-      <DependentUpon>LaborCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="AddLaborController.cs" />
-    <Compile Include="AddLaborController.designer.cs">
-      <DependentUpon>AddLaborController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="LaborTypeSheet.cs" />
-    <Compile Include="HoursField.cs" />
-    <Compile Include="ConfirmationController.cs" />
-    <Compile Include="ConfirmationController.designer.cs">
-      <DependentUpon>ConfirmationController.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SignatureCell.cs" />
-    <Compile Include="SignatureCell.designer.cs">
-      <DependentUpon>SignatureCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="CompleteCell.cs" />
-    <Compile Include="CompleteCell.designer.cs">
-      <DependentUpon>CompleteCell.cs</DependentUpon>
-    </Compile>
-    <Compile Include="SignatureController.cs" />
     <Compile Include="..\FieldService\ViewModels\PhotoViewModel.cs">
       <Link>FieldService\ViewModels\PhotoViewModel.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Data\Photo.cs">
       <Link>FieldService\Data\Photo.cs</Link>
     </Compile>
-    <Compile Include="PhotoCell.cs" />
-    <Compile Include="PhotoCell.designer.cs">
-      <DependentUpon>PhotoCell.cs</DependentUpon>
+    <Compile Include="Controllers\AddItemController.cs" />
+    <Compile Include="Controllers\AddItemController.designer.cs">
+      <DependentUpon>AddItemController.cs</DependentUpon>
     </Compile>
-    <Compile Include="AddPhotoController.cs" />
-    <Compile Include="AddPhotoController.designer.cs">
+    <Compile Include="Controllers\AddLaborController.cs" />
+    <Compile Include="Controllers\AddLaborController.designer.cs">
+      <DependentUpon>AddLaborController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AddPhotoController.cs" />
+    <Compile Include="Controllers\AddPhotoController.designer.cs">
       <DependentUpon>AddPhotoController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controllers\AssignmentsController.cs" />
+    <Compile Include="Controllers\AssignmentsController.designer.cs">
+      <DependentUpon>AssignmentsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\AssignmentDetailsController.cs" />
+    <Compile Include="Controllers\AssignmentDetailsController.designer.cs">
+      <DependentUpon>AssignmentDetailsController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ConfirmationController.cs" />
+    <Compile Include="Controllers\ConfirmationController.designer.cs">
+      <DependentUpon>ConfirmationController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ItemsViewController.cs" />
+    <Compile Include="Controllers\ItemsViewController.designer.cs">
+      <DependentUpon>ItemsViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\MainController.cs" />
+    <Compile Include="Controllers\LaborController.cs" />
+    <Compile Include="Controllers\LaborController.designer.cs">
+      <DependentUpon>LaborController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LoginController.designer.cs">
+      <DependentUpon>LoginController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SignatureController.cs" />
+    <Compile Include="Controllers\SummaryController.cs" />
+    <Compile Include="Controllers\SummaryController.designer.cs">
+      <DependentUpon>SummaryController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\MenuController.designer.cs">
+      <DependentUpon>MenuController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssignmentCell.cs" />
+    <Compile Include="Views\AssignmentCell.designer.cs">
+      <DependentUpon>AssignmentCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssignmentItemCell.cs" />
+    <Compile Include="Views\AssignmentItemCell.designer.cs">
+      <DependentUpon>AssignmentItemCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Views\CompleteCell.cs" />
+    <Compile Include="Views\CompleteCell.designer.cs">
+      <DependentUpon>CompleteCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HoursField.cs" />
+    <Compile Include="Views\LaborCell.cs" />
+    <Compile Include="Views\LaborCell.designer.cs">
+      <DependentUpon>LaborCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LaborTypeSheet.cs" />
+    <Compile Include="Views\PhotoCell.cs" />
+    <Compile Include="Views\PhotoCell.designer.cs">
+      <DependentUpon>PhotoCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SignatureCell.cs" />
+    <Compile Include="Views\SignatureCell.designer.cs">
+      <DependentUpon>SignatureCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\StatusButton.cs" />
+    <Compile Include="Views\StatusButton.designer.cs">
+      <DependentUpon>StatusButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\TextButton.cs" />
+    <Compile Include="Views\TextButton.designer.cs">
+      <DependentUpon>TextButton.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssignmentStatusSheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -275,6 +278,8 @@
     <Folder Include="Utilities\" />
     <Folder Include="FieldService\Data\" />
     <Folder Include="FieldService\Utilities\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\accept.png" />
