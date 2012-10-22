@@ -129,7 +129,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> buttondark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/buttondark.png").CreateResizableImage (new UIEdgeInsets (16, 17, 17, 17)));
 		
 		/// <summary>
-		/// 
+		/// Button image used for buttons like "Add Photo" or "Add Signature"
 		/// </summary>
 		public static UIImage ButtonDark {
 			get { return buttondark.Value; }
@@ -165,7 +165,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> complete = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
 		
 		/// <summary>
-		/// 
+		/// Image for the complete button
 		/// </summary>
 		public static UIImage Complete {
 			get { return complete.Value; }
@@ -614,8 +614,6 @@ namespace FieldService.iOS
 		/// </summary>
 		public static void Apply ()
 		{
-			UILabel.Appearance.TextColor = LabelColor;
-
 			UIActivityIndicatorView.Appearance.Color = IndicatorColor;
 
 			UINavigationBar.Appearance.SetBackgroundImage (TopNav, UIBarMetrics.Default);
@@ -672,6 +670,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)storyboard.InstantiateViewController ("AssignmentDetailsController"));
 			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));
 			ServiceContainer.Register<LaborController> (() => (LaborController)storyboard.InstantiateViewController ("LaborController"));
+			ServiceContainer.Register<ConfirmationController> (() => (ConfirmationController)storyboard.InstantiateViewController ("ConfirmationController"));
 		}
 	}
 }

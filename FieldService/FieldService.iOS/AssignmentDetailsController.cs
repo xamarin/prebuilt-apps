@@ -97,6 +97,10 @@ namespace FieldService.iOS
 				//Labor Hours
 				nextChildController = ServiceContainer.Resolve<LaborController>();
 				break;
+			case 4:
+				//Confirmations
+				nextChildController = ServiceContainer.Resolve<ConfirmationController>();
+				break;
 			default:
 				return; //This means this section isn't done yet
 			}
