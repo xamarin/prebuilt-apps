@@ -59,6 +59,9 @@ namespace FieldService.ViewModels {
         {
             bool newPhoto = photo.ID == 0;
 
+            //Update the date
+            photo.Date = DateTime.Now;
+
             return service
                 .SavePhoto (photo)
                 .ContinueOnUIThread (t => {

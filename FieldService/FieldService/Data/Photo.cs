@@ -38,5 +38,15 @@ namespace FieldService.Data {
         /// Actual image
         /// </summary>
         public byte[] Image { get; set; }
+
+        /// <summary>
+        /// Date image was saved
+        /// </summary>
+        public DateTime Date { get; set; }
+
+        /// <summary>
+        /// Description for photo
+        /// </summary>
+        public string Description { get; set; }
     }
 }
