@@ -56,6 +56,19 @@ namespace FieldService.Android {
             }
         }
 
+        public void ReloadNavigation ()
+        {
+            if (navigationFragment != null) {
+                var transaction = FragmentManager.BeginTransaction ();
+                var navFragment = new NavigationFragment ();
+                navFragment.Assignment = assignment;
+                transaction.Replace (navigationFragment.Id, navFragment);
+                transaction.AddToBackStack (null);
+                transaction.Commit ();
+                navigationFragment = navFragment;
+            }
+        }
+
         protected override void OnResume ()
         {
             base.OnResume ();

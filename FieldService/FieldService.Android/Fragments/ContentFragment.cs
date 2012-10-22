@@ -16,14 +16,13 @@ namespace FieldService.Android.Fragments {
         TextView number,
             name,
             phone,
-            address;
-
-        public override void OnCreate (Bundle savedInstanceState)
-        {
-            base.OnCreate (savedInstanceState);
-            SetHasOptionsMenu (true);
-        }
-
+            address,
+            items,
+            laborhours,
+            expenses,
+            description,
+            descriptionHeader;
+        
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
@@ -33,25 +32,29 @@ namespace FieldService.Android.Fragments {
             name = view.FindViewById<TextView> (Resource.Id.summaryContactName);
             phone = view.FindViewById<TextView> (Resource.Id.summaryPhoneNumber);
             address = view.FindViewById<TextView> (Resource.Id.summaryAddress);
+            items = view.FindViewById<TextView> (Resource.Id.summaryAssignmentItems);
+            laborhours = view.FindViewById<TextView> (Resource.Id.summaryAssignmentLaborHours);
+            expenses = view.FindViewById<TextView> (Resource.Id.summaryAssignmentExpenses);
+            description = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescription);
+            descriptionHeader = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescriptionHeader);
 
             return view;
         }
-
-        public override void OnCreateOptionsMenu (IMenu menu, MenuInflater inflater)
-        {
-            inflater.Inflate (Resource.Menu.menu, menu);   
-            base.OnCreateOptionsMenu (menu, inflater);
-        }
-
+        
         public Assignment Assignment
         {
             set
             {
-                if (value != null && value.Status == AssignmentStatus.Active) {
+                if (value != null) {
                     number.Text = value.Priority.ToString ();
                     name.Text = value.ContactName;
                     phone.Text = value.ContactPhone;
                     address.Text = string.Format ("{0}\n{1}, {2} {3}", value.Address, value.City, value.State, value.Zip);
+                    description.Text = value.Description;
+                    descriptionHeader.Text = value.Title;
+                    items.Text = value.TotalItems.ToString();
+                    laborhours.Text = value.TotalHours.ToString ();
+                    expenses.Text = value.TotalExpenses.ToString ("$#.00");
                 }
             }
         }

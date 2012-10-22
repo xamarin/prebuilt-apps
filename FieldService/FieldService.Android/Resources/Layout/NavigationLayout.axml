@@ -7,6 +7,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:listSelector="@drawable/navigation_selector"
+        android:divider="@android:color/transparent"
         android:id="@+id/navigationListView" />
     <LinearLayout
         android:orientation="horizontal"
@@ -21,7 +22,9 @@
         <Spinner
             android:id="@+id/fragmentStatus"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:background="@android:color/transparent" />
     </LinearLayout>
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -44,11 +47,14 @@
                 android:textSize="20dp" />
         </LinearLayout>
         <ToggleButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="47dp"
+            android:layout_height="46dp"
             android:id="@+id/fragmentTimer"
             android:layout_gravity="right"
-            android:background="@drawable/timer_selector"
-            android:layout_alignParentRight="true" />
+            android:background="@drawable/summary_timer"
+            android:layout_alignParentRight="true"
+            android:textOff=" "
+            android:textOn=" "
+            android:layout_marginRight="10dp" />
     </RelativeLayout>
 </LinearLayout>

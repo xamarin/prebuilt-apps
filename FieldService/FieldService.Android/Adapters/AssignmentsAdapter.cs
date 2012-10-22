@@ -137,7 +137,6 @@ namespace FieldService.Android {
                 if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
                     activity.ReloadAssignments ();
                 } else {
-                    //not sure how to refresh 1 list item yet.
                     activity.ReloadSingleListItem (index);
                 }
             });

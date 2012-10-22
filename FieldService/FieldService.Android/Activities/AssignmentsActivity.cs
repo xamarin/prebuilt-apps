@@ -173,7 +173,7 @@ namespace FieldService.Android {
                 name.Text = assignment.ContactName;
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
-                timerText.Text = string.Format ("{0} hr {1} min\n{2}", "10", "59", "START");
+                timerText.Text = string.Format ("{0} hr {1} min\n{2}", assignmentViewModel.Hours.ToString("hh"), assignmentViewModel.Hours.ToString("mm"), "START");
                 
             } else {
                 assignmentActiveLayout.Visibility = ViewStates.Gone;

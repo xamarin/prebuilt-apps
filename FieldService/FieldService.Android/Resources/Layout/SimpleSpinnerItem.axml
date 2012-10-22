@@ -4,5 +4,7 @@
     android:layout_height="wrap_content"
     android:textSize="18dp"
     android:textColor="@color/greyspinnertext"
-    android:background="@android:color/white"
-    android:id="@+id/simpleSpinnerTextView" />
+    android:background="@color/navigationitemselected"
+    android:id="@+id/simpleSpinnerTextView"
+    android:gravity="center"
+    android:ellipsize="marquee" />
