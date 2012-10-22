@@ -256,6 +256,14 @@
     <Compile Include="..\FieldService\Data\Photo.cs">
       <Link>FieldService\Data\Photo.cs</Link>
     </Compile>
+    <Compile Include="PhotoCell.cs" />
+    <Compile Include="PhotoCell.designer.cs">
+      <DependentUpon>PhotoCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="AddPhotoController.cs" />
+    <Compile Include="AddPhotoController.designer.cs">
+      <DependentUpon>AddPhotoController.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

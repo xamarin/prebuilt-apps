@@ -17,6 +17,8 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Utilities;
+using FieldService.ViewModels;
+using FieldService.Data;
 
 namespace FieldService.iOS
 {
@@ -24,6 +26,11 @@ namespace FieldService.iOS
 	{
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
+		}
+
+		public Photo Photo {
+			get;
+			set;
 		}
 
 		public override void ViewDidLoad ()
@@ -36,17 +43,17 @@ namespace FieldService.iOS
 			addPhoto.SetTitleColor (UIColor.White, UIControlState.Normal);
 
 			//Setup our toolbar
-			var label = new UILabel (new RectangleF(0, 0, 120, 36)) { 
+			var label = new UILabel (new RectangleF (0, 0, 120, 36)) { 
 				Text = "Confirmations",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (16),
 			};
-			var descriptionButton = new UIBarButtonItem(label);
+			var descriptionButton = new UIBarButtonItem (label);
 			toolbar.Items = new UIBarButtonItem[] { descriptionButton };
 
-			photoTableView.Source = new PhotoTableSource();
-			signatureTableView.Source = new SignatureTableSource();
+			photoTableView.Source = new PhotoTableSource ();
+			signatureTableView.Source = new SignatureTableSource ();
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -56,7 +63,7 @@ namespace FieldService.iOS
 			ReloadConfirmation ();
 		}
 
-		public void ReloadConfirmation()
+		public void ReloadConfirmation ()
 		{
 			photoTableView.ReloadData ();
 			signatureTableView.ReloadData ();
@@ -64,24 +71,39 @@ namespace FieldService.iOS
 
 		partial void AddPhoto ()
 		{
+			Photo = new Photo { Date = DateTime.Now };
 
-
+			PerformSegue ("AddPhoto", this);
 		}
 
 		private class PhotoTableSource : UITableViewSource
 		{
 			const string Identifier = "PhotoCell";
+			readonly PhotoViewModel photoViewModel;
+			readonly ConfirmationController confirmationController;
+
+			public PhotoTableSource ()
+			{
+				photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+				confirmationController = ServiceContainer.Resolve<ConfirmationController> ();
+			}
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				return 0;
+				return photoViewModel.Photos == null ? 0 : photoViewModel.Photos.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				var cell = tableView.DequeueReusableCell (Identifier);
-				//TODO: finish this
+				var cell = tableView.DequeueReusableCell (Identifier) as PhotoCell;
+				cell.SetPhoto (photoViewModel.Photos [indexPath.Row]);
 				return cell;
+			}
+
+			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			{
+				confirmationController.Photo = photoViewModel.Photos[indexPath.Row];
+				confirmationController.PerformSegue ("AddPhoto", confirmationController);
 			}
 		}
 
@@ -93,7 +115,7 @@ namespace FieldService.iOS
 
 			public SignatureTableSource ()
 			{
-				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+				detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
 			}
 
 			public override UIView GetViewForHeader (UITableView tableView, int section)

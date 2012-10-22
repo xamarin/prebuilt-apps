@@ -63,5 +63,17 @@ namespace FieldService.iOS
 			var signatureController = ServiceContainer.Resolve<SignatureController>();
 			signatureController.PresentFromRect (Frame, Superview, UIPopoverArrowDirection.Up, true);
 		}
+
+		protected override void Dispose (bool disposing)
+		{
+			if (image != null) {
+				image.Dispose ();
+				image = null;
+			}
+
+			ReleaseDesignerOutlets ();
+
+			base.Dispose (disposing);
+		}
 	}
 }

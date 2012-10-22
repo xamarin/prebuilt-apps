@@ -381,7 +381,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> modalInlay = new Lazy<UIImage> (() => UIImage.FromFile ("Images/modal_inlay.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
 		
 		/// <summary>
-		///
+		/// Background image for sections on modal controllers
 		/// </summary>
 		public static UIImage ModalInlay {
 			get { return modalInlay.Value; }
@@ -399,7 +399,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> orangebar = new Lazy<UIImage> (() => UIImage.FromFile ("Images/orangebar.png"));
 		
 		/// <summary>
-		/// 
+		/// Background image for history-theme toolbars
 		/// </summary>
 		public static UIImage OrangeBar {
 			get { return orangebar.Value; }
@@ -408,7 +408,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> photoframe = new Lazy<UIImage> (() => UIImage.FromFile ("Images/photoframe.png").CreateResizableImage (new UIEdgeInsets (10, 12, 15, 12)));
 		
 		/// <summary>
-		///
+		/// Photo border image that looks like a picture frame
 		/// </summary>
 		public static UIImage PhotoFrame {
 			get { return photoframe.Value; }

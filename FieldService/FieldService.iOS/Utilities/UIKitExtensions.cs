@@ -96,6 +96,9 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIImage ToUIImage(this byte[] bytes)
 		{
+			if (bytes == null)
+				return null;
+
 			using (var data = NSData.FromArray (bytes))
 			{
 				return UIImage.LoadFromData (data);
@@ -107,6 +110,9 @@ namespace FieldService.iOS
 		/// </summary>
 		public static byte[] ToByteArray(this UIImage image)
 		{
+			if (image == null)
+				return null;
+
 			using (image)
 			{
 				using (var data = image.AsJPEG ())
