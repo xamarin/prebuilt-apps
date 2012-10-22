@@ -135,7 +135,9 @@
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
+    <Compile Include="Adapters\ItemsAdapter.cs" />
     <Compile Include="Adapters\NavigationAdapter.cs" />
+    <Compile Include="Fragments\ItemFragment.cs" />
     <Compile Include="Fragments\SummaryFragment.cs" />
     <Compile Include="Fragments\NavigationFragment.cs" />
     <Compile Include="Maps\MapOverlayItem.cs" />
@@ -175,6 +177,12 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SummaryLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ItemsFragmentLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ItemLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -222,6 +230,7 @@
     <AndroidResource Include="Resources\Drawable\SummaryPause.png" />
     <AndroidResource Include="Resources\Drawable\SummaryRecord.png" />
     <AndroidResource Include="Resources\Drawable\summary_timer.xml" />
+    <AndroidResource Include="Resources\Drawable\TrashCanIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
