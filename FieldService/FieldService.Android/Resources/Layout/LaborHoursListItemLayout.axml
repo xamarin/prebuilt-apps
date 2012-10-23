@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <Spinner
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:id="@+id/laborType" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/laborDescription"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:layout_marginLeft="10dp"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@id/laborType"
+        android:textSize="16dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/laborHours"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:layout_centerVertical="true"
+        android:layout_alignRight="true"
+        android:textSize="16dp" />
+</RelativeLayout>
