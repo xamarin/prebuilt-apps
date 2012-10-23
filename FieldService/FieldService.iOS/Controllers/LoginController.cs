@@ -104,6 +104,7 @@ namespace FieldService.iOS
 
 		partial void Login ()
 		{
+			username.ResignFirstResponder ();
 			password.ResignFirstResponder ();
 			
 			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => Theme.TransitionController<AssignmentsController>());

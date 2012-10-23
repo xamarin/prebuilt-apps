@@ -32,6 +32,7 @@ namespace FieldService.iOS
 		bool loaded = false;
 		NSIndexPath indexPath;
 		Assignment assignment;
+		UIAlertView alertView;
 
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
@@ -108,9 +109,18 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Decline ()
 		{
-			assignment.Status = AssignmentStatus.Declined;
+			alertView = new UIAlertView("Decline?", "Are you sure?", null, "Yes", "No");
+			alertView.Dismissed += (sender, e) => {
+				if (e.ButtonIndex == 0) {
+					assignment.Status = AssignmentStatus.Declined;
 
-			SaveAssignment ();
+					SaveAssignment ();
+				}
+
+				alertView.Dispose ();
+				alertView = null;
+			};
+			alertView.Show ();
 		}
 
 		/// <summary>

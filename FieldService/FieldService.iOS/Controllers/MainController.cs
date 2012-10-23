@@ -25,6 +25,8 @@ namespace FieldService.iOS
 	[Register("MainController")]
 	public class MainController : UISplitViewController
 	{
+		private UIPopoverController popover;
+
 		public MainController (IntPtr handle) : base(handle)
 		{
 			ServiceContainer.Register (this);
@@ -41,6 +43,15 @@ namespace FieldService.iOS
 			};
 
 			Delegate = new SplitDelegate();
+		}
+
+		/// <summary>
+		/// Hides the popover if it is present
+		/// </summary>
+		public void HidePopover()
+		{
+			if (popover != null)
+				popover.Dismiss (true);
 		}
 
 		/// <summary>
@@ -64,15 +75,18 @@ namespace FieldService.iOS
 		/// </summary>
 		private class SplitDelegate : UISplitViewControllerDelegate
 		{
+			readonly MainController mainController;
 			readonly AssignmentDetailsController detailsController;
 
 			public SplitDelegate ()
 			{
+				mainController = ServiceContainer.Resolve<MainController>();
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 			}
 
 			public override void WillHideViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem barButtonItem, UIPopoverController pc)
 			{
+				mainController.popover = pc;
 				barButtonItem.Title = "Menu";
 				barButtonItem.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 				barButtonItem.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
@@ -82,6 +96,7 @@ namespace FieldService.iOS
 
 			public override void WillShowViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem button)
 			{
+				mainController.popover = null;
 				detailsController.NavigationItem.SetLeftBarButtonItem(null, true);
 			}
 		}

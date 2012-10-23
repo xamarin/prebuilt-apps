@@ -282,17 +282,21 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Settings (NSObject sender)
 		{
-			actionSheet = new UIActionSheet();
-			actionSheet.AddButton ("Logout");
-			actionSheet.Dismissed += (s, e) => {
-				if (e.ButtonIndex == 0) {
-					Theme.TransitionController<LoginController>();
-				}
+			if (actionSheet == null) {
+				actionSheet = new UIActionSheet();
+				actionSheet.AddButton ("Logout");
+				actionSheet.Dismissed += (s, e) => {
+					if (e.ButtonIndex == 0) {
+						Theme.TransitionController<LoginController>();
+					}
 
-				actionSheet.Dispose ();
-				actionSheet = null;
-			};
-			actionSheet.ShowFrom (sender as UIBarButtonItem, true);
+					actionSheet.Dispose ();
+					actionSheet = null;
+				};
+				actionSheet.ShowFrom (sender as UIBarButtonItem, true);
+			} else {
+				actionSheet.DismissWithClickedButtonIndex (-1, true);
+			}
 		}
 
 		/// <summary>

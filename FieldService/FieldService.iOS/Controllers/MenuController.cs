@@ -161,10 +161,12 @@ namespace FieldService.iOS
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, confirmationCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
 			readonly AssignmentDetailsController detailsController;
+			readonly MainController mainController;
 
 			public TableSource ()
 			{
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+				mainController = ServiceContainer.Resolve<MainController>();
 
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";
@@ -229,6 +231,7 @@ namespace FieldService.iOS
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				detailsController.SectionSelected (tableView, indexPath);
+				mainController.HidePopover ();
 			}
 
 			protected override void Dispose (bool disposing)
