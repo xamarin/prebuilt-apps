@@ -29,7 +29,7 @@ namespace FieldService.Android {
     public class SummaryActivity : Activity {
         AssignmentViewModel assignmentViewModel;
         NavigationFragment navigationFragment;
-        Assignment assignment;
+        Assignment assignment = null;
         TextView number,
             name,
             phone,
@@ -49,7 +49,6 @@ namespace FieldService.Android {
 
             SetContentView (Resource.Layout.SummaryFragmentLayout);
 
-            assignment = null;
             if (Intent != null) {
                 var index = Intent.GetIntExtra ("index", -1);
                 if (index != -1) {
@@ -70,7 +69,6 @@ namespace FieldService.Android {
             if (Resources.Configuration.Orientation == Orientation.Landscape) {
                 navigationFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragment);
                 navigationFragment.Assignment = assignment;
-                navigationFragment.NavigationSelected += NavigationSelected;
             }
 
             if (assignment != null) {
@@ -122,7 +120,7 @@ namespace FieldService.Android {
                         transaction.Replace (Resource.Id.contentFrame, fragment);
                         transaction.AddToBackStack (null);
                         items.Visibility = 
-                            addItems.Visibility = ViewStates.Gone;
+                            addItems.Visibility = ViewStates.Invisible;
                     }
                     break;
                 case "Maps": {

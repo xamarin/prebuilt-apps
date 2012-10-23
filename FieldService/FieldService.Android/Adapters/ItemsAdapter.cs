@@ -44,7 +44,7 @@ namespace FieldService.Android {
                 view = inflator.Inflate (resourceId, null);
             }
 
-            if (assignmentItems.Count > position) {
+            if (assignmentItems != null && assignmentItems.Count > position) {
                 item = assignmentItems [position];
             }
 
@@ -54,9 +54,10 @@ namespace FieldService.Android {
 
             var name = view.FindViewById<TextView> (Resource.Id.itemName);
             var checkBox = view.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
-            var trashButton = view.FindViewById<CheckBox> (Resource.Id.itemTrashButton);
+            var trashButton = view.FindViewById<ImageButton> (Resource.Id.itemTrashButton);
 
             name.Text = string.Format ("#{0} {1}", item.Number, item.Name);
+            trashButton.Visibility = ViewStates.Invisible;
 
             return view;
         }

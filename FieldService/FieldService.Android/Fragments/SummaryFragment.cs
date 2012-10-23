@@ -38,11 +38,13 @@ namespace FieldService.Android.Fragments {
             description = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescription);
             descriptionHeader = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescriptionHeader);
 
-            description.Text = Assignment.Description;
-            descriptionHeader.Text = Assignment.Title;
-            items.Text = Assignment.TotalItems.ToString ();
-            laborhours.Text = Assignment.TotalHours.ToString ();
-            expenses.Text = Assignment.TotalExpenses.ToString ("$#.00");
+            if (Assignment != null) {
+                description.Text = Assignment.Description;
+                descriptionHeader.Text = Assignment.Title;
+                items.Text = Assignment.TotalItems.ToString ();
+                laborhours.Text = Assignment.TotalHours.ToString ();
+                expenses.Text = Assignment.TotalExpenses.ToString ("$#.00");
+            }
 
             return view;
         }
