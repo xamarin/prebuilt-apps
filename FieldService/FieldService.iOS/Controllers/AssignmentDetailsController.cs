@@ -64,7 +64,7 @@ namespace FieldService.iOS
 				summaryController = ServiceContainer.Resolve <SummaryController>();
 
 			numberAndDate.TextColor =
-				title.TextColor =
+				titleLabel.TextColor =
 				startAndEnd.TextColor = Theme.LabelColor;
 
 			//Events
@@ -132,7 +132,7 @@ namespace FieldService.iOS
 
 				priority.Text = Assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("#{0} {1}", Assignment.JobNumber, Assignment.StartDate.Date.ToShortDateString ());
-				title.Text = Assignment.Title;
+				titleLabel.Text = Assignment.Title;
 				startAndEnd.Text = string.Format ("Start: {0} End: {1}", Assignment.StartDate.ToShortTimeString (), Assignment.EndDate.ToShortTimeString ());
 				contact.TopLabel.Text = Assignment.ContactName;
 				contact.BottomLabel.Text = Assignment.ContactPhone;

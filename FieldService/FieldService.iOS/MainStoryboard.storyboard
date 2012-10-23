@@ -513,7 +513,7 @@
                         <outlet property="tableView" destination="P5x-M2-bEJ" id="ZpJ-28-sXI"/>
                         <outlet property="timerBackgroundImage" destination="eY1-jf-8HJ" id="PNF-e8-dCN"/>
                         <outlet property="timerLabel" destination="hxL-lP-Z7g" id="SI9-s0-akU"/>
-                        <outlet property="title" destination="dDV-BQ-22g" id="tqs-f0-mXH"/>
+                        <outlet property="titleLabel" destination="dDV-BQ-22g" id="wvm-RP-2sm"/>
                         <outlet property="toolbarShadow" destination="EFU-QE-2TR" id="IZL-aJ-TDo"/>
                     </connections>
                 </viewController>
@@ -663,7 +663,7 @@
                         <outlet property="priorityBackground" destination="hTH-7w-2JA" id="f8L-Dv-hj8"/>
                         <outlet property="startAndEnd" destination="OCM-yb-feu" id="83J-pX-j2V"/>
                         <outlet property="status" destination="DFP-0O-eKA" id="zot-Uj-9h1"/>
-                        <outlet property="title" destination="OyC-6N-jwX" id="bQx-XN-7gT"/>
+                        <outlet property="titleLabel" destination="OyC-6N-jwX" id="cKD-1v-2ch"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="US3-qf-4Ef" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1445,7 +1445,7 @@
                 <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
             </relationships>
         </class>
         <class className="AssignmentItemCell" superclassName="UITableViewCell">
@@ -1478,7 +1478,7 @@
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
                 <relationship kind="outlet" name="timerBackgroundImage" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
-                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="toolbarShadow" candidateClass="UIImageView"/>
             </relationships>
         </class>

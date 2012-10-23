@@ -36,7 +36,7 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UILabel numberAndDate { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel title { get; set; }
+		MonoTouch.UIKit.UILabel titleLabel { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UILabel startAndEnd { get; set; }
@@ -116,9 +116,9 @@ namespace FieldService.iOS
 				numberAndDate = null;
 			}
 
-			if (title != null) {
-				title.Dispose ();
-				title = null;
+			if (titleLabel != null) {
+				titleLabel.Dispose ();
+				titleLabel = null;
 			}
 
 			if (startAndEnd != null) {

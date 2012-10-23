@@ -70,7 +70,7 @@ namespace FieldService.iOS
 
 			timerLabel.TextColor =
 				numberAndDate.TextColor =
-				title.TextColor =
+				titleLabel.TextColor =
 				startAndEnd.TextColor = Theme.LabelColor;
 
 			status.StatusChanged += (sender, e) => {
@@ -247,7 +247,7 @@ namespace FieldService.iOS
 			var assignment = assignmentViewModel.ActiveAssignment;
 			priority.Text = assignment.Priority.ToString ();
 			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
-			title.Text = assignment.Title;
+			titleLabel.Text = assignment.Title;
 			startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
 			contact.TopLabel.Text = assignment.ContactName;
 			contact.BottomLabel.Text = assignment.ContactPhone;
