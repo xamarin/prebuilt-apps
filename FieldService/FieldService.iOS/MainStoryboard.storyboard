@@ -826,7 +826,7 @@
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items/>
                             </toolbar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="5DK-NN-TzP">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="15" sectionFooterHeight="15" id="5DK-NN-TzP">
                                 <rect key="frame" x="20" y="44" width="354" height="586"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxX="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
@@ -839,7 +839,7 @@
                                     <nil key="highlightedColor"/>
                                 </label>
                                 <view key="tableFooterView" contentMode="scaleToFill" id="py8-Ds-ifD">
-                                    <rect key="frame" x="0.0" y="156" width="354" height="44"/>
+                                    <rect key="frame" x="0.0" y="149" width="354" height="44"/>
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="EgZ-xi-sfu">
@@ -862,7 +862,7 @@
                                 </view>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="PhotoCell" id="udi-4k-xNA" customClass="PhotoCell">
-                                        <rect key="frame" x="0.0" y="66" width="354" height="90"/>
+                                        <rect key="frame" x="0.0" y="59" width="354" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
                                             <rect key="frame" x="0.0" y="0.0" width="354" height="89"/>
@@ -1093,7 +1093,7 @@
                                 <rect key="frame" x="30" y="54" width="480" height="58"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Image Caption" minimumFontSize="17" id="bvw-b8-Coe">
+                            <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Caption" minimumFontSize="17" id="bvw-b8-Coe">
                                 <rect key="frame" x="40" y="68" width="460" height="30"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="15"/>
@@ -1103,21 +1103,10 @@
                                 <rect key="frame" x="20" y="120" width="500" height="436"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <button opaque="NO" clipsSubviews="YES" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="NWi-7q-aO8">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="1KW-FD-Kui">
                                 <rect key="frame" x="32" y="130" width="475" height="410"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                <state key="normal">
-                                    <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <state key="highlighted">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="Choose" destination="l06-9I-9t1" eventType="touchUpInside" id="Dw5-4h-paN"/>
-                                </connections>
-                            </button>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" red="0.8784313725490196" green="0.8901960784313725" blue="0.90980392156862744" alpha="1" colorSpace="calibratedRGB"/>
                     </view>
@@ -1129,7 +1118,7 @@
                         <outlet property="deleteButton" destination="4R6-D9-qYc" id="muH-G5-hmK"/>
                         <outlet property="description" destination="bvw-b8-Coe" id="ljp-JZ-W2N"/>
                         <outlet property="descriptionBackground" destination="eOA-u1-oiB" id="Tr1-io-uoC"/>
-                        <outlet property="photo" destination="NWi-7q-aO8" id="r8g-s4-Gej"/>
+                        <outlet property="photo" destination="1KW-FD-Kui" id="tfj-eM-fa3"/>
                         <outlet property="photoFrame" destination="myk-RV-pr1" id="Wxx-Q1-bbq"/>
                         <outlet property="time" destination="byX-j4-Tpu" id="PKi-h1-eIC"/>
                         <outlet property="toolbar" destination="rRa-zg-Mod" id="iZ1-To-Inf"/>
@@ -1404,7 +1393,7 @@
                 <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="description" candidateClass="UITextField"/>
                 <relationship kind="outlet" name="descriptionBackground" candidateClass="UIImageView"/>
-                <relationship kind="outlet" name="photo" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="photoFrame" candidateClass="UIImageView"/>
                 <relationship kind="outlet" name="time" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>

@@ -267,6 +267,7 @@
       <DependentUpon>TextButton.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\AssignmentStatusSheet.cs" />
+    <Compile Include="Views\PhotoAlertSheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

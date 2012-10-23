@@ -129,12 +129,14 @@ namespace FieldService.iOS
 		{
 			readonly LaborViewModel laborViewModel;
 			readonly LaborController laborController;
+			readonly AssignmentDetailsController detailsController;
 			const string Identifier = "LaborCell";
 
 			public TableSource ()
 			{
 				laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
 				laborController = ServiceContainer.Resolve<LaborController> ();
+				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -147,10 +149,18 @@ namespace FieldService.iOS
 				laborController.Labor = laborViewModel.LaborHours[indexPath.Row];
 				laborController.PerformSegue ("AddLabor", laborController);
 
+				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
 				BeginInvokeOnMainThread (() => {
 					var cell = tableView.CellAt (indexPath);
 					cell.SetSelected (false, true);
 				});
+			}
+
+			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
+			{
+				laborViewModel
+					.DeleteLabor(detailsController.Assignment, laborViewModel.LaborHours[indexPath.Row])
+					.ContinueOnUIThread (_ => laborController.ReloadLabor ());
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

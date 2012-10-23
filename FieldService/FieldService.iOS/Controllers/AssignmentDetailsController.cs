@@ -129,7 +129,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets up the UI for the assignment
 		/// </summary>
-		private void UpdateAssignment ()
+		public void UpdateAssignment ()
 		{
 			if (Assignment != null && IsViewLoaded) {
 

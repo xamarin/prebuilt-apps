@@ -17,6 +17,8 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Data;
+using FieldService.ViewModels;
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
@@ -25,10 +27,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class CompleteCell : UITableViewCell
 	{
+		readonly AssignmentViewModel assignmentViewModel;
+		readonly AssignmentDetailsController detailsController;
 		Assignment assignment;
 
 		public CompleteCell (IntPtr handle) : base (handle)
 		{
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+
 			BackgroundView = new UIImageView { Image = Theme.Inlay };
 		}
 
@@ -36,13 +43,23 @@ namespace FieldService.iOS
 		{
 			this.assignment = assignment;
 
+			completeButton.Enabled = assignment.Status != AssignmentStatus.Complete;
 			completeButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
 			completeButton.SetTitleColor (UIColor.White, UIControlState.Normal);
 		}
 
 		partial void Complete ()
 		{
+			if (assignment.Signature == null) {
+				new UIAlertView(string.Empty, "Signature is required.", null, "Ok").Show ();
+				return;
+			}
 
+			completeButton.Enabled = false;
+			assignment.Status = AssignmentStatus.Complete;
+			assignmentViewModel
+				.SaveAssignment (assignment)
+				.ContinueOnUIThread (_ => detailsController.UpdateAssignment ());
 		}
 	}
 }

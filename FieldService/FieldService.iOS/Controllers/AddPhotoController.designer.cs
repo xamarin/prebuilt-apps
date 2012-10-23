@@ -27,7 +27,7 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UILabel date { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton photo { get; set; }
+		MonoTouch.UIKit.UIImageView photo { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIImageView photoFrame { get; set; }

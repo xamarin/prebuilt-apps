@@ -26,6 +26,7 @@ namespace FieldService.iOS
 	{
 		readonly PhotoViewModel photoViewModel;
 		readonly AssignmentDetailsController detailController;
+		PhotoAlertSheet photoSheet;
 
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
@@ -33,7 +34,18 @@ namespace FieldService.iOS
 			detailController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 
+		/// <summary>
+		/// The selected photo
+		/// </summary>
 		public Photo Photo {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// True if the photo is a new photo
+		/// </summary>
+		public bool IsNew {
 			get;
 			set;
 		}
@@ -43,6 +55,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI setup from code
+			photoSheet = new PhotoAlertSheet();
 			View.BackgroundColor = Theme.LinenPattern;
 			addPhoto.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
 			addPhoto.SetTitleColor (UIColor.White, UIControlState.Normal);
@@ -78,8 +91,9 @@ namespace FieldService.iOS
 		partial void AddPhoto ()
 		{
 			Photo = new Photo { Assignment = detailController.Assignment.ID, Date = DateTime.Now };
+			IsNew = true;
 
-			PerformSegue ("AddPhoto", this);
+			photoSheet.ShowFrom (addPhoto.Frame, addPhoto.Superview, true);
 		}
 
 		private class PhotoTableSource : UITableViewSource
@@ -94,21 +108,32 @@ namespace FieldService.iOS
 				confirmationController = ServiceContainer.Resolve<ConfirmationController> ();
 			}
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override UIView GetViewForHeader (UITableView tableView, int section)
+			{
+				return new UIView { BackgroundColor = UIColor.Clear };
+			}
+
+			public override int NumberOfSections (UITableView tableView)
 			{
 				return photoViewModel.Photos == null ? 0 : photoViewModel.Photos.Count;
+			}
+
+			public override int RowsInSection (UITableView tableview, int section)
+			{
+				return 1;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				var cell = tableView.DequeueReusableCell (Identifier) as PhotoCell;
-				cell.SetPhoto (photoViewModel.Photos [indexPath.Row]);
+				cell.SetPhoto (photoViewModel.Photos [indexPath.Section]);
 				return cell;
 			}
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				confirmationController.Photo = photoViewModel.Photos[indexPath.Row];
+				confirmationController.Photo = photoViewModel.Photos[indexPath.Section];
+				confirmationController.IsNew = false;
 				confirmationController.PerformSegue ("AddPhoto", confirmationController);
 			}
 		}

@@ -29,6 +29,7 @@ namespace FieldService.iOS
 
 		public PhotoCell (IntPtr handle) : base (handle)
 		{
+			BackgroundView = new UIImageView { Image = Theme.Inlay };
 		}
 
 		public void SetPhoto(Photo photo)
