@@ -62,6 +62,9 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIImageView toolbarShadow { get; set; }
 
+		[Action ("Address")]
+		partial void Address ();
+
 		[Action ("ActiveAssignmentSelected")]
 		partial void ActiveAssignmentSelected ();
 

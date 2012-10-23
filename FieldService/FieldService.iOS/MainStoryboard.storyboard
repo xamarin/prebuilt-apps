@@ -274,6 +274,9 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="Address" destination="9SI-FO-E9U" eventType="touchUpInside" id="bX3-8J-VcR"/>
+                                        </connections>
                                     </button>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="eY1-jf-8HJ">
                                         <rect key="frame" x="307" y="29" width="130" height="36"/>
@@ -592,6 +595,9 @@
                                         <state key="highlighted">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                         </state>
+                                        <connections>
+                                            <action selector="Address" destination="zAT-XQ-7PQ" eventType="touchUpInside" id="fLf-Np-5ta"/>
+                                        </connections>
                                     </button>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="DFP-0O-eKA" customClass="StatusButton">
                                         <rect key="frame" x="570" y="29" width="170" height="37"/>
@@ -1422,6 +1428,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentDetailsController.h"/>
             <relationships>
                 <relationship kind="action" name="Accept"/>
+                <relationship kind="action" name="Address"/>
                 <relationship kind="action" name="Decline"/>
                 <relationship kind="outlet" name="accept" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="address" candidateClass="TextButton"/>
@@ -1449,6 +1456,7 @@
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentsController.h"/>
             <relationships>
                 <relationship kind="action" name="ActiveAssignmentSelected"/>
+                <relationship kind="action" name="Address"/>
                 <relationship kind="action" name="Record"/>
                 <relationship kind="action" name="Settings:"/>
                 <relationship kind="action" name="TabChanged"/>

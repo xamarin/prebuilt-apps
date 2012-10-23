@@ -176,6 +176,15 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
+		/// Event when address is clicked
+		/// </summary>
+		partial void Address ()
+		{
+			var menuController = ServiceContainer.Resolve<MenuController>();
+			menuController.ShowMaps();
+		}
+
+		/// <summary>
 		/// Saves the assignment.
 		/// </summary>
 		private void SaveAssignment ()

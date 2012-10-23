@@ -126,7 +126,12 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			//TODO: take us to the map
+			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
+			assignmentController.Assignment = assignment;
+			Theme.TransitionController <MainController>();
+
+			var menuController = ServiceContainer.Resolve<MenuController>();
+			menuController.ShowMaps();
 		}
 
 		/// <summary>

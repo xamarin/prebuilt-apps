@@ -52,6 +52,9 @@ namespace FieldService.iOS
 
 		[Action ("Decline")]
 		partial void Decline ();
+
+		[Action ("Address")]
+		partial void Address ();
 		
 		void ReleaseDesignerOutlets ()
 		{

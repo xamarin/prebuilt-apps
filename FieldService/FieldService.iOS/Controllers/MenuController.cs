@@ -78,9 +78,23 @@ namespace FieldService.iOS
 			UpdateAssignment ();
 		}
 
+		/// <summary>
+		/// Displays the confirmation page
+		/// </summary>
 		public void ShowConfirmation ()
 		{
 			using (var indexPath = NSIndexPath.FromRowSection (4, 0)) {
+				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
+				detailsController.SectionSelected (tableView, indexPath);
+			}
+		}
+
+		/// <summary>
+		/// Displays the maps page
+		/// </summary>
+		public void ShowMaps ()
+		{
+			using (var indexPath = NSIndexPath.FromRowSection (1, 0)) {
 				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
 				detailsController.SectionSelected (tableView, indexPath);
 			}

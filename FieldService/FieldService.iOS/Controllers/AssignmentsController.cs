@@ -34,6 +34,7 @@ namespace FieldService.iOS
 		readonly AssignmentViewModel assignmentViewModel;
 		bool activeAssignmentVisible = true;
 		MKMapView mapView;
+		UIActionSheet actionSheet;
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
@@ -281,7 +282,30 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Settings (NSObject sender)
 		{
+			actionSheet = new UIActionSheet();
+			actionSheet.AddButton ("Logout");
+			actionSheet.Dismissed += (s, e) => {
+				if (e.ButtonIndex == 0) {
+					Theme.TransitionController<LoginController>();
+				}
 
+				actionSheet.Dispose ();
+				actionSheet = null;
+			};
+			actionSheet.ShowFrom (sender as UIBarButtonItem, true);
+		}
+
+		/// <summary>
+		/// Event when the address is clicked on the active assignment
+		/// </summary>
+		partial void Address ()
+		{
+			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
+			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
+			Theme.TransitionController <MainController>();
+
+			var menuController = ServiceContainer.Resolve<MenuController>();
+			menuController.ShowMaps();
 		}
 
 		/// <summary>
