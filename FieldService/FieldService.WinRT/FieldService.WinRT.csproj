@@ -199,9 +199,9 @@
   <ItemGroup>
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SmallLogo.png" />
+    <Content Include="Assets\smoothbg.png" />
     <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
-    <Content Include="Assets\tiledbg.png" />
     <Content Include="Assets\titlelogo.png" />
   </ItemGroup>
   <ItemGroup>

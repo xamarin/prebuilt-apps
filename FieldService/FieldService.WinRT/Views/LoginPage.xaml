@@ -17,7 +17,7 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Image Source="ms-appx:///Assets/tiledbg.png" Grid.RowSpan="4" Stretch="None" />
+        <Image Source="ms-appx:///Assets/smoothbg.png" Grid.RowSpan="4" Stretch="None" />
 
         <Image Source="ms-appx:///Assets/titlelogo.png" Stretch="None" Margin="25" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
