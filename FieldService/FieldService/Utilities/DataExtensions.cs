@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Globalization;
 using FieldService.Data;
 
 namespace FieldService.Utilities
@@ -39,6 +40,24 @@ namespace FieldService.Utilities
 			double.TryParse (text, out x);
 			return x;
 		}
+
+#if NETFX_CORE
+                /// <summary>
+                /// Missing functionality for WinRT
+                /// </summary>
+                public static string ToShortDateString (this DateTime date)
+                {
+                    return date.ToString (DateTimeFormatInfo.CurrentInfo.ShortDatePattern);
+                }
+
+                /// <summary>
+                /// Missing functionality for WinRT
+                /// </summary>
+                public static string ToShortTimeString (this DateTime date)
+                {
+                    return date.ToString (DateTimeFormatInfo.CurrentInfo.ShortTimePattern);
+                }
+#endif
 	}
 }
 
