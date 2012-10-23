@@ -90,9 +90,9 @@ namespace FieldService.iOS
 		public void ReloadConfirmation ()
 		{
 			if (IsViewLoaded) {
-				photoViewModel.LoadPhotos (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
-
 				signatureTableView.ReloadData ();
+
+				photoViewModel.LoadPhotos (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
 			}
 		}
 
