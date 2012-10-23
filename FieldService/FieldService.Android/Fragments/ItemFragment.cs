@@ -29,7 +29,6 @@ namespace FieldService.Android.Fragments {
             items;
         Button addItems;
         ListView itemsListView;
-        Assignment assignment;
         ItemViewModel itemViewModel;
 
         public override void OnCreate (Bundle savedInstanceState)
@@ -42,7 +41,7 @@ namespace FieldService.Android.Fragments {
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
-            var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, container, true);
+            var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, null, true);
 
             number = view.FindViewById<TextView> (Resource.Id.itemFragmentNumber);
             name = view.FindViewById<TextView> (Resource.Id.itemFragmentContactName);
@@ -51,26 +50,23 @@ namespace FieldService.Android.Fragments {
             items = view.FindViewById<TextView> (Resource.Id.itemFragmentTotalItems);
             addItems = view.FindViewById<Button> (Resource.Id.itemFragmentAddItem);
             itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
-            itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
+            itemViewModel.LoadAssignmentItems (Assignment).ContinueOnUIThread (_ => {
                 itemsListView.Adapter = new ItemsAdapter (this.Activity, Resource.Layout.ItemLayout, itemViewModel.AssignmentItems);
             });
+
+            number.Text = Assignment.Priority.ToString ();
+            name.Text = Assignment.ContactName;
+            phone.Text = Assignment.ContactPhone;
+            address.Text = string.Format ("{0}\n{1}, {2} {3}", Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip);
+            items.Text = string.Format ("({0}) Items", Assignment.TotalItems.ToString ());
 
             return view;
         }
 
         public Assignment Assignment
         {
-            set
-            {
-                if (value != null) {
-                    number.Text = value.Priority.ToString ();
-                    name.Text = value.ContactName;
-                    phone.Text = value.ContactPhone;
-                    address.Text = string.Format ("{0}\n{1}, {2} {3}", value.Address, value.City, value.State, value.Zip);
-                    items.Text = string.Format ("({0}) Items", value.TotalItems.ToString ());
-                }
-                assignment = value;
-            }
+            get;
+            set;
         }
     }
 }

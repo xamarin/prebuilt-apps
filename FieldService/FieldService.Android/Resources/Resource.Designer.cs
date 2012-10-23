@@ -125,28 +125,37 @@ namespace FieldService.Android
 			public const int smallBlueRectangle = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int summary_timer = 2130837524;
+			public const int spinner_blue = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int SummaryPause = 2130837525;
+			public const int spinner_dark = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int SummaryRecord = 2130837526;
+			public const int spinner_white = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int timer_selector = 2130837527;
+			public const int summary_timer = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int TimerPause = 2130837528;
+			public const int SummaryPause = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int TimerRecord = 2130837529;
+			public const int SummaryRecord = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int TrashCanIcon = 2130837530;
+			public const int timer_selector = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int XamarinTitle = 2130837531;
+			public const int TimerPause = 2130837531;
+			
+			// aapt resource value: 0x7f02001c
+			public const int TimerRecord = 2130837532;
+			
+			// aapt resource value: 0x7f02001d
+			public const int TrashCanIcon = 2130837533;
+			
+			// aapt resource value: 0x7f02001e
+			public const int XamarinTitle = 2130837534;
 			
 			private Drawable()
 			{
@@ -217,7 +226,7 @@ namespace FieldService.Android
 			public const int assingmentTabHost = 2131165204;
 			
 			// aapt resource value: 0x7f070033
-			public const int contentFragment = 2131165235;
+			public const int contentFrame = 2131165235;
 			
 			// aapt resource value: 0x7f070021
 			public const int dialogImage = 2131165217;

@@ -1,3 +1,4 @@
+using System;
 //
 //  Copyright 2012  Xamarin Inc.
 //
@@ -14,6 +15,7 @@
 //    limitations under the License.
 using System.Linq;
 using Android.App;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -34,6 +36,7 @@ namespace FieldService.Android.Fragments {
             listViewIndex;
         Assignment assignment;
         AssignmentViewModel assignmentViewModel;
+        public event EventHandler<int> NavigationSelected = delegate { };
 
         public override void OnCreate (Bundle savedInstanceState)
         {
@@ -58,7 +61,9 @@ namespace FieldService.Android.Fragments {
             timerHours = view.FindViewById<TextView> (Resource.Id.fragmentHours);
 
             navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-            navigationStatus.Adapter = new SpinnerAdapter (Assignment.AvailableStatuses, Activity);
+            var spinnerAdapter = new SpinnerAdapter (Assignment.AvailableStatuses, Activity, Resource.Layout.SimpleSpinnerItem);
+            spinnerAdapter.TextColor = Color.White;
+            navigationStatus.Adapter = spinnerAdapter;
             navigationStatus.OnItemSelectedListener = this;
             timerLayout.Visibility = ViewStates.Gone;
 
@@ -120,10 +125,12 @@ namespace FieldService.Android.Fragments {
                         navigationListView.Adapter.GetView (lastposition, oldView, navigationListView);
                     }
                 }
+                var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
+                image.Visibility = ViewStates.Visible;
+                lastposition = position;
+                //need to switch fragments here
+                OnNavigationSelected (position);
             }
-            var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
-            image.Visibility = ViewStates.Visible;
-            lastposition = position;
         }
 
         public void OnItemSelected (AdapterView parent, View view, int position, long id)
@@ -138,6 +145,17 @@ namespace FieldService.Android.Fragments {
         public void OnNothingSelected (AdapterView parent)
         {
             //do nothing
+        }
+
+        public void SetNavigation (int index)
+        {
+            navigationListView.SetSelection (index);
+            OnItemClick (navigationListView, navigationListView.GetChildAt (index), index, 0);
+        }
+
+        private void OnNavigationSelected (int index)
+        {
+            NavigationSelected (this, index);
         }
 
         public override void OnSaveInstanceState (Bundle outState)

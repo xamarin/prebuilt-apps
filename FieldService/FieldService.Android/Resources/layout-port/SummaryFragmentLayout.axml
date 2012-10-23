@@ -16,9 +16,8 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/XamarinTitle" />
-    <fragment
-        android:name="fieldservice.android.fragments.SummaryFragment"
-        android:id="@+id/contentFragment"
+    <FrameLayout
+        android:id="@+id/contentFrame"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginTop="55dp"

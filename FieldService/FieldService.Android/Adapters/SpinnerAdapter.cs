@@ -24,15 +24,17 @@ using FieldService.Data;
 namespace FieldService.Android {
     public class SpinnerAdapter : BaseAdapter, ISpinnerAdapter {
         List<string> items;
-        Activity activity;
-        public SpinnerAdapter (AssignmentStatus[] items, Activity activity)
+        Context context;
+        int resourceId;
+        public SpinnerAdapter (AssignmentStatus[] items, Context context, int resourceId)
             : base ()
         {
             this.items = new List<string> ();
             foreach (var item in items) {
                 this.items.Add (item.ToString());
             }
-            this.activity = activity;
+            this.context = context;
+            this.resourceId = resourceId;
         }
 
         public override Java.Lang.Object GetItem (int position)
@@ -50,12 +52,18 @@ namespace FieldService.Android {
             return (long)position;
         }
 
+        public Color TextColor
+        {
+            get;
+            set;
+        }
+
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             var view = convertView;
             if (view == null) {
-                LayoutInflater inflator = (LayoutInflater)activity.GetSystemService (Context.LayoutInflaterService);
-                view = inflator.Inflate (Resource.Layout.SimpleSpinnerItem, null);
+                LayoutInflater inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
+                view = inflator.Inflate (resourceId, null);
             }
 
             var item = items.ElementAtOrDefault (position);
@@ -65,14 +73,14 @@ namespace FieldService.Android {
 
             var textView = view.FindViewById<TextView> (Resource.Id.simpleSpinnerTextView);
             textView.Text = item;
-            textView.SetBackgroundColor (Color.White);
+            textView.SetTextColor (TextColor);
 
             return view;
         }
 
         protected override void Dispose (bool disposing)
         {
-            activity = null;
+            context = null;
             base.Dispose (disposing);
         }
     }

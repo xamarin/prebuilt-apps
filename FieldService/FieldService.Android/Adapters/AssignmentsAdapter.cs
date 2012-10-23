@@ -83,10 +83,12 @@ namespace FieldService.Android {
 
                 spinner.Focusable = false;
                 spinner.Tag = position;
-                var adapter = new SpinnerAdapter (Assignment.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> ());
+                var adapter = new SpinnerAdapter (Assignment.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> (), Resource.Layout.SimpleSpinnerItem);
+                adapter.TextColor = Context.Resources.GetColor (Resource.Color.greyspinnertext);
                 spinner.Adapter = adapter;
 
                 spinner.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (assignment.Status));
+                spinner.SetBackgroundResource (Resource.Drawable.spinner_white);
                 spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
 
                 spinner.ItemSelected += (sender, e) => {
@@ -98,7 +100,6 @@ namespace FieldService.Android {
                             case AssignmentStatus.Active: {
                                     spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    spinner.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentblue));
                                     activeAssignment.Status = AssignmentStatus.Active;
                                     SaveAssignment (activeAssignment, index);
                                 }
@@ -106,7 +107,7 @@ namespace FieldService.Android {
                             default: {
                                     spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    spinner.SetBackgroundColor (Context.Resources.GetColor (Resource.Color.assignmentgrey));
+                                    spinner.SetBackgroundResource (Resource.Drawable.spinner_white);
                                     activeAssignment.Status = selected;
                                     SaveAssignment (activeAssignment, index);
                                 }

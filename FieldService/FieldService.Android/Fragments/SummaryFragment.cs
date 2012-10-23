@@ -34,7 +34,7 @@ namespace FieldService.Android.Fragments {
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
-            var view = inflater.Inflate (Resource.Layout.SummaryLayout, container, true);
+            var view = inflater.Inflate (Resource.Layout.SummaryLayout, null, true);
 
             number = view.FindViewById<TextView> (Resource.Id.summaryItemNumber);
             name = view.FindViewById<TextView> (Resource.Id.summaryContactName);
@@ -46,25 +46,23 @@ namespace FieldService.Android.Fragments {
             description = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescription);
             descriptionHeader = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescriptionHeader);
 
+            number.Text = Assignment.Priority.ToString ();
+            name.Text = Assignment.ContactName;
+            phone.Text = Assignment.ContactPhone;
+            address.Text = string.Format ("{0}\n{1}, {2} {3}", Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip);
+            description.Text = Assignment.Description;
+            descriptionHeader.Text = Assignment.Title;
+            items.Text = Assignment.TotalItems.ToString ();
+            laborhours.Text = Assignment.TotalHours.ToString ();
+            expenses.Text = Assignment.TotalExpenses.ToString ("$#.00");
+
             return view;
         }
-        
+
         public Assignment Assignment
         {
-            set
-            {
-                if (value != null) {
-                    number.Text = value.Priority.ToString ();
-                    name.Text = value.ContactName;
-                    phone.Text = value.ContactPhone;
-                    address.Text = string.Format ("{0}\n{1}, {2} {3}", value.Address, value.City, value.State, value.Zip);
-                    description.Text = value.Description;
-                    descriptionHeader.Text = value.Title;
-                    items.Text = value.TotalItems.ToString();
-                    laborhours.Text = value.TotalHours.ToString ();
-                    expenses.Text = value.TotalExpenses.ToString ("$#.00");
-                }
-            }
+            get;
+            set;
         }
     }
 }

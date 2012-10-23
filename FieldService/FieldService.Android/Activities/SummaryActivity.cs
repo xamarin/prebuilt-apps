@@ -17,6 +17,7 @@ using Android.Content;
 using Android.OS;
 using Android.Widget;
 using FieldService.Android.Fragments;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -27,7 +28,6 @@ namespace FieldService.Android {
     public class SummaryActivity : Activity {
         AssignmentViewModel assignmentViewModel;
         NavigationFragment navigationFragment;
-        SummaryFragment contentFragment;
         Assignment assignment;
 
         public SummaryActivity ()
@@ -55,22 +55,67 @@ namespace FieldService.Android {
             if (Resources.Configuration.Orientation == Orientation.Landscape) {
                 navigationFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragment);
                 navigationFragment.Assignment = assignment;
+                navigationFragment.NavigationSelected += NavigationSelected;
             }
-            contentFragment = FragmentManager.FindFragmentById<SummaryFragment> (Resource.Id.contentFragment);
-            contentFragment.Assignment = assignment;
 
             if (assignment != null) {
                 title.Text = string.Format ("#{0} {1} {2}", assignment.JobNumber, assignment.Title, assignment.StartDate.ToShortDateString ());
             }
+            var transaction = FragmentManager.BeginTransaction ();
+            var fragment = new SummaryFragment ();
+            fragment.Assignment = assignment;
+            transaction.Add (Resource.Id.contentFrame, fragment);
+            transaction.Commit ();
+        }
+
+        private void NavigationSelected (object sender, int e)
+        {
+            SetFrameFragment (e);
         }
 
         protected override void OnResume ()
         {
             base.OnResume ();
-            contentFragment.Assignment = assignment;
             if (navigationFragment != null) {
                 navigationFragment.Assignment = assignment;
+                navigationFragment.NavigationSelected += NavigationSelected;
             }
+        }
+        protected override void OnPause ()
+        {
+            base.OnPause ();
+            if (navigationFragment != null) {
+                navigationFragment.NavigationSelected -= NavigationSelected;
+            }
+        }
+
+        private void SetFrameFragment (int index)
+        {
+            var transaction = FragmentManager.BeginTransaction ();            
+            var screen = Constants.Navigation [index];
+            switch (screen) {
+                case "Summary": {
+                        var fragment = new SummaryFragment ();
+                        fragment.Assignment = assignment;
+                        transaction.Replace (Resource.Id.contentFrame, fragment);
+                        transaction.AddToBackStack (null);
+                    }
+                    break;
+                case "Maps": {
+
+                    }
+                    break;
+                case "Items": {
+                        var fragment = new ItemFragment ();
+                        fragment.Assignment = assignment;
+                        transaction.Replace (Resource.Id.contentFrame, fragment);
+                        transaction.AddToBackStack (null);
+                    }
+                    break;
+                default:
+                    break;
+            }
+            transaction.Commit ();
         }
     }
 }

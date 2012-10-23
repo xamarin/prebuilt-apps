@@ -18,13 +18,14 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:id="@+id/fragmentStatusImage" />
+            android:id="@+id/fragmentStatusImage"
+            android:layout_marginLeft="20dp" />
         <Spinner
             android:id="@+id/fragmentStatus"
-            android:layout_width="fill_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
-            android:background="@android:color/transparent" />
+            android:background="@drawable/spinner_dark" />
     </LinearLayout>
     <RelativeLayout
         android:layout_width="fill_parent"

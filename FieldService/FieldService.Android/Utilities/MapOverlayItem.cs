@@ -19,7 +19,7 @@ using Android.GoogleMaps;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 
-namespace FieldService.Android {
+namespace FieldService.Android.Utilities {
     public class MapOverlayItem : ItemizedOverlay {
         OverlayItem item;
         Context context;

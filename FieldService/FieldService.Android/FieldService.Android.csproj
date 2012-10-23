@@ -140,7 +140,7 @@
     <Compile Include="Fragments\ItemFragment.cs" />
     <Compile Include="Fragments\SummaryFragment.cs" />
     <Compile Include="Fragments\NavigationFragment.cs" />
-    <Compile Include="Maps\MapOverlayItem.cs" />
+    <Compile Include="Utilities\MapOverlayItem.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Adapters\SpinnerAdapter.cs" />
@@ -231,6 +231,9 @@
     <AndroidResource Include="Resources\Drawable\SummaryRecord.png" />
     <AndroidResource Include="Resources\Drawable\summary_timer.xml" />
     <AndroidResource Include="Resources\Drawable\TrashCanIcon.png" />
+    <AndroidResource Include="Resources\Drawable\spinner_blue.png" />
+    <AndroidResource Include="Resources\Drawable\spinner_white.png" />
+    <AndroidResource Include="Resources\Drawable\spinner_dark.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
