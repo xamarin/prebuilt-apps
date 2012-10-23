@@ -1,3 +1,18 @@
+//
+//  Copyright 2012, Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -12,7 +27,6 @@ namespace EmployeeDirectory.Data
 	/// Derived from <a href="http://fsuid.fsu.edu/admin/lib/WinADLDAPAttributes.html#RANGE!B19">Windows AD LDAP Schema</a>
 	/// and <a href="http://www.zytrax.com/books/ldap/ape/core-schema.html">core.schema</a> from OpenLDAP.
 	/// </remarks>
-	[Serializable]
 	public class Person
 	{
 		string id;
@@ -110,6 +124,13 @@ namespace EmployeeDirectory.Data
 		[Property (Group = "Organization", Ldap = "manager")]
 		public string Manager { get; set; }
 
+		#region Derived Properties
+
+		public Uri GravatarUrl {
+			get {
+				return HasEmail ? EmployeeDirectory.Utilities.Gravatar.GetUrl (Email, 80) : null;
+			}
+		}
 
 		public bool HasEmail {
 			get { return !string.IsNullOrWhiteSpace (Email); }
@@ -117,7 +138,20 @@ namespace EmployeeDirectory.Data
 
 		public string TitleAndDepartment {
 			get {
-				return (Title + " " + Department).Trim ();
+				var hasTitle = !string.IsNullOrEmpty (Title);
+				var hasDepartment = !string.IsNullOrEmpty (Department);
+				if (hasTitle && hasDepartment) {
+					return (Title + " - " + Department).Trim ();
+				}
+				else if (hasTitle && !hasDepartment) {
+					return Title.Trim ();
+				}
+				else if (!hasTitle && hasDepartment) {
+					return Department.Trim ();
+				}
+				else {
+					return "";
+				}
 			}
 		}
 
@@ -164,6 +198,8 @@ namespace EmployeeDirectory.Data
 				}
 			}
 		}
+
+		#endregion
 
 		public Person ()
 		{

@@ -1,3 +1,18 @@
+//
+//  Copyright 2012, Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//
 using System;
 using MonoTouch.UIKit;
 using EmployeeDirectory.ViewModels;
@@ -68,7 +83,7 @@ namespace EmployeeDirectory.iOS
 
 		void LoadImagesForOnscreenRows ()
 		{
-			if (searchViewModel.GroupedPeople.Count > 0) {
+			if (searchViewModel.Groups.Count > 0) {
 
 				var visiblePaths = TableView.IndexPathsForVisibleRows;
 
@@ -104,8 +119,8 @@ namespace EmployeeDirectory.iOS
 			images [person.Id] = image;
 			imageDownloadsInProgress.Remove (person.Id);
 
-			if (indexPath.Section < searchViewModel.GroupedPeople.Count &&
-				indexPath.Row < searchViewModel.GroupedPeople [indexPath.Section].People.Count) {
+			if (indexPath.Section < searchViewModel.Groups.Count &&
+			    indexPath.Row < searchViewModel.Groups [indexPath.Section].People.Count) {
 
 				var cell = TableView.CellAt (indexPath);
 				if (cell != null) {
@@ -156,23 +171,23 @@ namespace EmployeeDirectory.iOS
 			}
 			public override string TitleForHeader (UITableView tableView, int section)
 			{
-				return controller.searchViewModel.GroupedPeople[section].Title;
+				return controller.searchViewModel.Groups [section].Title;
 			}
 			public override string[] SectionIndexTitles (UITableView tableView)
 			{
-				return controller.searchViewModel.GroupedPeople.Select (x => x.Title).ToArray ();
+				return controller.searchViewModel.Groups.Select (x => x.Title).ToArray ();
 			}
 			public override int NumberOfSections (UITableView tableView)
 			{
-				return controller.searchViewModel.GroupedPeople.Count;
+				return controller.searchViewModel.Groups.Count;
 			}
 			public override int RowsInSection (UITableView tableView, int section)
 			{
-				return controller.searchViewModel.GroupedPeople[section].People.Count;
+				return controller.searchViewModel.Groups [section].People.Count;
 			}
 			public Person GetPerson (NSIndexPath indexPath)
 			{
-				var personGroup = controller.searchViewModel.GroupedPeople[indexPath.Section];
+				var personGroup = controller.searchViewModel.Groups [indexPath.Section];
 				return personGroup.People[indexPath.Row];
 			}
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

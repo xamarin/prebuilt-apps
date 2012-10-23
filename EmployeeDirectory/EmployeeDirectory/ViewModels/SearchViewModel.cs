@@ -1,3 +1,18 @@
+//
+//  Copyright 2012, Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
@@ -8,7 +23,7 @@ using System.Collections.ObjectModel;
 
 namespace EmployeeDirectory.ViewModels
 {
-	public class SearchViewModel
+	public class SearchViewModel : ViewModel
 	{
 		IDirectoryService service;
 		Search search;
@@ -32,12 +47,12 @@ namespace EmployeeDirectory.ViewModels
 					return "Search";
 				}
 				else {
-					return search.Name;
+					return System.IO.Path.GetFileName (search.Name);
 				}
 			}
 		}
 
-		public ObservableCollection<PeopleGroup> GroupedPeople { get; private set; }
+		public ObservableCollection<PeopleGroup> Groups { get; private set; }
 
 		public SearchProperty SearchProperty {
 			get { return search.Property; }
@@ -46,7 +61,7 @@ namespace EmployeeDirectory.ViewModels
 
 		public string SearchText {
 			get { return search.Text; }
-			set { search.Text = value.Trim (); }
+			set { search.Text = value ?? ""; }
 		}
 
 		bool groupByLastName = true;
@@ -61,7 +76,6 @@ namespace EmployeeDirectory.ViewModels
 		}
 
 		#endregion
-
 
 		#region Commands
 
@@ -79,33 +93,33 @@ namespace EmployeeDirectory.ViewModels
 			//
 			// Perform the search
 			//
-			var tokenSource = new CancellationTokenSource ();
-			var token = tokenSource.Token;
-			service.SearchAsync (search.Filter, 200).ContinueWith (searchTask => {
-
-					if (searchTask.IsFaulted) {
-						var ev = Error;
-						if (ev != null) {
-							ev (this, new ErrorEventArgs (searchTask.Exception));
-						}
-					}
-					else {
-						search.Results = searchTask.Result.ToList ();
-						SetGroupedPeople ();
-						search.SaveAsync ();
-
-						var ev = SearchCompleted;
-						if (ev != null && !token.IsCancellationRequested) {
-							ev (this, EventArgs.Empty);
-						}
-					}
-
-				},
+			lastCancelSource = new CancellationTokenSource ();
+			var token = lastCancelSource.Token;
+			service.SearchAsync (search.Filter, 200).ContinueWith (
+				OnSearchCompleted,
 				token,
 				TaskContinuationOptions.None,
 				TaskScheduler.FromCurrentSynchronizationContext ());
+		}
 
-			lastCancelSource = tokenSource;
+		void OnSearchCompleted (Task<IList<Person>> searchTask)
+		{
+			if (searchTask.IsFaulted) {
+				var ev = Error;
+				if (ev != null) {
+					ev (this, new ErrorEventArgs (searchTask.Exception));
+				}
+			}
+			else {
+				search.Results = new Collection<Person> (searchTask.Result);
+				search.Save ();
+				SetGroupedPeople ();				
+
+				var ev = SearchCompleted;
+				if (ev != null) {
+					ev (this, EventArgs.Empty);
+				}
+			}
 		}
 
 		/// <summary>
@@ -113,7 +127,8 @@ namespace EmployeeDirectory.ViewModels
 		/// </summary>
 		void SetGroupedPeople ()
 		{
-			GroupedPeople = PeopleGroup.CreateGroups (search.Results, groupByLastName);
+			Groups = PeopleGroup.CreateGroups (search.Results, groupByLastName);
+			OnPropertyChanged ("Groups");
 		}
 
 		#endregion

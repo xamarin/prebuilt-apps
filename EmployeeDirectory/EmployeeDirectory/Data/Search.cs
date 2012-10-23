@@ -1,98 +1,98 @@
+//
+//  Copyright 2012, Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//
 using System;
 using System.IO;
 using System.Collections.Generic;
-using System.Runtime.Serialization.Formatters.Binary;
 using System.IO.IsolatedStorage;
 using System.Threading.Tasks;
+using System.Xml.Serialization;
+using System.Collections.ObjectModel;
 
 namespace EmployeeDirectory.Data
 {
 	/// <summary>
-	/// Represents a search: a filter and the latest results.
+	/// Represents a saved search: a filter and the latest results.
 	/// </summary>
-	[Serializable]
 	public class Search
 	{
-		string name;
-		public string Name {
-			get { lock (mutex) return name; }
-			set { lock (mutex) name = value; }
+		public string Name { get; set; }
+
+		public string Text { get; set; }
+
+		public SearchProperty Property { get; set; }
+
+		public Collection<Person> Results { get; set; }
+
+		public Search ()
+			: this ("")
+		{
 		}
 
-		string text;
-		public string Text {
-			get { lock (mutex) return text; }
-			set { lock (mutex) text = value; }
+		public Search (string name)
+		{
+			this.Name = name;
+			this.Text = "";
+			this.Property = SearchProperty.Name;
+			this.Results = new Collection<Person> ();
 		}
 
-		SearchProperty property;
-		public SearchProperty Property {
-			get { lock (mutex) return property; }
-			set { lock (mutex) property = value; }
-		}
-
-		public Filter Filter {
-			get {
-				lock (mutex) {
-					if (property == SearchProperty.All) {
-						return new OrFilter (
-							new ContainsFilter ("Name", text),
-							new ContainsFilter ("Title", text),
-							new ContainsFilter ("Department", text));
-					}
-					else {
-						var propName = property.ToString ();
-						return new ContainsFilter (propName, text);
-					}
+		public Filter Filter
+		{
+			get
+			{
+				var trimmed = Text.Trim ();
+				if (Property == SearchProperty.All) {
+					return new OrFilter (
+						new ContainsFilter ("Name", trimmed),
+						new ContainsFilter ("Title", trimmed),
+						new ContainsFilter ("Department", trimmed));
+				}
+				else {
+					var propName = Property.ToString ();
+					return new ContainsFilter (propName, trimmed);
 				}
 			}
 		}
 
-		List<Person> results;
-		public List<Person> Results {
-			get { lock (mutex) return results; }
-			set { lock (mutex) results = value; }
+		public static Search Open (string name)
+		{
+			if (string.IsNullOrWhiteSpace (name)) {
+				throw new ArgumentException ("Name must be given.", "name");
+			}
+
+			var store = IsolatedStorageFile.GetUserStoreForApplication ();
+			var serializer = new XmlSerializer (typeof (Search));
+			using (var stream = store.OpenFile (name, FileMode.Open)) {
+				var s = (Search)serializer.Deserialize (stream);
+				s.Name = name;
+				return s;
+			}
 		}
 
-		/// <summary>
-		/// A key used to lock this object to makes reads and writes
-		/// mutually exclusive. This is necessary so that we can save
-		/// this object asynchronously.
-		/// </summary>
-		readonly object mutex = new object ();
-
-		public Search (string name)
+		public void Save ()
 		{
-			this.name = name;
-			this.text = "";
-			this.property = SearchProperty.Name;
-			this.results = new List<Person> ();
-		}
+			if (string.IsNullOrWhiteSpace (Name)) {
+				throw new InvalidOperationException ("Name must be set.");
+			}
 
-		public static Task<Search> OpenAsync (string name)
-		{
-			return Task.Factory.StartNew (() => {
-				var store = IsolatedStorageFile.GetUserStoreForApplication ();
-				var f = new BinaryFormatter ();
-				using (var stream = store.OpenFile (name + ".search", FileMode.Open)) {
-					var s = (Search)f.Deserialize (stream);
-					s.Name = name;
-					return s;
-				}
-			});
-		}
-
-		public Task SaveAsync ()
-		{
-			if (string.IsNullOrEmpty (Name)) throw new InvalidOperationException ("Name must be set.");
-
-			return Task.Factory.StartNew (() => {
-				var store = IsolatedStorageFile.GetUserStoreForApplication ();
-				var f = new BinaryFormatter ();
-				using (var stream = store.OpenFile (Name + ".search", FileMode.Create)) {
-					lock (mutex) f.Serialize (stream, this);
-				}
-			});
+			var store = IsolatedStorageFile.GetUserStoreForApplication ();
+			var serializer = new XmlSerializer (typeof (Search));
+			using (var stream = store.OpenFile (Name, FileMode.Create)) {
+				serializer.Serialize (stream, this);
+			}
 		}
 	}
 }

@@ -3,4 +3,5 @@
 	<uses-sdk />
 	<application android:label="Employees">
 	</application>
+	<uses-permission android:name="android.permission.CALL_PHONE" />
 </manifest>

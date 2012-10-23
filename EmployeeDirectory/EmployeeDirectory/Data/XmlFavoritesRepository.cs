@@ -1,3 +1,18 @@
+//
+//  Copyright 2012, Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.
+//
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -8,7 +23,6 @@ using System.Xml;
 
 namespace EmployeeDirectory.Data
 {
-	[Serializable]
 	[XmlRoot ("Favorites")]
 	public class XmlFavoritesRepository : IFavoritesRepository
 	{
@@ -52,6 +66,11 @@ namespace EmployeeDirectory.Data
 			return People;
 		}
 
+		public Person FindById (string id)
+		{
+			return People.FirstOrDefault (x => x.Id == id);
+		}
+
 		public bool IsFavorite (Person person)
 		{
 			return People.Any (x => x.Id == person.Id);
@@ -69,8 +88,11 @@ namespace EmployeeDirectory.Data
 
 		public void Delete (Person person)
 		{
-			var n = People.RemoveAll (x => x.Id == person.Id);
-			if (n > 0) {
+			var newPeopleQ = from p in People where p.Id != person.Id select p;
+			var newPeople = newPeopleQ.ToList ();
+			var n = People.Count - newPeople.Count;
+			People = newPeople;
+			if (n != 0) {
 				Save ();
 			}
 		}

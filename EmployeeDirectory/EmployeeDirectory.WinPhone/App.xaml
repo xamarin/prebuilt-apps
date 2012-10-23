@@ -1,0 +1,88 @@
+﻿<Application 
+    x:Class="EmployeeDirectory.WinPhone.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"       
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:phone="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone"
+    xmlns:shell="clr-namespace:Microsoft.Phone.Shell;assembly=Microsoft.Phone"
+    xmlns:toolkit="clr-namespace:Microsoft.Phone.Controls;assembly=Microsoft.Phone.Controls.Toolkit">
+
+    <!--Application Resources-->
+    <Application.Resources>
+        <DataTemplate x:Key="PersonListItem">
+            <Grid 
+                toolkit:TiltEffect.IsTiltEnabled="True"
+                Tap="OnPersonListItemTap"
+                >
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="60" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="44" />
+                    <RowDefinition Height="30" />
+                </Grid.RowDefinitions>
+                <Image 
+                    Source="{Binding GravatarUrl}"
+                    Width="60"
+                    Height="60"
+                    Margin="0,6,0,0"
+                    Grid.Column="0"
+                    Grid.Row="0"
+                    Grid.RowSpan="2"/>
+                <TextBlock
+                    Text="{Binding Path=SafeDisplayName}"
+                    Style="{StaticResource PhoneTextLargeStyle}"
+                    TextTrimming="WordEllipsis"
+                    Grid.Column="1"
+                    Grid.Row="0"/>
+                <TextBlock
+                    Text="{Binding Path=TitleAndDepartment}"
+                    Style="{StaticResource PhoneTextSubtleStyle}"
+                    TextTrimming="WordEllipsis"
+                    Grid.Column="1"
+                    Grid.Row="1"
+                    Margin="12,-6,0,0"/>
+            </Grid>
+        </DataTemplate>
+        <DataTemplate x:Key="PersonGroupListHeader">
+            <StackPanel
+                toolkit:TiltEffect.IsTiltEnabled="True"
+                HorizontalAlignment="Left"
+                Margin="0,12,0,0">
+                <Border 
+                    Background="{StaticResource PhoneAccentBrush}"
+                    Height="60"
+                    Width="60"
+                    Margin="0,10,0,4">
+                    <TextBlock
+                        Text="{Binding Path=Title}"
+                        Style="{StaticResource PhoneTextExtraLargeStyle}"
+                        Foreground="White" />
+                </Border>
+            </StackPanel>
+        </DataTemplate>
+        <DataTemplate x:Key="PersonGroupListItem">
+            <Border 
+                Background="{StaticResource PhoneAccentBrush}"
+                Width="100"
+                Height="100"
+                Margin="4,4,4,4"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Bottom"
+                toolkit:TiltEffect.IsTiltEnabled="True">
+                <TextBlock 
+                    Text="{Binding Title}"
+                    Style="{StaticResource PhoneTextExtraLargeStyle}"
+                    Foreground="White" />
+            </Border>
+        </DataTemplate>
+    </Application.Resources>
+
+    <Application.ApplicationLifetimeObjects>
+        <!--Required object that handles lifetime events for the application-->
+        <shell:PhoneApplicationService 
+            Launching="Application_Launching" Closing="Application_Closing" 
+            Activated="Application_Activated" Deactivated="Application_Deactivated"/>
+    </Application.ApplicationLifetimeObjects>
+
+</Application>
