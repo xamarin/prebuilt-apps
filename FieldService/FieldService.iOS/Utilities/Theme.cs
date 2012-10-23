@@ -663,6 +663,12 @@ namespace FieldService.iOS
 		{
 			var controller = ServiceContainer.Resolve <T>();
 			var window = ServiceContainer.Resolve<UIWindow>();
+
+			//Return if it's already the root controller
+			if (window.RootViewController == controller)
+				return;
+
+			//Set the root controller
 			window.RootViewController = controller;
 
 			//Peform an animation

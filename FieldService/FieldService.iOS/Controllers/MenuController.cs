@@ -28,10 +28,14 @@ namespace FieldService.iOS
 	public partial class MenuController : UIViewController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
+		readonly AssignmentDetailsController detailsController;
 
 		public MenuController (IntPtr handle) : base (handle)
 		{
+			ServiceContainer.Register (this);
+
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 
 			assignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {
@@ -74,6 +78,14 @@ namespace FieldService.iOS
 			UpdateAssignment ();
 		}
 
+		public void ShowConfirmation ()
+		{
+			using (var indexPath = NSIndexPath.FromRowSection (4, 0)) {
+				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
+				detailsController.SectionSelected (tableView, indexPath);
+			}
+		}
+
 		/// <summary>
 		/// Sets up the UI for the active assignment
 		/// </summary>
@@ -99,7 +111,12 @@ namespace FieldService.iOS
 		/// </summary>
 		private void SaveAssignment ()
 		{
-			assignmentViewModel.SaveAssignment (assignmentViewModel.ActiveAssignment).ContinueOnUIThread (t => UpdateAssignment ());
+			assignmentViewModel
+				.SaveAssignment (assignmentViewModel.ActiveAssignment)
+				.ContinueOnUIThread (t => {
+					UpdateAssignment ();
+					detailsController.UpdateAssignment ();
+				});
 		}
 
 		/// <summary>
@@ -109,7 +126,14 @@ namespace FieldService.iOS
 		{
 			record.Enabled = false;
 			if (assignmentViewModel.Recording) {
-				assignmentViewModel.Pause ().ContinueOnUIThread (t => record.Enabled = true);
+				assignmentViewModel
+					.Pause ()
+					.ContinueOnUIThread (t => {
+						record.Enabled = true;
+
+						var laborController = ServiceContainer.Resolve<LaborController>();
+						laborController.ReloadLabor ();
+					});
 			} else {
 				assignmentViewModel.Record ().ContinueOnUIThread (t => record.Enabled = true);
 			}
@@ -120,7 +144,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
-			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, confirmationCell;
+			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, confirmationCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
 			readonly AssignmentDetailsController detailsController;
 

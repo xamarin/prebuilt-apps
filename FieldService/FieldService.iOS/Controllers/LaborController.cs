@@ -112,14 +112,16 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadLabor ()
 		{
-			laborViewModel.LoadLaborHours (detailsController.Assignment)
-				.ContinueOnUIThread (_ => {
-				if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
-					title.Text = "Labor Hours";
-				else
-					title.Text = string.Format ("Labor Hours ({0:0.0})", laborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
-				tableView.ReloadData ();
-			});
+			if (IsViewLoaded) {
+				laborViewModel.LoadLaborHours (detailsController.Assignment)
+					.ContinueOnUIThread (_ => {
+					if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
+						title.Text = "Labor Hours";
+					else
+						title.Text = string.Format ("Labor Hours ({0:0.0})", laborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
+					tableView.ReloadData ();
+				});
+			}
 		}
 
 		/// <summary>

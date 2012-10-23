@@ -29,12 +29,14 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly AssignmentDetailsController detailsController;
+		readonly MenuController menuController;
 		Assignment assignment;
 
 		public CompleteCell (IntPtr handle) : base (handle)
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+			menuController = ServiceContainer.Resolve<MenuController>();
 
 			BackgroundView = new UIImageView { Image = Theme.Inlay };
 		}
@@ -59,7 +61,10 @@ namespace FieldService.iOS
 			assignment.Status = AssignmentStatus.Complete;
 			assignmentViewModel
 				.SaveAssignment (assignment)
-				.ContinueOnUIThread (_ => detailsController.UpdateAssignment ());
+				.ContinueOnUIThread (_ => {
+					detailsController.UpdateAssignment ();
+					menuController.UpdateAssignment ();
+				});
 		}
 	}
 }

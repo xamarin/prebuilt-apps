@@ -22,6 +22,9 @@ using FieldService.Data;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Controller for the confirmation screen
+	/// </summary>
 	public partial class ConfirmationController : BaseController
 	{
 		readonly PhotoViewModel photoViewModel;
@@ -81,13 +84,21 @@ namespace FieldService.iOS
 			ReloadConfirmation ();
 		}
 
+		/// <summary>
+		/// Loads the confirmation screen's info
+		/// </summary>
 		public void ReloadConfirmation ()
 		{
-			photoViewModel.LoadPhotos (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
+			if (IsViewLoaded) {
+				photoViewModel.LoadPhotos (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
 
-			signatureTableView.ReloadData ();
+				signatureTableView.ReloadData ();
+			}
 		}
 
+		/// <summary>
+		/// Event when the "add photo" button is clicked
+		/// </summary>
 		partial void AddPhoto ()
 		{
 			Photo = new Photo { Assignment = detailController.Assignment.ID, Date = DateTime.Now };
@@ -96,6 +107,9 @@ namespace FieldService.iOS
 			photoSheet.ShowFrom (addPhoto.Frame, addPhoto.Superview, true);
 		}
 
+		/// <summary>
+		/// Table source for photos
+		/// </summary>
 		private class PhotoTableSource : UITableViewSource
 		{
 			const string Identifier = "PhotoCell";
@@ -138,6 +152,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Table source for signature
+		/// </summary>
 		private class SignatureTableSource : UITableViewSource
 		{
 			const string SignatureIdentifier = "SignatureCell";

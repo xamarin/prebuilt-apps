@@ -17,6 +17,7 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Data;
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
@@ -66,11 +67,20 @@ namespace FieldService.iOS
 		private void OnStatusSheetDismissed(object sender, UIButtonEventArgs e)
 		{
 			if (statusSheet.Status.HasValue && assignment != null && assignment.Status != statusSheet.Status) {
-				assignment.Status = statusSheet.Status.Value;
-				
-				var method = StatusChanged;
-				if (method != null) {
-					method(this, EventArgs.Empty);
+				if (statusSheet.Status != AssignmentStatus.Complete) {
+					assignment.Status = statusSheet.Status.Value;
+
+					var method = StatusChanged;
+					if (method != null) {
+						method(this, EventArgs.Empty);
+					}
+				} else {
+					var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
+					assignmentController.Assignment = assignment;
+					Theme.TransitionController <MainController>();
+
+					var menuController = ServiceContainer.Resolve<MenuController>();
+					menuController.ShowConfirmation ();
 				}
 			}
 

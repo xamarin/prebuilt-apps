@@ -180,7 +180,18 @@ namespace FieldService.iOS
 		/// </summary>
 		private void SaveAssignment ()
 		{
-			assignmentViewModel.SaveAssignment (Assignment).ContinueOnUIThread (t => UpdateAssignment ());
+			assignmentViewModel
+				.SaveAssignment (Assignment)
+				.ContinueOnUIThread (t => {
+
+					UpdateAssignment ();
+
+					var menuController = ServiceContainer.Resolve<MenuController>();
+					menuController.UpdateAssignment ();
+
+					var confirmationController = ServiceContainer.Resolve<ConfirmationController>();
+					confirmationController.ReloadConfirmation ();
+				});
 		}
 	}
 }

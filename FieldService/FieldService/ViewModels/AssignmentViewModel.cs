@@ -218,6 +218,7 @@ namespace FieldService.ViewModels {
             var labor = new Labor {
                 Type = LaborType.Hourly,
                 Assignment = activeAssignment.ID,
+		Description = "Time entered automatically at: " + DateTime.Now.ToShortTimeString (),
                 Hours = (DateTime.Now - timerEntry.Date),
             };
 
