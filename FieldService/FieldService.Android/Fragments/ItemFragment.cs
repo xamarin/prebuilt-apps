@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 //
 //  Copyright 2012  Xamarin Inc.
 //
@@ -22,12 +23,7 @@ using FieldService.ViewModels;
 
 namespace FieldService.Android.Fragments {
     public class ItemFragment : Fragment {
-        TextView number,
-            name,
-            phone,
-            address,
-            items;
-        Button addItems;
+
         ListView itemsListView;
         ItemViewModel itemViewModel;
 
@@ -43,27 +39,19 @@ namespace FieldService.Android.Fragments {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, null, true);
 
-            number = view.FindViewById<TextView> (Resource.Id.itemFragmentNumber);
-            name = view.FindViewById<TextView> (Resource.Id.itemFragmentContactName);
-            phone = view.FindViewById<TextView> (Resource.Id.itemFragmentPhoneNumber);
-            address = view.FindViewById<TextView> (Resource.Id.itemFragmentAddress);
-            items = view.FindViewById<TextView> (Resource.Id.itemFragmentTotalItems);
-            addItems = view.FindViewById<Button> (Resource.Id.itemFragmentAddItem);
             itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
-            itemViewModel.LoadAssignmentItems (Assignment).ContinueOnUIThread (_ => {
-                itemsListView.Adapter = new ItemsAdapter (this.Activity, Resource.Layout.ItemLayout, itemViewModel.AssignmentItems);
-            });
-
-            number.Text = Assignment.Priority.ToString ();
-            name.Text = Assignment.ContactName;
-            phone.Text = Assignment.ContactPhone;
-            address.Text = string.Format ("{0}\n{1}, {2} {3}", Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip);
-            items.Text = string.Format ("({0}) Items", Assignment.TotalItems.ToString ());
+            itemsListView.Adapter = new ItemsAdapter (this.Activity, Resource.Layout.ItemLayout, AssignmentItems);
 
             return view;
         }
 
         public Assignment Assignment
+        {
+            get;
+            set;
+        }
+
+        public List<AssignmentItem> AssignmentItems
         {
             get;
             set;

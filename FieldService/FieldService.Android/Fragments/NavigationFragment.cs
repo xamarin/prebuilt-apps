@@ -36,7 +36,7 @@ namespace FieldService.Android.Fragments {
             listViewIndex;
         Assignment assignment;
         AssignmentViewModel assignmentViewModel;
-        public event EventHandler<int> NavigationSelected = delegate { };
+        public event EventHandler<EventArgs<int>> NavigationSelected = delegate { };
 
         public override void OnCreate (Bundle savedInstanceState)
         {
@@ -155,7 +155,7 @@ namespace FieldService.Android.Fragments {
 
         private void OnNavigationSelected (int index)
         {
-            NavigationSelected (this, index);
+            NavigationSelected (this, new EventArgs<int> { Value = index });
         }
 
         public override void OnSaveInstanceState (Bundle outState)

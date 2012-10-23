@@ -15,6 +15,7 @@
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using FieldService.Android.Fragments;
 using FieldService.Android.Utilities;
@@ -29,10 +30,17 @@ namespace FieldService.Android {
         AssignmentViewModel assignmentViewModel;
         NavigationFragment navigationFragment;
         Assignment assignment;
+        TextView number,
+            name,
+            phone,
+            address,
+            items;
+        Button addItems;
 
         public SummaryActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -52,6 +60,13 @@ namespace FieldService.Android {
             }
 
             var title = FindViewById<TextView> (Resource.Id.summaryAssignmentTitle);
+            number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
+            name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
+            phone = FindViewById<TextView> (Resource.Id.selectedAssignmentPhoneNumber);
+            address = FindViewById<TextView> (Resource.Id.selectedAssignmentAddress);
+            items = FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
+            addItems = FindViewById<Button> (Resource.Id.selectedAssignmentAddItem);
+
             if (Resources.Configuration.Orientation == Orientation.Landscape) {
                 navigationFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragment);
                 navigationFragment.Assignment = assignment;
@@ -60,17 +75,24 @@ namespace FieldService.Android {
 
             if (assignment != null) {
                 title.Text = string.Format ("#{0} {1} {2}", assignment.JobNumber, assignment.Title, assignment.StartDate.ToShortDateString ());
+
+                number.Text = assignment.Priority.ToString ();
+                name.Text = assignment.ContactName;
+                phone.Text = assignment.ContactPhone;
+                address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
             }
             var transaction = FragmentManager.BeginTransaction ();
             var fragment = new SummaryFragment ();
             fragment.Assignment = assignment;
             transaction.Add (Resource.Id.contentFrame, fragment);
             transaction.Commit ();
+            items.Visibility =
+                 addItems.Visibility = ViewStates.Gone;
         }
 
-        private void NavigationSelected (object sender, int e)
+        private void NavigationSelected (object sender, EventArgs<int> e)
         {
-            SetFrameFragment (e);
+            SetFrameFragment (e.Value);
         }
 
         protected override void OnResume ()
@@ -99,6 +121,8 @@ namespace FieldService.Android {
                         fragment.Assignment = assignment;
                         transaction.Replace (Resource.Id.contentFrame, fragment);
                         transaction.AddToBackStack (null);
+                        items.Visibility = 
+                            addItems.Visibility = ViewStates.Gone;
                     }
                     break;
                 case "Maps": {
@@ -106,10 +130,17 @@ namespace FieldService.Android {
                     }
                     break;
                 case "Items": {
+                    var itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
                         var fragment = new ItemFragment ();
                         fragment.Assignment = assignment;
-                        transaction.Replace (Resource.Id.contentFrame, fragment);
-                        transaction.AddToBackStack (null);
+                        itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
+                            fragment.AssignmentItems = itemViewModel.AssignmentItems;
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.AddToBackStack (null);
+                            items.Visibility =
+                                addItems.Visibility = ViewStates.Visible;
+                            items.Text = string.Format ("({0}) Items", assignment.TotalItems.ToString ());
+                        });
                     }
                     break;
                 default:

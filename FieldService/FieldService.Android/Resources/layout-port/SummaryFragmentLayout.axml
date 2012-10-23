@@ -16,11 +16,123 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/XamarinTitle" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="55dp"
+        android:id="@+id/selectedAssignment"
+        android:background="@color/assignmentblue">
+        <TextView
+            android:background="@drawable/roundedblack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedAssignmentNumber"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@color/assignmentoffwhite"
+            android:gravity="center" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedAssignmentContactName"
+            android:textSize="12dp"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical"
+            android:layout_gravity="center_vertical"
+            android:maxWidth="100dp"
+            android:minWidth="100dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp">
+            <LinearLayout
+                android:orientation="horizontal"
+                android:id="@+id/linearLayout1"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:src="@drawable/PhoneIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/roundedblack"
+                    android:scaleType="centerInside"
+                    android:id="@+id/imageView1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/selectedAssignmentPhoneNumber"
+                    android:textSize="12dp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:maxWidth="100dp"
+                    android:minWidth="100dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+                <ImageView
+                    android:src="@drawable/MapIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/roundedblack"
+                    android:scaleType="centerInside"
+                    android:id="@+id/imageView2" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/selectedAssignmentAddress"
+                    android:textSize="12dp"
+                    android:textColor="@android:color/black"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center_vertical"
+                    android:layout_gravity="center_vertical"
+                    android:maxWidth="150dp"
+                    android:minWidth="150dp" />
+            </LinearLayout>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedAssignmentTotalItems"
+            android:minWidth="100dp"
+            android:maxWidth="100dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:textColor="@android:color/black"
+            android:textSize="16dp" />
+        <Button
+            android:text="Add Item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedAssignmentAddItem"
+            android:textSize="14dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/accept_assignment"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
     <FrameLayout
         android:id="@+id/contentFrame"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="55dp"
+        android:layout_below="@+id/selectedAssignment"
         android:background="@android:color/white" />
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"

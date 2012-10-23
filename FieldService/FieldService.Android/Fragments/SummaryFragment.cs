@@ -21,11 +21,7 @@ using FieldService.Data;
 
 namespace FieldService.Android.Fragments {
     public class SummaryFragment : Fragment{
-        TextView number,
-            name,
-            phone,
-            address,
-            items,
+        TextView items,
             laborhours,
             expenses,
             description,
@@ -36,20 +32,12 @@ namespace FieldService.Android.Fragments {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.SummaryLayout, null, true);
 
-            number = view.FindViewById<TextView> (Resource.Id.summaryItemNumber);
-            name = view.FindViewById<TextView> (Resource.Id.summaryContactName);
-            phone = view.FindViewById<TextView> (Resource.Id.summaryPhoneNumber);
-            address = view.FindViewById<TextView> (Resource.Id.summaryAddress);
             items = view.FindViewById<TextView> (Resource.Id.summaryAssignmentItems);
             laborhours = view.FindViewById<TextView> (Resource.Id.summaryAssignmentLaborHours);
             expenses = view.FindViewById<TextView> (Resource.Id.summaryAssignmentExpenses);
             description = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescription);
             descriptionHeader = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescriptionHeader);
 
-            number.Text = Assignment.Priority.ToString ();
-            name.Text = Assignment.ContactName;
-            phone.Text = Assignment.ContactPhone;
-            address.Text = string.Format ("{0}\n{1}, {2} {3}", Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip);
             description.Text = Assignment.Description;
             descriptionHeader.Text = Assignment.Title;
             items.Text = Assignment.TotalItems.ToString ();

@@ -3,183 +3,111 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@android:color/white">
-    <LinearLayout
-        android:orientation="horizontal"
+    android:background="@android:color/white"
+    android:paddingLeft="20dp"
+    android:paddingRight="20dp">
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:background="@color/assignmentblue"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp">
-        <TextView
-            android:background="@drawable/roundedblack"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/summaryItemNumber"
-            android:layout_marginLeft="20dp"
-            android:layout_gravity="center_vertical"
-            android:textColor="@color/assignmentoffwhite"
-            android:gravity="center" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/summaryContactName"
-            android:textSize="12dp"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:maxWidth="100dp"
-            android:minWidth="100dp" />
-        <ImageView
-            android:src="@drawable/PhoneIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/roundedblack"
-            android:scaleType="centerInside" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/summaryPhoneNumber"
-            android:textSize="12dp"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:maxWidth="100dp"
-            android:minWidth="100dp" />
-        <ImageView
-            android:src="@drawable/MapIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/roundedblack"
-            android:scaleType="centerInside" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/summaryAddress"
-            android:textSize="12dp"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:maxWidth="150dp"
-            android:minWidth="150dp" />
-    </LinearLayout>
-    <LinearLayout
-        android:orientation="vertical"
+        android:id="@+id/summaryAssignmentDescriptionHeader"
+        android:textSize="16dp"
+        android:textStyle="bold"
+        android:textColor="@android:color/black" />
+    <TextView
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="10dp">
+        android:id="@+id/summaryAssignmentDescription"
+        android:layout_marginTop="10dp"
+        android:textColor="@android:color/black"
+        android:textSize="14dp"
+        android:textStyle="normal"
+        android:minHeight="100dp"
+        android:maxHeight="100dp" />
+    <Button
+        android:text="View History"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/summaryViewHistory"
+        android:layout_gravity="right"
+        android:textColor="@android:color/black"
+        android:background="@drawable/accept_assignment"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginTop="10dp" />
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="30dp"
+        android:background="@color/assignmentblue">
         <TextView
-            android:layout_width="fill_parent"
+            android:text="@string/Items"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/summaryAssignmentDescriptionHeader"
-            android:textSize="16dp"
+            android:id="@+id/textView1"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/summaryAssignmentItems"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
             android:textStyle="bold"
             android:textColor="@android:color/black" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/assignmentblue"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp">
         <TextView
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/summaryAssignmentDescription"
-            android:layout_marginTop="10dp"
-            android:textColor="@android:color/black"
-            android:textSize="14dp"
-            android:textStyle="normal"
-            android:minHeight="100dp"
-            android:maxHeight="100dp" />
-        <Button
-            android:text="View History"
+            android:text="@string/LaborHours"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/summaryViewHistory"
-            android:layout_gravity="right"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:layout_centerVertical="true"
             android:textColor="@android:color/black"
-            android:background="@drawable/accept_assignment"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:layout_marginTop="10dp" />
-        <RelativeLayout
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="30dp"
-            android:background="@color/assignmentblue">
-            <TextView
-                android:text="@string/Items"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/textView1"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:layout_centerVertical="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/summaryAssignmentItems"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:background="@color/assignmentblue"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:text="@string/LaborHours"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:layout_centerVertical="true"
-                android:textColor="@android:color/black"
-                android:textStyle="bold" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/summaryAssignmentLaborHours"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
-        </RelativeLayout>
-        <RelativeLayout
-            android:background="@color/assignmentblue"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:layout_marginTop="10dp">
-            <TextView
-                android:text="@string/Expenses"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:textSize="20dp"
-                android:textColor="@android:color/black"
-                android:textStyle="bold"
-                android:layout_centerVertical="true" />
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/summaryAssignmentExpenses"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="10dp"
-                android:layout_centerVertical="true"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:textColor="@android:color/black" />
-        </RelativeLayout>
-    </LinearLayout>
+            android:textStyle="bold" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/summaryAssignmentLaborHours"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
+    <RelativeLayout
+        android:background="@color/assignmentblue"
+        android:layout_width="fill_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="10dp">
+        <TextView
+            android:text="@string/Expenses"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:textSize="20dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/summaryAssignmentExpenses"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_centerVertical="true"
+            android:textSize="20dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
 </LinearLayout>

@@ -140,6 +140,7 @@
     <Compile Include="Fragments\ItemFragment.cs" />
     <Compile Include="Fragments\SummaryFragment.cs" />
     <Compile Include="Fragments\NavigationFragment.cs" />
+    <Compile Include="Utilities\EventArgs%28T%29.cs" />
     <Compile Include="Utilities\MapOverlayItem.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -208,7 +209,6 @@
     </AndroidResource>
     <AndroidResource Include="Resources\Drawable\login_button.xml" />
     <AndroidResource Include="Resources\Drawable\accept_assignment.xml" />
-    <AndroidResource Include="Resources\Drawable\blueRectangle.xml" />
     <AndroidResource Include="Resources\Drawable\decline_assignment.xml" />
     <AndroidResource Include="Resources\Drawable\EnrouteImage.png" />
     <AndroidResource Include="Resources\Drawable\HoldImage.png" />
@@ -234,6 +234,8 @@
     <AndroidResource Include="Resources\Drawable\spinner_blue.png" />
     <AndroidResource Include="Resources\Drawable\spinner_white.png" />
     <AndroidResource Include="Resources\Drawable\spinner_dark.png" />
+    <AndroidResource Include="Resources\Drawable\decline.9.png" />
+    <AndroidResource Include="Resources\Drawable\accept.9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
