@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="220dp"
     android:layout_height="fill_parent">
@@ -14,6 +14,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_above="@+id/fragmentTimerTextLayout"
         android:background="@color/navigationitemselected">
         <ImageView
             android:layout_width="wrap_content"
@@ -31,13 +32,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:id="@+id/fragmentTimerTextLayout">
+        android:id="@+id/fragmentTimerTextLayout"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="10dp">
         <TextView
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:id="@+id/fragmentHours"
             android:layout_alignParentLeft="true"
-            android:textSize="16dp" />
+            android:textSize="16dp"
+            android:layout_toLeftOf="@+id/fragmentTimer"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
         <ToggleButton
             android:layout_width="47dp"
             android:layout_height="46dp"
@@ -49,4 +55,4 @@
             android:textOn=" "
             android:layout_marginRight="10dp" />
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

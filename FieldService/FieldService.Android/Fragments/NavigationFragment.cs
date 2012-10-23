@@ -47,6 +47,8 @@ namespace FieldService.Android.Fragments {
             if (savedInstanceState != null && savedInstanceState.ContainsKey (Constants.BUNDLE_INDEX)) {
                 listViewIndex = savedInstanceState.GetInt (Constants.BUNDLE_INDEX);
             }
+
+            assignment = assignmentViewModel.ActiveAssignment;
         }
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -70,49 +72,72 @@ namespace FieldService.Android.Fragments {
             var adapter = new NavigationAdapter (this.Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
             navigationListView.OnItemClickListener = this;
             navigationListView.Adapter = adapter;
+
+            if (assignment != null) {
+                timerLayout.Visibility = ViewStates.Visible;
+                navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
+                navigationStatus.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
+                timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+
+                assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+                    if (assignmentViewModel.Recording) {
+                        timer.Checked = true;
+                    } else {
+                        timer.Checked = false;
+                    }
+                });
+
+                timer.CheckedChange += (sender, e) => {
+                    timer.Enabled = false;
+                    if (assignmentViewModel.Recording) {
+                        assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
+                    } else {
+                        assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
+                    }
+                };
+            } else {
+                navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
+                timerLayout.Visibility = ViewStates.Gone;
+            }
+
             return view;
+        }
+
+        private void SetActiveAssignment ()
+        {
+            if (assignment != null && assignment.Status == AssignmentStatus.Active) {
+                timerLayout.Visibility = ViewStates.Visible;
+                navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
+                navigationStatus.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
+                timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+
+                assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+                    if (assignmentViewModel.Recording) {
+                        timer.Checked = true;
+                    } else {
+                        timer.Checked = false;
+                    }
+                });
+
+                timer.CheckedChange += (sender, e) => {
+                    timer.Enabled = false;
+                    if (assignmentViewModel.Recording) {
+                        assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
+                    } else {
+                        assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
+                    }
+                };
+            } else {
+                navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
+                timerLayout.Visibility = ViewStates.Gone;
+            }
         }
 
         private void SaveAssignment ()
         {
             assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
-                Assignment = assignment;
-                });
-        }
-
-        public Assignment Assignment
-        {
-            get { return assignment; }
-            set
-            {
-                if (value != null && value.Status == AssignmentStatus.Active) {
-                    timerLayout.Visibility = ViewStates.Visible;
-                    navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
-                    navigationStatus.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
-                    timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-
-                    assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
-                        if (assignmentViewModel.Recording) {
-                            timer.Checked = true;
-                        } else {
-                            timer.Checked = false;
-                        }
-                    });
-
-                    timer.CheckedChange += (sender, e) => {
-                        timer.Enabled = false;
-                        if (assignmentViewModel.Recording) {
-                            assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
-                        } else {
-                            assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
-                        }
-                    };
-                } else {
-                    navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-                    timerLayout.Visibility = ViewStates.Gone;
-                }
-                assignment = value;
-            }
+                SetActiveAssignment ();
+            });
         }
 
         public void OnItemClick (AdapterView parent, View view, int position, long id)
@@ -136,7 +161,7 @@ namespace FieldService.Android.Fragments {
         public void OnItemSelected (AdapterView parent, View view, int position, long id)
         {
             var status = Assignment.AvailableStatuses[position];
-            if (Assignment.Status != status) {
+            if (assignment != null && assignment.Status != status) {
                 assignment.Status = status;
                 SaveAssignment ();
             }
@@ -177,7 +202,7 @@ namespace FieldService.Android.Fragments {
         public override void OnPause ()
         {
             assignmentViewModel.HoursChanged -= HoursChanged;
-            Assignment = null;
+            assignment = null;
             base.OnPause ();
         }
 

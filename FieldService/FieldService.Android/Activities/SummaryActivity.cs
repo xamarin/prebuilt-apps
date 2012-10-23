@@ -68,7 +68,6 @@ namespace FieldService.Android {
 
             if (Resources.Configuration.Orientation == Orientation.Landscape) {
                 navigationFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragment);
-                navigationFragment.Assignment = assignment;
             }
 
             if (assignment != null) {
@@ -85,7 +84,7 @@ namespace FieldService.Android {
             transaction.Add (Resource.Id.contentFrame, fragment);
             transaction.Commit ();
             items.Visibility =
-                 addItems.Visibility = ViewStates.Gone;
+                 addItems.Visibility = ViewStates.Invisible;
         }
 
         private void NavigationSelected (object sender, EventArgs<int> e)
@@ -97,7 +96,6 @@ namespace FieldService.Android {
         {
             base.OnResume ();
             if (navigationFragment != null) {
-                navigationFragment.Assignment = assignment;
                 navigationFragment.NavigationSelected += NavigationSelected;
             }
         }
@@ -118,12 +116,12 @@ namespace FieldService.Android {
                         var fragment = new SummaryFragment ();
                         fragment.Assignment = assignment;
                         transaction.Replace (Resource.Id.contentFrame, fragment);
-                        transaction.AddToBackStack (null);
                         items.Visibility = 
                             addItems.Visibility = ViewStates.Invisible;
+                        transaction.SetTransition (FragmentTransit.FragmentFade);
                     }
                     break;
-                case "Maps": {
+                case "Map": {
 
                     }
                     break;
@@ -134,11 +132,11 @@ namespace FieldService.Android {
                         itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
                             fragment.AssignmentItems = itemViewModel.AssignmentItems;
                             transaction.Replace (Resource.Id.contentFrame, fragment);
-                            transaction.AddToBackStack (null);
                             items.Visibility =
                                 addItems.Visibility = ViewStates.Visible;
                             items.Text = string.Format ("({0}) Items", assignment.TotalItems.ToString ());
                         });
+                        transaction.SetTransition (FragmentTransit.FragmentFade);
                     }
                     break;
                 default:
