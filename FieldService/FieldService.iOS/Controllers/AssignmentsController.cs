@@ -196,8 +196,6 @@ namespace FieldService.iOS
 					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
 				}
 
-				activeAssignment.Alpha = visible ? 1 : 0;
-
 				//Modify the tableView's frame
 				float height = 95;
 				var frame = tableView.Frame;
@@ -210,7 +208,16 @@ namespace FieldService.iOS
 				}
 				tableView.Frame = frame;
 
-				//Modify the toolbar shadow
+				//Modify the active assignment's frame
+				frame = activeAssignment.Frame;
+				if (visible) {
+					frame.Y += height;
+				} else {
+					frame.Y -= height;
+				}
+				activeAssignment.Frame = frame;
+
+				//Modify the toolbar shadow's frame
 				frame = toolbarShadow.Frame;
 				if (visible) {
 					frame.Y += height;
