@@ -58,7 +58,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task DeleteLabor (Assignment assignment, Labor labor)
         {
-            return service.SaveLabor (labor)
+            return service.DeleteLabor (labor)
                 .ContinueWith (t => {
                     laborHours.Remove (labor);
                     CalculateHours (assignment);
