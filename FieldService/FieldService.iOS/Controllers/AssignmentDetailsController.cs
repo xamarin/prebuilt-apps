@@ -113,6 +113,9 @@ namespace FieldService.iOS
 			if (lastChildController == nextChildController) 
 				return;
 
+			//This fixes issues with rotation
+			nextChildController.View.Frame = lastChildController.View.Frame;
+
 			AddChildViewController (nextChildController);
 
 			tableView.UserInteractionEnabled = false;

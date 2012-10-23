@@ -29,6 +29,9 @@ namespace FieldService.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
+		DateTime dateBackgrounded = DateTime.Now;
+		TimeSpan autoLogoutTime = TimeSpan.FromMinutes (2); //This can be changed
+
 		/// <summary>
 		/// Gets or sets the main window of the application
 		/// </value>
@@ -60,6 +63,21 @@ namespace FieldService.iOS
 		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations (UIApplication application, UIWindow forWindow)
 		{
 			return UIInterfaceOrientationMask.All;
+		}
+
+		public override void DidEnterBackground (UIApplication application)
+		{
+			dateBackgrounded = DateTime.Now;
+		}
+
+		public override void WillEnterForeground (UIApplication application)
+		{
+			if (DateTime.Now - dateBackgrounded > autoLogoutTime) {
+				Theme.TransitionController<LoginController>();
+			}
+
+			//Let's reset the time, just to be safe
+			dateBackgrounded = DateTime.Now;
 		}
 	}
 }

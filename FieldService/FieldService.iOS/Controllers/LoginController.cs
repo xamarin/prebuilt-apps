@@ -94,6 +94,14 @@ namespace FieldService.iOS
 			};
 		}
 
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+
+			username.Text = string.Empty;
+			password.Text = string.Empty;
+		}
+
 		partial void Login ()
 		{
 			password.ResignFirstResponder ();

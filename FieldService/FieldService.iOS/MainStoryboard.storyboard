@@ -747,7 +747,7 @@
                 <viewController storyboardIdentifier="LaborController" id="7s6-Ms-VMk" customClass="LaborController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="lRd-eY-sxN">
                         <rect key="frame" x="0.0" y="20" width="768" height="630"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="r7p-Ld-1YW">
                                 <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>

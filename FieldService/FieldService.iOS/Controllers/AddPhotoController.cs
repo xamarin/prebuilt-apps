@@ -56,7 +56,7 @@ namespace FieldService.iOS
 			descriptionBackground.Image = Theme.ModalInlay;
 			description.ShouldReturn = t => {
 				t.ResignFirstResponder ();
-				return true;
+				return false;
 			};
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			cancel.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
