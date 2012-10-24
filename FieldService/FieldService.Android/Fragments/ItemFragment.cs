@@ -17,6 +17,7 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -39,13 +40,16 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, null, true);
+            itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
+            ReloadAssignmentItems ();
+            return view;
+        }
 
+        public void ReloadAssignmentItems ()
+        {
             if (AssignmentItems != null) {
-                itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
                 itemsListView.Adapter = new ItemsAdapter (this.Activity, Resource.Layout.ItemLayout, AssignmentItems);
             }
-
-            return view;
         }
 
         public Assignment Assignment
