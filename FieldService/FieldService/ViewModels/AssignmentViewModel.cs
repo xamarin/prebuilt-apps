@@ -217,13 +217,14 @@ namespace FieldService.ViewModels {
             if (activeAssignment == null)
                 return Task.Factory.StartNew (delegate { });
 
-            Recording = true;
+            IsBusy =
+                Recording = true;
 
             if (timerEntry == null)
                 timerEntry = new TimerEntry ();
             timerEntry.Date = DateTime.Now;
 
-            return service.SaveTimerEntry (timerEntry);
+            return service.SaveTimerEntry (timerEntry).ContinueOnUIThread (_ => IsBusy = false);
         }
 
         /// <summary>
@@ -234,6 +235,7 @@ namespace FieldService.ViewModels {
             if (activeAssignment == null)
                 return Task.Factory.StartNew (delegate { });
 
+            IsBusy = true;
             Recording = false;
 
             var labor = new Labor {
@@ -246,7 +248,10 @@ namespace FieldService.ViewModels {
             return service
                 .SaveLabor (labor)
                 .ContinueWith (service.DeleteTimerEntry (timerEntry))
-                .ContinueOnUIThread (_ => Hours = TimeSpan.Zero);
+                .ContinueOnUIThread (_ => {
+                    Hours = TimeSpan.Zero;
+                    IsBusy = false;
+                });
         }
     }
 }

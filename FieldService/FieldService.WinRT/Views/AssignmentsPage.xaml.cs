@@ -14,7 +14,7 @@
 //    limitations under the License.
 
 using FieldService.Utilities;
-using FieldService.ViewModels;
+using FieldService.WinRT.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -24,6 +24,7 @@ namespace FieldService.WinRT.Views {
     /// </summary>
     public sealed partial class AssignmentsPage : Page {
         readonly AssignmentViewModel assignmentViewModel;
+        bool timerLoaded = false;
 
         public AssignmentsPage ()
         {
@@ -40,7 +41,12 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
-            assignmentViewModel.LoadAssignments ();
+            if (!timerLoaded) {
+                assignmentViewModel.LoadTimerEntry ().ContinueWith (assignmentViewModel.LoadAssignments ());
+                timerLoaded = true;
+            } else {
+                assignmentViewModel.LoadAssignments ();
+            }
         }
     }
 }

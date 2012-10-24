@@ -62,19 +62,19 @@
                         <Image Source="{StaticResource PersonIcon}" Stretch="None" />
                     </Border>
 
-                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="10" Style="{StaticResource BasicTextStyle}" Text="{Binding ActiveAssignment.ContactName}" />
+                    <Button Grid.Row="3" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding ActiveAssignment.ContactName}" />
 
                     <Border Grid.Row="4" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
                         <Image Source="{StaticResource PhoneIcon}" Stretch="None" />
                     </Border>
 
-                    <TextBlock Grid.Row="4" Grid.Column="1" Margin="10" Style="{StaticResource BasicTextStyle}" Text="{Binding ActiveAssignment.ContactPhone}" />
+                    <Button Grid.Row="4" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding ActiveAssignment.ContactPhone}" />
 
                     <Border Grid.Row="5" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
                         <Image Source="{StaticResource MapIcon}" Stretch="None" />
                     </Border>
 
-                    <TextBlock Grid.Row="5" Grid.Column="1" Margin="10" Style="{StaticResource BasicTextStyle}" Text="{Binding ActiveAssignment.AddressFormatted}" />
+                    <Button Grid.Row="5" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding ActiveAssignment.AddressFormatted}" />
 
                     <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" BorderThickness="3" Width="30" Height="30" />
                     
@@ -85,7 +85,21 @@
                 </Grid>
                 
                 <Grid Grid.Row="1" Background="{StaticResource DarkTextBrush}" Margin="0,4,4,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
 
+                    <TextBlock Margin="8" FontSize="32" FontWeight="Medium" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" Text="{Binding HoursFormatted}" />
+
+                    <Button 
+                        x:Name="record" Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                        Command="{Binding RecordCommand}">
+                        <Border BorderThickness="3" CornerRadius="40" Width="81" Height="81" BorderBrush="{Binding BorderBrush, ElementName=record}">
+                            <Ellipse Width="35" Height="35" Fill="{Binding BorderBrush, ElementName=record}" />
+                        </Border>
+                    </Button>
+                    
                 </Grid>
 
             </Grid>
@@ -131,13 +145,9 @@
                             </Grid>
 
                             <Grid Grid.Row="1" Background="{StaticResource DarkBlueBackgroundBrush}">
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="*" />
-                                    <RowDefinition Height="Auto" />
-                                </Grid.RowDefinitions>
 
                                 <TextBlock Margin="30,20,30,20" Style="{StaticResource BasicTextStyle}" Text="{Binding Description}" />
-
+                                
                             </Grid>
                         </Grid>
                     </DataTemplate>

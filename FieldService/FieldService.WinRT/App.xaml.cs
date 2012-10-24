@@ -42,6 +42,7 @@ namespace FieldService.WinRT {
 
             //WinRT specific services
             ServiceContainer.Register<LoginViewModel> ();
+            ServiceContainer.Register<AssignmentViewModel> ();
             ServiceContainer.Register(this);
         }
 
