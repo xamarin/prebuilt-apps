@@ -28,5 +28,6 @@
   <Capabilities>
     <Capability Name="picturesLibrary" />
     <Capability Name="internetClient" />
+    <DeviceCapability Name="location" />
   </Capabilities>
 </Package>

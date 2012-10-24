@@ -16,11 +16,14 @@
         
         <Image Grid.RowSpan="3" Source="{StaticResource BackgroundImage}" Stretch="None" />
 
-        <TextBlock Style="{StaticResource HeaderTextStyle}" Margin="50">Field Services App</TextBlock>
+        <TextBlock Margin="50" Style="{StaticResource HeaderTextStyle}">Field Services App</TextBlock>
 
-        <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Margin="50,0,50,20">Assignments</TextBlock>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="50,0,50,20">
+            <TextBlock Style="{StaticResource SubheaderTextStyle}">Assignments</TextBlock>
+            <Button Margin="20,0,0,0" Command="{Binding MapsCommand}">Maps</Button>
+        </StackPanel>
 
-        <Grid Grid.Row="2" Margin="50,0,50,50" >
+        <Grid Grid.Row="2" Margin="50,0,50,50" x:Name="activeAssignment">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -145,14 +148,13 @@
                             </Grid>
 
                             <Grid Grid.Row="1" Background="{StaticResource DarkBlueBackgroundBrush}">
-
                                 <TextBlock Margin="30,20,30,20" Style="{StaticResource BasicTextStyle}" Text="{Binding Description}" />
-                                
                             </Grid>
                         </Grid>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListView>
+
         </Grid>
 
     </Grid>
