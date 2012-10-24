@@ -48,5 +48,12 @@ namespace FieldService.Android.Utilities {
             int.TryParse (s, out value);
             return value;
         }
+
+        public static double ToDouble (this string s)
+        {
+            var value = 0d;
+            double.TryParse (s, out value);
+            return value;
+        }
     }
 }

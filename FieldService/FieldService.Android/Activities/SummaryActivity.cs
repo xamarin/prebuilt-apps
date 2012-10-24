@@ -45,6 +45,7 @@ namespace FieldService.Android {
         int assignmentIndex = 0,
             navigationIndex = 0;
         ItemsDialog itemDialog;
+        AddLaborDialog laborDialog;
 
         public SummaryActivity ()
         {
@@ -124,6 +125,12 @@ namespace FieldService.Android {
                 itemDialog.Assignment = assignment;
                 itemDialog.Show ();
             };
+            addLabor.Click += (sender, e) => {
+                laborDialog = new AddLaborDialog (this);
+                laborDialog.Assignment = assignment;
+                laborDialog.CurrentLabor = new Labor ();
+                laborDialog.Show ();
+            };
         }
 
         protected override void OnSaveInstanceState (Bundle outState)
@@ -162,6 +169,12 @@ namespace FieldService.Android {
             if (itemDialog != null) {
                 if (itemDialog.IsShowing) {
                     itemDialog.Dismiss ();
+                }
+            }
+
+            if (laborDialog != null) {
+                if (laborDialog.IsShowing) {
+                    laborDialog.Dismiss ();
                 }
             }
         }
@@ -234,6 +247,11 @@ namespace FieldService.Android {
                 itemFragment.AssignmentItems = itemViewModel.AssignmentItems;
                 itemFragment.ReloadAssignmentItems ();
                 });
+        }
+
+        public void ReloadLaborHours ()
+        {
+
         }
     }
 }

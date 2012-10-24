@@ -28,7 +28,7 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Dialogs {
-    public class ItemsDialog : BaseDialog, View.IOnClickListener {
+    public class ItemsDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
 
         ListView itemsListView;
         ItemViewModel itemViewModel;
@@ -46,18 +46,7 @@ namespace FieldService.Android.Dialogs {
 
             var cancel = (Button)FindViewById (Resource.Id.itemsPopupCancelButton);
             itemsListView = (ListView)FindViewById (Resource.Id.itemPopupItemsList);
-            itemsListView.ItemSelected += (sender, e) => {
-                var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (e.Position);
-                itemViewModel.SaveAssignmentItem (Assignment, new AssignmentItem {
-                    Item = item.ID,
-                    Assignment = Assignment.ID,
-                })
-                .ContinueOnUIThread (_ => {
-                    SummaryActivity activity = ServiceContainer.Resolve<SummaryActivity> ();
-                    activity.ReloadItems ();
-                    Dismiss ();
-                });
-            };
+            
             var searchText = (TextView)FindViewById (Resource.Id.itemsPopupSearchText);
             var clearText = (ImageButton)FindViewById (Resource.Id.itemsPopupSeachClear);
 
@@ -66,6 +55,7 @@ namespace FieldService.Android.Dialogs {
                 });
 
             cancel.SetOnClickListener (this);
+            itemsListView.OnItemSelectedListener = this;
         }
 
         public Assignment Assignment
@@ -79,6 +69,25 @@ namespace FieldService.Android.Dialogs {
             if (v.Id == Resource.Id.itemsPopupCancelButton) {
                 Dismiss ();
             }
+        }
+
+        public void OnItemSelected (AdapterView parent, View view, int position, long id)
+        {
+            var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (position);
+            itemViewModel.SaveAssignmentItem (Assignment, new AssignmentItem {
+                Item = item.ID,
+                Assignment = Assignment.ID,
+            })
+            .ContinueOnUIThread (_ => {
+                SummaryActivity activity = ServiceContainer.Resolve<SummaryActivity> ();
+                activity.ReloadItems ();
+                Dismiss ();
+            });
+        }
+
+        public void OnNothingSelected (AdapterView parent)
+        {
+            //do nothing
         }
     }
 }

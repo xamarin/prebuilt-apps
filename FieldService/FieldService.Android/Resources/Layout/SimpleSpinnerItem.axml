@@ -6,4 +6,6 @@
     android:textColor="@color/greyspinnertext"
     android:id="@+id/simpleSpinnerTextView"
     android:gravity="center"
-    android:ellipsize="marquee" />
+    android:ellipsize="marquee"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp" />

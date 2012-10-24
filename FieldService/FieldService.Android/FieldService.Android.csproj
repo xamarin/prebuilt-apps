@@ -141,6 +141,7 @@
     <Compile Include="Adapters\LaborHoursAdapter.cs" />
     <Compile Include="Adapters\LaborTypeSpinnerAdapter.cs" />
     <Compile Include="Adapters\NavigationAdapter.cs" />
+    <Compile Include="Dialogs\AddLaborDialog.cs" />
     <Compile Include="Dialogs\BaseDialog.cs" />
     <Compile Include="Dialogs\ItemsDialog.cs" />
     <Compile Include="Fragments\ItemFragment.cs" />
@@ -212,6 +213,9 @@
     <AndroidResource Include="Resources\Layout\ItemSearchListItemLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\AddLaborPopUpLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -277,6 +281,11 @@
     <AndroidResource Include="Resources\Drawable\clear_search_button.xml" />
     <AndroidResource Include="Resources\Drawable\cancel_button.xml" />
     <AndroidResource Include="Resources\Drawable\items_selector.xml" />
+    <AndroidResource Include="Resources\Drawable\labordescriptionbottom.png" />
+    <AndroidResource Include="Resources\Drawable\laborHoursBottom.png" />
+    <AndroidResource Include="Resources\Drawable\downlaborhours.png" />
+    <AndroidResource Include="Resources\Drawable\LaborHoursDivider.png" />
+    <AndroidResource Include="Resources\Drawable\UpLaborHours.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

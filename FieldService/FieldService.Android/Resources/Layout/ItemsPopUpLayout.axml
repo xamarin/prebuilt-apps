@@ -3,7 +3,9 @@
     android:orientation="vertical"
     android:layout_width="400dp"
     android:layout_height="500dp"
-    android:background="@android:color/white">
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="wrap_content"
@@ -78,7 +80,7 @@
         android:listSelector="@drawable/items_selector"
         android:background="@color/assignmentoffwhite" />
     <Button
-        android:text="Cancel"
+        android:text="@string/Cancel"
         android:layout_width="fill_parent"
         android:layout_height="50dp"
         android:id="@+id/itemsPopupCancelButton"
