@@ -23,6 +23,7 @@ using Windows.Devices.Geolocation;
 using Windows.UI;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
@@ -34,16 +35,19 @@ namespace FieldService.WinRT.Views {
     /// </summary>
     public sealed partial class MapPage : Page {
         readonly AssignmentViewModel assignmentViewModel;
-        Geolocator locator;
-        Pushpin userPin;
+        readonly Geolocator locator;
+        readonly Pushpin userPin;
+        readonly MapPopup popup;
 
         public MapPage ()
         {
             this.InitializeComponent ();
 
             locator = new Geolocator ();
+            popup = new MapPopup ();
 
             userPin = new Pushpin ();
+            userPin.Tapped += OnPinTapped;
 
             DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
@@ -57,6 +61,12 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
+            foreach (var pin in map.Children) {
+                if (pin != userPin) {
+                    pin.Tapped -= OnPinTapped;
+                }
+            }
+
             //Clear the map controls
             map.Children.Clear ();
 
@@ -64,12 +74,34 @@ namespace FieldService.WinRT.Views {
             foreach (var assignment in assignmentViewModel.Assignments) {
                 var pin = new Pushpin {
                     Background = assignment.Status.GetBrushForStatus(),
+                    Tag = assignment,
                 };
+                pin.Tapped += OnPinTapped;
                 map.Children.Add (pin);
                 MapLayer.SetPosition (pin, new Location (assignment.Latitude, assignment.Longitude));
             }
 
             UpdatePosition ();
+        }
+
+        private void OnPinTapped (object sender, TappedRoutedEventArgs e)
+        {
+            var pin = sender as Pushpin;
+            if (userPin == sender) {
+                popup.DataContext = new {
+                    Title = "Current Location",
+                    AddressFormatted = string.Empty,
+                };
+            } else {
+                popup.DataContext = pin.Tag;
+            }
+
+            if (!map.Children.Contains(popup))
+                map.Children.Add (popup);
+
+            //Set position
+            var location = MapLayer.GetPosition (pin);
+            MapLayer.SetPosition (popup, location);
         }
 
         private async void UpdatePosition ()

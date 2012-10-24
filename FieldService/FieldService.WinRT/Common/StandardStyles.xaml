@@ -33,6 +33,7 @@
     <BitmapImage x:Key="PersonIcon" UriSource="ms-appx:///Assets/personicon.png" />
     <BitmapImage x:Key="MapIcon" UriSource="ms-appx:///Assets/mapicon.png" />
     <BitmapImage x:Key="PhoneIcon" UriSource="ms-appx:///Assets/phoneicon.png" />
+    <BitmapImage x:Key="MapTriangleImage" UriSource="ms-appx:///Assets/map_triangle.png" />
     
     <!--Brushes-->
     <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">
