@@ -165,7 +165,8 @@
         android:id="@+id/navigationFragmentContainer"
         android:layout_alignTop="@+id/contentFrame"
         android:layout_alignParentLeft="true"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:background="@android:color/black" />
     <ImageButton
         android:src="@drawable/navigationIcon"
         android:layout_width="wrap_content"

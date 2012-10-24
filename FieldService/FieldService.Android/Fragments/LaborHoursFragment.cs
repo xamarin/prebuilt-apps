@@ -29,8 +29,10 @@ namespace FieldService.Android.Fragments {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.LaborHoursLayout, null, true);
 
-            laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
-            laborListView.Adapter = new LaborHoursAdapter (this.Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
+            if (LaborHours != null) {
+                laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
+                laborListView.Adapter = new LaborHoursAdapter (this.Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
+            }
 
             return view;
         }
