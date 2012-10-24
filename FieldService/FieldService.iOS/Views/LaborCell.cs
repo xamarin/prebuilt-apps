@@ -14,6 +14,7 @@
 //    limitations under the License.using System;
 using System;
 using System.Drawing;
+using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Data;
@@ -47,6 +48,39 @@ namespace FieldService.iOS
 			type.HighlightedTextColor = 
 				description.HighlightedTextColor =
 				hours.HighlightedTextColor = Theme.LabelColor;
+		}
+
+		public override void WillTransitionToState (UITableViewCellState mask)
+		{
+			base.WillTransitionToState (mask);
+
+			//If the "delete" button is appearing, set the alpha to 0 so it is invisible
+			if ((mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
+				var deleteButton = Subviews.Last();
+				deleteButton.Alpha = 0;
+			}
+		}
+
+		public override void DidTransitionToState (UITableViewCellState mask)
+		{
+			base.DidTransitionToState (mask);
+
+			//If the "delete" button is appearing, let's reposition it and use a different animation
+			if ((mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
+				var deleteButton = Subviews.Last();
+
+				//Position the button
+				var frame = deleteButton.Frame;
+				frame.X -= 45;
+				deleteButton.Frame = frame;
+
+				//Animate the button "fading" in
+				UIView.BeginAnimations ("ShowDeleteButton");
+				UIView.SetAnimationDuration (.3);
+				UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+				deleteButton.Alpha = 1;
+				UIView.CommitAnimations ();
+			}
 		}
 
 		protected override void Dispose (bool disposing)

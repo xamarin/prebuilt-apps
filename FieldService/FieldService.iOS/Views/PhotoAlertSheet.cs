@@ -47,7 +47,7 @@ namespace FieldService.iOS
 						.ContinueWith (t => {
 
 							if (t.IsCanceled)
-								return t.Result;
+								return null;
 
 							SetImage(t.Result.GetStream());
 							return t.Result;
