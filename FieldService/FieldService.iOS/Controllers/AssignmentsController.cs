@@ -68,6 +68,7 @@ namespace FieldService.iOS
 			timerBackgroundImage.Image = Theme.TimerField;
 			toolbarShadow.Image = Theme.ToolbarShadow;
 			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			navigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
 
 			timerLabel.TextColor =
 				numberAndDate.TextColor =

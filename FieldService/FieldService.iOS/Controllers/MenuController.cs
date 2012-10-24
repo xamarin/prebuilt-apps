@@ -62,6 +62,7 @@ namespace FieldService.iOS
 			backButton.SetBackgroundImage (Theme.BackButton, UIControlState.Normal, UIBarMetrics.Default);
 			backButton.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			timerLabel.TextColor = Theme.LabelColor;
+			navigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
 
 			timerBackground.Image = Theme.TimerBackground;
 			timerLabelBackground.Image = Theme.TimerField;

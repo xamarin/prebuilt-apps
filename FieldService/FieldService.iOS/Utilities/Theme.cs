@@ -625,15 +625,11 @@ namespace FieldService.iOS
 		{
 			UIActivityIndicatorView.Appearance.Color = IndicatorColor;
 
-			UINavigationBar.Appearance.SetBackgroundImage (TopNav, UIBarMetrics.Default);
-
 			UIToolbar.Appearance.SetBackgroundImage (BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 			UISegmentedControl.Appearance.TintColor = SegmentedTintColor;
 
 			UIBarButtonItem.Appearance.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
-
-			UIButton.Appearance.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 		}
 
 		const string FontName = "HelveticaNeue-Medium";
@@ -676,7 +672,7 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
-		/// Registers controllers for the app in the ServiceContainer
+		/// Registers controllers for the app in the ServiceContainer that are loading directly from the storyboard
 		/// </summary>
 		public static void SetupControllers(UIStoryboard storyboard)
 		{

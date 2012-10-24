@@ -54,7 +54,9 @@ namespace FieldService.iOS
 				BackgroundView = new UIImageView ();
 
 				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
+				accept.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
+				decline.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 				priority.TextColor = 
 					priority.HighlightedTextColor = UIColor.White;
 				priorityBackground.Image = Theme.NumberBox;

@@ -12,6 +12,9 @@ namespace FieldService.iOS
 	partial class AssignmentsController
 	{
 		[Outlet]
+		MonoTouch.UIKit.UINavigationBar navigationBar { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIBarButtonItem settings { get; set; }
 
 		[Outlet]
@@ -62,9 +65,6 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIImageView toolbarShadow { get; set; }
 
-		[Action ("Address")]
-		partial void Address ();
-
 		[Action ("ActiveAssignmentSelected")]
 		partial void ActiveAssignmentSelected ();
 
@@ -74,11 +74,19 @@ namespace FieldService.iOS
 		[Action ("Settings:")]
 		partial void Settings (MonoTouch.Foundation.NSObject sender);
 
+		[Action ("Address")]
+		partial void Address ();
+
 		[Action ("TabChanged")]
 		partial void TabChanged ();
 		
 		void ReleaseDesignerOutlets ()
 		{
+			if (navigationBar != null) {
+				navigationBar.Dispose ();
+				navigationBar = null;
+			}
+
 			if (settings != null) {
 				settings.Dispose ();
 				settings = null;

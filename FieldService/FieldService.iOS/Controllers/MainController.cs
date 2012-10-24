@@ -36,11 +36,14 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
-			//Setup our child controllers
+			var navigationController = new UINavigationController(ServiceContainer.Resolve<AssignmentDetailsController>());
+			navigationController.NavigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
+
+			//Setup our child controllers, the master controller is already setup in the storyboard
 			ViewControllers = new UIViewController[]
 			{
 				ViewControllers[0],
-				new UINavigationController(ServiceContainer.Resolve<AssignmentDetailsController>()),
+				navigationController,
 			};
 
 			//Hook up our delegate

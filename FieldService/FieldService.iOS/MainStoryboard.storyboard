@@ -505,6 +505,7 @@
                         <outlet property="address" destination="w99-Xm-MF4" id="6ps-ql-eDL"/>
                         <outlet property="assignmentButton" destination="IVt-PH-pyz" id="BOv-nh-7RQ"/>
                         <outlet property="contact" destination="b06-fw-Ka7" id="Fyk-fc-cIt"/>
+                        <outlet property="navigationBar" destination="om3-8U-YQF" id="JLw-Hz-RhU"/>
                         <outlet property="numberAndDate" destination="edc-gH-eoM" id="DB9-qC-Qec"/>
                         <outlet property="priority" destination="dYL-OX-IS7" id="bYY-jF-Nv8"/>
                         <outlet property="priorityBackground" destination="IFe-Hn-KDO" id="eqp-U1-567"/>
@@ -1464,6 +1465,7 @@
                 <relationship kind="outlet" name="address" candidateClass="TextButton"/>
                 <relationship kind="outlet" name="assignmentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
