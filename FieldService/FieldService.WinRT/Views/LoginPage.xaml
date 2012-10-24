@@ -31,7 +31,7 @@
 
                 <Grid Width="280">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <ProgressRing Margin="5" Visibility="{Binding IsBusy, Converter={StaticResource BooleanConverter}}" />
+                        <ProgressRing Margin="5" IsActive="{Binding IsBusy}" />
                         <Button Margin="-3,5" Command="{Binding LoginCommand}" Content="Log In" BorderBrush="{StaticResource DarkBlueBorderBrush}" Background="{StaticResource BlueBackgroundBrush}" />
                     </StackPanel>
                 </Grid>

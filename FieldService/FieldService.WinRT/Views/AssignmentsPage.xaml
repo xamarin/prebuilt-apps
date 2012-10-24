@@ -18,61 +18,84 @@
 
         <TextBlock Style="{StaticResource HeaderTextStyle}" Margin="50">Field Services App</TextBlock>
 
-        <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Margin="50,0,50,20">Field Services App</TextBlock>
-        
-        <ListView 
-            x:Name="listView" Grid.Row="2" Margin="50,0,50,50" 
-            ItemsSource="{Binding Assignments}" SelectionMode="None"
-            ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <ItemsControl.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <VirtualizingStackPanel Orientation="Horizontal" />
-                </ItemsPanelTemplate>
-            </ItemsControl.ItemsPanel>
-            <ItemsControl.ItemTemplate>
-                <DataTemplate>
-                    <Grid HorizontalAlignment="Left" Width="140" Height="{Binding ElementName=listView, Path=ActualHeight}">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="340" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        
-                        <Grid Background="{StaticResource LightBlueBackgroundBrush}">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                                <RowDefinition Height="Auto" />
-                            </Grid.RowDefinitions>
+        <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Margin="50,0,50,20">Assignments</TextBlock>
 
-                            <Border Margin="20" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
-                                <TextBlock Text="{Binding Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
-                            </Border>
-                                
-                            <TextBlock Margin="15" TextAlignment="Center" Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Text="{Binding JobNumberFormatted}" />
-                            
-                            <TextBlock Margin="15" TextAlignment="Center" Grid.Row="2" Style="{StaticResource BasicTextStyle}" Text="{Binding Title}" />
+        <Grid Grid.Row="2" Margin="50,0,50,50" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
 
-                            <TextBlock Margin="15" TextAlignment="Center" Grid.Row="3" Style="{StaticResource BasicTextStyle}" Text="{Binding StartDateFormatted}" />
+            <Grid Margin="0,0,20,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*" />
+                    <RowDefinition Height="170" />
+                </Grid.RowDefinitions>
+                
+                <Grid Background="{StaticResource DarkTextBrush}" Margin="0,4,4,20">
+                    
+                </Grid>
+                
+                <Grid Grid.Row="1" Background="{StaticResource DarkTextBrush}" Margin="0,4,4,0">
 
-                            <TextBlock Margin="15" TextAlignment="Center" Grid.Row="5" Style="{StaticResource BasicTextStyle}" Text="{Binding TimesFormatted}" />
+                </Grid>
 
-                        </Grid>
-                        
-                        <Grid Grid.Row="1" Background="{StaticResource DarkBlueBackgroundBrush}">
+            </Grid>
+            
+            <ListView 
+                x:Name="listView" Grid.Column="1"
+                ItemsSource="{Binding Assignments}" SelectionMode="None"
+                ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <VirtualizingStackPanel Orientation="Horizontal" />
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <Grid HorizontalAlignment="Left" Width="140" Height="{Binding ElementName=listView, Path=ActualHeight}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
-                                <RowDefinition Height="Auto" />
+                                <RowDefinition Height="170" />
                             </Grid.RowDefinitions>
 
-                            <TextBlock Margin="30,20,30,20" Style="{StaticResource BasicTextStyle}" Text="{Binding Description}" />
-                            
+                            <Grid Background="{StaticResource LightBlueBackgroundBrush}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="Auto" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+
+                                <Border Margin="20" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
+                                    <TextBlock Text="{Binding Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
+                                </Border>
+
+                                <TextBlock Margin="15" TextAlignment="Center" Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Text="{Binding JobNumberFormatted}" />
+
+                                <TextBlock Margin="15" TextAlignment="Center" Grid.Row="2" Style="{StaticResource BasicTextStyle}" Text="{Binding Title}" />
+
+                                <TextBlock Margin="15" TextAlignment="Center" Grid.Row="3" Style="{StaticResource BasicTextStyle}" Text="{Binding StartDateFormatted}" />
+
+                                <TextBlock Margin="15" TextAlignment="Center" Grid.Row="4" Style="{StaticResource BasicTextStyle}" Text="{Binding TimesFormatted}" />
+
+                            </Grid>
+
+                            <Grid Grid.Row="1" Background="{StaticResource DarkBlueBackgroundBrush}">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*" />
+                                    <RowDefinition Height="Auto" />
+                                </Grid.RowDefinitions>
+
+                                <TextBlock Margin="30,20,30,20" Style="{StaticResource BasicTextStyle}" Text="{Binding Description}" />
+
+                            </Grid>
                         </Grid>
-                    </Grid>
-                </DataTemplate>
-            </ItemsControl.ItemTemplate>
-        </ListView>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListView>
+        </Grid>
 
     </Grid>
 </Page>

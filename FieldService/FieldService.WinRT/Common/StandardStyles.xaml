@@ -44,7 +44,6 @@
     
     <!--Theme styles, these apply to all instances of that control -->
     <Style TargetType="ProgressRing">
-        <Setter Property="IsActive" Value="True" />
         <Setter Property="Foreground" Value="#AA333333" />
     </Style>
     
