@@ -110,10 +110,13 @@ namespace FieldService.iOS
 			if (IsViewLoaded) {
 				if (assignmentViewModel.ActiveAssignment != null && assignmentViewModel.ActiveAssignment.Status == FieldService.Data.AssignmentStatus.Active) {
 					status.Assignment = assignmentViewModel.ActiveAssignment;
-					timerView.Alpha = 1;
 					timerView.Hidden = false;
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+
+					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
+						() => timerView.Alpha = 1, 
+						delegate { });
 				} else {
 					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
 						() => timerView.Alpha = 0, 

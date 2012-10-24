@@ -26,7 +26,7 @@ namespace FieldService.iOS
 	[Register("HoursField")]
 	public class HoursField : UIView
 	{
-		const int Spacing = 4;
+		const int Spacing = 6;
 		static readonly  SizeF ButtonSize = new SizeF (60, 34);
 		private UITextField textField;
 		private UIButton up, down;
@@ -116,6 +116,7 @@ namespace FieldService.iOS
 				TextAlignment = UITextAlignment.Right,
 				VerticalAlignment = UIControlContentVerticalAlignment.Center,
 				TextColor = Theme.LabelColor,
+				KeyboardType = UIKeyboardType.NumberPad,
 			};
 			textField.EditingDidBegin += (sender, e) => {
 				var method = EditingDidBegin;
