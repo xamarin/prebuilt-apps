@@ -3,7 +3,9 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:background="@color/assignmentoffwhite">
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
     <TextView
         android:text="@string/AddLabor"
         android:textAppearance="?android:attr/textAppearanceLarge"
@@ -89,38 +91,41 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:textColor="@android:color/black"
-        android:text="You can apply different styles to your views. In your case it sounds like you want an EditText View element which looks like a TextView element. In this case you would have to specify other backgrounds for the EditText depending on the state of the View element."
         android:maxWidth="328dp"
-        android:textSize="12dp" />
+        android:textSize="12dp"
+        android:background="@android:color/transparent"
+        android:minWidth="328dp"
+        android:maxHeight="120dp"
+        android:minHeight="120dp"
+        android:gravity="left" />
     <ImageView
         android:src="@drawable/labordescriptionbottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/imageView2"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="2dp" />
+        android:layout_marginTop="5dp" />
     <LinearLayout
         android:orientation="horizontal"
-        android:minWidth="25px"
-        android:minHeight="25px"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout1"
-        android:layout_marginTop="20dp">
+        android:layout_marginTop="20dp"
+        android:minHeight="50dp">
         <Button
             android:text="@string/Cancel"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             android:id="@+id/cancelAddLabor"
             android:background="@drawable/cancel_button"
             android:textColor="@android:color/black"
             android:layout_weight="1"
-            android:textSize="14dp" />
+            android:textSize="14dp"
+            android:layout_height="fill_parent" />
         <Button
             android:text="@string/Delete"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/DeleteAddLabor"
+            android:layout_height="fill_parent"
+            android:id="@+id/deleteAddLabor"
             android:background="@drawable/cancel_button"
             android:textColor="@android:color/black"
             android:layout_weight="1"
@@ -128,8 +133,8 @@
         <Button
             android:text="@string/Save"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/SaveAddLabor"
+            android:layout_height="fill_parent"
+            android:id="@+id/saveAddLabor"
             android:background="@drawable/cancel_button"
             android:textColor="@android:color/black"
             android:layout_weight="1"
