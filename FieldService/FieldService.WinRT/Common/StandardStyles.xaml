@@ -30,6 +30,9 @@
     <!--Images-->
     <BitmapImage x:Key="BackgroundImage" UriSource="ms-appx:///Assets/smoothbg.png" />
     <BitmapImage x:Key="LogoImage" UriSource="ms-appx:///Assets/titlelogo.png" />
+    <BitmapImage x:Key="PersonIcon" UriSource="ms-appx:///Assets/personicon.png" />
+    <BitmapImage x:Key="MapIcon" UriSource="ms-appx:///Assets/mapicon.png" />
+    <BitmapImage x:Key="PhoneIcon" UriSource="ms-appx:///Assets/phoneicon.png" />
     
     <!--Brushes-->
     <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">
@@ -41,14 +44,24 @@
     <SolidColorBrush x:Key="LightBlueBackgroundBrush">#24c3ed</SolidColorBrush>
     <SolidColorBrush x:Key="DarkBlueBackgroundBrush">#12759a</SolidColorBrush>
     <SolidColorBrush x:Key="DarkBlueBorderBrush">#1991ba</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkBackgroundBrush">#222222</SolidColorBrush>
+    <SolidColorBrush x:Key="GreenBrush">#00fd7d</SolidColorBrush>
+    <SolidColorBrush x:Key="YellowBrush">#fcff00</SolidColorBrush>
+    <SolidColorBrush x:Key="RedBrush">#d53030</SolidColorBrush>
     
     <!--Theme styles, these apply to all instances of that control -->
     <Style TargetType="ProgressRing">
         <Setter Property="Foreground" Value="#AA333333" />
     </Style>
+    <!--These are system colors we are overriding-->
+    <SolidColorBrush x:Key="ComboBoxItemSelectedBackgroundThemeBrush">#24c3ed</SolidColorBrush>
+    <SolidColorBrush x:Key="ComboBoxItemSelectedPointerOverBackgroundThemeBrush">#24c3ed</SolidColorBrush>
+    <SolidColorBrush x:Key="ComboBoxSelectedBackgroundThemeBrush">#24c3ed</SolidColorBrush>
+    <SolidColorBrush x:Key="ComboBoxSelectedPointerOverBackgroundThemeBrush">#24c3ed</SolidColorBrush>
     
     <!--Converters-->
     <util:BooleanToVisibilityConverter x:Key="BooleanConverter" />
+    <util:StatusToColorConverter x:Key="StatusConverter" />
     
     <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
 
@@ -245,6 +258,24 @@
                         </VisualStateManager.VisualStateGroups>
                     </Grid>
                 </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="HeaderTextButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource TextButtonStyle}">
+        <Setter Property="FontSize" Value="56"/>
+        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="-2" Y="8"/>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    <Style x:Key="SubheaderTextButtonStyle" TargetType="ButtonBase" BasedOn="{StaticResource TextButtonStyle}">
+        <Setter Property="FontSize" Value="26.667"/>
+        <Setter Property="FontWeight" Value="Light"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TranslateTransform X="-1" Y="6"/>
             </Setter.Value>
         </Setter>
     </Style>

@@ -52,6 +52,13 @@ namespace FieldService.ViewModels {
 
         public AssignmentViewModel ()
         {
+            AvailableStatuses = new AssignmentStatus []
+            {
+                AssignmentStatus.Hold,
+                AssignmentStatus.Active,
+                AssignmentStatus.Complete,
+            };
+
             service = ServiceContainer.Resolve<IAssignmentService> ();
 
             timer = new Timer (1000);
@@ -63,6 +70,15 @@ namespace FieldService.ViewModels {
             timer.Elapsed += (sender, e) => {
                 Hours = hours.Add (TimeSpan.FromSeconds (1));
             };
+        }
+
+        /// <summary>
+        /// List of available statuses an assignment can be set to
+        /// </summary>
+        public AssignmentStatus [] AvailableStatuses
+        {
+            get;
+            private set;
         }
 
         /// <summary>

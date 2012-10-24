@@ -25,16 +25,6 @@ namespace FieldService.Data {
     /// </summary>
     public class Assignment {
         /// <summary>
-        /// This is the list of status types an assignment can be changed to
-        /// </summary>
-        public static readonly AssignmentStatus [] AvailableStatuses = new AssignmentStatus []
-        {
-            AssignmentStatus.Hold,
-            AssignmentStatus.Active,
-            AssignmentStatus.Complete,
-        };
-
-        /// <summary>
         /// Assignment ID
         /// </summary>
         [PrimaryKey, AutoIncrement]
@@ -183,6 +173,19 @@ namespace FieldService.Data {
                     "· · ·" +
                     Environment.NewLine + 
                     EndDate.ToShortTimeString ();
+            }
+        }
+
+        /// <summary>
+        /// A formatted version of the address for WinRT
+        /// </summary>
+        public string AddressFormatted
+        {
+            get
+            {
+                return Address +
+                    Environment.NewLine +
+                    City + ", " + State + " " + Zip;
             }
         }
 

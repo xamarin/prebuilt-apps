@@ -22,17 +22,65 @@
 
         <Grid Grid.Row="2" Margin="50,0,50,50" >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="280" />
+                <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
 
-            <Grid Margin="0,0,20,0">
+            <Grid Margin="0,0,20,0" Width="280">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*" />
                     <RowDefinition Height="170" />
                 </Grid.RowDefinitions>
                 
                 <Grid Background="{StaticResource DarkTextBrush}" Margin="0,4,4,20">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+
+                    <Border VerticalAlignment="Top" Grid.RowSpan="3" Margin="15" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
+                        <TextBlock Text="{Binding ActiveAssignment.Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
+                    </Border>
+
+                    <Button Grid.Column="1" Margin="10" FontWeight="Medium" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding ActiveAssignment.JobNumberFormatted}" />
+
+                    <Button Grid.Row="1" Grid.Column="1" FontWeight="Medium" Margin="10" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding ActiveAssignment.Title}" />
+
+                    <Button Grid.Row="2" Grid.Column="1" Margin="10" Style="{StaticResource TextButtonStyle}" Content="{Binding ActiveAssignment.StartDateFormatted}" />
+                    
+                    <Border Grid.Row="3" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
+                        <Image Source="{StaticResource PersonIcon}" Stretch="None" />
+                    </Border>
+
+                    <TextBlock Grid.Row="3" Grid.Column="1" Margin="10" Style="{StaticResource BasicTextStyle}" Text="{Binding ActiveAssignment.ContactName}" />
+
+                    <Border Grid.Row="4" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
+                        <Image Source="{StaticResource PhoneIcon}" Stretch="None" />
+                    </Border>
+
+                    <TextBlock Grid.Row="4" Grid.Column="1" Margin="10" Style="{StaticResource BasicTextStyle}" Text="{Binding ActiveAssignment.ContactPhone}" />
+
+                    <Border Grid.Row="5" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
+                        <Image Source="{StaticResource MapIcon}" Stretch="None" />
+                    </Border>
+
+                    <TextBlock Grid.Row="5" Grid.Column="1" Margin="10" Style="{StaticResource BasicTextStyle}" Text="{Binding ActiveAssignment.AddressFormatted}" />
+
+                    <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" BorderThickness="3" Width="30" Height="30" />
+                    
+                    <ComboBox 
+                        x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" 
+                        ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding ActiveAssignment.Status, Mode=TwoWay}" />
                     
                 </Grid>
                 
@@ -72,7 +120,7 @@
                                     <TextBlock Text="{Binding Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
                                 </Border>
 
-                                <TextBlock Margin="15" TextAlignment="Center" Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Text="{Binding JobNumberFormatted}" />
+                                <TextBlock Margin="15" TextAlignment="Center" FontWeight="Medium" Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Text="{Binding JobNumberFormatted}" />
 
                                 <TextBlock Margin="15" TextAlignment="Center" Grid.Row="2" Style="{StaticResource BasicTextStyle}" Text="{Binding Title}" />
 

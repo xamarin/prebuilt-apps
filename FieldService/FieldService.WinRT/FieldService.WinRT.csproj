@@ -184,6 +184,7 @@
     <Compile Include="Utilities\BooleanToVisibilityConverter.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
     <Compile Include="Utilities\Helpers.cs" />
+    <Compile Include="Utilities\StatusToColorConverter.cs" />
     <Compile Include="Utilities\Timer.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="Views\AssignmentsPage.xaml.cs">
@@ -206,6 +207,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Assets\Logo.png" />
+    <Content Include="Assets\mapicon.png" />
+    <Content Include="Assets\personicon.png" />
+    <Content Include="Assets\phoneicon.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\smoothbg.png" />
     <Content Include="Assets\SplashScreen.png" />
