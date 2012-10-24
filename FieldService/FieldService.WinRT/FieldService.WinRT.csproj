@@ -198,6 +198,9 @@
     <Compile Include="Views\MapPage.xaml.cs">
       <DependentUpon>MapPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\MapPopup.xaml.cs">
+      <DependentUpon>MapPopup.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -212,6 +215,7 @@
     </Content>
     <Content Include="Assets\Logo.png" />
     <Content Include="Assets\mapicon.png" />
+    <Content Include="Assets\map_triangle.png" />
     <Content Include="Assets\personicon.png" />
     <Content Include="Assets\phoneicon.png" />
     <Content Include="Assets\SmallLogo.png" />
@@ -238,6 +242,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\MapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\MapPopup.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
