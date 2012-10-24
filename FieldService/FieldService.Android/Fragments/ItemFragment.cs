@@ -40,8 +40,10 @@ namespace FieldService.Android.Fragments {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, null, true);
 
-            itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
-            itemsListView.Adapter = new ItemsAdapter (this.Activity, Resource.Layout.ItemLayout, AssignmentItems);
+            if (AssignmentItems != null) {
+                itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
+                itemsListView.Adapter = new ItemsAdapter (this.Activity, Resource.Layout.ItemLayout, AssignmentItems);
+            }
 
             return view;
         }

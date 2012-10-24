@@ -62,7 +62,7 @@ namespace FieldService.Android {
                     assignment = assignmentViewModel.ActiveAssignment;
                 }
             }
-
+            
             var title = FindViewById<TextView> (Resource.Id.summaryAssignmentTitle);
             number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
             name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
@@ -83,10 +83,14 @@ namespace FieldService.Android {
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
             }
 
-            //portrait mode
+            //portrait mode, flip back and forth when selecting the navigation menu.
             if (navigationMenu != null) {
                 navigationMenu.Click += (sender, e) => {
-                    navigationFragmentContainer.Visibility = ViewStates.Visible;
+                    if (navigationFragmentContainer.Visibility == ViewStates.Visible) {
+                        navigationFragmentContainer.Visibility = ViewStates.Invisible;
+                    } else {
+                        navigationFragmentContainer.Visibility = ViewStates.Visible;
+                    }
                 };
             } else {
                 navigationFragmentContainer.Visibility = ViewStates.Visible;
@@ -94,22 +98,28 @@ namespace FieldService.Android {
 
             //setting up default fragments
 
-            var summaryTransaction = FragmentManager.BeginTransaction ();
+            var transaction = FragmentManager.BeginTransaction ();
             var summaryFragment = new SummaryFragment ();
             summaryFragment.Assignment = assignment;
-            summaryTransaction.SetTransition (FragmentTransit.EnterMask);
-            summaryTransaction.Add (Resource.Id.contentFrame, summaryFragment);
-            summaryTransaction.Commit ();
-
-            var navTransaction = FragmentManager.BeginTransaction ();
             navigationFragment = new NavigationFragment ();
-            navTransaction.SetTransition (FragmentTransit.FragmentOpen);
-            navTransaction.Add (Resource.Id.navigationFragmentContainer, navigationFragment);
-            navTransaction.Commit ();
+            transaction.SetTransition (FragmentTransit.FragmentOpen);
+            transaction.Add (Resource.Id.contentFrame, summaryFragment);
+            transaction.Add (Resource.Id.navigationFragmentContainer, navigationFragment);
+            transaction.Commit ();
 
             items.Visibility =
                  addItems.Visibility = ViewStates.Invisible;
             addLabor.Visibility = ViewStates.Gone;
+
+            if (bundle != null && bundle.ContainsKey (Constants.BUNDLE_INDEX)) {
+                navigationIndex = bundle.GetInt (Constants.BUNDLE_INDEX, 0);
+            }
+        }
+
+        protected override void OnSaveInstanceState (Bundle outState)
+        {
+            outState.PutInt (Constants.BUNDLE_INDEX, navigationIndex);
+            base.OnSaveInstanceState (outState);
         }
 
         private void NavigationSelected (object sender, EventArgs<int> e)
@@ -126,6 +136,9 @@ namespace FieldService.Android {
             base.OnResume ();
             if (navigationFragment != null) {
                 navigationFragment.NavigationSelected += NavigationSelected;
+            }
+            if (navigationIndex != 0) {
+                SetFrameFragment (navigationIndex);
             }
         }
 
