@@ -30,6 +30,7 @@ namespace FieldService.Android {
         AssignmentViewModel assignmentViewModel;
         NavigationFragment navigationFragment;
         Assignment assignment = null;
+        FrameLayout navigationFragmentContainer;
         TextView number,
             name,
             phone,
@@ -37,7 +38,9 @@ namespace FieldService.Android {
             items;
         Button addItems,
             addLabor;
-        int assignmentIndex = 0;
+        ImageButton navigationMenu;
+        int assignmentIndex = 0,
+            navigationIndex = 0;
 
         public SummaryActivity ()
         {
@@ -68,10 +71,8 @@ namespace FieldService.Android {
             items = FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
             addItems = FindViewById<Button> (Resource.Id.selectedAssignmentAddItem);
             addLabor = FindViewById<Button> (Resource.Id.selectedAssignmentAddLabor);
-
-            if (Resources.Configuration.Orientation == Orientation.Landscape) {
-                navigationFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragment);
-            }
+            navigationMenu = FindViewById<ImageButton> (Resource.Id.navigationMenu);
+            navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
 
             if (assignment != null) {
                 title.Text = string.Format ("#{0} {1} {2}", assignment.JobNumber, assignment.Title, assignment.StartDate.ToShortDateString ());
@@ -81,11 +82,31 @@ namespace FieldService.Android {
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
             }
-            var transaction = FragmentManager.BeginTransaction ();
-            var fragment = new SummaryFragment ();
-            fragment.Assignment = assignment;
-            transaction.Add (Resource.Id.contentFrame, fragment);
-            transaction.Commit ();
+
+            //portrait mode
+            if (navigationMenu != null) {
+                navigationMenu.Click += (sender, e) => {
+                    navigationFragmentContainer.Visibility = ViewStates.Visible;
+                };
+            } else {
+                navigationFragmentContainer.Visibility = ViewStates.Visible;
+            }
+
+            //setting up default fragments
+
+            var summaryTransaction = FragmentManager.BeginTransaction ();
+            var summaryFragment = new SummaryFragment ();
+            summaryFragment.Assignment = assignment;
+            summaryTransaction.SetTransition (FragmentTransit.EnterMask);
+            summaryTransaction.Add (Resource.Id.contentFrame, summaryFragment);
+            summaryTransaction.Commit ();
+
+            var navTransaction = FragmentManager.BeginTransaction ();
+            navigationFragment = new NavigationFragment ();
+            navTransaction.SetTransition (FragmentTransit.FragmentOpen);
+            navTransaction.Add (Resource.Id.navigationFragmentContainer, navigationFragment);
+            navTransaction.Commit ();
+
             items.Visibility =
                  addItems.Visibility = ViewStates.Invisible;
             addLabor.Visibility = ViewStates.Gone;
@@ -94,6 +115,10 @@ namespace FieldService.Android {
         private void NavigationSelected (object sender, EventArgs<int> e)
         {
             SetFrameFragment (e.Value);
+            if (navigationMenu != null) {
+                navigationFragmentContainer.Visibility = ViewStates.Invisible;
+            }
+            navigationIndex = e.Value;
         }
 
         protected override void OnResume ()
@@ -103,6 +128,7 @@ namespace FieldService.Android {
                 navigationFragment.NavigationSelected += NavigationSelected;
             }
         }
+
         protected override void OnPause ()
         {
             base.OnPause ();
@@ -119,21 +145,23 @@ namespace FieldService.Android {
                 case "Summary": {
                         var fragment = new SummaryFragment ();
                         fragment.Assignment = assignment;
+                        transaction.SetTransition (FragmentTransit.FragmentOpen);
                         transaction.Replace (Resource.Id.contentFrame, fragment);
+                        transaction.Commit ();
                         items.Visibility = 
                             addItems.Visibility = ViewStates.Invisible;
                         addLabor.Visibility = ViewStates.Gone;
-                        transaction.SetTransition (FragmentTransit.FragmentFade);
                     }
                     break;
                 case "Map": {
                         var fragment = new MapFragment ();
                         fragment.AssignmentIndex = assignmentIndex;
+                        transaction.SetTransition (FragmentTransit.FragmentOpen);
                         transaction.Replace (Resource.Id.contentFrame, fragment);
+                        transaction.Commit ();
                         items.Visibility =
                             addItems.Visibility = ViewStates.Invisible;
                         addLabor.Visibility = ViewStates.Gone;
-                        transaction.SetTransition (FragmentTransit.FragmentFade);
                     }
                     break;
                 case "Items": {
@@ -142,13 +170,14 @@ namespace FieldService.Android {
                         fragment.Assignment = assignment;
                         itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
                             fragment.AssignmentItems = itemViewModel.AssignmentItems;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
                             items.Visibility =
                                 addItems.Visibility = ViewStates.Visible;
                             addLabor.Visibility = ViewStates.Gone;
                             items.Text = string.Format ("({0}) Items", assignment.TotalItems.ToString ());
                         });
-                        transaction.SetTransition (FragmentTransit.FragmentFade);
                     }
                     break;
                 case "Labor Hours": {
@@ -156,19 +185,19 @@ namespace FieldService.Android {
                         var fragment = new LaborHoursFragment ();
                         laborViewModel.LoadLaborHours(assignment).ContinueOnUIThread (_ => {
                             fragment.LaborHours = laborViewModel.LaborHours;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
                             addLabor.Visibility =
                                 items.Visibility = ViewStates.Visible;
                             addItems.Visibility = ViewStates.Gone;
                             items.Text = string.Format ("{0} hrs", assignment.TotalHours.ToString ("0.0"));
                         });
-                        transaction.SetTransition (FragmentTransit.FragmentFade);
                     }
                     break;
                 default:
                     break;
             }
-            transaction.Commit ();
         }
     }
 }

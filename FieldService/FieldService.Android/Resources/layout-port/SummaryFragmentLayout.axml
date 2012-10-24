@@ -159,4 +159,20 @@
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@id/actionBarTitle"
         android:layout_marginLeft="20dp" />
+    <FrameLayout
+        android:layout_width="220dp"
+        android:layout_height="500dp"
+        android:id="@+id/navigationFragmentContainer"
+        android:layout_alignTop="@+id/contentFrame"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible" />
+    <ImageButton
+        android:src="@drawable/navigationIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/navigationMenu"
+        android:layout_alignParentRight="true"
+        android:background="@android:color/transparent"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="12dp" />
 </RelativeLayout>

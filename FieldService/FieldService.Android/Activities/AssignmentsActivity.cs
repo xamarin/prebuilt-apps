@@ -178,15 +178,15 @@ namespace FieldService.Android {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
 
-                var adapter = new SpinnerAdapter (Assignment.AvailableStatuses, this, Resource.Layout.SimpleSpinnerItem);
+                var adapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, this, Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Resources.GetColor (Resource.Color.greyspinnertext);
                 spinner.Adapter = adapter;
-                spinner.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (assignment.Status));
+                spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 spinner.SetBackgroundResource (Resource.Drawable.spinner_blue);
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
                 spinner.ItemSelected += (sender, e) => {
-                    var selected = Assignment.AvailableStatuses.ElementAtOrDefault (e.Position);
+                    var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (e.Position);
                     if (selected != assignment.Status) {
                         switch (selected) {
                             case AssignmentStatus.Active:

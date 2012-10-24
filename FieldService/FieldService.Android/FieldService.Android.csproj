@@ -257,6 +257,9 @@
     <AndroidResource Include="Resources\Drawable\MapOverlayIcon.png" />
     <AndroidResource Include="Resources\Drawable\MapOverlayDirections.png" />
     <AndroidResource Include="Resources\Drawable\MapOverlayDivider.png" />
+    <AndroidResource Include="Resources\Drawable\MapOverlayDirectionsDown.png" />
+    <AndroidResource Include="Resources\Drawable\get_directions_button.xml" />
+    <AndroidResource Include="Resources\Drawable\navigationIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

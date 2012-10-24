@@ -16,19 +16,19 @@
         android:layout_marginLeft="5dp"
         android:layout_marginTop="15dp"
         android:src="@drawable/XamarinTitle" />
-    <fragment
-        android:name="fieldservice.android.fragments.NavigationFragment"
-        android:id="@+id/navigationFragment"
+    <FrameLayout
         android:layout_width="220dp"
         android:layout_height="fill_parent"
+        android:id="@+id/navigationFragmentContainer"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp" />
+        android:layout_marginTop="55dp"
+        android:visibility="visible" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/navigationFragment"
-        android:layout_alignTop="@+id/navigationFragment"
+        android:layout_toRightOf="@id/navigationFragmentContainer"
+        android:layout_alignTop="@+id/navigationFragmentContainer"
         android:id="@+id/selectedAssignment"
         android:background="@color/assignmentblue">
         <TextView

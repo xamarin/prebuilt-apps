@@ -98,79 +98,88 @@ namespace FieldService.Android
 			public const int EnrouteImage = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int HoldImage = 2130837515;
+			public const int get_directions_button = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int Icon = 2130837516;
+			public const int HoldImage = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int login_button = 2130837517;
+			public const int Icon = 2130837517;
 			
 			// aapt resource value: 0x7f02000e
-			public const int loginbox = 2130837518;
+			public const int login_button = 2130837518;
 			
 			// aapt resource value: 0x7f02000f
-			public const int MapIcon = 2130837519;
+			public const int loginbox = 2130837519;
 			
 			// aapt resource value: 0x7f020010
-			public const int MapOverlayDirections = 2130837520;
+			public const int MapIcon = 2130837520;
 			
 			// aapt resource value: 0x7f020011
-			public const int MapOverlayDivider = 2130837521;
+			public const int MapOverlayDirections = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int MapOverlayIcon = 2130837522;
+			public const int MapOverlayDirectionsDown = 2130837522;
 			
 			// aapt resource value: 0x7f020013
-			public const int navigation_selector = 2130837523;
+			public const int MapOverlayDivider = 2130837523;
 			
 			// aapt resource value: 0x7f020014
-			public const int NewAssignmentIcon = 2130837524;
+			public const int MapOverlayIcon = 2130837524;
 			
 			// aapt resource value: 0x7f020015
-			public const int PhoneIcon = 2130837525;
+			public const int navigation_selector = 2130837525;
 			
 			// aapt resource value: 0x7f020016
-			public const int roundedblack = 2130837526;
+			public const int navigationIcon = 2130837526;
 			
 			// aapt resource value: 0x7f020017
-			public const int SelectedItem = 2130837527;
+			public const int NewAssignmentIcon = 2130837527;
 			
 			// aapt resource value: 0x7f020018
-			public const int smallBlueRectangle = 2130837528;
+			public const int PhoneIcon = 2130837528;
 			
 			// aapt resource value: 0x7f020019
-			public const int spinner_blue = 2130837529;
+			public const int roundedblack = 2130837529;
 			
 			// aapt resource value: 0x7f02001a
-			public const int spinner_dark = 2130837530;
+			public const int SelectedItem = 2130837530;
 			
 			// aapt resource value: 0x7f02001b
-			public const int spinner_white = 2130837531;
+			public const int smallBlueRectangle = 2130837531;
 			
 			// aapt resource value: 0x7f02001c
-			public const int summary_timer = 2130837532;
+			public const int spinner_blue = 2130837532;
 			
 			// aapt resource value: 0x7f02001d
-			public const int SummaryPause = 2130837533;
+			public const int spinner_dark = 2130837533;
 			
 			// aapt resource value: 0x7f02001e
-			public const int SummaryRecord = 2130837534;
+			public const int spinner_white = 2130837534;
 			
 			// aapt resource value: 0x7f02001f
-			public const int timer_selector = 2130837535;
+			public const int summary_timer = 2130837535;
 			
 			// aapt resource value: 0x7f020020
-			public const int TimerPause = 2130837536;
+			public const int SummaryPause = 2130837536;
 			
 			// aapt resource value: 0x7f020021
-			public const int TimerRecord = 2130837537;
+			public const int SummaryRecord = 2130837537;
 			
 			// aapt resource value: 0x7f020022
-			public const int TrashCanIcon = 2130837538;
+			public const int timer_selector = 2130837538;
 			
 			// aapt resource value: 0x7f020023
-			public const int XamarinTitle = 2130837539;
+			public const int TimerPause = 2130837539;
+			
+			// aapt resource value: 0x7f020024
+			public const int TimerRecord = 2130837540;
+			
+			// aapt resource value: 0x7f020025
+			public const int TrashCanIcon = 2130837541;
+			
+			// aapt resource value: 0x7f020026
+			public const int XamarinTitle = 2130837542;
 			
 			private Drawable()
 			{
@@ -325,7 +334,7 @@ namespace FieldService.Android
 			public const int mapViewAssignmentLayout = 2131165225;
 			
 			// aapt resource value: 0x7f070034
-			public const int navigationFragment = 2131165236;
+			public const int navigationFragmentContainer = 2131165236;
 			
 			// aapt resource value: 0x7f07002b
 			public const int navigationListView = 2131165227;
@@ -335,6 +344,9 @@ namespace FieldService.Android
 			
 			// aapt resource value: 0x7f070031
 			public const int navigationListViewText = 2131165233;
+			
+			// aapt resource value: 0x7f070041
+			public const int navigationMenu = 2131165249;
 			
 			// aapt resource value: 0x7f070022
 			public const int password = 2131165218;
@@ -366,29 +378,29 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070033
 			public const int simpleSpinnerTextView = 2131165235;
 			
+			// aapt resource value: 0x7f070043
+			public const int summaryAssignmentDescription = 2131165251;
+			
 			// aapt resource value: 0x7f070042
-			public const int summaryAssignmentDescription = 2131165250;
+			public const int summaryAssignmentDescriptionHeader = 2131165250;
 			
-			// aapt resource value: 0x7f070041
-			public const int summaryAssignmentDescriptionHeader = 2131165249;
-			
-			// aapt resource value: 0x7f070047
-			public const int summaryAssignmentExpenses = 2131165255;
-			
-			// aapt resource value: 0x7f070045
-			public const int summaryAssignmentItems = 2131165253;
+			// aapt resource value: 0x7f070048
+			public const int summaryAssignmentExpenses = 2131165256;
 			
 			// aapt resource value: 0x7f070046
-			public const int summaryAssignmentLaborHours = 2131165254;
+			public const int summaryAssignmentItems = 2131165254;
+			
+			// aapt resource value: 0x7f070047
+			public const int summaryAssignmentLaborHours = 2131165255;
 			
 			// aapt resource value: 0x7f07003e
 			public const int summaryAssignmentTitle = 2131165246;
 			
-			// aapt resource value: 0x7f070043
-			public const int summaryViewHistory = 2131165251;
-			
 			// aapt resource value: 0x7f070044
-			public const int textView1 = 2131165252;
+			public const int summaryViewHistory = 2131165252;
+			
+			// aapt resource value: 0x7f070045
+			public const int textView1 = 2131165253;
 			
 			// aapt resource value: 0x7f070008
 			public const int timerLinearLayout = 2131165192;
