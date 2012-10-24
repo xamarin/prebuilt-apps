@@ -185,6 +185,11 @@ namespace FieldService.ViewModels {
                 task = task.ContinueWith (Pause ());
             }
 
+            //Set the active assignment
+            if (assignment.Status == AssignmentStatus.Active) {
+                ActiveAssignment = assignment;
+            }
+
             return task;
         }
 

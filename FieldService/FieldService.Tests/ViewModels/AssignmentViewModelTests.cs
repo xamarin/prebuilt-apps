@@ -73,6 +73,7 @@ namespace FieldService.Tests.ViewModels {
             var loadTask = viewModel.LoadAssignments ();
             loadTask.Wait ();
 
+            var activeAssignment = viewModel.ActiveAssignment;
             var assignment = viewModel.Assignments.First ();
             assignment.Status = AssignmentStatus.Active;
 
@@ -80,7 +81,9 @@ namespace FieldService.Tests.ViewModels {
             task.Wait ();
 
             Assert.That (viewModel.IsBusy, Is.False);
-            Assert.That (viewModel.ActiveAssignment.Status, Is.EqualTo (AssignmentStatus.Hold));
+            Assert.That (activeAssignment.Status, Is.EqualTo (AssignmentStatus.Hold));
+            Assert.That (activeAssignment.ID, Is.Not.EqualTo (assignment.ID));
+            Assert.That (viewModel.ActiveAssignment.Status, Is.EqualTo (AssignmentStatus.Active));
         }
 
         [Test]
