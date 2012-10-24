@@ -13,23 +13,33 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using FieldService.Data;
 using FieldService.Utilities;
-using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+
+// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace FieldService.WinRT.Views {
     /// <summary>
-    /// The page with a list of assignments
+    /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AssignmentsPage : Page {
+    public sealed partial class AssignmentPage : Page {
         readonly AssignmentViewModel assignmentViewModel;
-        bool timerLoaded = false;
 
-        public AssignmentsPage ()
+        public AssignmentPage ()
         {
             this.InitializeComponent ();
 
@@ -44,19 +54,7 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
-            if (!timerLoaded) {
-                assignmentViewModel.LoadTimerEntry ().ContinueWith (assignmentViewModel.LoadAssignments ());
-                timerLoaded = true;
-            } else {
-                assignmentViewModel.LoadAssignments ();
-            }
-        }
 
-        private void OnItemClick (object sender, ItemClickEventArgs e)
-        {
-            assignmentViewModel.SelectedAssignment = e.ClickedItem as Assignment;
-
-            Helpers.NavigateTo<AssignmentPage> ();
         }
     }
 }

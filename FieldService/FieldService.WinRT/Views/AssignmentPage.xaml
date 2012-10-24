@@ -1,0 +1,137 @@
+﻿<Page
+    x:Class="FieldService.WinRT.Views.AssignmentPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FieldService.WinRT.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="50,50,50,20" Orientation="Horizontal">
+            <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" />
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.Title}" />
+        </StackPanel>
+
+        <ScrollViewer Margin="0,0,20,0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <StackPanel Orientation="Horizontal">
+                <Grid Width="280" Margin="25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="170" />
+                    </Grid.RowDefinitions>
+                
+                    <TextBlock Margin="5,10" Style="{StaticResource SubheaderTextStyle}">Details</TextBlock>
+
+                    <Grid Grid.Row="1" Background="{StaticResource DarkTextBrush}" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+
+                        <Border VerticalAlignment="Top" Grid.RowSpan="3" Margin="15" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
+                            <TextBlock Text="{Binding SelectedAssignment.Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
+                        </Border>
+
+                        <Button Grid.Column="1" Margin="10" FontWeight="Medium" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding SelectedAssignment.JobNumberFormatted}" />
+
+                        <Button Grid.Row="1" Grid.Column="1" FontWeight="Medium" Margin="10" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding SelectedAssignment.Title}" />
+
+                        <Button Grid.Row="2" Grid.Column="1" Margin="10" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.StartDateFormatted}" />
+
+                        <Border Grid.Row="3" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
+                            <Image Source="{StaticResource PersonIcon}" Stretch="None" />
+                        </Border>
+
+                        <Button Grid.Row="3" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.ContactName}" />
+
+                        <Border Grid.Row="4" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
+                            <Image Source="{StaticResource PhoneIcon}" Stretch="None" />
+                        </Border>
+
+                        <Button Grid.Row="4" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.ContactPhone}" />
+
+                        <Border Grid.Row="5" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
+                            <Image Source="{StaticResource MapIcon}" Stretch="None" />
+                        </Border>
+
+                        <Button Grid.Row="5" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.AddressFormatted}" />
+
+                        <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" BorderThickness="3" Width="30" Height="30" />
+
+                        <ComboBox 
+                            x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" 
+                            ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding SelectedAssignment.Status, Mode=TwoWay}" />
+
+                    </Grid>
+
+                    <Grid Grid.Row="2" Background="{StaticResource DarkTextBrush}" Margin="5">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Margin="8" FontSize="32" FontWeight="Medium" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" Text="{Binding HoursFormatted}" />
+
+                        <Button 
+                            x:Name="record" Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"
+                            Command="{Binding RecordCommand}">
+                            <Border BorderThickness="3" CornerRadius="40" Width="81" Height="81" BorderBrush="{Binding BorderBrush, ElementName=record}">
+                                <Ellipse Width="35" Height="35" Fill="{Binding BorderBrush, ElementName=record}" />
+                            </Border>
+                        </Button>
+
+                    </Grid>
+
+                </Grid>
+
+                <Grid Width="850" Margin="25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+
+                    <TextBlock Margin="5,10" Style="{StaticResource SubheaderTextStyle}">Summary</TextBlock>
+
+                    <Border Grid.Row="1" BorderThickness="0" Background="{StaticResource DescriptionBrush}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5">
+                        <StackPanel Orientation="Vertical">
+                            <TextBlock Foreground="{StaticResource DarkTextBrush}" Style="{StaticResource SubheaderTextStyle}" Margin="20">Description</TextBlock>
+                            <TextBlock Foreground="{StaticResource DarkTextBrush}" Style="{StaticResource BasicTextStyle}" Margin="20,0,20,20" Text="{Binding SelectedAssignment.Description}" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Grid.Row="3" BorderThickness="0" Background="{StaticResource ItemsBrush}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5">
+                    </Border>
+
+                </Grid>
+
+            </StackPanel>
+        </ScrollViewer>
+
+    </Grid>
+</Page>

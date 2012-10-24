@@ -17,12 +17,12 @@ namespace FieldService.WinRT.Utilities {
         /// Helper method to navigate to a particular page
         /// </summary>
         /// <typeparam name="T"></typeparam>
-        public static void NavigateTo<T> ()
+        public static void NavigateTo<T> (object parameter = null)
             where T : Page
         {
             var app = ServiceContainer.Resolve<App> ();
 
-            if (!app.RootFrame.Navigate (typeof (T), null)) {
+            if (!app.RootFrame.Navigate (typeof (T), parameter)) {
                 throw new InvalidOperationException ("Failed to navigation to: " + typeof (T));
             }
         }
