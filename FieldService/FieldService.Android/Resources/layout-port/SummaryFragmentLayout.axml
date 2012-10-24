@@ -174,6 +174,8 @@
         android:id="@+id/navigationMenu"
         android:layout_alignParentRight="true"
         android:background="@android:color/transparent"
-        android:layout_marginRight="10dp"
-        android:layout_marginTop="12dp" />
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="10dp" />
 </RelativeLayout>

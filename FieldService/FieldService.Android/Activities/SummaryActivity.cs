@@ -17,6 +17,7 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Dialogs;
 using FieldService.Android.Fragments;
 using FieldService.Android.Utilities;
 using FieldService.Data;
@@ -27,7 +28,9 @@ using Orientation = Android.Content.Res.Orientation;
 namespace FieldService.Android {
     [Activity (Label = "Summary", Theme = "@style/CustomHoloTheme")]
     public class SummaryActivity : Activity {
-        AssignmentViewModel assignmentViewModel;
+        readonly AssignmentViewModel assignmentViewModel;
+        readonly ItemViewModel itemViewModel;
+        readonly LaborViewModel laborViewModel;
         NavigationFragment navigationFragment;
         Assignment assignment = null;
         FrameLayout navigationFragmentContainer;
@@ -41,11 +44,13 @@ namespace FieldService.Android {
         ImageButton navigationMenu;
         int assignmentIndex = 0,
             navigationIndex = 0;
+        ItemsDialog itemDialog;
 
         public SummaryActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
-            
+            itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -62,7 +67,7 @@ namespace FieldService.Android {
                     assignment = assignmentViewModel.ActiveAssignment;
                 }
             }
-            
+
             var title = FindViewById<TextView> (Resource.Id.summaryAssignmentTitle);
             number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
             name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
@@ -114,6 +119,11 @@ namespace FieldService.Android {
             if (bundle != null && bundle.ContainsKey (Constants.BUNDLE_INDEX)) {
                 navigationIndex = bundle.GetInt (Constants.BUNDLE_INDEX, 0);
             }
+            addItems.Click += (sender, e) => {
+                itemDialog = new ItemsDialog (this);
+                itemDialog.Assignment = assignment;
+                itemDialog.Show ();
+            };
         }
 
         protected override void OnSaveInstanceState (Bundle outState)
@@ -148,9 +158,15 @@ namespace FieldService.Android {
             if (navigationFragment != null) {
                 navigationFragment.NavigationSelected -= NavigationSelected;
             }
+
+            if (itemDialog != null) {
+                if (itemDialog.IsShowing) {
+                    itemDialog.Dismiss ();
+                }
+            }
         }
 
-        private void SetFrameFragment (int index)
+        public void SetFrameFragment (int index)
         {
             var transaction = FragmentManager.BeginTransaction ();            
             var screen = Constants.Navigation [index];
@@ -178,7 +194,6 @@ namespace FieldService.Android {
                     }
                     break;
                 case "Items": {
-                        var itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
                         var fragment = new ItemFragment ();
                         fragment.Assignment = assignment;
                         itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
@@ -194,7 +209,6 @@ namespace FieldService.Android {
                     }
                     break;
                 case "Labor Hours": {
-                        var laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
                         var fragment = new LaborHoursFragment ();
                         laborViewModel.LoadLaborHours(assignment).ContinueOnUIThread (_ => {
                             fragment.LaborHours = laborViewModel.LaborHours;
@@ -211,6 +225,15 @@ namespace FieldService.Android {
                 default:
                     break;
             }
+        }
+
+        public void ReloadItems ()
+        {
+            itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
+                var itemFragment = FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
+                itemFragment.AssignmentItems = itemViewModel.AssignmentItems;
+                itemFragment.ReloadAssignmentItems ();
+                });
         }
     }
 }

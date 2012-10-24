@@ -11,24 +11,20 @@
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
-//    limitations under the License.using System;
-using System.Collections.Generic;
+//    limitations under the License.
+using System;
 using System.Linq;
-using System.Text;
 using Android.App;
 using Android.Content;
+using Android.GoogleMaps;
+using Android.Graphics.Drawables;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using Android.GoogleMaps;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
-using FieldService.Android.Utilities;
 using FieldService.ViewModels;
-using Android.Hardware;
-using Android.Graphics.Drawables;
-using System;
 
 namespace FieldService.Android {
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]

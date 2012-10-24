@@ -12,4 +12,9 @@
   <string name="Expenses">Expenses</string>
   <string name="Items">Items</string>
   <string name="LaborHours">Labor Hours</string>
+  <string name="AddLabor">Add Labor</string>
+  <string name="HoursAbbrev">hrs</string>
+  <string name="Cancel">Cancel</string>
+  <string name="Delete">Delete</string>
+  <string name="Save">Save</string>
 </resources>
