@@ -83,16 +83,16 @@ namespace FieldService.Android {
 
                 spinner.Focusable = false;
                 spinner.Tag = position;
-                var adapter = new SpinnerAdapter (Assignment.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> (), Resource.Layout.SimpleSpinnerItem);
+                var adapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> (), Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Context.Resources.GetColor (Resource.Color.greyspinnertext);
                 spinner.Adapter = adapter;
 
-                spinner.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (assignment.Status));
+                spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 spinner.SetBackgroundResource (Resource.Drawable.spinner_white);
                 spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
 
                 spinner.ItemSelected += (sender, e) => {
-                    var selected = Assignment.AvailableStatuses.ElementAtOrDefault (e.Position);
+                    var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (e.Position);
                     var index = int.Parse (e.Parent.Tag.ToString ());
                     var activeAssignment = GetItem (index);
                     if (activeAssignment.Status != selected) {

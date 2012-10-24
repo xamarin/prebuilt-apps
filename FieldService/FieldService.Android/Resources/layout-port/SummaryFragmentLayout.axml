@@ -159,4 +159,11 @@
         android:layout_marginTop="15dp"
         android:layout_toRightOf="@id/actionBarTitle"
         android:layout_marginLeft="20dp" />
+    <FrameLayout
+        android:layout_width="220dp"
+        android:layout_height="500dp"
+        android:id="@+id/navigationFragmentContainer"
+        android:layout_alignTop="@+id/contentFrame"
+        android:layout_alignParentLeft="true"
+        android:visibility="invisible" />
 </RelativeLayout>

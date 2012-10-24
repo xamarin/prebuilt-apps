@@ -54,7 +54,7 @@ namespace FieldService.Android.Fragments {
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
-            var view = inflater.Inflate (Resource.Layout.NavigationLayout, container, true);
+            var view = inflater.Inflate (Resource.Layout.NavigationLayout, null, true);
             navigationListView = view.FindViewById<ListView> (Resource.Id.navigationListView);
             navigationStatus = view.FindViewById<Spinner> (Resource.Id.fragmentStatus);
             navigationStatusImage = view.FindViewById<ImageView> (Resource.Id.fragmentStatusImage);
@@ -63,7 +63,7 @@ namespace FieldService.Android.Fragments {
             timerHours = view.FindViewById<TextView> (Resource.Id.fragmentHours);
 
             navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-            var spinnerAdapter = new SpinnerAdapter (Assignment.AvailableStatuses, Activity, Resource.Layout.SimpleSpinnerItem);
+            var spinnerAdapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, Activity, Resource.Layout.SimpleSpinnerItem);
             spinnerAdapter.TextColor = Color.White;
             navigationStatus.Adapter = spinnerAdapter;
             navigationStatus.OnItemSelectedListener = this;
@@ -76,7 +76,7 @@ namespace FieldService.Android.Fragments {
             if (assignment != null) {
                 timerLayout.Visibility = ViewStates.Visible;
                 navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
-                navigationStatus.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
+                navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
                 timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 
                 assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
@@ -108,7 +108,7 @@ namespace FieldService.Android.Fragments {
             if (assignment != null && assignment.Status == AssignmentStatus.Active) {
                 timerLayout.Visibility = ViewStates.Visible;
                 navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
-                navigationStatus.SetSelection (Assignment.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
+                navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
                 timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 
                 assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
@@ -160,7 +160,7 @@ namespace FieldService.Android.Fragments {
 
         public void OnItemSelected (AdapterView parent, View view, int position, long id)
         {
-            var status = Assignment.AvailableStatuses[position];
+            var status = assignmentViewModel.AvailableStatuses [position];
             if (assignment != null && assignment.Status != status) {
                 assignment.Status = status;
                 SaveAssignment ();
