@@ -19,6 +19,7 @@ using System.Text;
 using Android.App;
 using Android.Content;
 using Android.GoogleMaps;
+using Android.Locations;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
@@ -27,6 +28,7 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Java.Util;
 
 namespace FieldService.Android {
     [Activity (Label = "Map View Fragment", Theme = "@style/CustomHoloTheme")]

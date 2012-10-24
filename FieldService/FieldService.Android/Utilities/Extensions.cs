@@ -37,6 +37,11 @@ namespace FieldService.Android.Utilities {
             return (int)(value * 1000000);
         }
 
+        public static double ToDoubleNotE6 (this int value)
+        {
+            return (double)(value / 1000000);
+        }
+
         public static int ToInt (this string s)
         {
             var value = 0;

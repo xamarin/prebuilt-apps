@@ -18,6 +18,7 @@ using Android.Content;
 using Android.GoogleMaps;
 using Android.Graphics;
 using Android.Graphics.Drawables;
+using Android.Net;
 using Android.Views;
 using Android.Widget;
 
@@ -27,6 +28,7 @@ namespace FieldService.Android.Utilities {
         Context context;
         MapView mapView;
         bool getDirections;
+        string intentURI = "http://maps.google.com/maps?saddr={0}&daddr={1}";
 
         public MapOverlayItem (Context context, Drawable overlayDrawable, OverlayItem overlay, MapView mapView, bool canGetDirection = false)
             : base (overlayDrawable)
@@ -49,7 +51,7 @@ namespace FieldService.Android.Utilities {
         {
             return 1;
         }
-                
+
         protected override bool OnTap (int index)
         {
             if (mapView != null) {
@@ -59,7 +61,7 @@ namespace FieldService.Android.Utilities {
                 View bubbleView = null;
                 LayoutInflater inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
                 bubbleView = inflator.Inflate (Resource.Layout.MapOverlayLayout, null);
-                bubbleView.LayoutParameters = new MapView.LayoutParams (MapView.LayoutParams.WrapContent, MapView.LayoutParams.WrapContent, item.Point, -2, -15, MapView.LayoutParams.BottomCenter);
+                bubbleView.LayoutParameters = new MapView.LayoutParams (MapView.LayoutParams.WrapContent, MapView.LayoutParams.WrapContent, item.Point, -2, -25, MapView.LayoutParams.BottomCenter);
                 var button = bubbleView.FindViewById<ImageButton> (Resource.Id.mapOverlayGetDirections);
                 var address = bubbleView.FindViewById<TextView> (Resource.Id.mapOverlayAddress);
                 var image = bubbleView.FindViewById<ImageView> (Resource.Id.mapOverlayDivider);
@@ -69,9 +71,12 @@ namespace FieldService.Android.Utilities {
                 button.Visibility = getDirections ? ViewStates.Visible : ViewStates.Gone;
                 if (getDirections) {
                     button.Click += (sender, e) => {
-
+                        var intent = new Intent(Intent.ActionView, 
+                            Uri.Parse(string.Format(intentURI, string.Empty, item.Snippet)));
+                        context.StartActivity(intent);
                         };
                 }
+                
 
                 mapView.AddView (bubbleView);
             }
