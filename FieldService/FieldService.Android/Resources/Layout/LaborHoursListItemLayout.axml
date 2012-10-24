@@ -3,9 +3,10 @@
     android:layout_width="fill_parent"
     android:layout_height="wrap_content">
     <Spinner
-      android:layout_width="wrap_content"
-      android:layout_height="wrap_content"
-      android:id="@+id/laborType" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/laborType"
+        android:background="@drawable/spinner_white" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -22,7 +23,8 @@
         android:id="@+id/laborHours"
         android:layout_gravity="center_vertical"
         android:textColor="@android:color/black"
+        android:layout_marginRight="10dp"
         android:layout_centerVertical="true"
-        android:layout_alignRight="true"
+        android:layout_alignParentRight="true"
         android:textSize="16dp" />
 </RelativeLayout>

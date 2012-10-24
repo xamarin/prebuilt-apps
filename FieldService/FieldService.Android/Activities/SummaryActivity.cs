@@ -35,7 +35,9 @@ namespace FieldService.Android {
             phone,
             address,
             items;
-        Button addItems;
+        Button addItems,
+            addLabor;
+        int assignmentIndex = 0;
 
         public SummaryActivity ()
         {
@@ -50,9 +52,9 @@ namespace FieldService.Android {
             SetContentView (Resource.Layout.SummaryFragmentLayout);
 
             if (Intent != null) {
-                var index = Intent.GetIntExtra ("index", -1);
-                if (index != -1) {
-                    assignment = assignmentViewModel.Assignments [index];
+                assignmentIndex = Intent.GetIntExtra ("index", -1);
+                if (assignmentIndex != -1) {
+                    assignment = assignmentViewModel.Assignments [assignmentIndex];
                 } else {
                     assignment = assignmentViewModel.ActiveAssignment;
                 }
@@ -65,6 +67,7 @@ namespace FieldService.Android {
             address = FindViewById<TextView> (Resource.Id.selectedAssignmentAddress);
             items = FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
             addItems = FindViewById<Button> (Resource.Id.selectedAssignmentAddItem);
+            addLabor = FindViewById<Button> (Resource.Id.selectedAssignmentAddLabor);
 
             if (Resources.Configuration.Orientation == Orientation.Landscape) {
                 navigationFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragment);
@@ -85,6 +88,7 @@ namespace FieldService.Android {
             transaction.Commit ();
             items.Visibility =
                  addItems.Visibility = ViewStates.Invisible;
+            addLabor.Visibility = ViewStates.Gone;
         }
 
         private void NavigationSelected (object sender, EventArgs<int> e)
@@ -118,15 +122,22 @@ namespace FieldService.Android {
                         transaction.Replace (Resource.Id.contentFrame, fragment);
                         items.Visibility = 
                             addItems.Visibility = ViewStates.Invisible;
+                        addLabor.Visibility = ViewStates.Gone;
                         transaction.SetTransition (FragmentTransit.FragmentFade);
                     }
                     break;
                 case "Map": {
-
+                        var fragment = new MapFragment ();
+                        fragment.AssignmentIndex = assignmentIndex;
+                        transaction.Replace (Resource.Id.contentFrame, fragment);
+                        items.Visibility =
+                            addItems.Visibility = ViewStates.Invisible;
+                        addLabor.Visibility = ViewStates.Gone;
+                        transaction.SetTransition (FragmentTransit.FragmentFade);
                     }
                     break;
                 case "Items": {
-                    var itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+                        var itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
                         var fragment = new ItemFragment ();
                         fragment.Assignment = assignment;
                         itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
@@ -134,7 +145,22 @@ namespace FieldService.Android {
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             items.Visibility =
                                 addItems.Visibility = ViewStates.Visible;
+                            addLabor.Visibility = ViewStates.Gone;
                             items.Text = string.Format ("({0}) Items", assignment.TotalItems.ToString ());
+                        });
+                        transaction.SetTransition (FragmentTransit.FragmentFade);
+                    }
+                    break;
+                case "Labor Hours": {
+                        var laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+                        var fragment = new LaborHoursFragment ();
+                        laborViewModel.LoadLaborHours(assignment).ContinueOnUIThread (_ => {
+                            fragment.LaborHours = laborViewModel.LaborHours;
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            addLabor.Visibility =
+                                items.Visibility = ViewStates.Visible;
+                            addItems.Visibility = ViewStates.Gone;
+                            items.Text = string.Format ("{0} hrs", assignment.TotalHours.ToString ("0.0"));
                         });
                         transaction.SetTransition (FragmentTransit.FragmentFade);
                     }

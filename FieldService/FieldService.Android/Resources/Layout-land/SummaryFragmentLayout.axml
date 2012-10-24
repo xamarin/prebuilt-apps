@@ -100,6 +100,23 @@
             android:textColor="@android:color/black"
             android:textSize="16dp" />
         <Button
+            android:text="Add Labor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedAssignmentAddLabor"
+            android:background="@drawable/accept_assignment"
+            android:textSize="14dp"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginRight="5dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="center_vertical"
+            android:visibility="gone" />
+        <Button
             android:text="Add Item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -112,7 +129,8 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/accept_assignment"
             android:paddingLeft="20dp"
-            android:paddingRight="20dp" />
+            android:paddingRight="20dp"
+            android:layout_marginRight="5dp" />
     </LinearLayout>
     <FrameLayout
         android:id="@+id/contentFrame"

@@ -98,13 +98,13 @@ namespace FieldService.Android {
                             drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
                             break;
                     }
-                    mapView.Overlays.Add (new MapOverlayItem (this, drawable, overlay));
+                    mapView.Overlays.Add (new MapOverlayItem (this, drawable, overlay, mapView));
                 }
                 if (assignmentViewModel.ActiveAssignment != null) {
                     var activeOverlay = new OverlayItem (new GeoPoint (assignmentViewModel.ActiveAssignment.Latitude.ToIntE6 (), assignmentViewModel.ActiveAssignment.Longitude.ToIntE6 ()),
                         assignmentViewModel.ActiveAssignment.Title, string.Format ("{0} {1}, {2} {3}", assignmentViewModel.ActiveAssignment.Address,
                         assignmentViewModel.ActiveAssignment.City, assignmentViewModel.ActiveAssignment.State, assignmentViewModel.ActiveAssignment.Zip));
-                    mapView.Overlays.Add (new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), activeOverlay));
+                    mapView.Overlays.Add (new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), activeOverlay, mapView));
                 }
             });
         }

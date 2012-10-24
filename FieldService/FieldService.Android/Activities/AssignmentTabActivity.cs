@@ -34,7 +34,7 @@ namespace FieldService.Android {
         {
             ServiceContainer.Register<ISynchronizeInvoke> (() => new SynchronizeInvoke { Activity = this });
         }
-
+        
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
@@ -42,6 +42,7 @@ namespace FieldService.Android {
             SetContentView (Resource.Layout.AssignmentsTabsLayout);
 
             tabHost = FindViewById<TabHost> (Resource.Id.assingmentTabHost);
+            //In order to use tabs outside of a TabActivity I have to use this local activity manager and dispatch create the savedInstanceState
             localManger = new LocalActivityManager (this, true);
             localManger.DispatchCreate (savedInstanceState);
             tabHost.Setup (localManger);
@@ -69,14 +70,23 @@ namespace FieldService.Android {
 
         protected override void OnResume ()
         {
+            //have to clean up the local activity manager in on resume.
             localManger.DispatchResume ();
             base.OnResume ();
         }
 
         protected override void OnPause ()
         {
+            //have to clean up the local activity manager in on pause.
             localManger.DispatchPause (IsFinishing);
             base.OnPause ();
+        }
+
+        protected override void OnStop ()
+        {
+            //have to clean up the local activity manager in on stop.
+            localManger.DispatchStop ();
+            base.OnStop ();
         }
 
         protected override void OnSaveInstanceState (Bundle outState)

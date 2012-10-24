@@ -18,17 +18,23 @@ using Android.Content;
 using Android.GoogleMaps;
 using Android.Graphics;
 using Android.Graphics.Drawables;
+using Android.Views;
+using Android.Widget;
 
 namespace FieldService.Android.Utilities {
     public class MapOverlayItem : ItemizedOverlay {
         OverlayItem item;
         Context context;
+        MapView mapView;
+        bool getDirections;
 
-        public MapOverlayItem (Context context, Drawable overlayDrawable, OverlayItem overlay)
+        public MapOverlayItem (Context context, Drawable overlayDrawable, OverlayItem overlay, MapView mapView, bool canGetDirection = false)
             : base (overlayDrawable)
         {
             item = overlay;
             this.context = context;
+            this.mapView = mapView;
+            getDirections = canGetDirection;
 
             BoundCenterBottom (overlayDrawable);
             Populate ();
@@ -43,13 +49,32 @@ namespace FieldService.Android.Utilities {
         {
             return 1;
         }
-
+                
         protected override bool OnTap (int index)
         {
-            var dialog = new AlertDialog.Builder (context);
-            dialog.SetTitle (item.Title);
-            dialog.SetMessage (item.Snippet);
-            dialog.Show ();
+            if (mapView != null) {
+                if (mapView.ChildCount > 0) {
+                    mapView.RemoveViewAt (0);
+                }
+                View bubbleView = null;
+                LayoutInflater inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
+                bubbleView = inflator.Inflate (Resource.Layout.MapOverlayLayout, null);
+                bubbleView.LayoutParameters = new MapView.LayoutParams (MapView.LayoutParams.WrapContent, MapView.LayoutParams.WrapContent, item.Point, -2, -15, MapView.LayoutParams.BottomCenter);
+                var button = bubbleView.FindViewById<ImageButton> (Resource.Id.mapOverlayGetDirections);
+                var address = bubbleView.FindViewById<TextView> (Resource.Id.mapOverlayAddress);
+                var image = bubbleView.FindViewById<ImageView> (Resource.Id.mapOverlayDivider);
+                address.Text = item.Snippet;
+
+                image.Visibility = getDirections ? ViewStates.Visible : ViewStates.Gone;
+                button.Visibility = getDirections ? ViewStates.Visible : ViewStates.Gone;
+                if (getDirections) {
+                    button.Click += (sender, e) => {
+
+                        };
+                }
+
+                mapView.AddView (bubbleView);
+            }
             return true;
         }
     }

@@ -130,14 +130,19 @@
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Activities\AssignmentsActivity.cs" />
+    <Compile Include="Activities\MapFragmentActivity.cs" />
     <Compile Include="Activities\SummaryActivity.cs" />
     <Compile Include="Adapters\AssignmentsAdapter.cs" />
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
     <Compile Include="Adapters\ItemsAdapter.cs" />
+    <Compile Include="Adapters\LaborHoursAdapter.cs" />
+    <Compile Include="Adapters\LaborTypeSpinnerAdapter.cs" />
     <Compile Include="Adapters\NavigationAdapter.cs" />
     <Compile Include="Fragments\ItemFragment.cs" />
+    <Compile Include="Fragments\LaborHoursFragment.cs" />
+    <Compile Include="Fragments\MapFragment.cs" />
     <Compile Include="Fragments\SummaryFragment.cs" />
     <Compile Include="Fragments\NavigationFragment.cs" />
     <Compile Include="Utilities\EventArgs%28T%29.cs" />
@@ -192,6 +197,12 @@
     <AndroidResource Include="Resources\Layout\LaborHoursListItemLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\MapFragmentLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\MapOverlayLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -242,6 +253,10 @@
     <AndroidResource Include="Resources\Drawable\spinner_dark.png" />
     <AndroidResource Include="Resources\Drawable\decline.9.png" />
     <AndroidResource Include="Resources\Drawable\accept.9.png" />
+    <AndroidResource Include="Resources\Drawable\back_button.png" />
+    <AndroidResource Include="Resources\Drawable\MapOverlayIcon.png" />
+    <AndroidResource Include="Resources\Drawable\MapOverlayDirections.png" />
+    <AndroidResource Include="Resources\Drawable\MapOverlayDivider.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

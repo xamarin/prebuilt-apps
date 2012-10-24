@@ -1,4 +1,3 @@
-using System.Collections.Generic;
 //
 //  Copyright 2012  Xamarin Inc.
 //
@@ -13,6 +12,7 @@ using System.Collections.Generic;
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+using System.Collections.Generic;
 using Android.App;
 using Android.OS;
 using Android.Views;
@@ -20,6 +20,7 @@ using Android.Widget;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+
 
 namespace FieldService.Android.Fragments {
     public class ItemFragment : Fragment {
