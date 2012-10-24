@@ -22,8 +22,8 @@
             <TextBlock Style="{StaticResource SubheaderTextStyle}">Assignments</TextBlock>
             <Button Margin="20,0,0,0" Command="{Binding MapsCommand}">Maps</Button>
         </StackPanel>
-
-        <Grid Grid.Row="2" Margin="50,0,50,50" x:Name="activeAssignment">
+        
+        <Grid Grid.Row="2" Margin="50,0,50,50">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -107,18 +107,18 @@
 
             </Grid>
             
-            <ListView 
-                x:Name="listView" Grid.Column="1"
-                ItemsSource="{Binding Assignments}" SelectionMode="None"
+            <GridView 
+                x:Name="gridView" Grid.Column="1" IsItemClickEnabled="True"
+                ItemsSource="{Binding Assignments}" SelectionMode="None" ItemClick="OnItemClick"
                 ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-                <ItemsControl.ItemsPanel>
+                <GridView.ItemsPanel>
                     <ItemsPanelTemplate>
                         <VirtualizingStackPanel Orientation="Horizontal" />
                     </ItemsPanelTemplate>
-                </ItemsControl.ItemsPanel>
-                <ItemsControl.ItemTemplate>
+                </GridView.ItemsPanel>
+                <GridView.ItemTemplate>
                     <DataTemplate>
-                        <Grid HorizontalAlignment="Left" Width="140" Height="{Binding ElementName=listView, Path=ActualHeight}">
+                        <Grid HorizontalAlignment="Left" Width="140" Height="{Binding ElementName=gridView, Path=ActualHeight}">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*" />
                                 <RowDefinition Height="170" />
@@ -152,8 +152,8 @@
                             </Grid>
                         </Grid>
                     </DataTemplate>
-                </ItemsControl.ItemTemplate>
-            </ListView>
+                </GridView.ItemTemplate>
+            </GridView>
 
         </Grid>
 

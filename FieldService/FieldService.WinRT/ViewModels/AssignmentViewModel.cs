@@ -18,12 +18,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FieldService.Data;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.Views;
 
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
         readonly DelegateCommand recordCommand, mapsCommand, goBackCommand;
+        Assignment assignment;
 
         public AssignmentViewModel ()
         {
@@ -45,6 +47,15 @@ namespace FieldService.WinRT.ViewModels {
         public string HoursFormatted
         {
             get { return string.Format ("{0}h {1}m {2}s", Hours.Hours, Hours.Minutes, Hours.Seconds); }
+        }
+
+        /// <summary>
+        /// Selected assignment
+        /// </summary>
+        public Assignment SelectedAssignment
+        {
+            get { return assignment; }
+            set { assignment = value; OnPropertyChanged ("SelectedAssignment"); }
         }
 
         /// <summary>

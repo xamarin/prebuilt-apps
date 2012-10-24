@@ -14,8 +14,8 @@
                 <RowDefinition />
                 <RowDefinition />
             </Grid.RowDefinitions>
-            <Button Margin="10,0" Style="{StaticResource TextButtonStyle}" Content="{Binding Title}" />
-            <Button Margin="10,0" Grid.Row="1" Style="{StaticResource TextButtonStyle}" Content="{Binding AddressFormatted}" />
+            <Button Margin="10,0" Style="{StaticResource TextButtonStyle}" Content="{Binding Title}" VerticalAlignment="Center" />
+            <Button Margin="10,0" Grid.Row="1" Style="{StaticResource TextButtonStyle}" Content="{Binding AddressFormatted}" VerticalAlignment="Center" />
         </Grid>
         <Image Stretch="None" Source="{StaticResource MapTriangleImage}" HorizontalAlignment="Left" />
     </StackPanel>

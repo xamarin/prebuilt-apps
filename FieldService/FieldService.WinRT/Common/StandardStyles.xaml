@@ -49,7 +49,12 @@
     <SolidColorBrush x:Key="GreenBrush">#00fd7d</SolidColorBrush>
     <SolidColorBrush x:Key="YellowBrush">#fcff00</SolidColorBrush>
     <SolidColorBrush x:Key="RedBrush">#d53030</SolidColorBrush>
-    
+    <SolidColorBrush x:Key="DescriptionBrush">#e6f6ff</SolidColorBrush>
+    <LinearGradientBrush x:Key="ItemsBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#27cbef" />
+        <GradientStop Offset="1" Color="#1db0e7" />
+    </LinearGradientBrush>
+
     <!--Theme styles, these apply to all instances of that control -->
     <Style TargetType="ProgressRing">
         <Setter Property="Foreground" Value="#AA333333" />

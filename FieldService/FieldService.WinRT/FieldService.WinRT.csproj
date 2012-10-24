@@ -188,6 +188,9 @@
     <Compile Include="Utilities\Timer.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Views\AssignmentPage.xaml.cs">
+      <DependentUpon>AssignmentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssignmentsPage.xaml.cs">
       <DependentUpon>AssignmentsPage.xaml</DependentUpon>
     </Compile>
@@ -232,6 +235,10 @@
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AssignmentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AssignmentsPage.xaml">
       <SubType>Designer</SubType>
