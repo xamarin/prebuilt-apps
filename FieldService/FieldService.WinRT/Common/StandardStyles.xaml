@@ -27,6 +27,27 @@
         </ResourceDictionary>
     </ResourceDictionary.ThemeDictionaries>
 
+    <!--Images-->
+    <BitmapImage x:Key="BackgroundImage" UriSource="ms-appx:///Assets/smoothbg.png" />
+    <BitmapImage x:Key="LogoImage" UriSource="ms-appx:///Assets/titlelogo.png" />
+    
+    <!--Brushes-->
+    <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#1db0e7" />
+        <GradientStop Offset="1" Color="#27cbef" />
+    </LinearGradientBrush>
+    <SolidColorBrush x:Key="DarkTextBrush">#333333</SolidColorBrush>
+    <SolidColorBrush x:Key="BlueBackgroundBrush">#2b9ac1</SolidColorBrush>
+    <SolidColorBrush x:Key="LightBlueBackgroundBrush">#24c3ed</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkBlueBackgroundBrush">#12759a</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkBlueBorderBrush">#1991ba</SolidColorBrush>
+    
+    <!--Theme styles, these apply to all instances of that control -->
+    <Style TargetType="ProgressRing">
+        <Setter Property="IsActive" Value="True" />
+        <Setter Property="Foreground" Value="#AA333333" />
+    </Style>
+    
     <!--Converters-->
     <util:BooleanToVisibilityConverter x:Key="BooleanConverter" />
     

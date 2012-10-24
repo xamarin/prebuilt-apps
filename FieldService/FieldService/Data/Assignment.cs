@@ -66,7 +66,7 @@ namespace FieldService.Data {
         public string Description { get; set; }
 
         /// <summary>
-	/// Date and time the assignment should start
+        /// Date and time the assignment should start
         /// </summary>
         public DateTime StartDate { get; set; }
 
@@ -115,10 +115,10 @@ namespace FieldService.Data {
         /// </summary>
         public float Longitude { get; set; }
 
-	/// <summary>
-	/// Gets or sets the signature.
-	/// </summary>
-	public byte[] Signature { get; set; }
+        /// <summary>
+        /// Gets or sets the signature.
+        /// </summary>
+        public byte [] Signature { get; set; }
 
         /// <summary>
         /// Total labor hours for the assignment
@@ -144,5 +144,48 @@ namespace FieldService.Data {
         /// Total cost of expenses
         /// </summary>
         public decimal TotalExpenses { get; private set; }
+
+        #region WinRT properties
+
+        /// <summary>
+        /// A formatted version of the job number for WinRT
+        /// </summary>
+        public string JobNumberFormatted
+        {
+            get
+            {
+                if (string.IsNullOrEmpty (JobNumber))
+                    return JobNumber;
+                return "#" + JobNumber;
+            }
+        }
+
+        /// <summary>
+        /// A formatted version of the start date for WinRT
+        /// </summary>
+        public string StartDateFormatted
+        {
+            get
+            {
+                return StartDate.ToShortDateString ();
+            }
+        }
+
+        /// <summary>
+        /// A formatted version of the times for WinRT
+        /// </summary>
+        public string TimesFormatted
+        {
+            get
+            {
+                return StartDate.ToShortTimeString () + 
+                    Environment.NewLine +
+                    "· · ·" +
+                    Environment.NewLine + 
+                    EndDate.ToShortTimeString ();
+            }
+        }
+
+        #endregion
     }
 }

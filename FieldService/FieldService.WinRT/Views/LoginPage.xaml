@@ -6,8 +6,6 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
-
-    <!--FYI - Later we will move alot of these brushes used here to StaticResources, and use more styles-->
     
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
@@ -17,37 +15,27 @@
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <Image Source="ms-appx:///Assets/smoothbg.png" Grid.RowSpan="4" Stretch="None" />
+        <Image Source="{StaticResource BackgroundImage}" Grid.RowSpan="4" Stretch="None" />
 
-        <Image Source="ms-appx:///Assets/titlelogo.png" Stretch="None" Margin="25" HorizontalAlignment="Left" VerticalAlignment="Top" />
+        <Image Source="{StaticResource LogoImage}" Stretch="None" Margin="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
         <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Margin="25" HorizontalAlignment="Center">Log In</TextBlock>
         
-        <Grid Grid.Row="2" Height="230">
-            <Grid.Background>
-                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
-                    <GradientStop Offset="0" Color="#1db0e7" />
-                    <GradientStop Offset="1" Color="#27cbef" />
-                </LinearGradientBrush>
-            </Grid.Background>
-
+        <Grid Grid.Row="2" Height="230" Background="{StaticResource BlueGradientBrush}">
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Width="280" Foreground="#333333" VerticalAlignment="Center" Margin="5">Username</TextBlock>
+                <TextBlock Width="280" Foreground="{StaticResource DarkTextBrush}" VerticalAlignment="Center" Margin="5">Username</TextBlock>
                 <TextBox Width="280" BorderThickness="2" BorderBrush="#198aab" Background="#d3f3fb" x:Name="username" Margin="5" VerticalAlignment="Center" />
 
-                <TextBlock Width="280" Foreground="#333333" VerticalAlignment="Center" Margin="5">Password</TextBlock>
+                <TextBlock Width="280" Foreground="{StaticResource DarkTextBrush}" VerticalAlignment="Center" Margin="5">Password</TextBlock>
                 <PasswordBox Width="280" BorderThickness="2" BorderBrush="#198aab" Background="#d3f3fb" x:Name="password" Margin="5" VerticalAlignment="Center" />
 
                 <Grid Width="280">
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal">
-                        <ProgressRing 
-                            IsActive="True" Foreground="#AA333333" Margin="5"
-                            Visibility="{Binding IsBusy, Converter={StaticResource BooleanConverter}}" />
-                        <Button Margin="-3,5" Command="{Binding LoginCommand}" Content="Log In" BorderBrush="#1991ba" Background="#2b9ac1" />
+                        <ProgressRing Margin="5" Visibility="{Binding IsBusy, Converter={StaticResource BooleanConverter}}" />
+                        <Button Margin="-3,5" Command="{Binding LoginCommand}" Content="Log In" BorderBrush="{StaticResource DarkBlueBorderBrush}" Background="{StaticResource BlueBackgroundBrush}" />
                     </StackPanel>
                 </Grid>
             </StackPanel>
-
         </Grid>
     </Grid>
 </Page>

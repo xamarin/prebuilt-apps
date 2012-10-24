@@ -12,7 +12,6 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,6 +20,7 @@ using System.Threading.Tasks;
 using System.Windows.Input;
 using FieldService.Data;
 using FieldService.WinRT.Utilities;
+using FieldService.WinRT.Views;
 using Windows.UI.Popups;
 
 namespace FieldService.WinRT.ViewModels {
@@ -36,9 +36,10 @@ namespace FieldService.WinRT.ViewModels {
         {
             loginCommand = new DelegateCommand (async _ => {
 
+                
                 bool success = await LoginAsync ();
                 if (success)
-                    await new MessageDialog ("Success!").ShowAsync ();
+                    Helpers.NavigateTo<AssignmentsPage> ();
                 else
                     await new MessageDialog (Error).ShowAsync ();
 
