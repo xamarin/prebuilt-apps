@@ -17,6 +17,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.iOS
 {
@@ -25,15 +26,19 @@ namespace FieldService.iOS
 	/// </summary>
 	public class AssignmentStatusSheet : UIActionSheet
 	{
+		readonly AssignmentViewModel assignmentViewModel;
+
 		public AssignmentStatusSheet ()
 		{
-			foreach (AssignmentStatus status in Assignment.AvailableStatuses) {
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+
+			foreach (AssignmentStatus status in assignmentViewModel.AvailableStatuses) {
 				AddButton (status.ToString ());
 			}
 
 			Dismissed += (sender, e) => {
 				if (e.ButtonIndex != -1)
-					Status = Assignment.AvailableStatuses[e.ButtonIndex];
+					Status = assignmentViewModel.AvailableStatuses[e.ButtonIndex];
 			};
 		}
 		
