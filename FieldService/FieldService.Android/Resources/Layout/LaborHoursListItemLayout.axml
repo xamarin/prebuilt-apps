@@ -6,7 +6,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/laborType"
-        android:background="@drawable/spinner_white" />
+        android:background="@drawable/spinner_white"
+        android:focusable="false" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

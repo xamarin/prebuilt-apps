@@ -123,6 +123,7 @@ namespace FieldService.Android {
             addItems.Click += (sender, e) => {
                 itemDialog = new ItemsDialog (this);
                 itemDialog.Assignment = assignment;
+                itemDialog.Activity = this;
                 itemDialog.Show ();
             };
             addLabor.Click += (sender, e) => {

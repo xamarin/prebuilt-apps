@@ -67,20 +67,20 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/addLaborHours"
                 android:background="@android:color/transparent"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp" />
             <ImageView
                 android:src="@drawable/LaborHoursDivider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp" />
+                android:layout_height="wrap_content" />
             <ImageButton
                 android:src="@drawable/downlaborhours"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/subtractLaborHours"
                 android:background="@android:color/transparent"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center_horizontal" />
+                android:layout_gravity="center_horizontal"
+                android:padding="10dp" />
         </LinearLayout>
     </LinearLayout>
     <EditText

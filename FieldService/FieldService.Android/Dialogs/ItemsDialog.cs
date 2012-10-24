@@ -28,7 +28,7 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Dialogs {
-    public class ItemsDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
+    public class ItemsDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemClickListener {
 
         ListView itemsListView;
         ItemViewModel itemViewModel;
@@ -55,10 +55,16 @@ namespace FieldService.Android.Dialogs {
                 });
 
             cancel.SetOnClickListener (this);
-            itemsListView.OnItemSelectedListener = this;
+            itemsListView.OnItemClickListener = this;
         }
 
         public Assignment Assignment
+        {
+            get;
+            set;
+        }
+
+        public SummaryActivity Activity
         {
             get;
             set;
@@ -71,7 +77,7 @@ namespace FieldService.Android.Dialogs {
             }
         }
 
-        public void OnItemSelected (AdapterView parent, View view, int position, long id)
+        public void OnItemClick (AdapterView parent, View view, int position, long id)
         {
             var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (position);
             itemViewModel.SaveAssignmentItem (Assignment, new AssignmentItem {
@@ -79,15 +85,9 @@ namespace FieldService.Android.Dialogs {
                 Assignment = Assignment.ID,
             })
             .ContinueOnUIThread (_ => {
-                SummaryActivity activity = ServiceContainer.Resolve<SummaryActivity> ();
-                activity.ReloadItems ();
+                Activity.ReloadItems ();
                 Dismiss ();
             });
-        }
-
-        public void OnNothingSelected (AdapterView parent)
-        {
-            //do nothing
         }
     }
 }

@@ -116,6 +116,7 @@ namespace FieldService.Android.Dialogs {
                         var total = hours.Text.ToDouble ();
                         total += .5;
                         CurrentLabor.Hours = TimeSpan.FromHours (total);
+                        hours.Text = total.ToString ("0.0");
                     }
                     break;
                 case Resource.Id.subtractLaborHours: {
@@ -123,6 +124,7 @@ namespace FieldService.Android.Dialogs {
                         var total = hours.Text.ToDouble ();
                         total -= .5;
                         CurrentLabor.Hours = TimeSpan.FromHours (total);
+                        hours.Text = total.ToString ("0.0");
                     }
                     break;
                 default:
