@@ -33,8 +33,17 @@ namespace FieldService.iOS
 			BackgroundView = new UIImageView { Image = Theme.Inlay };
 		}
 
+		/// <summary>
+		/// Set the assignment for this cell
+		/// </summary>
 		public void SetAssignment (Assignment assignment)
 		{
+			//Dispose the previous image if there was one
+			if (image != null) {
+				image.Dispose ();
+				image = null;
+			}
+
 			if (assignment.Signature == null) {
 				signature.Hidden = true;
 				signature.SetBackgroundImage (null, UIControlState.Normal);
@@ -42,11 +51,6 @@ namespace FieldService.iOS
 				addSignature.Hidden = false;
 				addSignature.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
 				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
-
-				if (image != null) {
-					image.Dispose ();
-					image = null;
-				}
 			} else {
 				image = assignment.Signature.ToUIImage ();
 				signature.Hidden = false;
@@ -58,6 +62,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Event for adding a signature
+		/// </summary>
 		partial void AddSignature ()
 		{
 			var signatureController = ServiceContainer.Resolve<SignatureController>();

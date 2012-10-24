@@ -29,6 +29,7 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly AssignmentDetailsController detailsController;
+		UIBarButtonItem backButton;
 
 		public MenuController (IntPtr handle) : base (handle)
 		{
@@ -57,10 +58,9 @@ namespace FieldService.iOS
 			View.BackgroundColor = Theme.LinenLeft;
 			tableView.Source = new TableSource ();
 
-			var backButton = new UIBarButtonItem ("Assignments", UIBarButtonItemStyle.Bordered, (sender, e) => Theme.TransitionController <AssignmentsController>());
+			backButton = new UIBarButtonItem ("Assignments", UIBarButtonItemStyle.Bordered, (sender, e) => Theme.TransitionController <AssignmentsController>());
 			backButton.SetBackgroundImage (Theme.BackButton, UIControlState.Normal, UIBarMetrics.Default);
 			backButton.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
-			navigationBar.TopItem.LeftBarButtonItem = backButton;
 			timerLabel.TextColor = Theme.LabelColor;
 
 			timerBackground.Image = Theme.TimerBackground;
@@ -75,6 +75,7 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
+			navigationBar.TopItem.LeftBarButtonItem = backButton;
 			UpdateAssignment ();
 		}
 

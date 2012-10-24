@@ -53,21 +53,33 @@ namespace FieldService.iOS
 			AddSubview (BottomLabel);
 		}
 
+		/// <summary>
+		/// Icon image used on the button to the left
+		/// </summary>
 		public UIImage IconImage {
 			get { return icon.CurrentImage; }
 			set { icon.SetImage (value, UIControlState.Normal); }
 		}
 
+		/// <summary>
+		/// Top label text
+		/// </summary>
 		public UILabel TopLabel {
 			get;
 			private set;
 		}
 
+		/// <summary>
+		/// Second label text
+		/// </summary>
 		public UILabel BottomLabel {
 			get;
 			private set;
 		}
 
+		/// <summary>
+		/// Override Highlighted so that the child controls function correctly
+		/// </summary>
 		public override bool Highlighted {
 			get {
 				return base.Highlighted;
@@ -80,6 +92,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Set correct spacing for subviews
+		/// </summary>
 		public override void LayoutSubviews ()
 		{
 			base.LayoutSubviews ();

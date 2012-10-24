@@ -70,6 +70,9 @@ namespace FieldService.iOS
 			};
 		}
 
+		/// <summary>
+		/// Helper method to read the stream coming back from Xamarin.Mobile
+		/// </summary>
 		private void SetImage(Stream stream)
 		{
 			using (stream) {

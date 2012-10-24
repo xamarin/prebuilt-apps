@@ -32,8 +32,12 @@ namespace FieldService.iOS
 			BackgroundView = new UIImageView { Image = Theme.Inlay };
 		}
 
+		/// <summary>
+		/// Set the photo for this cell
+		/// </summary>
 		public void SetPhoto(Photo photo)
 		{
+			//Free up the previous image if there was one
 			if (image != null)
 				image.Dispose ();
 

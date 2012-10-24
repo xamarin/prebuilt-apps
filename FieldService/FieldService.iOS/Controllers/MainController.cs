@@ -36,12 +36,14 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			//Setup our child controllers
 			ViewControllers = new UIViewController[]
 			{
 				ViewControllers[0],
 				new UINavigationController(ServiceContainer.Resolve<AssignmentDetailsController>()),
 			};
 
+			//Hook up our delegate
 			Delegate = new SplitDelegate();
 		}
 
@@ -86,6 +88,7 @@ namespace FieldService.iOS
 
 			public override void WillHideViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem barButtonItem, UIPopoverController pc)
 			{
+				//Add a UIBarButtonItem for the master controller in portrait
 				mainController.popover = pc;
 				barButtonItem.Title = "Menu";
 				barButtonItem.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
@@ -96,6 +99,7 @@ namespace FieldService.iOS
 
 			public override void WillShowViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem button)
 			{
+				//Hide the UIBarButtonItem
 				mainController.popover = null;
 				detailsController.NavigationItem.SetLeftBarButtonItem(null, true);
 			}

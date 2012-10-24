@@ -41,6 +41,9 @@ namespace FieldService.iOS
 			BackgroundView = new UIImageView { Image = Theme.Inlay };
 		}
 
+		/// <summary>
+		/// Sets the assignment for this cell
+		/// </summary>
 		public void SetAssignment(Assignment assignment)
 		{
 			this.assignment = assignment;
@@ -50,8 +53,12 @@ namespace FieldService.iOS
 			completeButton.SetTitleColor (UIColor.White, UIControlState.Normal);
 		}
 
+		/// <summary>
+		/// Event when complete is pressed
+		/// </summary>
 		partial void Complete ()
 		{
+			//Check if they signed
 			if (assignment.Signature == null) {
 				new UIAlertView(string.Empty, "Signature is required.", null, "Ok").Show ();
 				return;

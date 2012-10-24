@@ -36,6 +36,9 @@ namespace FieldService.iOS
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 
+		/// <summary>
+		/// Sets the current assignment item
+		/// </summary>
 		public void SetItem(AssignmentItem item)
 		{
 			this.item = item;
@@ -46,6 +49,9 @@ namespace FieldService.iOS
 			SetChecked (item.Used);
 		}
 
+		/// <summary>
+		/// Sets the appropriate image for the check box
+		/// </summary>
 		private void SetChecked(bool isChecked) 
 		{
 			if (isChecked)
@@ -54,6 +60,9 @@ namespace FieldService.iOS
 				checkBox.SetImage (Theme.CheckEmpty, UIControlState.Normal);
 		}
 
+		/// <summary>
+		/// Event when the checkbox is clicked
+		/// </summary>
 		partial void Checked ()
 		{
 			checkBox.Enabled = false;

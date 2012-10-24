@@ -20,6 +20,9 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Action sheet for selecting labor type
+	/// </summary>
 	public class LaborTypeSheet : UIActionSheet
 	{
 		readonly LaborType[] types;
@@ -38,6 +41,9 @@ namespace FieldService.iOS
 			};
 		}
 
+		/// <summary>
+		/// The type the user selected, or null if none
+		/// </summary>
 		public LaborType? Type
 		{
 			get; 

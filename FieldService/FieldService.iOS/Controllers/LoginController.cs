@@ -58,10 +58,10 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			//This sets up some controller in our ServiceContainer
 			Theme.SetupControllers (Storyboard);
 
 			//Set up any properties on views that must be done from code
-
 			View.BackgroundColor = Theme.LinenPattern;
 			box.Image = Theme.LoginBox;
 			logoBackground.Image = Theme.LoginInset;
@@ -98,12 +98,14 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
+			//Clear out username/password
 			username.Text = string.Empty;
 			password.Text = string.Empty;
 		}
 
 		partial void Login ()
 		{
+			//Dismiss the keyboard
 			username.ResignFirstResponder ();
 			password.ResignFirstResponder ();
 			
@@ -112,6 +114,7 @@ namespace FieldService.iOS
 
 		protected override void OnKeyboardChanged (bool visible, float height)
 		{
+			//We "center" the popup when the keyboard appears/disappears
 			var frame = container.Frame;
 			if (visible)
 				frame.Y -= height / 2;

@@ -23,6 +23,9 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Controller for displaying the popover for signatures
+	/// </summary>
 	public class SignatureController : UIPopoverController
 	{
 		public SignatureController ()
@@ -31,6 +34,9 @@ namespace FieldService.iOS
 			PopoverContentSize = new SizeF(665, 400);
 		}
 
+		/// <summary>
+		/// Internal controller for setting up the SignatureView
+		/// </summary>
 		private class ContentController : UIViewController
 		{
 			readonly AssignmentViewModel assignmentViewModel;
@@ -62,6 +68,7 @@ namespace FieldService.iOS
 
 				save = new UIBarButtonItem("Save", UIBarButtonItemStyle.Bordered, (sender, e) => {
 
+					//If blank, return
 					if (signatureView.IsBlank) {
 						new UIAlertView(string.Empty, "No signature!", null, "Ok").Show ();
 						return;
@@ -98,6 +105,7 @@ namespace FieldService.iOS
 			{
 				base.ViewWillAppear (animated);
 
+				//Clear the signature prior to appearing
 				signatureView.Clear ();
 			}
 		}

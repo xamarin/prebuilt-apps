@@ -44,6 +44,9 @@ namespace FieldService.iOS
 			TouchUpInside += OnTouchUpInside;
 		}
 
+		/// <summary>
+		/// The current assignment
+		/// </summary>
 		public Assignment Assignment
 		{
 			get { return assignment; }
@@ -57,6 +60,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Event when clicked
+		/// </summary>
 		private void OnTouchUpInside(object sender, EventArgs e)
 		{
 			statusSheet = new AssignmentStatusSheet ();
@@ -89,6 +95,9 @@ namespace FieldService.iOS
 			statusSheet = null;
 		}
 
+		/// <summary>
+		/// Returns appropriate image for each status
+		/// </summary>
 		private UIImage ImageForStatus (AssignmentStatus status)
 		{
 			switch (status) {

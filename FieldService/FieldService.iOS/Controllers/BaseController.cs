@@ -39,6 +39,7 @@ namespace FieldService.iOS
 		/// </param>
 		public BaseController (IntPtr handle) : base (handle)
 		{
+			//Only do this if required
 			if (HandlesKeyboardNotifications) {
 				NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.WillHideNotification, OnKeyboardNotification);
 				NSNotificationCenter.DefaultCenter.AddObserver (UIKeyboard.WillShowNotification, OnKeyboardNotification);
@@ -115,6 +116,7 @@ namespace FieldService.iOS
 		/// </summary>
 		protected override void Dispose (bool disposing)
 		{
+			//Unsubscribe from messages
 			if (HandlesKeyboardNotifications) {
 				NSNotificationCenter.DefaultCenter.RemoveObserver (this, UIKeyboard.WillHideNotification);
 				NSNotificationCenter.DefaultCenter.RemoveObserver (this, UIKeyboard.WillShowNotification);

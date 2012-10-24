@@ -41,6 +41,7 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			//UI setup from code
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			cancel.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
@@ -69,9 +70,13 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
+			//Reload items
 			itemViewModel.LoadItems ().ContinueOnUIThread (_ => tableView.ReloadData ());
 		}
 
+		/// <summary>
+		/// Event when cancel button is clicked
+		/// </summary>
 		partial void Cancel (NSObject sender)
 		{
 			DismissViewController (true, delegate {	});

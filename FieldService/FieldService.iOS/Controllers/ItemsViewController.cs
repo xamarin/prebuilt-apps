@@ -21,6 +21,9 @@ using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Controller for the list of items
+	/// </summary>
 	public partial class ItemsViewController : BaseController
 	{
 		readonly AssignmentDetailsController detailsController;
@@ -74,6 +77,7 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
+			//Reload our list of items
 			ReloadItems ();
 		}
 
@@ -81,12 +85,16 @@ namespace FieldService.iOS
 		{
 			base.ViewWillDisappear (animated);
 
+			//Dismiss editing on the table view
 			if (tableView.Editing) {
 				edit.Title = "Edit";
 				tableView.SetEditing (false, true);
 			}
 		}
 
+		/// <summary>
+		/// Call to reload the list of items
+		/// </summary>
 		public void ReloadItems ()
 		{
 			itemViewModel.LoadAssignmentItems (detailsController.Assignment)

@@ -109,6 +109,7 @@ namespace FieldService.iOS
 			/// </summary>
 			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
 			{
+				//This will launch apple's Maps app with the selected address
 				var assignment = GetAssignment (view.Annotation as MKPlacemark);
 				StringBuilder builder = new StringBuilder("http://maps.apple.com/maps?daddr=");
 				builder.Append (assignment.Address.Replace (' ', '+'));

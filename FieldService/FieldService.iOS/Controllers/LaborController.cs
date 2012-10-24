@@ -100,7 +100,8 @@ namespace FieldService.iOS
 		public override void ViewWillDisappear (bool animated)
 		{
 			base.ViewWillDisappear (animated);
-			
+
+			//Dismiss editing on the tableView
 			if (tableView.Editing) {
 				edit.Title = "Edit";
 				tableView.SetEditing (false, true);

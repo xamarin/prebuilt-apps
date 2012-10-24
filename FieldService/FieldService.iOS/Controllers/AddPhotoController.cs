@@ -102,6 +102,7 @@ namespace FieldService.iOS
 		{
 			base.ViewDidDisappear (animated);
 
+			//Free up memory when the screen is dismissed
 			if (image != null) {
 				image.Dispose ();
 				photo.Image =
@@ -109,11 +110,17 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Called to save the photo
+		/// </summary>
 		private void Save()
 		{
 			var photo = confirmationController.Photo;
+
+			//only do this if it is a new photo
 			if (confirmationController.IsNew)
 				photo.Image = image.ToByteArray ();
+
 			photo.Description = description.Text;
 
 			photoViewModel
@@ -124,6 +131,9 @@ namespace FieldService.iOS
 				});
 		}
 
+		/// <summary>
+		/// Event when the delete photo buttton is pressed
+		/// </summary>
 		partial void DeletePhoto ()
 		{
 			alertView = new UIAlertView ("Delete?", "Are you sure?", null, "Yes", "No");
@@ -144,6 +154,9 @@ namespace FieldService.iOS
 			alertView.Show ();
 		}
 
+		/// <summary>
+		/// Event for cancel button
+		/// </summary>
 		partial void Cancel (NSObject sender)
 		{
 			DismissViewController (true, delegate { });

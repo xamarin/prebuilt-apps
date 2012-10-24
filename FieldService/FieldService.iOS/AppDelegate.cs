@@ -65,11 +65,17 @@ namespace FieldService.iOS
 			return UIInterfaceOrientationMask.All;
 		}
 
+		/// <summary>
+		/// Event when the app is backgrounded, or screen turned off
+		/// </summary>
 		public override void DidEnterBackground (UIApplication application)
 		{
 			dateBackgrounded = DateTime.Now;
 		}
 
+		/// <summary>
+		/// Event when the app is brought back to the foreground or screen unlocked
+		/// </summary>
 		public override void WillEnterForeground (UIApplication application)
 		{
 			if (DateTime.Now - dateBackgrounded > autoLogoutTime) {

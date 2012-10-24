@@ -44,7 +44,8 @@ namespace FieldService.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-			
+
+			//UI setup from code
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			cancel.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
@@ -80,6 +81,7 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
+			//Load labor hours for the table
 			tableSource.Load (laborController.Labor);
 		}
 
@@ -87,9 +89,13 @@ namespace FieldService.iOS
 		{
 			base.ViewWillDisappear (animated);
 
+			//Reload the labor on the other screen when dismissed
 			laborController.ReloadLabor ();
 		}
 
+		/// <summary>
+		/// Event when cancel button is clicked
+		/// </summary>
 		partial void Cancel (NSObject sender)
 		{
 			DismissViewController (true, delegate {	});
@@ -162,6 +168,7 @@ namespace FieldService.iOS
 			{
 				if (indexPath.Section == 0) {
 					if (indexPath.Row == 0) {
+						//Type changed
 						laborSheet = new LaborTypeSheet();
 						laborSheet.Dismissed += (sender, e) => {
 							var labor = laborController.Labor;
@@ -176,9 +183,11 @@ namespace FieldService.iOS
 						};
 						laborSheet.ShowFrom (typeCell.Frame, tableView, true);
 					} else {
+						//Give hours "focus"
 						hours.BecomeFirstResponder ();
 					}
 				} else {
+					//Give description "focus"
 					description.BecomeFirstResponder ();
 				}
 			}

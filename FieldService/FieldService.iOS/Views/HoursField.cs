@@ -94,10 +94,6 @@ namespace FieldService.iOS
 				if (value < 0) {
 					value = 0;
 				}
-				int newValue = (int)value;
-				if (newValue < value) {
-					value = newValue + .5f;
-				}
 
 				if (this.value != value) {
 					this.value = value;
