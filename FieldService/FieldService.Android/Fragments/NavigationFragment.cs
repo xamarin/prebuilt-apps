@@ -69,7 +69,7 @@ namespace FieldService.Android.Fragments {
             navigationStatus.OnItemSelectedListener = this;
             timerLayout.Visibility = ViewStates.Gone;
 
-            var adapter = new NavigationAdapter (this.Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
+            var adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
             navigationListView.OnItemClickListener = this;
             navigationListView.Adapter = adapter;
 

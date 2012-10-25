@@ -141,11 +141,13 @@
     <Compile Include="Adapters\LaborHoursAdapter.cs" />
     <Compile Include="Adapters\LaborTypeSpinnerAdapter.cs" />
     <Compile Include="Adapters\NavigationAdapter.cs" />
+    <Compile Include="Adapters\PhotosAdapter.cs" />
     <Compile Include="Dialogs\AddLaborDialog.cs" />
     <Compile Include="Dialogs\BaseDialog.cs" />
     <Compile Include="Dialogs\ItemsDialog.cs" />
+    <Compile Include="Fragments\ConfirmationFragment.cs" />
     <Compile Include="Fragments\ItemFragment.cs" />
-    <Compile Include="Fragments\LaborHoursFragment.cs" />
+    <Compile Include="Fragments\LaborHourFragment.cs" />
     <Compile Include="Fragments\MapFragment.cs" />
     <Compile Include="Fragments\SummaryFragment.cs" />
     <Compile Include="Fragments\NavigationFragment.cs" />
@@ -222,6 +224,9 @@
     <AndroidResource Include="Resources\layout-port\ConfirmationsLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\PhotoItemLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -292,6 +297,7 @@
     <AndroidResource Include="Resources\Drawable\downlaborhours.png" />
     <AndroidResource Include="Resources\Drawable\LaborHoursDivider.png" />
     <AndroidResource Include="Resources\Drawable\UpLaborHours.png" />
+    <AndroidResource Include="Resources\Drawable\border.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

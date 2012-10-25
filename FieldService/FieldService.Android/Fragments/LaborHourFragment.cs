@@ -12,6 +12,7 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,7 +28,7 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Fragments {
-    public class LaborHoursFragment : Fragment {
+    public class LaborHourFragment : Fragment {
         ListView laborListView;
         LaborViewModel laborViewModel;
 
@@ -45,7 +46,7 @@ namespace FieldService.Android.Fragments {
 
             if (LaborHours != null) {
                 laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
-                laborListView.Adapter = new LaborHoursAdapter (this.Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
+                laborListView.Adapter = new LaborHoursAdapter (Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
             }
 
             return view;
