@@ -17,4 +17,9 @@
   <string name="Cancel">Cancel</string>
   <string name="Delete">Delete</string>
   <string name="Save">Save</string>
+  <string name="Photos">Photos</string>
+  <string name="Signature">Signature</string>
+  <string name="AddPhoto">Add Photo</string>
+  <string name="AddSignature">Add Signature</string>
+  <string name="Complete">Complete</string>
 </resources>
