@@ -18,13 +18,17 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.ComponentModel;
 
 namespace FieldService.Data {
     /// <summary>
     /// Link from an item to an assignment
     /// * determines items on an assignment and which have been used
     /// </summary>
-    public class AssignmentItem {
+    public class AssignmentItem : PropertyChangedBase {
+
+        bool used = false;
+
         /// <summary>
         /// ID of the assignment item, not really used
         /// </summary>
@@ -56,6 +60,10 @@ namespace FieldService.Data {
         /// <summary>
         /// If the item was used
         /// </summary>
-        public bool Used { get; set; }
+        public bool Used
+        {
+            get { return used; }
+            set { used = value; OnPropertyChanged ("Used"); }
+        }
     }
 }

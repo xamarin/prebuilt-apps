@@ -139,6 +139,9 @@
     <Compile Include="..\FieldService\Data\Photo.cs">
       <Link>FieldService\Data\Photo.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\PropertyChangedBase.cs">
+      <Link>FieldService\Data\PropertyChangedBase.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Data\SampleAssignmentService.cs">
       <Link>FieldService\Data\SampleAssignmentService.cs</Link>
     </Compile>
@@ -189,6 +192,7 @@
     <Compile Include="Utilities\Timer.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="Views\AssignmentPage.xaml.cs">
       <DependentUpon>AssignmentPage.xaml</DependentUpon>
@@ -282,6 +286,9 @@
   <ItemGroup>
     <SDKReference Include="Bing.Maps.Xaml, Version=1.0">
       <Name>Bing Maps for C#, C++, or Visual Basic</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=11.0">
+      <Name>Microsoft Visual C++ Runtime Package</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

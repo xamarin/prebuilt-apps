@@ -69,5 +69,17 @@ namespace FieldService.Data {
                 return Type.ToUserString ();
             }
         }
+
+        #region WinRT properties
+
+        public string HoursFormatted
+        {
+            get
+            {
+                return Hours.TotalHours.ToString ("0.0") + " hrs";
+            }
+        }
+
+        #endregion
     }
 }

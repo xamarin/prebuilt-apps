@@ -55,6 +55,7 @@
     <Compile Include="Data\IAssignmentService.cs" />
     <Compile Include="Data\Item.cs" />
     <Compile Include="Data\Photo.cs" />
+    <Compile Include="Data\PropertyChangedBase.cs" />
     <Compile Include="Data\SampleAssignmentService.cs" />
     <Compile Include="Data\SampleLoginService.cs" />
     <Compile Include="Data\ILoginService.cs" />

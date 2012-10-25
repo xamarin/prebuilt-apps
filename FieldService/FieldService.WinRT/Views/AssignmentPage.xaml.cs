@@ -39,6 +39,7 @@ namespace FieldService.WinRT.Views {
     public sealed partial class AssignmentPage : Page {
         readonly AssignmentViewModel assignmentViewModel;
         readonly ItemViewModel itemViewModel;
+        readonly LaborViewModel laborViewModel;
 
         public AssignmentPage ()
         {
@@ -49,6 +50,9 @@ namespace FieldService.WinRT.Views {
 
             itemsListView.DataContext =
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+
+            laborListView.DataContext =
+                laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
         }
 
         /// <summary>
@@ -59,16 +63,17 @@ namespace FieldService.WinRT.Views {
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
             itemViewModel.LoadAssignmentItems (assignmentViewModel.SelectedAssignment);
+
+            laborViewModel.LoadLaborHours (assignmentViewModel.SelectedAssignment);
         }
 
-        private void CheckBox_Checked_1 (object sender, RoutedEventArgs e)
+        private void OnItemClick (object sender, ItemClickEventArgs e)
         {
-
-        }
-
-        private void CheckBox_Unchecked_1 (object sender, RoutedEventArgs e)
-        {
-
+            AssignmentItem item = e.ClickedItem as AssignmentItem;
+            if (item != null) {
+                item.Used = !item.Used;
+                itemViewModel.SaveAssignmentItemCommand.Invoke (item);
+            }
         }
     }
 }

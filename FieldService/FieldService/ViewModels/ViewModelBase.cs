@@ -18,6 +18,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Text;
+using FieldService.Data;
 
 namespace FieldService.ViewModels {
     /// <summary>
@@ -26,12 +27,7 @@ namespace FieldService.ViewModels {
     /// - Implements some basic validation logic
     /// - Implements some IsBusy logic
     /// </summary>
-    public class ViewModelBase : INotifyPropertyChanged {
-
-        /// <summary>
-        /// Event for INotifyPropertyChanged
-        /// </summary>
-        public event PropertyChangedEventHandler PropertyChanged;
+    public class ViewModelBase : PropertyChangedBase {
 
         /// <summary>
         /// Event for when IsBusy changes
@@ -53,17 +49,6 @@ namespace FieldService.ViewModels {
         {
             //Make sure validation is performed on startup
             Validate ();
-        }
-
-        /// <summary>
-        /// Protected method for firing PropertyChanged
-        /// </summary>
-        /// <param name="propertyName">The name of the property that changed</param>
-        protected virtual void OnPropertyChanged (string propertyName)
-        {
-            var method = PropertyChanged;
-            if (method != null)
-                method (this, new PropertyChangedEventArgs (propertyName));
         }
 
         /// <summary>

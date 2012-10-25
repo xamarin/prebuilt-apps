@@ -273,7 +273,9 @@
                         <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Bottom">View all items</Button>
                     </Grid>
 
-                    <ListView x:Name="itemsListView" Grid.Row="1" ItemsSource="{Binding TopAssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
+                    <ListView 
+                        x:Name="itemsListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
+                        Grid.Row="1" ItemsSource="{Binding TopAssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
@@ -293,6 +295,51 @@
                         Background="{StaticResource ItemsBrush}" Height="75" Padding="0"
                         HorizontalAlignment="Left" VerticalAlignment="Top">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Items" VerticalAlignment="Center" />
+                    </Button>
+                </Grid>
+
+                <!--Labor section-->
+                <Grid Height="590" Width="500" Margin="25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}">Labor</TextBlock>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Bottom">View all entries</Button>
+                    </Grid>
+
+                    <ListView x:Name="laborListView" Grid.Row="1" ItemsSource="{Binding TopLaborHours}" HorizontalContentAlignment="Stretch" SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
+                                    <Grid VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding TypeAsString}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding Description}" TextWrapping="NoWrap" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding HoursFormatted}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Button 
+                        Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482"
+                        Background="{StaticResource HoursBrush}" Height="75" Padding="0"
+                        HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Labor" VerticalAlignment="Center" />
                     </Button>
                 </Grid>
 
