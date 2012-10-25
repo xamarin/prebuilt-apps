@@ -11,57 +11,62 @@
 //    distributed under the License is distributed on an "AS IS" BASIS,
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
-//    limitations under the License.
+//    limitations under the License.using System;
+
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using Android.App;
+using Android.Content;
 using Android.OS;
+using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
-
 namespace FieldService.Android.Fragments {
-    public class ItemFragment : Fragment {
+    public class ConfirmationFragment : Fragment, AdapterView.IOnItemClickListener {
+        PhotoViewModel photoViewModel;
 
-        ListView itemsListView;
-        ItemViewModel itemViewModel;
-
+        ListView photoListView;
         public override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
 
-            itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
         }
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
-            var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, null, true);
-            itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
-            ReloadAssignmentItems ();
+            var view = inflater.Inflate (Resource.Layout.ConfirmationsLayout, null, true);
+
+            photoListView = view.FindViewById<ListView> (Resource.Id.confirmationPhotoList);
+            var addPhoto = view.FindViewById<Button> (Resource.Id.confirmationsAddPhoto);
+            var addSignature = view.FindViewById<Button> (Resource.Id.confirmationsAddSignature);
+            var completeSignature = view.FindViewById<Button> (Resource.Id.confirmationsComplete);
+
+            if (Photos != null) {
+                photoListView.Adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos);
+            }
+
+            photoListView.OnItemClickListener = this;
+
             return view;
         }
 
-        public void ReloadAssignmentItems ()
-        {
-            if (AssignmentItems != null) {
-                itemsListView.Adapter = new ItemsAdapter (Activity, Resource.Layout.ItemLayout, AssignmentItems);
-            }
-        }
-
-        public Assignment Assignment
+        public List<Photo> Photos
         {
             get;
             set;
         }
 
-        public List<AssignmentItem> AssignmentItems
+        public void OnItemClick (AdapterView parent, View view, int position, long id)
         {
-            get;
-            set;
+
         }
     }
 }

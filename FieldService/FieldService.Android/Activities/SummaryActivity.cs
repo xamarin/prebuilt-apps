@@ -31,6 +31,7 @@ namespace FieldService.Android {
         readonly AssignmentViewModel assignmentViewModel;
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
+        readonly PhotoViewModel photoViewModel;
         NavigationFragment navigationFragment;
         Assignment assignment = null;
         FrameLayout navigationFragmentContainer;
@@ -52,6 +53,7 @@ namespace FieldService.Android {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
             itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
             laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -103,6 +105,8 @@ namespace FieldService.Android {
             }
 
             //setting up default fragments
+
+            var count = FragmentManager.BackStackEntryCount;
 
             var transaction = FragmentManager.BeginTransaction ();
             var summaryFragment = new SummaryFragment ();
@@ -223,7 +227,7 @@ namespace FieldService.Android {
                     }
                     break;
                 case "Labor Hours": {
-                        var fragment = new LaborHoursFragment ();
+                        var fragment = new LaborHourFragment ();
                         laborViewModel.LoadLaborHours(assignment).ContinueOnUIThread (_ => {
                             fragment.LaborHours = laborViewModel.LaborHours;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
@@ -233,6 +237,19 @@ namespace FieldService.Android {
                                 items.Visibility = ViewStates.Visible;
                             addItems.Visibility = ViewStates.Gone;
                             items.Text = string.Format ("{0} hrs", assignment.TotalHours.ToString ("0.0"));
+                        });
+                    }
+                    break;
+                case "Confirmations": {
+                        var fragment = new ConfirmationFragment ();
+                        photoViewModel.LoadPhotos (assignment).ContinueOnUIThread (_ => {
+                            fragment.Photos = photoViewModel.Photos;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            addLabor.Visibility =
+                                items.Visibility = ViewStates.Invisible;
+                            addItems.Visibility = ViewStates.Gone;
                         });
                     }
                     break;

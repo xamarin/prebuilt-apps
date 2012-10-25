@@ -10,4 +10,5 @@
   <color name="assignmentgrey">#EAE9E9</color>
   <color name="navigationitemselected">#333333</color>
   <color name="itemssearchcolor">#BEBEBE</color>
+  <color name="confirmationborder">#CCCCCC</color>
 </resources>

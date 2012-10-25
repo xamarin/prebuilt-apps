@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/photoListViewImage"
+        android:minHeight="75dp"
+        android:minWidth="75dp"
+        android:maxHeight="75dp"
+        android:maxWidth="75dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
+        android:scaleType="center" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp">
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/photoListViewDateTime"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"
+            android:textSize="14dp" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/photoListViewDescription"
+            android:layout_marginTop="5dp"
+            android:textColor="@android:color/black"
+            android:textSize="14dp" />
+    </LinearLayout>
+</LinearLayout>

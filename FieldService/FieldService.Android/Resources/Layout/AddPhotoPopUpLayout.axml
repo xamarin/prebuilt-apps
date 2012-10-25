@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+    <TextView
+        android:text="@string/Photos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueclick"
+        android:textSize="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ItemPopupDivider"
+        android:layout_marginTop="10dp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/photoPopupDescription"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:textColor="@android:color/black"
+        android:background="@android:color/transparent"
+        android:textSize="12dp"
+        android:hint="Optional caption..."
+        android:inputType="textMultiLine"
+        android:maxHeight="50dp"
+        android:minWidth="325dp"
+        android:maxWidth="325dp"
+        android:minHeight="50dp"
+        android:gravity="top|left"
+        android:textColorHint="@color/greyspinnertext" />
+    <ImageView
+        android:src="@drawable/labordescriptionbottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minWidth="25px"
+        android:minHeight="25px"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/photoDateTime"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:textSize="12dp" />
+        <TextView
+            android:text="@string/DeletePhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="12dp" />
+        <ImageButton
+            android:src="@drawable/TrashCanIcon"
+            android:id="@+id/photoDeleteImage"
+            android:background="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp" />
+    </LinearLayout>
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="240dp"
+        android:id="@+id/photoImageSource"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="center" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp">
+        <ImageButton
+            android:src="@drawable/PreviousButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/photoPreviousButton"
+            android:background="@android:color/transparent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/photoCountText"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/black" />
+        <ImageButton
+            android:src="@drawable/NextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/imageButton2"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_marginTop="10dp"
+        android:minWidth="40dp">
+        <Button
+            android:text="@string/Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/photoCancelImage"
+            android:textColor="@android:color/black"
+            android:background="@drawable/cancel_button"
+            android:layout_weight="1" />
+        <Button
+            android:text="@string/Done"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/photoDoneImage"
+            android:textColor="@android:color/black"
+            android:background="@drawable/cancel_button"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

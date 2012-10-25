@@ -22,4 +22,8 @@
   <string name="AddPhoto">Add Photo</string>
   <string name="AddSignature">Add Signature</string>
   <string name="Complete">Complete</string>
+  <string name="DeletePhoto">Delete Photo</string>
+  <string name="Done">Done</string>
+  <string name="PleaseSign">Please sign in the box</string>
+  <string name="Clear">Clear</string>
 </resources>
