@@ -42,6 +42,7 @@ namespace FieldService.WinRT.Views {
         public MapPage ()
         {
             this.InitializeComponent ();
+            map.Credentials = Constants.BingMapsKey;
 
             locator = new Geolocator ();
             popup = new MapPopup ();

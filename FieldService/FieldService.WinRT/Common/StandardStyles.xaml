@@ -34,6 +34,14 @@
     <BitmapImage x:Key="MapIcon" UriSource="ms-appx:///Assets/mapicon.png" />
     <BitmapImage x:Key="PhoneIcon" UriSource="ms-appx:///Assets/phoneicon.png" />
     <BitmapImage x:Key="MapTriangleImage" UriSource="ms-appx:///Assets/map_triangle.png" />
+    <BitmapImage x:Key="CameraIcon" UriSource="ms-appx:///Assets/cameraicon.png" />
+    <BitmapImage x:Key="CompleteIcon" UriSource="ms-appx:///Assets/completeicon.png" />
+    <BitmapImage x:Key="ConfirmationIcon" UriSource="ms-appx:///Assets/confirmationicon.png" />
+    <BitmapImage x:Key="DocumentIcon" UriSource="ms-appx:///Assets/documenticon.png" />
+    <BitmapImage x:Key="HistoryIcon" UriSource="ms-appx:///Assets/historyicon.png" />
+    <BitmapImage x:Key="ItemsIcon" UriSource="ms-appx:///Assets/itemsicon.png" />
+    <BitmapImage x:Key="TimerIcon" UriSource="ms-appx:///Assets/timericon.png" />
+    <BitmapImage x:Key="MapLargeIcon" UriSource="ms-appx:///Assets/maplargeicon.png" />
     
     <!--Brushes-->
     <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">
@@ -50,9 +58,26 @@
     <SolidColorBrush x:Key="YellowBrush">#fcff00</SolidColorBrush>
     <SolidColorBrush x:Key="RedBrush">#d53030</SolidColorBrush>
     <SolidColorBrush x:Key="DescriptionBrush">#e6f6ff</SolidColorBrush>
+    <SolidColorBrush x:Key="ExpensesBrush">#cc0253</SolidColorBrush>
     <LinearGradientBrush x:Key="ItemsBrush" StartPoint="0,0" EndPoint="0,1">
-        <GradientStop Offset="0" Color="#27cbef" />
-        <GradientStop Offset="1" Color="#1db0e7" />
+        <GradientStop Offset="0" Color="#1db0e7" />
+        <GradientStop Offset="1" Color="#27cbef" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="HoursBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#02ca1e" />
+        <GradientStop Offset="1" Color="#03dc28" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="MapBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#383939" />
+        <GradientStop Offset="1" Color="#4b4c4c" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="TimesBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#888888" />
+        <GradientStop Offset="1" Color="#b1b1b1" />
+    </LinearGradientBrush>
+    <LinearGradientBrush x:Key="DocumentsBrush" StartPoint="0,0" EndPoint="0,1">
+        <GradientStop Offset="0" Color="#333333" />
+        <GradientStop Offset="1" Color="#444444" />
     </LinearGradientBrush>
 
     <!--Theme styles, these apply to all instances of that control -->

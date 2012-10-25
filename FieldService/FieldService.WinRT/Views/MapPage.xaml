@@ -19,10 +19,6 @@
             <TextBlock Style="{StaticResource HeaderTextStyle}">Map Overview</TextBlock>
         </StackPanel>
 
-        <!--Change this key to a valid one http://msdn.microsoft.com/en-us/library/ff428642.aspx-->
-        <maps:Map 
-            x:Name="map" Grid.Row="1"
-            Credentials="AiA4VR_FDabthunLTLiUn6GpBU-CSBZMhtcR_tRDQ5G1YU_v1IUOv82eQHU6Zi1Q" />
-
+        <maps:Map x:Name="map" Grid.Row="1" />
     </Grid>
 </Page>

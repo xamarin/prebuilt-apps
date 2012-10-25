@@ -177,6 +177,22 @@ namespace FieldService.Data {
         }
 
         /// <summary>
+        /// A formatted version of the start time for WinRT
+        /// </summary>
+        public string StartTimeFormatted
+        {
+            get { return StartDate.ToShortTimeString (); }
+        }
+
+        /// <summary>
+        /// A formatted version of the end time for WinRT
+        /// </summary>
+        public string EndTimeFormatted
+        {
+            get { return EndDate.ToShortTimeString (); }
+        }
+
+        /// <summary>
         /// A formatted version of the address for WinRT
         /// </summary>
         public string AddressFormatted
@@ -187,6 +203,22 @@ namespace FieldService.Data {
                     Environment.NewLine +
                     City + ", " + State + " " + Zip;
             }
+        }
+
+        /// <summary>
+        /// Formatted version of total hours for WinRT
+        /// </summary>
+        public string TotalHoursFormatted
+        {
+            get { return TotalHours.TotalHours.ToString ("0.0"); }
+        }
+
+        /// <summary>
+        /// Formatted version of expenses for WinRT
+        /// </summary>
+        public string TotalExpensesFormatted
+        {
+            get { return TotalExpenses.ToString ("$0.00"); }
         }
 
         #endregion

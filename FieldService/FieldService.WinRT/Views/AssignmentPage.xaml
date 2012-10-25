@@ -5,6 +5,7 @@
     xmlns:local="using:FieldService.WinRT.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:FieldService.WinRT.Views"
     mc:Ignorable="d">
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
@@ -125,7 +126,129 @@
                         </StackPanel>
                     </Border>
 
-                    <Border Grid.Row="3" BorderThickness="0" Background="{StaticResource ItemsBrush}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5">
+                    <Border Grid.Row="3" BorderThickness="0" Background="{StaticResource ItemsBrush}" Margin="5">
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+                            
+                            <Image Grid.RowSpan="2" Source="{StaticResource ItemsIcon}" Stretch="None" />
+
+                            <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalItems}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+
+                            <TextBlock Margin="10,5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Text="Items" Style="{StaticResource SubheaderTextStyle}" />
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="1" BorderThickness="0" Background="{StaticResource HoursBrush}" Margin="5">
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Grid.RowSpan="2" Source="{StaticResource TimerIcon}" Stretch="None" />
+
+                            <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalHoursFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+
+                            <TextBlock Margin="10,5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Text="Hours" Style="{StaticResource SubheaderTextStyle}" />
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="1" Grid.Column="2" BorderThickness="0" Background="{StaticResource MapBrush}" Margin="5">
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="{StaticResource MapLargeIcon}" Stretch="None" />
+
+                            <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Center" Text="Map" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="2" Grid.Column="2" BorderThickness="0" Background="{StaticResource TimesBrush}" Margin="5">
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="10,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.StartTimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+
+                            <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding SelectedAssignment.EndTimeFormatted}" Style="{StaticResource SubheaderTextStyle}" />
+
+                        </Grid>
+                    </Border>
+                    
+                    <Border Grid.Row="3" Grid.Column="2" BorderThickness="0" Background="{StaticResource ExpensesBrush}" Margin="5">
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <TextBlock Margin="10,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalExpensesFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+
+                            <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="Expenses" Style="{StaticResource SubheaderTextStyle}" />
+
+                        </Grid>
+                    </Border>
+
+                    <views:MapTile Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="5" DataContext="{Binding SelectedAssignment}" />
+
+                    <Border Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" BorderThickness="0" Background="{StaticResource ItemsBrush}" Margin="5">
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Image Source="{StaticResource ConfirmationIcon}" Stretch="None" />
+
+                            <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Center" Text="Confirmations" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="3" BorderThickness="0" Background="{StaticResource DocumentsBrush}" Margin="5">
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="{StaticResource DocumentIcon}" Stretch="None" />
+
+                            <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="Documents" Style="{StaticResource SubheaderTextStyle}" />
+
+                        </Grid>
+                    </Border>
+
+                    <Border Grid.Row="3" Grid.Column="4" BorderThickness="0" Background="{StaticResource DocumentsBrush}" Margin="5">
+                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <Grid.RowDefinitions>
+                                <RowDefinition />
+                                <RowDefinition />
+                            </Grid.RowDefinitions>
+
+                            <Image Source="{StaticResource HistoryIcon}" Stretch="None" />
+
+                            <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="History" Style="{StaticResource SubheaderTextStyle}" />
+
+                        </Grid>
                     </Border>
 
                 </Grid>
