@@ -29,7 +29,7 @@ namespace FieldService.WinRT.ViewModels {
     /// - We setup ICommand here
     /// </summary>
     public class LoginViewModel : FieldService.ViewModels.LoginViewModel {
-
+        
         readonly DelegateCommand loginCommand;
 
         public LoginViewModel ()

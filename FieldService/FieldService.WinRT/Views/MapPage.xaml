@@ -14,7 +14,7 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <StackPanel Margin="50,50,50,20" Orientation="Horizontal">
+        <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
             <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" />
             <TextBlock Style="{StaticResource HeaderTextStyle}">Map Overview</TextBlock>
         </StackPanel>

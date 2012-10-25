@@ -188,6 +188,7 @@
     <Compile Include="Utilities\StatusToColorConverter.cs" />
     <Compile Include="Utilities\Timer.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
+    <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="Views\AssignmentPage.xaml.cs">
       <DependentUpon>AssignmentPage.xaml</DependentUpon>

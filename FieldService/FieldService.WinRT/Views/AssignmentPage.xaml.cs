@@ -38,6 +38,7 @@ namespace FieldService.WinRT.Views {
     /// </summary>
     public sealed partial class AssignmentPage : Page {
         readonly AssignmentViewModel assignmentViewModel;
+        readonly ItemViewModel itemViewModel;
 
         public AssignmentPage ()
         {
@@ -45,6 +46,9 @@ namespace FieldService.WinRT.Views {
 
             DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+
+            itemsListView.DataContext =
+                itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
         }
 
         /// <summary>
@@ -53,6 +57,16 @@ namespace FieldService.WinRT.Views {
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
+        {
+            itemViewModel.LoadAssignmentItems (assignmentViewModel.SelectedAssignment);
+        }
+
+        private void CheckBox_Checked_1 (object sender, RoutedEventArgs e)
+        {
+
+        }
+
+        private void CheckBox_Unchecked_1 (object sender, RoutedEventArgs e)
         {
 
         }
