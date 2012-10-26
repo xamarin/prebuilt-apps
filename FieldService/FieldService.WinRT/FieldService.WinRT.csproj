@@ -194,6 +194,9 @@
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Views\AssignmentMapPage.xaml.cs">
+      <DependentUpon>AssignmentMapPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssignmentPage.xaml.cs">
       <DependentUpon>AssignmentPage.xaml</DependentUpon>
     </Compile>
@@ -252,6 +255,10 @@
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AssignmentMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AssignmentPage.xaml">
       <SubType>Designer</SubType>

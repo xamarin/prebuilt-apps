@@ -14,20 +14,13 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -73,6 +66,20 @@ namespace FieldService.WinRT.Views {
             if (item != null) {
                 item.Used = !item.Used;
                 itemViewModel.SaveAssignmentItemCommand.Invoke (item);
+            }
+        }
+
+        private async void OnSummaryClick (object sender, ItemClickEventArgs e)
+        {
+            var element = e.ClickedItem as FrameworkElement;
+            switch (element.Name) {
+                case "mapTile":
+                case "mapButton":
+                    Helpers.NavigateTo<AssignmentMapPage> ();
+                    break;
+                default:
+                    await new MessageDialog ("Coming soon!").ShowAsync ();
+                    break;
             }
         }
     }
