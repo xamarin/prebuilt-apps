@@ -19,6 +19,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -74,13 +75,38 @@ namespace FieldService.Android.Dialogs {
                 optionalCaption.Text = Photo.Description;
                 if (Photo.Image != null) {
                     imageBitmap = BitmapFactory.DecodeByteArray (Photo.Image, 0, Photo.Image.Length);
+                    ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                     photo.SetImageBitmap (imageBitmap);
-
                 }
             } else if (PhotoStream != null) {
                 imageBitmap = BitmapFactory.DecodeStream (PhotoStream);
+                ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                 photo.SetImageBitmap (imageBitmap);
             }
+        }
+
+        private void ResizeBitmap (Bitmap input, int destWidth, int destHeight)
+        {
+            int srcWidth = input.Width,
+                srcHeight = input.Height;
+            bool needsResize = false;
+            float p;
+            if (srcWidth > destWidth || srcHeight > destHeight) {
+                needsResize = true;
+                if (srcWidth > srcHeight && srcWidth > destWidth) {
+                    p = (float)destWidth / (float)srcWidth;
+                    destHeight = (int)(srcHeight * p);
+                } else {
+                    p = (float)destHeight / (float)srcHeight;
+                    destWidth = (int)(srcWidth * p);
+                }
+            } else {
+                destWidth = srcWidth;
+                destHeight = srcHeight;
+            }
+            if (needsResize) {
+                imageBitmap = Bitmap.CreateScaledBitmap (input, destWidth, destHeight, true);
+            } 
         }
 
         /// <summary>
@@ -90,9 +116,11 @@ namespace FieldService.Android.Dialogs {
         {
             base.OnDetachedFromWindow ();
             photo.SetImageBitmap (null);
-            imageBitmap.Recycle ();
-            imageBitmap.Dispose ();
-            imageBitmap = null;
+            if (imageBitmap != null) {
+                imageBitmap.Recycle ();
+                imageBitmap.Dispose ();
+                imageBitmap = null;
+            }
             Activity = null;
             Assignment = null;
             Photo = null;
@@ -169,15 +197,15 @@ namespace FieldService.Android.Dialogs {
                         savePhoto.Image = stream.ToArray ();
                     }
                 }
-                savePhoto.Description = optionalCaption.Text;
-                savePhoto.Assignment = Assignment.ID;
-
-                photoViewModel.SavePhoto (Assignment, savePhoto)
-                    .ContinueOnUIThread (_ => {
-                        ((SummaryActivity)Activity).ReloadConfirmation ();
-                        Dismiss ();
-                    });
             }
+            savePhoto.Description = optionalCaption.Text;
+            savePhoto.Assignment = Assignment.ID;
+
+            photoViewModel.SavePhoto (Assignment, savePhoto)
+                .ContinueOnUIThread (_ => {
+                    ((SummaryActivity)Activity).ReloadConfirmation ();
+                    Dismiss ();
+                });
         }
 
         /// <summary>

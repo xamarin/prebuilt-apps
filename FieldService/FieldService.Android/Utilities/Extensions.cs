@@ -14,6 +14,7 @@
 //    limitations under the License.
 using System;
 using System.Text.RegularExpressions;
+using Android.Graphics;
 
 namespace FieldService.Android.Utilities {
     public static class Extensions {
@@ -44,6 +45,16 @@ namespace FieldService.Android.Utilities {
             double value = 0;
             double.TryParse (text, out value);
             return value;
+        }
+
+        public static int ToSampleSize (this byte [] bytes)
+        {
+            var sampleSize = 0;
+            BitmapFactory.Options options = new BitmapFactory.Options ();
+            options.InJustDecodeBounds = true;
+            BitmapFactory.DecodeByteArray (bytes, 0, bytes.Length, options);
+            sampleSize = (int)Math.Ceiling ((double)Math.Max (options.OutWidth / Constants.MaxWidth, options.OutHeight / Constants.MaxHeight));
+            return sampleSize;
         }
     }
 }

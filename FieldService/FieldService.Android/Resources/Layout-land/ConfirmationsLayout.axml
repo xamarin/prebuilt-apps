@@ -7,18 +7,19 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_weight="1">
         <TextView
             android:text="@string/Photos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black" />
         <FrameLayout
-            android:layout_width="350dp"
-            android:layout_height="150dp"
+            android:layout_width="fill_parent"
+            android:layout_height="350dp"
             android:layout_marginTop="10dp"
             android:background="@color/confirmationborder">
             <ListView
@@ -26,7 +27,9 @@
                 android:layout_height="fill_parent"
                 android:id="@+id/confirmationPhotoList"
                 android:layout_margin="1dp"
-                android:background="@color/assignmentoffwhite" />
+                android:background="@color/assignmentoffwhite"
+                android:divider="@color/greyheadertext"
+                android:dividerHeight="1dp" />
         </FrameLayout>
         <Button
             android:text="@string/AddPhoto"
@@ -43,28 +46,25 @@
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+        android:layout_height="wrap_content"
         android:layout_marginRight="20dp"
         android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_weight=".5">
         <TextView
             android:text="@string/Signature"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@android:color/black" />
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="350dp"
             android:layout_marginTop="10dp"
             android:background="@color/confirmationborder">
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:id="@+id/confirmationsSignature"
-                android:maxHeight="150dp"
-                android:maxWidth="350dp"
-                android:minHeight="150dp"
-                android:minWidth="350dp"
                 android:background="@color/assignmentoffwhite"
                 android:layout_margin="1dp" />
         </FrameLayout>

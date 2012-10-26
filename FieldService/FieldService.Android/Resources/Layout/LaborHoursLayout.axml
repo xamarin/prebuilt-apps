@@ -7,5 +7,7 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/laborListViewFragment" />
+        android:id="@+id/laborListViewFragment"
+        android:dividerHeight="1dp"
+        android:divider="@color/greyheadertext" />
 </LinearLayout>

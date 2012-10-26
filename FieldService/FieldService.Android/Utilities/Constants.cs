@@ -27,5 +27,13 @@ namespace FieldService.Android.Utilities {
         /// Key for PutInt
         /// </summary>
         public const string CurrentTab = "currentTab";
+        /// <summary>
+        /// Maximum width for images
+        /// </summary>
+        public const int MaxWidth = 400;
+        /// <summary>
+        /// Maximum height for images
+        /// </summary>
+        public const int MaxHeight = 400;
     }
 }

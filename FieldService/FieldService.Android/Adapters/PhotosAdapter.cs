@@ -19,6 +19,7 @@ using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
+using FieldService.Android.Utilities;
 
 namespace FieldService.Android {
     /// <summary>
@@ -59,7 +60,15 @@ namespace FieldService.Android {
             dateTime.Text = string.Format ("{0}  {1}", photo.Date.ToString("t"), photo.Date.ToString("d"));
             description.Text = photo.Description;
             if (photo.Image != null) {
-                using (var bmp = BitmapFactory.DecodeByteArray (photo.Image, 0, photo.Image.Length)) {
+                var options = new BitmapFactory.Options {
+                    InScaled = false,
+                    InDither = false,
+                    InJustDecodeBounds = false,
+                    InPurgeable = true,
+                    InInputShareable = true,
+                };
+                options.InSampleSize = photo.Image.ToSampleSize ();
+                using (var bmp = BitmapFactory.DecodeByteArray (photo.Image, 0, photo.Image.Length, options)) {
                     image.SetImageBitmap (bmp);
                 }
             }
