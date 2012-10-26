@@ -25,8 +25,10 @@ using Android.Views;
 using Android.Widget;
 
 namespace FieldService.Android.Dialogs {
+    /// <summary>
+    /// Base dialog class, mainly for setting the CustomDialogTheme
+    /// </summary>
     public class BaseDialog : Dialog {
-
         public BaseDialog (Context context)
             : base (context, Resource.Style.CustomDialogTheme)
         {

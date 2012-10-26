@@ -12,26 +12,25 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Dialogs {
+    /// <summary>
+    /// Dialog for searching through items
+    /// </summary>
     public class ItemsDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemClickListener {
 
         ListView itemsListView;
         ItemViewModel itemViewModel;
+
         public ItemsDialog (Context context)
             : base (context)
         {
@@ -46,24 +45,30 @@ namespace FieldService.Android.Dialogs {
 
             var cancel = (Button)FindViewById (Resource.Id.itemsPopupCancelButton);
             itemsListView = (ListView)FindViewById (Resource.Id.itemPopupItemsList);
-            
+
             var searchText = (TextView)FindViewById (Resource.Id.itemsPopupSearchText);
             var clearText = (ImageButton)FindViewById (Resource.Id.itemsPopupSeachClear);
 
             itemViewModel.LoadItems ().ContinueOnUIThread (_ => {
                 itemsListView.Adapter = new ItemsSearchAdapter (Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
-                });
+            });
 
             cancel.SetOnClickListener (this);
             itemsListView.OnItemClickListener = this;
         }
 
+        /// <summary>
+        /// The selected assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The parent activity
+        /// </summary>
         public SummaryActivity Activity
         {
             get;
@@ -77,6 +82,9 @@ namespace FieldService.Android.Dialogs {
             }
         }
 
+        /// <summary>
+        /// When an item is clicked, add it to the assignment
+        /// </summary>
         public void OnItemClick (AdapterView parent, View view, int position, long id)
         {
             var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (position);

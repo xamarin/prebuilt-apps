@@ -12,16 +12,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
@@ -29,6 +24,9 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Dialogs {
+    /// <summary>
+    /// Dialog for the photos
+    /// </summary>
     public class PhotoDialog : BaseDialog, View.IOnClickListener, IDialogInterfaceOnClickListener {
         PhotoViewModel photoViewModel;
         ImageView photo;
@@ -64,6 +62,9 @@ namespace FieldService.Android.Dialogs {
             delete.SetOnClickListener (this);
         }
 
+        /// <summary>
+        /// Load the photo and description
+        /// </summary>
         public override void OnAttachedToWindow ()
         {
             base.OnAttachedToWindow ();
@@ -80,30 +81,45 @@ namespace FieldService.Android.Dialogs {
             }
         }
 
+        /// <summary>
+        /// The parent activity
+        /// </summary>
         public Activity Activity
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The selected assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The photo
+        /// </summary>
         public Photo Photo
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Stream passed in from MediaPicker
+        /// </summary>
         public Stream PhotoStream
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Show a dialog to delete the photo
+        /// </summary>
         private void DeletePhoto ()
         {
             AlertDialog.Builder deleteDialog = new AlertDialog.Builder (Context);
@@ -115,6 +131,9 @@ namespace FieldService.Android.Dialogs {
                 .Show();
         }
 
+        /// <summary>
+        /// Save the photo
+        /// </summary>
         private void SavePhoto ()
         {
             Photo savePhoto = Photo;
@@ -145,6 +164,9 @@ namespace FieldService.Android.Dialogs {
                 });
         }
 
+        /// <summary>
+        /// Click handlers
+        /// </summary>
         public void OnClick (View v)
         {
             switch (v.Id) {
@@ -170,6 +192,9 @@ namespace FieldService.Android.Dialogs {
             }
         }
 
+        /// <summary>
+        /// When "Yes" is clicked to delete the photo
+        /// </summary>
         public void OnClick (IDialogInterface dialog, int which)
         {
             if (which == 0) {
