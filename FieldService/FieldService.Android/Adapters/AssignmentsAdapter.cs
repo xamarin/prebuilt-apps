@@ -16,6 +16,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Android.Content;
+using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
@@ -97,10 +98,11 @@ namespace FieldService.Android {
                 spinner.Tag = position;
                 var adapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> (), Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Context.Resources.GetColor (Resource.Color.greyspinnertext);
+                adapter.Background = Color.White;
                 spinner.Adapter = adapter;
 
                 spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
-                spinner.SetBackgroundResource (Resource.Drawable.spinner_white);
+                spinner.SetBackgroundResource (Resource.Drawable.trianglewhite);
                 spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
 
                 spinner.ItemSelected += (sender, e) => {
@@ -119,7 +121,7 @@ namespace FieldService.Android {
                             default: {
                                     spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    spinner.SetBackgroundResource (Resource.Drawable.spinner_white);
+                                    spinner.SetBackgroundResource (Resource.Drawable.trianglewhite);
                                     activeAssignment.Status = selected;
                                     SaveAssignment (activeAssignment, index);
                                 }

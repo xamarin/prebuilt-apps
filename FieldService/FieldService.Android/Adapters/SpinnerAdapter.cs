@@ -64,6 +64,12 @@ namespace FieldService.Android {
             set;
         }
 
+        public Color Background
+        {
+            get;
+            set;
+        }
+
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             var view = convertView;
@@ -80,6 +86,7 @@ namespace FieldService.Android {
             var textView = view.FindViewById<TextView> (Resource.Id.simpleSpinnerTextView);
             textView.Text = item;
             textView.SetTextColor (TextColor);
+            textView.SetBackgroundColor (Background);
 
             return view;
         }

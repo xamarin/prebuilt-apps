@@ -19,15 +19,17 @@
         android:background="@color/navigationitemselected">
         <ImageView
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/fragmentStatusImage"
-            android:layout_marginLeft="20dp" />
+            android:src="@drawable/EnrouteImage"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="5dp" />
         <Spinner
             android:id="@+id/fragmentStatus"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/spinner_dark" />
+            android:layout_marginLeft="5dp"
+            android:background="@drawable/triangledark" />
     </LinearLayout>
     <RelativeLayout
         android:layout_width="fill_parent"

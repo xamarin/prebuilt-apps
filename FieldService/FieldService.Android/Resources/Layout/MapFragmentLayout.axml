@@ -6,6 +6,6 @@
     <com.google.android.maps.MapView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:apiKey="0-G53BLdgFiCfqW2S6nbW4wmRxTkWb8BlSYREkg"
+        android:apiKey="@string/GoogleMapsAPIKey"
         android:id="@+id/fragmentMapView" />
 </LinearLayout>

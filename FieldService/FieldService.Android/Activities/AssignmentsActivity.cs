@@ -17,6 +17,7 @@ using System;
 using System.Linq;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -180,9 +181,10 @@ namespace FieldService.Android {
 
                 var adapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, this, Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Resources.GetColor (Resource.Color.greyspinnertext);
+                adapter.Background = Color.White;
                 spinner.Adapter = adapter;
                 spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
-                spinner.SetBackgroundResource (Resource.Drawable.spinner_blue);
+                spinner.SetBackgroundResource (Resource.Drawable.triangleblue);
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
                 spinner.ItemSelected += (sender, e) => {

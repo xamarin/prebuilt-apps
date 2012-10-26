@@ -7,7 +7,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/laborType"
-        android:background="@drawable/spinner_white"
+        android:background="@drawable/trianglewhite"
         android:focusable="false"
         android:layout_marginLeft="10dp" />
     <TextView

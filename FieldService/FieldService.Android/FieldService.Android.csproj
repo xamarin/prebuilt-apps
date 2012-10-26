@@ -287,9 +287,6 @@
     <AndroidResource Include="Resources\Drawable\SummaryRecord.png" />
     <AndroidResource Include="Resources\Drawable\summary_timer.xml" />
     <AndroidResource Include="Resources\Drawable\TrashCanIcon.png" />
-    <AndroidResource Include="Resources\Drawable\spinner_blue.png" />
-    <AndroidResource Include="Resources\Drawable\spinner_white.png" />
-    <AndroidResource Include="Resources\Drawable\spinner_dark.png" />
     <AndroidResource Include="Resources\Drawable\decline.9.png" />
     <AndroidResource Include="Resources\Drawable\accept.9.png" />
     <AndroidResource Include="Resources\Drawable\back_button.png" />
@@ -317,6 +314,10 @@
     <AndroidResource Include="Resources\Drawable\PreviousButton.png" />
     <AndroidResource Include="Resources\Drawable\CheckBox.png" />
     <AndroidResource Include="Resources\Drawable\CheckBoxChecked.png" />
+    <AndroidResource Include="Resources\Drawable\triangleblue.9.png" />
+    <AndroidResource Include="Resources\Drawable\triangledark.9.png" />
+    <AndroidResource Include="Resources\Drawable\trianglegrey.9.png" />
+    <AndroidResource Include="Resources\Drawable\trianglewhite.9.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
