@@ -30,7 +30,7 @@ namespace FieldService.Android {
     /// Activity for the list of assignments
     /// </summary>
     [Activity (Label = "Assignments", Theme = "@style/CustomHoloTheme")]
-    public class AssignmentsActivity : Activity, View.IOnClickListener {
+    public class AssignmentsActivity : Activity {
         readonly AssignmentViewModel assignmentViewModel;
         ListView assignmentsListView;
         LinearLayout assignmentActiveLayout;
@@ -50,9 +50,9 @@ namespace FieldService.Android {
 
             assignmentsListView = FindViewById<ListView> (Resource.Id.assignmentsListView);
             assignmentActiveLayout = FindViewById<LinearLayout> (Resource.Id.assignmentSelectedItem);
+            assignmentActiveLayout.Click += (sender, e) => AssignmentSelected (-1);
 
-            assignmentActiveLayout.SetOnClickListener (this);
-            assignmentsListView.ItemClick += assignmentsListView_ItemClick;
+            assignmentsListView.ItemClick += (sender, e) => AssignmentSelected (e.Position);
             ServiceContainer.Register<AssignmentsActivity> (this);
         }
 
@@ -217,18 +217,6 @@ namespace FieldService.Android {
             var intent = new Intent (this, typeof (SummaryActivity));
             intent.PutExtra (Constants.BundleIndex, index);
             StartActivity (intent);
-        }
-
-        private void assignmentsListView_ItemClick (object sender, AdapterView.ItemClickEventArgs e)
-        {
-            AssignmentSelected (e.Position);
-        }
-
-        public void OnClick (View v)
-        {
-            if (v.Id == Resource.Id.assignmentSelectedItem) {
-                AssignmentSelected (-1);
-            }
         }
     }
 }

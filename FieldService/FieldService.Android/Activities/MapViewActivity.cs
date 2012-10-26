@@ -28,8 +28,11 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Activity for the map overview
+    /// </summary>
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
-    public class MapViewActivity : MapActivity, View.IOnClickListener {
+    public class MapViewActivity : MapActivity {
         AssignmentViewModel assignmentViewModel;
         LinearLayout assignmentMapViewLayout;
         MapView mapView;
@@ -50,9 +53,13 @@ namespace FieldService.Android {
             SetContentView (Resource.Layout.MapViewLayout);
 
             assignmentMapViewLayout = FindViewById<LinearLayout> (Resource.Id.mapViewAssignmentLayout);
+            assignmentMapViewLayout.Click += (sender, e) => {
+                var intent = new Intent (this, typeof (SummaryActivity));
+                intent.PutExtra (Constants.BundleIndex, -1);
+                StartActivity (intent);
+            };
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
 
-            assignmentMapViewLayout.SetOnClickListener (this);
             myLocation = new MyLocationOverlay (this, mapView);
             myLocation.RunOnFirstFix (() => {
                 mapView.Controller.AnimateTo (myLocation.MyLocation);
@@ -219,15 +226,6 @@ namespace FieldService.Android {
 
             } else {
                 assignmentMapViewLayout.Visibility = ViewStates.Gone;
-            }
-        }
-
-        public void OnClick (View v)
-        {
-            if (v.Id == Resource.Id.mapViewAssignmentLayout) {
-                var intent = new Intent (this, typeof (SummaryActivity));
-                intent.PutExtra (Constants.BundleIndex, -1);
-                StartActivity (intent);
             }
         }
     }

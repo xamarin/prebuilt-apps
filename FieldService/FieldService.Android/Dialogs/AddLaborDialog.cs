@@ -21,6 +21,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -29,7 +30,7 @@ namespace FieldService.Android.Dialogs {
     /// <summary>
     /// Dialog for adding labor entries
     /// </summary>
-    public class AddLaborDialog : BaseDialog, View.IOnClickListener{
+    public class AddLaborDialog : BaseDialog {
         LaborViewModel laborViewModel;
         EditText description;
         TextView hours;
@@ -53,19 +54,42 @@ namespace FieldService.Android.Dialogs {
             SetCancelable (true);
 
             var cancel = (Button)FindViewById (Resource.Id.cancelAddLabor);
+            cancel.Click += (sender, e) => Dismiss ();
+
             var delete = (Button)FindViewById (Resource.Id.deleteAddLabor);
+            delete.Click += (sender, e) => {
+                //delete & reload
+                if (CurrentLabor != null && CurrentLabor.ID != -1) {
+                    DeleteLabor ();
+                } else {
+                    Dismiss ();
+                }
+            };
+
             var save = (Button)FindViewById (Resource.Id.saveAddLabor);
+            save.Click += (sender, e) => SaveLabor ();
+
             var addHours = (ImageButton)FindViewById (Resource.Id.addLaborHours);
+            addHours.Click += (sender, e) => {
+                //add to the hours
+                var total = hours.Text.ToDouble ();
+                total += .5;
+                CurrentLabor.Hours = TimeSpan.FromHours (total);
+                hours.Text = total.ToString ("0.0");
+            };
+
             var subtractHours = (ImageButton)FindViewById (Resource.Id.subtractLaborHours);
+            subtractHours.Click += (sender, e) => {
+                //subtract the hours
+                var total = hours.Text.ToDouble ();
+                total -= .5;
+                CurrentLabor.Hours = TimeSpan.FromHours (total);
+                hours.Text = total.ToString ("0.0");
+            };
+
             var type = (Spinner)FindViewById (Resource.Id.addLaborHoursType);
             description = (EditText)FindViewById (Resource.Id.addLaborDescription);
             hours = (TextView)FindViewById (Resource.Id.addLaborHoursText);
-
-            cancel.SetOnClickListener (this);
-            delete.SetOnClickListener (this);
-            save.SetOnClickListener (this);
-            addHours.SetOnClickListener (this);
-            subtractHours.SetOnClickListener (this);
 
             var adapter = new LaborTypeSpinnerAdapter (laborHourTypes, Context, Resource.Layout.SimpleSpinnerItem);
             adapter.TextColor = Color.Black;
@@ -118,7 +142,8 @@ namespace FieldService.Android.Dialogs {
             laborViewModel
                 .DeleteLabor (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
-                    ((SummaryActivity)Activity).ReloadLaborHours ();
+                    var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+                    fragment.ReloadHours ();
                     Dismiss ();
                 });
         }
@@ -135,54 +160,10 @@ namespace FieldService.Android.Dialogs {
             laborViewModel
                 .SaveLabor (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
-                    ((SummaryActivity)Activity).ReloadLaborHours ();
+                    var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+                    fragment.ReloadHours ();
                     Dismiss ();
                 });
-        }
-
-        /// <summary>
-        /// Click handlers
-        /// </summary>
-        public void OnClick (View v)
-        {
-            switch (v.Id) {
-                case Resource.Id.cancelAddLabor: {
-                        Dismiss ();
-                    }
-                    break;
-                case Resource.Id.saveAddLabor: {
-                        //save & reload
-                        SaveLabor ();
-                    }
-                    break;
-                case Resource.Id.deleteAddLabor: {
-                        //delete & reload
-                        if (CurrentLabor != null && CurrentLabor.ID != -1) {
-                            DeleteLabor ();
-                        } else {
-                            Dismiss ();
-                        }
-                    }
-                    break;
-                case Resource.Id.addLaborHours: {
-                        //add to the hours
-                        var total = hours.Text.ToDouble ();
-                        total += .5;
-                        CurrentLabor.Hours = TimeSpan.FromHours (total);
-                        hours.Text = total.ToString ("0.0");
-                    }
-                    break;
-                case Resource.Id.subtractLaborHours: {
-                        //subtract the hours
-                        var total = hours.Text.ToDouble ();
-                        total -= .5;
-                        CurrentLabor.Hours = TimeSpan.FromHours (total);
-                        hours.Text = total.ToString ("0.0");
-                    }
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }

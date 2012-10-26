@@ -62,7 +62,7 @@ namespace FieldService.Android.Fragments {
         /// <summary>
         /// Reloads the assignment items in the Listview
         /// </summary>
-        public void ReloadAssignmentItems ()
+        private void ReloadAssignmentItems ()
         {
             if (AssignmentItems != null) {
                 var adapter = new ItemsAdapter (Activity, Resource.Layout.ItemLayout, AssignmentItems);
@@ -95,7 +95,17 @@ namespace FieldService.Android.Fragments {
         public void DeleteItem (AssignmentItem item)
         {
             itemViewModel.DeleteAssignmentItem (Assignment, item).ContinueOnUIThread (_ => {
-                ((SummaryActivity)Activity).ReloadItems ();
+                ReloadItems ();
+            });
+        }
+
+        public void ReloadItems ()
+        {
+            itemViewModel.LoadAssignmentItems (Assignment).ContinueOnUIThread (_ => {
+                AssignmentItems = itemViewModel.AssignmentItems;
+                ReloadAssignmentItems ();
+                var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
+                items.Text = string.Format ("({0}) Items", Assignment.TotalItems.ToString ());
             });
         }
     }

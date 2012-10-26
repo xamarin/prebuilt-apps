@@ -45,7 +45,7 @@ namespace FieldService.Android.Fragments {
                 description.Text = Assignment.Description;
                 descriptionHeader.Text = Assignment.Title;
                 items.Text = Assignment.TotalItems.ToString ();
-                laborhours.Text = Assignment.TotalHours.ToString ();
+                laborhours.Text = Assignment.TotalHours.TotalHours.ToString ("0.0");
                 expenses.Text = Assignment.TotalExpenses.ToString ("$#.00");
             }
 

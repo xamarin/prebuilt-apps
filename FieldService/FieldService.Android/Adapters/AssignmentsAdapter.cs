@@ -27,7 +27,7 @@ namespace FieldService.Android {
     /// <summary>
     /// Adapter for a list of assignments
     /// </summary>
-    public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener{
+    public class AssignmentsAdapter : ArrayAdapter<Assignment> {
 
         AssignmentViewModel assignmentViewModel;
         IList<Assignment> assignments;
@@ -71,13 +71,22 @@ namespace FieldService.Android {
             var timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
             var timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
             var accept = view.FindViewById<Button> (Resource.Id.assignmentAccept);
+            accept.Click += (sender, e) => {
+                var activeAssignment = GetItem (position);
+                activeAssignment.Status = AssignmentStatus.Hold;
+                SaveAssignment (activeAssignment, position);
+            };
+
             var decline = view.FindViewById<Button> (Resource.Id.assignmentDecline);
+            decline.Click += (sender, e) => {
+                var activeAssignment = GetItem (position);
+                activeAssignment.Status = AssignmentStatus.Declined;
+                SaveAssignment (activeAssignment, position);
+            };
 
             if (assignment.Status == AssignmentStatus.New) {
                 buttonLayout.Visibility = ViewStates.Visible;
                 timerLayout.Visibility = ViewStates.Gone;
-                accept.Tag = position;
-                decline.Tag = position;
 
             } else {
                 buttonLayout.Visibility = ViewStates.Gone;
@@ -125,8 +134,6 @@ namespace FieldService.Android {
             name.Text = assignment.ContactName;
             phone.Text = assignment.ContactPhone;
             address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
-            accept.SetOnClickListener (this);
-            decline.SetOnClickListener (this);
 
             return view;
         }
@@ -144,31 +151,6 @@ namespace FieldService.Android {
                     activity.ReloadSingleListItem (index);
                 }
             });
-        }
-
-        /// <summary>
-        /// When an assignment is accepted or declined
-        /// </summary>
-        public void OnClick (View v)
-        {
-            switch (v.Id) {
-                case Resource.Id.assignmentAccept: {
-                        var index = int.Parse (v.Tag.ToString ());
-                        var activeAssignment = GetItem (index);
-                        activeAssignment.Status = AssignmentStatus.Hold;
-                        SaveAssignment (activeAssignment, index);
-                    }
-                    break;
-                case Resource.Id.assignmentDecline: {
-                        var index = int.Parse (v.Tag.ToString ());
-                        var activeAssignment = GetItem (index);
-                        activeAssignment.Status = AssignmentStatus.Declined;
-                        SaveAssignment (activeAssignment, index);
-                    }
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }
