@@ -1,4 +1,3 @@
-using System;
 //
 //  Copyright 2012  Xamarin Inc.
 //
@@ -13,6 +12,7 @@ using System;
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+
 using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
@@ -24,6 +24,9 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Adapter for a list of items
+    /// </summary>
     public class ItemsAdapter : ArrayAdapter<AssignmentItem>, View.IOnClickListener {
 
         ItemViewModel itemViewModel;
@@ -38,6 +41,9 @@ namespace FieldService.Android {
             this.itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
         }
 
+        /// <summary>
+        /// The parent fragment this adapter is in
+        /// </summary>
         public ItemFragment Fragment
         {
             get;
@@ -71,6 +77,9 @@ namespace FieldService.Android {
             return view;
         }
 
+        /// <summary>
+        /// When an item's delete button is clicked
+        /// </summary>
         public void OnClick (View v)
         {
             if (v.Id == Resource.Id.itemTrashButton) {
