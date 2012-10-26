@@ -12,6 +12,7 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+
 using System.Collections.Generic;
 using System.Linq;
 using Android.Content;
@@ -20,6 +21,9 @@ using Android.Views;
 using Android.Widget;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Adapter for a spinner for selecting LaborType
+    /// </summary>
     public class LaborTypeSpinnerAdapter : BaseAdapter, ISpinnerAdapter {
         List<string> items;
         Context context;
@@ -47,6 +51,9 @@ namespace FieldService.Android {
             return (long)position;
         }
 
+        /// <summary>
+        /// Text color for the item
+        /// </summary>
         public Color TextColor
         {
             get;

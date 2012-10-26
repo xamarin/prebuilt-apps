@@ -12,7 +12,7 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-using System;
+
 using System.Collections.Generic;
 using System.Linq;
 using Android.Content;
@@ -24,6 +24,9 @@ using FieldService.ViewModels;
 using Orientation = Android.Content.Res.Orientation;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Adapter for a list of assignments
+    /// </summary>
     public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener{
 
         AssignmentViewModel assignmentViewModel;
@@ -143,6 +146,9 @@ namespace FieldService.Android {
             });
         }
 
+        /// <summary>
+        /// When an assignment is accepted or declined
+        /// </summary>
         public void OnClick (View v)
         {
             switch (v.Id) {

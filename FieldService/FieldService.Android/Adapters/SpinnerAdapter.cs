@@ -12,9 +12,9 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+
 using System.Collections.Generic;
 using System.Linq;
-using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
@@ -22,6 +22,9 @@ using Android.Widget;
 using FieldService.Data;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Generic adapter for Spinners throughout the app
+    /// </summary>
     public class SpinnerAdapter : BaseAdapter, ISpinnerAdapter {
         List<string> items;
         Context context;
@@ -52,6 +55,9 @@ namespace FieldService.Android {
             return (long)position;
         }
 
+        /// <summary>
+        /// Text color for the item
+        /// </summary>
         public Color TextColor
         {
             get;

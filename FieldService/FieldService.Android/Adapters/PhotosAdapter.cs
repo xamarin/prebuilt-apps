@@ -13,20 +13,17 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
 using Android.Content;
 using Android.Graphics;
-using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Adapter for a list of photos
+    /// </summary>
     public class PhotosAdapter : ArrayAdapter<Photo> {
         List<Photo> photos;
         int resourceId;

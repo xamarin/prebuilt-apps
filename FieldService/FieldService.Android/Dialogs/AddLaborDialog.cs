@@ -15,13 +15,10 @@
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
@@ -29,11 +26,15 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Dialogs {
+    /// <summary>
+    /// Dialog for adding labor entries
+    /// </summary>
     public class AddLaborDialog : BaseDialog, View.IOnClickListener{
         LaborViewModel laborViewModel;
         EditText description;
         TextView hours;
         List<string> laborHourTypes;
+
         public AddLaborDialog (Context context)
             : base (context)
         {
@@ -82,24 +83,36 @@ namespace FieldService.Android.Dialogs {
             base.OnAttachedToWindow ();
         }
 
+        /// <summary>
+        /// Selected labor entry
+        /// </summary>
         public Labor CurrentLabor
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The selected assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The parent activity
+        /// </summary>
         public Activity Activity
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Deletes the labor entry
+        /// </summary>
         private void DeleteLabor ()
         {
             laborViewModel
@@ -110,6 +123,9 @@ namespace FieldService.Android.Dialogs {
                 });
         }
 
+        /// <summary>
+        /// Saves the labor entry
+        /// </summary>
         private void SaveLabor ()
         {
             CurrentLabor.Hours = TimeSpan.FromHours (hours.Text.ToDouble ());
@@ -124,6 +140,9 @@ namespace FieldService.Android.Dialogs {
                 });
         }
 
+        /// <summary>
+        /// Click handlers
+        /// </summary>
         public void OnClick (View v)
         {
             switch (v.Id) {

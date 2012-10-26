@@ -158,11 +158,13 @@ namespace FieldService.Android.Fragments {
                 mediaPicker.PickPhotoAsync ().ContinueWith (t => {
                     if (t.IsCanceled)
                         return;
-                    photoDialog = new PhotoDialog (Activity);
-                    photoDialog.Activity = Activity;
-                    photoDialog.Assignment = Assignment;
-                    photoDialog.PhotoStream = t.Result.GetStream ();
-                    photoDialog.Show ();
+                    Activity.RunOnUiThread (() => {
+                        photoDialog = new PhotoDialog (Activity);
+                        photoDialog.Activity = Activity;
+                        photoDialog.Assignment = Assignment;
+                        photoDialog.PhotoStream = t.Result.GetStream ();
+                        photoDialog.Show ();
+                    });
                 });
             } else if (which == 1) {
                 //camera
@@ -172,11 +174,13 @@ namespace FieldService.Android.Fragments {
                 mediaPicker.TakePhotoAsync (options).ContinueWith (t => {
                     if (t.IsCanceled)
                         return;
-                    photoDialog = new PhotoDialog (Activity);
-                    photoDialog.Activity = Activity;
-                    photoDialog.Assignment = Assignment;
-                    photoDialog.PhotoStream = t.Result.GetStream ();
-                    photoDialog.Show ();
+                    Activity.RunOnUiThread (() => {
+                            photoDialog = new PhotoDialog (Activity);
+                            photoDialog.Activity = Activity;
+                            photoDialog.Assignment = Assignment;
+                            photoDialog.PhotoStream = t.Result.GetStream ();
+                            photoDialog.Show ();
+                        });
                 });
             }
         }

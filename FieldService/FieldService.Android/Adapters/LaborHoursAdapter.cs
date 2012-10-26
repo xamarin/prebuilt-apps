@@ -22,6 +22,9 @@ using Android.Widget;
 using FieldService.Data;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Adapter for a list of labor entries
+    /// </summary>
     public class LaborHoursAdapter : ArrayAdapter<Labor> {
         List<Labor> laborHours;
         int resourceId;

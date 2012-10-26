@@ -13,15 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
@@ -29,14 +23,19 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Dialogs {
+    /// <summary>
+    /// Dialog for capturing a signature
+    /// </summary>
     public class SignatureDialog : BaseDialog, View.IOnClickListener {
         AssignmentViewModel assignmentViewModel;
         ImageView signature;
+
         public SignatureDialog (Context context)
             : base (context)
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
         }
+
         protected override void OnCreate (Bundle bundle)
         {
             base.OnCreate (bundle);
@@ -54,9 +53,13 @@ namespace FieldService.Android.Dialogs {
             cancel.SetOnClickListener (this);
         }
 
+        /// <summary>
+        /// Load the image of the signature
+        /// </summary>
         public override void OnAttachedToWindow ()
         {
             base.OnAttachedToWindow ();
+
             if (Assignment != null && Assignment.Signature != null) {
                 using (var bmp = BitmapFactory.DecodeByteArray (Assignment.Signature, 0, Assignment.Signature.Length)) {
                     signature.SetImageBitmap (bmp);
@@ -64,12 +67,18 @@ namespace FieldService.Android.Dialogs {
             }
         }
 
+        /// <summary>
+        /// The current assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Handle click events
+        /// </summary>
         public void OnClick (View v)
         {
             switch (v.Id) {
