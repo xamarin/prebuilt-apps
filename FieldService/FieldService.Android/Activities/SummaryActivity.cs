@@ -252,7 +252,7 @@ namespace FieldService.Android {
                             addLabor.Visibility =
                                 items.Visibility = ViewStates.Visible;
                             addItems.Visibility = ViewStates.Gone;
-                            items.Text = string.Format ("{0} hrs", Assignment.TotalHours.ToString ("0.0"));
+                            items.Text = string.Format ("{0} hrs", Assignment.TotalHours.TotalHours.ToString ("0.0"));
                         });
                     }
                     break;
@@ -296,6 +296,11 @@ namespace FieldService.Android {
                 laborFragment.LaborHours = laborViewModel.LaborHours;
                 laborFragment.ReloadLaborHours ();
             });
+        }
+
+        public override void OnBackPressed ()
+        {
+            Finish ();
         }
     }
 }

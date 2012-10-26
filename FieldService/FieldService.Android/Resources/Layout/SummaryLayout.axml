@@ -33,7 +33,8 @@
         android:background="@drawable/accept_assignment"
         android:paddingLeft="10dp"
         android:paddingRight="10dp"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="10dp"
+        android:visibility="invisible" />
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp"

@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Android.App;
@@ -28,7 +29,7 @@ namespace FieldService.Android.Fragments {
     /// <summary>
     /// Fragment for the items section
     /// </summary>
-    public class ItemFragment : Fragment, AdapterView.IOnItemClickListener {
+    public class ItemFragment : Fragment{
 
         ListView itemsListView;
         ItemViewModel itemViewModel;
@@ -46,7 +47,15 @@ namespace FieldService.Android.Fragments {
             var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, null, true);
             itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
             ReloadAssignmentItems ();
-            itemsListView.OnItemClickListener = this;
+            itemsListView.ItemClick += (sender, e) => {
+                var checkbox = e.View.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
+                checkbox.Checked = !checkbox.Checked;
+                checkbox.Enabled = false;
+                itemViewModel
+                    .SaveAssignmentItem (Assignment, AssignmentItems.ElementAtOrDefault (checkbox.Tag.ToString ().ToInt ()))
+                    .ContinueOnUIThread (_ => checkbox.Enabled = true);
+                Console.WriteLine ("Item Click");
+            };
             return view;
         }
 
@@ -88,19 +97,6 @@ namespace FieldService.Android.Fragments {
             itemViewModel.DeleteAssignmentItem (Assignment, item).ContinueOnUIThread (_ => {
                 ((SummaryActivity)Activity).ReloadItems ();
             });
-        }
-
-        /// <summary>
-        /// Toggles if an item is "used"
-        /// </summary>
-        public void OnItemClick (AdapterView parent, View view, int position, long id)
-        {
-            var checkbox = view.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
-            checkbox.Checked = !checkbox.Checked;
-            checkbox.Enabled = false;
-            itemViewModel
-                .SaveAssignmentItem (Assignment, AssignmentItems.ElementAtOrDefault (checkbox.Tag.ToString ().ToInt ()))
-                .ContinueOnUIThread (_ => checkbox.Enabled = true);
         }
     }
 }

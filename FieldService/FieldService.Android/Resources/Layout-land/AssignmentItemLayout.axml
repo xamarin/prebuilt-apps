@@ -119,7 +119,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:layout_gravity="center_vertical"
-            android:layout_marginLeft="20dp">
+            android:layout_marginLeft="20dp"
+            android:layout_weight="0">
             <ImageView
                 android:src="@drawable/EnrouteImage"
                 android:layout_width="wrap_content"
@@ -128,14 +129,12 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginRight="5dp" />
             <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
                 android:id="@+id/assignmentStatus"
                 android:layout_centerHorizontal="true"
-                android:background="@android:color/transparent"
                 android:layout_gravity="center_vertical"
-                android:focusable="false"
-                android:minWidth="100dp" />
+                android:focusable="false" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

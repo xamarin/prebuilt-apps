@@ -15,5 +15,7 @@
         android:layout_marginLeft="2dp"
         android:layout_marginRight="2dp"
         android:listSelector="@drawable/assignment_list_selector"
-        android:background="@android:color/white" />
+        android:background="@android:color/white"
+        android:dividerHeight="1dp"
+        android:divider="@color/listviewdivider" />
 </LinearLayout>

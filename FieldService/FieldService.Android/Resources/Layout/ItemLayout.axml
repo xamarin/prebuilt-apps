@@ -1,27 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="horizontal">
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:id="@+id/itemCheckBox"
         android:focusable="false"
         android:checked="false"
         android:button="@drawable/check_box"
         android:layout_marginLeft="10dp" />
-    <ImageButton
-        android:src="@drawable/TrashCanIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/itemTrashButton"
-        android:layout_gravity="center_vertical"
-        android:background="@android:color/transparent"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:focusable="false"
-        android:padding="10dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -29,7 +18,15 @@
         android:layout_gravity="center_vertical"
         android:textColor="@android:color/black"
         android:layout_marginLeft="30dp"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@id/itemCheckBox"
-        android:textSize="16dp" />
-</RelativeLayout>
+        android:textSize="16dp"
+        android:layout_weight="1" />
+    <ImageButton
+        android:src="@drawable/TrashCanIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemTrashButton"
+        android:layout_gravity="center_vertical"
+        android:background="@android:color/transparent"
+        android:focusable="false"
+        android:padding="10dp" />
+</LinearLayout>

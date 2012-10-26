@@ -11,4 +11,5 @@
   <color name="navigationitemselected">#333333</color>
   <color name="itemssearchcolor">#BEBEBE</color>
   <color name="confirmationborder">#CCCCCC</color>
+  <color name="listviewdivider">#A9A9A9</color>
 </resources>

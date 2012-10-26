@@ -31,7 +31,9 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:listSelector="@drawable/assignment_list_selector"
-        android:background="@android:color/white" />
+        android:background="@android:color/white"
+        android:dividerHeight="1dp"
+        android:divider="@color/listviewdivider" />
     <TabHost
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

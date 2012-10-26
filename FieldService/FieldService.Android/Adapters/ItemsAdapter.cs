@@ -74,6 +74,8 @@ namespace FieldService.Android {
             name.Text = string.Format ("#{0} {1}", item.Number, item.Name);
             trashButton.SetOnClickListener (this);
             trashButton.Tag = position;
+            trashButton.Focusable = false;
+            checkBox.Focusable = false;
             return view;
         }
 

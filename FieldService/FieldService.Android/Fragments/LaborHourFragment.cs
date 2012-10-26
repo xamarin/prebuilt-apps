@@ -29,7 +29,7 @@ namespace FieldService.Android.Fragments {
     /// <summary>
     /// Fragment for the labor hours section
     /// </summary>
-    public class LaborHourFragment : Fragment, AdapterView.IOnItemClickListener {
+    public class LaborHourFragment : Fragment {
         ListView laborListView;
         LaborViewModel laborViewModel;
         AddLaborDialog laborDialog;
@@ -49,7 +49,17 @@ namespace FieldService.Android.Fragments {
             laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
 
             ReloadLaborHours ();
-            laborListView.OnItemClickListener = this;
+            laborListView.ItemClick += (sender, e) => {
+                var textView = e.View.FindViewById<TextView> (Resource.Id.laborHours);
+
+                var labor = LaborHours.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
+
+                laborDialog = new AddLaborDialog (Activity);
+                laborDialog.Activity = Activity;
+                laborDialog.Assignment = Assignment;
+                laborDialog.CurrentLabor = labor;
+                laborDialog.Show ();
+            };
             return view;
         }
 
@@ -92,22 +102,6 @@ namespace FieldService.Android.Fragments {
         {
             get;
             set;
-        }
-        
-        /// <summary>
-        /// Show the "add labor" dialog when clicked
-        /// </summary>
-        public void OnItemClick (AdapterView parent, View view, int position, long id)
-        {
-            var textView = view.FindViewById<TextView> (Resource.Id.laborHours);
-
-            var labor = LaborHours.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
-
-            laborDialog = new AddLaborDialog (Activity);
-            laborDialog.Activity = Activity;
-            laborDialog.Assignment = Assignment;
-            laborDialog.CurrentLabor = labor;
-            laborDialog.Show ();
-        }
+        }        
     }
 }

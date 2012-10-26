@@ -56,11 +56,14 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f040009
 			public const int itemssearchcolor = 2130968585;
 			
+			// aapt resource value: 0x7f04000b
+			public const int listviewdivider = 2130968587;
+			
 			// aapt resource value: 0x7f040008
 			public const int navigationitemselected = 2130968584;
 			
-			// aapt resource value: 0x7f04000b
-			public const int radio_selector_color = 2130968587;
+			// aapt resource value: 0x7f04000c
+			public const int radio_selector_color = 2130968588;
 			
 			private Color()
 			{
@@ -324,6 +327,9 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f07002c
 			public const int assingmentTabHost = 2131165228;
 			
+			// aapt resource value: 0x7f07005d
+			public const int backSummary = 2131165277;
+			
 			// aapt resource value: 0x7f070005
 			public const int cancelAddLabor = 2131165189;
 			
@@ -342,8 +348,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f07002f
 			public const int confirmationsSignature = 2131165231;
 			
-			// aapt resource value: 0x7f070066
-			public const int contentFrame = 2131165286;
+			// aapt resource value: 0x7f070067
+			public const int contentFrame = 2131165287;
 			
 			// aapt resource value: 0x7f070006
 			public const int deleteAddLabor = 2131165190;
@@ -378,23 +384,23 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070050
 			public const int googleMapsView = 2131165264;
 			
-			// aapt resource value: 0x7f070068
-			public const int imageView1 = 2131165288;
-			
 			// aapt resource value: 0x7f070069
-			public const int imageView2 = 2131165289;
+			public const int imageView1 = 2131165289;
+			
+			// aapt resource value: 0x7f07006a
+			public const int imageView2 = 2131165290;
 			
 			// aapt resource value: 0x7f070032
 			public const int itemCheckBox = 2131165234;
 			
-			// aapt resource value: 0x7f070034
-			public const int itemName = 2131165236;
+			// aapt resource value: 0x7f070033
+			public const int itemName = 2131165235;
 			
 			// aapt resource value: 0x7f07003e
 			public const int itemPopupItemsList = 2131165246;
 			
-			// aapt resource value: 0x7f070033
-			public const int itemTrashButton = 2131165235;
+			// aapt resource value: 0x7f070034
+			public const int itemTrashButton = 2131165236;
 			
 			// aapt resource value: 0x7f070035
 			public const int itemsListItemText = 2131165237;
@@ -459,8 +465,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f07004f
 			public const int mapViewAssignmentLayout = 2131165263;
 			
-			// aapt resource value: 0x7f07005d
-			public const int navigationFragmentContainer = 2131165277;
+			// aapt resource value: 0x7f07005e
+			public const int navigationFragmentContainer = 2131165278;
 			
 			// aapt resource value: 0x7f070051
 			public const int navigationListView = 2131165265;
@@ -471,8 +477,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070057
 			public const int navigationListViewText = 2131165271;
 			
-			// aapt resource value: 0x7f07006a
-			public const int navigationMenu = 2131165290;
+			// aapt resource value: 0x7f07006b
+			public const int navigationMenu = 2131165291;
 			
 			// aapt resource value: 0x7f070048
 			public const int password = 2131165256;
@@ -519,29 +525,29 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070007
 			public const int saveAddLabor = 2131165191;
 			
-			// aapt resource value: 0x7f07005e
-			public const int selectedAssignment = 2131165278;
+			// aapt resource value: 0x7f07005f
+			public const int selectedAssignment = 2131165279;
+			
+			// aapt resource value: 0x7f070066
+			public const int selectedAssignmentAddItem = 2131165286;
 			
 			// aapt resource value: 0x7f070065
-			public const int selectedAssignmentAddItem = 2131165285;
-			
-			// aapt resource value: 0x7f070064
-			public const int selectedAssignmentAddLabor = 2131165284;
-			
-			// aapt resource value: 0x7f070062
-			public const int selectedAssignmentAddress = 2131165282;
-			
-			// aapt resource value: 0x7f070060
-			public const int selectedAssignmentContactName = 2131165280;
-			
-			// aapt resource value: 0x7f07005f
-			public const int selectedAssignmentNumber = 2131165279;
-			
-			// aapt resource value: 0x7f070061
-			public const int selectedAssignmentPhoneNumber = 2131165281;
+			public const int selectedAssignmentAddLabor = 2131165285;
 			
 			// aapt resource value: 0x7f070063
-			public const int selectedAssignmentTotalItems = 2131165283;
+			public const int selectedAssignmentAddress = 2131165283;
+			
+			// aapt resource value: 0x7f070061
+			public const int selectedAssignmentContactName = 2131165281;
+			
+			// aapt resource value: 0x7f070060
+			public const int selectedAssignmentNumber = 2131165280;
+			
+			// aapt resource value: 0x7f070062
+			public const int selectedAssignmentPhoneNumber = 2131165282;
+			
+			// aapt resource value: 0x7f070064
+			public const int selectedAssignmentTotalItems = 2131165284;
 			
 			// aapt resource value: 0x7f070015
 			public const int signatureCancelButton = 2131165205;
@@ -561,26 +567,26 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070003
 			public const int subtractLaborHours = 2131165187;
 			
+			// aapt resource value: 0x7f07006d
+			public const int summaryAssignmentDescription = 2131165293;
+			
 			// aapt resource value: 0x7f07006c
-			public const int summaryAssignmentDescription = 2131165292;
+			public const int summaryAssignmentDescriptionHeader = 2131165292;
 			
-			// aapt resource value: 0x7f07006b
-			public const int summaryAssignmentDescriptionHeader = 2131165291;
-			
-			// aapt resource value: 0x7f070070
-			public const int summaryAssignmentExpenses = 2131165296;
-			
-			// aapt resource value: 0x7f07006e
-			public const int summaryAssignmentItems = 2131165294;
+			// aapt resource value: 0x7f070071
+			public const int summaryAssignmentExpenses = 2131165297;
 			
 			// aapt resource value: 0x7f07006f
-			public const int summaryAssignmentLaborHours = 2131165295;
+			public const int summaryAssignmentItems = 2131165295;
 			
-			// aapt resource value: 0x7f070067
-			public const int summaryAssignmentTitle = 2131165287;
+			// aapt resource value: 0x7f070070
+			public const int summaryAssignmentLaborHours = 2131165296;
 			
-			// aapt resource value: 0x7f07006d
-			public const int summaryViewHistory = 2131165293;
+			// aapt resource value: 0x7f070068
+			public const int summaryAssignmentTitle = 2131165288;
+			
+			// aapt resource value: 0x7f07006e
+			public const int summaryViewHistory = 2131165294;
 			
 			// aapt resource value: 0x7f070013
 			public const int textView1 = 2131165203;

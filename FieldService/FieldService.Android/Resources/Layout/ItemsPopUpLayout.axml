@@ -78,7 +78,9 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/itemsPopupCancelButton"
         android:listSelector="@drawable/items_selector"
-        android:background="@color/assignmentoffwhite" />
+        android:background="@color/assignmentoffwhite"
+        android:dividerHeight="1dp"
+        android:divider="@color/listviewdivider" />
     <Button
         android:text="@string/Cancel"
         android:layout_width="fill_parent"

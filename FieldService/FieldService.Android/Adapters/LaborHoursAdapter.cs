@@ -73,6 +73,8 @@ namespace FieldService.Android {
 
             hours.Tag = position;
 
+            laborType.Focusable = false;
+
             return view;
         }
     }

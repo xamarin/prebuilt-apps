@@ -8,14 +8,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:background="@drawable/actionbar" />
-    <ImageView
-        android:id="@+id/actionBarTitle"
+    <ImageButton
+        android:src="@drawable/back_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="5dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/XamarinTitle" />
+        android:layout_alignParentLeft="@id/actionBarTitle"
+        android:id="@+id/backSummary"
+        android:background="@android:color/transparent"
+        android:paddingLeft="5dp"
+        android:paddingBottom="20dp"
+        android:paddingRight="10dp"
+        android:paddingTop="20dp" />
     <FrameLayout
         android:layout_width="220dp"
         android:layout_height="fill_parent"
@@ -146,4 +149,12 @@
         android:id="@+id/summaryAssignmentTitle"
         android:layout_alignLeft="@id/contentFrame"
         android:layout_marginTop="15dp" />
+    <ImageView
+        android:id="@+id/actionBarTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="15dp"
+        android:src="@drawable/XamarinTitle"
+        android:layout_toRightOf="@id/backSummary" />
 </RelativeLayout>
