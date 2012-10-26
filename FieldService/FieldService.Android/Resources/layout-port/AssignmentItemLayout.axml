@@ -113,7 +113,8 @@
                 android:maxWidth="85dp"
                 android:minWidth="85dp"
                 android:layout_width="wrap_content"
-                android:layout_height="fill_parent" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical" />
             <ToggleButton
                 android:id="@+id/assignmentTimer"
                 android:background="@drawable/timer_selector"
