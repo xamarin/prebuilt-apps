@@ -215,7 +215,7 @@ namespace FieldService.Android {
         private void AssignmentSelected (int index)
         {
             var intent = new Intent (this, typeof (SummaryActivity));
-            intent.PutExtra (Constants.BUNDLE_INDEX, index);
+            intent.PutExtra (Constants.BundleIndex, index);
             StartActivity (intent);
         }
 

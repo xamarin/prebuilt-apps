@@ -12,23 +12,22 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.ComponentModel;
 
-using Android.App;
-using Android.Content;
-using Android.OS;
-using Android.Runtime;
-using Android.Views;
-using Android.Widget;
+using System;
+using System.ComponentModel;
 using System.Threading;
+using Android.App;
+using Android.OS;
 
 namespace FieldService.Android.Utilities {
-    public class SynchronizeInvoke : ISynchronizeInvoke{
+    /// <summary>
+    /// Android implementation of ISynchronizeInvoke
+    /// </summary>
+    public class SynchronizeInvoke : ISynchronizeInvoke {
 
+        /// <summary>
+        /// An activity is required for RunOnUiThread
+        /// </summary>
         public Activity Activity
         {
             get;
@@ -65,6 +64,9 @@ namespace FieldService.Android.Utilities {
 
         public IAsyncResult BeginInvoke (Delegate method, object [] args)
         {
+            if (Activity == null)
+                throw new InvalidOperationException ("Activity is null!");
+
             var result = new AsyncResult ();
 
             Activity.RunOnUiThread (() => {
@@ -87,10 +89,13 @@ namespace FieldService.Android.Utilities {
 
         public object Invoke (Delegate method, object [] args)
         {
+            if (Activity == null)
+                throw new InvalidOperationException ("Activity is null!");
+
             object result = null;
             Activity.RunOnUiThread (() => {
                 result = method.DynamicInvoke (args);
-                });
+            });
             return result;
         }
 

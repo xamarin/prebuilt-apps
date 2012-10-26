@@ -61,7 +61,7 @@ namespace FieldService.Android {
             tabHost.AddTab (mapViewSpec);
 
             if (savedInstanceState != null) {
-                var currentTab = savedInstanceState.GetInt (Constants.CURRENT_TAB);
+                var currentTab = savedInstanceState.GetInt (Constants.CurrentTab);
                 tabHost.CurrentTab = currentTab;
             } else {
                 tabHost.CurrentTab = 0;
@@ -92,7 +92,7 @@ namespace FieldService.Android {
         protected override void OnSaveInstanceState (Bundle outState)
         {
             base.OnSaveInstanceState (outState);
-            outState.PutInt (Constants.CURRENT_TAB, tabHost.CurrentTab);
+            outState.PutInt (Constants.CurrentTab, tabHost.CurrentTab);
         }
     }
 }

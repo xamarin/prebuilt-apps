@@ -13,14 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using Android.App;
-using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FieldService.Android.Dialogs;
@@ -30,6 +26,9 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Fragments {
+    /// <summary>
+    /// Fragment for the labor hours section
+    /// </summary>
     public class LaborHourFragment : Fragment, AdapterView.IOnItemClickListener {
         ListView laborListView;
         LaborViewModel laborViewModel;
@@ -54,6 +53,9 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        /// <summary>
+        /// Reloads the labor hours in the ListView
+        /// </summary>
         public void ReloadLaborHours ()
         {
             if (LaborHours != null) {
@@ -61,6 +63,9 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        /// <summary>
+        /// Dismiss any child dialogs
+        /// </summary>
         public override void OnPause ()
         {
             base.OnPause ();
@@ -71,18 +76,27 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        /// <summary>
+        /// The current assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The list of labor hours
+        /// </summary>
         public List<Labor> LaborHours
         {
             get;
             set;
         }
         
+        /// <summary>
+        /// Show the "add labor" dialog when clicked
+        /// </summary>
         public void OnItemClick (AdapterView parent, View view, int position, long id)
         {
             var textView = view.FindViewById<TextView> (Resource.Id.laborHours);

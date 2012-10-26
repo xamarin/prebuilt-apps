@@ -12,6 +12,7 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+
 using System;
 using System.Linq;
 using Android.App;
@@ -25,6 +26,9 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Fragments {
+    /// <summary>
+    /// Fragment for the navigation menu as well as the active assignment's timer
+    /// </summary>
     public class NavigationFragment : Fragment, AdapterView.IOnItemClickListener, AdapterView.IOnItemSelectedListener {
         ListView navigationListView;
         Spinner navigationStatus;
@@ -36,16 +40,23 @@ namespace FieldService.Android.Fragments {
             listViewIndex;
         Assignment assignment;
         AssignmentViewModel assignmentViewModel;
-        public event EventHandler<EventArgs<int>> NavigationSelected = delegate { };
+        public event EventHandler<EventArgs<int>> NavigationSelected;
 
         public override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
 
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            assignmentViewModel.HoursChanged += (sender, e) => {
+                if (timerHours != null && Activity != null) {
+                    Activity.RunOnUiThread (() => {
+                        timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+                    });
+                }
+            };
 
-            if (savedInstanceState != null && savedInstanceState.ContainsKey (Constants.BUNDLE_INDEX)) {
-                listViewIndex = savedInstanceState.GetInt (Constants.BUNDLE_INDEX);
+            if (savedInstanceState != null && savedInstanceState.ContainsKey (Constants.BundleIndex)) {
+                listViewIndex = savedInstanceState.GetInt (Constants.BundleIndex);
             }
 
             assignment = assignmentViewModel.ActiveAssignment;
@@ -103,6 +114,9 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        /// <summary>
+        /// Sets up the UI for the active assignment
+        /// </summary>
         private void SetActiveAssignment ()
         {
             if (assignment != null && assignment.Status == AssignmentStatus.Active) {
@@ -133,6 +147,9 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        /// <summary>
+        /// Saves the assignment
+        /// </summary>
         private void SaveAssignment ()
         {
             assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
@@ -140,6 +157,9 @@ namespace FieldService.Android.Fragments {
             });
         }
 
+        /// <summary>
+        /// Navigates to the appropriate section when clicked
+        /// </summary>
         public void OnItemClick (AdapterView parent, View view, int position, long id)
         {
             if (position != lastposition) {
@@ -158,6 +178,9 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        /// <summary>
+        /// Change the assignment status
+        /// </summary>
         public void OnItemSelected (AdapterView parent, View view, int position, long id)
         {
             var status = assignmentViewModel.AvailableStatuses [position];
@@ -167,48 +190,51 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        /// <summary>
+        /// Required for AdapterView.IOnItemSelectedListener interface
+        /// </summary>
+        /// <param name="parent"></param>
         public void OnNothingSelected (AdapterView parent)
         {
             //do nothing
         }
 
+        /// <summary>
+        /// Sets the selected navigation item
+        /// </summary>
         public void SetNavigation (int index)
         {
             navigationListView.SetSelection (index);
             OnItemClick (navigationListView, navigationListView.GetChildAt (index), index, 0);
         }
 
+        /// <summary>
+        /// Fires the NavigationSelected event
+        /// </summary>
         private void OnNavigationSelected (int index)
         {
-            NavigationSelected (this, new EventArgs<int> { Value = index });
+            var method = NavigationSelected;
+            if (method != null)
+                method (this, new EventArgs<int> { Value = index });
         }
 
+        /// <summary>
+        /// Save the selected index
+        /// </summary>
+        /// <param name="outState"></param>
         public override void OnSaveInstanceState (Bundle outState)
         {
             base.OnSaveInstanceState (outState);
-            outState.PutInt (Constants.BUNDLE_INDEX, lastposition);
+            outState.PutInt (Constants.BundleIndex, lastposition);
         }
 
-        public override void OnResume ()
-        {
-            assignmentViewModel.HoursChanged += HoursChanged;
-            base.OnResume ();
-        }
-
+        /// <summary>
+        /// Clear out the assignment
+        /// </summary>
         public override void OnPause ()
         {
-            assignmentViewModel.HoursChanged -= HoursChanged;
             assignment = null;
             base.OnPause ();
-        }
-
-        private void HoursChanged (object sender, System.EventArgs e)
-        {
-            if (timerHours != null) {
-                Activity.RunOnUiThread (() => {
-                    timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-                    });
-            }
         }
     }
 }

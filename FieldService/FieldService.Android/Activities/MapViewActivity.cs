@@ -225,7 +225,7 @@ namespace FieldService.Android {
         {
             if (v.Id == Resource.Id.mapViewAssignmentLayout) {
                 var intent = new Intent (this, typeof (SummaryActivity));
-                intent.PutExtra (Constants.BUNDLE_INDEX, -1);
+                intent.PutExtra (Constants.BundleIndex, -1);
                 StartActivity (intent);
             }
         }

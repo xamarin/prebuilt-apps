@@ -11,9 +11,21 @@ using Android.Views;
 using Android.Widget;
 
 namespace FieldService.Android.Utilities {
+    /// <summary>
+    /// Contains a few constants used throughout the app
+    /// </summary>
     public static class Constants {
+        /// <summary>
+        /// List of navigation items
+        /// </summary>
         public static List<string> Navigation = new List<string> () { "Summary", "Map", "Items", "Labor Hours", "Confirmations" };
-        public const string BUNDLE_INDEX = "index",
-            CURRENT_TAB = "currentTab";
+        /// <summary>
+        /// Key for PutExtra
+        /// </summary>
+        public const string BundleIndex = "index";
+        /// <summary>
+        /// Key for PutInt
+        /// </summary>
+        public const string CurrentTab = "currentTab";
     }
 }
