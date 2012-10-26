@@ -119,6 +119,7 @@ namespace FieldService.Android.Dialogs {
         {
             Photo savePhoto = Photo;
             if (savePhoto == null) {
+                savePhoto = new Photo ();
                 try {
                     photo.DrawingCacheEnabled = true;
                     using (var bmp = photo.DrawingCache) {
@@ -135,6 +136,8 @@ namespace FieldService.Android.Dialogs {
                 }
             }
             savePhoto.Description = optionalCaption.Text;
+            savePhoto.Assignment = Assignment.ID;
+
             photoViewModel.SavePhoto (Assignment, savePhoto)
                 .ContinueOnUIThread (_ => {
                     ((SummaryActivity)Activity).ReloadConfirmation ();

@@ -114,13 +114,14 @@ namespace FieldService.Android.Dialogs {
         {
             CurrentLabor.Hours = TimeSpan.FromHours (hours.Text.ToDouble ());
             CurrentLabor.Description = description.Text;
+            CurrentLabor.Assignment = Assignment.ID;
 
             laborViewModel
                 .SaveLabor (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
                     ((SummaryActivity)Activity).ReloadLaborHours ();
                     Dismiss ();
-                    });
+                });
         }
 
         public void OnClick (View v)
@@ -137,11 +138,11 @@ namespace FieldService.Android.Dialogs {
                     break;
                 case Resource.Id.deleteAddLabor: {
                         //delete & reload
-                    if (CurrentLabor != null && CurrentLabor.ID != -1) {
-                        DeleteLabor ();
-                    } else {
-                        Dismiss ();
-                    }
+                        if (CurrentLabor != null && CurrentLabor.ID != -1) {
+                            DeleteLabor ();
+                        } else {
+                            Dismiss ();
+                        }
                     }
                     break;
                 case Resource.Id.addLaborHours: {
