@@ -29,7 +29,7 @@ namespace FieldService.Android.Dialogs {
     /// <summary>
     /// Dialog for the photos
     /// </summary>
-    public class PhotoDialog : BaseDialog, View.IOnClickListener {
+    public class PhotoDialog : BaseDialog {
         PhotoViewModel photoViewModel;
         ImageView photo;
         EditText optionalCaption;
@@ -50,11 +50,19 @@ namespace FieldService.Android.Dialogs {
             optionalCaption = (EditText)FindViewById (Resource.Id.photoPopupDescription);
             dateTime = (TextView)FindViewById (Resource.Id.photoDateTime);
             photoCount = (TextView)FindViewById (Resource.Id.photoCountText);
+
             var delete = (ImageButton)FindViewById (Resource.Id.photoDeleteImage);
+            delete.Click += (sender, e) => DeletePhoto ();
+
             var nextPhoto = (ImageButton)FindViewById (Resource.Id.photoNextButton);
             var previousPhoto = (ImageButton)FindViewById (Resource.Id.photoPreviousButton);
+
             var cancel = (Button)FindViewById (Resource.Id.photoCancelImage);
+            cancel.Click += (sender, e) => Dismiss ();
+
             var done = (Button)FindViewById (Resource.Id.photoDoneImage);
+            done.Click += (sender, e) => SavePhoto ();
+
             photo = (ImageView)FindViewById (Resource.Id.photoImageSource);
 
             nextPhoto.Visibility =
@@ -209,34 +217,6 @@ namespace FieldService.Android.Dialogs {
                     fragment.ReloadConfirmation ();
                     Dismiss ();
                 });
-        }
-
-        /// <summary>
-        /// Click handlers
-        /// </summary>
-        public void OnClick (View v)
-        {
-            switch (v.Id) {
-                case Resource.Id.photoDeleteImage:
-                    //delete current photo
-                    DeletePhoto ();
-                    break;
-                case Resource.Id.photoDoneImage:
-                    //save photo
-                    SavePhoto ();
-                    break;
-                case Resource.Id.photoCancelImage:
-                    Dismiss ();
-                    break;
-                case Resource.Id.photoNextButton:
-                    //go to next photo
-                    break;
-                case Resource.Id.photoPreviousButton:
-                    //go to previous photo
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }
