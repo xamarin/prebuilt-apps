@@ -57,9 +57,7 @@ namespace FieldService.Android.Fragments {
             var addSignature = view.FindViewById<Button> (Resource.Id.confirmationsAddSignature);
             var completeSignature = view.FindViewById<Button> (Resource.Id.confirmationsComplete);
 
-            if (Photos != null) {
-                photoListView.Adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos);
-            }
+            ReloadListView ();
 
             photoListView.OnItemClickListener = this;
             addSignature.SetOnClickListener (this);
@@ -67,6 +65,16 @@ namespace FieldService.Android.Fragments {
             completeSignature.SetOnClickListener (this);
 
             return view;
+        }
+
+        /// <summary>
+        /// Reloads the list view
+        /// </summary>
+        private void ReloadListView ()
+        {
+            if (Photos != null) {
+                photoListView.Adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos);
+            }
         }
 
         /// <summary>
@@ -175,14 +183,24 @@ namespace FieldService.Android.Fragments {
                     if (t.IsCanceled)
                         return;
                     Activity.RunOnUiThread (() => {
-                            photoDialog = new PhotoDialog (Activity);
-                            photoDialog.Activity = Activity;
-                            photoDialog.Assignment = Assignment;
-                            photoDialog.PhotoStream = t.Result.GetStream ();
-                            photoDialog.Show ();
-                        });
+                        photoDialog = new PhotoDialog (Activity);
+                        photoDialog.Activity = Activity;
+                        photoDialog.Assignment = Assignment;
+                        photoDialog.PhotoStream = t.Result.GetStream ();
+                        photoDialog.Show ();
+                    });
                 });
             }
+        }
+
+        public void ReloadConfirmation ()
+        {
+            photoViewModel
+                .LoadPhotos (Assignment)
+                .ContinueOnUIThread (_ => {
+                    Photos = photoViewModel.Photos;
+                    ReloadListView ();
+                });
         }
     }
 }

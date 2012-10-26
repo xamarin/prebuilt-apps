@@ -277,11 +277,6 @@ namespace FieldService.Android {
             }
         }
 
-        public void ReloadConfirmation ()
-        {
-            SetFrameFragment (Constants.Navigation.IndexOf ("Confirmations"));
-        }
-
         public override void OnBackPressed ()
         {
             Finish ();

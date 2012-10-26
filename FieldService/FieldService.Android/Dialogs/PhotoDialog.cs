@@ -19,6 +19,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Fragments;
 using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -176,7 +177,8 @@ namespace FieldService.Android.Dialogs {
                     photoViewModel
                    .DeletePhoto (Assignment, Photo)
                    .ContinueOnUIThread (_ => {
-                       ((SummaryActivity)Activity).ReloadConfirmation ();
+                       var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
+                       fragment.ReloadConfirmation ();
                        Dismiss ();
                    });
                 })
@@ -203,7 +205,8 @@ namespace FieldService.Android.Dialogs {
 
             photoViewModel.SavePhoto (Assignment, savePhoto)
                 .ContinueOnUIThread (_ => {
-                    ((SummaryActivity)Activity).ReloadConfirmation ();
+                    var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
+                    fragment.ReloadConfirmation ();
                     Dismiss ();
                 });
         }
