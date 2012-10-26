@@ -7,7 +7,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:id="@+id/itemCheckBox"
-        android:focusable="true" />
+        android:focusable="false"
+        android:checked="false"
+        android:button="@drawable/check_box"
+        android:layout_marginLeft="10dp" />
     <ImageButton
         android:src="@drawable/TrashCanIcon"
         android:layout_width="wrap_content"
@@ -17,6 +20,7 @@
         android:background="@android:color/transparent"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:focusable="false"
         android:padding="10dp" />
     <TextView
         android:layout_width="wrap_content"

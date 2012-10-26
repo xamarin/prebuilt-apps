@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System.Collections.Generic;
+using System.Linq;
 using Android.App;
 using Android.OS;
 using Android.Views;
@@ -24,7 +25,7 @@ using FieldService.ViewModels;
 
 
 namespace FieldService.Android.Fragments {
-    public class ItemFragment : Fragment {
+    public class ItemFragment : Fragment, AdapterView.IOnItemClickListener {
 
         ListView itemsListView;
         ItemViewModel itemViewModel;
@@ -42,14 +43,22 @@ namespace FieldService.Android.Fragments {
             var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, null, true);
             itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
             ReloadAssignmentItems ();
+            itemsListView.OnItemClickListener = this;
             return view;
         }
 
         public void ReloadAssignmentItems ()
         {
             if (AssignmentItems != null) {
-                itemsListView.Adapter = new ItemsAdapter (Activity, Resource.Layout.ItemLayout, AssignmentItems);
+                var adapter = new ItemsAdapter (Activity, Resource.Layout.ItemLayout, AssignmentItems);
+                adapter.Fragment = this;
+                itemsListView.Adapter = adapter;
             }
+        }
+
+        public override void OnResume ()
+        {
+            base.OnResume ();
         }
 
         public Assignment Assignment
@@ -62,6 +71,23 @@ namespace FieldService.Android.Fragments {
         {
             get;
             set;
+        }
+
+        public void DeleteItem (AssignmentItem item)
+        {
+            itemViewModel.DeleteAssignmentItem (Assignment, item).ContinueOnUIThread (_ => {
+                ((SummaryActivity)Activity).ReloadItems ();
+            });
+        }
+
+        public void OnItemClick (AdapterView parent, View view, int position, long id)
+        {
+            var checkbox = view.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
+            checkbox.Checked = !checkbox.Checked;
+            checkbox.Enabled = false;
+            itemViewModel
+                .SaveAssignmentItem (Assignment, AssignmentItems.ElementAtOrDefault (checkbox.Tag.ToString ().ToInt ()))
+                .ContinueOnUIThread (_ => checkbox.Enabled = true);
         }
     }
 }

@@ -36,7 +36,7 @@
         <ImageView
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:id="@+id/confirmationsSignature"
+            android:id="@+id/signatureImage"
             android:maxHeight="150dp"
             android:maxWidth="350dp"
             android:minHeight="150dp"

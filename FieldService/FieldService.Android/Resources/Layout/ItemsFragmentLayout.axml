@@ -7,5 +7,9 @@
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/itemsListViewFragment" />
+        android:id="@+id/itemsListViewFragment"
+        android:listSelector="@drawable/items_selector"
+        android:choiceMode="singleChoice"
+        android:dividerHeight="1dp"
+        android:clickable="true" />
 </LinearLayout>

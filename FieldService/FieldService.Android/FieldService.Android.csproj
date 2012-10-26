@@ -49,6 +49,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
+    <Reference Include="Xamarin.Mobile">
+      <HintPath>..\Dependencies\Xamarin.Mobile\Android\Xamarin.Mobile.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="..\Dependencies\sqlite-net\src\SQLite.cs">
@@ -145,12 +148,15 @@
     <Compile Include="Dialogs\AddLaborDialog.cs" />
     <Compile Include="Dialogs\BaseDialog.cs" />
     <Compile Include="Dialogs\ItemsDialog.cs" />
+    <Compile Include="Dialogs\PhotoDialog.cs" />
+    <Compile Include="Dialogs\SignatureDialog.cs" />
     <Compile Include="Fragments\ConfirmationFragment.cs" />
     <Compile Include="Fragments\ItemFragment.cs" />
     <Compile Include="Fragments\LaborHourFragment.cs" />
     <Compile Include="Fragments\MapFragment.cs" />
     <Compile Include="Fragments\SummaryFragment.cs" />
     <Compile Include="Fragments\NavigationFragment.cs" />
+    <AndroidResource Include="Resources\Drawable\check_box.xml" />
     <Compile Include="Utilities\EventArgs%28T%29.cs" />
     <Compile Include="Utilities\MapOverlayItem.cs" />
     <Compile Include="Resources\Resource.Designer.cs" />
@@ -227,6 +233,12 @@
     <AndroidResource Include="Resources\Layout\PhotoItemLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\AddPhotoPopUpLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\AddSignatureLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -298,6 +310,10 @@
     <AndroidResource Include="Resources\Drawable\LaborHoursDivider.png" />
     <AndroidResource Include="Resources\Drawable\UpLaborHours.png" />
     <AndroidResource Include="Resources\Drawable\border.xml" />
+    <AndroidResource Include="Resources\Drawable\NextButton.png" />
+    <AndroidResource Include="Resources\Drawable\PreviousButton.png" />
+    <AndroidResource Include="Resources\Drawable\CheckBox.png" />
+    <AndroidResource Include="Resources\Drawable\CheckBoxChecked.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

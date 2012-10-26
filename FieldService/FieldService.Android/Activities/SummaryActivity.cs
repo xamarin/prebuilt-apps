@@ -33,7 +33,6 @@ namespace FieldService.Android {
         readonly LaborViewModel laborViewModel;
         readonly PhotoViewModel photoViewModel;
         NavigationFragment navigationFragment;
-        Assignment assignment = null;
         FrameLayout navigationFragmentContainer;
         TextView number,
             name,
@@ -65,9 +64,9 @@ namespace FieldService.Android {
             if (Intent != null) {
                 assignmentIndex = Intent.GetIntExtra ("index", -1);
                 if (assignmentIndex != -1) {
-                    assignment = assignmentViewModel.Assignments [assignmentIndex];
+                    Assignment = assignmentViewModel.Assignments [assignmentIndex];
                 } else {
-                    assignment = assignmentViewModel.ActiveAssignment;
+                    Assignment = assignmentViewModel.ActiveAssignment;
                 }
             }
 
@@ -82,13 +81,13 @@ namespace FieldService.Android {
             navigationMenu = FindViewById<ImageButton> (Resource.Id.navigationMenu);
             navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
 
-            if (assignment != null) {
-                title.Text = string.Format ("#{0} {1} {2}", assignment.JobNumber, assignment.Title, assignment.StartDate.ToShortDateString ());
+            if (Assignment != null) {
+                title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber, Assignment.Title, Assignment.StartDate.ToShortDateString ());
 
-                number.Text = assignment.Priority.ToString ();
-                name.Text = assignment.ContactName;
-                phone.Text = assignment.ContactPhone;
-                address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
+                number.Text = Assignment.Priority.ToString ();
+                name.Text = Assignment.ContactName;
+                phone.Text = Assignment.ContactPhone;
+                address.Text = string.Format ("{0}\n{1}, {2} {3}", Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip);
             }
 
             //portrait mode, flip back and forth when selecting the navigation menu.
@@ -110,7 +109,7 @@ namespace FieldService.Android {
 
             var transaction = FragmentManager.BeginTransaction ();
             var summaryFragment = new SummaryFragment ();
-            summaryFragment.Assignment = assignment;
+            summaryFragment.Assignment = Assignment;
             navigationFragment = new NavigationFragment ();
             transaction.SetTransition (FragmentTransit.FragmentOpen);
             transaction.Add (Resource.Id.contentFrame, summaryFragment);
@@ -126,13 +125,13 @@ namespace FieldService.Android {
             }
             addItems.Click += (sender, e) => {
                 itemDialog = new ItemsDialog (this);
-                itemDialog.Assignment = assignment;
+                itemDialog.Assignment = Assignment;
                 itemDialog.Activity = this;
                 itemDialog.Show ();
             };
             addLabor.Click += (sender, e) => {
                 laborDialog = new AddLaborDialog (this);
-                laborDialog.Assignment = assignment;
+                laborDialog.Assignment = Assignment;
                 laborDialog.CurrentLabor = new Labor ();
                 laborDialog.Show ();
             };
@@ -184,6 +183,12 @@ namespace FieldService.Android {
             }
         }
 
+        public Assignment Assignment
+        {
+            get;
+            set;
+        }
+
         public void SetFrameFragment (int index)
         {
             var transaction = FragmentManager.BeginTransaction ();            
@@ -191,7 +196,7 @@ namespace FieldService.Android {
             switch (screen) {
                 case "Summary": {
                         var fragment = new SummaryFragment ();
-                        fragment.Assignment = assignment;
+                        fragment.Assignment = Assignment;
                         transaction.SetTransition (FragmentTransit.FragmentOpen);
                         transaction.Replace (Resource.Id.contentFrame, fragment);
                         transaction.Commit ();
@@ -213,8 +218,8 @@ namespace FieldService.Android {
                     break;
                 case "Items": {
                         var fragment = new ItemFragment ();
-                        fragment.Assignment = assignment;
-                        itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
+                        fragment.Assignment = Assignment;
+                        itemViewModel.LoadAssignmentItems (Assignment).ContinueOnUIThread (_ => {
                             fragment.AssignmentItems = itemViewModel.AssignmentItems;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
@@ -222,13 +227,13 @@ namespace FieldService.Android {
                             items.Visibility =
                                 addItems.Visibility = ViewStates.Visible;
                             addLabor.Visibility = ViewStates.Gone;
-                            items.Text = string.Format ("({0}) Items", assignment.TotalItems.ToString ());
+                            items.Text = string.Format ("({0}) Items", Assignment.TotalItems.ToString ());
                         });
                     }
                     break;
                 case "Labor Hours": {
                         var fragment = new LaborHourFragment ();
-                        laborViewModel.LoadLaborHours(assignment).ContinueOnUIThread (_ => {
+                        laborViewModel.LoadLaborHours (Assignment).ContinueOnUIThread (_ => {
                             fragment.LaborHours = laborViewModel.LaborHours;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
@@ -236,14 +241,15 @@ namespace FieldService.Android {
                             addLabor.Visibility =
                                 items.Visibility = ViewStates.Visible;
                             addItems.Visibility = ViewStates.Gone;
-                            items.Text = string.Format ("{0} hrs", assignment.TotalHours.ToString ("0.0"));
+                            items.Text = string.Format ("{0} hrs", Assignment.TotalHours.ToString ("0.0"));
                         });
                     }
                     break;
                 case "Confirmations": {
                         var fragment = new ConfirmationFragment ();
-                        photoViewModel.LoadPhotos (assignment).ContinueOnUIThread (_ => {
+                        photoViewModel.LoadPhotos (Assignment).ContinueOnUIThread (_ => {
                             fragment.Photos = photoViewModel.Photos;
+                            fragment.Assignment = Assignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
@@ -260,16 +266,25 @@ namespace FieldService.Android {
 
         public void ReloadItems ()
         {
-            itemViewModel.LoadAssignmentItems (assignment).ContinueOnUIThread (_ => {
+            itemViewModel.LoadAssignmentItems (Assignment).ContinueOnUIThread (_ => {
                 var itemFragment = FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
                 itemFragment.AssignmentItems = itemViewModel.AssignmentItems;
                 itemFragment.ReloadAssignmentItems ();
                 });
         }
 
+        public void ReloadConfirmation ()
+        {
+            SetFrameFragment (Constants.Navigation.IndexOf ("Confirmations"));
+        }
+
         public void ReloadLaborHours ()
         {
-
+            laborViewModel.LoadLaborHours (Assignment).ContinueOnUIThread (_ => {
+                var laborFragment = FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+                laborFragment.LaborHours = laborViewModel.LaborHours;
+                laborFragment.ReloadLaborHours ();
+            });
         }
     }
 }

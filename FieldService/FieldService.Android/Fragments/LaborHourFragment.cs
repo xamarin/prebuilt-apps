@@ -28,7 +28,7 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android.Fragments {
-    public class LaborHourFragment : Fragment {
+    public class LaborHourFragment : Fragment, AdapterView.IOnItemClickListener {
         ListView laborListView;
         LaborViewModel laborViewModel;
 
@@ -44,18 +44,29 @@ namespace FieldService.Android.Fragments {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.LaborHoursLayout, null, true);
 
-            if (LaborHours != null) {
-                laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
-                laborListView.Adapter = new LaborHoursAdapter (Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
-            }
+            laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
+
+            ReloadLaborHours ();
 
             return view;
+        }
+
+        public void ReloadLaborHours ()
+        {
+            if (LaborHours != null) {
+                laborListView.Adapter = new LaborHoursAdapter (Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
+            }
         }
 
         public List<Labor> LaborHours
         {
             get;
             set;
+        }
+        
+        public void OnItemClick (AdapterView parent, View view, int position, long id)
+        {
+            throw new NotImplementedException ();
         }
     }
 }

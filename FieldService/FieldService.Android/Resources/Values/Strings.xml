@@ -26,4 +26,6 @@
   <string name="Done">Done</string>
   <string name="PleaseSign">Please sign in the box</string>
   <string name="Clear">Clear</string>
+  <string name="Camera">Camera</string>
+  <string name="Gallery">Gallery</string>
 </resources>

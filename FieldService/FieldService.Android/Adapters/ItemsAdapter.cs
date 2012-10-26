@@ -1,3 +1,4 @@
+using System;
 //
 //  Copyright 2012  Xamarin Inc.
 //
@@ -16,14 +17,16 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Fragments;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android {
-    public class ItemsAdapter : ArrayAdapter<AssignmentItem> {
+    public class ItemsAdapter : ArrayAdapter<AssignmentItem>, View.IOnClickListener {
 
-        AssignmentViewModel assignmentViewModel;
+        ItemViewModel itemViewModel;
         IList<AssignmentItem> assignmentItems;
         int resourceId;
 
@@ -32,7 +35,13 @@ namespace FieldService.Android {
         {
             this.assignmentItems = assignmentItems;
             this.resourceId = resourceId;
-            this.assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            this.itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+        }
+
+        public ItemFragment Fragment
+        {
+            get;
+            set;
         }
 
         public override View GetView (int position, View convertView, ViewGroup parent)
@@ -55,11 +64,21 @@ namespace FieldService.Android {
             var name = view.FindViewById<TextView> (Resource.Id.itemName);
             var checkBox = view.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
             var trashButton = view.FindViewById<ImageButton> (Resource.Id.itemTrashButton);
-
+            checkBox.Tag = position;
             name.Text = string.Format ("#{0} {1}", item.Number, item.Name);
-            trashButton.Visibility = ViewStates.Invisible;
-
+            trashButton.SetOnClickListener (this);
+            trashButton.Tag = position;
             return view;
+        }
+
+        public void OnClick (View v)
+        {
+            if (v.Id == Resource.Id.itemTrashButton) {
+                //delete item.
+                var button = v.FindViewById<ImageButton> (Resource.Id.itemTrashButton);
+                var item = assignmentItems [button.Tag.ToString ().ToInt ()];
+                Fragment.DeleteItem (item);
+            }
         }
     }
 }

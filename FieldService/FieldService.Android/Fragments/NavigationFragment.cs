@@ -191,10 +191,6 @@ namespace FieldService.Android.Fragments {
 
         public override void OnResume ()
         {
-            var navItemView = navigationListView.GetChildAt (listViewIndex);
-            if (navItemView != null) {
-                OnItemClick (navigationListView, navItemView, listViewIndex, 0);
-            }
             assignmentViewModel.HoursChanged += HoursChanged;
             base.OnResume ();
         }
