@@ -12,6 +12,7 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+
 using System.Collections.Generic;
 using System.Linq;
 using Android.App;
@@ -23,8 +24,10 @@ using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
-
 namespace FieldService.Android.Fragments {
+    /// <summary>
+    /// Fragment for the items section
+    /// </summary>
     public class ItemFragment : Fragment, AdapterView.IOnItemClickListener {
 
         ListView itemsListView;
@@ -47,6 +50,9 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        /// <summary>
+        /// Reloads the assignment items in the Listview
+        /// </summary>
         public void ReloadAssignmentItems ()
         {
             if (AssignmentItems != null) {
@@ -56,23 +62,27 @@ namespace FieldService.Android.Fragments {
             }
         }
 
-        public override void OnResume ()
-        {
-            base.OnResume ();
-        }
-
+        /// <summary>
+        /// The currrent assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// List of assignment items
+        /// </summary>
         public List<AssignmentItem> AssignmentItems
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Deletes an AssignmentItem
+        /// </summary>
         public void DeleteItem (AssignmentItem item)
         {
             itemViewModel.DeleteAssignmentItem (Assignment, item).ContinueOnUIThread (_ => {
@@ -80,6 +90,9 @@ namespace FieldService.Android.Fragments {
             });
         }
 
+        /// <summary>
+        /// Toggles if an item is "used"
+        /// </summary>
         public void OnItemClick (AdapterView parent, View view, int position, long id)
         {
             var checkbox = view.FindViewById<CheckBox> (Resource.Id.itemCheckBox);

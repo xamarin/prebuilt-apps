@@ -20,6 +20,9 @@ using Android.Widget;
 using FieldService.Data;
 
 namespace FieldService.Android.Fragments {
+    /// <summary>
+    /// Fragment for the summary screen
+    /// </summary>
     public class SummaryFragment : Fragment{
         TextView items,
             laborhours,
@@ -49,6 +52,9 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        /// <summary>
+        /// The selected assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;

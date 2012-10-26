@@ -120,8 +120,8 @@ namespace FieldService.Android {
                  addItems.Visibility = ViewStates.Invisible;
             addLabor.Visibility = ViewStates.Gone;
 
-            if (bundle != null && bundle.ContainsKey (Constants.BUNDLE_INDEX)) {
-                navigationIndex = bundle.GetInt (Constants.BUNDLE_INDEX, 0);
+            if (bundle != null && bundle.ContainsKey (Constants.BundleIndex)) {
+                navigationIndex = bundle.GetInt (Constants.BundleIndex, 0);
             }
             addItems.Click += (sender, e) => {
                 itemDialog = new ItemsDialog (this);
@@ -140,7 +140,7 @@ namespace FieldService.Android {
 
         protected override void OnSaveInstanceState (Bundle outState)
         {
-            outState.PutInt (Constants.BUNDLE_INDEX, navigationIndex);
+            outState.PutInt (Constants.BundleIndex, navigationIndex);
             base.OnSaveInstanceState (outState);
         }
 

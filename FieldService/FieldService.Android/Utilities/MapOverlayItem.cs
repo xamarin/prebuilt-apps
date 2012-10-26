@@ -13,16 +13,17 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using Android.App;
 using Android.Content;
 using Android.GoogleMaps;
-using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.Net;
 using Android.Views;
 using Android.Widget;
 
 namespace FieldService.Android.Utilities {
+    /// <summary>
+    /// Class for creating pins in the Google Maps control, also creates a popup bubble when clicked
+    /// </summary>
     public class MapOverlayItem : ItemizedOverlay {
         OverlayItem item;
         Context context;
@@ -52,6 +53,9 @@ namespace FieldService.Android.Utilities {
             return 1;
         }
 
+        /// <summary>
+        /// When tapped, show a popup bubble
+        /// </summary>
         protected override bool OnTap (int index)
         {
             if (mapView != null) {
@@ -74,9 +78,8 @@ namespace FieldService.Android.Utilities {
                         var intent = new Intent(Intent.ActionView, 
                             Uri.Parse(string.Format(intentURI, string.Empty, item.Snippet)));
                         context.StartActivity(intent);
-                        };
+                    };
                 }
-                
 
                 mapView.AddView (bubbleView);
             }

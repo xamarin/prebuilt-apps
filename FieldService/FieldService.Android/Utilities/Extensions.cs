@@ -17,42 +17,32 @@ using System.Text.RegularExpressions;
 
 namespace FieldService.Android.Utilities {
     public static class Extensions {
-        private static Regex _enumRegex = new Regex (@"[^\w\d_]");
 
-        public static object ToEnum (Type enumType, string value)
-        {
-            try {
-                if (!string.IsNullOrEmpty (value)) {
-                    return Enum.Parse (enumType, _enumRegex.Replace (value, string.Empty), true);
-                } else {
-                    return Activator.CreateInstance (enumType);
-                }
-            } catch {
-                return Activator.CreateInstance (enumType);
-            }
-        }
-
+        /// <summary>
+        /// Converts a floating point longitude/latitude to what Google Maps requires
+        /// </summary>
         public static int ToIntE6 (this float value)
         {
             return (int)(value * 1000000);
         }
 
-        public static double ToDoubleNotE6 (this int value)
+        /// <summary>
+        /// Helper method to safely convert a string to an int
+        /// </summary>
+        public static int ToInt (this string text)
         {
-            return (double)(value / 1000000);
-        }
-
-        public static int ToInt (this string s)
-        {
-            var value = 0;
-            int.TryParse (s, out value);
+            int value = 0;
+            int.TryParse (text, out value);
             return value;
         }
 
-        public static double ToDouble (this string s)
+        /// <summary>
+        /// Helper method to safely convert a string to a double
+        /// </summary>
+        public static double ToDouble (this string text)
         {
-            var value = 0d;
-            double.TryParse (s, out value);
+            double value = 0;
+            double.TryParse (text, out value);
             return value;
         }
     }

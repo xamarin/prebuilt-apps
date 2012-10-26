@@ -29,12 +29,16 @@ using FieldService.ViewModels;
 using Xamarin.Media;
 
 namespace FieldService.Android.Fragments {
+    /// <summary>
+    /// Fragment for the confirmation section
+    /// </summary>
     public class ConfirmationFragment : Fragment, AdapterView.IOnItemClickListener, View.IOnClickListener, IDialogInterfaceOnClickListener {
         PhotoViewModel photoViewModel;
         SignatureDialog signatureDialog;
         PhotoDialog photoDialog;
         ListView photoListView;
         MediaPicker mediaPicker;
+
         public override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
@@ -65,18 +69,27 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        /// <summary>
+        /// List of photos
+        /// </summary>
         public List<Photo> Photos
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// The current assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Show the photo dialog when clicked
+        /// </summary>
         public void OnItemClick (AdapterView parent, View view, int position, long id)
         {
             var image = view.FindViewById<ImageView> (Resource.Id.photoListViewImage);
@@ -91,9 +104,13 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        /// <summary>
+        /// Dismiss the signature dialog if shown
+        /// </summary>
         public override void OnPause ()
         {
             base.OnPause ();
+
             if (signatureDialog != null) {
                 if (signatureDialog.IsShowing) {
                     signatureDialog.Dismiss ();
@@ -101,6 +118,9 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        /// <summary>
+        /// Perform the appropriate active for each section when clicked
+        /// </summary>
         public void OnClick (View v)
         {
             switch (v.Id) {
@@ -128,6 +148,9 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        /// <summary>
+        /// Perform media picking when a dialog is clicked
+        /// </summary>
         public void OnClick (IDialogInterface dialog, int which)
         {
             if (which == 0) {
@@ -140,7 +163,7 @@ namespace FieldService.Android.Fragments {
                     photoDialog.Assignment = Assignment;
                     photoDialog.PhotoStream = t.Result.GetStream ();
                     photoDialog.Show ();
-                    });
+                });
             } else if (which == 1) {
                 //camera
                 StoreCameraMediaOptions options = new StoreCameraMediaOptions ();

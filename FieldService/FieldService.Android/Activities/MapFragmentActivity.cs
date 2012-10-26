@@ -51,8 +51,8 @@ namespace FieldService.Android {
             SetContentView (Resource.Layout.MapFragmentLayout);
 
             int index = 0;
-            if (Intent.HasExtra (Constants.BUNDLE_INDEX)) {
-                index = Intent.GetIntExtra (Constants.BUNDLE_INDEX, -99);
+            if (Intent.HasExtra (Constants.BundleIndex)) {
+                index = Intent.GetIntExtra (Constants.BundleIndex, -99);
             }
 
             if (index != -99) {
