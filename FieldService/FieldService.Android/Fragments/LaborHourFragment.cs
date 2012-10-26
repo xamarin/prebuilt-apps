@@ -23,6 +23,8 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Dialogs;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -31,6 +33,7 @@ namespace FieldService.Android.Fragments {
     public class LaborHourFragment : Fragment, AdapterView.IOnItemClickListener {
         ListView laborListView;
         LaborViewModel laborViewModel;
+        AddLaborDialog laborDialog;
 
         public override void OnCreate (Bundle savedInstanceState)
         {
@@ -47,7 +50,7 @@ namespace FieldService.Android.Fragments {
             laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
 
             ReloadLaborHours ();
-
+            laborListView.OnItemClickListener = this;
             return view;
         }
 
@@ -58,6 +61,22 @@ namespace FieldService.Android.Fragments {
             }
         }
 
+        public override void OnPause ()
+        {
+            base.OnPause ();
+            if (laborDialog != null) {
+                if (laborDialog.IsShowing) {
+                    laborDialog.Dismiss ();
+                }
+            }
+        }
+
+        public Assignment Assignment
+        {
+            get;
+            set;
+        }
+
         public List<Labor> LaborHours
         {
             get;
@@ -66,7 +85,14 @@ namespace FieldService.Android.Fragments {
         
         public void OnItemClick (AdapterView parent, View view, int position, long id)
         {
-            throw new NotImplementedException ();
+            var textView = view.FindViewById<TextView> (Resource.Id.laborHours);
+
+            var labor = LaborHours.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
+
+            laborDialog = new AddLaborDialog (Activity);
+            laborDialog.Assignment = Assignment;
+            laborDialog.CurrentLabor = labor;
+            laborDialog.Show ();
         }
     }
 }

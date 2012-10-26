@@ -94,6 +94,35 @@ namespace FieldService.Android.Dialogs {
             set;
         }
 
+        public Activity Activity
+        {
+            get;
+            set;
+        }
+
+        private void DeleteLabor ()
+        {
+            laborViewModel
+                .DeleteLabor (Assignment, CurrentLabor)
+                .ContinueOnUIThread (_ => {
+                    ((SummaryActivity)Activity).ReloadLaborHours ();
+                    Dismiss ();
+                });
+        }
+
+        private void SaveLabor ()
+        {
+            CurrentLabor.Hours = TimeSpan.FromHours (hours.Text.ToDouble ());
+            CurrentLabor.Description = description.Text;
+
+            laborViewModel
+                .SaveLabor (Assignment, CurrentLabor)
+                .ContinueOnUIThread (_ => {
+                    ((SummaryActivity)Activity).ReloadLaborHours ();
+                    Dismiss ();
+                    });
+        }
+
         public void OnClick (View v)
         {
             switch (v.Id) {
@@ -103,12 +132,16 @@ namespace FieldService.Android.Dialogs {
                     break;
                 case Resource.Id.saveAddLabor: {
                         //save & reload
-                        Dismiss ();
+                        SaveLabor ();
                     }
                     break;
                 case Resource.Id.deleteAddLabor: {
                         //delete & reload
+                    if (CurrentLabor != null && CurrentLabor.ID != -1) {
+                        DeleteLabor ();
+                    } else {
                         Dismiss ();
+                    }
                     }
                     break;
                 case Resource.Id.addLaborHours: {

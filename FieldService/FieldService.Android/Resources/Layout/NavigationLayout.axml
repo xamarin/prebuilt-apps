@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:listSelector="@drawable/navigation_selector"
         android:divider="@android:color/transparent"
+        android:layout_marginLeft="5dp"
         android:id="@+id/navigationListView" />
     <LinearLayout
         android:orientation="horizontal"

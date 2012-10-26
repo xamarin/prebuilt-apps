@@ -235,6 +235,7 @@ namespace FieldService.Android {
                         var fragment = new LaborHourFragment ();
                         laborViewModel.LoadLaborHours (Assignment).ContinueOnUIThread (_ => {
                             fragment.LaborHours = laborViewModel.LaborHours;
+                            fragment.Assignment = Assignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();

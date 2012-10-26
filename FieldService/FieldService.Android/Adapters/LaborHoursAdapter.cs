@@ -68,6 +68,8 @@ namespace FieldService.Android {
             hours.Text = string.Format ("{0} hrs", labor.Hours.TotalHours.ToString("0.0"));
             description.Text = labor.Description;
 
+            hours.Tag = position;
+
             return view;
         }
     }
