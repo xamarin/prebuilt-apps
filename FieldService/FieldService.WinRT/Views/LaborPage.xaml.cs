@@ -13,21 +13,31 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using FieldService.Data;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using FieldService.Utilities;
 using FieldService.WinRT.ViewModels;
+using Windows.Foundation;
+using Windows.Foundation.Collections;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Data;
+using Windows.UI.Xaml.Input;
+using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FieldService.WinRT.Views {
     /// <summary>
-    /// The page for the items
+    /// The page for the labor hours
     /// </summary>
-    public sealed partial class ItemsPage : Page {
+    public sealed partial class LaborPage : Page {
         readonly AssignmentViewModel assignmentViewModel;
-        readonly ItemViewModel itemViewModel;
+        readonly LaborViewModel laborViewModel;
 
-        public ItemsPage ()
+        public LaborPage ()
         {
             this.InitializeComponent ();
 
@@ -35,8 +45,8 @@ namespace FieldService.WinRT.Views {
                 assignmentControl.DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
-            itemsListView.DataContext =
-                itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+            laborListView.DataContext =
+                laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
         }
 
         /// <summary>
@@ -46,15 +56,6 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
-        }
-
-        private void OnItemClick (object sender, ItemClickEventArgs e)
-        {
-            AssignmentItem item = e.ClickedItem as AssignmentItem;
-            if (item != null) {
-                item.Used = !item.Used;
-                itemViewModel.SaveAssignmentItemCommand.Invoke (item);
-            }
         }
     }
 }

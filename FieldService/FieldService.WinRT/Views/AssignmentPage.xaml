@@ -235,7 +235,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Items</TextBlock>
-                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Bottom" Command="{Binding ItemsCommand}">View all items</Button>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Center" Command="{Binding ItemsCommand}">View all items</Button>
                     </Grid>
 
                     <ListView 
@@ -277,7 +277,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Labor</TextBlock>
-                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Bottom">View all entries</Button>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Center" Command="{Binding LaborCommand}">View all entries</Button>
                     </Grid>
 
                     <ListView x:Name="laborListView" Grid.Row="1" ItemsSource="{Binding TopLaborHours}" HorizontalContentAlignment="Stretch" SelectionMode="None">
