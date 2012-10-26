@@ -90,6 +90,7 @@ namespace FieldService.Android.Fragments {
             var labor = LaborHours.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
 
             laborDialog = new AddLaborDialog (Activity);
+            laborDialog.Activity = Activity;
             laborDialog.Assignment = Assignment;
             laborDialog.CurrentLabor = labor;
             laborDialog.Show ();

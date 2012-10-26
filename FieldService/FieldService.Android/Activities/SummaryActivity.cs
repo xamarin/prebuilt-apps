@@ -132,6 +132,7 @@ namespace FieldService.Android {
             addLabor.Click += (sender, e) => {
                 laborDialog = new AddLaborDialog (this);
                 laborDialog.Assignment = Assignment;
+                laborDialog.Activity = this;
                 laborDialog.CurrentLabor = new Labor ();
                 laborDialog.Show ();
             };
