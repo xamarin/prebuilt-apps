@@ -31,6 +31,9 @@ using FieldService.ViewModels;
 using Java.Util;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// "Fragment" for the map - it is required to be an activity although used as a fragment
+    /// </summary>
     [Activity (Label = "Map View Fragment", Theme = "@style/CustomHoloTheme")]
     public class MapFragmentActivity : MapActivity {
 
@@ -76,6 +79,9 @@ namespace FieldService.Android {
             mapView.SetBuiltInZoomControls (true);
         }
 
+        /// <summary>
+        /// Enable location tracking and place any overlays
+        /// </summary>
         protected override void OnResume ()
         {
             base.OnResume ();
@@ -88,6 +94,9 @@ namespace FieldService.Android {
             }
         }
 
+        /// <summary>
+        /// Clear overlays and disable location tracking
+        /// </summary>
         protected override void OnPause ()
         {
             myLocation.DisableMyLocation ();

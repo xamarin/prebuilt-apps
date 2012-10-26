@@ -12,6 +12,7 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
+
 using Android.App;
 using Android.Content;
 using Android.OS;
@@ -23,9 +24,11 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Orientation = Android.Content.Res.Orientation;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Activity for the summary screen
+    /// </summary>
     [Activity (Label = "Summary", Theme = "@style/CustomHoloTheme")]
     public class SummaryActivity : Activity {
         readonly AssignmentViewModel assignmentViewModel;
@@ -184,12 +187,18 @@ namespace FieldService.Android {
             }
         }
 
+        /// <summary>
+        /// The selected assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// Sets the child fragment for when each navigation item is selected
+        /// </summary>
         public void SetFrameFragment (int index)
         {
             var transaction = FragmentManager.BeginTransaction ();            
@@ -272,7 +281,7 @@ namespace FieldService.Android {
                 var itemFragment = FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
                 itemFragment.AssignmentItems = itemViewModel.AssignmentItems;
                 itemFragment.ReloadAssignmentItems ();
-                });
+            });
         }
 
         public void ReloadConfirmation ()

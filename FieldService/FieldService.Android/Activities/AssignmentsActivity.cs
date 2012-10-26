@@ -12,23 +12,23 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
+using System;
+using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FieldService.ViewModels;
-using FieldService.Utilities;
-using FieldService.Data;
 using FieldService.Android.Utilities;
+using FieldService.Data;
+using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Activity for the list of assignments
+    /// </summary>
     [Activity (Label = "Assignments", Theme = "@style/CustomHoloTheme")]
     public class AssignmentsActivity : Activity, View.IOnClickListener {
         readonly AssignmentViewModel assignmentViewModel;

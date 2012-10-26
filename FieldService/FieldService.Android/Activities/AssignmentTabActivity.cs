@@ -12,29 +12,28 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
-using System.Collections.Generic;
+
 using System.ComponentModel;
-using System.Linq;
-using System.Text;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
-using Android.Views;
 using Android.Widget;
 using FieldService.Android.Utilities;
 using FieldService.Utilities;
 
 namespace FieldService.Android {
+    /// <summary>
+    /// Activity for the tab bar between "Assignments" and "Map Overview"
+    /// </summary>
     [Activity (Label = "Assignment Tabs", Theme = "@style/CustomHoloTheme")]
-    public class AssignmentTabActivity : Activity{
+    public class AssignmentTabActivity : Activity {
         LocalActivityManager localManger;
         TabHost tabHost;
         public AssignmentTabActivity ()
         {
             ServiceContainer.Register<ISynchronizeInvoke> (() => new SynchronizeInvoke { Activity = this });
         }
-        
+
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);

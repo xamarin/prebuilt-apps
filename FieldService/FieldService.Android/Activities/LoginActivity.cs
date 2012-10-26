@@ -26,7 +26,10 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android {
-    [Activity (Label = "Login", MainLauncher = true, Theme = "@style/CustomHoloTheme", Icon = "@drawable/icon")]
+    /// <summary>
+    /// Activity for the login screen
+    /// </summary>
+    [Activity (Label = "Field Service", MainLauncher = true, Theme = "@style/CustomHoloTheme", Icon = "@drawable/icon")]
     public class LoginActivity : Activity, TextView.IOnEditorActionListener {
         readonly LoginViewModel loginViewModel;
         EditText password, userName;
@@ -95,6 +98,9 @@ namespace FieldService.Android {
             userName.RequestFocus ();
         }
 
+        /// <summary>
+        /// Perform the login and dismiss the keyboard
+        /// </summary>
         private void Login ()
         {
             //this hides the keyboard
@@ -113,10 +119,6 @@ namespace FieldService.Android {
         /// <summary>
         /// Observes the TextView's ImeAction so an action can be taken on keypress.
         /// </summary>
-        /// <param name="v">TextView that the action was called from</param>
-        /// <param name="actionId">Ime Action Id, Next, Go, Done, etc.</param>
-        /// <param name="e">Key event being called from the Ime Action Id.</param>
-        /// <returns></returns>
         public bool OnEditorAction (TextView v, ImeAction actionId, KeyEvent e)
         {
             //go edit action will login
