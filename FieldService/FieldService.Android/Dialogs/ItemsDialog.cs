@@ -18,6 +18,7 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -93,7 +94,8 @@ namespace FieldService.Android.Dialogs {
                 Assignment = Assignment.ID,
             })
             .ContinueOnUIThread (_ => {
-                Activity.ReloadItems ();
+                var fragment = Activity.FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
+                fragment.ReloadItems ();
                 Dismiss ();
             });
         }
