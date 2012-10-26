@@ -27,12 +27,13 @@ namespace FieldService.Android.Dialogs {
     /// <summary>
     /// Dialog for the photos
     /// </summary>
-    public class PhotoDialog : BaseDialog, View.IOnClickListener, IDialogInterfaceOnClickListener {
+    public class PhotoDialog : BaseDialog, View.IOnClickListener {
         PhotoViewModel photoViewModel;
         ImageView photo;
         EditText optionalCaption;
         TextView photoCount,
             dateTime;
+        Bitmap imageBitmap;
         public PhotoDialog (Context context)
             : base (context)
         {
@@ -47,9 +48,9 @@ namespace FieldService.Android.Dialogs {
             optionalCaption = (EditText)FindViewById (Resource.Id.photoPopupDescription);
             dateTime = (TextView)FindViewById (Resource.Id.photoDateTime);
             photoCount = (TextView)FindViewById (Resource.Id.photoCountText);
-            var delete = (Button)FindViewById (Resource.Id.photoDeleteImage);
-            var nextPhoto = (Button)FindViewById (Resource.Id.photoNextButton);
-            var previousPhoto = (Button)FindViewById (Resource.Id.photoPreviousButton);
+            var delete = (ImageButton)FindViewById (Resource.Id.photoDeleteImage);
+            var nextPhoto = (ImageButton)FindViewById (Resource.Id.photoNextButton);
+            var previousPhoto = (ImageButton)FindViewById (Resource.Id.photoPreviousButton);
             var cancel = (Button)FindViewById (Resource.Id.photoCancelImage);
             var done = (Button)FindViewById (Resource.Id.photoDoneImage);
             photo = (ImageView)FindViewById (Resource.Id.photoImageSource);
@@ -57,9 +58,9 @@ namespace FieldService.Android.Dialogs {
             nextPhoto.Visibility =
                 previousPhoto.Visibility =
                 photoCount.Visibility = ViewStates.Invisible;
-            cancel.SetOnClickListener (this);
-            done.SetOnClickListener (this);
-            delete.SetOnClickListener (this);
+            cancel.Click += (sender, e) => Dismiss ();
+            done.Click += (sender, e) => SavePhoto ();
+            delete.Click += (sender, e) => DeletePhoto ();
         }
 
         /// <summary>
@@ -71,14 +72,31 @@ namespace FieldService.Android.Dialogs {
             if (Photo != null) {
                 dateTime.Text = string.Format ("{0} {1}", Photo.Date.ToString ("t"), Photo.Date.ToString ("d"));
                 optionalCaption.Text = Photo.Description;
-                using (var bmp = BitmapFactory.DecodeByteArray(Photo.Image, 0, Photo.Image.Length)) {
-                    photo.SetImageBitmap(bmp);                    
+                if (Photo.Image != null) {
+                    imageBitmap = BitmapFactory.DecodeByteArray (Photo.Image, 0, Photo.Image.Length);
+                    photo.SetImageBitmap (imageBitmap);
+
                 }
             } else if (PhotoStream != null) {
-                using (var bmp = BitmapFactory.DecodeStream(PhotoStream)) {
-                    photo.SetImageBitmap(bmp);                    
-                }
+                imageBitmap = BitmapFactory.DecodeStream (PhotoStream);
+                photo.SetImageBitmap (imageBitmap);
             }
+        }
+
+        /// <summary>
+        /// Cleanup data when dialog is dismissed from window
+        /// </summary>
+        public override void OnDetachedFromWindow ()
+        {
+            base.OnDetachedFromWindow ();
+            photo.SetImageBitmap (null);
+            imageBitmap.Recycle ();
+            imageBitmap.Dispose ();
+            imageBitmap = null;
+            Activity = null;
+            Assignment = null;
+            Photo = null;
+            PhotoStream = null;
         }
 
         /// <summary>
@@ -126,9 +144,16 @@ namespace FieldService.Android.Dialogs {
             deleteDialog
                 .SetTitle ("Delete?")
                 .SetMessage ("Are you sure?")
-                .SetPositiveButton ("Yes", this)
-                .SetNegativeButton ("No", this)
-                .Show();
+                .SetPositiveButton ("Yes", (sender, e) => {
+                    photoViewModel
+                   .DeletePhoto (Assignment, Photo)
+                   .ContinueOnUIThread (_ => {
+                       ((SummaryActivity)Activity).ReloadConfirmation ();
+                       Dismiss ();
+                   });
+                })
+                .SetNegativeButton ("No", (sender, e) => { })
+                .Show ();
         }
 
         /// <summary>
@@ -139,29 +164,20 @@ namespace FieldService.Android.Dialogs {
             Photo savePhoto = Photo;
             if (savePhoto == null) {
                 savePhoto = new Photo ();
-                try {
-                    photo.DrawingCacheEnabled = true;
-                    using (var bmp = photo.DrawingCache) {
-                        if (bmp != null) {
-                            using (MemoryStream stream = new MemoryStream ()) {
-                                if (bmp.Compress (Bitmap.CompressFormat.Jpeg, 80, stream)) {
-                                    savePhoto.Image = stream.ToArray ();
-                                }
-                            }
-                        }
+                using (MemoryStream stream = new MemoryStream ()) {
+                    if (imageBitmap.Compress (Bitmap.CompressFormat.Jpeg, 80, stream)) {
+                        savePhoto.Image = stream.ToArray ();
                     }
-                } finally {
-                    photo.DrawingCacheEnabled = false;
                 }
-            }
-            savePhoto.Description = optionalCaption.Text;
-            savePhoto.Assignment = Assignment.ID;
+                savePhoto.Description = optionalCaption.Text;
+                savePhoto.Assignment = Assignment.ID;
 
-            photoViewModel.SavePhoto (Assignment, savePhoto)
-                .ContinueOnUIThread (_ => {
-                    ((SummaryActivity)Activity).ReloadConfirmation ();
-                    Dismiss ();
-                });
+                photoViewModel.SavePhoto (Assignment, savePhoto)
+                    .ContinueOnUIThread (_ => {
+                        ((SummaryActivity)Activity).ReloadConfirmation ();
+                        Dismiss ();
+                    });
+            }
         }
 
         /// <summary>
@@ -190,22 +206,6 @@ namespace FieldService.Android.Dialogs {
                 default:
                     break;
             }
-        }
-
-        /// <summary>
-        /// When "Yes" is clicked to delete the photo
-        /// </summary>
-        public void OnClick (IDialogInterface dialog, int which)
-        {
-            if (which == 0) {
-                photoViewModel
-                    .DeletePhoto (Assignment, Photo)
-                    .ContinueOnUIThread (_ => {
-                        ((SummaryActivity)Activity).ReloadConfirmation ();
-                        Dismiss ();
-                    });
-            }
-            dialog.Dismiss ();
         }
     }
 }

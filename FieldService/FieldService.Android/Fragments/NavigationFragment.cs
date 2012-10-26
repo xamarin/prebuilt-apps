@@ -84,32 +84,7 @@ namespace FieldService.Android.Fragments {
             navigationListView.OnItemClickListener = this;
             navigationListView.Adapter = adapter;
 
-            if (assignment != null) {
-                timerLayout.Visibility = ViewStates.Visible;
-                navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
-                navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
-                timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-
-                assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
-                    if (assignmentViewModel.Recording) {
-                        timer.Checked = true;
-                    } else {
-                        timer.Checked = false;
-                    }
-                });
-
-                timer.CheckedChange += (sender, e) => {
-                    timer.Enabled = false;
-                    if (assignmentViewModel.Recording) {
-                        assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
-                    } else {
-                        assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
-                    }
-                };
-            } else {
-                navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-                timerLayout.Visibility = ViewStates.Gone;
-            }
+            SetActiveAssignment ();
 
             return view;
         }
@@ -143,7 +118,7 @@ namespace FieldService.Android.Fragments {
                 };
             } else {
                 navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-                timerLayout.Visibility = ViewStates.Gone;
+                timerLayout.Visibility = ViewStates.Invisible;
             }
         }
 
