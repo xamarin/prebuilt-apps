@@ -83,6 +83,11 @@ namespace FieldService.Android {
             addLabor = FindViewById<Button> (Resource.Id.selectedAssignmentAddLabor);
             navigationMenu = FindViewById<ImageButton> (Resource.Id.navigationMenu);
             navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
+            var back = FindViewById<ImageButton> (Resource.Id.backSummary);
+
+            back.Click += (sender, e) => {
+                OnBackPressed ();
+            };
 
             if (Assignment != null) {
                 title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber, Assignment.Title, Assignment.StartDate.ToShortDateString ());
@@ -107,9 +112,6 @@ namespace FieldService.Android {
             }
 
             //setting up default fragments
-
-            var count = FragmentManager.BackStackEntryCount;
-
             var transaction = FragmentManager.BeginTransaction ();
             var summaryFragment = new SummaryFragment ();
             summaryFragment.Assignment = Assignment;
@@ -275,27 +277,9 @@ namespace FieldService.Android {
             }
         }
 
-        public void ReloadItems ()
-        {
-            itemViewModel.LoadAssignmentItems (Assignment).ContinueOnUIThread (_ => {
-                var itemFragment = FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
-                itemFragment.AssignmentItems = itemViewModel.AssignmentItems;
-                itemFragment.ReloadAssignmentItems ();
-            });
-        }
-
         public void ReloadConfirmation ()
         {
             SetFrameFragment (Constants.Navigation.IndexOf ("Confirmations"));
-        }
-
-        public void ReloadLaborHours ()
-        {
-            laborViewModel.LoadLaborHours (Assignment).ContinueOnUIThread (_ => {
-                var laborFragment = FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
-                laborFragment.LaborHours = laborViewModel.LaborHours;
-                laborFragment.ReloadLaborHours ();
-            });
         }
 
         public override void OnBackPressed ()

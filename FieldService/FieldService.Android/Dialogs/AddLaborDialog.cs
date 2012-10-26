@@ -21,6 +21,7 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -118,7 +119,8 @@ namespace FieldService.Android.Dialogs {
             laborViewModel
                 .DeleteLabor (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
-                    ((SummaryActivity)Activity).ReloadLaborHours ();
+                    var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+                    fragment.ReloadHours ();
                     Dismiss ();
                 });
         }
@@ -135,7 +137,8 @@ namespace FieldService.Android.Dialogs {
             laborViewModel
                 .SaveLabor (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
-                    ((SummaryActivity)Activity).ReloadLaborHours ();
+                    var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+                    fragment.ReloadHours ();
                     Dismiss ();
                 });
         }

@@ -66,11 +66,24 @@ namespace FieldService.Android.Fragments {
         /// <summary>
         /// Reloads the labor hours in the ListView
         /// </summary>
-        public void ReloadLaborHours ()
+        private void ReloadLaborHours ()
         {
             if (LaborHours != null) {
                 laborListView.Adapter = new LaborHoursAdapter (Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
             }
+        }
+
+        /// <summary>
+        /// Reloads the labor hours from the view model
+        /// </summary>
+        public void ReloadHours ()
+        {
+            laborViewModel.LoadLaborHours (Assignment).ContinueOnUIThread (_ => {
+                LaborHours = laborViewModel.LaborHours;
+                ReloadLaborHours ();
+                var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
+                items.Text = string.Format ("{0} hrs", Assignment.TotalHours.TotalHours.ToString ("0.0"));
+            });
         }
 
         /// <summary>
