@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Android.App;
@@ -32,7 +33,7 @@ namespace FieldService.Android.Fragments {
     /// <summary>
     /// Fragment for the confirmation section
     /// </summary>
-    public class ConfirmationFragment : Fragment, AdapterView.IOnItemClickListener, View.IOnClickListener, IDialogInterfaceOnClickListener {
+    public class ConfirmationFragment : Fragment {
         PhotoViewModel photoViewModel;
         SignatureDialog signatureDialog;
         PhotoDialog photoDialog;
@@ -53,18 +54,78 @@ namespace FieldService.Android.Fragments {
             var view = inflater.Inflate (Resource.Layout.ConfirmationsLayout, null, true);
 
             photoListView = view.FindViewById<ListView> (Resource.Id.confirmationPhotoList);
+            photoListView.ItemClick += (sender, e) => {
+                var image = view.FindViewById<ImageView> (Resource.Id.photoListViewImage);
+                if (image != null) {
+                    var index = image.Tag.ToString ().ToInt ();
+                    var photo = Photos.ElementAtOrDefault (index);
+                    photoDialog = new PhotoDialog (Activity);
+                    photoDialog.Activity = Activity;
+                    photoDialog.Assignment = Assignment;
+                    photoDialog.Photo = photo;
+                    photoDialog.Show ();
+                }
+            };
+
             var addPhoto = view.FindViewById<Button> (Resource.Id.confirmationsAddPhoto);
+            addPhoto.Click += (sender, e) => {
+                var choices = new List<string> ();
+                choices.Add (Resources.GetString (Resource.String.Gallery));
+                if (mediaPicker.IsCameraAvailable) {
+                    choices.Add (Resources.GetString (Resource.String.Camera));
+                }
+                AlertDialog.Builder takePictureDialog = new AlertDialog.Builder (Activity);
+                takePictureDialog.SetTitle ("Select:");
+                takePictureDialog.SetItems (choices.ToArray (), (innerSender, innerE) => {
+                    if (innerE.Which == 0) {
+                        //gallery
+                        mediaPicker.PickPhotoAsync ().ContinueWith (t => {
+                            if (t.IsCanceled)
+                                return;
+                            Activity.RunOnUiThread (() => {
+                                photoDialog = new PhotoDialog (Activity);
+                                photoDialog.Activity = Activity;
+                                photoDialog.Assignment = Assignment;
+                                photoDialog.PhotoStream = t.Result.GetStream ();
+                                photoDialog.Show ();
+                            });
+                        });
+                    } else if (innerE.Which == 1) {
+                        //camera
+                        StoreCameraMediaOptions options = new StoreCameraMediaOptions ();
+                        options.Directory = "FieldService";
+                        options.Name = "FieldService.jpg";
+                        mediaPicker.TakePhotoAsync (options).ContinueWith (t => {
+                            if (t.IsCanceled)
+                                return;
+                            Activity.RunOnUiThread (() => {
+                                photoDialog = new PhotoDialog (Activity);
+                                photoDialog.Activity = Activity;
+                                photoDialog.Assignment = Assignment;
+                                photoDialog.PhotoStream = t.Result.GetStream ();
+                                photoDialog.Show ();
+                            });
+                        });
+                    }
+                });
+                takePictureDialog.Show ();
+            };
+
             var addSignature = view.FindViewById<Button> (Resource.Id.confirmationsAddSignature);
+            addSignature.Click += (sender, e) => {
+                signatureDialog = new SignatureDialog (Activity);
+                signatureDialog.Assignment = Assignment;
+                signatureDialog.Show ();
+            };
+
             var completeSignature = view.FindViewById<Button> (Resource.Id.confirmationsComplete);
+            completeSignature.Click += (sender, e) => {
+                //TODO: waiting on SignatureView
+            };
 
             if (Photos != null) {
                 photoListView.Adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos);
             }
-
-            photoListView.OnItemClickListener = this;
-            addSignature.SetOnClickListener (this);
-            addPhoto.SetOnClickListener (this);
-            completeSignature.SetOnClickListener (this);
 
             return view;
         }
@@ -88,23 +149,6 @@ namespace FieldService.Android.Fragments {
         }
 
         /// <summary>
-        /// Show the photo dialog when clicked
-        /// </summary>
-        public void OnItemClick (AdapterView parent, View view, int position, long id)
-        {
-            var image = view.FindViewById<ImageView> (Resource.Id.photoListViewImage);
-            if (image != null) {
-                var index = image.Tag.ToString ().ToInt ();
-                var photo = Photos.ElementAtOrDefault (index);
-                photoDialog = new PhotoDialog (Activity);
-                photoDialog.Activity = Activity;
-                photoDialog.Assignment = Assignment;
-                photoDialog.Photo = photo;
-                photoDialog.Show ();
-            }
-        }
-
-        /// <summary>
         /// Dismiss the signature dialog if shown
         /// </summary>
         public override void OnPause ()
@@ -115,73 +159,6 @@ namespace FieldService.Android.Fragments {
                 if (signatureDialog.IsShowing) {
                     signatureDialog.Dismiss ();
                 }
-            }
-        }
-
-        /// <summary>
-        /// Perform the appropriate active for each section when clicked
-        /// </summary>
-        public void OnClick (View v)
-        {
-            switch (v.Id) {
-                case Resource.Id.confirmationsAddSignature: {
-                        signatureDialog = new SignatureDialog (Activity);
-                        signatureDialog.Assignment = Assignment;
-                        signatureDialog.Show ();
-                    }
-                    break;
-                case Resource.Id.confirmationsAddPhoto:
-                    var choices = new List<string> ();
-                    choices.Add (Resources.GetString (Resource.String.Gallery));
-                    if (mediaPicker.IsCameraAvailable) {
-                        choices.Add (Resources.GetString (Resource.String.Camera));
-                    }
-                    AlertDialog.Builder takePictureDialog = new AlertDialog.Builder (Activity);
-                    takePictureDialog.SetTitle ("Select:");
-                    takePictureDialog.SetItems (choices.ToArray (), this);
-                    takePictureDialog.Show ();
-                    break;
-                case Resource.Id.confirmationsComplete:
-                    break;
-                default:
-                    break;
-            }
-        }
-
-        /// <summary>
-        /// Perform media picking when a dialog is clicked
-        /// </summary>
-        public void OnClick (IDialogInterface dialog, int which)
-        {
-            if (which == 0) {
-                //gallery
-                mediaPicker.PickPhotoAsync ().ContinueWith (t => {
-                    if (t.IsCanceled)
-                        return;
-                    Activity.RunOnUiThread (() => {
-                        photoDialog = new PhotoDialog (Activity);
-                        photoDialog.Activity = Activity;
-                        photoDialog.Assignment = Assignment;
-                        photoDialog.PhotoStream = t.Result.GetStream ();
-                        photoDialog.Show ();
-                    });
-                });
-            } else if (which == 1) {
-                //camera
-                StoreCameraMediaOptions options = new StoreCameraMediaOptions ();
-                options.Directory = "FieldService";
-                options.Name = "FieldService.jpg";
-                mediaPicker.TakePhotoAsync (options).ContinueWith (t => {
-                    if (t.IsCanceled)
-                        return;
-                    Activity.RunOnUiThread (() => {
-                            photoDialog = new PhotoDialog (Activity);
-                            photoDialog.Activity = Activity;
-                            photoDialog.Assignment = Assignment;
-                            photoDialog.PhotoStream = t.Result.GetStream ();
-                            photoDialog.Show ();
-                        });
-                });
             }
         }
     }

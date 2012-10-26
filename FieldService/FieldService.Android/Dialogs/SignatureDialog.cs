@@ -26,7 +26,7 @@ namespace FieldService.Android.Dialogs {
     /// <summary>
     /// Dialog for capturing a signature
     /// </summary>
-    public class SignatureDialog : BaseDialog, View.IOnClickListener {
+    public class SignatureDialog : BaseDialog {
         AssignmentViewModel assignmentViewModel;
         ImageView signature;
 
@@ -43,14 +43,15 @@ namespace FieldService.Android.Dialogs {
             SetContentView (Resource.Layout.AddSignatureLayout);
 
             var clear = (Button)FindViewById (Resource.Id.signatureClearButton);
+            clear.Click += (sender, e) => signature.SetImageBitmap (null);
+
             var save = (Button)FindViewById (Resource.Id.signatureSaveButton);
+            save.Click += (sender, e) => Dismiss ();
+
             var cancel = (Button)FindViewById (Resource.Id.signatureCancelButton);
+            cancel.Click += (sender, e) => Dismiss ();
 
             signature = (ImageView)FindViewById (Resource.Id.signatureImage);
-
-            clear.SetOnClickListener (this);
-            save.SetOnClickListener (this);
-            cancel.SetOnClickListener (this);
         }
 
         /// <summary>
@@ -74,27 +75,6 @@ namespace FieldService.Android.Dialogs {
         {
             get;
             set;
-        }
-
-        /// <summary>
-        /// Handle click events
-        /// </summary>
-        public void OnClick (View v)
-        {
-            switch (v.Id) {
-                case Resource.Id.signatureCancelButton:
-                    Dismiss ();
-                    break;
-                case Resource.Id.signatureClearButton:
-                    signature.SetImageBitmap (null);
-                    break;
-                case Resource.Id.signatureSaveButton:
-                    //save
-                    Dismiss ();
-                    break;
-                default:
-                    break;
-            }
         }
     }
 }

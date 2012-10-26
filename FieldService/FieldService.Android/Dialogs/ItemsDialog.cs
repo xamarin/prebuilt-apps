@@ -27,7 +27,7 @@ namespace FieldService.Android.Dialogs {
     /// <summary>
     /// Dialog for searching through items
     /// </summary>
-    public class ItemsDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemClickListener {
+    public class ItemsDialog : BaseDialog {
 
         ListView itemsListView;
         ItemViewModel itemViewModel;
@@ -45,7 +45,21 @@ namespace FieldService.Android.Dialogs {
             SetCancelable (true);
 
             var cancel = (Button)FindViewById (Resource.Id.itemsPopupCancelButton);
+            cancel.Click += (sender, e) => Dismiss ();
+
             itemsListView = (ListView)FindViewById (Resource.Id.itemPopupItemsList);
+            itemsListView.ItemClick += (sender, e) => {
+                var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (e.Position);
+                itemViewModel.SaveAssignmentItem (Assignment, new AssignmentItem {
+                    Item = item.ID,
+                    Assignment = Assignment.ID,
+                })
+                .ContinueOnUIThread (_ => {
+                    var fragment = Activity.FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
+                    fragment.ReloadItems ();
+                    Dismiss ();
+                });
+            };
 
             var searchText = (TextView)FindViewById (Resource.Id.itemsPopupSearchText);
             var clearText = (ImageButton)FindViewById (Resource.Id.itemsPopupSeachClear);
@@ -53,9 +67,6 @@ namespace FieldService.Android.Dialogs {
             itemViewModel.LoadItems ().ContinueOnUIThread (_ => {
                 itemsListView.Adapter = new ItemsSearchAdapter (Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
             });
-
-            cancel.SetOnClickListener (this);
-            itemsListView.OnItemClickListener = this;
         }
 
         /// <summary>
@@ -81,23 +92,6 @@ namespace FieldService.Android.Dialogs {
             if (v.Id == Resource.Id.itemsPopupCancelButton) {
                 Dismiss ();
             }
-        }
-
-        /// <summary>
-        /// When an item is clicked, add it to the assignment
-        /// </summary>
-        public void OnItemClick (AdapterView parent, View view, int position, long id)
-        {
-            var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (position);
-            itemViewModel.SaveAssignmentItem (Assignment, new AssignmentItem {
-                Item = item.ID,
-                Assignment = Assignment.ID,
-            })
-            .ContinueOnUIThread (_ => {
-                var fragment = Activity.FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
-                fragment.ReloadItems ();
-                Dismiss ();
-            });
         }
     }
 }
