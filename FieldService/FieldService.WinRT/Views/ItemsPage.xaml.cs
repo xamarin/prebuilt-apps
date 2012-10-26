@@ -13,28 +13,21 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
 using FieldService.Data;
 using FieldService.Utilities;
-using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
-using Windows.UI.Popups;
-using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
-
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace FieldService.WinRT.Views {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class AssignmentPage : Page {
+    public sealed partial class ItemsPage : Page {
         readonly AssignmentViewModel assignmentViewModel;
         readonly ItemViewModel itemViewModel;
-        readonly LaborViewModel laborViewModel;
 
-        public AssignmentPage ()
+        public ItemsPage ()
         {
             this.InitializeComponent ();
 
@@ -44,9 +37,6 @@ namespace FieldService.WinRT.Views {
 
             itemsListView.DataContext =
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
-
-            laborListView.DataContext =
-                laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
         }
 
         /// <summary>
@@ -56,9 +46,6 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
-            itemViewModel.LoadAssignmentItems (assignmentViewModel.SelectedAssignment);
-
-            laborViewModel.LoadLaborHours (assignmentViewModel.SelectedAssignment);
         }
 
         private void OnItemClick (object sender, ItemClickEventArgs e)
@@ -67,20 +54,6 @@ namespace FieldService.WinRT.Views {
             if (item != null) {
                 item.Used = !item.Used;
                 itemViewModel.SaveAssignmentItemCommand.Invoke (item);
-            }
-        }
-
-        private async void OnSummaryClick (object sender, ItemClickEventArgs e)
-        {
-            var element = e.ClickedItem as FrameworkElement;
-            switch (element.Name) {
-                case "mapTile":
-                case "mapButton":
-                    Helpers.NavigateTo<AssignmentMapPage> ();
-                    break;
-                default:
-                    await new MessageDialog ("Coming soon!").ShowAsync ();
-                    break;
             }
         }
     }

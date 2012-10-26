@@ -194,6 +194,9 @@
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Views\AssignmentControl.xaml.cs">
+      <DependentUpon>AssignmentControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssignmentMapPage.xaml.cs">
       <DependentUpon>AssignmentMapPage.xaml</DependentUpon>
     </Compile>
@@ -202,6 +205,9 @@
     </Compile>
     <Compile Include="Views\AssignmentsPage.xaml.cs">
       <DependentUpon>AssignmentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemsPage.xaml.cs">
+      <DependentUpon>ItemsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -256,6 +262,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\AssignmentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AssignmentMapPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -265,6 +275,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AssignmentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ItemsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

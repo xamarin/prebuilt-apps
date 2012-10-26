@@ -13,6 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System;
+using FieldService.Data;
+using Windows.System;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
 namespace FieldService.WinRT.Views {
@@ -20,6 +24,16 @@ namespace FieldService.WinRT.Views {
         public MapPopup ()
         {
             this.InitializeComponent ();
+        }
+
+        private async void OnDirectionClick (object sender, RoutedEventArgs e)
+        {
+            var assignment = DataContext as Assignment;
+            if (assignment != null)
+                await Launcher.LaunchUriAsync (new Uri (string.Format("bingmaps:?cp={0}~{1}&where={2} {3}, {4} {5}", 
+                    assignment.Latitude, assignment.Longitude, assignment.Address, assignment.City, assignment.State, assignment.Zip)));
+            else
+                await Launcher.LaunchUriAsync (new Uri ("bingmaps:"));
         }
     }
 }
