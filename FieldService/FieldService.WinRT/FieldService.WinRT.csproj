@@ -139,6 +139,9 @@
     <Compile Include="..\FieldService\Data\Photo.cs">
       <Link>FieldService\Data\Photo.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\PropertyChangedBase.cs">
+      <Link>FieldService\Data\PropertyChangedBase.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Data\SampleAssignmentService.cs">
       <Link>FieldService\Data\SampleAssignmentService.cs</Link>
     </Compile>
@@ -189,12 +192,25 @@
     <Compile Include="Utilities\Timer.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
+    <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="Views\AssignmentControl.xaml.cs">
+      <DependentUpon>AssignmentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssignmentMapPage.xaml.cs">
+      <DependentUpon>AssignmentMapPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssignmentPage.xaml.cs">
       <DependentUpon>AssignmentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AssignmentsPage.xaml.cs">
       <DependentUpon>AssignmentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ItemsPage.xaml.cs">
+      <DependentUpon>ItemsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\LaborPage.xaml.cs">
+      <DependentUpon>LaborPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
@@ -249,11 +265,27 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Views\AssignmentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AssignmentMapPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AssignmentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AssignmentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ItemsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\LaborPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -282,6 +314,9 @@
   <ItemGroup>
     <SDKReference Include="Bing.Maps.Xaml, Version=1.0">
       <Name>Bing Maps for C#, C++, or Visual Basic</Name>
+    </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, Version=11.0">
+      <Name>Microsoft Visual C++ Runtime Package</Name>
     </SDKReference>
   </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

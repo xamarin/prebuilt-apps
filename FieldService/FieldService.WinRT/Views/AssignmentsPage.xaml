@@ -57,7 +57,7 @@
                     </Grid.ColumnDefinitions>
 
                     <Border VerticalAlignment="Top" Grid.RowSpan="3" Margin="15" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
-                        <TextBlock Text="{Binding ActiveAssignment.Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
+                        <TextBlock Margin="0,4,0,0" Text="{Binding ActiveAssignment.Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
                     </Border>
 
                     <Button Grid.Column="1" Margin="10" FontWeight="Medium" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding ActiveAssignment.JobNumberFormatted}" />
@@ -139,7 +139,7 @@
                                 </Grid.RowDefinitions>
 
                                 <Border Margin="20" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
-                                    <TextBlock Text="{Binding Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
+                                    <TextBlock Margin="0,4,0,0" Text="{Binding Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
                                 </Border>
 
                                 <TextBlock Margin="15" TextAlignment="Center" FontWeight="Medium" Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Text="{Binding JobNumberFormatted}" />

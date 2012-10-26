@@ -1,0 +1,80 @@
+﻿<Page
+    x:Class="FieldService.WinRT.Views.ItemsPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FieldService.WinRT.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:views="using:FieldService.WinRT.Views"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
+            <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" />
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.Title}" />
+        </StackPanel>
+
+        <ScrollViewer Margin="0,0,20,0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
+            <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
+
+                <!--Timer section-->
+                <views:AssignmentControl x:Name="assignmentControl" />
+
+                <!--Items section-->
+                <Grid Height="590" Margin="25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}">Items</TextBlock>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Bottom" Command="{Binding ItemsCommand}">View all items</Button>
+                    </Grid>
+
+                    <ListView 
+                        x:Name="itemsListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
+                        Grid.Row="1" ItemsSource="{Binding AssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapGrid Orientation="Vertical" />
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
+                                    <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
+                                        <CheckBox Command="{Binding DataContext.SaveAssignmentItemCommand, ElementName=itemsListView}" CommandParameter="{Binding}" IsChecked="{Binding Used, Mode=TwoWay}" Margin="10,0,25,0" VerticalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource SubheaderTextStyle}" Text="#" VerticalAlignment="Center" />
+                                        <TextBlock Style="{StaticResource SubheaderTextStyle}" Text="{Binding Number}" VerticalAlignment="Center" />
+                                        <TextBlock Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding Name}" VerticalAlignment="Center" />
+                                    </StackPanel>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Button 
+                        Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482"
+                        Background="{StaticResource ItemsBrush}" Height="75" Padding="0"
+                        HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Items" VerticalAlignment="Center" />
+                    </Button>
+                </Grid>
+
+            </StackPanel>
+            
+        </ScrollViewer>
+
+    </Grid>
+</Page>

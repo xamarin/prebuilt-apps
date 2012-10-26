@@ -142,34 +142,18 @@
     <Style x:Key="BaselineTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BasicTextStyle}">
         <Setter Property="LineHeight" Value="20"/>
         <Setter Property="LineStackingStrategy" Value="BlockLineHeight"/>
-        <!-- Properly align text along its baseline -->
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <TranslateTransform X="-1" Y="4"/>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style x:Key="HeaderTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
         <Setter Property="FontSize" Value="56"/>
         <Setter Property="FontWeight" Value="Light"/>
         <Setter Property="LineHeight" Value="40"/>
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <TranslateTransform X="-2" Y="8"/>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style x:Key="SubheaderTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">
         <Setter Property="FontSize" Value="26.667"/>
         <Setter Property="FontWeight" Value="Light"/>
         <Setter Property="LineHeight" Value="30"/>
-        <Setter Property="RenderTransform">
-            <Setter.Value>
-                <TranslateTransform X="-1" Y="6"/>
-            </Setter.Value>
-        </Setter>
     </Style>
 
     <Style x:Key="TitleTextStyle" TargetType="TextBlock" BasedOn="{StaticResource BaselineTextStyle}">

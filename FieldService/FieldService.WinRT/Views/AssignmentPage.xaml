@@ -23,236 +23,201 @@
             <StackPanel Orientation="Horizontal" VerticalAlignment="Top">
                 
                 <!--Timer section-->
-                <Grid Height="590" Width="280" Margin="25,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="180" />
-                    </Grid.RowDefinitions>
-                
-                    <TextBlock Margin="5,10" Style="{StaticResource SubheaderTextStyle}">Details</TextBlock>
-
-                    <Grid Grid.Row="1" Background="{StaticResource DarkTextBrush}" Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Border VerticalAlignment="Top" Grid.RowSpan="3" Margin="15" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
-                            <TextBlock Text="{Binding SelectedAssignment.Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
-                        </Border>
-
-                        <Button Grid.Column="1" Margin="10" FontWeight="Medium" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding SelectedAssignment.JobNumberFormatted}" />
-
-                        <Button Grid.Row="1" Grid.Column="1" FontWeight="Medium" Margin="10" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding SelectedAssignment.Title}" />
-
-                        <Button Grid.Row="2" Grid.Column="1" Margin="10" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.StartDateFormatted}" />
-
-                        <Border Grid.Row="3" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
-                            <Image Source="{StaticResource PersonIcon}" Stretch="None" />
-                        </Border>
-
-                        <Button Grid.Row="3" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.ContactName}" />
-
-                        <Border Grid.Row="4" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
-                            <Image Source="{StaticResource PhoneIcon}" Stretch="None" />
-                        </Border>
-
-                        <Button Grid.Row="4" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.ContactPhone}" />
-
-                        <Border Grid.Row="5" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
-                            <Image Source="{StaticResource MapIcon}" Stretch="None" />
-                        </Border>
-
-                        <Button Grid.Row="5" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.AddressFormatted}" />
-
-                        <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" BorderThickness="3" Width="30" Height="30" />
-
-                        <ComboBox 
-                            x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" 
-                            ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding SelectedAssignment.Status, Mode=TwoWay}" />
-
-                    </Grid>
-
-                    <Grid Grid.Row="2" Background="{StaticResource DarkTextBrush}" Margin="5">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Margin="8" FontSize="32" FontWeight="Medium" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" Text="{Binding HoursFormatted}" />
-
-                        <Button 
-                            x:Name="record" Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                            Command="{Binding RecordCommand}">
-                            <Border BorderThickness="3" CornerRadius="40" Width="81" Height="81" BorderBrush="{Binding BorderBrush, ElementName=record}">
-                                <Ellipse Width="35" Height="35" Fill="{Binding BorderBrush, ElementName=record}" />
-                            </Border>
-                        </Button>
-
-                    </Grid>
-
-                </Grid>
+                <views:AssignmentControl x:Name="assignmentControl" />
 
                 <!--Summary section-->
-                <Grid Height="590" Width="850" Margin="25,0">
+                <Grid Height="590" Width="850" Margin="30,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition />
-                        <RowDefinition />
-                        <RowDefinition />
                     </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
 
                     <TextBlock Margin="5,10" Style="{StaticResource SubheaderTextStyle}">Summary</TextBlock>
 
-                    <Border Grid.Row="1" BorderThickness="0" Background="{StaticResource DescriptionBrush}" Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5">
-                        <StackPanel Orientation="Vertical">
-                            <TextBlock Foreground="{StaticResource DarkTextBrush}" Style="{StaticResource SubheaderTextStyle}" Margin="20">Description</TextBlock>
-                            <TextBlock Foreground="{StaticResource DarkTextBrush}" Style="{StaticResource BasicTextStyle}" Margin="20,0,20,20" Text="{Binding SelectedAssignment.Description}" />
-                        </StackPanel>
-                    </Border>
+                    <ListView Grid.Row="1" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnSummaryClick">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        
+                        <!--Description section-->
+                        <ListViewItem Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5">
+                            <Border x:Name="description" Width="324" Height="340" BorderThickness="0" Background="{StaticResource DescriptionBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock Foreground="{StaticResource DarkTextBrush}" Style="{StaticResource SubheaderTextStyle}" Margin="20">Description</TextBlock>
+                                    <TextBlock Foreground="{StaticResource DarkTextBrush}" Style="{StaticResource BasicTextStyle}" Margin="20,0,20,20" Text="{Binding SelectedAssignment.Description}" />
+                                </StackPanel>
+                            </Border>
+                        </ListViewItem>
 
-                    <Border Grid.Row="3" BorderThickness="0" Background="{StaticResource ItemsBrush}" Margin="5">
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <!--Total items section-->
+                        <ListViewItem Grid.Row="2" Margin="5">
+                            <Border x:Name="totalItems" Width="154" Height="161" BorderThickness="0" Background="{StaticResource ItemsBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
                             
-                            <Image Grid.RowSpan="2" Source="{StaticResource ItemsIcon}" Stretch="None" />
+                                    <Image Grid.RowSpan="2" Source="{StaticResource ItemsIcon}" Stretch="None" />
 
-                            <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalItems}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+                                    <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalItems}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
 
-                            <TextBlock Margin="10,5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Text="Items" Style="{StaticResource SubheaderTextStyle}" />
+                                    <TextBlock Margin="10,5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Text="Items" Style="{StaticResource SubheaderTextStyle}" />
 
-                        </Grid>
-                    </Border>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
 
-                    <Border Grid.Row="3" Grid.Column="1" BorderThickness="0" Background="{StaticResource HoursBrush}" Margin="5">
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <!--Total hours section-->
+                        <ListViewItem Grid.Row="2" Grid.Column="1" Margin="5">
+                            <Border x:Name="totalHours" Width="154" Height="161" BorderThickness="0" Background="{StaticResource HoursBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                            <Image Grid.RowSpan="2" Source="{StaticResource TimerIcon}" Stretch="None" />
+                                    <Image Grid.RowSpan="2" Source="{StaticResource TimerIcon}" Stretch="None" />
 
-                            <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalHoursFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+                                    <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalHoursFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
 
-                            <TextBlock Margin="10,5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Text="Hours" Style="{StaticResource SubheaderTextStyle}" />
+                                    <TextBlock Margin="10,5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Text="Hours" Style="{StaticResource SubheaderTextStyle}" />
 
-                        </Grid>
-                    </Border>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
 
-                    <Border Grid.Row="1" Grid.Column="2" BorderThickness="0" Background="{StaticResource MapBrush}" Margin="5">
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
+                        <!--Map button section-->
+                        <ListViewItem Grid.Column="2" Margin="5">
+                            <Border x:Name="mapButton" Width="154" Height="161" BorderThickness="0" Background="{StaticResource MapBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                            <Image Source="{StaticResource MapLargeIcon}" Stretch="None" />
+                                    <Image Source="{StaticResource MapLargeIcon}" Stretch="None" />
 
-                            <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Center" Text="Map" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+                                    <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Center" Text="Map" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
 
-                        </Grid>
-                    </Border>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
 
-                    <Border Grid.Row="2" Grid.Column="2" BorderThickness="0" Background="{StaticResource TimesBrush}" Margin="5">
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                        <!--Time of day section-->
+                        <ListViewItem Grid.Row="1" Grid.Column="2" Margin="5">
+                            <Border x:Name="times" Width="154" Height="161" BorderThickness="0" Background="{StaticResource TimesBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
-                            <TextBlock Margin="10,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.StartTimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+                                    <TextBlock Margin="10,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.StartTimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
 
-                            <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding SelectedAssignment.EndTimeFormatted}" Style="{StaticResource SubheaderTextStyle}" />
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding SelectedAssignment.EndTimeFormatted}" Style="{StaticResource SubheaderTextStyle}" />
 
-                        </Grid>
-                    </Border>
-                    
-                    <Border Grid.Row="3" Grid.Column="2" BorderThickness="0" Background="{StaticResource ExpensesBrush}" Margin="5">
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
 
-                            <TextBlock Margin="10,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalExpensesFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+                        <!--Expenses section-->
+                        <ListViewItem Grid.Row="2" Grid.Column="2" Margin="5">
+                            <Border x:Name="expenses" Width="154" Height="161" BorderThickness="0" Background="{StaticResource ExpensesBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
-                            <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="Expenses" Style="{StaticResource SubheaderTextStyle}" />
+                                    <TextBlock Margin="10,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.TotalExpensesFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
 
-                        </Grid>
-                    </Border>
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="Expenses" Style="{StaticResource SubheaderTextStyle}" />
 
-                    <views:MapTile Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="5" DataContext="{Binding SelectedAssignment}" />
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
 
-                    <Border Grid.Row="2" Grid.Column="3" Grid.ColumnSpan="2" BorderThickness="0" Background="{StaticResource ItemsBrush}" Margin="5">
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto" />
-                                <ColumnDefinition Width="*" />
-                            </Grid.ColumnDefinitions>
 
-                            <Image Source="{StaticResource ConfirmationIcon}" Stretch="None" />
+                        <!---Map section-->
+                        <ListViewItem Grid.Column="3" Grid.ColumnSpan="2" Margin="5">
+                            <views:MapTile x:Name="mapTile" Width="324" Height="161" DataContext="{Binding SelectedAssignment}" />
+                        </ListViewItem>
 
-                            <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Center" Text="Confirmations" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
-                        </Grid>
-                    </Border>
+                        <!--Confirmation section-->
+                        <ListViewItem Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="5">
+                            <Border x:Name="confirmation" Width="324" Height="161" BorderThickness="0" Background="{StaticResource ItemsBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
 
-                    <Border Grid.Row="3" Grid.Column="3" BorderThickness="0" Background="{StaticResource DocumentsBrush}" Margin="5">
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                                    <Image Source="{StaticResource ConfirmationIcon}" Stretch="None" />
 
-                            <Image Source="{StaticResource DocumentIcon}" Stretch="None" />
+                                    <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Center" Text="Confirmations" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
 
-                            <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="Documents" Style="{StaticResource SubheaderTextStyle}" />
+                        <!--Documents section-->
+                        <ListViewItem Grid.Row="2" Grid.Column="3" Margin="5">
+                            <Border x:Name="documents" Width="154" Height="161" BorderThickness="0" Background="{StaticResource DocumentsBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
-                        </Grid>
-                    </Border>
+                                    <Image Source="{StaticResource DocumentIcon}" Stretch="None" />
 
-                    <Border Grid.Row="3" Grid.Column="4" BorderThickness="0" Background="{StaticResource DocumentsBrush}" Margin="5">
-                        <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <Grid.RowDefinitions>
-                                <RowDefinition />
-                                <RowDefinition />
-                            </Grid.RowDefinitions>
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="Documents" Style="{StaticResource SubheaderTextStyle}" />
 
-                            <Image Source="{StaticResource HistoryIcon}" Stretch="None" />
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
 
-                            <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="History" Style="{StaticResource SubheaderTextStyle}" />
+                        <!--History section-->
+                        <ListViewItem Grid.Row="2" Grid.Column="4" Margin="5">
+                            <Border x:Name="history" Width="154" Height="161" BorderThickness="0" Background="{StaticResource DocumentsBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
 
-                        </Grid>
-                    </Border>
+                                    <Image Source="{StaticResource HistoryIcon}" Stretch="None" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="History" Style="{StaticResource SubheaderTextStyle}" />
+
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                    </ListView>
 
                 </Grid>
 
@@ -270,10 +235,12 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Items</TextBlock>
-                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Bottom">View all items</Button>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Center" Command="{Binding ItemsCommand}">View all items</Button>
                     </Grid>
 
-                    <ListView x:Name="itemsListView" Grid.Row="1" ItemsSource="{Binding TopAssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
+                    <ListView 
+                        x:Name="itemsListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
+                        Grid.Row="1" ItemsSource="{Binding TopAssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
@@ -293,6 +260,51 @@
                         Background="{StaticResource ItemsBrush}" Height="75" Padding="0"
                         HorizontalAlignment="Left" VerticalAlignment="Top">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Items" VerticalAlignment="Center" />
+                    </Button>
+                </Grid>
+
+                <!--Labor section-->
+                <Grid Height="590" Width="500" Margin="25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}">Labor</TextBlock>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Center" Command="{Binding LaborCommand}">View all entries</Button>
+                    </Grid>
+
+                    <ListView x:Name="laborListView" Grid.Row="1" ItemsSource="{Binding TopLaborHours}" HorizontalContentAlignment="Stretch" SelectionMode="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
+                                    <Grid VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding TypeAsString}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding Description}" TextWrapping="NoWrap" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding HoursFormatted}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Button 
+                        Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482"
+                        Background="{StaticResource HoursBrush}" Height="75" Padding="0"
+                        HorizontalAlignment="Left" VerticalAlignment="Top">
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Labor" VerticalAlignment="Center" />
                     </Button>
                 </Grid>
 
