@@ -54,7 +54,6 @@ namespace FieldService.Android.Fragments {
                 itemViewModel
                     .SaveAssignmentItem (Assignment, AssignmentItems.ElementAtOrDefault (checkbox.Tag.ToString ().ToInt ()))
                     .ContinueOnUIThread (_ => checkbox.Enabled = true);
-                Console.WriteLine ("Item Click");
             };
             return view;
         }

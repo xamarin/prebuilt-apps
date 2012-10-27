@@ -36,6 +36,7 @@ namespace FieldService.Android.Dialogs {
         TextView photoCount,
             dateTime;
         Bitmap imageBitmap;
+
         public PhotoDialog (Context context)
             : base (context)
         {
@@ -68,9 +69,6 @@ namespace FieldService.Android.Dialogs {
             nextPhoto.Visibility =
                 previousPhoto.Visibility =
                 photoCount.Visibility = ViewStates.Invisible;
-            cancel.Click += (sender, e) => Dismiss ();
-            done.Click += (sender, e) => SavePhoto ();
-            delete.Click += (sender, e) => DeletePhoto ();
         }
 
         /// <summary>

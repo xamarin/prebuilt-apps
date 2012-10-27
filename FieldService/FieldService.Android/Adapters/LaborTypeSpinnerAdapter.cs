@@ -20,6 +20,7 @@ using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
+using FieldService.Utilities;
 
 namespace FieldService.Android {
     /// <summary>
@@ -34,7 +35,7 @@ namespace FieldService.Android {
         {
             this.items = new List<string> ();
             foreach (var item in items) {
-                this.items.Add (item.ToString ());
+                this.items.Add (item.ToUserString ());
             }
             this.context = context;
             this.resourceId = resourceId;

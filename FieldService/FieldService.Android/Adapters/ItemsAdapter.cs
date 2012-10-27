@@ -29,7 +29,6 @@ namespace FieldService.Android {
     /// </summary>
     public class ItemsAdapter : ArrayAdapter<AssignmentItem> {
 
-        ItemViewModel itemViewModel;
         IList<AssignmentItem> assignmentItems;
         int resourceId;
 
@@ -38,7 +37,6 @@ namespace FieldService.Android {
         {
             this.assignmentItems = assignmentItems;
             this.resourceId = resourceId;
-            this.itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
         }
 
         /// <summary>
@@ -69,6 +67,8 @@ namespace FieldService.Android {
 
             var name = view.FindViewById<TextView> (Resource.Id.itemName);
             var checkBox = view.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
+			checkBox.Tag = position;
+
             var trashButton = view.FindViewById<ImageButton> (Resource.Id.itemTrashButton);
             trashButton.Click += (sender, e) => Fragment.DeleteItem (item);
 
