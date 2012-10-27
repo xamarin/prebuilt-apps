@@ -64,6 +64,9 @@ namespace FieldService.Android {
             set;
         }
 
+        /// <summary>
+        /// Background color of the text view
+        /// </summary>
         public Color Background
         {
             get;
@@ -87,7 +90,6 @@ namespace FieldService.Android {
             textView.Text = item;
             textView.SetTextColor (TextColor);
             textView.SetBackgroundColor (Background);
-
             return view;
         }
 

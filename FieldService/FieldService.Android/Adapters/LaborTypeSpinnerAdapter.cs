@@ -19,6 +19,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using FieldService.Data;
 
 namespace FieldService.Android {
     /// <summary>
@@ -28,10 +29,13 @@ namespace FieldService.Android {
         List<string> items;
         Context context;
         int resourceId;
-        public LaborTypeSpinnerAdapter (List<string> items, Context context, int resourceId)
+        public LaborTypeSpinnerAdapter (LaborType[] items, Context context, int resourceId)
             : base ()
         {
-            this.items = items;
+            this.items = new List<string> ();
+            foreach (var item in items) {
+                this.items.Add (item.ToString ());
+            }
             this.context = context;
             this.resourceId = resourceId;
         }
@@ -60,6 +64,15 @@ namespace FieldService.Android {
             set;
         }
 
+        /// <summary>
+        /// Background color of the text view
+        /// </summary>
+        public Color Background
+        {
+            get;
+            set;
+        }
+
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             var view = convertView;
@@ -76,6 +89,7 @@ namespace FieldService.Android {
             var textView = view.FindViewById<TextView> (Resource.Id.simpleSpinnerTextView);
             textView.Text = item;
             textView.SetTextColor (TextColor);
+            textView.SetBackgroundColor (Background);
 
             return view;
         }

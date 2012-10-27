@@ -39,6 +39,7 @@ namespace FieldService.Android.Fragments {
             base.OnCreate (savedInstanceState);
 
             laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+            ServiceContainer.Register<LaborHourFragment> (this);
         }
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -61,6 +62,20 @@ namespace FieldService.Android.Fragments {
                 laborDialog.Show ();
             };
             return view;
+        }
+
+        /// <summary>
+        /// Reload the view in the listview by itself without calling to reload the list.
+        /// </summary>
+        /// <param name="index">index of the list view item to reload</param>
+        public void ReloadSingleListItem (int index)
+        {
+            if (laborListView.FirstVisiblePosition < index && index < laborListView.LastVisiblePosition) {
+                var view = laborListView.GetChildAt (index);
+                if (view != null) {
+                    laborListView.Adapter.GetView (index, view, laborListView);
+                }
+            }
         }
 
         /// <summary>

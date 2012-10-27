@@ -14,12 +14,16 @@
 //    limitations under the License.
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Fragments;
 using FieldService.Data;
+using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.Android {
     /// <summary>
@@ -27,13 +31,28 @@ namespace FieldService.Android {
     /// </summary>
     public class LaborHoursAdapter : ArrayAdapter<Labor> {
         List<Labor> laborHours;
+        LaborType [] laborTypes;
         int resourceId;
+        LaborViewModel laborViewModel;
 
         public LaborHoursAdapter (Context context, int resourceId, List<Labor> laborHours)
             : base (context, resourceId, laborHours)
         {
             this.laborHours = laborHours;
             this.resourceId = resourceId;
+            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+            laborTypes = new LaborType []
+            {
+                LaborType.Hourly,
+                LaborType.OverTime,
+                LaborType.HolidayTime,
+            };
+        }
+
+        public Assignment Assignment
+        {
+            get;
+            set;
         }
 
         public override View GetView (int position, View convertView, ViewGroup parent)
@@ -57,18 +76,25 @@ namespace FieldService.Android {
             var hours = view.FindViewById<TextView> (Resource.Id.laborHours);
             var laborType = view.FindViewById<Spinner> (Resource.Id.laborType);
 
-            List<string> laborTypes = new List<string>();
-            foreach (var item in Enum.GetValues(typeof(LaborType)))
-	    {
-		laborTypes.Add(item.ToString()); 
-            }
-
             var adapter = new LaborTypeSpinnerAdapter (laborTypes, Context, Resource.Layout.SimpleSpinnerItem);
             adapter.TextColor = Color.Black;
+            adapter.Background = Color.White;
             laborType.Adapter = adapter;
 
-            laborType.SetSelection (laborTypes.IndexOf (labor.TypeAsString));
-            hours.Text = string.Format ("{0} hrs", labor.Hours.TotalHours.ToString("0.0"));
+            laborType.ItemSelected += (sender, e) => {
+                var status = laborTypes [e.Position];
+                var currentLabor = laborHours [position];
+                if (status != currentLabor.Type) {
+                    currentLabor.Type = status;
+                    laborViewModel.SaveLabor (Assignment, currentLabor).ContinueOnUIThread (_ => {
+                        var fragment = ServiceContainer.Resolve<LaborHourFragment> ();
+                        fragment.ReloadSingleListItem (position);
+                        });
+                }
+            };
+
+            laborType.SetSelection (laborTypes.ToList ().IndexOf (labor.Type));
+            hours.Text = string.Format ("{0} hrs", labor.Hours.TotalHours.ToString ("0.0"));
             description.Text = labor.Description;
 
             hours.Tag = position;

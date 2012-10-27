@@ -127,14 +127,15 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/assignmentStatusImage"
                 android:layout_marginRight="5dp"
-                android:layout_marginTop="5dp" />
+                android:layout_gravity="center_vertical" />
             <Spinner
                 android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/assignmentStatus"
                 android:layout_centerHorizontal="true"
-                android:layout_gravity="bottom"
-                android:focusable="false" />
+                android:layout_gravity="center_vertical"
+                android:focusable="false"
+                android:paddingTop="10dp" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

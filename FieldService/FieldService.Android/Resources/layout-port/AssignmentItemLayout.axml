@@ -149,7 +149,8 @@
                 android:layout_centerHorizontal="true"
                 android:focusable="false"
                 android:layout_marginLeft="5dp"
-                android:layout_below="@id/assignmentTimer" />
+                android:layout_below="@id/assignmentTimer"
+                android:paddingTop="10dp" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

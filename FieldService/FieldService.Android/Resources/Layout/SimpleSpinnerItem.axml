@@ -5,7 +5,7 @@
     android:textSize="18dp"
     android:textColor="@color/greyspinnertext"
     android:id="@+id/simpleSpinnerTextView"
-    android:gravity="center"
+    android:gravity="center_horizontal|bottom"
     android:ellipsize="marquee"
     android:paddingTop="10dp"
     android:paddingBottom="10dp" />

@@ -44,6 +44,7 @@ namespace FieldService.Android {
         public MapViewActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            assignmentViewModel.HoursChanged += HoursChanged;
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -72,14 +73,15 @@ namespace FieldService.Android {
             mapView.SetBuiltInZoomControls (true);
         }
 
+        /// <summary>
+        /// Enabling my location and setting active assignment
+        /// </summary>
         protected override void OnResume ()
         {
             base.OnResume ();
 
             UpdateLocations ();
             myLocation.EnableMyLocation ();
-
-            assignmentViewModel.HoursChanged += HoursChanged;
 
             if (assignmentViewModel.ActiveAssignment != null) {
                 SetAssignment (true);
@@ -88,6 +90,9 @@ namespace FieldService.Android {
             }
         }
 
+        /// <summary>
+        /// Updates location pins on the map.
+        /// </summary>
         private void UpdateLocations ()
         {
             assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
@@ -114,13 +119,9 @@ namespace FieldService.Android {
             });
         }
 
-        protected override void OnPause ()
-        {
-            base.OnPause ();
-
-            assignmentViewModel.HoursChanged -= HoursChanged;
-        }
-
+        /// <summary>
+        /// Clearing overlays on map, stopping my location, clearing active assignment in the layout.
+        /// </summary>
         protected override void OnStop ()
         {
             myLocation.DisableMyLocation ();
@@ -129,6 +130,9 @@ namespace FieldService.Android {
             base.OnStop ();
         }
 
+        /// <summary>
+        /// Hours Changed event for tracking time on active assignment
+        /// </summary>
         private void HoursChanged (object sender, EventArgs e)
         {
             if (timerText != null) {
@@ -138,11 +142,18 @@ namespace FieldService.Android {
             }
         }
         
+        /// <summary>
+        /// Override for MapActivity
+        /// </summary>
         protected override bool IsRouteDisplayed
         {
             get { return false; }
         }
 
+        /// <summary>
+        /// Sets the current active assignment
+        /// </summary>
+        /// <param name="visible"></param>
         private void SetAssignment (bool visible)
         {
             if (visible) {
@@ -182,11 +193,12 @@ namespace FieldService.Android {
                 });
 
                 timer.CheckedChange += (sender, e) => {
-                    timer.Enabled = false;
-                    if (assignmentViewModel.Recording) {
-                        assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
-                    } else {
-                        assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
+                    if (e.IsChecked != assignmentViewModel.Recording) {
+                        if (assignmentViewModel.Recording) {
+                            assignmentViewModel.Pause ();
+                        } else {
+                            assignmentViewModel.Record ();
+                        }
                     }
                 };
 
@@ -195,7 +207,7 @@ namespace FieldService.Android {
 
                 var adapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, this, Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Resources.GetColor (Resource.Color.greyspinnertext);
-                adapter.Background = Color.White;
+                adapter.Background = Resources.GetColor (Resource.Color.assignmentblue);
                 spinner.Adapter = adapter;
                 spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 spinner.SetBackgroundResource (Resource.Drawable.triangleblue);

@@ -109,11 +109,12 @@ namespace FieldService.Android.Fragments {
                 });
 
                 timer.CheckedChange += (sender, e) => {
-                    timer.Enabled = false;
-                    if (assignmentViewModel.Recording) {
-                        assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
-                    } else {
-                        assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
+                    if (e.IsChecked != assignmentViewModel.Recording) {
+                        if (assignmentViewModel.Recording) {
+                            assignmentViewModel.Pause ();
+                        } else {
+                            assignmentViewModel.Record ();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                        }
                     }
                 };
             } else {

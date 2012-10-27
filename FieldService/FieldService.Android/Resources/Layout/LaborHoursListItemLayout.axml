@@ -9,7 +9,8 @@
         android:id="@+id/laborType"
         android:background="@drawable/trianglewhite"
         android:focusable="false"
-        android:layout_marginLeft="10dp" />
+        android:layout_marginLeft="10dp"
+        android:minHeight="60dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -21,7 +22,9 @@
         android:layout_toRightOf="@id/laborType"
         android:focusable="false"
         android:textSize="16dp"
-        android:layout_weight="1" />
+        android:layout_weight="1"
+        android:maxLines="1"
+        android:ellipsize="end" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

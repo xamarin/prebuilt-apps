@@ -14,6 +14,7 @@
 //    limitations under the License.
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 using Android.App;
 using Android.Content;
@@ -34,16 +35,20 @@ namespace FieldService.Android.Dialogs {
         LaborViewModel laborViewModel;
         EditText description;
         TextView hours;
-        List<string> laborHourTypes;
+        LaborType [] laborTypes;
+        Spinner type;
 
         public AddLaborDialog (Context context)
             : base (context)
         {
             laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
-            laborHourTypes = new List<string> ();
-            foreach (var item in Enum.GetValues (typeof (LaborType))) {
-                laborHourTypes.Add (item.ToString ());
-            }
+
+            laborTypes = new LaborType []
+            {
+                LaborType.Hourly,
+                LaborType.OverTime,
+                LaborType.HolidayTime,
+            };
         }
 
         protected override void OnCreate (Bundle savedInstanceState)
@@ -87,17 +92,23 @@ namespace FieldService.Android.Dialogs {
                 hours.Text = total.ToString ("0.0");
             };
 
-            var type = (Spinner)FindViewById (Resource.Id.addLaborHoursType);
+            type = (Spinner)FindViewById (Resource.Id.addLaborHoursType);
             description = (EditText)FindViewById (Resource.Id.addLaborDescription);
             hours = (TextView)FindViewById (Resource.Id.addLaborHoursText);
 
-            var adapter = new LaborTypeSpinnerAdapter (laborHourTypes, Context, Resource.Layout.SimpleSpinnerItem);
+            var adapter = new LaborTypeSpinnerAdapter (laborTypes, Context, Resource.Layout.SimpleSpinnerItem);
             adapter.TextColor = Color.Black;
             type.Adapter = adapter;
 
             if (CurrentLabor != null) {
-                type.SetSelection (laborHourTypes.IndexOf (CurrentLabor.TypeAsString));
+                type.SetSelection (laborTypes.ToList ().IndexOf (CurrentLabor.Type));
             }
+
+            type.ItemSelected += (sender, e) => {
+                var laborType = laborTypes [e.Position];
+                if (CurrentLabor.Type != laborType)
+                    CurrentLabor.Type = laborType;
+            };
         }
 
         public override void OnAttachedToWindow ()

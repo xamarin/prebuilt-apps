@@ -41,6 +41,7 @@ namespace FieldService.Android {
         public AssignmentsActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            assignmentViewModel.HoursChanged += HoursChanged;
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -63,8 +64,6 @@ namespace FieldService.Android {
         protected override void OnResume ()
         {
             base.OnResume ();
-
-            assignmentViewModel.HoursChanged += HoursChanged;
 
             assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.ActiveAssignment != null) {
@@ -91,8 +90,6 @@ namespace FieldService.Android {
             base.OnPause ();
             timer = null;
             timerText = null;
-
-            assignmentViewModel.HoursChanged -= HoursChanged;
         }
 
         /// <summary>
@@ -168,11 +165,12 @@ namespace FieldService.Android {
                 });
 
                 timer.CheckedChange += (sender, e) => {
-                    timer.Enabled = false;
-                    if (assignmentViewModel.Recording) {
-                        assignmentViewModel.Pause ().ContinueOnUIThread (t => timer.Enabled = true);
-                    } else {
-                        assignmentViewModel.Record ().ContinueOnUIThread (t => timer.Enabled = true);
+                    if (e.IsChecked != assignmentViewModel.Recording) {
+                        if (assignmentViewModel.Recording) {
+                            assignmentViewModel.Pause ();
+                        } else {
+                            assignmentViewModel.Record ();
+                        }
                     }
                 };
 
@@ -181,7 +179,7 @@ namespace FieldService.Android {
 
                 var adapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, this, Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Resources.GetColor (Resource.Color.greyspinnertext);
-                adapter.Background = Color.White;
+                adapter.Background = Resources.GetColor (Resource.Color.assignmentblue);
                 spinner.Adapter = adapter;
                 spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 spinner.SetBackgroundResource (Resource.Drawable.triangleblue);
