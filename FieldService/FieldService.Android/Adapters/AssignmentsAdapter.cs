@@ -125,6 +125,7 @@ namespace FieldService.Android {
                                     var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
                                     var intent = new Intent (activity, typeof (SummaryActivity));
                                     intent.PutExtra (Constants.BundleIndex, index);
+                                    intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf(Constants.Confirmations));
                                     activity.StartActivity (intent);
                                 }
                                 break;

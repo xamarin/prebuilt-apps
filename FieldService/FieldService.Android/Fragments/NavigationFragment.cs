@@ -103,9 +103,6 @@ namespace FieldService.Android.Fragments {
 
             var adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
             navigationListView.OnItemClickListener = navigationSelector;
-            navigationListView.ItemClick += (sender, e) => {
-                
-            };
             navigationListView.Adapter = adapter;
 
             SetActiveAssignment ();
@@ -118,7 +115,7 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         private void SetActiveAssignment ()
         {
-            if (assignment != null && assignment.Status == AssignmentStatus.Active) {
+            if (assignment != null && (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Complete)) {
                 timerLayout.Visibility = ViewStates.Visible;
                 navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
                 navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));

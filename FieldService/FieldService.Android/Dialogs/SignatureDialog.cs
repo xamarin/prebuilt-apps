@@ -13,14 +13,18 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Fragments;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Xamarin.Controls;
 
 namespace FieldService.Android.Dialogs {
     /// <summary>
@@ -28,7 +32,7 @@ namespace FieldService.Android.Dialogs {
     /// </summary>
     public class SignatureDialog : BaseDialog {
         AssignmentViewModel assignmentViewModel;
-        ImageView signature;
+        SignatureView signatureView;
 
         public SignatureDialog (Context context)
             : base (context)
@@ -42,30 +46,41 @@ namespace FieldService.Android.Dialogs {
 
             SetContentView (Resource.Layout.AddSignatureLayout);
 
-            var clear = (Button)FindViewById (Resource.Id.signatureClearButton);
-            clear.Click += (sender, e) => signature.SetImageBitmap (null);
-
             var save = (Button)FindViewById (Resource.Id.signatureSaveButton);
-            save.Click += (sender, e) => Dismiss ();
+            save.Click += (sender, e) => {
+                if (signatureView.IsBlank) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder (Activity);
+                    builder
+                        .SetTitle (string.Empty)
+                        .SetMessage ("No signature!")
+                        .SetPositiveButton ("Ok", (innerSender, innere) => { })
+                        .Show ();
+                    return;
+                }
+                Assignment.Signature = signatureView.GetImage ().ToByteArray ();
+                assignmentViewModel.SaveAssignment (Assignment)
+                    .ContinueOnUIThread (_ => {
+                        var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
+                        fragment.ReloadConfirmation ();
+                        Dismiss ();
+                        });
+            };
 
             var cancel = (Button)FindViewById (Resource.Id.signatureCancelButton);
-            cancel.Click += (sender, e) => Dismiss ();
+            cancel.Click += (sender, e) => {
+                Dismiss ();
+            };
 
-            signature = (ImageView)FindViewById (Resource.Id.signatureImage);
+            signatureView = (SignatureView)FindViewById (Resource.Id.signatureImage);
         }
 
         /// <summary>
-        /// Load the image of the signature
+        /// The activity holding this dialog
         /// </summary>
-        public override void OnAttachedToWindow ()
+        public Activity Activity
         {
-            base.OnAttachedToWindow ();
-
-            if (Assignment != null && Assignment.Signature != null) {
-                using (var bmp = BitmapFactory.DecodeByteArray (Assignment.Signature, 0, Assignment.Signature.Length)) {
-                    signature.SetImageBitmap (bmp);
-                }
-            }
+            get;
+            set;
         }
 
         /// <summary>

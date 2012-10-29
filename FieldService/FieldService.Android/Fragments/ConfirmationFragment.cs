@@ -19,6 +19,7 @@ using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
+using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
@@ -35,16 +36,19 @@ namespace FieldService.Android.Fragments {
     /// </summary>
     public class ConfirmationFragment : Fragment {
         PhotoViewModel photoViewModel;
+        AssignmentViewModel assignmentViewModel;
         SignatureDialog signatureDialog;
         PhotoDialog photoDialog;
         ListView photoListView;
         MediaPicker mediaPicker;
+        ImageView signatureImage;
 
         public override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
 
             photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
             mediaPicker = new MediaPicker (Activity);
         }
 
@@ -52,6 +56,7 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.ConfirmationsLayout, null, true);
+            signatureImage = view.FindViewById<ImageView> (Resource.Id.confirmationsSignature);
 
             photoListView = view.FindViewById<ListView> (Resource.Id.confirmationPhotoList);
             photoListView.ItemClick += (sender, e) => {
@@ -114,16 +119,32 @@ namespace FieldService.Android.Fragments {
             var addSignature = view.FindViewById<Button> (Resource.Id.confirmationsAddSignature);
             addSignature.Click += (sender, e) => {
                 signatureDialog = new SignatureDialog (Activity);
+                signatureDialog.Activity = Activity;
                 signatureDialog.Assignment = Assignment;
                 signatureDialog.Show ();
             };
 
             var completeSignature = view.FindViewById<Button> (Resource.Id.confirmationsComplete);
             completeSignature.Click += (sender, e) => {
-                //TODO: waiting on SignatureView
+                if (Assignment.Signature == null) {
+                    AlertDialog.Builder builder = new AlertDialog.Builder (Activity);
+                    builder
+                        .SetTitle (string.Empty)
+                        .SetMessage ("No signature!")
+                        .SetPositiveButton ("Ok", (innerSender, innere) => { })
+                        .Show ();
+                    return;
+                }
+                Assignment.Status = AssignmentStatus.Complete;
+                assignmentViewModel.SaveAssignment (Assignment)
+                    .ContinueOnUIThread (_ => {
+                        Activity.Finish ();
+                    });
             };
 
             ReloadListView ();
+
+            ReloadSignature ();
 
             return view;
         }
@@ -135,6 +156,17 @@ namespace FieldService.Android.Fragments {
         {
             if (Photos != null) {
                 photoListView.Adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos);
+            }
+        }
+
+        private void ReloadSignature ()
+        {
+            if (Assignment != null && Assignment.Signature != null) {
+                using (var bmp = BitmapFactory.DecodeByteArray (Assignment.Signature, 0, Assignment.Signature.Length)) {
+                    signatureImage.SetImageBitmap (bmp);
+                }
+            } else {
+                signatureImage.SetImageBitmap (null);
             }
         }
 
@@ -180,6 +212,7 @@ namespace FieldService.Android.Fragments {
                 .ContinueOnUIThread (_ => {
                     Photos = photoViewModel.Photos;
                     ReloadListView ();
+                    ReloadSignature ();
                 });
         }
     }

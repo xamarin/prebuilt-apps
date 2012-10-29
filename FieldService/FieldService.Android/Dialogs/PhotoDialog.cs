@@ -200,11 +200,7 @@ namespace FieldService.Android.Dialogs {
             Photo savePhoto = Photo;
             if (savePhoto == null) {
                 savePhoto = new Photo ();
-                using (MemoryStream stream = new MemoryStream ()) {
-                    if (imageBitmap.Compress (Bitmap.CompressFormat.Jpeg, 80, stream)) {
-                        savePhoto.Image = stream.ToArray ();
-                    }
-                }
+                savePhoto.Image = imageBitmap.ToByteArray ();
             }
             savePhoto.Description = optionalCaption.Text;
             savePhoto.Assignment = Assignment.ID;

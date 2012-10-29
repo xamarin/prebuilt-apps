@@ -33,14 +33,12 @@
         android:background="@color/confirmationborder"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
-        <ImageView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+        <xamarin.controls.SignatureView
+            android:layout_width="350dp"
+            android:layout_height="150dp"
             android:id="@+id/signatureImage"
             android:maxHeight="150dp"
             android:maxWidth="350dp"
-            android:minHeight="150dp"
-            android:minWidth="350dp"
             android:background="@color/assignmentoffwhite"
             android:layout_margin="1dp" />
     </FrameLayout>
@@ -59,14 +57,6 @@
             android:textColor="@android:color/black"
             android:background="@drawable/cancel_button"
             android:layout_weight="1" />
-        <Button
-            android:text="@string/Clear"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:id="@+id/signatureClearButton"
-            android:textColor="@android:color/black"
-            android:layout_weight="1"
-            android:background="@drawable/cancel_button" />
         <Button
             android:text="@string/Save"
             android:layout_width="wrap_content"

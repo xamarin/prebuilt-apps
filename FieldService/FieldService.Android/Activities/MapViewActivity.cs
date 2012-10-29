@@ -35,11 +35,23 @@ namespace FieldService.Android {
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
     public class MapViewActivity : MapActivity {
         AssignmentViewModel assignmentViewModel;
-        LinearLayout assignmentMapViewLayout;
         MapView mapView;
         MyLocationOverlay myLocation;
-        TextView timerText;
+        LinearLayout assignmentMapViewLayout,
+            buttonLayout,
+            timerLayout,
+            timerLinearLayout;
         ToggleButton timer;
+        Spinner activeSpinner;
+        Assignment assignment;
+        ImageView spinnerImage;
+        TextView number,
+            name,
+            job,
+            phone,
+            address,
+            timerText;
+
 
         public MapViewActivity ()
         {
@@ -71,6 +83,72 @@ namespace FieldService.Android {
             mapView.Clickable = true;
             mapView.Enabled = true;
             mapView.SetBuiltInZoomControls (true);
+
+            //View containing the active assignment
+            var view = new View (this);
+            LayoutInflater inflator = (LayoutInflater)GetSystemService (Context.LayoutInflaterService);
+            view = inflator.Inflate (Resource.Layout.AssignmentItemLayout, null);
+            assignmentMapViewLayout.AddView (view);
+            view.LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent);
+            view.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.active_assignment_selector));
+            number = view.FindViewById<TextView> (Resource.Id.assignmentItemNumber);
+            job = view.FindViewById<TextView> (Resource.Id.assignmentJob);
+            name = view.FindViewById<TextView> (Resource.Id.assignmentName);
+            phone = view.FindViewById<TextView> (Resource.Id.assignmentPhone);
+            address = view.FindViewById<TextView> (Resource.Id.assignmentAddress);
+            buttonLayout = view.FindViewById<LinearLayout> (Resource.Id.assignmentButtonLayout);
+            timerLayout = view.FindViewById<LinearLayout> (Resource.Id.assignmentTimerLayout);
+            timerLinearLayout = view.FindViewById<LinearLayout> (Resource.Id.timerLinearLayout);
+            activeSpinner = view.FindViewById<Spinner> (Resource.Id.assignmentStatus);
+            spinnerImage = view.FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
+            timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
+            timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
+
+            assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+                if (assignmentViewModel.Recording) {
+                    timer.Checked = true;
+                } else {
+                    timer.Checked = false;
+                }
+            });
+
+            timer.CheckedChange += (sender, e) => {
+                if (e.IsChecked != assignmentViewModel.Recording) {
+                    if (assignmentViewModel.Recording) {
+                        assignmentViewModel.Pause ();
+                    } else {
+                        assignmentViewModel.Record ();
+                    }
+                }
+            };
+
+            activeSpinner.ItemSelected += (sender, e) => {
+                if (assignment != null) {
+                    var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (e.Position);
+                    if (selected != assignment.Status) {
+                        switch (selected) {
+                            case AssignmentStatus.Hold:
+                                assignment.Status = selected;
+                                assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+                                    SetAssignment (false);
+                                    mapView.Overlays.Clear ();
+                                    mapView.Overlays.Add (myLocation);
+                                    UpdateLocations ();
+                                });
+                                break;
+                            case AssignmentStatus.Complete:
+                                //go to confirmations
+                                var intent = new Intent (this, typeof (SummaryActivity));
+                                intent.PutExtra (Constants.BundleIndex, -1);
+                                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
+                                StartActivity (intent);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+            };
         }
 
         /// <summary>
@@ -126,7 +204,6 @@ namespace FieldService.Android {
         {
             myLocation.DisableMyLocation ();
             mapView.Overlays.Clear ();
-            assignmentMapViewLayout.RemoveAllViews ();
             base.OnStop ();
         }
 
@@ -158,49 +235,7 @@ namespace FieldService.Android {
         {
             if (visible) {
                 assignmentMapViewLayout.Visibility = ViewStates.Visible;
-                var assignment = assignmentViewModel.ActiveAssignment;
-                View view = null;
-                //look at layouts children to get view
-                if (assignmentMapViewLayout.ChildCount > 0) {
-                    view = assignmentMapViewLayout.GetChildAt (0);
-                } else {
-                    view = new View (this);
-                    LayoutInflater inflator = (LayoutInflater)GetSystemService (Context.LayoutInflaterService);
-                    view = inflator.Inflate (Resource.Layout.AssignmentItemLayout, null);
-                    assignmentMapViewLayout.AddView (view);
-                }
-                view.LayoutParameters = new LinearLayout.LayoutParams (LinearLayout.LayoutParams.FillParent, LinearLayout.LayoutParams.WrapContent);
-                view.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.active_assignment_selector));
-                var number = view.FindViewById<TextView> (Resource.Id.assignmentItemNumber);
-                var job = view.FindViewById<TextView> (Resource.Id.assignmentJob);
-                var name = view.FindViewById<TextView> (Resource.Id.assignmentName);
-                var phone = view.FindViewById<TextView> (Resource.Id.assignmentPhone);
-                var address = view.FindViewById<TextView> (Resource.Id.assignmentAddress);
-                var buttonLayout = view.FindViewById<LinearLayout> (Resource.Id.assignmentButtonLayout);
-                var timerLayout = view.FindViewById<LinearLayout> (Resource.Id.assignmentTimerLayout);
-                var timerlinearLayout = view.FindViewById<LinearLayout> (Resource.Id.timerLinearLayout);
-                var spinner = view.FindViewById<Spinner> (Resource.Id.assignmentStatus);
-                var spinnerImage = view.FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
-                timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
-                timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
-
-                assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
-                    if (assignmentViewModel.Recording) {
-                        timer.Checked = true;
-                    } else {
-                        timer.Checked = false;
-                    }
-                });
-
-                timer.CheckedChange += (sender, e) => {
-                    if (e.IsChecked != assignmentViewModel.Recording) {
-                        if (assignmentViewModel.Recording) {
-                            assignmentViewModel.Pause ();
-                        } else {
-                            assignmentViewModel.Record ();
-                        }
-                    }
-                };
+                assignment = assignmentViewModel.ActiveAssignment;
 
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
@@ -208,37 +243,11 @@ namespace FieldService.Android {
                 var adapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, this, Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Resources.GetColor (Resource.Color.greyspinnertext);
                 adapter.Background = Resources.GetColor (Resource.Color.assignmentblue);
-                spinner.Adapter = adapter;
-                spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
-                spinner.SetBackgroundResource (Resource.Drawable.triangleblue);
+                activeSpinner.Adapter = adapter;
+                activeSpinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
+                activeSpinner.SetBackgroundResource (Resource.Drawable.triangleblue);
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
-                spinner.ItemSelected += (sender, e) => {
-                    var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (e.Position);
-                    if (selected != assignment.Status) {
-                        switch (selected) {
-                            case AssignmentStatus.Hold:
-                                assignment.Status = selected;
-                                assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
-                                    SetAssignment (false);
-                                    mapView.Overlays.Clear ();
-                                    mapView.Overlays.Add (myLocation);
-                                    UpdateLocations ();
-                                });
-                                break;
-                            case AssignmentStatus.Complete:
-                                //go to confirmations
-                                assignment.Status = selected;
-                                var intent = new Intent (this, typeof (SummaryActivity));
-                                intent.PutExtra (Constants.BundleIndex, -1);
-                                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
-                                StartActivity (intent);
-                                break;
-                            default:
-                                break;
-                        }
-                    }
-                };
                 number.Text = assignment.Priority.ToString ();
                 job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.Title);
                 name.Text = assignment.ContactName;

@@ -13,6 +13,8 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.IO;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Android.Graphics;
 
@@ -60,6 +62,19 @@ namespace FieldService.Android.Utilities {
             BitmapFactory.DecodeByteArray (bytes, 0, bytes.Length, options);
             sampleSize = (int)Math.Ceiling ((double)Math.Max (options.OutWidth / Constants.MaxWidth, options.OutHeight / Constants.MaxHeight));
             return sampleSize;
+        }
+
+        public static byte [] ToByteArray (this Bitmap bmp)
+        {
+            byte [] bytes = null;
+            if (bmp != null) {
+                using (MemoryStream stream = new MemoryStream ()) {
+                    if (bmp.Compress (Bitmap.CompressFormat.Jpeg, 80, stream)) {
+                        bytes = stream.ToArray ();
+                    }
+                }
+            }
+            return bytes;
         }
     }
 }
