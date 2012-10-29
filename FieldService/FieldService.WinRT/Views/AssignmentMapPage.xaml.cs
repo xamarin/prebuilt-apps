@@ -13,12 +13,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
 using Bing.Maps;
 using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
+using System;
 using Windows.Devices.Geolocation;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -96,11 +97,24 @@ namespace FieldService.WinRT.Views {
 
         private async void UpdatePosition ()
         {
-            var position = await locator.GetGeopositionAsync ();
-            var location = new Location (position.Coordinate.Latitude, position.Coordinate.Longitude);
+            try
+            {
+                var position = await locator.GetGeopositionAsync();
+                var location = new Location(position.Coordinate.Latitude, position.Coordinate.Longitude);
 
-            //Set the user's pin
-            MapLayer.SetPosition (userPin, location);
+                //Set the user's pin
+                MapLayer.SetPosition(userPin, location);
+            }
+            catch (Exception exc)
+            {
+                //This means our location was not found
+                ShowError("Could not find location: " + exc.Message);
+            }
+        }
+
+        private async void ShowError(string error)
+        {
+            await new MessageDialog(error).ShowAsync();
         }
     }
 }
