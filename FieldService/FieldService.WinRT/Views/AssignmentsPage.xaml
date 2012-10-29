@@ -30,8 +30,8 @@
 
         <ScrollViewer 
             Grid.Row="2"
-            ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto">
-            <Grid Height="540" VerticalAlignment="Top" Margin="50,0,50,50">
+            ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto">
+            <Grid Height="530" VerticalAlignment="Top" Margin="50,0,50,50">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="Auto" />
                     <ColumnDefinition Width="*" />
@@ -116,16 +116,17 @@
                 </Grid>
 
                 <ListView 
-                    x:Name="listView" Grid.Column="1" IsItemClickEnabled="True"
+                    x:Name="listView" Grid.Column="1" IsItemClickEnabled="True" 
+                    ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
                     ItemsSource="{Binding Assignments}" SelectionMode="None" ItemClick="OnItemClick">
                     <ListView.ItemsPanel>
                         <ItemsPanelTemplate>
-                            <VirtualizingStackPanel Orientation="Horizontal" />
+                            <StackPanel Orientation="Horizontal" />
                         </ItemsPanelTemplate>
                     </ListView.ItemsPanel>
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Grid HorizontalAlignment="Left" Width="140" Height="530">
+                            <Grid HorizontalAlignment="Left" Width="140" Height="520">
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="*" />
                                     <RowDefinition Height="170" />
