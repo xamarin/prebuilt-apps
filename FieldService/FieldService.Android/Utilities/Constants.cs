@@ -20,9 +20,17 @@ namespace FieldService.Android.Utilities {
         /// </summary>
         public static List<string> Navigation = new List<string> () { "Summary", "Map", "Items", "Labor Hours", "Confirmations" };
         /// <summary>
+        /// Constants string for getting navigation index
+        /// </summary>
+        public const string Confirmations = "Confirmations";
+        /// <summary>
         /// Key for PutExtra
         /// </summary>
         public const string BundleIndex = "index";
+        /// <summary>
+        /// Key for PutExtra for the fragments
+        /// </summary>
+        public const string FragmentIndex = "fragment";
         /// <summary>
         /// Key for PutInt
         /// </summary>

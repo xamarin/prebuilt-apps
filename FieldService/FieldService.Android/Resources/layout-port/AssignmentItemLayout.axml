@@ -141,16 +141,16 @@
                 android:id="@+id/assignmentStatusImage"
                 android:layout_marginRight="5dp"
                 android:layout_below="@id/assignmentTimerText"
-                android:layout_marginTop="5dp" />
+                android:layout_gravity="center_vertical" />
             <Spinner
-                android:layout_width="wrap_content"
+                android:layout_width="100dp"
                 android:layout_height="wrap_content"
                 android:id="@+id/assignmentStatus"
                 android:layout_centerHorizontal="true"
                 android:focusable="false"
                 android:layout_marginLeft="5dp"
                 android:layout_below="@id/assignmentTimer"
-                android:paddingTop="10dp" />
+                android:layout_gravity="center_vertical" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

@@ -189,13 +189,21 @@ namespace FieldService.Android {
                     var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (e.Position);
                     if (selected != assignment.Status) {
                         switch (selected) {
-                            case AssignmentStatus.Active:
-                                break;
-                            default:
+                            case AssignmentStatus.Hold:
                                 assignment.Status = selected;
                                 assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
                                     ReloadAssignments ();
                                 });
+                                break;
+                            case AssignmentStatus.Complete:
+                                //go to confirmations
+                                assignment.Status = selected;
+                                var intent = new Intent (this, typeof (SummaryActivity));
+                                intent.PutExtra (Constants.BundleIndex, -1);
+                                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf(Constants.Confirmations));
+                                StartActivity (intent);
+                                break;
+                            default:                                
                                 break;
                         }
                     }

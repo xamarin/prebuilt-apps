@@ -65,12 +65,13 @@ namespace FieldService.Android {
             SetContentView (Resource.Layout.SummaryFragmentLayout);
 
             if (Intent != null) {
-                assignmentIndex = Intent.GetIntExtra ("index", -1);
+                assignmentIndex = Intent.GetIntExtra (Constants.BundleIndex, -1);
                 if (assignmentIndex != -1) {
                     Assignment = assignmentViewModel.Assignments [assignmentIndex];
                 } else {
                     Assignment = assignmentViewModel.ActiveAssignment;
                 }
+                navigationIndex = Intent.GetIntExtra (Constants.FragmentIndex, 0);
             }
 
             var title = FindViewById<TextView> (Resource.Id.summaryAssignmentTitle);

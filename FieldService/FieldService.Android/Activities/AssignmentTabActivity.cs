@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 
+using System;
 using System.ComponentModel;
 using Android.App;
 using Android.Content;
@@ -59,10 +60,14 @@ namespace FieldService.Android {
             tabHost.AddTab (assignmentsSpec);
             tabHost.AddTab (mapViewSpec);
 
-            if (savedInstanceState != null) {
-                var currentTab = savedInstanceState.GetInt (Constants.CurrentTab);
-                tabHost.CurrentTab = currentTab;
-            } else {
+            try {
+                if (savedInstanceState != null && savedInstanceState.ContainsKey (Constants.CurrentTab)) {
+                    var currentTab = savedInstanceState.GetInt (Constants.CurrentTab, 0);
+                    tabHost.CurrentTab = currentTab;
+                } else {
+                    tabHost.CurrentTab = 0;
+                }
+            } catch (Exception exc) {
                 tabHost.CurrentTab = 0;
             }
         }
@@ -90,8 +95,8 @@ namespace FieldService.Android {
 
         protected override void OnSaveInstanceState (Bundle outState)
         {
+            outState.PutInt (Constants.CurrentTab, (int)tabHost.CurrentTab);
             base.OnSaveInstanceState (outState);
-            outState.PutInt (Constants.CurrentTab, tabHost.CurrentTab);
         }
     }
 }

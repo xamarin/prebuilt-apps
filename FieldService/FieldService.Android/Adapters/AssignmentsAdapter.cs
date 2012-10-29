@@ -19,6 +19,7 @@ using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -116,6 +117,15 @@ namespace FieldService.Android {
                                     spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
                                     activeAssignment.Status = AssignmentStatus.Active;
                                     SaveAssignment (activeAssignment, index);
+                                }
+                                break;
+                            case AssignmentStatus.Complete: {
+                                    //go to confirmations
+                                    activeAssignment.Status = selected;
+                                    var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
+                                    var intent = new Intent (activity, typeof (SummaryActivity));
+                                    intent.PutExtra (Constants.BundleIndex, index);
+                                    activity.StartActivity (intent);
                                 }
                                 break;
                             default: {

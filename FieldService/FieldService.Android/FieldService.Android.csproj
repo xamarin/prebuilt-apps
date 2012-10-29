@@ -175,11 +175,11 @@
     <AndroidResource Include="Resources\Layout\LoginLayout.axml" />
     <AndroidResource Include="Resources\Layout\SimpleSpinnerItem.axml" />
     <AndroidResource Include="Resources\Layout-land\AssignmentItemLayout.axml" />
-    <AndroidResource Include="Resources\layout-port\AssignmentItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-port\AssignmentItemLayout.axml" />
     <AndroidResource Include="Resources\Layout-land\AssignmentsLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-port\AssignmentsLayout.axml">
+    <AndroidResource Include="Resources\Layout-port\AssignmentsLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\MapViewLayout.axml">
@@ -194,7 +194,7 @@
     <AndroidResource Include="Resources\Layout\NavigationListItemLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-port\SummaryFragmentLayout.axml">
+    <AndroidResource Include="Resources\Layout-port\SummaryFragmentLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SummaryLayout.axml">
@@ -230,7 +230,7 @@
     <AndroidResource Include="Resources\Layout-land\ConfirmationsLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\layout-port\ConfirmationsLayout.axml">
+    <AndroidResource Include="Resources\Layout-port\ConfirmationsLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\PhotoItemLayout.axml">

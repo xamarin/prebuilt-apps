@@ -134,8 +134,7 @@
                 android:id="@+id/assignmentStatus"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_vertical"
-                android:focusable="false"
-                android:paddingTop="10dp" />
+                android:focusable="false" />
         </LinearLayout>
     </LinearLayout>
     <LinearLayout

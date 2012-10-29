@@ -47,6 +47,11 @@ namespace FieldService.Android.Utilities {
             return value;
         }
 
+        /// <summary>
+        /// Helper method to get the sample size of the image for resampling.
+        /// </summary>
+        /// <param name="bytes"></param>
+        /// <returns></returns>
         public static int ToSampleSize (this byte [] bytes)
         {
             var sampleSize = 0;
