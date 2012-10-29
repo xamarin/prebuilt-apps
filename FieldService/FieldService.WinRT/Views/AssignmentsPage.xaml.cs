@@ -44,6 +44,9 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
+            //Do this to fix animation when navigating to screen
+            assignmentViewModel.Assignments = null;
+
             if (!timerLoaded) {
                 assignmentViewModel.LoadTimerEntry ().ContinueWith (assignmentViewModel.LoadAssignments ());
                 timerLoaded = true;
