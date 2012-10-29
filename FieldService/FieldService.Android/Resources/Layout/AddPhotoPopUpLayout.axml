@@ -48,7 +48,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/linearLayout1"
-        android:layout_marginLeft="20dp">
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,22 +59,24 @@
             android:layout_weight="1"
             android:textSize="12dp"
             android:layout_gravity="bottom" />
-        <TextView
-            android:text="@string/DeletePhoto"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@android:color/black"
-            android:textSize="12dp"
-            android:layout_gravity="bottom" />
-        <ImageButton
-            android:src="@drawable/TrashCanIcon"
+            android:layout_height="fill_parent"
             android:id="@+id/photoDeleteImage"
-            android:background="@android:color/transparent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingRight="20dp"
-            android:paddingLeft="10dp"
-            android:paddingTop="20dp" />
+            android:layout_gravity="center_vertical">
+            <TextView
+                android:text="@string/DeletePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="12dp" />
+            <ImageView
+                android:src="@drawable/TrashCanIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
     </LinearLayout>
     <ImageView
         android:layout_width="fill_parent"
@@ -81,8 +85,7 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="5dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/NextButton" />
+        android:scaleType="fitCenter" />
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

@@ -2,7 +2,7 @@
 <selector xmlns:android="http://schemas.android.com/apk/res/android">
   <item android:state_pressed="true"
         android:drawable="@color/navigationitemselected" />
-  <item android:state_selected="true" android:state_pressed="false"
+  <item android:state_selected="true"
         android:drawable="@color/navigationitemselected" />
-  <item android:drawable="@android:color/black"/>
+  <item android:drawable="@android:color/transparent"/>
 </selector>

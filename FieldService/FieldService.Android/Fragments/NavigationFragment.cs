@@ -29,7 +29,7 @@ namespace FieldService.Android.Fragments {
     /// <summary>
     /// Fragment for the navigation menu as well as the active assignment's timer
     /// </summary>
-    public class NavigationFragment : Fragment, AdapterView.IOnItemClickListener, AdapterView.IOnItemSelectedListener {
+    public class NavigationFragment : Fragment {
         ListView navigationListView;
         Spinner navigationStatus;
         ImageView navigationStatusImage;
@@ -41,6 +41,7 @@ namespace FieldService.Android.Fragments {
         Assignment assignment;
         AssignmentViewModel assignmentViewModel;
         public event EventHandler<EventArgs<int>> NavigationSelected;
+        NavigationItemSelectorListener navigationSelector;
 
         public override void OnCreate (Bundle savedInstanceState)
         {
@@ -60,6 +61,8 @@ namespace FieldService.Android.Fragments {
             }
 
             assignment = assignmentViewModel.ActiveAssignment;
+
+            navigationSelector = new NavigationItemSelectorListener (this);
         }
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -77,11 +80,32 @@ namespace FieldService.Android.Fragments {
             var spinnerAdapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, Activity, Resource.Layout.SimpleSpinnerItem);
             spinnerAdapter.TextColor = Color.White;
             navigationStatus.Adapter = spinnerAdapter;
-            navigationStatus.OnItemSelectedListener = this;
+            navigationStatus.ItemSelected += (sender, e) => {
+                var status = assignmentViewModel.AvailableStatuses [e.Position];
+                if (assignment != null && assignment.Status != status) {
+                    assignment.Status = status;
+                    switch (status) {
+                        case AssignmentStatus.Complete:
+                            //go to confirmations screen
+                            var currentPosition = navigationListView.SelectedItemPosition;
+                            var confirmationPosition = Constants.Navigation.IndexOf ("Confirmations");
+                            if (currentPosition != confirmationPosition) {
+                                navigationSelector.OnItemClick (navigationListView, navigationListView.GetChildAt (confirmationPosition), confirmationPosition, 0);
+                            }
+                            break;
+                        default:
+                            SaveAssignment ();
+                            break;
+                    }
+                }
+            };
             timerLayout.Visibility = ViewStates.Gone;
 
             var adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
-            navigationListView.OnItemClickListener = this;
+            navigationListView.OnItemClickListener = navigationSelector;
+            navigationListView.ItemClick += (sender, e) => {
+                
+            };
             navigationListView.Adapter = adapter;
 
             SetActiveAssignment ();
@@ -134,54 +158,12 @@ namespace FieldService.Android.Fragments {
         }
 
         /// <summary>
-        /// Navigates to the appropriate section when clicked
-        /// </summary>
-        public void OnItemClick (AdapterView parent, View view, int position, long id)
-        {
-            if (position != lastposition) {
-
-                if (navigationListView.FirstVisiblePosition <= lastposition && lastposition <= navigationListView.LastVisiblePosition) {
-                    var oldView = navigationListView.GetChildAt (lastposition);
-                    if (view != null) {
-                        navigationListView.Adapter.GetView (lastposition, oldView, navigationListView);
-                    }
-                }
-                var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
-                image.Visibility = ViewStates.Visible;
-                lastposition = position;
-                //need to switch fragments here
-                OnNavigationSelected (position);
-            }
-        }
-
-        /// <summary>
-        /// Change the assignment status
-        /// </summary>
-        public void OnItemSelected (AdapterView parent, View view, int position, long id)
-        {
-            var status = assignmentViewModel.AvailableStatuses [position];
-            if (assignment != null && assignment.Status != status) {
-                assignment.Status = status;
-                SaveAssignment ();
-            }
-        }
-
-        /// <summary>
-        /// Required for AdapterView.IOnItemSelectedListener interface
-        /// </summary>
-        /// <param name="parent"></param>
-        public void OnNothingSelected (AdapterView parent)
-        {
-            //do nothing
-        }
-
-        /// <summary>
         /// Sets the selected navigation item
         /// </summary>
         public void SetNavigation (int index)
         {
-            navigationListView.SetSelection (index);
-            OnItemClick (navigationListView, navigationListView.GetChildAt (index), index, 0);
+            //navigationListView.SetSelection (index);
+            //OnItemClick (navigationListView, navigationListView.GetChildAt (index), index, 0);
         }
 
         /// <summary>
@@ -211,6 +193,33 @@ namespace FieldService.Android.Fragments {
         {
             assignment = null;
             base.OnPause ();
+        }
+
+        private class NavigationItemSelectorListener : Java.Lang.Object, AdapterView.IOnItemClickListener {
+
+            NavigationFragment fragment;
+            public NavigationItemSelectorListener (NavigationFragment fragment)
+            {
+                this.fragment = fragment;
+            }
+
+            public void OnItemClick (AdapterView parent, View view, int position, long id)
+            {
+                if (position != fragment.lastposition) {
+
+                    if (fragment.navigationListView.FirstVisiblePosition <= fragment.lastposition && fragment.lastposition <= fragment.navigationListView.LastVisiblePosition) {
+                        var oldView = fragment.navigationListView.GetChildAt (fragment.lastposition);
+                        if (view != null) {
+                            fragment.navigationListView.Adapter.GetView (fragment.lastposition, oldView, fragment.navigationListView);
+                        }
+                    }
+                    var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
+                    image.Visibility = ViewStates.Visible;
+                    fragment.lastposition = position;
+                    //need to switch fragments here
+                    fragment.OnNavigationSelected (position);
+                }
+            }
         }
     }
 }
