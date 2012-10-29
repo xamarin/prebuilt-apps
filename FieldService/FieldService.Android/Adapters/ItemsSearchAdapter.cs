@@ -15,6 +15,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
@@ -24,44 +25,86 @@ namespace FieldService.Android {
     /// <summary>
     /// Adapter for searching through a list of items
     /// </summary>
-    public class ItemsSearchAdapter : ArrayAdapter<Item> {
+    public class ItemsSearchAdapter : ArrayAdapter<Item>{
         
         IList<Item> items;
+        IList<Item> non_filtered;
         int resourceId;
 
         public ItemsSearchAdapter (Context context, int resourceId, IList<Item> items)
             : base (context, resourceId, items)
         {
-            this.items = items;
+            non_filtered = new List<Item> (items);
+            this.items = new List<Item> (items);
             this.resourceId = resourceId;
         }
 
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             Item item = null;
-            var view = convertView;
-            if (view == null) {
-                LayoutInflater inflator = (LayoutInflater)Context.GetSystemService (Context.LayoutInflaterService);
-                view = inflator.Inflate (resourceId, null);
-            }
-
             if (items != null && items.Count > position) {
                 item = items [position];
             }
 
-            if (item == null) {
-                return view;
-            }
+            LayoutInflater inflator = (LayoutInflater)Context.GetSystemService (Context.LayoutInflaterService);
+            var view = inflator.Inflate (resourceId, null);
 
             var text = view.FindViewById<TextView> (Resource.Id.itemsListItemText);
-            text.Text = string.Format ("#{0} {1}", item.Number, item.Name);
+            if (item != null) {
+                text.Text = string.Format ("#{0} {1}", item.Number, item.Name);
+            }
 
             return view;
+        }
+
+        public override int Count
+        {
+            get
+            {
+                return items.Count;
+            }
+        }
+
+        public void FilterItems (string filter)
+        {
+            var filtered = new List<Item> ();
+
+            foreach (var item in non_filtered) {
+                if (item.Name.ToLower().StartsWith (filter) || item.Number.ToLower().StartsWith (filter)) {
+                    filtered.Add (item);
+                }
+            }
+
+            this.items = filtered;
         }
 
         public Item GetAssignmentItem (int position)
         {
             return items.ElementAtOrDefault (position);
         }
+
+        //private class ItemsFilter : Filter {
+
+        //    IList<Item> originalList;
+        //    public ItemsFilter (IList<Item> originalList)
+        //    {
+        //        this.originalList = originalList;
+        //    }
+
+        //    protected override Filter.FilterResults PerformFiltering (Java.Lang.ICharSequence constraint)
+        //    {
+        //        var results = new FilterResults ();
+        //        var search = constraint.ToString ();
+        //        if (string.IsNullOrEmpty (search)) {
+        //            var list = new List<Item> (originalList);
+        //            results.Values = list;
+        //        }
+        //    }
+
+        //    protected override void PublishResults (Java.Lang.ICharSequence constraint, Filter.FilterResults results)
+        //    {
+        //        throw new System.NotImplementedException ();
+        //    }
+        //}
     }
 }

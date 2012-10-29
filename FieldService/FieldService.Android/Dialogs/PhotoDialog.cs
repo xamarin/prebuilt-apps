@@ -52,7 +52,7 @@ namespace FieldService.Android.Dialogs {
             dateTime = (TextView)FindViewById (Resource.Id.photoDateTime);
             photoCount = (TextView)FindViewById (Resource.Id.photoCountText);
 
-            var delete = (ImageButton)FindViewById (Resource.Id.photoDeleteImage);
+            var delete = (LinearLayout)FindViewById (Resource.Id.photoDeleteImage);
             delete.Click += (sender, e) => DeletePhoto ();
 
             var nextPhoto = (ImageButton)FindViewById (Resource.Id.photoNextButton);

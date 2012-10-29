@@ -31,6 +31,7 @@ namespace FieldService.Android.Dialogs {
 
         ListView itemsListView;
         ItemViewModel itemViewModel;
+        ItemsSearchAdapter searchAdapter;
 
         public ItemsDialog (Context context)
             : base (context)
@@ -61,12 +62,21 @@ namespace FieldService.Android.Dialogs {
                 });
             };
 
-            var searchText = (TextView)FindViewById (Resource.Id.itemsPopupSearchText);
+            var searchText = (EditText)FindViewById (Resource.Id.itemsPopupSearchText);
             var clearText = (ImageButton)FindViewById (Resource.Id.itemsPopupSeachClear);
 
             itemViewModel.LoadItems ().ContinueOnUIThread (_ => {
-                itemsListView.Adapter = new ItemsSearchAdapter (Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
+                searchAdapter = new ItemsSearchAdapter (Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
+                itemsListView.Adapter = searchAdapter;
             });
+            searchText.TextChanged += (sender, e) => {
+                searchAdapter.FilterItems (searchText.Text);
+                searchAdapter.NotifyDataSetChanged ();
+            };
+            clearText.Click += (sender, e) => {
+                searchText.Text = string.Empty;
+                searchAdapter.NotifyDataSetChanged ();
+            };
         }
 
         /// <summary>
