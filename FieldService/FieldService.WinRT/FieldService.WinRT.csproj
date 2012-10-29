@@ -233,7 +233,15 @@
     <None Include="FieldService.WinRT_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Dependencies\sqlite-net\lib\metro\sqlite3.dll">
+    <Content Include="..\Dependencies\sqlite\WinRT\x86\sqlite3.dll" Condition="'$(PlatformTarget)' == 'x86' or '$(PlatformTarget)' == 'AnyCPU'">
+      <Link>sqlite3.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Dependencies\sqlite\WinRT\x64\sqlite3.dll" Condition="'$(PlatformTarget)' == 'x64'">
+      <Link>sqlite3.dll</Link>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+    <Content Include="..\Dependencies\sqlite\WinRT\ARM\sqlite3.dll" Condition="'$(PlatformTarget)' == 'ARM'">
       <Link>sqlite3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

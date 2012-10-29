@@ -60,7 +60,7 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="..\Dependencies\sqlite\sqlite3.dll">
+    <Content Include="..\Dependencies\sqlite\Windows\sqlite3.dll">
       <Link>sqlite3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
