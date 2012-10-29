@@ -372,17 +372,17 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f07004b
 			public const int fragmentMapView = 2131165259;
 			
-			// aapt resource value: 0x7f070054
-			public const int fragmentStatus = 2131165268;
-			
 			// aapt resource value: 0x7f070053
-			public const int fragmentStatusImage = 2131165267;
+			public const int fragmentStatus = 2131165267;
+			
+			// aapt resource value: 0x7f070052
+			public const int fragmentStatusImage = 2131165266;
 			
 			// aapt resource value: 0x7f070056
 			public const int fragmentTimer = 2131165270;
 			
-			// aapt resource value: 0x7f070052
-			public const int fragmentTimerTextLayout = 2131165266;
+			// aapt resource value: 0x7f070054
+			public const int fragmentTimerTextLayout = 2131165268;
 			
 			// aapt resource value: 0x7f070050
 			public const int googleMapsView = 2131165264;

@@ -119,7 +119,7 @@ namespace FieldService.Android.Fragments {
                 };
             } else {
                 navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-                timerLayout.Visibility = ViewStates.Invisible;
+                timerLayout.Visibility = ViewStates.Gone;
             }
         }
 
