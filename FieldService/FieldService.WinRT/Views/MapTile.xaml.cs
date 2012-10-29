@@ -51,7 +51,7 @@ namespace FieldService.WinRT.Views {
 
         private void OnPinTapped (object sender, TappedRoutedEventArgs e)
         {
-            //TODO: need to navigate to another page
+            Helpers.NavigateTo<AssignmentMapPage>();
         }
     }
 }

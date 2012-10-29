@@ -13,21 +13,16 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
 using Bing.Maps;
-using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
+using System;
 using Windows.Devices.Geolocation;
-using Windows.UI;
-using Windows.UI.Xaml;
+using Windows.UI.Popups;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
-using Windows.UI.Xaml.Media.Imaging;
 using Windows.UI.Xaml.Navigation;
-using Windows.UI.Xaml.Shapes;
 
 namespace FieldService.WinRT.Views {
     /// <summary>
@@ -107,15 +102,28 @@ namespace FieldService.WinRT.Views {
 
         private async void UpdatePosition ()
         {
-            var position = await locator.GetGeopositionAsync ();
-            var location = new Location (position.Coordinate.Latitude, position.Coordinate.Longitude);
-            
-            //Move the map
-            map.SetView (location, 6);
+            try
+            {
+                var position = await locator.GetGeopositionAsync();
+                var location = new Location(position.Coordinate.Latitude, position.Coordinate.Longitude);
 
-            //Move the user's pin
-            map.Children.Add (userPin);
-            MapLayer.SetPosition (userPin, location);
+                //Move the map
+                map.SetView(location, 6);
+
+                //Move the user's pin
+                map.Children.Add(userPin);
+                MapLayer.SetPosition(userPin, location);
+            }
+            catch (Exception exc)
+            {
+                //This means our location was not found
+                ShowError("Could not find location: " + exc.Message);
+            }
+        }
+
+        private async void ShowError(string error)
+        {
+            await new MessageDialog(error).ShowAsync();
         }
     }
 }
