@@ -43,6 +43,7 @@ namespace FieldService.WinRT.Views {
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             itemsListView.DataContext =
+            summaryAddItems.DataContext = 
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
 
             laborListView.DataContext =

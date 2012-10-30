@@ -258,10 +258,10 @@
                         </ListView.ItemTemplate>
                     </ListView>
                     
-                    <Button 
+                    <Button x:Name="summaryAddItems"
                         Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482"
                         Background="{StaticResource ItemsBrush}" Height="75" Padding="0"
-                        HorizontalAlignment="Left" VerticalAlignment="Top">
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddItemCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Items" VerticalAlignment="Center" />
                     </Button>
                 </Grid>

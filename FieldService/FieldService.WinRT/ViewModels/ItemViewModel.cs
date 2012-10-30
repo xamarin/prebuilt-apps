@@ -20,6 +20,10 @@ using System.Text;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
+using Windows.UI.Xaml.Controls.Primitives;
+using FieldService.WinRT.Views;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
 
 namespace FieldService.WinRT.ViewModels {
     /// <summary>
@@ -29,6 +33,12 @@ namespace FieldService.WinRT.ViewModels {
     public class ItemViewModel : FieldService.ViewModels.ItemViewModel {
         readonly AssignmentViewModel assignmentViewModel;
         readonly DelegateCommand saveAssignmentItemCommand;
+        readonly DelegateCommand searchItemsCommand;
+        readonly DelegateCommand addItemCommand;
+        readonly DelegateCommand cancelAddItemCommand;
+        string searchText = string.Empty;
+        Popup addItemPopUp;
+        int popUpWidth = 485;
 
         public ItemViewModel ()
         {
@@ -40,11 +50,61 @@ namespace FieldService.WinRT.ViewModels {
                     SaveAssignmentItem (assignmentViewModel.SelectedAssignment, item);
                 }
             });
+
+            searchItemsCommand = new DelegateCommand(_ =>
+            {
+                var items = new List<Item>();
+                LoadItems().ContinueOnUIThread(obj =>
+                    {
+                        foreach (var item in Items)
+                        {
+                            if (item.Name.ToLower().StartsWith(SearchText) || item.Number.ToLower().StartsWith(SearchText))
+                            {
+                                items.Add(item);
+                            }
+                        }
+                        SearchItems = items;
+                    });
+            });
+
+            addItemCommand = new DelegateCommand(_ =>
+            {
+                addItemPopUp = new Popup();
+                addItemPopUp.Height = Window.Current.Bounds.Height;
+                addItemPopUp.Width = popUpWidth;
+                AddItemFlyoutPanel flyoutpanel = new AddItemFlyoutPanel();
+                flyoutpanel.Width = addItemPopUp.Width;
+                flyoutpanel.Height = addItemPopUp.Height;
+                addItemPopUp.Child = flyoutpanel;
+                addItemPopUp.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
+                addItemPopUp.SetValue(Canvas.TopProperty, 0);
+                addItemPopUp.IsOpen = true;
+            });
+
+            cancelAddItemCommand = new DelegateCommand(_ =>
+                {
+                    addItemPopUp.IsOpen = false;
+                });
         }
 
         public DelegateCommand SaveAssignmentItemCommand
         {
             get { return saveAssignmentItemCommand; }
+        }
+
+        public DelegateCommand SearchItemsCommand
+        {
+            get { return searchItemsCommand; }
+        }
+
+        public DelegateCommand AddItemCommand
+        {
+            get { return addItemCommand; }
+        }
+
+        public DelegateCommand CancelAddItemCommand
+        {
+            get { return cancelAddItemCommand; }
         }
 
         public IEnumerable<AssignmentItem> TopAssignmentItems
@@ -55,6 +115,18 @@ namespace FieldService.WinRT.ViewModels {
                     return null;
                 return AssignmentItems.Take (5);
             }
+        }
+
+        public string SearchText
+        {
+            get { return searchText; }
+            set { searchText = value; OnPropertyChanged("SearchText"); }
+        }
+
+        public IEnumerable<Item> SearchItems
+        {
+            get;
+            set;
         }
 
         protected override void OnPropertyChanged (string propertyName)

@@ -15,6 +15,7 @@
 
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
@@ -36,6 +37,7 @@ namespace FieldService.WinRT.Views {
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             itemsListView.DataContext =
+                itemsAddItem.DataContext =
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
         }
 
