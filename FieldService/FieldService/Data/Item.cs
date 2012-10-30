@@ -39,5 +39,11 @@ namespace FieldService.Data {
         /// Number of the item
         /// </summary>
         public string Number { get; set; }
+
+        /// <summary>
+        /// Number & Name of Item for WinRT
+        /// </summary>
+        [Ignore]
+        public string NumberName { get { return string.Format("#{0} {1}", Number, Name); } }
     }
 }

@@ -38,6 +38,7 @@ namespace FieldService.WinRT.ViewModels {
         readonly DelegateCommand cancelAddItemCommand;
         string searchText = string.Empty;
         Popup addItemPopUp;
+        IEnumerable<Item> searchItems;
         int popUpWidth = 485;
 
         public ItemViewModel ()
@@ -79,6 +80,8 @@ namespace FieldService.WinRT.ViewModels {
                 addItemPopUp.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
                 addItemPopUp.SetValue(Canvas.TopProperty, 0);
                 addItemPopUp.IsOpen = true;
+                SearchText = string.Empty;
+                SearchItemsCommand.Invoke();
             });
 
             cancelAddItemCommand = new DelegateCommand(_ =>
@@ -125,8 +128,8 @@ namespace FieldService.WinRT.ViewModels {
 
         public IEnumerable<Item> SearchItems
         {
-            get;
-            set;
+            get { return searchItems; }
+            set { searchItems = value; OnPropertyChanged("SearchItems"); }
         }
 
         protected override void OnPropertyChanged (string propertyName)

@@ -39,15 +39,15 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Items</TextBlock>
-                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Bottom" Command="{Binding ItemsCommand}">View all items</Button>
                     </Grid>
 
                     <ListView 
                         x:Name="itemsListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
+                        ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
                         Grid.Row="1" ItemsSource="{Binding AssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapGrid Orientation="Vertical" />
+                                <WrapGrid Orientation="Vertical" Height="450"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>

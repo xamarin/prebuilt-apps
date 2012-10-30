@@ -35,20 +35,28 @@ namespace FieldService.WinRT.Views
     public sealed partial class AddItemFlyoutPanel : UserControl
     {
         ItemViewModel itemViewModel;
+        AssignmentViewModel assignmentViewModel;
+
         public AddItemFlyoutPanel()
         {
             this.InitializeComponent();
 
-            addItemsListView.DataContext =
-                searchItemsButton.DataContext = 
-                cancelAddItemsPopUp.DataContext =
+            DataContext =
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
+
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
         }
 
-        public AssignmentItem Items
+        public void OnItemClick(object sender, ItemClickEventArgs e)
         {
-            get;
-            set;
+            Item item = e.ClickedItem as Item;
+            if (item != null)
+            {
+                AssignmentItem assignmentItem = new AssignmentItem { Assignment = assignmentViewModel.SelectedAssignment.ID, Item = item.ID };
+                itemViewModel.SaveAssignmentItemCommand.Invoke(assignmentItem);
+                itemViewModel.LoadAssignmentItems(assignmentViewModel.SelectedAssignment);
+                itemViewModel.CancelAddItemCommand.Invoke();
+            }
         }
     }
 }
