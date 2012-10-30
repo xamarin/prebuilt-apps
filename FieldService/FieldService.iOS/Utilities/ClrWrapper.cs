@@ -20,26 +20,26 @@ namespace FieldService.iOS
 	/// <summary>
 	/// An NSObject for holding CLR objects, for passing C# objects through NSDictionary, etc.
 	/// </summary>
-	public class ClrWrapper<T> : NSObject
+	public class ClrWrapper : NSObject
 	{
-		public ClrWrapper (T value)
+		public ClrWrapper (object value)
 		{
 			Value = value;
 		}
 
-		public T Value { get; private set; }
+		public object Value { get; private set; }
 	}
 
 	public static class ClrWrapperExtensions
 	{
-		public static ClrWrapper<T> WrapObject<T>(this T value)
+		public static ClrWrapper WrapObject(this object value)
 		{
-			return new ClrWrapper<T>(value);
+			return new ClrWrapper(value);
 		}
 
 		public static T UnwrapObject<T>(this NSObject obj)
 		{
-			return ((ClrWrapper<T>)obj).Value;
+			return (T)((ClrWrapper)obj).Value;
 		}
 	}
 }
