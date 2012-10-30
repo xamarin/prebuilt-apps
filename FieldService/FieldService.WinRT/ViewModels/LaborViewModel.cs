@@ -19,13 +19,36 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FieldService.Data;
+using Windows.UI.Xaml.Controls.Primitives;
 
-namespace FieldService.WinRT.ViewModels {
+namespace FieldService.WinRT.ViewModels
+{
     /// <summary>
     /// WinRT version of the LaborViewModel
     /// - We setup ICommand here
     /// </summary>
-    public class LaborViewModel : FieldService.ViewModels.LaborViewModel {
+    public class LaborViewModel : FieldService.ViewModels.LaborViewModel
+    {
+        readonly DelegateCommand cancelAddLaborCommand;
+        readonly DelegateCommand saveAddLaborCommand;
+        readonly DelegateCommand deleteAddLaborCommand;
+        Popup addLaborPopUp;
+
+        public LaborViewModel()
+        {
+            cancelAddLaborCommand = new DelegateCommand(_ =>
+            {
+                addLaborPopUp.IsOpen = false;
+            });
+            saveAddLaborCommand = new DelegateCommand(_ =>
+            {
+                addLaborPopUp.IsOpen = false;
+            });
+            deleteAddLaborCommand = new DelegateCommand(_ =>
+            {
+                addLaborPopUp.IsOpen = false;
+            });
+        }
 
         public IEnumerable<Labor> TopLaborHours
         {
@@ -34,17 +57,33 @@ namespace FieldService.WinRT.ViewModels {
                 if (LaborHours == null)
                     return null;
 
-                return LaborHours.Take (5);
+                return LaborHours.Take(5);
             }
         }
 
-        protected override void OnPropertyChanged (string propertyName)
+        public DelegateCommand SaveAddLaborCommand
         {
-            base.OnPropertyChanged (propertyName);
+            get { return saveAddLaborCommand; }
+        }
+
+        public DelegateCommand DeleteAddLaborCommand
+        {
+            get { return deleteAddLaborCommand; }
+        }
+
+        public DelegateCommand CancelAddLaborCommand
+        {
+            get { return cancelAddLaborCommand; }
+        }
+
+        protected override void OnPropertyChanged(string propertyName)
+        {
+            base.OnPropertyChanged(propertyName);
 
             //Make sure property changed is raised for new properties
-            if (propertyName == "LaborHours") {
-                OnPropertyChanged ("TopLaborHours");
+            if (propertyName == "LaborHours")
+            {
+                OnPropertyChanged("TopLaborHours");
             }
         }
     }

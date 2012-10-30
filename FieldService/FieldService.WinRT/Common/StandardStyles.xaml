@@ -65,6 +65,9 @@
     <SolidColorBrush x:Key="DarkBlueButtonBorderBrush">#178db9</SolidColorBrush>
     <SolidColorBrush x:Key="LightGreyBackgroundBrush">#e6e6e6</SolidColorBrush>
     <SolidColorBrush x:Key="GreyBackgroundBrush">#c4c4c4</SolidColorBrush>
+    <SolidColorBrush x:Key="GreenAddLaborBackgroundBrush">#02ca1e</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkGreenButtonBrush">#15ab2a</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkGreenButtonBorderBrush">#02a218</SolidColorBrush>
     <LinearGradientBrush x:Key="ItemsBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0" Color="#1db0e7" />
         <GradientStop Offset="1" Color="#27cbef" />
