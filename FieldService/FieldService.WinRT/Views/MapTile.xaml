@@ -9,5 +9,5 @@
     mc:Ignorable="d"
     d:DesignHeight="300"
     d:DesignWidth="400">
-    <maps:Map x:Name="map" Loaded="OnLoaded" Credentials="AiA4VR_FDabthunLTLiUn6GpBU-CSBZMhtcR_tRDQ5G1YU_v1IUOv82eQHU6Zi1Q" />
+    <maps:Map x:Name="map" Loaded="OnLoaded" />
 </UserControl>
