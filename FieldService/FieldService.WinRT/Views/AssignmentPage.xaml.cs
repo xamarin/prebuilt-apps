@@ -33,6 +33,7 @@ namespace FieldService.WinRT.Views {
         readonly AssignmentViewModel assignmentViewModel;
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
+        readonly PhotoViewModel photoViewModel;
 
         public AssignmentPage ()
         {
@@ -49,6 +50,11 @@ namespace FieldService.WinRT.Views {
             laborListView.DataContext =
                 summaryAddLabor.DataContext =
                 laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+
+            confirmationImage1.DataContext =
+                confirmationImage2.DataContext =
+                confirmationImage3.DataContext =
+                photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
         }
 
         /// <summary>
@@ -88,6 +94,15 @@ namespace FieldService.WinRT.Views {
                 case "mapTile":
                 case "mapButton":
                     Helpers.NavigateTo<AssignmentMapPage> ();
+                    break;
+                case "totalHours":
+                    Helpers.NavigateTo<LaborPage>();
+                    break;
+                case "totalItems":
+                    Helpers.NavigateTo<ItemsPage>();
+                    break;
+                case "confirmations":
+                    Helpers.NavigateTo<ConfirmationsPage>();
                     break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();

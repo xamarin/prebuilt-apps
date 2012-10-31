@@ -45,7 +45,7 @@
                               ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" ItemClick="OnItemClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapGrid Orientation="Vertical" Height="450"/>
+                                <WrapGrid Orientation="Vertical" MaxHeight="450"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>

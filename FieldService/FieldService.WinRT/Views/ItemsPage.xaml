@@ -47,7 +47,7 @@
                         Grid.Row="1" ItemsSource="{Binding AssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapGrid Orientation="Vertical" Height="450"/>
+                                <WrapGrid Orientation="Vertical" MaxHeight="450"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>

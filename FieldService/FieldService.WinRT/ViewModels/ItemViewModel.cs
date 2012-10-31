@@ -32,10 +32,7 @@ namespace FieldService.WinRT.ViewModels {
     /// </summary>
     public class ItemViewModel : FieldService.ViewModels.ItemViewModel {
         readonly AssignmentViewModel assignmentViewModel;
-        readonly DelegateCommand saveAssignmentItemCommand;
-        readonly DelegateCommand searchItemsCommand;
-        readonly DelegateCommand addItemCommand;
-        readonly DelegateCommand cancelAddItemCommand;
+        readonly DelegateCommand saveAssignmentItemCommand, searchItemsCommand, addItemCommand, cancelAddItemCommand;
         string searchText = string.Empty;
         Popup addItemPopUp;
         IEnumerable<Item> searchItems;

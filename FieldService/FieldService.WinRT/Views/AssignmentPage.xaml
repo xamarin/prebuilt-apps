@@ -58,7 +58,7 @@
                         
                         <!--Description section-->
                         <ListViewItem Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5">
-                            <Border x:Name="description" Width="324" Height="340" BorderThickness="0" Background="{StaticResource DescriptionBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                            <Border x:Name="description" Width="324" Height="342" BorderThickness="0" Background="{StaticResource DescriptionBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock Foreground="{StaticResource DarkTextBrush}" Style="{StaticResource SubheaderTextStyle}" Margin="20">Description</TextBlock>
                                     <TextBlock Foreground="{StaticResource DarkTextBrush}" Style="{StaticResource BasicTextStyle}" Margin="20,0,20,20" Text="{Binding SelectedAssignment.Description}" />
@@ -68,7 +68,7 @@
 
                         <!--Total items section-->
                         <ListViewItem Grid.Row="2" Margin="5">
-                            <Border x:Name="totalItems" Width="154" Height="161" BorderThickness="0" Background="{StaticResource ItemsBrush}">
+                            <Border x:Name="totalItems" Width="154" Height="162" BorderThickness="0" Background="{StaticResource ItemsBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -91,7 +91,7 @@
 
                         <!--Total hours section-->
                         <ListViewItem Grid.Row="2" Grid.Column="1" Margin="5">
-                            <Border x:Name="totalHours" Width="154" Height="161" BorderThickness="0" Background="{StaticResource HoursBrush}">
+                            <Border x:Name="totalHours" Width="154" Height="162" BorderThickness="0" Background="{StaticResource HoursBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -114,7 +114,7 @@
 
                         <!--Map button section-->
                         <ListViewItem Grid.Column="2" Margin="5">
-                            <Border x:Name="mapButton" Width="154" Height="161" BorderThickness="0" Background="{StaticResource MapBrush}">
+                            <Border x:Name="mapButton" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -131,7 +131,7 @@
 
                         <!--Time of day section-->
                         <ListViewItem Grid.Row="1" Grid.Column="2" Margin="5">
-                            <Border x:Name="times" Width="154" Height="161" BorderThickness="0" Background="{StaticResource TimesBrush}">
+                            <Border x:Name="times" Width="154" Height="162" BorderThickness="0" Background="{StaticResource TimesBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -148,7 +148,7 @@
 
                         <!--Expenses section-->
                         <ListViewItem Grid.Row="2" Grid.Column="2" Margin="5">
-                            <Border x:Name="expenses" Width="154" Height="161" BorderThickness="0" Background="{StaticResource ExpensesBrush}">
+                            <Border x:Name="expenses" Width="154" Height="162" BorderThickness="0" Background="{StaticResource ExpensesBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -166,12 +166,12 @@
 
                         <!---Map section-->
                         <ListViewItem Grid.Column="3" Grid.ColumnSpan="2" Margin="5">
-                            <views:MapTile x:Name="mapTile" Width="324" Height="161" DataContext="{Binding SelectedAssignment}" />
+                            <views:MapTile x:Name="mapTile" Width="324" Height="162" DataContext="{Binding SelectedAssignment}" />
                         </ListViewItem>
 
                         <!--Confirmation section-->
                         <ListViewItem Grid.Row="1" Grid.Column="3" Grid.ColumnSpan="2" Margin="5">
-                            <Border x:Name="confirmation" Width="324" Height="161" BorderThickness="0" Background="{StaticResource ItemsBrush}">
+                            <Border x:Name="confirmation" Width="324" Height="162" BorderThickness="0" Background="{StaticResource ItemsBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -187,7 +187,7 @@
 
                         <!--Documents section-->
                         <ListViewItem Grid.Row="2" Grid.Column="3" Margin="5">
-                            <Border x:Name="documents" Width="154" Height="161" BorderThickness="0" Background="{StaticResource DocumentsBrush}">
+                            <Border x:Name="documents" Width="154" Height="162" BorderThickness="0" Background="{StaticResource DocumentsBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -204,7 +204,7 @@
 
                         <!--History section-->
                         <ListViewItem Grid.Row="2" Grid.Column="4" Margin="5">
-                            <Border x:Name="history" Width="154" Height="161" BorderThickness="0" Background="{StaticResource DocumentsBrush}">
+                            <Border x:Name="history" Width="154" Height="162" BorderThickness="0" Background="{StaticResource DocumentsBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
@@ -311,6 +311,159 @@
                         HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddLaborCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Labor" VerticalAlignment="Center" />
                     </Button>
+                </Grid>
+                
+                <!--Confirmations Section-->
+                <Grid Height="590" Width="500" Margin="25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}">Confirmations</TextBlock>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Center" Command="{Binding ConfirmationsCommand}">View all entries</Button>
+                    </Grid>
+
+                    <ListView 
+                        Grid.Row="1" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnSummaryClick"
+                        ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+                        
+                        <!--Signature section-->
+                        <ListViewItem Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5">
+                            <Border Width="324" Height="342" BorderThickness="0" Background="{StaticResource ItemsBrush}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{StaticResource ConfirmationIcon}" Stretch="None"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                                    <StackPanel Grid.Row="1"  Orientation="Vertical" Background="{StaticResource DarkBlueItemsBrush}">
+                                        <TextBlock Margin="10,5,0,0" Text="Signature required to complete assignment" 
+                                               Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" FontSize="14"/>
+                                        <TextBlock Margin="10,5,0,10" Text="After it is marked coplete, this assignment will no longer be accessible to you." 
+                                                   Style="{StaticResource SubheaderTextStyle}" FontSize="12" LineHeight="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--Add Image section-->
+                        <ListViewItem Grid.Column="2" Margin="5">
+                            <Border x:Name="addImage" Width="154" Height="162" BorderThickness="0" Background="{StaticResource HoursBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{StaticResource CameraIcon}" Stretch="None" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Center" Text="Add Image" Style="{StaticResource SubheaderTextStyle}" />
+
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--Complete section-->
+                        <ListViewItem Grid.Row="1" Grid.Column="2" Margin="5">
+                            <Border x:Name="completeAssignment" Width="154" Height="162" BorderThickness="0" Background="{StaticResource ExpensesBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{StaticResource CompleteIcon}" Stretch="None" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="Complete" Style="{StaticResource SubheaderTextStyle}" />
+
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--Image section-->
+                        <ListViewItem Grid.Row="2" Margin="5">
+                            <Border x:Name="confirmationImage1" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding DataContext.Image1}" Stretch="None" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding DataContext.Image1Time}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
+
+                                    <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding DataContext.Image1Time}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
+
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--Image section-->
+                        <ListViewItem Grid.Row="2" Grid.Column="1" Margin="5">
+                            <Border x:Name="confirmationImage2" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding DataContext.Image2}" Stretch="None" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding DataContext.Image2Time}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
+
+                                    <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding DataContext.Image2Time}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
+
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--Image section-->
+                        <ListViewItem Grid.Row="2" Grid.Column="2" Margin="5">
+                            <Border x:Name="confirmationImage3" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding DataContext.Image3}" Stretch="None" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding DataContext.Image3Time}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
+
+                                    <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding DataContext.Image3Time}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
+
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                    </ListView>
                 </Grid>
 
             </StackPanel>

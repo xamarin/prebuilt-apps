@@ -34,10 +34,7 @@ namespace FieldService.WinRT.ViewModels
     public class LaborViewModel : FieldService.ViewModels.LaborViewModel
     {
         readonly AssignmentViewModel assignmentViewModel;
-        readonly DelegateCommand cancelAddLaborCommand;
-        readonly DelegateCommand saveAddLaborCommand;
-        readonly DelegateCommand deleteAddLaborCommand;
-        readonly DelegateCommand addLaborCommand;
+        readonly DelegateCommand cancelAddLaborCommand, saveAddLaborCommand, deleteAddLaborCommand, addLaborCommand;
         Popup addLaborPopUp;
         Labor selectedLabor;
         string currentLaborHours = string.Empty;

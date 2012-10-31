@@ -24,7 +24,7 @@ using FieldService.WinRT.Views;
 
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
-        readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand;
+        readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand;
         Assignment assignment;
 
         public AssignmentViewModel ()
@@ -43,6 +43,8 @@ namespace FieldService.WinRT.ViewModels {
             itemsCommand = new DelegateCommand (_ => Helpers.NavigateTo<ItemsPage> ());
 
             laborCommand = new DelegateCommand (_ => Helpers.NavigateTo<LaborPage> ());
+
+            confirmationsCommand = new DelegateCommand(_ => Helpers.NavigateTo<ConfirmationsPage>());
         }
 
         /// <summary>
@@ -100,6 +102,14 @@ namespace FieldService.WinRT.ViewModels {
         public DelegateCommand LaborCommand
         {
             get { return laborCommand; }
+        }
+
+        /// <summary>
+        /// Command for going to the confirmations page
+        /// </summary>
+        public DelegateCommand ConfirmationsCommand
+        {
+            get { return confirmationsCommand; }
         }
 
         protected override void OnIsBusyChanged ()

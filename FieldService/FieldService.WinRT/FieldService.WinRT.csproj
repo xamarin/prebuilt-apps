@@ -194,6 +194,7 @@
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\PhotoViewModel.cs" />
     <Compile Include="Views\AddItemFlyoutPanel.xaml.cs">
       <DependentUpon>AddItemFlyoutPanel.xaml</DependentUpon>
     </Compile>
@@ -211,6 +212,9 @@
     </Compile>
     <Compile Include="Views\AssignmentsPage.xaml.cs">
       <DependentUpon>AssignmentsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ConfirmationsPage.xaml.cs">
+      <DependentUpon>ConfirmationsPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemsPage.xaml.cs">
       <DependentUpon>ItemsPage.xaml</DependentUpon>
@@ -300,6 +304,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AssignmentsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ConfirmationsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
