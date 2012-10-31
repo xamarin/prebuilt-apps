@@ -39,10 +39,15 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Labor</TextBlock>
-                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Bottom">View all entries</Button>
                     </Grid>
 
-                    <ListView x:Name="laborListView" Grid.Row="1" ItemsSource="{Binding TopLaborHours}" HorizontalContentAlignment="Stretch" SelectionMode="None">
+                    <ListView x:Name="laborListView" Grid.Row="1" ItemsSource="{Binding LaborHours}" HorizontalContentAlignment="Stretch" SelectionMode="None"
+                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" ItemClick="OnItemClick">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapGrid Orientation="Vertical" Height="450"/>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
@@ -63,9 +68,9 @@
                     </ListView>
 
                     <Button 
-                        Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482"
+                        Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482" x:Name="laborAddLabor"
                         Background="{StaticResource HoursBrush}" Height="75" Padding="0"
-                        HorizontalAlignment="Left" VerticalAlignment="Top">
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddLaborCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Labor" VerticalAlignment="Center" />
                     </Button>
                 </Grid>

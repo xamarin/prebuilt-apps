@@ -12,6 +12,7 @@
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
             <RowDefinition Height="70"/>
+            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
         <StackPanel Orientation="Horizontal" Background="{StaticResource GreenAddLaborBackgroundBrush}">
@@ -22,17 +23,28 @@
                 <TextBlock Text="Cancel" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Button>
         </StackPanel>
-        <StackPanel Orientation="Horizontal" Background="{StaticResource LightGreyBackgroundBrush}" Grid.Row="1">
+        <StackPanel Orientation="Horizontal" Background="{StaticResource LightGreyBackgroundBrush}" Grid.Row="1" FlowDirection="RightToLeft">
+            <Button BorderThickness="2" Width="93" BorderBrush="Gray"
+            	Background="{StaticResource GreyBackgroundBrush}" Command="{Binding SaveAddLaborCommand}"
+            	HorizontalAlignment="Right" VerticalAlignment="Center" Margin="30,0,0,0">
+                <TextBlock Text="Save" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource DarkBackgroundBrush}"/>
+            </Button>
             <Button BorderThickness="2" Width="93" BorderBrush="Gray"
             	Background="{StaticResource GreyBackgroundBrush}" Command="{Binding DeleteAddLaborCommand}" Margin="20,0,0,0">
                 <TextBlock Text="Delete" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource DarkBackgroundBrush}"/>
             </Button>
-            <Button BorderThickness="2" Width="93" BorderBrush="Gray"
-            	Background="{StaticResource GreyBackgroundBrush}" Command="{Binding SaveAddLaborCommand}"
-            	HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,16,0,16">
-                <TextBlock Text="Save" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource DarkBackgroundBrush}"/>
-            </Button>
         </StackPanel>
-
+        <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Center" Orientation="Horizontal" Margin="30,0,0,0">
+            <ComboBox  Width="190" Height="30" Margin="0,10,10,10"  BorderBrush="Gray"
+                ItemsSource="{Binding LaborTypes}" SelectedItem="{Binding SelectedLabor.Type, Mode=TwoWay}" />
+            <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center"
+                     BorderThickness="2" BorderBrush="Gray" Width="80" Text="{Binding CurrentLaborHours, Mode=TwoWay}"/>
+            <TextBlock Text="hrs" Margin="5,0,0,0" Foreground="{StaticResource DarkBackgroundBrush}" FontSize="14" VerticalAlignment="Center"/>
+        </StackPanel>
+        <StackPanel Grid.Row="3" Margin="30,5,0,0">
+            <TextBlock Text="Enter a short description" Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16"/>
+            <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="0 5,30,30" Height="480"
+                     BorderThickness="1" BorderBrush="Gray" Text="{Binding SelectedLabor.Description, Mode=TwoWay}" AcceptsReturn="True"/>
+        </StackPanel>
     </Grid>
 </UserControl>

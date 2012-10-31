@@ -1,4 +1,6 @@
-﻿using System;
+﻿using FieldService.Utilities;
+using FieldService.WinRT.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -18,9 +20,13 @@ namespace FieldService.WinRT.Views
 {
     public sealed partial class AddLaborFlyoutPanel : UserControl
     {
+        LaborViewModel laborViewModel;
         public AddLaborFlyoutPanel()
         {
             this.InitializeComponent();
+
+            DataContext =
+                laborViewModel = ServiceContainer.Resolve<LaborViewModel>();
         }
     }
 }

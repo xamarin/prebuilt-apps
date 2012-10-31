@@ -47,6 +47,7 @@ namespace FieldService.WinRT.Views {
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
 
             laborListView.DataContext =
+                summaryAddLabor.DataContext =
                 laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
         }
 
@@ -68,6 +69,15 @@ namespace FieldService.WinRT.Views {
             if (item != null) {
                 item.Used = !item.Used;
                 itemViewModel.SaveAssignmentItemCommand.Invoke (item);
+            }
+        }
+
+        private void OnLaborItemClick(object sender, ItemClickEventArgs e)
+        {
+            var labor = e.ClickedItem as Labor;
+            if (labor != null)
+            {
+                laborViewModel.AddLaborCommand.Invoke(labor);
             }
         }
 

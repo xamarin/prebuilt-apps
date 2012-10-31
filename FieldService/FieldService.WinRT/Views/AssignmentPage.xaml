@@ -285,7 +285,7 @@
 
                     <ListView 
                         x:Name="laborListView" Grid.Row="1" ItemsSource="{Binding TopLaborHours}" HorizontalContentAlignment="Stretch" SelectionMode="None"
-                        ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                        ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" IsItemClickEnabled="True" ItemClick="OnLaborItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
@@ -306,9 +306,9 @@
                     </ListView>
 
                     <Button 
-                        Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482"
+                        Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482" x:Name="summaryAddLabor"
                         Background="{StaticResource HoursBrush}" Height="75" Padding="0"
-                        HorizontalAlignment="Left" VerticalAlignment="Top">
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddLaborCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Labor" VerticalAlignment="Center" />
                     </Button>
                 </Grid>

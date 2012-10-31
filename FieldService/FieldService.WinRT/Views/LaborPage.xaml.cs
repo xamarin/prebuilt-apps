@@ -28,6 +28,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using FieldService.Data;
 
 namespace FieldService.WinRT.Views {
     /// <summary>
@@ -46,6 +47,7 @@ namespace FieldService.WinRT.Views {
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             laborListView.DataContext =
+                laborAddLabor.DataContext =
                 laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
         }
 
@@ -56,6 +58,15 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
+        }
+
+        private void OnItemClick(object sender, ItemClickEventArgs e)
+        {
+            var labor = e.ClickedItem as Labor;
+            if (labor != null)
+            {
+                laborViewModel.AddLaborCommand.Invoke(labor);
+            }
         }
     }
 }

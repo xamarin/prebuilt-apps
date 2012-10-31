@@ -197,6 +197,9 @@
     <Compile Include="Views\AddItemFlyoutPanel.xaml.cs">
       <DependentUpon>AddItemFlyoutPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddLaborFlyoutPanel.xaml.cs">
+      <DependentUpon>AddLaborFlyoutPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssignmentControl.xaml.cs">
       <DependentUpon>AssignmentControl.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Views\AddItemFlyoutPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AddLaborFlyoutPanel.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
