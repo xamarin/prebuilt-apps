@@ -446,7 +446,7 @@
                         <!--Image section-->
                         <ListViewItem Grid.Row="2" Grid.Column="2" Margin="5">
                             <Border x:Name="confirmationImage3" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
-                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Grid>
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
                                         <RowDefinition />

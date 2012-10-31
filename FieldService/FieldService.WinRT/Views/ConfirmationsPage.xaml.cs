@@ -24,12 +24,17 @@ namespace FieldService.WinRT.Views
     public sealed partial class ConfirmationsPage : Page
     {
         readonly AssignmentViewModel assignmentViewModel;
+        readonly PhotoViewModel photoViewModel;
         public ConfirmationsPage()
         {
             this.InitializeComponent();
 
+            DataContext =
             assignmentControl.DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+
+            photoListView.DataContext =
+                photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
         }
 
         /// <summary>
@@ -38,6 +43,14 @@ namespace FieldService.WinRT.Views
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo(NavigationEventArgs e)
+        {
+        }
+
+        private void OnItemClick(object sender, ItemClickEventArgs e)
+        {
+        }
+
+        private void OnImageClick(object sender, ItemClickEventArgs e)
         {
         }
     }

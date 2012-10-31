@@ -101,7 +101,7 @@ namespace FieldService.WinRT.Views {
                 case "totalItems":
                     Helpers.NavigateTo<ItemsPage>();
                     break;
-                case "confirmations":
+                case "confirmation":
                     Helpers.NavigateTo<ConfirmationsPage>();
                     break;
                 default:

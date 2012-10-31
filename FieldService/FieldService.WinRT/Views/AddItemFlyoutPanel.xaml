@@ -13,7 +13,7 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <StackPanel Orientation="Horizontal" Background="{StaticResource BlueAddItemBrush}">
+        <StackPanel Orientation="Horizontal" Background="{StaticResource ItemsBrush}">
             <TextBlock Text="Add Item" Foreground="White" FontSize="24" Margin="30,0,0,0" VerticalAlignment="Center"/>
             <Button BorderThickness="2" Width="93" BorderBrush="{StaticResource DarkBlueButtonBorderBrush}"
             	Background="{StaticResource DarkBlueButtonBrush}" Command="{Binding CancelAddItemCommand}"
