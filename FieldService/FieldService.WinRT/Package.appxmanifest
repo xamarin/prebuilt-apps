@@ -15,7 +15,7 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="FieldService.WinRT.App">
-      <VisualElements DisplayName="Field Service" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Field Service - a Xamarin pre-built application" ForegroundText="light" BackgroundColor="#464646">
+      <VisualElements DisplayName="Field Service" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Field Service - a Xamarin pre-built application" ForegroundText="light" BackgroundColor="#333333">
         <DefaultTile ShowName="allLogos" ShortName="Field Service" />
         <SplashScreen Image="Assets\SplashScreen.png" />
         <InitialRotationPreference>
