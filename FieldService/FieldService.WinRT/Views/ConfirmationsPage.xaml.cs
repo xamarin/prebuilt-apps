@@ -15,6 +15,7 @@
 
 using System;
 using FieldService.Utilities;
+using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -62,6 +63,8 @@ namespace FieldService.WinRT.Views {
                     }
                     break;
                 case "addImage":
+                    Helpers.NavigateTo<ImagesPage> ();
+                    break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();
                     break;

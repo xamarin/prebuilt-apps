@@ -27,7 +27,8 @@ using Windows.UI.Xaml.Controls.Primitives;
 
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
-        readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand, addSignatureCommand;
+        readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
+            addSignatureCommand;
         Assignment assignment;
         Popup addSignaturePopup;
         int popUpWidth = 930;

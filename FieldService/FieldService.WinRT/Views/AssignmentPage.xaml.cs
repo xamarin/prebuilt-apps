@@ -110,6 +110,9 @@ namespace FieldService.WinRT.Views {
                 case "addSignature":
                     assignmentViewModel.AddSignatureCommand.Invoke ();
                     break;
+                case "addImage":
+                    Helpers.NavigateTo<ImagesPage> ();
+                    break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();
                     break;
