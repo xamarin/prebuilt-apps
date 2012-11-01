@@ -1,0 +1,85 @@
+﻿<Page
+    x:Class="FieldService.WinRT.Views.ImagesPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:FieldService.WinRT.Views"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+
+        <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
+            <Button x:Name="imagesGoBack"  Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" />
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Images" Margin="0,10,0,0"/>
+        </StackPanel>
+
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Grid.Row="1">
+            <Grid Height="590" Width="360"  Margin="100,0,0,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <TextBlock Text="Images" Style="{StaticResource SubheaderTextStyle}"/>
+
+                <ListView                         
+                    x:Name="photosListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
+                    ScrollViewer.HorizontalScrollMode="Disabled" Grid.Row="1" ItemsSource="{Binding Photos}" 
+                    HorizontalContentAlignment="Stretch" SelectionMode="None">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="165" Width="164">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition/>
+                                        <ColumnDefinition/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="{Binding Image, Converter={StaticResource PhotoConverter}}" Stretch="None" Grid.RowSpan="3" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Text="{Binding TimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Text="{Binding DateFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
+
+                                    <TextBlock Margin="10,20,10,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Text="{Binding Description}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
+
+                                </Grid>
+                            </Border>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+            </Grid>
+            
+            <Grid Height=" 570" Width="810" Margin="25,0">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+
+                <TextBox Margin="0,0,0,10" Width="510" Text="{Binding SelectedPhoto.Description, Mode=TwoWay}" />
+                <TextBlock Text="{Binding SelectedPhoto.Date}" Grid.Column="1" Style="{StaticResource SubheaderTextStyle}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button BorderThickness="2" Width="120" Height="40" BorderBrush="{StaticResource DarkRedExpensesBrush}" Command="{Binding DeleteImageCommand}"
+                        Background="{StaticResource ExpensesBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="2">
+                    <TextBlock Text="Delete Image" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="{StaticResource DarkBackgroundBrush}"/>
+                </Button>
+                <Image Margin="0,10"  Grid.Row="1" Grid.ColumnSpan="3" Height="520" Source="{Binding SelectedPhoto.Image, Converter={StaticResource PhotoConverter}}" />
+            </Grid>
+        </StackPanel>
+
+    </Grid>
+</Page>

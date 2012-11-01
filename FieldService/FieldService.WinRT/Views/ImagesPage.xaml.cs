@@ -13,11 +13,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using FieldService.Utilities;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FieldService.Data;
+using FieldService.Utilities;
+using FieldService.WinRT.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -27,21 +29,43 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using FieldService.WinRT.ViewModels;
 
-namespace FieldService.WinRT.Views
-{
+namespace FieldService.WinRT.Views {
     /// <summary>
-    /// Flyout panel for adding signature to the assignment
+    /// Images page
     /// </summary>
-    public sealed partial class AddSignatureFlyoutPanel : UserControl {
+    public sealed partial class ImagesPage : Page {
         AssignmentViewModel assignmentViewModel;
-        public AddSignatureFlyoutPanel ()
+        PhotoViewModel photoViewModel;
+
+        public ImagesPage ()
         {
             this.InitializeComponent ();
 
-            DataContext =
+            imagesGoBack.DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+
+            DataContext =
+                photosListView.DataContext =
+                photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+        }
+
+        /// <summary>
+        /// Invoked when this page is about to be displayed in a Frame.
+        /// </summary>
+        /// <param name="e">Event data that describes how this page was reached.  The Parameter
+        /// property is typically used to configure the page.</param>
+        protected override void OnNavigatedTo (NavigationEventArgs e)
+        {
+
+        }
+
+        private void OnItemClick (object sender, ItemClickEventArgs e)
+        {
+            Photo photo = e.ClickedItem as Photo;
+            if (photo != null) {
+                photoViewModel.PhotoSelectedCommand.Invoke (photo);
+            }
         }
     }
 }

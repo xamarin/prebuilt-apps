@@ -202,6 +202,9 @@
     <Compile Include="Views\AddLaborFlyoutPanel.xaml.cs">
       <DependentUpon>AddLaborFlyoutPanel.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\AddSignatureFlyoutPanel.xaml.cs">
+      <DependentUpon>AddSignatureFlyoutPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AssignmentControl.xaml.cs">
       <DependentUpon>AssignmentControl.xaml</DependentUpon>
     </Compile>
@@ -216,6 +219,9 @@
     </Compile>
     <Compile Include="Views\ConfirmationsPage.xaml.cs">
       <DependentUpon>ConfirmationsPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ImagesPage.xaml.cs">
+      <DependentUpon>ImagesPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\ItemsPage.xaml.cs">
       <DependentUpon>ItemsPage.xaml</DependentUpon>
@@ -292,6 +298,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\AddSignatureFlyoutPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\AssignmentControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -309,6 +319,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConfirmationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\ImagesPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

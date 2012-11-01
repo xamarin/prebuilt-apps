@@ -21,6 +21,7 @@ using FieldService.WinRT.ViewModels;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -55,6 +56,7 @@ namespace FieldService.WinRT.Views {
                 confirmationImage2.DataContext =
                 confirmationImage3.DataContext =
                 photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+
         }
 
         /// <summary>
@@ -104,6 +106,9 @@ namespace FieldService.WinRT.Views {
                     break;
                 case "confirmation":
                     Helpers.NavigateTo<ConfirmationsPage> ();
+                    break;
+                case "addSignature":
+                    assignmentViewModel.AddSignatureCommand.Invoke ();
                     break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();

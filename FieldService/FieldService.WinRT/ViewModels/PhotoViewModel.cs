@@ -22,9 +22,67 @@ using System.Threading.Tasks;
 using Windows.UI.Xaml.Controls;
 using FieldService.WinRT.Utilities;
 using Windows.UI.Xaml.Media;
+using FieldService.Utilities;
 
 namespace FieldService.WinRT.ViewModels {
     public class PhotoViewModel : FieldService.ViewModels.PhotoViewModel {
+        readonly DelegateCommand photoSelectedCommand, savePhotoCommand, deletePhotoCommand;
+        readonly AssignmentViewModel assignmentViewModel;
+        Photo selectedPhoto;
+
+        public PhotoViewModel ()
+        {
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+
+            photoSelectedCommand = new DelegateCommand (obj => {
+                var photo = obj as Photo;
+                if (photo != null)
+                    selectedPhoto = photo;
+                else
+                    selectedPhoto = new Photo ();
+            });
+
+            savePhotoCommand = new DelegateCommand (obj => {
+                selectedPhoto.Assignment = assignmentViewModel.SelectedAssignment.ID;
+                SavePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto)
+                    .ContinueOnUIThread (_ => {
+                        //need to reload the photos here
+                        LoadPhotos (assignmentViewModel.SelectedAssignment);
+                    });
+            });
+
+            deletePhotoCommand = new DelegateCommand (obj => {
+                DeletePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto)
+                    .ContinueOnUIThread (_ => {
+                        LoadPhotos (assignmentViewModel.SelectedAssignment);
+                    });
+            });
+        }
+
+        /// <summary>
+        /// Photo selected command
+        /// </summary>
+        public DelegateCommand PhotoSelectedCommand
+        {
+            get { return photoSelectedCommand; }
+        }
+
+        /// <summary>
+        /// Saving photo command
+        /// </summary>
+        public DelegateCommand SavePhotoCommand
+        {
+            get { return savePhotoCommand; }
+        }
+
+        /// <summary>
+        /// Deleting photo command
+        /// </summary>
+        public DelegateCommand DeletePhotoCommand
+        {
+            get { return deletePhotoCommand; }
+        }
+
         public IEnumerable<Photo> TopPhotos
         {
             get
@@ -66,6 +124,12 @@ namespace FieldService.WinRT.ViewModels {
                 }
                 return null;
             }
+        }
+
+        public Photo SelectedPhoto
+        {
+            get { return selectedPhoto; }
+            set { selectedPhoto = value; OnPropertyChanged ("SelectedPhoto"); }
         }
 
         protected override void OnPropertyChanged (string propertyName)

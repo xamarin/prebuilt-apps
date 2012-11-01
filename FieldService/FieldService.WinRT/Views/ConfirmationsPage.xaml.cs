@@ -13,20 +13,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System;
 using FieldService.Utilities;
 using FieldService.WinRT.ViewModels;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using Windows.Foundation;
-using Windows.Foundation.Collections;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml.Data;
-using Windows.UI.Xaml.Input;
-using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
 namespace FieldService.WinRT.Views {
@@ -40,8 +32,8 @@ namespace FieldService.WinRT.Views {
         {
             this.InitializeComponent ();
 
-            DataContext =
             assignmentControl.DataContext =
+                DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             photoListView.DataContext =
@@ -57,8 +49,23 @@ namespace FieldService.WinRT.Views {
         {
         }
 
-        private void OnItemClick (object sender, ItemClickEventArgs e)
+        private async void OnItemClick (object sender, ItemClickEventArgs e)
         {
+            var element = e.ClickedItem as FrameworkElement;
+            switch (element.Name) {
+                case "addSignature":
+                    assignmentViewModel.AddSignatureCommand.Invoke ();
+                    break;
+                case "markComplete":
+                    if (assignmentViewModel.SelectedAssignment.Signature == null) {
+                        await new MessageDialog ("No signature!").ShowAsync ();
+                    }
+                    break;
+                case "addImage":
+                default:
+                    await new MessageDialog ("Coming soon!").ShowAsync ();
+                    break;
+            }
         }
 
         private void OnImageClick (object sender, ItemClickEventArgs e)

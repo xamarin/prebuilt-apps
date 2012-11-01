@@ -21,11 +21,16 @@ using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.Views;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
-        readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand;
+        readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand, addSignatureCommand;
         Assignment assignment;
+        Popup addSignaturePopup;
+        int popUpWidth = 930;
 
         public AssignmentViewModel ()
         {
@@ -45,6 +50,21 @@ namespace FieldService.WinRT.ViewModels {
             laborCommand = new DelegateCommand (_ => Helpers.NavigateTo<LaborPage> ());
 
             confirmationsCommand = new DelegateCommand (_ => Helpers.NavigateTo<ConfirmationsPage> ());
+
+            cancelAddSignatureCommand = new DelegateCommand (_ => { addSignaturePopup.IsOpen = false; });
+
+            addSignatureCommand = new DelegateCommand (_ => {
+                addSignaturePopup = new Popup ();
+                addSignaturePopup.Height = Window.Current.Bounds.Height;
+                addSignaturePopup.Width = popUpWidth;
+                AddSignatureFlyoutPanel flyoutpanel = new AddSignatureFlyoutPanel ();
+                flyoutpanel.Width = addSignaturePopup.Width;
+                flyoutpanel.Height = addSignaturePopup.Height;
+                addSignaturePopup.Child = flyoutpanel;
+                addSignaturePopup.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
+                addSignaturePopup.SetValue (Canvas.TopProperty, 0);
+                addSignaturePopup.IsOpen = true;
+            });
         }
 
         /// <summary>
@@ -110,6 +130,22 @@ namespace FieldService.WinRT.ViewModels {
         public DelegateCommand ConfirmationsCommand
         {
             get { return confirmationsCommand; }
+        }
+
+        /// <summary>
+        /// Command for cancel the add signature flyout.
+        /// </summary>
+        public DelegateCommand CancelAddSignatureCommand
+        {
+            get { return cancelAddSignatureCommand; }
+        }
+
+        /// <summary>
+        /// Command for opening signature flyout.
+        /// </summary>
+        public DelegateCommand AddSignatureCommand
+        {
+            get { return addSignatureCommand; }
         }
 
         protected override void OnIsBusyChanged ()
