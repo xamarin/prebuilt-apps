@@ -40,7 +40,7 @@ namespace FieldService.WinRT.ViewModels {
 
         public ItemViewModel ()
         {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             saveAssignmentItemCommand = new DelegateCommand (obj => {
                 var item = obj as AssignmentItem;
@@ -49,40 +49,34 @@ namespace FieldService.WinRT.ViewModels {
                 }
             });
 
-            searchItemsCommand = new DelegateCommand(_ =>
-            {
-                var items = new List<Item>();
-                LoadItems().ContinueOnUIThread(obj =>
-                    {
-                        foreach (var item in Items)
-                        {
-                            if (item.Name.ToLower().StartsWith(SearchText) || item.Number.ToLower().StartsWith(SearchText))
-                            {
-                                items.Add(item);
+            searchItemsCommand = new DelegateCommand (_ => {
+                var items = new List<Item> ();
+                LoadItems ().ContinueOnUIThread (obj => {
+                        foreach (var item in Items) {
+                            if (item.Name.ToLower ().StartsWith (SearchText) || item.Number.ToLower ().StartsWith (SearchText)) {
+                                items.Add (item);
                             }
                         }
                         SearchItems = items;
                     });
             });
 
-            addItemCommand = new DelegateCommand(_ =>
-            {
-                addItemPopUp = new Popup();
+            addItemCommand = new DelegateCommand (_ => {
+                addItemPopUp = new Popup ();
                 addItemPopUp.Height = Window.Current.Bounds.Height;
                 addItemPopUp.Width = popUpWidth;
-                AddItemFlyoutPanel flyoutpanel = new AddItemFlyoutPanel();
+                AddItemFlyoutPanel flyoutpanel = new AddItemFlyoutPanel ();
                 flyoutpanel.Width = addItemPopUp.Width;
                 flyoutpanel.Height = addItemPopUp.Height;
                 addItemPopUp.Child = flyoutpanel;
-                addItemPopUp.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
-                addItemPopUp.SetValue(Canvas.TopProperty, 0);
+                addItemPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
+                addItemPopUp.SetValue (Canvas.TopProperty, 0);
                 addItemPopUp.IsOpen = true;
                 SearchText = string.Empty;
-                SearchItemsCommand.Invoke();
+                SearchItemsCommand.Invoke ();
             });
 
-            cancelAddItemCommand = new DelegateCommand(_ =>
-                {
+            cancelAddItemCommand = new DelegateCommand (_ => {
                     addItemPopUp.IsOpen = false;
                 });
         }
@@ -138,7 +132,7 @@ namespace FieldService.WinRT.ViewModels {
         public string SearchText
         {
             get { return searchText; }
-            set { searchText = value; OnPropertyChanged("SearchText"); }
+            set { searchText = value; OnPropertyChanged ("SearchText"); }
         }
 
         /// <summary>
@@ -147,7 +141,7 @@ namespace FieldService.WinRT.ViewModels {
         public IEnumerable<Item> SearchItems
         {
             get { return searchItems; }
-            set { searchItems = value; OnPropertyChanged("SearchItems"); }
+            set { searchItems = value; OnPropertyChanged ("SearchItems"); }
         }
 
         protected override void OnPropertyChanged (string propertyName)

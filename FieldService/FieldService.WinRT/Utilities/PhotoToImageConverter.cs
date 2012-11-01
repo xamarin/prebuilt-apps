@@ -20,25 +20,22 @@ using System.Text;
 using System.Threading.Tasks;
 using Windows.UI.Xaml.Data;
 
-namespace FieldService.WinRT.Utilities
-{
-    public class PhotoToImageConverter : IValueConverter
-    {
-        public object Convert(object value, Type targetType, object parameter, string language)
+namespace FieldService.WinRT.Utilities {
+    public class PhotoToImageConverter : IValueConverter {
+        public object Convert (object value, Type targetType, object parameter, string language)
         {
-            var photo = value as byte[];
+            var photo = value as byte [];
 
-            if (photo != null)
-            {
-                return photo.LoadImage();
+            if (photo != null) {
+                return photo.LoadImage ();
             }
 
             return null;
         }
 
-        public object ConvertBack(object value, Type targetType, object parameter, string language)
+        public object ConvertBack (object value, Type targetType, object parameter, string language)
         {
-            throw new NotImplementedException();
+            throw new NotImplementedException ();
         }
     }
 }

@@ -29,25 +29,23 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FieldService.WinRT.Views
-{
+namespace FieldService.WinRT.Views {
     /// <summary>
     /// Confirmations page for 
     /// </summary>
-    public sealed partial class ConfirmationsPage : Page
-    {
+    public sealed partial class ConfirmationsPage : Page {
         readonly AssignmentViewModel assignmentViewModel;
         readonly PhotoViewModel photoViewModel;
-        public ConfirmationsPage()
+        public ConfirmationsPage ()
         {
-            this.InitializeComponent();
+            this.InitializeComponent ();
 
             DataContext =
             assignmentControl.DataContext =
-                assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+                assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             photoListView.DataContext =
-                photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
+                photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
         }
 
         /// <summary>
@@ -55,15 +53,15 @@ namespace FieldService.WinRT.Views
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo(NavigationEventArgs e)
+        protected override void OnNavigatedTo (NavigationEventArgs e)
         {
         }
 
-        private void OnItemClick(object sender, ItemClickEventArgs e)
+        private void OnItemClick (object sender, ItemClickEventArgs e)
         {
         }
 
-        private void OnImageClick(object sender, ItemClickEventArgs e)
+        private void OnImageClick (object sender, ItemClickEventArgs e)
         {
         }
     }

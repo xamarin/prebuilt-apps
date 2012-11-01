@@ -62,20 +62,18 @@ namespace FieldService.WinRT.Utilities {
             }
         }
 
-        public static Image LoadImage(this byte[] bytes)
+        public static Image LoadImage (this byte [] bytes)
         {
             if (bytes == null || bytes.Length == 0)
                 return null;
-            var image = new Image();
-            var bitmapImage = new BitmapImage();
-            using (var stream = new InMemoryRandomAccessStream())
-            {
-                using (var datawriter = new DataWriter(stream))
-                {
-                    datawriter.WriteBytes(bytes);
-                    datawriter.StoreAsync();
-                    stream.Seek(0);
-                    bitmapImage.SetSource(stream);
+            var image = new Image ();
+            var bitmapImage = new BitmapImage ();
+            using (var stream = new InMemoryRandomAccessStream ()) {
+                using (var datawriter = new DataWriter (stream)) {
+                    datawriter.WriteBytes (bytes);
+                    datawriter.StoreAsync ();
+                    stream.Seek (0);
+                    bitmapImage.SetSource (stream);
                     image.Source = (ImageSource)bitmapImage;
                 }
             }

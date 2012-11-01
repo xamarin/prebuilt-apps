@@ -23,17 +23,15 @@ using Windows.UI.Xaml.Controls;
 using FieldService.WinRT.Utilities;
 using Windows.UI.Xaml.Media;
 
-namespace FieldService.WinRT.ViewModels
-{
-    public class PhotoViewModel : FieldService.ViewModels.PhotoViewModel
-    {
+namespace FieldService.WinRT.ViewModels {
+    public class PhotoViewModel : FieldService.ViewModels.PhotoViewModel {
         public IEnumerable<Photo> TopPhotos
         {
             get
             {
                 if (Photos == null)
                     return null;
-                return Photos.Take(3);
+                return Photos.Take (3);
             }
         }
 
@@ -41,9 +39,8 @@ namespace FieldService.WinRT.ViewModels
         {
             get
             {
-                if (TopPhotos != null)
-                {
-                    return TopPhotos.ElementAtOrDefault(0);
+                if (TopPhotos != null) {
+                    return TopPhotos.ElementAtOrDefault (0);
                 }
                 return null;
             }
@@ -53,9 +50,8 @@ namespace FieldService.WinRT.ViewModels
         {
             get
             {
-                if (TopPhotos != null)
-                {
-                    return TopPhotos.ElementAtOrDefault(1);
+                if (TopPhotos != null) {
+                    return TopPhotos.ElementAtOrDefault (1);
                 }
                 return null;
             }
@@ -65,22 +61,20 @@ namespace FieldService.WinRT.ViewModels
         {
             get
             {
-                if (TopPhotos != null)
-                {
-                    return TopPhotos.ElementAtOrDefault(2);
+                if (TopPhotos != null) {
+                    return TopPhotos.ElementAtOrDefault (2);
                 }
                 return null;
             }
         }
 
-        protected override void OnPropertyChanged(string propertyName)
+        protected override void OnPropertyChanged (string propertyName)
         {
-            base.OnPropertyChanged(propertyName);
+            base.OnPropertyChanged (propertyName);
 
             //Make sure property changed is raised for new properties
-            if (propertyName == "Photos")
-            {
-                OnPropertyChanged("TopPhotos");
+            if (propertyName == "Photos") {
+                OnPropertyChanged ("TopPhotos");
             }
         }
     }

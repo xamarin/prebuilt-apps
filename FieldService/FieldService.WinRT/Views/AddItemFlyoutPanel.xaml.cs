@@ -30,24 +30,22 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FieldService.WinRT.Views
-{
+namespace FieldService.WinRT.Views {
     /// <summary>
     /// Add item flyout panel
     /// </summary>
-    public sealed partial class AddItemFlyoutPanel : UserControl
-    {
+    public sealed partial class AddItemFlyoutPanel : UserControl {
         ItemViewModel itemViewModel;
         AssignmentViewModel assignmentViewModel;
 
-        public AddItemFlyoutPanel()
+        public AddItemFlyoutPanel ()
         {
-            this.InitializeComponent();
+            this.InitializeComponent ();
 
             DataContext =
-                itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
+                itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
 
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
         }
 
         /// <summary>
@@ -55,15 +53,14 @@ namespace FieldService.WinRT.Views
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnItemClick(object sender, ItemClickEventArgs e)
+        public void OnItemClick (object sender, ItemClickEventArgs e)
         {
             Item item = e.ClickedItem as Item;
-            if (item != null)
-            {
+            if (item != null) {
                 AssignmentItem assignmentItem = new AssignmentItem { Assignment = assignmentViewModel.SelectedAssignment.ID, Item = item.ID };
-                itemViewModel.SaveAssignmentItemCommand.Invoke(assignmentItem);
-                itemViewModel.LoadAssignmentItems(assignmentViewModel.SelectedAssignment);
-                itemViewModel.CancelAddItemCommand.Invoke();
+                itemViewModel.SaveAssignmentItemCommand.Invoke (assignmentItem);
+                itemViewModel.LoadAssignmentItems (assignmentViewModel.SelectedAssignment);
+                itemViewModel.CancelAddItemCommand.Invoke ();
             }
         }
     }

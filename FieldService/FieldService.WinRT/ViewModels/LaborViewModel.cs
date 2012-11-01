@@ -25,59 +25,53 @@ using Windows.UI.Xaml.Controls;
 using FieldService.WinRT.Views;
 using FieldService.Utilities;
 
-namespace FieldService.WinRT.ViewModels
-{
+namespace FieldService.WinRT.ViewModels {
     /// <summary>
     /// WinRT version of the LaborViewModel
     /// - We setup ICommand here
     /// </summary>
-    public class LaborViewModel : FieldService.ViewModels.LaborViewModel
-    {
+    public class LaborViewModel : FieldService.ViewModels.LaborViewModel {
         readonly AssignmentViewModel assignmentViewModel;
         readonly DelegateCommand cancelAddLaborCommand, saveAddLaborCommand, deleteAddLaborCommand, addLaborCommand;
         Popup addLaborPopUp;
         Labor selectedLabor;
         string currentLaborHours = string.Empty;
         int popUpWidth = 485;
-        LaborType[] laborTypes = new LaborType[] { LaborType.Hourly, LaborType.OverTime, LaborType.HolidayTime };
+        LaborType [] laborTypes = new LaborType [] { LaborType.Hourly, LaborType.OverTime, LaborType.HolidayTime };
 
-        public LaborViewModel()
+        public LaborViewModel ()
         {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
-            cancelAddLaborCommand = new DelegateCommand(_ =>
-            {
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            cancelAddLaborCommand = new DelegateCommand (_ => {
                 addLaborPopUp.IsOpen = false;
             });
-            saveAddLaborCommand = new DelegateCommand(_ =>
-            {
-                selectedLabor.Hours = TimeSpan.FromHours(currentLaborHours.ToDouble());
+            saveAddLaborCommand = new DelegateCommand (_ => {
+                selectedLabor.Hours = TimeSpan.FromHours (currentLaborHours.ToDouble ());
                 selectedLabor.Assignment = assignmentViewModel.SelectedAssignment.ID;
-                SaveLabor(assignmentViewModel.SelectedAssignment, selectedLabor);
-                LoadLaborHours(assignmentViewModel.SelectedAssignment);
+                SaveLabor (assignmentViewModel.SelectedAssignment, selectedLabor);
+                LoadLaborHours (assignmentViewModel.SelectedAssignment);
                 addLaborPopUp.IsOpen = false;
             });
-            deleteAddLaborCommand = new DelegateCommand(_ =>
-            {
-                DeleteLabor(assignmentViewModel.SelectedAssignment, selectedLabor);
-                LoadLaborHours(assignmentViewModel.SelectedAssignment);
+            deleteAddLaborCommand = new DelegateCommand (_ => {
+                DeleteLabor (assignmentViewModel.SelectedAssignment, selectedLabor);
+                LoadLaborHours (assignmentViewModel.SelectedAssignment);
                 addLaborPopUp.IsOpen = false;
             });
-            addLaborCommand = new DelegateCommand(obj =>
-                {
+            addLaborCommand = new DelegateCommand (obj => {
                     var labor = obj as Labor;
                     if (labor != null)
                         SelectedLabor = labor;
                     else
-                        SelectedLabor = new Labor();
-                    addLaborPopUp = new Popup();
+                        SelectedLabor = new Labor ();
+                    addLaborPopUp = new Popup ();
                     addLaborPopUp.Height = Window.Current.Bounds.Height;
                     addLaborPopUp.Width = popUpWidth;
-                    AddLaborFlyoutPanel flyoutpanel = new AddLaborFlyoutPanel();
+                    AddLaborFlyoutPanel flyoutpanel = new AddLaborFlyoutPanel ();
                     flyoutpanel.Width = addLaborPopUp.Width;
                     flyoutpanel.Height = addLaborPopUp.Height;
                     addLaborPopUp.Child = flyoutpanel;
-                    addLaborPopUp.SetValue(Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
-                    addLaborPopUp.SetValue(Canvas.TopProperty, 0);
+                    addLaborPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
+                    addLaborPopUp.SetValue (Canvas.TopProperty, 0);
                     addLaborPopUp.IsOpen = true;
                 });
         }
@@ -92,7 +86,7 @@ namespace FieldService.WinRT.ViewModels
                 if (LaborHours == null)
                     return null;
 
-                return LaborHours.Take(5);
+                return LaborHours.Take (5);
             }
         }
 
@@ -131,7 +125,7 @@ namespace FieldService.WinRT.ViewModels
         /// <summary>
         /// array of labor types for combo box
         /// </summary>
-        public LaborType[] LaborTypes
+        public LaborType [] LaborTypes
         {
             get { return laborTypes; }
         }
@@ -146,7 +140,7 @@ namespace FieldService.WinRT.ViewModels
             {
                 selectedLabor = value;
                 if (value != null)
-                    CurrentLaborHours = value.Hours.TotalHours.ToString("0.0");
+                    CurrentLaborHours = value.Hours.TotalHours.ToString ("0.0");
                 else
                     CurrentLaborHours = string.Empty;
             }
@@ -158,17 +152,16 @@ namespace FieldService.WinRT.ViewModels
         public string CurrentLaborHours
         {
             get { return currentLaborHours; }
-            set { currentLaborHours = value; OnPropertyChanged("CurrentLaborHours"); }
+            set { currentLaborHours = value; OnPropertyChanged ("CurrentLaborHours"); }
         }
 
-        protected override void OnPropertyChanged(string propertyName)
+        protected override void OnPropertyChanged (string propertyName)
         {
-            base.OnPropertyChanged(propertyName);
+            base.OnPropertyChanged (propertyName);
 
             //Make sure property changed is raised for new properties
-            if (propertyName == "LaborHours")
-            {
-                OnPropertyChanged("TopLaborHours");
+            if (propertyName == "LaborHours") {
+                OnPropertyChanged ("TopLaborHours");
             }
         }
     }

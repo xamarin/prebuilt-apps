@@ -44,7 +44,7 @@ namespace FieldService.WinRT.Views {
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             itemsListView.DataContext =
-            summaryAddItems.DataContext = 
+            summaryAddItems.DataContext =
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
 
             laborListView.DataContext =
@@ -54,7 +54,7 @@ namespace FieldService.WinRT.Views {
             confirmationImage1.DataContext =
                 confirmationImage2.DataContext =
                 confirmationImage3.DataContext =
-                photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
+                photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace FieldService.WinRT.Views {
 
             laborViewModel.LoadLaborHours (assignmentViewModel.SelectedAssignment);
 
-            photoViewModel.LoadPhotos(assignmentViewModel.SelectedAssignment);
+            photoViewModel.LoadPhotos (assignmentViewModel.SelectedAssignment);
         }
 
         private void OnItemClick (object sender, ItemClickEventArgs e)
@@ -80,12 +80,11 @@ namespace FieldService.WinRT.Views {
             }
         }
 
-        private void OnLaborItemClick(object sender, ItemClickEventArgs e)
+        private void OnLaborItemClick (object sender, ItemClickEventArgs e)
         {
             var labor = e.ClickedItem as Labor;
-            if (labor != null)
-            {
-                laborViewModel.AddLaborCommand.Invoke(labor);
+            if (labor != null) {
+                laborViewModel.AddLaborCommand.Invoke (labor);
             }
         }
 
@@ -98,13 +97,13 @@ namespace FieldService.WinRT.Views {
                     Helpers.NavigateTo<AssignmentMapPage> ();
                     break;
                 case "totalHours":
-                    Helpers.NavigateTo<LaborPage>();
+                    Helpers.NavigateTo<LaborPage> ();
                     break;
                 case "totalItems":
-                    Helpers.NavigateTo<ItemsPage>();
+                    Helpers.NavigateTo<ItemsPage> ();
                     break;
                 case "confirmation":
-                    Helpers.NavigateTo<ConfirmationsPage>();
+                    Helpers.NavigateTo<ConfirmationsPage> ();
                     break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();

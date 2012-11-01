@@ -44,7 +44,7 @@ namespace FieldService.WinRT.ViewModels {
 
             laborCommand = new DelegateCommand (_ => Helpers.NavigateTo<LaborPage> ());
 
-            confirmationsCommand = new DelegateCommand(_ => Helpers.NavigateTo<ConfirmationsPage>());
+            confirmationsCommand = new DelegateCommand (_ => Helpers.NavigateTo<ConfirmationsPage> ());
         }
 
         /// <summary>

@@ -29,20 +29,18 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-namespace FieldService.WinRT.Views
-{
+namespace FieldService.WinRT.Views {
     /// <summary>
     /// Add labor hour flyout panel
     /// </summary>
-    public sealed partial class AddLaborFlyoutPanel : UserControl
-    {
+    public sealed partial class AddLaborFlyoutPanel : UserControl {
         LaborViewModel laborViewModel;
-        public AddLaborFlyoutPanel()
+        public AddLaborFlyoutPanel ()
         {
-            this.InitializeComponent();
+            this.InitializeComponent ();
 
             DataContext =
-                laborViewModel = ServiceContainer.Resolve<LaborViewModel>();
+                laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
         }
     }
 }
