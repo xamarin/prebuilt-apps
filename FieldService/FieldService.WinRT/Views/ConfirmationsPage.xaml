@@ -160,11 +160,11 @@
                                             <RowDefinition/>
                                         </Grid.RowDefinitions>
 
-                                        <Image Source="{Binding Image}" Stretch="None" />
+                                        <Image Source="{Binding Image, Converter={StaticResource PhotoConverter}}" Stretch="None" />
 
-                                        <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding Time}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
+                                        <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding TimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
 
-                                        <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding Date}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
+                                        <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding DateFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
 
                                     </Grid>
                                 </Border>

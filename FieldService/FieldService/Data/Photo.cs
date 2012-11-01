@@ -48,5 +48,25 @@ namespace FieldService.Data {
         /// Description for photo
         /// </summary>
         public string Description { get; set; }
+
+        #region WinRT properties
+        /// <summary>
+        /// The time component of the DateTime on the photo
+        /// </summary>
+        [Ignore]
+        public string TimeFormatted
+        {
+            get {return Date.ToString("t");}
+        }
+
+        /// <summary>
+        /// The date component of the DateTime on the photo
+        /// </summary>
+        [Ignore]
+        public string DateFormatted
+        {
+            get { return Date.ToString("d"); }
+        }
+        #endregion
     }
 }

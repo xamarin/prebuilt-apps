@@ -32,6 +32,9 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FieldService.WinRT.Views
 {
+    /// <summary>
+    /// Add item flyout panel
+    /// </summary>
     public sealed partial class AddItemFlyoutPanel : UserControl
     {
         ItemViewModel itemViewModel;
@@ -47,6 +50,11 @@ namespace FieldService.WinRT.Views
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
         }
 
+        /// <summary>
+        /// List view item click event
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         public void OnItemClick(object sender, ItemClickEventArgs e)
         {
             Item item = e.ClickedItem as Item;

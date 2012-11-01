@@ -102,6 +102,7 @@
     <!--Converters-->
     <util:BooleanToVisibilityConverter x:Key="BooleanConverter" />
     <util:StatusToColorConverter x:Key="StatusConverter" />
+    <util:PhotoToImageConverter x:Key="PhotoConverter"/>
     
     <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
 

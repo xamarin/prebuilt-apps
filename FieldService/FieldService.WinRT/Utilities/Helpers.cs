@@ -7,6 +7,9 @@ using FieldService.Data;
 using FieldService.Utilities;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
+using System.IO;
+using Windows.Storage.Streams;
 
 namespace FieldService.WinRT.Utilities {
     /// <summary>
@@ -57,6 +60,26 @@ namespace FieldService.WinRT.Utilities {
                 default:
                     return app.Resources ["GreenBrush"] as SolidColorBrush;
             }
+        }
+
+        public static Image LoadImage(this byte[] bytes)
+        {
+            if (bytes == null || bytes.Length == 0)
+                return null;
+            var image = new Image();
+            var bitmapImage = new BitmapImage();
+            using (var stream = new InMemoryRandomAccessStream())
+            {
+                using (var datawriter = new DataWriter(stream))
+                {
+                    datawriter.WriteBytes(bytes);
+                    datawriter.StoreAsync();
+                    stream.Seek(0);
+                    bitmapImage.SetSource(stream);
+                    image.Source = (ImageSource)bitmapImage;
+                }
+            }
+            return image;
         }
     }
 }

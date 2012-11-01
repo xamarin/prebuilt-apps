@@ -82,6 +82,9 @@ namespace FieldService.WinRT.ViewModels
                 });
         }
 
+        /// <summary>
+        /// list of top 5 labor hour items
+        /// </summary>
         public IEnumerable<Labor> TopLaborHours
         {
             get
@@ -93,31 +96,49 @@ namespace FieldService.WinRT.ViewModels
             }
         }
 
+        /// <summary>
+        /// save new/edit labor item
+        /// </summary>
         public DelegateCommand SaveAddLaborCommand
         {
             get { return saveAddLaborCommand; }
         }
 
+        /// <summary>
+        /// delete the current labor item
+        /// </summary>
         public DelegateCommand DeleteAddLaborCommand
         {
             get { return deleteAddLaborCommand; }
         }
 
+        /// <summary>
+        /// cancel labor flyout panel
+        /// </summary>
         public DelegateCommand CancelAddLaborCommand
         {
             get { return cancelAddLaborCommand; }
         }
 
+        /// <summary>
+        /// open the labor flyout panel
+        /// </summary>
         public DelegateCommand AddLaborCommand
         {
             get { return addLaborCommand; }
         }
 
+        /// <summary>
+        /// array of labor types for combo box
+        /// </summary>
         public LaborType[] LaborTypes
         {
             get { return laborTypes; }
         }
 
+        /// <summary>
+        /// selected labor item
+        /// </summary>
         public Labor SelectedLabor
         {
             get { return selectedLabor; }
@@ -131,6 +152,9 @@ namespace FieldService.WinRT.ViewModels
             }
         }
 
+        /// <summary>
+        /// formatted labor hours from selected labor
+        /// </summary>
         public string CurrentLaborHours
         {
             get { return currentLaborHours; }

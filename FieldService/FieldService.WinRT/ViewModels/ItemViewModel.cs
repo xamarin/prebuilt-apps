@@ -87,26 +87,41 @@ namespace FieldService.WinRT.ViewModels {
                 });
         }
 
+        /// <summary>
+        /// Command for saving the assignment item
+        /// </summary>
         public DelegateCommand SaveAssignmentItemCommand
         {
             get { return saveAssignmentItemCommand; }
         }
 
+        /// <summary>
+        /// Command for searching the through the list of items
+        /// </summary>
         public DelegateCommand SearchItemsCommand
         {
             get { return searchItemsCommand; }
         }
 
+        /// <summary>
+        /// Command for opening the add item flyout panel
+        /// </summary>
         public DelegateCommand AddItemCommand
         {
             get { return addItemCommand; }
         }
 
+        /// <summary>
+        /// Command to cancel the flyout panel
+        /// </summary>
         public DelegateCommand CancelAddItemCommand
         {
             get { return cancelAddItemCommand; }
         }
 
+        /// <summary>
+        /// list of top assignment items
+        /// </summary>
         public IEnumerable<AssignmentItem> TopAssignmentItems
         {
             get
@@ -117,12 +132,18 @@ namespace FieldService.WinRT.ViewModels {
             }
         }
 
+        /// <summary>
+        /// Search text property for searching throug list of items
+        /// </summary>
         public string SearchText
         {
             get { return searchText; }
             set { searchText = value; OnPropertyChanged("SearchText"); }
         }
 
+        /// <summary>
+        /// list of items that have search applied
+        /// </summary>
         public IEnumerable<Item> SearchItems
         {
             get { return searchItems; }

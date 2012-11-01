@@ -67,6 +67,8 @@ namespace FieldService.WinRT.Views {
             itemViewModel.LoadAssignmentItems (assignmentViewModel.SelectedAssignment);
 
             laborViewModel.LoadLaborHours (assignmentViewModel.SelectedAssignment);
+
+            photoViewModel.LoadPhotos(assignmentViewModel.SelectedAssignment);
         }
 
         private void OnItemClick (object sender, ItemClickEventArgs e)
