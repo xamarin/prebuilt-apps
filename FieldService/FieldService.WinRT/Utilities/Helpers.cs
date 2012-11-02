@@ -79,5 +79,18 @@ namespace FieldService.WinRT.Utilities {
             }
             return image;
         }
+
+        public async static Task<byte []> LoadBytes (this Stream stream)
+        {
+            if (stream == null) {
+                return null;
+            }
+            using (var reader = new DataReader(stream.AsInputStream())) {
+                await reader.LoadAsync ((uint)stream.Length);
+                var bytes = new byte [stream.Length];
+                reader.ReadBytes (bytes);
+                return bytes;
+            }
+        }
     }
 }

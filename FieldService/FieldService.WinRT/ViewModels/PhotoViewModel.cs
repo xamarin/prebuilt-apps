@@ -42,20 +42,15 @@ namespace FieldService.WinRT.ViewModels {
                     selectedPhoto = new Photo ();
             });
 
-            savePhotoCommand = new DelegateCommand (obj => {
+            savePhotoCommand = new DelegateCommand (async _ => {
                 selectedPhoto.Assignment = assignmentViewModel.SelectedAssignment.ID;
-                SavePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto)
-                    .ContinueOnUIThread (_ => {
-                        //need to reload the photos here
-                        LoadPhotos (assignmentViewModel.SelectedAssignment);
-                    });
+                await SavePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto);
+                await LoadPhotos (assignmentViewModel.SelectedAssignment);
             });
 
-            deletePhotoCommand = new DelegateCommand (obj => {
-                DeletePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto)
-                    .ContinueOnUIThread (_ => {
-                        LoadPhotos (assignmentViewModel.SelectedAssignment);
-                    });
+            deletePhotoCommand = new DelegateCommand (async _ => {
+                await DeletePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto);
+                await LoadPhotos (assignmentViewModel.SelectedAssignment);
             });
         }
 

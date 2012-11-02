@@ -23,6 +23,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
+using Xamarin.Media;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -35,6 +36,7 @@ namespace FieldService.WinRT.Views {
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
         readonly PhotoViewModel photoViewModel;
+        MediaPicker picker;
 
         public AssignmentPage ()
         {
@@ -57,6 +59,7 @@ namespace FieldService.WinRT.Views {
                 confirmationImage3.DataContext =
                 photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
 
+            picker = new MediaPicker ();
         }
 
         /// <summary>
@@ -111,7 +114,32 @@ namespace FieldService.WinRT.Views {
                     assignmentViewModel.AddSignatureCommand.Invoke ();
                     break;
                 case "addImage":
-                    Helpers.NavigateTo<ImagesPage> ();
+                        var dialog = new MessageDialog ("Take picture with your built in camera or select one from your photo library.", "Add Image");
+                        if (picker.IsCameraAvailable) {
+                            dialog.Commands.Add (new UICommand ("Camera", new UICommandInvokedHandler (async _ => {
+                                StoreCameraMediaOptions options = new StoreCameraMediaOptions {
+                                    Directory = "FieldService",
+                                    Name = "FieldService.jpg",
+                                };
+                                var medialFile = await picker.TakePhotoAsync (options);
+
+                                var photo = new Photo ();
+                                photo.Image = medialFile.GetStream ().LoadBytes ().Result;
+                                photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                                Helpers.NavigateTo<ImagesPage> ();
+                            })));
+                        }
+                        dialog.Commands.Add (new UICommand ("Library", new UICommandInvokedHandler (async _ => {
+                            
+                            var mediaFile = await picker.PickPhotoAsync ();
+
+                            var photo = new Photo ();
+                            photo.Image = mediaFile.GetStream ().LoadBytes ().Result;
+                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                            Helpers.NavigateTo<ImagesPage> ();
+                        })));
+
+                        await dialog.ShowAsync ();
                     break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();

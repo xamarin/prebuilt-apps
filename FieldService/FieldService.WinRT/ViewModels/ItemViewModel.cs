@@ -49,16 +49,15 @@ namespace FieldService.WinRT.ViewModels {
                 }
             });
 
-            searchItemsCommand = new DelegateCommand (_ => {
+            searchItemsCommand = new DelegateCommand (async _ => {
+                await LoadItems ();
                 var items = new List<Item> ();
-                LoadItems ().ContinueOnUIThread (obj => {
-                        foreach (var item in Items) {
-                            if (item.Name.ToLower ().StartsWith (SearchText) || item.Number.ToLower ().StartsWith (SearchText)) {
-                                items.Add (item);
-                            }
-                        }
-                        SearchItems = items;
-                    });
+                foreach (var item in Items) {
+                    if (item.Name.ToLower ().StartsWith (SearchText) || item.Number.ToLower ().StartsWith (SearchText)) {
+                        items.Add (item);
+                    }
+                }
+                SearchItems = items;
             });
 
             addItemCommand = new DelegateCommand (_ => {
