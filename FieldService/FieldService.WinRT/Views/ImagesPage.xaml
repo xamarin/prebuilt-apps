@@ -30,29 +30,22 @@
                 <ListView                         
                     x:Name="photosListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
                     ScrollViewer.HorizontalScrollMode="Disabled" Grid.Row="1" ItemsSource="{Binding Photos}" 
-                    HorizontalContentAlignment="Stretch" SelectionMode="None">
+                    HorizontalContentAlignment="Stretch" SelectionMode="Single">
                     <ListView.ItemTemplate>
                         <DataTemplate>
-                            <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="165" Width="164">
+                            <Border BorderThickness="0" Height="165" Width="340">
                                 <Grid>
-                                    <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                    </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition/>
                                         <ColumnDefinition/>
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="{Binding Image, Converter={StaticResource PhotoConverter}}" Stretch="None" Grid.RowSpan="3" />
-
-                                    <TextBlock Margin="10,5" Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" Text="{Binding TimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
-
-                                    <TextBlock Margin="10,5" Grid.Row="1" Grid.Column="1" VerticalAlignment="Top" Text="{Binding DateFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
-
-                                    <TextBlock Margin="10,20,10,0" Grid.Row="2" Grid.Column="1" VerticalAlignment="Top" Text="{Binding Description}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
-
+                                    <Image Source="{Binding Image, Converter={StaticResource PhotoConverter}}" Stretch="UniformToFill" Grid.RowSpan="3" />
+                                    <StackPanel Grid.Column="1" Margin="20,0, 10, 0" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <TextBlock Text="{Binding TimeFormatted}" Foreground="White" FontSize="14" />
+                                        <TextBlock Text="{Binding DateFormatted}" Foreground="White" FontSize="12" />
+                                        <TextBlock Margin="0,10" Text="{Binding Description}" Foreground="White" FontSize="12" />
+                                    </StackPanel>
                                 </Grid>
                             </Border>
                         </DataTemplate>
@@ -76,7 +69,7 @@
                         Background="{StaticResource ItemsBrush}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,10">
                     <TextBlock Text="Save" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                 </Button>
-                <Button BorderThickness="2" Height="40" Width="120" BorderBrush="{StaticResource DarkRedExpensesBrush}" Command="{Binding DeleteImageCommand}"
+                <Button BorderThickness="2" Height="40" Width="120" BorderBrush="{StaticResource DarkRedExpensesBrush}" Command="{Binding DeletePhotoCommand}"
                         Background="{StaticResource ExpensesBrush}" VerticalAlignment="Center" Grid.Column="2" Margin="5,0,0,10" HorizontalAlignment="Right">
                     <TextBlock Text="Delete Image" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                 </Button>

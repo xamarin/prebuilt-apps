@@ -41,9 +41,9 @@
                     </Grid>
 
                     <ListView 
-                        x:Name="itemsListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
+                        ItemClick="OnItemClick" IsItemClickEnabled="True"
                         ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
-                        Grid.Row="1" ItemsSource="{Binding AssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
+                        Grid.Row="1" HorizontalContentAlignment="Stretch" SelectionMode="None">
 
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -144,28 +144,27 @@
                     </Grid>
 
                     <ListView x:Name="photoListView" Grid.Row="1" ItemsSource="{Binding Photos}" HorizontalContentAlignment="Stretch" SelectionMode="None"
-                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" ItemClick="OnItemClick">
+                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" ItemClick="OnImageClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
-                                <WrapGrid Orientation="Vertical" MaxHeight="495"/>
+                                <WrapGrid Orientation="Vertical" MaxHeight="530"/>
                             </ItemsPanelTemplate>
                         </ListView.ItemsPanel>
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="165" Width="164">
-                                    <Grid>
+                                <Border BorderThickness="0" Height="165" Width="164">
+                                    <Grid Background="{StaticResource DarkTextBrush}">
                                         <Grid.RowDefinitions>
-                                            <RowDefinition />
-                                            <RowDefinition />
-                                            <RowDefinition/>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="Auto"/>
                                         </Grid.RowDefinitions>
 
-                                        <Image Source="{Binding Image, Converter={StaticResource PhotoConverter}}" Stretch="None" />
+                                        <Image Source="{Binding Image, Converter={StaticResource PhotoConverter}}" Stretch="UniformToFill"/>
 
-                                        <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding TimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
-
-                                        <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding DateFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
-
+                                        <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5">
+                                            <TextBlock Text="{Binding TimeFormatted}" FontSize="14"  Foreground="White"/>
+                                            <TextBlock Text="{Binding DateFormatted}" FontSize="12" Foreground="White"/>
+                                        </StackPanel>
                                     </Grid>
                                 </Border>
                             </DataTemplate>

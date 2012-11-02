@@ -23,6 +23,7 @@ using Windows.UI.Xaml.Controls;
 using FieldService.WinRT.Utilities;
 using Windows.UI.Xaml.Media;
 using FieldService.Utilities;
+using Windows.UI.Popups;
 
 namespace FieldService.WinRT.ViewModels {
     public class PhotoViewModel : FieldService.ViewModels.PhotoViewModel {
@@ -36,21 +37,30 @@ namespace FieldService.WinRT.ViewModels {
 
             photoSelectedCommand = new DelegateCommand (obj => {
                 var photo = obj as Photo;
-                if (photo != null)
-                    selectedPhoto = photo;
-                else
-                    selectedPhoto = new Photo ();
+                if (photo != null) {
+                    SelectedPhoto = photo;
+                } else
+                    SelectedPhoto = new Photo ();
             });
 
             savePhotoCommand = new DelegateCommand (async _ => {
                 selectedPhoto.Assignment = assignmentViewModel.SelectedAssignment.ID;
                 await SavePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto);
                 await LoadPhotos (assignmentViewModel.SelectedAssignment);
+                OnPropertyChanged ("Photos");
             });
 
             deletePhotoCommand = new DelegateCommand (async _ => {
-                await DeletePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto);
-                await LoadPhotos (assignmentViewModel.SelectedAssignment);
+                bool yesDelete = false;
+                var dialog = new MessageDialog ("Are you sure?", "Delete Image");
+                dialog.Commands.Add (new UICommand ("Yes", del => { yesDelete = true; }));
+                dialog.Commands.Add(new UICommand("No"));
+                await dialog.ShowAsync ();
+                if (yesDelete) {
+                    await DeletePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto);
+                    await LoadPhotos (assignmentViewModel.SelectedAssignment);
+                    SelectedPhoto = new Photo ();
+                }
             });
         }
 
@@ -134,6 +144,9 @@ namespace FieldService.WinRT.ViewModels {
             //Make sure property changed is raised for new properties
             if (propertyName == "Photos") {
                 OnPropertyChanged ("TopPhotos");
+                OnPropertyChanged ("FirstImage");
+                OnPropertyChanged ("SecondImage");
+                OnPropertyChanged ("ThirdImage");
             }
         }
     }

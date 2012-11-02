@@ -39,7 +39,7 @@ namespace FieldService.ViewModels {
         public List<Photo> Photos
         {
             get { return photos; }
-            set { photos = value; OnPropertyChanged ("AssignmentItems"); }
+            set { photos = value; OnPropertyChanged ("AssignmentItems"); OnPropertyChanged ("Photos"); }
         }
 
         /// <summary>

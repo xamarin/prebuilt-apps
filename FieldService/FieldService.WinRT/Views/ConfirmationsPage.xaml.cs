@@ -14,6 +14,7 @@
 //    limitations under the License.
 
 using System;
+using System.Diagnostics;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
@@ -54,7 +55,7 @@ namespace FieldService.WinRT.Views {
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
         }
-
+        
         private async void OnItemClick (object sender, ItemClickEventArgs e)
         {
             var element = e.ClickedItem as FrameworkElement;
@@ -68,32 +69,48 @@ namespace FieldService.WinRT.Views {
                     }
                     break;
                 case "addImage": {
+                        bool cameraCommand = false, imageCommand = false;
                         var dialog = new MessageDialog ("Take picture with your built in camera or select one from your photo library.", "Add Image");
                         if (picker.IsCameraAvailable) {
-                            dialog.Commands.Add (new UICommand ("Camera", new UICommandInvokedHandler (async _ => {
-                                StoreCameraMediaOptions options = new StoreCameraMediaOptions {
-                                    Directory = "FieldService",
-                                    Name = "FieldService.jpg",
-                                };
-                                var medialFile = await picker.TakePhotoAsync (options);
-
-                                var photo = new Photo ();
-                                photo.Image = medialFile.GetStream ().LoadBytes ().Result;
-                                photoViewModel.PhotoSelectedCommand.Invoke (photo);
-                                Helpers.NavigateTo<ImagesPage> ();
-                            })));
+                            dialog.Commands.Add (new UICommand ("Camera", new UICommandInvokedHandler (_ => cameraCommand = true)));
                         }
-                        dialog.Commands.Add (new UICommand ("Library", new UICommandInvokedHandler (async _ => {
-                            
-                            var mediaFile = await picker.PickPhotoAsync ();
-
-                            var photo = new Photo ();
-                            photo.Image = mediaFile.GetStream ().LoadBytes ().Result;
-                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
-                            Helpers.NavigateTo<ImagesPage> ();
-                        })));
+                        dialog.Commands.Add (new UICommand ("Library", new UICommandInvokedHandler (_ => imageCommand = true)));
 
                         await dialog.ShowAsync ();
+
+                        if (cameraCommand) {
+                            StoreCameraMediaOptions options = new StoreCameraMediaOptions {
+                                Directory = "FieldService",
+                                Name = "FieldService.jpg",
+                            };
+                            try {
+                                var mediaFile = await picker.TakePhotoAsync (options);
+
+                                var photo = new Photo ();
+                                await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
+                                    photo.Image = t.Result;
+                                });
+                                photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                                Helpers.NavigateTo<ImagesPage> ();
+                            } catch(Exception exc) {
+                                Debug.WriteLine (exc.Message);
+                                //this could happen if they cancel, etc.
+                            }
+                        } else if (imageCommand) {
+                            try {
+                                var mediaFile = await picker.PickPhotoAsync ();
+
+                                var photo = new Photo ();
+                                await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
+                                    photo.Image = t.Result;
+                                });
+                                photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                                Helpers.NavigateTo<ImagesPage> ();
+                            } catch (Exception exc) {
+                                Debug.WriteLine (exc.Message);
+                                //this could happen if they cancel, etc.
+                            }
+                        }
                     }
                     break;
                 default:
@@ -104,6 +121,11 @@ namespace FieldService.WinRT.Views {
 
         private void OnImageClick (object sender, ItemClickEventArgs e)
         {
+            var photo = e.ClickedItem as Photo;
+            if (photo != null) {
+                photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                Helpers.NavigateTo<ImagesPage> ();
+            }
         }
     }
 }

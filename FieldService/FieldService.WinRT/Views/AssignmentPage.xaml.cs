@@ -113,33 +113,64 @@ namespace FieldService.WinRT.Views {
                 case "addSignature":
                     assignmentViewModel.AddSignatureCommand.Invoke ();
                     break;
-                case "addImage":
+                case "addImage": {
+                        bool cameraCommand = false, imageCommand = false;
                         var dialog = new MessageDialog ("Take picture with your built in camera or select one from your photo library.", "Add Image");
                         if (picker.IsCameraAvailable) {
-                            dialog.Commands.Add (new UICommand ("Camera", new UICommandInvokedHandler (async _ => {
-                                StoreCameraMediaOptions options = new StoreCameraMediaOptions {
-                                    Directory = "FieldService",
-                                    Name = "FieldService.jpg",
-                                };
-                                var medialFile = await picker.TakePhotoAsync (options);
-
-                                var photo = new Photo ();
-                                photo.Image = medialFile.GetStream ().LoadBytes ().Result;
-                                photoViewModel.PhotoSelectedCommand.Invoke (photo);
-                                Helpers.NavigateTo<ImagesPage> ();
-                            })));
+                            dialog.Commands.Add (new UICommand ("Camera", new UICommandInvokedHandler (_ => cameraCommand = true)));
                         }
-                        dialog.Commands.Add (new UICommand ("Library", new UICommandInvokedHandler (async _ => {
-                            
+                        dialog.Commands.Add (new UICommand ("Library", new UICommandInvokedHandler (_ => imageCommand = true)));
+
+                        await dialog.ShowAsync ();
+
+                        if (cameraCommand) {
+                            StoreCameraMediaOptions options = new StoreCameraMediaOptions {
+                                Directory = "FieldService",
+                                Name = "FieldService.jpg",
+                            };
+                            var mediaFile = await picker.TakePhotoAsync (options);
+
+                            var photo = new Photo ();
+                            await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
+                                photo.Image = t.Result;
+                            });
+                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                            Helpers.NavigateTo<ImagesPage> ();
+                        } else if (imageCommand) {
                             var mediaFile = await picker.PickPhotoAsync ();
 
                             var photo = new Photo ();
-                            photo.Image = mediaFile.GetStream ().LoadBytes ().Result;
+                            await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
+                                photo.Image = t.Result;
+                            });
                             photoViewModel.PhotoSelectedCommand.Invoke (photo);
                             Helpers.NavigateTo<ImagesPage> ();
-                        })));
-
-                        await dialog.ShowAsync ();
+                        }
+                    }
+                    break;
+                case "confirmationImage1": {
+                        var photo = photoViewModel.FirstImage;
+                        if (photo != null) {
+                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                            Helpers.NavigateTo<ImagesPage> ();
+                        }
+                    }
+                    break;
+                case "confirmationImage2": {
+                        var photo = photoViewModel.SecondImage;
+                        if (photo != null) {
+                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                            Helpers.NavigateTo<ImagesPage> ();
+                        }
+                    }
+                    break;
+                case "confirmationImage3": {
+                        var photo = photoViewModel.ThirdImage;
+                        if (photo != null) {
+                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
+                            Helpers.NavigateTo<ImagesPage> ();
+                        }
+                    }
                     break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();

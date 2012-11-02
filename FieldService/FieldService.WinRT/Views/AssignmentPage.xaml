@@ -407,19 +407,18 @@
                         <!--Image section-->
                         <ListViewItem Grid.Row="2" Margin="5">
                             <Border x:Name="confirmationImage1" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
-                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
-                                        <RowDefinition/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Source="{Binding FirstImage.Image, Converter={StaticResource PhotoConverter}}" Stretch="None" />
+                                    <Image Source="{Binding FirstImage.Image, Converter={StaticResource PhotoConverter}}" Stretch="UniformToFill"/>
 
-                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding FirstImage.TimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
-
-                                    <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding FirstImage.DateFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
-
+                                    <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5">
+                                        <TextBlock Text="{Binding FirstImage.TimeFormatted}" FontSize="14"  Foreground="White"/>
+                                        <TextBlock Text="{Binding FirstImage.DateFormatted}" FontSize="12" Foreground="White"/>
+                                    </StackPanel>
                                 </Grid>
                             </Border>
                         </ListViewItem>
@@ -427,19 +426,18 @@
                         <!--Image section-->
                         <ListViewItem Grid.Row="2" Grid.Column="1" Margin="5">
                             <Border x:Name="confirmationImage2" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
-                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Source="{Binding SecondImage.Image, Converter={StaticResource PhotoConverter}}" Stretch="None" />
+                                    <Image Source="{Binding SecondImage.Image, Converter={StaticResource PhotoConverter}}" Stretch="UniformToFill"/>
 
-                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding SecondImage.TimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
-
-                                    <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding DataContext.DateFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
-
+                                    <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5">
+                                        <TextBlock Text="{Binding SecondImage.TimeFormatted}" FontSize="14"  Foreground="White"/>
+                                        <TextBlock Text="{Binding SecondImage.DateFormatted}" FontSize="12" Foreground="White"/>
+                                    </StackPanel>
                                 </Grid>
                             </Border>
                         </ListViewItem>
@@ -449,17 +447,16 @@
                             <Border x:Name="confirmationImage3" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
                                 <Grid>
                                     <Grid.RowDefinitions>
-                                        <RowDefinition />
-                                        <RowDefinition />
-                                        <RowDefinition/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
                                     </Grid.RowDefinitions>
 
-                                    <Image Source="{Binding ThirdImage.Image, Converter={StaticResource PhotoConverter}}" Stretch="None" />
+                                    <Image Source="{Binding ThirdImage.Image, Converter={StaticResource PhotoConverter}}" Stretch="UniformToFill"/>
 
-                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding ThirdImage.TimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="14" />
-
-                                    <TextBlock Margin="10,0" Grid.Row="2" VerticalAlignment="Top" Text="{Binding ThirdImage.DateFormatted}" Style="{StaticResource SubheaderTextStyle}" FontSize="12" />
-
+                                    <StackPanel Orientation="Vertical" Grid.Row="1" VerticalAlignment="Top" HorizontalAlignment="Left" Margin="10,5">
+                                        <TextBlock Text="{Binding ThirdImage.TimeFormatted}" FontSize="14"  Foreground="White"/>
+                                        <TextBlock Text="{Binding ThirdImage.DateFormatted}" FontSize="12" Foreground="White"/>
+                                    </StackPanel>
                                 </Grid>
                             </Border>
                         </ListViewItem>
