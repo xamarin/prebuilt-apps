@@ -78,13 +78,7 @@
 
             <TextBlock Margin="8" FontSize="32" FontWeight="Medium" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" Text="{Binding HoursFormatted}" />
 
-            <Button 
-                x:Name="record" Grid.Row="1" BorderThickness="0" HorizontalAlignment="Center" VerticalAlignment="Center"
-                Command="{Binding RecordCommand}">
-                <Border BorderThickness="3" CornerRadius="40" Width="81" Height="81" BorderBrush="{Binding BorderBrush, ElementName=record}">
-                    <Ellipse Width="35" Height="35" Fill="{Binding BorderBrush, ElementName=record}" />
-                </Border>
-            </Button>
+            <ToggleButton Grid.Row="1" IsChecked="{Binding Recording}" Style="{StaticResource RecordButtonStyle}" Command="{Binding RecordCommand}" />
 
         </Grid>
 

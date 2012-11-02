@@ -166,6 +166,7 @@ namespace FieldService.ViewModels {
                 .ContinueOnUIThread (t => {
                     timerEntry = t.Result;
                     if (timerEntry != null) {
+                        Recording = true;
                         Hours = (DateTime.Now - timerEntry.Date);
                         timer.Enabled = true;
                     }
