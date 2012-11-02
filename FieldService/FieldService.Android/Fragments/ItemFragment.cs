@@ -51,8 +51,10 @@ namespace FieldService.Android.Fragments {
                 var checkbox = e.View.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
                 checkbox.Checked = !checkbox.Checked;
                 checkbox.Enabled = false;
+                var item = AssignmentItems.ElementAtOrDefault (checkbox.Tag.ToString ().ToInt ());
+                item.Used = !item.Used;
                 itemViewModel
-                    .SaveAssignmentItem (Assignment, AssignmentItems.ElementAtOrDefault (checkbox.Tag.ToString ().ToInt ()))
+                    .SaveAssignmentItem (Assignment, item)
                     .ContinueOnUIThread (_ => checkbox.Enabled = true);
             };
             return view;
