@@ -19,6 +19,7 @@ using MonoTouch.UIKit;
 using FieldService.ViewModels;
 using FieldService.Utilities;
 using FieldService.Data;
+using MonoTouch.CoreGraphics;
 
 namespace FieldService.iOS
 {
@@ -50,7 +51,7 @@ namespace FieldService.iOS
 			cancel.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
 			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
-				Text = "Labor",
+				Text = "Expense",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (18),
@@ -107,27 +108,30 @@ namespace FieldService.iOS
 		private class TableSource : UITableViewSource
 		{
 			readonly ExpenseController expenseController;
-			readonly UITableViewCell typeCell, hoursCell, descriptionCell;
-			readonly UILabel type;
+			readonly UITableViewCell categoryCell, hoursCell, descriptionCell, photoCell;
+			readonly UILabel category;
 			readonly UITextField cost;
 			readonly UITextView description;
+			readonly UIButton photoButton;
+			readonly UIImageView photo;
 			ExpenseCategorySheet expenseSheet;
+			PhotoAlertSheet photoSheet;
 			
 			public TableSource ()
 			{
 				expenseController = ServiceContainer.Resolve<ExpenseController>();
 
-				typeCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				typeCell.TextLabel.Text = "Type";
-				typeCell.AccessoryView = type = new UILabel (new RectangleF(0, 0, 200, 36))
+				categoryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
+				categoryCell.TextLabel.Text = "Category";
+				categoryCell.AccessoryView = category = new UILabel (new RectangleF(0, 0, 200, 36))
 				{
 					TextAlignment = UITextAlignment.Right,
 					BackgroundColor = UIColor.Clear,
 				};
-				typeCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				categoryCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 
 				hoursCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				hoursCell.TextLabel.Text = "Hours";
+				hoursCell.TextLabel.Text = "Cost";
 				hoursCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				hoursCell.AccessoryView = cost = new UITextField(new RectangleF(0, 0, 200, 36))
 				{
@@ -146,30 +150,80 @@ namespace FieldService.iOS
 				});
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new UITextView(new RectangleF(0, 0, 470, 400))
+				descriptionCell.AccessoryView = description = new UITextView(new RectangleF(0, 0, 470, 90))
 				{
 					BackgroundColor = UIColor.Clear,
 					TextColor = Theme.LabelColor,
 				};
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				description.SetDidChangeNotification (d => expenseController.Expense.Description = d.Text);
+
+				photoCell = new UITableViewCell(UITableViewCellStyle.Default, null);
+				photoCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				photoButton = UIButton.FromType (UIButtonType.Custom);
+				photoButton.SetBackgroundImage (Theme.AddPhoto, UIControlState.Normal);
+				photoButton.SetTitle ("Add Photo", UIControlState.Normal);
+				photoButton.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
+				photoButton.ContentEdgeInsets = new UIEdgeInsets(0, 0, 2, 0);
+				photoButton.Frame = new RectangleF(210, 130, 115, 40);
+				photoButton.TouchUpInside += (sender, e) => {
+					photoSheet = new PhotoAlertSheet();
+					photoSheet.Callback = image => {
+						var expense = expenseController.Expense;
+						expense.Photo = image;
+						Load (expense);
+					};
+					photoSheet.ShowFrom (photoButton.Frame, photoCell, true);
+				};
+				photoCell.AddSubview (photoButton);
+				var frame = photoCell.Frame;
+				frame.X = 18;
+				frame.Width -= 34;
+				photo = new UIImageView(frame);
+				photo.AutoresizingMask = UIViewAutoresizing.All;
+				photo.ContentMode = UIViewContentMode.ScaleAspectFill;
+				photo.Layer.BorderWidth = 1;
+				photo.Layer.BorderColor = new CGColor(0xcf, 0xcf, 0xcf, 0x7f);
+				photo.Layer.CornerRadius = 10;
+				photo.Layer.MasksToBounds = true;
+				photoCell.AddSubview (photo);
 			}
 
 			public void Load (Expense expense)
 			{
-				type.Text = expense.Category.ToString ();
+				category.Text = expense.Category.ToString ();
 				cost.Text = expense.Cost.ToString ("$0.00");
 				description.Text = expense.Description;
+
+				if (photo.Image != null) {
+					photo.Image.Dispose ();
+					photo.Image = null;
+				}
+				if (expense.Photo != null) {
+					photo.Hidden = false;
+					photoButton.Hidden = true;
+					photo.Image = expense.Photo.ToUIImage ();
+				} else {
+					photo.Hidden = true;
+					photoButton.Hidden = false;
+				}
 			}
 
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return indexPath.Section == 1 ? 410 : 44;
+				switch (indexPath.Section) {
+				case 1:
+					return 100;
+				case 2:
+					return 290;
+				default:
+					return 44;
+				}
 			}
 
 			public override int NumberOfSections (UITableView tableView)
 			{
-				return 2;
+				return 3;
 			}
 			
 			public override int RowsInSection (UITableView tableview, int section)
@@ -182,7 +236,7 @@ namespace FieldService.iOS
 				if (indexPath.Section == 0) {
 					if (indexPath.Row == 0) {
 						//Category changed
-						expenseSheet = new ExpenseCategorySheet();
+						expenseSheet = new ExpenseCategorySheet ();
 						expenseSheet.Dismissed += (sender, e) => {
 							var expense = expenseController.Expense;
 							if (expenseSheet.Category.HasValue && expense.Category != expenseSheet.Category) {
@@ -194,12 +248,12 @@ namespace FieldService.iOS
 							expenseSheet.Dispose ();
 							expenseSheet = null;
 						};
-						expenseSheet.ShowFrom (typeCell.Frame, tableView, true);
+						expenseSheet.ShowFrom (categoryCell.Frame, tableView, true);
 					} else {
 						//Give hours "focus"
 						cost.BecomeFirstResponder ();
 					}
-				} else {
+				} else if (indexPath.Section == 1) {
 					//Give description "focus"
 					description.BecomeFirstResponder ();
 				}
@@ -208,20 +262,25 @@ namespace FieldService.iOS
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				if (indexPath.Section == 0) {
-					return indexPath.Row == 0 ? typeCell : hoursCell;
-				} else {
+					return indexPath.Row == 0 ? categoryCell : hoursCell;
+				} else if (indexPath.Section == 1) {
 					return descriptionCell;
+				} else {
+					return photoCell;
 				}
 			}
 			
 			protected override void Dispose (bool disposing)
 			{
-				typeCell.Dispose ();
+				categoryCell.Dispose ();
 				hoursCell.Dispose ();
+				photoCell.Dispose ();
 				descriptionCell.Dispose ();
-				type.Dispose ();
+				category.Dispose ();
 				description.Dispose ();
 				cost.Dispose ();
+				photoButton.Dispose ();
+				photo.Dispose ();
 				
 				base.Dispose (disposing);
 			}

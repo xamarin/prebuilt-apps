@@ -29,11 +29,9 @@ namespace FieldService.iOS
 	public class PhotoAlertSheet : UIActionSheet
 	{
 		readonly MediaPicker picker;
-		readonly ConfirmationController confirmationController;
 
 		public PhotoAlertSheet ()
 		{
-			confirmationController = ServiceContainer.Resolve<ConfirmationController>();
 			picker = new MediaPicker ();
 
 			AddButton ("Photo Library");
@@ -70,6 +68,11 @@ namespace FieldService.iOS
 			};
 		}
 
+		public Action<byte[]> Callback {
+			get;
+			set;
+		}
+
 		/// <summary>
 		/// Helper method to read the stream coming back from Xamarin.Mobile
 		/// </summary>
@@ -78,10 +81,8 @@ namespace FieldService.iOS
 			using (stream) {
 				byte[] buffer = new byte[stream.Length];
 				stream.Read (buffer, 0, buffer.Length);
-				confirmationController.Photo.Image = buffer;
+				BeginInvokeOnMainThread (() => Callback(buffer));
 			}
-
-			BeginInvokeOnMainThread (() => confirmationController.PerformSegue ("AddPhoto", confirmationController));
 		}
 	}
 }

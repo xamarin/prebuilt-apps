@@ -59,6 +59,10 @@ namespace FieldService.iOS
 
 			//UI setup from code
 			photoSheet = new PhotoAlertSheet();
+			photoSheet.Callback = image => {
+				Photo.Image = image;
+				PerformSegue ("AddPhoto", this);
+			};
 			View.BackgroundColor = Theme.LinenPattern;
 			addPhoto.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
 			addPhoto.SetTitleColor (UIColor.White, UIControlState.Normal);

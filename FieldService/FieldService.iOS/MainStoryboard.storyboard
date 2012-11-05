@@ -612,7 +612,7 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="xD0-bM-TU6">
-                                                    <rect key="frame" x="595" y="25" width="48" height="38"/>
+                                                    <rect key="frame" x="601" y="35" width="24" height="19"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                 </imageView>
                                             </subviews>
