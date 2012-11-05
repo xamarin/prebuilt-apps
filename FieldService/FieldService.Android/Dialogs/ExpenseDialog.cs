@@ -26,6 +26,8 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 using Android.Views;
 using FieldService.Android.Fragments;
+using Xamarin.Media;
+using System.Collections.Generic;
 
 namespace FieldService.Android.Dialogs {
     public class ExpenseDialog : BaseDialog {
@@ -37,6 +39,7 @@ namespace FieldService.Android.Dialogs {
         ImageView expensePhoto;
         Button expenseAddPhoto;
         Bitmap imageBitmap;
+        MediaPicker mediaPicker;
 
         public ExpenseDialog (Context context)
             : base (context)
@@ -50,6 +53,8 @@ namespace FieldService.Android.Dialogs {
                 ExpenseCategory.Supplies,
                 ExpenseCategory.Other,
             };
+
+            mediaPicker = new MediaPicker (context);
         }
 
         protected override void OnCreate (Bundle savedInstanceState)
@@ -80,8 +85,45 @@ namespace FieldService.Android.Dialogs {
             expensePhoto = (ImageView)FindViewById (Resource.Id.addExpenseImage);
             expenseAddPhoto = (Button)FindViewById (Resource.Id.addExpenseAddPhoto);
             expenseAddPhoto.Click += (sender, e) => {
-
-                };
+                var choices = new List<string> ();
+                choices.Add (Activity.Resources.GetString (Resource.String.Gallery));
+                if (mediaPicker.IsCameraAvailable) {
+                    choices.Add (Activity.Resources.GetString (Resource.String.Camera));
+                }
+                AlertDialog.Builder takePictureDialog = new AlertDialog.Builder (Activity);
+                takePictureDialog.SetTitle ("Select:");
+                takePictureDialog.SetItems (choices.ToArray (), (innerSender, innerE) => {
+                    if (innerE.Which == 0) {
+                        //gallery
+                        mediaPicker.PickPhotoAsync ().ContinueWith (t => {
+                            if (t.IsCanceled)
+                                return;
+                            Activity.RunOnUiThread (() => {
+                                expenseAddPhoto.Visibility = ViewStates.Gone;
+                                imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
+                                imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                                expensePhoto.SetImageBitmap (imageBitmap);
+                            });
+                        });
+                    } else if (innerE.Which == 1) {
+                        //camera
+                        StoreCameraMediaOptions options = new StoreCameraMediaOptions ();
+                        options.Directory = "FieldService";
+                        options.Name = "FieldService.jpg";
+                        mediaPicker.TakePhotoAsync (options).ContinueWith (t => {
+                            if (t.IsCanceled)
+                                return;
+                            Activity.RunOnUiThread (() => {
+                                expenseAddPhoto.Visibility = ViewStates.Gone;
+                                imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
+                                imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                                expensePhoto.SetImageBitmap (imageBitmap);
+                            });
+                        });
+                    }
+                });
+                takePictureDialog.Show ();
+            };
 
             var adapter = new SpinnerAdapter<ExpenseCategory> (expenseTypes, Context, Resource.Layout.SimpleSpinnerItem);
             adapter.TextColor = Color.Black;
