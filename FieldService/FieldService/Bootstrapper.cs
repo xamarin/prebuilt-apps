@@ -38,6 +38,7 @@ namespace FieldService {
             ServiceContainer.Register<AssignmentViewModel> ();
 	    ServiceContainer.Register<ItemViewModel> ();
             ServiceContainer.Register<LaborViewModel> ();
+            ServiceContainer.Register<ExpenseViewModel> ();
             ServiceContainer.Register<PhotoViewModel> ();
         }
     }

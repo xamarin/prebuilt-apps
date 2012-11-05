@@ -10,9 +10,9 @@ using NUnit.Framework;
 
 namespace FieldService.Tests.ViewModels {
     [TestFixture]
-    public class LaborViewModelTests {
+    public class ExpenseViewModelTests {
 
-        LaborViewModel viewModel;
+        ExpenseViewModel viewModel;
 
         [SetUp]
         public void SetUp ()
@@ -20,47 +20,47 @@ namespace FieldService.Tests.ViewModels {
             ServiceContainer.Register<ISynchronizeInvoke> (() => new Mocks.MockSynchronizeInvoke ());
             ServiceContainer.Register<IAssignmentService> (() => new Mocks.MockAssignmentService ());
 
-            viewModel = new LaborViewModel ();
+            viewModel = new ExpenseViewModel ();
         }
 
         [Test]
-        public void LoadLaborHours ()
+        public void LoadExpenses ()
         {
-            var task = viewModel.LoadLaborHours (new Assignment ());
+            var task = viewModel.LoadExpenses (new Assignment ());
 
             task.Wait ();
 
-            Assert.That (viewModel.LaborHours.Count, Is.GreaterThan (0));
+            Assert.That (viewModel.Expenses.Count, Is.GreaterThan (0));
         }
 
         [Test]
-        public void SaveLabor ()
+        public void SaveExpense ()
         {
             var assignment = new Assignment ();
-            var loadTask = viewModel.LoadLaborHours (assignment);
+            var loadTask = viewModel.LoadExpenses (assignment);
 
             loadTask.Wait ();
 
-            var task = viewModel.SaveLabor (assignment, new Labor { Hours = TimeSpan.FromHours (1) });
+            var task = viewModel.SaveExpense (assignment, new Expense { Cost = 2 });
 
             task.Wait ();
 
-            Assert.That (assignment.TotalHours, Is.EqualTo (TimeSpan.FromHours(2)));
+            Assert.That (assignment.TotalExpenses, Is.EqualTo (2m));
         }
 
         [Test]
-        public void DeleteLabor ()
+        public void DeleteExpense ()
         {
             var assignment = new Assignment();
-            var loadTask = viewModel.LoadLaborHours (assignment);
+            var loadTask = viewModel.LoadExpenses (assignment);
 
             loadTask.Wait ();
             
-            var task = viewModel.DeleteLabor (assignment, viewModel.LaborHours.First());
+            var task = viewModel.DeleteExpense (assignment, viewModel.Expenses.First());
 
             task.Wait ();
 
-            Assert.That (assignment.TotalHours, Is.EqualTo (TimeSpan.FromHours(0)));
+            Assert.That (assignment.TotalExpenses, Is.EqualTo (0m));
         }
     }
 }

@@ -133,7 +133,7 @@ namespace FieldService.Data {
         /// <summary>
         /// Total cost of expenses
         /// </summary>
-        public decimal TotalExpenses { get; private set; }
+        public decimal TotalExpenses { get; set; }
 
         #region WinRT properties
 
