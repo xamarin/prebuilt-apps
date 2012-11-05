@@ -163,7 +163,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
-			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, confirmationCell;
+			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, confirmationCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
 			readonly AssignmentDetailsController detailsController;
 			readonly MainController mainController;
@@ -206,13 +206,13 @@ namespace FieldService.iOS
 				cells.Add (laborCell);
 
 				//Removed temporarily
-//				expensesCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-//				expensesCell.TextLabel.Text = "Expenses";
-//				expensesCell.TextLabel.TextColor = UIColor.White;
-//				expensesCell.BackgroundColor = UIColor.Clear;
-//				expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-//				expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
-//				cells.Add (expensesCell);
+				expensesCell = new UITableViewCell (UITableViewCellStyle.Default, null);
+				expensesCell.TextLabel.Text = "Expenses";
+				expensesCell.TextLabel.TextColor = UIColor.White;
+				expensesCell.BackgroundColor = UIColor.Clear;
+				expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+				expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+				cells.Add (expensesCell);
 
 				confirmationCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				confirmationCell.TextLabel.Text = "Confirmations";

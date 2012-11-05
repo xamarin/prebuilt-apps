@@ -138,7 +138,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> camera = new Lazy<UIImage> (() => UIImage.FromFile ("Images/camera.png"));
 		
 		/// <summary>
-		/// 
+		/// Camera icon for expenses, etc.
 		/// </summary>
 		public static UIImage Camera {
 			get { return camera.Value; }
@@ -681,6 +681,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)storyboard.InstantiateViewController ("AssignmentDetailsController"));
 			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));
 			ServiceContainer.Register<LaborController> (() => (LaborController)storyboard.InstantiateViewController ("LaborController"));
+			ServiceContainer.Register<ExpenseController> (() => (ExpenseController)storyboard.InstantiateViewController ("ExpenseController"));
 			ServiceContainer.Register<ConfirmationController> (() => (ConfirmationController)storyboard.InstantiateViewController ("ConfirmationController"));
 		}
 	}

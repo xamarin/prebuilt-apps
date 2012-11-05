@@ -71,11 +71,6 @@ namespace FieldService.iOS
 				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
 				//viewHistory 
 			};
-
-			//Temporarily hide expenses
-			expenses.Hidden = 
-				expensesLabel.Hidden =
-				expensesBackground.Hidden = true;
 		}
 
 		public override void ViewWillAppear (bool animated)

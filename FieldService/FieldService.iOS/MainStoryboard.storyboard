@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2843" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1929"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
         <!--Main Controller-->
@@ -525,6 +525,82 @@
             </objects>
             <point key="canvasLocation" x="-79" y="988"/>
         </scene>
+        <!--Expense Controller-->
+        <scene sceneID="Ejm-gH-yKI">
+            <objects>
+                <viewController storyboardIdentifier="ExpenseController" id="sV2-1B-JeD" customClass="ExpenseController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="s3s-IU-YTR">
+                        <rect key="frame" x="0.0" y="20" width="703" height="629"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="0kV-l3-vnO">
+                                <rect key="frame" x="0.0" y="0.0" width="703" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items/>
+                            </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="90" sectionHeaderHeight="22" sectionFooterHeight="22" id="gvT-fL-ZZ8">
+                                <rect key="frame" x="20" y="44" width="663" height="585"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="ExpenseCell" id="BTe-jP-lVH" customClass="ExpenseCell">
+                                        <rect key="frame" x="0.0" y="22" width="663" height="90"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                            <rect key="frame" x="0.0" y="0.0" width="663" height="89"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Gas" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="0F7-CC-ybx">
+                                                    <rect key="frame" x="20" y="29" width="130" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="2eW-bu-AwO">
+                                                    <rect key="frame" x="158" y="5" width="307" height="79"/>
+                                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <string key="text">This is a really long description. This is a really long description. This is a really long description. This is a really long description. This is a really long description. </string>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="$72.00" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="kSj-HB-Fga">
+                                                    <rect key="frame" x="473" y="30" width="100" height="30"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                    <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                </label>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="xD0-bM-TU6">
+                                                    <rect key="frame" x="595" y="25" width="48" height="38"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                            </subviews>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                        </view>
+                                        <connections>
+                                            <outlet property="cost" destination="kSj-HB-Fga" id="FFn-o8-13O"/>
+                                            <outlet property="description" destination="2eW-bu-AwO" id="uFm-ua-rMY"/>
+                                            <outlet property="icon" destination="xD0-bM-TU6" id="h1a-k8-XNg"/>
+                                            <outlet property="type" destination="0F7-CC-ybx" id="8ma-Fw-Fbq"/>
+                                        </connections>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="tableView" destination="gvT-fL-ZZ8" id="APv-GY-VBH"/>
+                        <outlet property="toolbar" destination="0kV-l3-vnO" id="zdW-Ea-z3r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="0yR-yd-vOE" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1704" y="1363"/>
+        </scene>
         <!--Assignment Details Controller - AssignmentDetailsController-->
         <scene sceneID="JsO-me-mzK">
             <objects>
@@ -1046,7 +1122,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ES2-QK-aLh" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1702" y="1392"/>
+            <point key="canvasLocation" x="1704" y="2116"/>
         </scene>
         <!--Add Photo Controller-->
         <scene sceneID="47i-5Q-bqL">
@@ -1133,7 +1209,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="y9n-EL-IyN" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2574" y="1407"/>
+            <point key="canvasLocation" x="2574" y="2131"/>
         </scene>
         <!--Add Labor Controller-->
         <scene sceneID="EYo-cS-Qo6">
@@ -1370,6 +1446,245 @@
         <image name="Images/iconsettings.png" width="16" height="16"/>
         <image name="Images/logo.png" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="AddItemController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddItemController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="AddLaborController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddLaborController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="AddPhotoController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddPhotoController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="action" name="Choose"/>
+                <relationship kind="action" name="DeletePhoto"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="date" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="description" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="photoFrame" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="time" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="AssignmentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentCell.h"/>
+            <relationships>
+                <relationship kind="action" name="Accept"/>
+                <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="Contact"/>
+                <relationship kind="action" name="Decline"/>
+                <relationship kind="outlet" name="accept" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="decline" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="AssignmentDetailsController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentDetailsController.h"/>
+            <relationships>
+                <relationship kind="action" name="Accept"/>
+                <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="Decline"/>
+                <relationship kind="outlet" name="accept" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="assignmentBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="container" candidateClass="UIView"/>
+                <relationship kind="outlet" name="decline" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="AssignmentItemCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentItemCell.h"/>
+            <relationships>
+                <relationship kind="action" name="Checked"/>
+                <relationship kind="outlet" name="checkBox" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="AssignmentsController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentsController.h"/>
+            <relationships>
+                <relationship kind="action" name="ActiveAssignmentSelected"/>
+                <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="Record"/>
+                <relationship kind="action" name="Settings:"/>
+                <relationship kind="action" name="TabChanged"/>
+                <relationship kind="outlet" name="activeAssignment" candidateClass="UIView"/>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="assignmentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="record" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="segmentedControl" candidateClass="UISegmentedControl"/>
+                <relationship kind="outlet" name="settings" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="timerBackgroundImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbarShadow" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="CompleteCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CompleteCell.h"/>
+            <relationships>
+                <relationship kind="action" name="Complete"/>
+                <relationship kind="outlet" name="completeButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="ConfirmationController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConfirmationController.h"/>
+            <relationships>
+                <relationship kind="action" name="AddPhoto"/>
+                <relationship kind="outlet" name="addPhoto" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photoTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="signatureTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="ExpenseCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExpenseCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cost" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="icon" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="type" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ExpenseController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExpenseController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="ItemsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ItemsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="LaborCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LaborCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hours" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="type" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LaborController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LaborController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="LoginController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginController.h"/>
+            <relationships>
+                <relationship kind="action" name="Login"/>
+                <relationship kind="outlet" name="box" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="container" candidateClass="UIView"/>
+                <relationship kind="outlet" name="indicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="login" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="logoBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="username" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MainController" superclassName="UISplitViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainController.h"/>
+        </class>
+        <class className="MenuController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MenuController.h"/>
+            <relationships>
+                <relationship kind="action" name="Record"/>
+                <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
+                <relationship kind="outlet" name="record" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="timerBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timerLabelBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timerView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="PhotoCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="date" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="photoFrame" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="SignatureCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignatureCell.h"/>
+            <relationships>
+                <relationship kind="action" name="AddSignature"/>
+                <relationship kind="outlet" name="addSignature" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signature" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="StatusButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StatusButton.h"/>
+        </class>
+        <class className="SummaryController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SummaryController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="descriptionTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expenses" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expensesBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="expensesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hours" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hoursBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="hoursLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="items" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemsBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="itemsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="TextButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextButton.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

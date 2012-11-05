@@ -271,6 +271,17 @@
     <Compile Include="..\FieldService\Data\PropertyChangedBase.cs">
       <Link>FieldService\Data\PropertyChangedBase.cs</Link>
     </Compile>
+    <Compile Include="Views\ExpenseCell.cs" />
+    <Compile Include="Views\ExpenseCell.designer.cs">
+      <DependentUpon>ExpenseCell.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\ExpenseController.cs" />
+    <Compile Include="Controllers\ExpenseController.designer.cs">
+      <DependentUpon>ExpenseController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="..\FieldService\ViewModels\ExpenseViewModel.cs">
+      <Link>FieldService\ViewModels\ExpenseViewModel.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
