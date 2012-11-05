@@ -282,6 +282,11 @@
     <Compile Include="..\FieldService\ViewModels\ExpenseViewModel.cs">
       <Link>FieldService\ViewModels\ExpenseViewModel.cs</Link>
     </Compile>
+    <Compile Include="Controllers\AddExpenseController.cs" />
+    <Compile Include="Controllers\AddExpenseController.designer.cs">
+      <DependentUpon>AddExpenseController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\ExpenseCategorySheet.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

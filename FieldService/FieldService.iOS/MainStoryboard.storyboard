@@ -525,6 +525,45 @@
             </objects>
             <point key="canvasLocation" x="-79" y="988"/>
         </scene>
+        <!--Add Expense Controller-->
+        <scene sceneID="UpS-Kc-rwq">
+            <objects>
+                <viewController modalPresentationStyle="formSheet" id="fAQ-8m-0JV" customClass="AddExpenseController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="y0f-FU-veK">
+                        <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="lRE-sn-uRV">
+                                <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
+                                <items>
+                                    <barButtonItem title="Cancel" id="SED-As-Z4k">
+                                        <connections>
+                                            <action selector="Cancel:" destination="fAQ-8m-0JV" id="JE1-hJ-PYd"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="URK-OU-s4Q">
+                                <rect key="frame" x="0.0" y="44" width="540" height="576"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                    </view>
+                    <nil key="simulatedStatusBarMetrics"/>
+                    <modalFormSheetSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+                    <connections>
+                        <outlet property="cancel" destination="SED-As-Z4k" id="6Dl-bJ-LPf"/>
+                        <outlet property="tableView" destination="URK-OU-s4Q" id="sEN-D5-Mma"/>
+                        <outlet property="toolbar" destination="lRE-sn-uRV" id="r6F-Eg-qaj"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="DON-3c-F3w" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2574" y="1378"/>
+        </scene>
         <!--Expense Controller-->
         <scene sceneID="Ejm-gH-yKI">
             <objects>
@@ -595,6 +634,7 @@
                     <connections>
                         <outlet property="tableView" destination="gvT-fL-ZZ8" id="APv-GY-VBH"/>
                         <outlet property="toolbar" destination="0kV-l3-vnO" id="zdW-Ea-z3r"/>
+                        <segue destination="fAQ-8m-0JV" kind="modal" identifier="AddExpense" id="Jtr-om-WyB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0yR-yd-vOE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1223,11 +1263,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <barButtonItem title="Cancel" id="9oi-3l-2q6">
-                                        <connections>
-                                            <action selector="Cancel:" destination="K64-ym-iGF" id="HgN-08-LvQ"/>
-                                        </connections>
-                                    </barButtonItem>
+                                    <barButtonItem title="Cancel" id="9oi-3l-2q6"/>
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="aPK-A4-3Yc">
@@ -1447,6 +1483,15 @@
         <image name="Images/logo.png" width="16" height="16"/>
     </resources>
     <classes>
+        <class className="AddExpenseController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddExpenseController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
         <class className="AddItemController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/AddItemController.h"/>
             <relationships>
