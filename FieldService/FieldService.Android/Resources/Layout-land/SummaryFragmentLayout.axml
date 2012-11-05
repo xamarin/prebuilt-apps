@@ -103,7 +103,7 @@
             android:textColor="@android:color/black"
             android:textSize="16dp" />
         <Button
-            android:text="Add Labor"
+            android:text="@string/AddLabor"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/selectedAssignmentAddLabor"
@@ -120,7 +120,7 @@
             android:layout_gravity="center_vertical"
             android:visibility="gone" />
         <Button
-            android:text="Add Item"
+            android:text="@string/AddItem"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/selectedAssignmentAddItem"
@@ -133,7 +133,24 @@
             android:background="@drawable/accept_assignment"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
-            android:layout_marginRight="5dp" />
+            android:layout_marginRight="5dp"
+            android:visibility="gone" />
+        <Button
+            android:text="@string/AddExpense"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/selectedAssignmentAddExpense"
+            android:textSize="13dp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/accept_assignment"
+            android:layout_marginRight="5dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:visibility="gone" />
     </LinearLayout>
     <FrameLayout
         android:id="@+id/contentFrame"
@@ -141,7 +158,17 @@
         android:layout_height="fill_parent"
         android:background="@android:color/white"
         android:layout_below="@+id/selectedAssignment"
-        android:layout_alignLeft="@+id/selectedAssignment" />
+        android:layout_alignLeft="@+id/selectedAssignment"
+        android:minWidth="25px"
+        android:minHeight="25px">
+        <FrameLayout
+            android:id="@+id/contentFrame"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@android:color/white"
+            android:layout_below="@+id/selectedAssignment"
+            android:layout_alignLeft="@+id/selectedAssignment" />
+    </FrameLayout>
     <TextView
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_width="wrap_content"

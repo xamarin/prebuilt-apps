@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@android:color/white">
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/expensesListViewFragment"
+        android:listSelector="@drawable/items_selector"
+        android:dividerHeight="1dp"
+        android:divider="@color/listviewdivider"
+        android:focusable="true"
+        android:focusableInTouchMode="true" />
+</LinearLayout>

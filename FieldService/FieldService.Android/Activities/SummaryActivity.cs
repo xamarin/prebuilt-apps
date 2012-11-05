@@ -35,6 +35,7 @@ namespace FieldService.Android {
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
         readonly PhotoViewModel photoViewModel;
+        readonly ExpenseViewModel expenseViewModel;
         NavigationFragment navigationFragment;
         FrameLayout navigationFragmentContainer;
         TextView number,
@@ -43,12 +44,14 @@ namespace FieldService.Android {
             address,
             items;
         Button addItems,
-            addLabor;
+            addLabor,
+            addExpense;
         ImageButton navigationMenu;
         int assignmentIndex = 0,
             navigationIndex = 0;
         ItemsDialog itemDialog;
         AddLaborDialog laborDialog;
+        ExpenseDialog expenseDialog;
 
         public SummaryActivity ()
         {
@@ -56,6 +59,7 @@ namespace FieldService.Android {
             itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
             laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
             photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -82,6 +86,7 @@ namespace FieldService.Android {
             items = FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
             addItems = FindViewById<Button> (Resource.Id.selectedAssignmentAddItem);
             addLabor = FindViewById<Button> (Resource.Id.selectedAssignmentAddLabor);
+            addExpense = FindViewById<Button> (Resource.Id.selectedAssignmentAddExpense);
             navigationMenu = FindViewById<ImageButton> (Resource.Id.navigationMenu);
             navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
             var back = FindViewById<ImageButton> (Resource.Id.backSummary);
@@ -142,6 +147,14 @@ namespace FieldService.Android {
                 laborDialog.CurrentLabor = new Labor ();
                 laborDialog.Show ();
             };
+            addExpense.Click += (sender, e) => {
+                //show add expense dialog;
+                expenseDialog = new ExpenseDialog (this);
+                expenseDialog.Assignment = Assignment;
+                expenseDialog.Activity = this;
+                expenseDialog.CurrentExpense = new Expense ();
+                expenseDialog.Show ();
+                };
         }
 
         protected override void OnSaveInstanceState (Bundle outState)
@@ -204,7 +217,7 @@ namespace FieldService.Android {
         /// </summary>
         public void SetFrameFragment (int index)
         {
-            var transaction = FragmentManager.BeginTransaction ();            
+            var transaction = FragmentManager.BeginTransaction ();
             var screen = Constants.Navigation [index];
             switch (screen) {
                 case "Summary": {
@@ -213,9 +226,10 @@ namespace FieldService.Android {
                         transaction.SetTransition (FragmentTransit.FragmentOpen);
                         transaction.Replace (Resource.Id.contentFrame, fragment);
                         transaction.Commit ();
-                        items.Visibility = 
+                        items.Visibility =
                             addItems.Visibility = ViewStates.Invisible;
-                        addLabor.Visibility = ViewStates.Gone;
+                        addExpense.Visibility =
+                            addLabor.Visibility = ViewStates.Gone;
                     }
                     break;
                 case "Map": {
@@ -226,7 +240,8 @@ namespace FieldService.Android {
                         transaction.Commit ();
                         items.Visibility =
                             addItems.Visibility = ViewStates.Invisible;
-                        addLabor.Visibility = ViewStates.Gone;
+                        addExpense.Visibility =
+                            addLabor.Visibility = ViewStates.Gone;
                     }
                     break;
                 case "Items": {
@@ -239,7 +254,8 @@ namespace FieldService.Android {
                             transaction.Commit ();
                             items.Visibility =
                                 addItems.Visibility = ViewStates.Visible;
-                            addLabor.Visibility = ViewStates.Gone;
+                            addExpense.Visibility =
+                                addLabor.Visibility = ViewStates.Gone;
                             items.Text = string.Format ("({0}) Items", Assignment.TotalItems.ToString ());
                         });
                     }
@@ -254,7 +270,8 @@ namespace FieldService.Android {
                             transaction.Commit ();
                             addLabor.Visibility =
                                 items.Visibility = ViewStates.Visible;
-                            addItems.Visibility = ViewStates.Gone;
+                            addExpense.Visibility =
+                                addItems.Visibility = ViewStates.Gone;
                             items.Text = string.Format ("{0} hrs", Assignment.TotalHours.TotalHours.ToString ("0.0"));
                         });
                     }
@@ -269,7 +286,24 @@ namespace FieldService.Android {
                             transaction.Commit ();
                             addLabor.Visibility =
                                 items.Visibility = ViewStates.Invisible;
-                            addItems.Visibility = ViewStates.Gone;
+                            addExpense.Visibility =
+                                addItems.Visibility = ViewStates.Gone;
+                        });
+                    }
+                    break;
+                case "Expenses": {
+                        var fragment = new ExpenseFragment ();
+                        expenseViewModel.LoadExpenses (Assignment).ContinueOnUIThread (_ => {
+                            fragment.Expenses = expenseViewModel.Expenses;
+                            fragment.Assignment = Assignment;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            addLabor.Visibility =
+                                addItems.Visibility = ViewStates.Gone;
+                            items.Visibility =
+                                addExpense.Visibility = ViewStates.Visible;
+                            items.Text = Assignment.TotalExpenses.ToString ("$0.00");
                         });
                     }
                     break;

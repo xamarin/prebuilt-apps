@@ -148,6 +148,7 @@
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
+    <Compile Include="Adapters\ExpensesAdapter.cs" />
     <Compile Include="Adapters\ItemsAdapter.cs" />
     <Compile Include="Adapters\ItemsSearchAdapter.cs" />
     <Compile Include="Adapters\LaborHoursAdapter.cs" />
@@ -156,10 +157,12 @@
     <Compile Include="Adapters\PhotosAdapter.cs" />
     <Compile Include="Dialogs\AddLaborDialog.cs" />
     <Compile Include="Dialogs\BaseDialog.cs" />
+    <Compile Include="Dialogs\ExpenseDialog.cs" />
     <Compile Include="Dialogs\ItemsDialog.cs" />
     <Compile Include="Dialogs\PhotoDialog.cs" />
     <Compile Include="Dialogs\SignatureDialog.cs" />
     <Compile Include="Fragments\ConfirmationFragment.cs" />
+    <Compile Include="Fragments\ExpenseFragment.cs" />
     <Compile Include="Fragments\ItemFragment.cs" />
     <Compile Include="Fragments\LaborHourFragment.cs" />
     <Compile Include="Fragments\MapFragment.cs" />
@@ -248,6 +251,15 @@
     <AndroidResource Include="Resources\Layout\AddSignatureLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ExpensesFragmentLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\ExpenseListItemLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\AddExpensePopUpLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -324,6 +336,7 @@
     <AndroidResource Include="Resources\Drawable\triangledark.9.png" />
     <AndroidResource Include="Resources\Drawable\trianglegrey.9.png" />
     <AndroidResource Include="Resources\Drawable\trianglewhite.9.png" />
+    <AndroidResource Include="Resources\Drawable\cameraIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

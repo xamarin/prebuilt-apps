@@ -77,7 +77,7 @@ namespace FieldService.Android.Fragments {
             timerHours = view.FindViewById<TextView> (Resource.Id.fragmentHours);
 
             navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-            var spinnerAdapter = new SpinnerAdapter (assignmentViewModel.AvailableStatuses, Activity, Resource.Layout.SimpleSpinnerItem);
+            var spinnerAdapter = new SpinnerAdapter<AssignmentStatus> (assignmentViewModel.AvailableStatuses, Activity, Resource.Layout.SimpleSpinnerItem);
             spinnerAdapter.TextColor = Color.White;
             navigationStatus.Adapter = spinnerAdapter;
             navigationStatus.ItemSelected += (sender, e) => {

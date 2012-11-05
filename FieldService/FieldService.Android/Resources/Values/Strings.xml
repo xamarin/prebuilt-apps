@@ -28,6 +28,9 @@
   <string name="Clear">Clear</string>
   <string name="Camera">Camera</string>
   <string name="Gallery">Gallery</string>
+  <string name="AddItem">Add Item</string>
+  <string name="AddExpense">Add Expense</string>
+  <string name="DollarSign">$</string>
   <!--This is the google maps key generated, you will need to obatain your own key if the maps doesn't show up
   in the app. Directions for doing so can be found here. 
   http://docs.xamarin.com/Android/Guides/Platform_Features/Maps_and_Location/Obtaining_a_Google_Maps_API_Key-->

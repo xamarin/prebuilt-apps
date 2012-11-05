@@ -25,11 +25,11 @@ namespace FieldService.Android {
     /// <summary>
     /// Generic adapter for Spinners throughout the app
     /// </summary>
-    public class SpinnerAdapter : BaseAdapter, ISpinnerAdapter {
+    public class SpinnerAdapter<T> : BaseAdapter, ISpinnerAdapter {
         List<string> items;
         Context context;
         int resourceId;
-        public SpinnerAdapter (AssignmentStatus[] items, Context context, int resourceId)
+        public SpinnerAdapter (T[] items, Context context, int resourceId)
             : base ()
         {
             this.items = new List<string> ();
