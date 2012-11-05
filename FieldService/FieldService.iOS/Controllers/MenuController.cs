@@ -59,7 +59,6 @@ namespace FieldService.iOS
 			tableView.Source = new TableSource ();
 
 			backButton = new UIBarButtonItem ("Assignments", UIBarButtonItemStyle.Bordered, (sender, e) => Theme.TransitionController <AssignmentsController>());
-			backButton.SetBackgroundImage (Theme.BackButton, UIControlState.Normal, UIBarMetrics.Default);
 			backButton.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			timerLabel.TextColor = Theme.LabelColor;
 			navigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
@@ -76,7 +75,10 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
+			//Set these here, there was a bug where the background image was disappearing
+			backButton.SetBackgroundImage (Theme.BackButton, UIControlState.Normal, UIBarMetrics.Default);
 			navigationBar.TopItem.LeftBarButtonItem = backButton;
+
 			UpdateAssignment ();
 		}
 

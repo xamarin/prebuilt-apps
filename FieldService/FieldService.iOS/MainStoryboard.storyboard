@@ -1263,7 +1263,11 @@
                                 <rect key="frame" x="0.0" y="0.0" width="540" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <barButtonItem title="Cancel" id="9oi-3l-2q6"/>
+                                    <barButtonItem title="Cancel" id="9oi-3l-2q6">
+                                        <connections>
+                                            <action selector="Cancel:" destination="K64-ym-iGF" id="5I3-TG-exu"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="aPK-A4-3Yc">
