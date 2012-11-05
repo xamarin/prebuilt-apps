@@ -288,6 +288,9 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070008
 			public const int addExpenseSave = 2131165192;
 			
+			// aapt resource value: 0x7f070000
+			public const int addExpenseType = 2131165184;
+			
 			// aapt resource value: 0x7f07000d
 			public const int addLaborDescription = 2131165197;
 			
@@ -605,9 +608,6 @@ namespace FieldService.Android
 			
 			// aapt resource value: 0x7f070069
 			public const int simpleSpinnerTextView = 2131165289;
-			
-			// aapt resource value: 0x7f070000
-			public const int spinner1 = 2131165184;
 			
 			// aapt resource value: 0x7f07000c
 			public const int subtractLaborHours = 2131165196;

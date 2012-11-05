@@ -41,7 +41,6 @@ namespace FieldService.Android.Fragments {
             base.OnCreate (savedInstanceState);
 
             expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
-            ServiceContainer.Register<ExpenseFragment> ();
         }
 
         public List<Expense> Expenses

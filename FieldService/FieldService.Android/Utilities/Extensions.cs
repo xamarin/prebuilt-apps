@@ -30,7 +30,7 @@ namespace FieldService.Android.Utilities {
         }
 
         /// <summary>
-        /// Helper method to safely convert a string to an int
+        /// Helper method to safely convert a string to a int
         /// </summary>
         public static int ToInt (this string text)
         {
@@ -40,12 +40,14 @@ namespace FieldService.Android.Utilities {
         }
 
         /// <summary>
-        /// Helper method to safely convert a string to a double
+        /// Helper method to safely convert a string to a decimal
         /// </summary>
-        public static double ToDouble (this string text)
+        /// <param name="text"></param>
+        /// <returns></returns>
+        public static decimal ToDecimal (this string text)
         {
-            double value = 0;
-            double.TryParse (text, out value);
+            decimal value = 0;
+            decimal.TryParse (text, out value);
             return value;
         }
 
@@ -75,6 +77,31 @@ namespace FieldService.Android.Utilities {
                 }
             }
             return bytes;
+        }
+
+        public static Bitmap ResizeBitmap (Bitmap input, int destWidth, int destHeight)
+        {
+            int srcWidth = input.Width,
+                srcHeight = input.Height;
+            bool needsResize = false;
+            float p;
+            if (srcWidth > destWidth || srcHeight > destHeight) {
+                needsResize = true;
+                if (srcWidth > srcHeight && srcWidth > destWidth) {
+                    p = (float)destWidth / (float)srcWidth;
+                    destHeight = (int)(srcHeight * p);
+                } else {
+                    p = (float)destHeight / (float)srcHeight;
+                    destWidth = (int)(srcWidth * p);
+                }
+            } else {
+                destWidth = srcWidth;
+                destHeight = srcHeight;
+            }
+            if (needsResize) {
+                return Bitmap.CreateScaledBitmap (input, destWidth, destHeight, true);
+            }
+            return input;
         }
     }
 }

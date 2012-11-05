@@ -82,40 +82,16 @@ namespace FieldService.Android.Dialogs {
                 optionalCaption.Text = Photo.Description;
                 if (Photo.Image != null) {
                     imageBitmap = BitmapFactory.DecodeByteArray (Photo.Image, 0, Photo.Image.Length);
-                    ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                    imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                     photo.SetImageBitmap (imageBitmap);
                 }
             } else if (PhotoStream != null) {
                 imageBitmap = BitmapFactory.DecodeStream (PhotoStream);
-                ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                 photo.SetImageBitmap (imageBitmap);
             }
         }
-
-        private void ResizeBitmap (Bitmap input, int destWidth, int destHeight)
-        {
-            int srcWidth = input.Width,
-                srcHeight = input.Height;
-            bool needsResize = false;
-            float p;
-            if (srcWidth > destWidth || srcHeight > destHeight) {
-                needsResize = true;
-                if (srcWidth > srcHeight && srcWidth > destWidth) {
-                    p = (float)destWidth / (float)srcWidth;
-                    destHeight = (int)(srcHeight * p);
-                } else {
-                    p = (float)destHeight / (float)srcHeight;
-                    destWidth = (int)(srcWidth * p);
-                }
-            } else {
-                destWidth = srcWidth;
-                destHeight = srcHeight;
-            }
-            if (needsResize) {
-                imageBitmap = Bitmap.CreateScaledBitmap (input, destWidth, destHeight, true);
-            } 
-        }
-
+        
         /// <summary>
         /// Cleanup data when dialog is dismissed from window
         /// </summary>

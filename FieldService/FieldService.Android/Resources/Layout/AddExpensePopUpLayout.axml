@@ -29,12 +29,12 @@
         <Spinner
             android:layout_width="120dp"
             android:layout_height="wrap_content"
-            android:id="@+id/spinner1"
+            android:id="@+id/addExpenseType"
             android:background="@drawable/trianglewhite" />
         <TextView
             android:text="@string/DollarSign"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:textColor="@android:color/black"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp" />
