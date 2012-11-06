@@ -312,7 +312,54 @@
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Labor" VerticalAlignment="Center" />
                     </Button>
                 </Grid>
-                
+
+                <!--Expense section-->
+                <Grid Height="590" Width="500" Margin="25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}">Expenses</TextBlock>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Center">View all entries</Button>
+                    </Grid>
+
+                    <ListView 
+                        x:Name="expensesListView" Grid.Row="1" ItemsSource="{Binding TopExpenses}" HorizontalContentAlignment="Stretch" SelectionMode="None"
+                        ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" IsItemClickEnabled="True" ItemClick="OnLaborItemClick">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
+                                    <Grid VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="Auto" />
+                                            <ColumnDefinition />
+                                            <ColumnDefinition />
+                                        </Grid.ColumnDefinitions>
+
+                                        <TextBlock Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding CategoryAsString}" HorizontalAlignment="Left" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding Description}" TextWrapping="NoWrap" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="2" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding CostFormatted}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                    </Grid>
+                                </Border>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+
+                    <Button 
+                        Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482" x:Name="summaryAddExpense"
+                        Background="{StaticResource ExpensesBrush}" Height="75" Padding="0"
+                        HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Expense" VerticalAlignment="Center" />
+                    </Button>
+                </Grid>
+
                 <!--Confirmations Section-->
                 <Grid Height="590" Width="500" Margin="25,0">
                     <Grid.RowDefinitions>

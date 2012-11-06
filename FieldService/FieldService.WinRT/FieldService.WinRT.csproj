@@ -195,6 +195,7 @@
     <Compile Include="Utilities\StatusToColorConverter.cs" />
     <Compile Include="Utilities\Timer.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
+    <Compile Include="ViewModels\ExpenseViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />

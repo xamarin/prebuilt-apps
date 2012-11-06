@@ -36,6 +36,7 @@ namespace FieldService.WinRT.Views {
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
         readonly PhotoViewModel photoViewModel;
+        readonly ExpenseViewModel expenseViewModel;
         MediaPicker picker;
 
         public AssignmentPage ()
@@ -59,6 +60,10 @@ namespace FieldService.WinRT.Views {
                 confirmationImage3.DataContext =
                 photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
 
+            expensesListView.DataContext =
+                summaryAddExpense.DataContext =
+                expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+
             picker = new MediaPicker ();
         }
 
@@ -74,6 +79,8 @@ namespace FieldService.WinRT.Views {
             laborViewModel.LoadLaborHours (assignmentViewModel.SelectedAssignment);
 
             photoViewModel.LoadPhotos (assignmentViewModel.SelectedAssignment);
+
+            expenseViewModel.LoadExpenses (assignmentViewModel.SelectedAssignment);
         }
 
         private void OnItemClick (object sender, ItemClickEventArgs e)

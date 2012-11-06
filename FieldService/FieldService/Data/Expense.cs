@@ -56,5 +56,29 @@ namespace FieldService.Data {
         /// </summary>
         [Indexed]
         public int Assignment { get; set; }
+
+        /// <summary>
+        /// A nicely string formatted version of Type
+        /// </summary>
+        [Ignore]
+        public string CategoryAsString
+        {
+            get
+            {
+                return Category.ToString ();
+            }
+        }
+
+        #region WinRT properties
+
+        public string CostFormatted
+        {
+            get
+            {
+                return Cost.ToString ("$0.00");
+            }
+        }
+
+        #endregion
     }
 }

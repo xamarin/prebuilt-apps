@@ -46,6 +46,7 @@ namespace FieldService.WinRT {
             ServiceContainer.Register<ItemViewModel> ();
             ServiceContainer.Register<LaborViewModel> ();
             ServiceContainer.Register<PhotoViewModel>();
+            ServiceContainer.Register<ExpenseViewModel> ();
             ServiceContainer.Register(this);
         }
 
