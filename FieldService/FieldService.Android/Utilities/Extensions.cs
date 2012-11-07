@@ -30,28 +30,6 @@ namespace FieldService.Android.Utilities {
         }
 
         /// <summary>
-        /// Helper method to safely convert a string to a int
-        /// </summary>
-        public static int ToInt (this string text)
-        {
-            int value = 0;
-            int.TryParse (text, out value);
-            return value;
-        }
-
-        /// <summary>
-        /// Helper method to safely convert a string to a decimal
-        /// </summary>
-        /// <param name="text"></param>
-        /// <returns></returns>
-        public static decimal ToDecimal (this string text)
-        {
-            decimal value = 0;
-            decimal.TryParse (text, out value);
-            return value;
-        }
-
-        /// <summary>
         /// Helper method to get the sample size of the image for resampling.
         /// </summary>
         /// <param name="bytes"></param>

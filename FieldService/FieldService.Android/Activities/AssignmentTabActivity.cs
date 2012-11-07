@@ -67,7 +67,7 @@ namespace FieldService.Android {
                 } else {
                     tabHost.CurrentTab = 0;
                 }
-            } catch (Exception exc) {
+            } catch (Exception) {
                 tabHost.CurrentTab = 0;
             }
         }

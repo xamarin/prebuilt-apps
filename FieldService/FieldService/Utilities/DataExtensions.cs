@@ -34,6 +34,9 @@ namespace FieldService.Utilities
                     }
                 }
 
+                /// <summary>
+                /// Helper method to safely convert a string to a double
+                /// </summary>
 		public static double ToDouble (this string text)
 		{
 			double x;
@@ -41,11 +44,24 @@ namespace FieldService.Utilities
 			return x;
 		}
 
+                /// <summary>
+                /// Helper method to safely convert a string to a decimal
+                /// </summary>
                 public static decimal ToDecimal(this string text)
                 {
                     decimal x;
                     decimal.TryParse (text, out x);
                     return x;
+                }
+
+                /// <summary>
+                /// Helper method to safely convert a string to a int
+                /// </summary>
+                public static int ToInt (this string text)
+                {
+                    int value = 0;
+                    int.TryParse (text, out value);
+                    return value;
                 }
 
 #if NETFX_CORE
