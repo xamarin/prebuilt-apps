@@ -85,4 +85,22 @@ namespace FieldService.Data {
         /// </summary>
         Other = 3,
     }
+
+    /// <summary>
+    /// An enumeration for different types of Documents
+    /// </summary>
+    public enum DocumentType {
+        /// <summary>
+        /// A contract for the customer
+        /// </summary>
+        Contract,
+        /// <summary>
+        /// SLA, or Service License Agreement
+        /// </summary>
+        ServiceAgreement,
+        /// <summary>
+        /// A spec sheet
+        /// </summary>
+        Specifications,
+    }
 }

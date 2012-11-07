@@ -21,6 +21,8 @@ using System.Threading.Tasks;
 
 namespace FieldService.Data {
     public class SampleAssignmentService : IAssignmentService {
+        private List<Document> _documents;
+
         public Task<List<Assignment>> GetAssignmentsAsync ()
         {
             return Database.GetConnection ()
@@ -163,6 +165,23 @@ namespace FieldService.Data {
         {
             //Just return the first row
             return Database.GetConnection ().FindAsync<TimerEntry> (_ => true);
+        }
+
+        public Task<List<Document>> GetDocumentsAsync ()
+        {
+            return Task.Factory.StartNew (() => {
+                if (_documents == null) {
+                    _documents = new List<Document> {
+                        new Document { Title = "Hello, MVC", Path = "Data/Hello_MVC.pdf", Type = DocumentType.Contract },
+                        new Document { Title = "Building Cross Platform Apps", Path = "Data/Building_Cross_Platform_Apps.pdf", Type = DocumentType.Contract },
+                        new Document { Title = "Intro to Web Services", Path = "Data/Intro_to_Web_Services.pdf", Type = DocumentType.Contract },
+                        new Document { Title = "Introduction to Mobile Development", Path = "Data/Introduction_to_Mobile_Development.pdf", Type = DocumentType.Contract },
+                        new Document { Title = "Hello, iPhone", Path = "Data/Hello_iPhone.pdf", Type = DocumentType.ServiceAgreement },
+                        new Document { Title = "Hello, Mono for Android", Path = "Data/Hello_Mono_for_Android.pdf", Type = DocumentType.Specifications },
+                    };
+                }
+                return _documents;
+            });
         }
     }
 }
