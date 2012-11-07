@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.WinRT.Utilities;
+using FieldService.Utilities;
 using FieldService.WinRT.Views;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -21,10 +22,13 @@ namespace FieldService.WinRT.ViewModels {
         string expenseCost = string.Empty;
         Popup addExpensePopUp;
         MediaPicker picker;
+        AssignmentViewModel assignmentViewModel;
 
         public ExpenseViewModel ()
         {
             picker = new MediaPicker ();
+
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
             addExpenseCommand = new DelegateCommand (obj => {
                 var expense = obj as Expense;
@@ -44,12 +48,18 @@ namespace FieldService.WinRT.ViewModels {
                 addExpensePopUp.IsOpen = true;
             });
 
-            saveExpenseCommand = new DelegateCommand (_ => {
-
+            saveExpenseCommand = new DelegateCommand (async _ => {
+                selectedExpense.Cost = ExpenseCost.ToDecimal ();
+                selectedExpense.Assignment = assignmentViewModel.SelectedAssignment.ID;
+                await SaveExpense (assignmentViewModel.SelectedAssignment, selectedExpense);
+                await LoadExpenses (assignmentViewModel.SelectedAssignment);
+                addExpensePopUp.IsOpen = false;
             });
 
-            deleteExpenseCommand = new DelegateCommand (_ => {
-
+            deleteExpenseCommand = new DelegateCommand (async _ => {
+                await DeleteExpense (assignmentViewModel.SelectedAssignment, selectedExpense);
+                await LoadExpenses (assignmentViewModel.SelectedAssignment);
+                addExpensePopUp.IsOpen = false;
             });
 
             cancelExpenseCommand = new DelegateCommand (_ => {

@@ -41,6 +41,13 @@ namespace FieldService.Utilities
 			return x;
 		}
 
+                public static decimal ToDecimal(this string text)
+                {
+                    decimal x;
+                    decimal.TryParse (text, out x);
+                    return x;
+                }
+
 #if NETFX_CORE
                 /// <summary>
                 /// Missing functionality for WinRT
