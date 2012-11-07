@@ -48,6 +48,7 @@
     <Compile Include="Bootstrapper.cs" />
     <Compile Include="Data\Assignment.cs" />
     <Compile Include="Data\AssignmentItem.cs" />
+    <Compile Include="Data\Document.cs" />
     <Compile Include="Data\Expense.cs" />
     <Compile Include="Data\Labor.cs" />
     <Compile Include="Data\Database.cs" />
@@ -65,6 +66,7 @@
     <Compile Include="Strings.cs" />
     <Compile Include="Utilities\TaskExtensions.cs" />
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
+    <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\ExpenseViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LaborViewModel.cs" />

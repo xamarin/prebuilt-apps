@@ -8,7 +8,6 @@ using FieldService.Data;
 namespace FieldService.WinRT.ViewModels {
     public class ExpenseViewModel : FieldService.ViewModels.ExpenseViewModel {
 
-
         /// <summary>
         /// list of top 5 labor hour items
         /// </summary>
@@ -22,7 +21,6 @@ namespace FieldService.WinRT.ViewModels {
                 return Expenses.Take (5);
             }
         }
-
 
         protected override void OnPropertyChanged (string propertyName)
         {

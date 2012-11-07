@@ -118,5 +118,10 @@ namespace FieldService.Data {
         /// Deletes a photo
         /// </summary>
         Task<int> DeletePhoto (Photo photo);
+
+        /// <summary>
+        /// Gets the list of available documents
+        /// </summary>
+        Task<List<Document>> GetDocumentsAsync ();
     }
 }
