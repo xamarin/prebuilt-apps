@@ -35,6 +35,7 @@
     <BitmapImage x:Key="PhoneIcon" UriSource="ms-appx:///Assets/phoneicon.png" />
     <BitmapImage x:Key="MapTriangleImage" UriSource="ms-appx:///Assets/map_triangle.png" />
     <BitmapImage x:Key="CameraIcon" UriSource="ms-appx:///Assets/cameraicon.png" />
+    <BitmapImage x:Key="DarkCameraIcon" UriSource="ms-appx:///Assets/darkcameraicon.png" />
     <BitmapImage x:Key="CompleteIcon" UriSource="ms-appx:///Assets/completeicon.png" />
     <BitmapImage x:Key="ConfirmationIcon" UriSource="ms-appx:///Assets/confirmationicon.png" />
     <BitmapImage x:Key="DocumentIcon" UriSource="ms-appx:///Assets/documenticon.png" />
@@ -68,6 +69,8 @@
     <SolidColorBrush x:Key="DarkGreenButtonBorderBrush">#02a218</SolidColorBrush>
     <SolidColorBrush x:Key="DarkBlueItemsBrush">#12759a</SolidColorBrush>
     <SolidColorBrush x:Key="DarkRedExpensesBrush">#760138</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkRedButtonBrush">#ac1552</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkRedButtonBorderBrush">#a30242</SolidColorBrush>
     <LinearGradientBrush x:Key="ItemsBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0" Color="#1db0e7" />
         <GradientStop Offset="1" Color="#27cbef" />

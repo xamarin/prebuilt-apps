@@ -206,6 +206,9 @@
     <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\PhotoViewModel.cs" />
+    <Compile Include="Views\AddExpenseFlyoutPanel.xaml.cs">
+      <DependentUpon>AddExpenseFlyoutPanel.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\AddItemFlyoutPanel.xaml.cs">
       <DependentUpon>AddItemFlyoutPanel.xaml</DependentUpon>
     </Compile>
@@ -278,6 +281,7 @@
     <Content Include="Assets\cameraicon.png" />
     <Content Include="Assets\completeicon.png" />
     <Content Include="Assets\confirmationicon.png" />
+    <Content Include="Assets\darkcameraicon.png" />
     <Content Include="Assets\documenticon.png" />
     <Content Include="Assets\historyicon.png" />
     <Content Include="Assets\itemsicon.png" />
@@ -302,6 +306,10 @@
     <Page Include="Common\StandardStyles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\AddExpenseFlyoutPanel.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AddItemFlyoutPanel.xaml">
       <SubType>Designer</SubType>

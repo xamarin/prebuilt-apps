@@ -332,7 +332,7 @@
 
                     <ListView 
                         x:Name="expensesListView" Grid.Row="1" ItemsSource="{Binding TopExpenses}" HorizontalContentAlignment="Stretch" SelectionMode="None"
-                        ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" IsItemClickEnabled="True" ItemClick="OnLaborItemClick">
+                        ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Auto" IsItemClickEnabled="True" ItemClick="OnExpenseItemClick">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">

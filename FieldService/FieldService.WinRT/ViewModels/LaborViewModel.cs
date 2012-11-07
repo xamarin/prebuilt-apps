@@ -24,6 +24,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using FieldService.WinRT.Views;
 using FieldService.Utilities;
+using FieldService.WinRT.Utilities;
 
 namespace FieldService.WinRT.ViewModels {
     /// <summary>
@@ -36,7 +37,6 @@ namespace FieldService.WinRT.ViewModels {
         Popup addLaborPopUp;
         Labor selectedLabor;
         string currentLaborHours = string.Empty;
-        int popUpWidth = 485;
         LaborType [] laborTypes = new LaborType [] { LaborType.Hourly, LaborType.OverTime, LaborType.HolidayTime };
 
         public LaborViewModel ()
@@ -65,12 +65,12 @@ namespace FieldService.WinRT.ViewModels {
                         SelectedLabor = new Labor ();
                     addLaborPopUp = new Popup ();
                     addLaborPopUp.Height = Window.Current.Bounds.Height;
-                    addLaborPopUp.Width = popUpWidth;
+                    addLaborPopUp.Width = Constants.PopUpWidth;
                     AddLaborFlyoutPanel flyoutpanel = new AddLaborFlyoutPanel ();
                     flyoutpanel.Width = addLaborPopUp.Width;
                     flyoutpanel.Height = addLaborPopUp.Height;
                     addLaborPopUp.Child = flyoutpanel;
-                    addLaborPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
+                    addLaborPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
                     addLaborPopUp.SetValue (Canvas.TopProperty, 0);
                     addLaborPopUp.IsOpen = true;
                 });
@@ -139,6 +139,7 @@ namespace FieldService.WinRT.ViewModels {
             set
             {
                 selectedLabor = value;
+                OnPropertyChanged ("SelectedLabor");
                 if (value != null)
                     CurrentLaborHours = value.Hours.TotalHours.ToString ("0.0");
                 else

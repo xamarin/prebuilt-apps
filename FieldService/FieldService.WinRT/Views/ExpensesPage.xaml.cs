@@ -70,7 +70,7 @@ namespace FieldService.WinRT.Views {
         {
             var expense = e.ClickedItem as Expense;
             if (expense != null) {
-                
+                expenseViewModel.AddExpenseCommand.Invoke (expense);
             }
         }
     }

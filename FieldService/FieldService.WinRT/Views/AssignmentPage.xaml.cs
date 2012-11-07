@@ -14,6 +14,7 @@
 //    limitations under the License.
 
 using System;
+using System.Diagnostics;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
@@ -100,6 +101,14 @@ namespace FieldService.WinRT.Views {
             }
         }
 
+        private void OnExpenseItemClick (object sender, ItemClickEventArgs e)
+        {
+            var expense = e.ClickedItem as Expense;
+            if (expense != null) {
+                expenseViewModel.AddExpenseCommand.Invoke (expense);
+            }
+        }
+
         private async void OnSummaryClick (object sender, ItemClickEventArgs e)
         {
             var element = e.ClickedItem as FrameworkElement;
@@ -135,6 +144,7 @@ namespace FieldService.WinRT.Views {
                                 Directory = "FieldService",
                                 Name = "FieldService.jpg",
                             };
+                            try{
                             var mediaFile = await picker.TakePhotoAsync (options);
 
                             var photo = new Photo ();
@@ -143,7 +153,12 @@ namespace FieldService.WinRT.Views {
                             });
                             photoViewModel.PhotoSelectedCommand.Invoke (photo);
                             Helpers.NavigateTo<ImagesPage> ();
+                            } catch (Exception exc) {
+                                Debug.WriteLine (exc.Message);
+                                //this could happen if they cancel, etc.
+                            }
                         } else if (imageCommand) {
+                            try{
                             var mediaFile = await picker.PickPhotoAsync ();
 
                             var photo = new Photo ();
@@ -152,6 +167,10 @@ namespace FieldService.WinRT.Views {
                             });
                             photoViewModel.PhotoSelectedCommand.Invoke (photo);
                             Helpers.NavigateTo<ImagesPage> ();
+                            } catch (Exception exc) {
+                                Debug.WriteLine (exc.Message);
+                                //this could happen if they cancel, etc.
+                            }
                         }
                     }
                     break;

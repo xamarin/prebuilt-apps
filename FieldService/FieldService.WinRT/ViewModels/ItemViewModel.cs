@@ -24,6 +24,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 using FieldService.WinRT.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
+using FieldService.WinRT.Utilities;
 
 namespace FieldService.WinRT.ViewModels {
     /// <summary>
@@ -36,7 +37,6 @@ namespace FieldService.WinRT.ViewModels {
         string searchText = string.Empty;
         Popup addItemPopUp;
         IEnumerable<Item> searchItems;
-        int popUpWidth = 485;
 
         public ItemViewModel ()
         {
@@ -63,12 +63,12 @@ namespace FieldService.WinRT.ViewModels {
             addItemCommand = new DelegateCommand (_ => {
                 addItemPopUp = new Popup ();
                 addItemPopUp.Height = Window.Current.Bounds.Height;
-                addItemPopUp.Width = popUpWidth;
+                addItemPopUp.Width = Constants.PopUpWidth;
                 AddItemFlyoutPanel flyoutpanel = new AddItemFlyoutPanel ();
                 flyoutpanel.Width = addItemPopUp.Width;
                 flyoutpanel.Height = addItemPopUp.Height;
                 addItemPopUp.Child = flyoutpanel;
-                addItemPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
+                addItemPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
                 addItemPopUp.SetValue (Canvas.TopProperty, 0);
                 addItemPopUp.IsOpen = true;
                 SearchText = string.Empty;
