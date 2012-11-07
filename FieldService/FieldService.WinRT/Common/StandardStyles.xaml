@@ -167,6 +167,7 @@
     <util:BooleanToVisibilityConverter x:Key="BooleanConverter" />
     <util:StatusToColorConverter x:Key="StatusConverter" />
     <util:PhotoToImageConverter x:Key="PhotoConverter"/>
+    <util:DocumentTypeToColorConverter x:Key="DocumentConverter"/>
     
     <x:String x:Key="ChevronGlyph">&#xE26B;</x:String>
 

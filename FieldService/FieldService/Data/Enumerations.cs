@@ -93,14 +93,14 @@ namespace FieldService.Data {
         /// <summary>
         /// A contract for the customer
         /// </summary>
-        Contract,
+        Contract = 0,
         /// <summary>
         /// SLA, or Service License Agreement
         /// </summary>
-        ServiceAgreement,
+        ServiceAgreement = 1,
         /// <summary>
         /// A spec sheet
         /// </summary>
-        Specifications,
+        Specifications = 2,
     }
 }

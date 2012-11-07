@@ -196,6 +196,7 @@
     <Compile Include="Utilities\BooleanToVisibilityConverter.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
+    <Compile Include="Utilities\DocumentTypeToColorConverter.cs" />
     <Compile Include="Utilities\Helpers.cs" />
     <Compile Include="Utilities\PhotoToImageConverter.cs" />
     <Compile Include="Utilities\StatusToColorConverter.cs" />
