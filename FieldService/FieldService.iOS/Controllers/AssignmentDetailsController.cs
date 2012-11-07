@@ -108,6 +108,10 @@ namespace FieldService.iOS
 				nextChildController = ServiceContainer.Resolve<ExpenseController>();
 				break;
 			case 5:
+				//Documents
+				nextChildController = ServiceContainer.Resolve<DocumentController>();
+				break;
+			case 6:
 				//Confirmations
 				nextChildController = ServiceContainer.Resolve<ConfirmationController>();
 				break;

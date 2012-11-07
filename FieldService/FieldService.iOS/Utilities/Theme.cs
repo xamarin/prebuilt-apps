@@ -682,6 +682,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));
 			ServiceContainer.Register<LaborController> (() => (LaborController)storyboard.InstantiateViewController ("LaborController"));
 			ServiceContainer.Register<ExpenseController> (() => (ExpenseController)storyboard.InstantiateViewController ("ExpenseController"));
+			ServiceContainer.Register<DocumentController> (() => (DocumentController)storyboard.InstantiateViewController ("DocumentController"));
 			ServiceContainer.Register<ConfirmationController> (() => (ConfirmationController)storyboard.InstantiateViewController ("ConfirmationController"));
 		}
 	}

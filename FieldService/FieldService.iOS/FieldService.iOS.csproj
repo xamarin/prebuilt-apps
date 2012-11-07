@@ -46,7 +46,7 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
-    <CodesignKey>iPhone Developer</CodesignKey>
+    <CodesignKey>iPhone Distribution</CodesignKey>
     <MtouchDebug>True</MtouchDebug>
     <MtouchArch>ARMv7</MtouchArch>
     <MtouchI18n />
@@ -293,6 +293,11 @@
     <Compile Include="..\FieldService\ViewModels\DocumentViewModel.cs">
       <Link>FieldService\ViewModels\DocumentViewModel.cs</Link>
     </Compile>
+    <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\DocumentController.designer.cs">
+      <DependentUpon>DocumentController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\DocumentCell.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -306,6 +311,7 @@
     <Folder Include="FieldService\Utilities\" />
     <Folder Include="Controllers\" />
     <Folder Include="Views\" />
+    <Folder Include="Data\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\accept.png" />
@@ -434,5 +440,23 @@
     <Content Include="Default-Landscape%402x.png" />
     <Content Include="Default-Portrait.png" />
     <Content Include="Default-Portrait%402x.png" />
+    <Content Include="..\Data\Building_Cross_Platform_Apps.pdf">
+      <Link>Data\Building_Cross_Platform_Apps.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Hello_iPhone.pdf">
+      <Link>Data\Hello_iPhone.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Hello_Mono_for_Android.pdf">
+      <Link>Data\Hello_Mono_for_Android.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Hello_MVC.pdf">
+      <Link>Data\Hello_MVC.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Intro_to_Web_Services.pdf">
+      <Link>Data\Intro_to_Web_Services.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Introduction_to_Mobile_Development.pdf">
+      <Link>Data\Introduction_to_Mobile_Development.pdf</Link>
+    </Content>
   </ItemGroup>
 </Project>
