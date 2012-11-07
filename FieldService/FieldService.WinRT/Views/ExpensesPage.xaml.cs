@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.WinRT.ViewModels;
 using Windows.Foundation;
@@ -28,27 +29,26 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
-using FieldService.Data;
 
 namespace FieldService.WinRT.Views {
     /// <summary>
-    /// The page for the labor hours
+    /// Page for displaying expenses
     /// </summary>
-    public sealed partial class LaborPage : Page {
-        readonly AssignmentViewModel assignmentViewModel;
-        readonly LaborViewModel laborViewModel;
+    public sealed partial class ExpensesPage : Page {
+        AssignmentViewModel assignmentViewModel;
+        ExpenseViewModel expenseViewModel;
 
-        public LaborPage ()
+        public ExpensesPage ()
         {
             this.InitializeComponent ();
 
-            DataContext =
+            DataContext =    
                 assignmentControl.DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
-            laborListView.DataContext =
-                laborAddLabor.DataContext =
-                laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+            expensesListView.DataContext =
+                expensesAddExpense.DataContext =
+                expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
         }
 
         /// <summary>
@@ -60,17 +60,17 @@ namespace FieldService.WinRT.Views {
         {
         }
 
+
         /// <summary>
-        /// Item click event for the labor list view
+        /// Item click for the expense list view
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void OnItemClick(object sender, ItemClickEventArgs e)
+        private void OnItemClick (object sender, ItemClickEventArgs e)
         {
-            var labor = e.ClickedItem as Labor;
-            if (labor != null)
-            {
-                laborViewModel.AddLaborCommand.Invoke(labor);
+            var expense = e.ClickedItem as Expense;
+            if (expense != null) {
+                
             }
         }
     }

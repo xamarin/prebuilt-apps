@@ -28,7 +28,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
         readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
-            addSignatureCommand;
+            addSignatureCommand, expensesCommand;
         Assignment assignment;
         Popup addSignaturePopup;
         int popUpWidth = 930;
@@ -49,6 +49,8 @@ namespace FieldService.WinRT.ViewModels {
             itemsCommand = new DelegateCommand (_ => Helpers.NavigateTo<ItemsPage> ());
 
             laborCommand = new DelegateCommand (_ => Helpers.NavigateTo<LaborPage> ());
+
+            expensesCommand = new DelegateCommand (_ => Helpers.NavigateTo<ExpensesPage> ());
 
             confirmationsCommand = new DelegateCommand (_ => Helpers.NavigateTo<ConfirmationsPage> ());
 
@@ -147,6 +149,14 @@ namespace FieldService.WinRT.ViewModels {
         public DelegateCommand AddSignatureCommand
         {
             get { return addSignatureCommand; }
+        }
+
+        /// <summary>
+        /// Command for going to the expenses page
+        /// </summary>
+        public DelegateCommand ExpensesCommand
+        {
+            get { return expensesCommand; }
         }
 
         protected override void OnIsBusyChanged ()

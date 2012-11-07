@@ -327,7 +327,7 @@
                             <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Expenses</TextBlock>
-                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Center">View all entries</Button>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" Command="{Binding ExpensesCommand}" VerticalAlignment="Center">View all entries</Button>
                     </Grid>
 
                     <ListView 
@@ -355,7 +355,7 @@
                     <Button 
                         Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482" x:Name="summaryAddExpense"
                         Background="{StaticResource ExpensesBrush}" Height="75" Padding="0"
-                        HorizontalAlignment="Left" VerticalAlignment="Top" >
+                        HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddExpenseCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Expense" VerticalAlignment="Center" />
                     </Button>
                 </Grid>

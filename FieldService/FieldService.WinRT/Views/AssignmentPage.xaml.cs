@@ -179,6 +179,9 @@ namespace FieldService.WinRT.Views {
                         }
                     }
                     break;
+                case "expenses":
+                    Helpers.NavigateTo<ExpensesPage> ();
+                    break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();
                     break;
