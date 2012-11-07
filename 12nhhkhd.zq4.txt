@@ -1,0 +1,39 @@
+Merge branch 'Hitcents' of https://github.com/xamarin/prebuilt-apps into Hitcents
+
+Conflicts:
+	FieldService/FieldService.WinRT/ViewModels/ExpenseViewModel.cs
+#
+# It looks like you may be committing a merge.
+# If this is not correct, please remove the file
+#	.git/MERGE_HEAD
+# and try again.
+
+
+# Please enter the commit message for your changes. Lines starting
+# with '#' will be ignored, and an empty message aborts the commit.
+# On branch Hitcents
+# Your branch and 'origin/Hitcents' have diverged,
+# and have 1 and 2 different commits each, respectively.
+#
+# Changes to be committed:
+#
+#	new file:   FieldService/Data/Building_Cross_Platform_Apps.pdf
+#	new file:   FieldService/Data/Hello_MVC.pdf
+#	new file:   FieldService/Data/Hello_Mono_for_Android.pdf
+#	new file:   FieldService/Data/Hello_iPhone.pdf
+#	new file:   FieldService/Data/Intro_to_Web_Services.pdf
+#	new file:   FieldService/Data/Introduction_to_Mobile_Development.pdf
+#	modified:   FieldService/FieldService.Android/FieldService.Android.csproj
+#	modified:   FieldService/FieldService.Tests/FieldService.Tests.csproj
+#	modified:   FieldService/FieldService.Tests/Mocks/MockAssignmentService.cs
+#	new file:   FieldService/FieldService.Tests/ViewModels/DocumentViewModelTests.cs
+#	modified:   FieldService/FieldService.WinRT/FieldService.WinRT.csproj
+#	modified:   FieldService/FieldService/Bootstrapper.cs
+#	new file:   FieldService/FieldService/Data/Document.cs
+#	modified:   FieldService/FieldService/Data/Enumerations.cs
+#	modified:   FieldService/FieldService/Data/IAssignmentService.cs
+#	modified:   FieldService/FieldService/Data/SampleAssignmentService.cs
+#	modified:   FieldService/FieldService/FieldService.csproj
+#	new file:   FieldService/FieldService/ViewModels/DocumentViewModel.cs
+#
+
