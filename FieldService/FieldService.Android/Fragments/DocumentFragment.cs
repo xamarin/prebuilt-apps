@@ -81,6 +81,10 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        /// <summary>
+        /// Helper function to copy the pdf to the android file system for viewing.
+        /// </summary>
+        /// <param name="fileName"></param>
         private void CopyReadAsset (string fileName)
         {
             file = new File (Activity.FilesDir, Constants.PdfFile);
