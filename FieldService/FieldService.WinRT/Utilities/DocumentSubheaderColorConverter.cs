@@ -24,28 +24,28 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Media;
 
 namespace FieldService.WinRT.Utilities {
-    public class DocumentTypeToColorConverter : IValueConverter {
+    public class DocumentSubheaderColorConverter : IValueConverter {
         public object Convert (object value, Type targetType, object parameter, string language)
         {
             if (value != null) {
                 var type = (DocumentType)value;
                 switch (type) {
                     case DocumentType.Contract: {
-                            var resources = Application.Current.Resources ["ItemsBrush"];
+                            var resources = Application.Current.Resources ["DarkBlueItemsBrush"];
                             if (resources != null) {
-                                return resources as LinearGradientBrush;
+                                return resources as SolidColorBrush;
                             }
                         }
                         break;
                     case DocumentType.ServiceAgreement: {
-                            var resources = Application.Current.Resources ["HoursBrush"];
+                        var resources = Application.Current.Resources ["DarkGreenButtonBorderBrush"];
                             if (resources != null) {
-                                return resources as LinearGradientBrush;
+                                return resources as SolidColorBrush;
                             }
                         }
                         break;
                     default: {
-                            var resources = Application.Current.Resources ["ExpensesBrush"];
+                            var resources = Application.Current.Resources ["DarkRedExpensesBrush"];
                             if (resources != null) {
                                 return resources as SolidColorBrush;
                             }

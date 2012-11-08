@@ -369,11 +369,11 @@
 
                     <Grid Margin="5,10">
                         <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Documents</TextBlock>
-                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" Command="{Binding ExpensesCommand}" VerticalAlignment="Center">View all entries</Button>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" Command="{Binding DocumentsCommand}" VerticalAlignment="Center">View all entries</Button>
                     </Grid>
 
                     <ListView 
@@ -395,11 +395,9 @@
                                         </Grid.RowDefinitions>
 
                                         <Image Source="{StaticResource DocumentIcon}" Stretch="None"  HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                        <StackPanel Grid.Row="1"  Orientation="Vertical" Background="{StaticResource DarkBlueItemsBrush}">
-                                            <TextBlock Margin="10,5,0,0" Text="{Binding Title}" 
+                                        <StackPanel Grid.Row="1"  Orientation="Vertical" Background="{Binding Type, Converter={StaticResource DocumentSubheaderConverter}}">
+                                            <TextBlock Margin="5,0,0,5" Text="{Binding Title}" TextTrimming="WordEllipsis" TextWrapping="NoWrap" 
                                                Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" FontSize="14"/>
-                                            <TextBlock Margin="10,5,0,10" Text="{Binding Path}" 
-                                                   Style="{StaticResource SubheaderTextStyle}" FontSize="12" LineHeight="12" />
                                         </StackPanel>
                                     </Grid>
                                 </Border>

@@ -120,8 +120,9 @@ namespace FieldService.WinRT.Views {
         {
             var document = e.ClickedItem as Document;
             if (document != null) {
-                var file = await Package.Current.InstalledLocation.GetFileAsync (document.Path);
-                await Windows.System.Launcher.LaunchFileAsync (file);
+                var options = new Windows.System.LauncherOptions { DisplayApplicationPicker = true };
+                var file = await Package.Current.InstalledLocation.GetFileAsync (document.Path.Replace('/', '\\'));
+                var success = await Windows.System.Launcher.LaunchFileAsync (file, options);
             }
         }
 
@@ -216,6 +217,9 @@ namespace FieldService.WinRT.Views {
                     break;
                 case "expenses":
                     Helpers.NavigateTo<ExpensesPage> ();
+                    break;
+                case "documents":
+                    Helpers.NavigateTo<DocumentsPage> ();
                     break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();

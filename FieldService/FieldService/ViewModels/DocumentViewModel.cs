@@ -34,7 +34,7 @@ namespace FieldService.ViewModels {
         public Task LoadDocuments ()
         {
             return service.GetDocumentsAsync ()
-                .ContinueOnUIThread (t => documents = t.Result);
+                .ContinueOnUIThread (t => Documents = t.Result);
         }
     }
 }
