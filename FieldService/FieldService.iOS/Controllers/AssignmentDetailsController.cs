@@ -115,6 +115,10 @@ namespace FieldService.iOS
 				//Confirmations
 				nextChildController = ServiceContainer.Resolve<ConfirmationController>();
 				break;
+			case 7:
+				//History
+				nextChildController = ServiceContainer.Resolve<HistoryController>();
+				break;
 			default:
 				return; //This means this section isn't done yet
 			}

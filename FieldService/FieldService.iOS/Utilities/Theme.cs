@@ -246,7 +246,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> iconPhoneDark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconphone_dark.png"));
 		
 		/// <summary>
-		/// 
+		/// Dark phone icon used in assignment history
 		/// </summary>
 		public static UIImage IconPhoneDark {
 			get { return iconPhoneDark.Value; }
@@ -255,7 +255,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> iconsettings = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconsettings.png"));
 		
 		/// <summary>
-		/// 
+		/// Settings icon image
 		/// </summary>
 		public static UIImage IconSettings {
 			get { return iconsettings.Value; }
@@ -684,6 +684,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register<ExpenseController> (() => (ExpenseController)storyboard.InstantiateViewController ("ExpenseController"));
 			ServiceContainer.Register<DocumentController> (() => (DocumentController)storyboard.InstantiateViewController ("DocumentController"));
 			ServiceContainer.Register<ConfirmationController> (() => (ConfirmationController)storyboard.InstantiateViewController ("ConfirmationController"));
+			ServiceContainer.Register<HistoryController> (() => (HistoryController)storyboard.InstantiateViewController ("HistoryController"));
 		}
 	}
 }

@@ -59,6 +59,7 @@ namespace FieldService.iOS
 			tableView.Source = new TableSource ();
 
 			backButton = new UIBarButtonItem ("Assignments", UIBarButtonItemStyle.Bordered, (sender, e) => Theme.TransitionController <AssignmentsController>());
+			backButton.SetBackgroundImage (Theme.BackButton, UIControlState.Normal, UIBarMetrics.Default);
 			backButton.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			timerLabel.TextColor = Theme.LabelColor;
 			navigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
@@ -75,8 +76,6 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
-			//Set these here, there was a bug where the background image was disappearing
-			backButton.SetBackgroundImage (Theme.BackButton, UIControlState.Normal, UIBarMetrics.Default);
 			navigationBar.TopItem.LeftBarButtonItem = backButton;
 
 			UpdateAssignment ();
@@ -87,7 +86,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ShowConfirmation ()
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (4, 0)) {
+			using (var indexPath = NSIndexPath.FromRowSection (6, 0)) {
 				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
 				detailsController.SectionSelected (tableView, indexPath);
 			}
@@ -165,7 +164,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
-			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, documentsCell, confirmationCell;
+			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, documentsCell, confirmationCell, historyCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
 			readonly AssignmentDetailsController detailsController;
 			readonly MainController mainController;
@@ -177,59 +176,52 @@ namespace FieldService.iOS
 
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";
-				summaryCell.TextLabel.TextColor = UIColor.White;
-				summaryCell.BackgroundColor = UIColor.Clear;	
-				summaryCell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
-				summaryCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
-				cells.Add (summaryCell);
+				SetupCell (summaryCell, start: true);
 
 				mapCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				mapCell.TextLabel.Text = "Map";
-				mapCell.TextLabel.TextColor = UIColor.White;
-				mapCell.BackgroundColor = UIColor.Clear;	
-				mapCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-				mapCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
-				cells.Add (mapCell);
+				SetupCell (mapCell);
 
 				itemsCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				itemsCell.TextLabel.Text = "Items";
-				itemsCell.TextLabel.TextColor = UIColor.White;
-				itemsCell.BackgroundColor = UIColor.Clear;	
-				itemsCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-				itemsCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
-				cells.Add (itemsCell);
+				SetupCell (itemsCell);
 
 				laborCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				laborCell.TextLabel.Text = "Labor Hours";
-				laborCell.TextLabel.TextColor = UIColor.White;
-				laborCell.BackgroundColor = UIColor.Clear;	
-				laborCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-				laborCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
-				cells.Add (laborCell);
+				SetupCell (laborCell);
 
 				expensesCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				expensesCell.TextLabel.Text = "Expenses";
-				expensesCell.TextLabel.TextColor = UIColor.White;
-				expensesCell.BackgroundColor = UIColor.Clear;
-				expensesCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-				expensesCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
-				cells.Add (expensesCell);
+				SetupCell (expensesCell);
 
 				documentsCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				documentsCell.TextLabel.Text = "Documents";
-				documentsCell.TextLabel.TextColor = UIColor.White;
-				documentsCell.BackgroundColor = UIColor.Clear;
-				documentsCell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-				documentsCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
-				cells.Add (documentsCell);
+				SetupCell (documentsCell);
 
 				confirmationCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				confirmationCell.TextLabel.Text = "Confirmations";
-				confirmationCell.TextLabel.TextColor = UIColor.White;
-				confirmationCell.BackgroundColor = UIColor.Clear;	
-				confirmationCell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
-				confirmationCell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
-				cells.Add (confirmationCell);
+				SetupCell (confirmationCell);
+
+				historyCell = new UITableViewCell (UITableViewCellStyle.Default, null);
+				historyCell.TextLabel.Text = "History";
+				SetupCell (historyCell, end: true);
+			}
+
+			private void SetupCell (UITableViewCell cell, bool start = false, bool end = false)
+			{
+				cell.TextLabel.TextColor = UIColor.White;
+				cell.BackgroundColor = UIColor.Clear;	
+				if (start) {
+					cell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
+					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
+				} else if (end) {
+					cell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
+					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
+				} else {
+					cell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+				}
+				cells.Add (cell);
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)

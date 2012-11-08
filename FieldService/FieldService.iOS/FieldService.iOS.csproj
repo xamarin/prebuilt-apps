@@ -304,6 +304,14 @@
     <Compile Include="..\FieldService\ViewModels\HistoryViewModel.cs">
       <Link>FieldService\ViewModels\HistoryViewModel.cs</Link>
     </Compile>
+    <Compile Include="Controllers\HistoryController.cs" />
+    <Compile Include="Controllers\HistoryController.designer.cs">
+      <DependentUpon>HistoryController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Views\HistoryCell.cs" />
+    <Compile Include="Views\HistoryCell.designer.cs">
+      <DependentUpon>HistoryCell.cs</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
