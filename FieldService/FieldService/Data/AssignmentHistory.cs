@@ -49,5 +49,49 @@ namespace FieldService.Data {
         /// Date of the record
         /// </summary>
         public DateTime Date { get; set; }
+
+        #region Joined Fields
+
+        /// <summary>
+        /// A job number
+        /// </summary>
+        public string JobNumber { get; private set; }
+
+        /// <summary>
+        /// Title for the job
+        /// </summary>
+        public string Title { get; private set; }
+
+        /// <summary>
+        /// Name of the contact
+        /// </summary>
+        public string ContactName { get; set; }
+
+        /// <summary>
+        /// Phone number for the contact
+        /// </summary>
+        public string ContactPhone { get; set; }
+
+        /// <summary>
+        /// Address for assignment
+        /// </summary>
+        public string Address { get; set; }
+
+        /// <summary>
+        /// City for the assignment
+        /// </summary>
+        public string City { get; set; }
+
+        /// <summary>
+        /// State of the assignment
+        /// </summary>
+        public string State { get; set; }
+
+        /// <summary>
+        /// Zip code for the assignment
+        /// </summary>
+        public string Zip { get; set; }
+
+        #endregion
     }
 }

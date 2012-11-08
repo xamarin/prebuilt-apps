@@ -429,6 +429,12 @@ namespace FieldService.Tests.Data {
             historyTask.Wait ();
 
             Assert.That (historyTask.Result.Count, Is.Not.EqualTo (0));
+
+            foreach (var history in historyTask.Result) {
+                if (history.Type == AssignmentHistoryType.Assignment) {
+                    Assert.That (history.Title, Is.Not.Null);
+                }
+            }
         }
     }
 }

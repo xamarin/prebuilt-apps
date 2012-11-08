@@ -187,9 +187,14 @@ namespace FieldService.Data {
         public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment)
         {
             return Database.GetConnection ()
-                .Table<AssignmentHistory> ()
-                .Where (a => a.Assignment == assignment.ID)
-                .ToListAsync ();
+                .QueryAsync<AssignmentHistory> (@"
+                    select AssignmentHistory.*, Assignment.JobNumber, Assignment.Title, Assignment.ContactName, Assignment.ContactPhone, Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip
+                    from AssignmentHistory
+                    left outer join Assignment
+                    on Assignment.ID = AssignmentHistory.Assignment
+                    where AssignmentHistory.Assignment = ?
+                    order by AssignmentHistory.Date desc
+                ", assignment.ID);
         }
     }
 }
