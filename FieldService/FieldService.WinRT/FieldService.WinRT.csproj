@@ -202,6 +202,8 @@
     <Compile Include="Utilities\BooleanToVisibilityConverter.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
+    <Compile Include="Utilities\DocumentSubheaderColorConverter.cs" />
+    <Compile Include="Utilities\DocumentTypeToColorConverter.cs" />
     <Compile Include="Utilities\Helpers.cs" />
     <Compile Include="Utilities\PhotoToImageConverter.cs" />
     <Compile Include="Utilities\StatusToColorConverter.cs" />
@@ -240,6 +242,9 @@
     <Compile Include="Views\ConfirmationsPage.xaml.cs">
       <DependentUpon>ConfirmationsPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\DocumentsPage.xaml.cs">
+      <DependentUpon>DocumentsPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ExpensesPage.xaml.cs">
       <DependentUpon>ExpensesPage.xaml</DependentUpon>
     </Compile>
@@ -270,6 +275,24 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="..\Data\Building_Cross_Platform_Apps.pdf">
+      <Link>Data\Building_Cross_Platform_Apps.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Hello_iPhone.pdf">
+      <Link>Data\Hello_iPhone.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Hello_Mono_for_Android.pdf">
+      <Link>Data\Hello_Mono_for_Android.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Hello_MVC.pdf">
+      <Link>Data\Hello_MVC.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Introduction_to_Mobile_Development.pdf">
+      <Link>Data\Introduction_to_Mobile_Development.pdf</Link>
+    </Content>
+    <Content Include="..\Data\Intro_to_Web_Services.pdf">
+      <Link>Data\Intro_to_Web_Services.pdf</Link>
+    </Content>
     <None Include="FieldService.WinRT_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
@@ -347,6 +370,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\ConfirmationsPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\DocumentsPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

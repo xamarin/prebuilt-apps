@@ -42,6 +42,7 @@ namespace FieldService {
             ServiceContainer.Register<DocumentViewModel> ();
             ServiceContainer.Register<HistoryViewModel> ();
             ServiceContainer.Register<PhotoViewModel> ();
+            ServiceContainer.Register<DocumentViewModel> ();
         }
     }
 }

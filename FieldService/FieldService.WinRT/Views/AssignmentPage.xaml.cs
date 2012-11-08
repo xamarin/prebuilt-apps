@@ -19,6 +19,7 @@ using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
+using Windows.ApplicationModel;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -38,6 +39,7 @@ namespace FieldService.WinRT.Views {
         readonly LaborViewModel laborViewModel;
         readonly PhotoViewModel photoViewModel;
         readonly ExpenseViewModel expenseViewModel;
+        readonly DocumentViewModel documentViewModel;
         MediaPicker picker;
 
         public AssignmentPage ()
@@ -65,6 +67,9 @@ namespace FieldService.WinRT.Views {
                 summaryAddExpense.DataContext =
                 expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
 
+            documentsListView.DataContext =
+                documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
+
             picker = new MediaPicker ();
         }
 
@@ -82,6 +87,8 @@ namespace FieldService.WinRT.Views {
             photoViewModel.LoadPhotos (assignmentViewModel.SelectedAssignment);
 
             expenseViewModel.LoadExpenses (assignmentViewModel.SelectedAssignment);
+
+            documentViewModel.LoadDocuments ();
         }
 
         private void OnItemClick (object sender, ItemClickEventArgs e)
@@ -106,6 +113,16 @@ namespace FieldService.WinRT.Views {
             var expense = e.ClickedItem as Expense;
             if (expense != null) {
                 expenseViewModel.AddExpenseCommand.Invoke (expense);
+            }
+        }
+
+        private async void OnDocumentItemClick (object sender, ItemClickEventArgs e)
+        {
+            var document = e.ClickedItem as Document;
+            if (document != null) {
+                var options = new Windows.System.LauncherOptions { DisplayApplicationPicker = true };
+                var file = await Package.Current.InstalledLocation.GetFileAsync (document.Path.Replace('/', '\\'));
+                var success = await Windows.System.Launcher.LaunchFileAsync (file, options);
             }
         }
 
@@ -200,6 +217,9 @@ namespace FieldService.WinRT.Views {
                     break;
                 case "expenses":
                     Helpers.NavigateTo<ExpensesPage> ();
+                    break;
+                case "documents":
+                    Helpers.NavigateTo<DocumentsPage> ();
                     break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();
