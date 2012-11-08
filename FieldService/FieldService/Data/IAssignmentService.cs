@@ -123,5 +123,10 @@ namespace FieldService.Data {
         /// Gets the list of available documents
         /// </summary>
         Task<List<Document>> GetDocumentsAsync ();
+
+        /// <summary>
+        /// Gets the history for an assignment
+        /// </summary>
+        Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment);
     }
 }
