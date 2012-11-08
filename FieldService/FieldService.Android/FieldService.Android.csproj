@@ -154,6 +154,7 @@
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
+    <Compile Include="Adapters\DocumentsAdapter.cs" />
     <Compile Include="Adapters\ExpensesAdapter.cs" />
     <Compile Include="Adapters\ItemsAdapter.cs" />
     <Compile Include="Adapters\ItemsSearchAdapter.cs" />
@@ -168,6 +169,7 @@
     <Compile Include="Dialogs\PhotoDialog.cs" />
     <Compile Include="Dialogs\SignatureDialog.cs" />
     <Compile Include="Fragments\ConfirmationFragment.cs" />
+    <Compile Include="Fragments\DocumentFragment.cs" />
     <Compile Include="Fragments\ExpenseFragment.cs" />
     <Compile Include="Fragments\ItemFragment.cs" />
     <Compile Include="Fragments\LaborHourFragment.cs" />
@@ -266,6 +268,18 @@
     <AndroidResource Include="Resources\Layout\AddExpensePopUpLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Layout\DocumentFragmentLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\DocumentListItemLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidAsset Include="Assets\Building_Cross_Platform_Apps.pdf" />
+    <AndroidAsset Include="Assets\Hello_iPhone.pdf" />
+    <AndroidAsset Include="Assets\Hello_Mono_for_Android.pdf" />
+    <AndroidAsset Include="Assets\Hello_MVC.pdf" />
+    <AndroidAsset Include="Assets\Intro_to_Web_Services.pdf" />
+    <AndroidAsset Include="Assets\Introduction_to_Mobile_Development.pdf" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -343,6 +357,7 @@
     <AndroidResource Include="Resources\Drawable\trianglegrey.9.png" />
     <AndroidResource Include="Resources\Drawable\trianglewhite.9.png" />
     <AndroidResource Include="Resources\Drawable\cameraIcon.png" />
+    <AndroidResource Include="Resources\Drawable\documentIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

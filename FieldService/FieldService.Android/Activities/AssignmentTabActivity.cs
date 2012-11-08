@@ -18,6 +18,7 @@ using System.ComponentModel;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Util;
 using Android.Widget;
 using FieldService.Android.Utilities;
 using FieldService.Utilities;

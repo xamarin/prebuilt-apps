@@ -17,6 +17,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Android.Graphics;
+using Android.Util;
 
 namespace FieldService.Android.Utilities {
     public static class Extensions {
@@ -44,6 +45,11 @@ namespace FieldService.Android.Utilities {
             return sampleSize;
         }
 
+        /// <summary>
+        /// Helper method to turn bmp image into byte array
+        /// </summary>
+        /// <param name="bmp"></param>
+        /// <returns></returns>
         public static byte [] ToByteArray (this Bitmap bmp)
         {
             byte [] bytes = null;
@@ -57,6 +63,13 @@ namespace FieldService.Android.Utilities {
             return bytes;
         }
 
+        /// <summary>
+        /// Helper method to resize the bitmap to a smaller image size
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="destWidth"></param>
+        /// <param name="destHeight"></param>
+        /// <returns></returns>
         public static Bitmap ResizeBitmap (Bitmap input, int destWidth, int destHeight)
         {
             int srcWidth = input.Width,
@@ -80,6 +93,16 @@ namespace FieldService.Android.Utilities {
                 return Bitmap.CreateScaledBitmap (input, destWidth, destHeight, true);
             }
             return input;
+        }
+
+        public static void CopyFile (System.IO.Stream input, System.IO.Stream output)
+        {
+            byte [] buffer = new byte [4096];
+            int read = -1;
+            while (read != 0) {
+                read = input.Read (buffer, 0, 4096);
+                output.Write (buffer, 0, read);
+            }
         }
     }
 }

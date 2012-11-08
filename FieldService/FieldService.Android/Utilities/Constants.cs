@@ -18,11 +18,19 @@ namespace FieldService.Android.Utilities {
         /// <summary>
         /// List of navigation items
         /// </summary>
-        public static List<string> Navigation = new List<string> () { "Summary", "Map", "Items", "Labor Hours", "Expenses", "Confirmations" };
+        public static List<string> Navigation = new List<string> () { "Summary", "Map", "Items", "Labor Hours", "Expenses", "Documents", "Confirmations" };
         /// <summary>
         /// Constants string for getting navigation index
         /// </summary>
         public const string Confirmations = "Confirmations";
+        /// <summary>
+        /// Constants string for document pdf
+        /// </summary>
+        public const string PdfFile = "FieldServiceDoc.pdf";
+        /// <summary>
+        /// Constants string for log tag
+        /// </summary>
+        public const string LogTag = "FieldService";
         /// <summary>
         /// Key for PutExtra
         /// </summary>

@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System;
 using Android.App;
 using Android.Content;
 using Android.OS;
+using Android.Util;
 using Android.Views;
 using Android.Widget;
 using FieldService.Android.Dialogs;
@@ -36,19 +38,13 @@ namespace FieldService.Android {
         readonly LaborViewModel laborViewModel;
         readonly PhotoViewModel photoViewModel;
         readonly ExpenseViewModel expenseViewModel;
+        readonly DocumentViewModel documentViewModel;
         NavigationFragment navigationFragment;
         FrameLayout navigationFragmentContainer;
-        TextView number,
-            name,
-            phone,
-            address,
-            items;
-        Button addItems,
-            addLabor,
-            addExpense;
+        TextView number, name, phone, address, items;
+        Button addItems, addLabor, addExpense;
         ImageButton navigationMenu;
-        int assignmentIndex = 0,
-            navigationIndex = 0;
+        int assignmentIndex = 0, navigationIndex = 0;
         ItemsDialog itemDialog;
         AddLaborDialog laborDialog;
         ExpenseDialog expenseDialog;
@@ -60,6 +56,7 @@ namespace FieldService.Android {
             laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
             photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
             expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+            documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -154,7 +151,7 @@ namespace FieldService.Android {
                 expenseDialog.Activity = this;
                 expenseDialog.CurrentExpense = new Expense ();
                 expenseDialog.Show ();
-                };
+            };
         }
 
         protected override void OnSaveInstanceState (Bundle outState)
@@ -305,6 +302,20 @@ namespace FieldService.Android {
                                 addExpense.Visibility = ViewStates.Visible;
                             items.Text = Assignment.TotalExpenses.ToString ("$0.00");
                         });
+                    }
+                    break;
+                case "Documents": {
+                        var fragment = new DocumentFragment ();
+                        documentViewModel.LoadDocuments ().ContinueOnUIThread (_ => {
+                            fragment.Documents = documentViewModel.Documents;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            items.Visibility =
+                                addItems.Visibility = ViewStates.Invisible;
+                            addExpense.Visibility =
+                                addLabor.Visibility = ViewStates.Gone;
+                            });
                     }
                     break;
                 default:
