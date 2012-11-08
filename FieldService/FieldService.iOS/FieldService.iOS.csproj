@@ -298,6 +298,12 @@
       <DependentUpon>DocumentController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\DocumentCell.cs" />
+    <Compile Include="..\FieldService\Data\AssignmentHistory.cs">
+      <Link>FieldService\Data\AssignmentHistory.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\ViewModels\HistoryViewModel.cs">
+      <Link>FieldService\ViewModels\HistoryViewModel.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

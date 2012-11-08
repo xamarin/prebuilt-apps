@@ -103,4 +103,18 @@ namespace FieldService.Data {
         /// </summary>
         Specifications = 2,
     }
+
+    /// <summary>
+    /// An enumeration for different types of 
+    /// </summary>
+    public enum AssignmentHistoryType {
+        /// <summary>
+        /// History record represents an assignment
+        /// </summary>
+        Assignment,
+        /// <summary>
+        /// History record represents a phone call
+        /// </summary>
+        PhoneCall,
+    }
 }

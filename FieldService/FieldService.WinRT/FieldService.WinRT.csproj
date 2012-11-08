@@ -112,6 +112,9 @@
     <Compile Include="..\FieldService\Data\Assignment.cs">
       <Link>FieldService\Data\Assignment.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\AssignmentHistory.cs">
+      <Link>FieldService\Data\AssignmentHistory.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Data\AssignmentItem.cs">
       <Link>FieldService\Data\AssignmentItem.cs</Link>
     </Compile>
@@ -174,6 +177,9 @@
     </Compile>
     <Compile Include="..\FieldService\ViewModels\ExpenseViewModel.cs">
       <Link>FieldService\ViewModels\ExpenseViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\ViewModels\HistoryViewModel.cs">
+      <Link>FieldService\ViewModels\HistoryViewModel.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\ViewModels\ItemViewModel.cs">
       <Link>FieldService\ViewModels\ItemViewModel.cs</Link>

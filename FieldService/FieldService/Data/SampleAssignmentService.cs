@@ -183,5 +183,13 @@ namespace FieldService.Data {
                 return _documents;
             });
         }
+
+        public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment)
+        {
+            return Database.GetConnection ()
+                .Table<AssignmentHistory> ()
+                .Where (a => a.Assignment == assignment.ID)
+                .ToListAsync ();
+        }
     }
 }

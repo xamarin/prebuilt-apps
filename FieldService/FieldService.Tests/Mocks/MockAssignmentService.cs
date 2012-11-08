@@ -177,5 +177,10 @@ namespace FieldService.Tests.Mocks {
         {
             return Task.Factory.StartNew (() => new List<Document> { new Document { Title = "Test Document", Path = "Test.pdf" } });
         }
+
+        public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment)
+        {
+            return Task.Factory.StartNew (() => new List<AssignmentHistory> { new AssignmentHistory () });
+        }
     }
 }

@@ -416,5 +416,19 @@ namespace FieldService.Tests.Data {
 
             Assert.That (deleteTask.Result, Is.EqualTo (1));
         }
+
+        [Test]
+        public void GetHistory ()
+        {
+            var assignmentTask = service.GetAssignmentsAsync ();
+
+            assignmentTask.Wait ();
+            var assignment = assignmentTask.Result.First ();
+
+            var historyTask = service.GetAssignmentHistoryAsync (assignment);
+            historyTask.Wait ();
+
+            Assert.That (historyTask.Result.Count, Is.Not.EqualTo (0));
+        }
     }
 }
