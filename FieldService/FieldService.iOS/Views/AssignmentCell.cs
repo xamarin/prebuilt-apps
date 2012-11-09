@@ -126,14 +126,6 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
-		/// Event when the contact button is clicked
-		/// </summary>
-		partial void Contact ()
-		{
-			//TODO: find out what this should do? I could try launching tel://thenumber
-		}
-
-		/// <summary>
 		/// Event when the address is clicked
 		/// </summary>
 		partial void Address ()

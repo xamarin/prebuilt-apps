@@ -144,24 +144,6 @@ namespace FieldService.iOS
 			get { return camera.Value; }
 		}
 
-		static Lazy<UIImage> checkEmpty = new Lazy<UIImage> (() => UIImage.FromFile ("Images/check_empty.png"));
-		
-		/// <summary>
-		/// Checkbox unchecked image
-		/// </summary>
-		public static UIImage CheckEmpty {
-			get { return checkEmpty.Value; }
-		}
-
-		static Lazy<UIImage> checkFilled = new Lazy<UIImage> (() => UIImage.FromFile ("Images/check_filled.png"));
-		
-		/// <summary>
-		/// Checkbox checked image
-		/// </summary>
-		public static UIImage CheckFilled {
-			get { return checkFilled.Value; }
-		}
-
 		static Lazy<UIImage> complete = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
 		
 		/// <summary>

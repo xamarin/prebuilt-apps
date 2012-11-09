@@ -13,23 +13,12 @@ namespace FieldService.iOS
 	{
 		[Outlet]
 		MonoTouch.UIKit.UILabel label { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UIButton checkBox { get; set; }
-
-		[Action ("Checked")]
-		partial void Checked ();
 		
 		void ReleaseDesignerOutlets ()
 		{
 			if (label != null) {
 				label.Dispose ();
 				label = null;
-			}
-
-			if (checkBox != null) {
-				checkBox.Dispose ();
-				checkBox = null;
 			}
 		}
 	}

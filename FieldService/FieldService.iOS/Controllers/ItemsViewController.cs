@@ -150,6 +150,12 @@ namespace FieldService.iOS
 					.ContinueOnUIThread (_ => itemController.ReloadItems ());
 			}
 
+			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			{
+				var cell = tableView.CellAt (indexPath) as AssignmentItemCell;
+				cell.Checked ();
+			}
+
 			public override int RowsInSection (UITableView tableview, int section)
 			{
 				return itemViewModel.AssignmentItems == null ? 0 : itemViewModel.AssignmentItems.Count;

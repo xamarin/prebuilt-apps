@@ -44,34 +44,30 @@ namespace FieldService.iOS
 			this.item = item;
 			label.TextColor = Theme.LabelColor;
 			label.Text = item.Name + " " + item.Number;
-			checkBox.SetTitleColor (Theme.CheckboxTextColor, UIControlState.Normal);
-			checkBox.SetTitleColor (Theme.LabelColor, UIControlState.Highlighted);
 			SetChecked (item.Used);
 		}
 
 		/// <summary>
 		/// Sets the appropriate image for the check box
 		/// </summary>
-		private void SetChecked(bool isChecked) 
+		public void SetChecked(bool isChecked) 
 		{
-			if (isChecked)
-				checkBox.SetImage (Theme.CheckFilled, UIControlState.Normal);
-			else
-				checkBox.SetImage (Theme.CheckEmpty, UIControlState.Normal);
+			Accessory = isChecked ? UITableViewCellAccessory.Checkmark : UITableViewCellAccessory.None;
 		}
 
 		/// <summary>
 		/// Event when the checkbox is clicked
 		/// </summary>
-		partial void Checked ()
+		public void Checked ()
 		{
-			checkBox.Enabled = false;
+			var tableView = Superview as UITableView;
 			item.Used = !item.Used;
+			tableView.UserInteractionEnabled = false;
 			SetChecked (item.Used);
 
 			itemViewModel
 				.SaveAssignmentItem (detailsController.Assignment, item)
-				.ContinueOnUIThread (_ => checkBox.Enabled = true);
+				.ContinueOnUIThread (_ => tableView.UserInteractionEnabled = true);
 		}
 
 		protected override void Dispose (bool disposing)

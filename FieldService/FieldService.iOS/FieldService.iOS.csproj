@@ -357,10 +357,6 @@
     <Content Include="Images\buttondark%402x.png" />
     <Content Include="Images\camera.png" />
     <Content Include="Images\camera%402x.png" />
-    <Content Include="Images\check_empty.png" />
-    <Content Include="Images\check_empty%402x.png" />
-    <Content Include="Images\check_filled.png" />
-    <Content Include="Images\check_filled%402x.png" />
     <Content Include="Images\complete.png" />
     <Content Include="Images\complete%402x.png" />
     <Content Include="Images\decline.png" />
