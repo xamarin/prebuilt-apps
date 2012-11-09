@@ -30,6 +30,7 @@ namespace FieldService.iOS
 		readonly LaborController laborController;
 		readonly AssignmentDetailsController detailController;
 		readonly LaborViewModel laborViewModel;
+		UIBarButtonItem labor, space1, space2, done;
 		TableSource tableSource;
 
 		public AddLaborController (IntPtr handle) : base (handle)
@@ -55,9 +56,9 @@ namespace FieldService.iOS
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (18),
 			};
-			var labor = new UIBarButtonItem(label);
+			labor = new UIBarButtonItem(label);
 
-			var done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
+			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				laborViewModel
 					.SaveLabor (detailController.Assignment, laborController.Labor)
 					.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
@@ -65,13 +66,8 @@ namespace FieldService.iOS
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			done.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
-			toolbar.Items = new UIBarButtonItem[] {
-				cancel,
-				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-				labor,
-				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-				done,
-			};
+			space1 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+			space2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 
 			tableView.Source = 
 				tableSource = new TableSource();
@@ -82,7 +78,19 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			tableSource.Load (laborController.Labor);
+			bool enabled = detailController.Assignment.Status != AssignmentStatus.Complete;
+			if (enabled) {
+				toolbar.Items = new UIBarButtonItem[] {
+					cancel,
+					space1,
+					labor,
+					space2,
+					done,
+				};
+			} else {
+				toolbar.Items = new UIBarButtonItem[] { cancel, space1, labor, space2 };
+			}
+			tableSource.Load (enabled, laborController.Labor);
 		}
 
 		public override void ViewWillDisappear (bool animated)
@@ -112,6 +120,7 @@ namespace FieldService.iOS
 			readonly PlaceholderTextView description;
 			readonly HoursField hours;
 			LaborTypeSheet laborSheet;
+			bool enabled;
 			
 			public TableSource ()
 			{
@@ -149,8 +158,14 @@ namespace FieldService.iOS
 				});
 			}
 
-			public void Load (Labor labor)
+			public void Load (bool enabled, Labor labor)
 			{
+				this.enabled = enabled;
+
+				type.Enabled =
+					hours.Enabled =
+					description.UserInteractionEnabled = enabled;
+
 				type.Text = labor.TypeAsString;
 				hours.Value = labor.Hours.TotalHours;
 				description.Text = string.IsNullOrEmpty (labor.Description) ? description.Placeholder : labor.Description;
@@ -173,29 +188,31 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Section == 0) {
-					if (indexPath.Row == 0) {
-						//Type changed
-						laborSheet = new LaborTypeSheet();
-						laborSheet.Dismissed += (sender, e) => {
-							var labor = laborController.Labor;
-							if (laborSheet.Type.HasValue && labor.Type != laborSheet.Type) {
-								labor.Type = laborSheet.Type.Value;
+				if (enabled) {
+					if (indexPath.Section == 0) {
+						if (indexPath.Row == 0) {
+							//Type changed
+							laborSheet = new LaborTypeSheet ();
+							laborSheet.Dismissed += (sender, e) => {
+								var labor = laborController.Labor;
+								if (laborSheet.Type.HasValue && labor.Type != laborSheet.Type) {
+									labor.Type = laborSheet.Type.Value;
 
-								Load (labor);
-							}
+									Load (enabled, labor);
+								}
 
-							laborSheet.Dispose ();
-							laborSheet = null;
-						};
-						laborSheet.ShowFrom (typeCell.Frame, tableView, true);
+								laborSheet.Dispose ();
+								laborSheet = null;
+							};
+							laborSheet.ShowFrom (typeCell.Frame, tableView, true);
+						} else {
+							//Give hours "focus"
+							hours.BecomeFirstResponder ();
+						}
 					} else {
-						//Give hours "focus"
-						hours.BecomeFirstResponder ();
+						//Give description "focus"
+						description.BecomeFirstResponder ();
 					}
-				} else {
-					//Give description "focus"
-					description.BecomeFirstResponder ();
 				}
 			}
 

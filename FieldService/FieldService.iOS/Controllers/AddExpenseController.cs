@@ -31,6 +31,7 @@ namespace FieldService.iOS
 		readonly ExpenseController expenseController;
 		readonly AssignmentDetailsController detailController;
 		readonly ExpenseViewModel expenseViewModel;
+		UIBarButtonItem expense, space1, space2, done;
 		TableSource tableSource;
 
 		public AddExpenseController (IntPtr handle) : base (handle)
@@ -56,24 +57,19 @@ namespace FieldService.iOS
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (18),
 			};
-			var labor = new UIBarButtonItem(label);
+			expense = new UIBarButtonItem(label);
 
-			var done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
+			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				expenseViewModel
 					.SaveExpense (detailController.Assignment, expenseController.Expense)
 					.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			done.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-			
-			toolbar.Items = new UIBarButtonItem[] {
-				cancel,
-				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-				labor,
-				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
-				done,
-			};
 
+			space1 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+			space2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+			
 			tableView.Source = 
 				tableSource = new TableSource();
 		}
@@ -83,7 +79,19 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			tableSource.Load (expenseController.Expense);
+			bool enabled = detailController.Assignment.Status != AssignmentStatus.Complete;
+			if (enabled) {
+				toolbar.Items = new UIBarButtonItem[] {
+					cancel,
+					space1,
+					expense,
+					space2,
+					done,
+				};
+			} else {
+				toolbar.Items = new UIBarButtonItem[] { cancel, space1, expense, space2 };
+			}
+			tableSource.Load (enabled, expenseController.Expense);
 		}
 
 		public override void ViewWillDisappear (bool animated)
@@ -116,6 +124,7 @@ namespace FieldService.iOS
 			readonly UIImageView photo;
 			ExpenseCategorySheet expenseSheet;
 			PhotoAlertSheet photoSheet;
+			bool enabled;
 			
 			public TableSource ()
 			{
@@ -178,7 +187,7 @@ namespace FieldService.iOS
 					photoSheet.Callback = image => {
 						var expense = expenseController.Expense;
 						expense.Photo = image;
-						Load (expense);
+						Load (enabled, expense);
 					};
 					photoSheet.ShowFrom (photoButton.Frame, photoCell, true);
 				};
@@ -196,11 +205,20 @@ namespace FieldService.iOS
 				photoCell.AddSubview (photo);
 			}
 
-			public void Load (Expense expense)
+			public void Load (bool enabled, Expense expense)
 			{
+				this.enabled = enabled;
+				category.Enabled =
+					cost.Enabled = 
+					category.Enabled = 
+					description.UserInteractionEnabled = enabled;
+
 				category.Text = expense.Category.ToString ();
 				cost.Text = expense.Cost.ToString ("$0.00");
-				description.Text = string.IsNullOrEmpty (expense.Description) ? description.Placeholder : expense.Description;
+				if (enabled)
+					description.Text = string.IsNullOrEmpty (expense.Description) ? description.Placeholder : expense.Description;
+				else
+					description.Text = expense.Description;
 
 				if (photo.Image != null) {
 					photo.Image.Dispose ();
@@ -212,7 +230,7 @@ namespace FieldService.iOS
 					photo.Image = expense.Photo.ToUIImage ();
 				} else {
 					photo.Hidden = true;
-					photoButton.Hidden = false;
+					photoButton.Hidden = !enabled;
 				}
 			}
 
@@ -240,29 +258,31 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Section == 0) {
-					if (indexPath.Row == 0) {
-						//Category changed
-						expenseSheet = new ExpenseCategorySheet ();
-						expenseSheet.Dismissed += (sender, e) => {
-							var expense = expenseController.Expense;
-							if (expenseSheet.Category.HasValue && expense.Category != expenseSheet.Category) {
-								expense.Category = expenseSheet.Category.Value;
+				if (enabled) {
+					if (indexPath.Section == 0) {
+						if (indexPath.Row == 0) {
+							//Category changed
+							expenseSheet = new ExpenseCategorySheet ();
+							expenseSheet.Dismissed += (sender, e) => {
+								var expense = expenseController.Expense;
+								if (expenseSheet.Category.HasValue && expense.Category != expenseSheet.Category) {
+									expense.Category = expenseSheet.Category.Value;
 
-								Load (expense);
-							}
+									Load (enabled, expense);
+								}
 
-							expenseSheet.Dispose ();
-							expenseSheet = null;
-						};
-						expenseSheet.ShowFrom (categoryCell.Frame, tableView, true);
-					} else {
-						//Give hours "focus"
-						cost.BecomeFirstResponder ();
+								expenseSheet.Dispose ();
+								expenseSheet = null;
+							};
+							expenseSheet.ShowFrom (categoryCell.Frame, tableView, true);
+						} else {
+							//Give hours "focus"
+							cost.BecomeFirstResponder ();
+						}
+					} else if (indexPath.Section == 1) {
+						//Give description "focus"
+						description.BecomeFirstResponder ();
 					}
-				} else if (indexPath.Section == 1) {
-					//Give description "focus"
-					description.BecomeFirstResponder ();
 				}
 			}
 

@@ -31,7 +31,7 @@ namespace FieldService.iOS
 		readonly LaborViewModel laborViewModel;
 		readonly AssignmentDetailsController detailsController;
 		UILabel title;
-		UIBarButtonItem edit, addItem;
+		UIBarButtonItem titleButton, edit, addItem, space;
 
 		public LaborController (IntPtr handle) : base (handle)
 		{
@@ -60,15 +60,20 @@ namespace FieldService.iOS
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (16),
+				Text = "Labor Hours",
 			};
-			var titleButton = new UIBarButtonItem (title);
-			
+			titleButton = new UIBarButtonItem (title);
+			toolbar.Items = new UIBarButtonItem[] { titleButton };
+
+			var textAttributes = new UITextAttributes () { TextColor = UIColor.White };
 			edit = new UIBarButtonItem ("Edit", UIBarButtonItemStyle.Bordered, delegate {
 				edit.Title = tableView.Editing ? "Edit" : "Done";
 				tableView.SetEditing (!tableView.Editing, true);
 			});
-			edit.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
+			edit.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			edit.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 			
 			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				Labor = new Labor {
@@ -77,15 +82,8 @@ namespace FieldService.iOS
 				};
 				PerformSegue ("AddLabor", this);
 			});
-			addItem.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
+			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-			
-			toolbar.Items = new UIBarButtonItem[] {
-				titleButton,
-				new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace),
-				edit,
-				addItem
-			};
 
 			tableView.Source = new TableSource ();
 		}
@@ -114,6 +112,18 @@ namespace FieldService.iOS
 		public void ReloadLabor ()
 		{
 			if (IsViewLoaded) {
+
+				if (detailsController.Assignment.Status == AssignmentStatus.Complete) {
+					toolbar.Items = new UIBarButtonItem[] { titleButton };
+				} else {
+					toolbar.Items = new UIBarButtonItem[] {
+						titleButton,
+						space,
+						edit,
+						addItem
+					};
+				}
+
 				laborViewModel.LoadLaborHours (detailsController.Assignment)
 					.ContinueOnUIThread (_ => {
 					if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
@@ -157,6 +167,11 @@ namespace FieldService.iOS
 					var cell = tableView.CellAt (indexPath);
 					cell.SetSelected (false, true);
 				});
+			}
+
+			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
+			{
+				return detailsController.Assignment.Status != AssignmentStatus.Complete;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)

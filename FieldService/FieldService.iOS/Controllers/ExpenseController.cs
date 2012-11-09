@@ -31,7 +31,7 @@ namespace FieldService.iOS
 		readonly ExpenseViewModel expenseViewModel;
 		readonly AssignmentDetailsController detailsController;
 		UILabel title;
-		UIBarButtonItem edit, addItem;
+		UIBarButtonItem titleButton, edit, addItem, space;
 
 		public ExpenseController (IntPtr handle) : base (handle)
 		{
@@ -57,15 +57,20 @@ namespace FieldService.iOS
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (16),
+				Text = "Expenses",
 			};
-			var titleButton = new UIBarButtonItem (title);
-			
+			titleButton = new UIBarButtonItem (title);
+			toolbar.Items = new UIBarButtonItem[] { titleButton };
+
+			var textAttributes = new UITextAttributes { TextColor = UIColor.White };
 			edit = new UIBarButtonItem ("Edit", UIBarButtonItemStyle.Bordered, delegate {
 				edit.Title = tableView.Editing ? "Edit" : "Done";
 				tableView.SetEditing (!tableView.Editing, true);
 			});
-			edit.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
+			edit.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			edit.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+			space = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 			
 			addItem = new UIBarButtonItem ("Add Expense", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				Expense = new Expense {
@@ -73,15 +78,8 @@ namespace FieldService.iOS
 				};
 				PerformSegue ("AddExpense", this);
 			});
-			addItem.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
+			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-			
-			toolbar.Items = new UIBarButtonItem[] {
-				titleButton,
-				new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace),
-				edit,
-				addItem
-			};
 
 			tableView.Source = new TableSource ();
 		}
@@ -110,6 +108,18 @@ namespace FieldService.iOS
 		public void ReloadExpenses ()
 		{
 			if (IsViewLoaded) {
+
+				if (detailsController.Assignment.Status == AssignmentStatus.Complete) {
+					toolbar.Items = new UIBarButtonItem[] { titleButton };
+				} else {
+					toolbar.Items = new UIBarButtonItem[] {
+						titleButton,
+						space,
+						edit,
+						addItem
+					};
+				}
+
 				expenseViewModel.LoadExpenses (detailsController.Assignment)
 					.ContinueOnUIThread (_ => {
 						if (expenseViewModel.Expenses == null || expenseViewModel.Expenses.Count == 0) 
@@ -153,6 +163,11 @@ namespace FieldService.iOS
 					var cell = tableView.CellAt (indexPath);
 					cell.SetSelected (false, true);
 				});
+			}
+
+			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
+			{
+				return detailsController.Assignment.Status != AssignmentStatus.Complete;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)

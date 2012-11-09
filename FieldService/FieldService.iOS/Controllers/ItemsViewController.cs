@@ -18,6 +18,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.ViewModels;
 using FieldService.Utilities;
+using FieldService.Data;
 
 namespace FieldService.iOS
 {
@@ -29,7 +30,7 @@ namespace FieldService.iOS
 		readonly AssignmentDetailsController detailsController;
 		readonly ItemViewModel itemViewModel;
 		UILabel title;
-		UIBarButtonItem edit, addItem;
+		UIBarButtonItem titleButton, edit, addItem, space;
 
 		public ItemsViewController (IntPtr handle) : base (handle)
 		{
@@ -50,26 +51,25 @@ namespace FieldService.iOS
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (16),
+				Text = "Items",
 			};
-			var titleButton = new UIBarButtonItem (title);
+			titleButton = new UIBarButtonItem (title);
+			toolbar.Items = new UIBarButtonItem[] { titleButton };
 
+			var textAttributes = new UITextAttributes { TextColor = UIColor.White };
 			edit = new UIBarButtonItem ("Edit", UIBarButtonItemStyle.Bordered, delegate {
 				edit.Title = tableView.Editing ? "Edit" : "Done";
 				tableView.SetEditing (!tableView.Editing, true);
 			});
-			edit.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
+			edit.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			edit.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
+			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
+
 			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, (sender, e) => PerformSegue ("AddItem", this));
-			addItem.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
+			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			toolbar.Items = new UIBarButtonItem[] {
-				titleButton,
-				new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace),
-				edit,
-				addItem
-			};
 			tableView.Source = new TableSource ();
 		}
 
@@ -97,14 +97,28 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadItems ()
 		{
-			itemViewModel.LoadAssignmentItems (detailsController.Assignment)
-				.ContinueOnUIThread (_ => {
-				if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
-					title.Text = "Items";
-				else
-					title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
-				tableView.ReloadData ();
-			});
+			if (IsViewLoaded) {
+
+				if (detailsController.Assignment.Status == AssignmentStatus.Complete) {
+					toolbar.Items = new UIBarButtonItem[] { titleButton };
+				} else {
+					toolbar.Items = new UIBarButtonItem[] {
+						titleButton,
+						space,
+						edit,
+						addItem
+					};
+				}
+
+				itemViewModel.LoadAssignmentItems (detailsController.Assignment)
+					.ContinueOnUIThread (_ => {
+					if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
+						title.Text = "Items";
+					else
+						title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
+					tableView.ReloadData ();
+				});
+			}
 		}
 
 		/// <summary>
@@ -126,7 +140,7 @@ namespace FieldService.iOS
 
 			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return true;
+				return detailsController.Assignment.Status != AssignmentStatus.Complete;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
