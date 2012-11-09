@@ -63,8 +63,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private class MapViewDelegate : MKMapViewDelegate
 		{
-			const string UserIdentifier = "UserAnnotation";
-			const string AssignmentIdentifier = "AssignmentAnnotation";
+			const string Identifier = "AssignmentAnnotation";
 			readonly UIPopoverController popoverController;
 
 			public MapViewDelegate ()
@@ -78,21 +77,12 @@ namespace FieldService.iOS
 			/// </summary>
 			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, NSObject annotation)
 			{
-				var userLocation = annotation as MKUserLocation;
-				if (userLocation != null ) {
-					var annotationView = mapView.DequeueReusableAnnotation (UserIdentifier) as MKPinAnnotationView;
-					if (annotationView == null) {
-						annotationView = new MKPinAnnotationView(annotation, UserIdentifier);
-						annotationView.CanShowCallout = true;
-						annotationView.AnimatesDrop = false;
-					} else {
-						annotationView.Annotation = annotation;
-					}
-					return annotationView;
+				if (annotation is MKUserLocation) {
+					return null;
 				} else {
-					var annotationView = mapView.DequeueReusableAnnotation (AssignmentIdentifier) as MKPinAnnotationView;
+					var annotationView = mapView.DequeueReusableAnnotation (Identifier) as MKPinAnnotationView;
 					if (annotationView == null) {
-						annotationView = new MKPinAnnotationView(annotation, AssignmentIdentifier);
+						annotationView = new MKPinAnnotationView(annotation, Identifier);
 						annotationView.PinColor = MKPinAnnotationColor.Green;
 						annotationView.AnimatesDrop = true;
 						annotationView.CanShowCallout = true;
@@ -124,6 +114,14 @@ namespace FieldService.iOS
 				using (var url = NSUrl.FromString (builder.ToString ())) {
 					UIApplication.SharedApplication.OpenUrl (url);
 				}
+			}
+
+			/// <summary>
+			/// Center the map when the user is located
+			/// </summary>
+			public override void DidUpdateUserLocation (MKMapView mapView, MKUserLocation userLocation)
+			{
+				mapView.SetCenterCoordinate (userLocation.Coordinate, true);
 			}
 
 			/// <summary>
