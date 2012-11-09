@@ -85,16 +85,11 @@ namespace FieldService.iOS
 			readonly DocumentViewModel documentViewModel;
 			UIDocumentInteractionController documentController;
 			const string Identifier = "DocumentCell";
-			string tempPath;
 
 			public TableSource ()
 			{
-				//Make a temporary path for copying files to
-				tempPath = Path.Combine (Path.GetTempPath (), "temp.pdf");
-
 				documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
 				documentController = new UIDocumentInteractionController();
-				documentController.Url = NSUrl.FromFilename (tempPath);
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -104,25 +99,19 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				var cell = tableView.CellAt (indexPath);
-				var document = documentViewModel.Documents[indexPath.Row];
-
-				//We have to copy the file to the temp directory, otherwise the new process can't access the file
-				File.Copy (document.Path, tempPath, true);
-				documentController.PresentOpenInMenu (cell.Frame, tableView, true);
-
-				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
-				BeginInvokeOnMainThread (() => cell.SetSelected (false, true));
+				var cell = tableView.CellAt (indexPath) as DocumentCell;
+				cell.Clicked (this);
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				var document = documentViewModel.Documents [indexPath.Row];
-				var cell = tableView.DequeueReusableCell (Identifier);
+				var cell = tableView.DequeueReusableCell (Identifier) as DocumentCell;
 				if (cell == null) {
 					cell = new DocumentCell(Identifier);
+					cell.DocumentController = documentController;
 				}
-				cell.TextLabel.Text = document.Title;
+				cell.SetDocument (document);
 				return cell;
 			}
 		}

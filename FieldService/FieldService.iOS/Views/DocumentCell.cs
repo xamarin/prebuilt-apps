@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.IO;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using FieldService.Data;
 
 namespace FieldService.iOS
 {
@@ -25,6 +27,15 @@ namespace FieldService.iOS
 	public class DocumentCell : UITableViewCell
 	{
 		const int Spacing = 35;
+		static readonly string tempPath;
+
+		Document document;
+
+		static DocumentCell ()
+		{
+			//Make a temporary path for copying files to
+			tempPath = Path.Combine (Path.GetTempPath (), "temp.pdf");
+		}
 
 		public DocumentCell (string identifier)
 			: base(UITableViewCellStyle.Default, identifier)
@@ -33,6 +44,15 @@ namespace FieldService.iOS
 			SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
 			TextLabel.TextColor = Theme.LabelColor;
 			ImageView.Image = Theme.IconPdf;
+
+			var button = UIButton.FromType (UIButtonType.DetailDisclosure);
+			button.TouchUpInside += (sender, e) => Clicked (sender);
+			AccessoryView = button;
+		}
+
+		public UIDocumentInteractionController DocumentController {
+			get;
+			set;
 		}
 
 		public override void LayoutSubviews ()
@@ -46,6 +66,31 @@ namespace FieldService.iOS
 			frame = TextLabel.Frame;
 			frame.X += Spacing;
 			TextLabel.Frame = frame;
+		}
+
+		public void SetDocument(Document document)
+		{
+			this.document = document;
+			TextLabel.Text = document.Title;
+		}
+
+		public void Clicked (object sender)
+		{
+			if (document != null && DocumentController != null) {
+
+				//We have to copy the file to the temp directory, otherwise the new process can't access the file
+				File.Copy (document.Path, tempPath, true);
+
+				DocumentController.Url = NSUrl.FromFilename (tempPath);
+				if (sender == AccessoryView) {
+					DocumentController.PresentOpenInMenu (AccessoryView.Frame, this, true);
+				} else {
+					DocumentController.PresentOpenInMenu (Frame, Superview, true);
+				}
+			}
+
+			//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
+			BeginInvokeOnMainThread (() => SetSelected (false, true));
 		}
 	}
 }
