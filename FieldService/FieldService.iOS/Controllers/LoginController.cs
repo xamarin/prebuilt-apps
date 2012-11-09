@@ -64,7 +64,6 @@ namespace FieldService.iOS
 			//Set up any properties on views that must be done from code
 			View.BackgroundColor = Theme.LinenPattern;
 			box.Image = Theme.LoginBox;
-			logoBackground.Image = Theme.LoginInset;
 			login.SetBackgroundImage (Theme.LoginButton, UIControlState.Normal);
 			companyName.TextColor = Theme.LabelColor;
 

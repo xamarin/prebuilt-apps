@@ -351,15 +351,6 @@ namespace FieldService.iOS
 			get { return loginTextField.Value; }
 		}
 
-		static Lazy<UIImage> loginInset = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_inset.png").CreateResizableImage (new UIEdgeInsets (12, 12, 12, 12)));
-
-		/// <summary>
-		/// Login box on first screen, used in the logo's inset
-		/// </summary>
-		public static UIImage LoginInset {
-			get { return loginInset.Value; }
-		}
-
 		static Lazy<UIImage> logo = new Lazy<UIImage> (() => UIImage.FromFile ("Images/logo.png"));
 		
 		/// <summary>

@@ -27,9 +27,6 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UIImageView box { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView logoBackground { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UIView container { get; set; }
 
 		[Outlet]
@@ -63,11 +60,6 @@ namespace FieldService.iOS
 			if (box != null) {
 				box.Dispose ();
 				box = null;
-			}
-
-			if (logoBackground != null) {
-				logoBackground.Dispose ();
-				logoBackground = null;
 			}
 
 			if (container != null) {

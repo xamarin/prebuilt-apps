@@ -400,8 +400,6 @@
     <Content Include="Images\login_box%402x.png" />
     <Content Include="Images\login_btn.png" />
     <Content Include="Images\login_btn%402x.png" />
-    <Content Include="Images\login_inset.png" />
-    <Content Include="Images\login_inset%402x.png" />
     <Content Include="Images\login_textfield.png" />
     <Content Include="Images\login_textfield%402x.png" />
     <Content Include="Images\logo.png" />
