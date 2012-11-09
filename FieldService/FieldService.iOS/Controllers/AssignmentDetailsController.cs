@@ -83,7 +83,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Called when a menu item in MenuController is selected
 		/// </summary>
-		public void SectionSelected(UITableView tableView, NSIndexPath indexPath) 
+		public void SectionSelected(UITableView tableView, NSIndexPath indexPath, bool animated = true) 
 		{
 			UIViewController nextChildController;
 			switch (indexPath.Row) {
@@ -133,11 +133,22 @@ namespace FieldService.iOS
 			AddChildViewController (nextChildController);
 
 			tableView.UserInteractionEnabled = false;
-			Transition (lastChildController, nextChildController, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate {
-				lastChildController.RemoveFromParentViewController ();
-				lastChildController = nextChildController;
-				tableView.UserInteractionEnabled = true;
-			});
+
+			if (animated) {
+				Transition (lastChildController, nextChildController, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate {
+				}, delegate {
+					lastChildController.RemoveFromParentViewController ();
+					lastChildController = nextChildController;
+					tableView.UserInteractionEnabled = true;
+				});
+			} else {
+				Transition (lastChildController, nextChildController, 0, UIViewAnimationOptions.TransitionNone, delegate {
+				}, delegate {
+					lastChildController.RemoveFromParentViewController ();
+					lastChildController = nextChildController;
+					tableView.UserInteractionEnabled = true;
+				});
+			}
 		}
 
 		/// <summary>
@@ -195,7 +206,7 @@ namespace FieldService.iOS
 		partial void Address ()
 		{
 			var menuController = ServiceContainer.Resolve<MenuController>();
-			menuController.ShowMaps();
+			menuController.ShowMaps(true);
 		}
 
 		/// <summary>

@@ -68,8 +68,6 @@ namespace FieldService.iOS
 			timerLabelBackground.Image = Theme.TimerField;
 
 			status.StatusChanged += (sender, e) => SaveAssignment ();
-
-			tableView.SelectRow (NSIndexPath.FromRowSection (0, 0), false, UITableViewScrollPosition.Top);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -78,6 +76,10 @@ namespace FieldService.iOS
 
 			navigationBar.TopItem.LeftBarButtonItem = backButton;
 
+			using (var indexPath = NSIndexPath.FromRowSection (0, 0)) {
+				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
+				detailsController.SectionSelected (tableView, indexPath, false);
+			}
 			UpdateAssignment ();
 		}
 
@@ -88,18 +90,18 @@ namespace FieldService.iOS
 		{
 			using (var indexPath = NSIndexPath.FromRowSection (6, 0)) {
 				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-				detailsController.SectionSelected (tableView, indexPath);
+				detailsController.SectionSelected (tableView, indexPath, false);
 			}
 		}
 
 		/// <summary>
 		/// Displays the maps page
 		/// </summary>
-		public void ShowMaps ()
+		public void ShowMaps (bool animated)
 		{
 			using (var indexPath = NSIndexPath.FromRowSection (1, 0)) {
-				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-				detailsController.SectionSelected (tableView, indexPath);
+				tableView.SelectRow (indexPath, animated, UITableViewScrollPosition.Top);
+				detailsController.SectionSelected (tableView, indexPath, animated);
 			}
 		}
 

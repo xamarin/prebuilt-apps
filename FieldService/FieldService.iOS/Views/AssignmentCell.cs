@@ -143,7 +143,7 @@ namespace FieldService.iOS
 			Theme.TransitionController <MainController>();
 
 			var menuController = ServiceContainer.Resolve<MenuController>();
-			menuController.ShowMaps();
+			menuController.ShowMaps(false);
 		}
 
 		/// <summary>
