@@ -22,23 +22,12 @@
         android:textSize="14dp"
         android:textStyle="normal"
         android:minHeight="100dp"
-        android:maxHeight="100dp" />
-    <Button
-        android:text="View History"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/summaryViewHistory"
-        android:layout_gravity="right"
-        android:textColor="@android:color/black"
-        android:background="@drawable/accept_assignment"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:layout_marginTop="10dp"
-        android:visibility="invisible" />
+        android:maxHeight="100dp"
+        android:layout_weight="1" />
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="50dp"
         android:background="@color/assignmentblue">
         <TextView
             android:text="@string/Items"
@@ -90,7 +79,8 @@
         android:background="@color/assignmentblue"
         android:layout_width="fill_parent"
         android:layout_height="60dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="20dp">
         <TextView
             android:text="@string/Expenses"
             android:layout_width="wrap_content"

@@ -39,6 +39,7 @@ namespace FieldService.Android {
         readonly PhotoViewModel photoViewModel;
         readonly ExpenseViewModel expenseViewModel;
         readonly DocumentViewModel documentViewModel;
+        readonly HistoryViewModel historyViewModel;
         NavigationFragment navigationFragment;
         FrameLayout navigationFragmentContainer;
         TextView number, name, phone, address, items;
@@ -57,6 +58,7 @@ namespace FieldService.Android {
             photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
             expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
             documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
+            historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -152,6 +154,8 @@ namespace FieldService.Android {
                 expenseDialog.CurrentExpense = new Expense ();
                 expenseDialog.Show ();
             };
+
+            ServiceContainer.Register<SummaryActivity> (this);
         }
 
         protected override void OnSaveInstanceState (Bundle outState)
@@ -316,6 +320,17 @@ namespace FieldService.Android {
                             addExpense.Visibility =
                                 addLabor.Visibility = ViewStates.Gone;
                             });
+                    }
+                    break;
+                case "History": {
+                        var fragment = new HistoryFragment ();
+                        transaction.SetTransition (FragmentTransit.FragmentOpen);
+                        transaction.Replace (Resource.Id.contentFrame, fragment);
+                        transaction.Commit ();
+                        items.Visibility =
+                            addItems.Visibility = ViewStates.Invisible;
+                        addExpense.Visibility =
+                            addLabor.Visibility = ViewStates.Gone;
                     }
                     break;
                 default:

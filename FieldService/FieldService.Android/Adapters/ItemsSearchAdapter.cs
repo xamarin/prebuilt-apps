@@ -82,29 +82,5 @@ namespace FieldService.Android {
         {
             return items.ElementAtOrDefault (position);
         }
-
-        //private class ItemsFilter : Filter {
-
-        //    IList<Item> originalList;
-        //    public ItemsFilter (IList<Item> originalList)
-        //    {
-        //        this.originalList = originalList;
-        //    }
-
-        //    protected override Filter.FilterResults PerformFiltering (Java.Lang.ICharSequence constraint)
-        //    {
-        //        var results = new FilterResults ();
-        //        var search = constraint.ToString ();
-        //        if (string.IsNullOrEmpty (search)) {
-        //            var list = new List<Item> (originalList);
-        //            results.Values = list;
-        //        }
-        //    }
-
-        //    protected override void PublishResults (Java.Lang.ICharSequence constraint, Filter.FilterResults results)
-        //    {
-        //        throw new System.NotImplementedException ();
-        //    }
-        //}
     }
 }

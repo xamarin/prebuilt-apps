@@ -153,15 +153,18 @@
     <Compile Include="..\FieldService\ViewModels\ViewModelBase.cs">
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
+    <Compile Include="Activities\AssignmentHistoryActivity.cs" />
     <Compile Include="Activities\AssignmentsActivity.cs" />
     <Compile Include="Activities\MapFragmentActivity.cs" />
     <Compile Include="Activities\SummaryActivity.cs" />
+    <Compile Include="Activities\TabFragmentActivity.cs" />
     <Compile Include="Adapters\AssignmentsAdapter.cs" />
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
     <Compile Include="Activities\MapViewActivity.cs" />
     <Compile Include="Adapters\DocumentsAdapter.cs" />
     <Compile Include="Adapters\ExpensesAdapter.cs" />
+    <Compile Include="Adapters\HistoryListAdapter.cs" />
     <Compile Include="Adapters\ItemsAdapter.cs" />
     <Compile Include="Adapters\ItemsSearchAdapter.cs" />
     <Compile Include="Adapters\LaborHoursAdapter.cs" />
@@ -177,6 +180,7 @@
     <Compile Include="Fragments\ConfirmationFragment.cs" />
     <Compile Include="Fragments\DocumentFragment.cs" />
     <Compile Include="Fragments\ExpenseFragment.cs" />
+    <Compile Include="Fragments\HistoryFragment.cs" />
     <Compile Include="Fragments\ItemFragment.cs" />
     <Compile Include="Fragments\LaborHourFragment.cs" />
     <Compile Include="Fragments\MapFragment.cs" />
@@ -286,6 +290,21 @@
     <AndroidAsset Include="Assets\Hello_MVC.pdf" />
     <AndroidAsset Include="Assets\Intro_to_Web_Services.pdf" />
     <AndroidAsset Include="Assets\Introduction_to_Mobile_Development.pdf" />
+    <AndroidResource Include="Resources\Layout\HistoryFragmentLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout-land\HistoryItemLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout-port\HistoryItemLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\AssignmentHistoryLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\HistoryTabs.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -364,6 +383,7 @@
     <AndroidResource Include="Resources\Drawable\trianglewhite.9.png" />
     <AndroidResource Include="Resources\Drawable\cameraIcon.png" />
     <AndroidResource Include="Resources\Drawable\documentIcon.png" />
+    <AndroidResource Include="Resources\Drawable\darkPhoneIcon.png" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
