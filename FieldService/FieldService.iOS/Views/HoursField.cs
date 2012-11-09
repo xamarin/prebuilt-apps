@@ -55,6 +55,11 @@ namespace FieldService.iOS
 			Initialize ();
 		}
 
+		public override bool BecomeFirstResponder ()
+		{
+			return textField.BecomeFirstResponder ();
+		}
+
 		public override bool ResignFirstResponder ()
 		{
 			textField.ResignFirstResponder ();

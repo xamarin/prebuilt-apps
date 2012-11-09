@@ -111,7 +111,7 @@ namespace FieldService.iOS
 			readonly UITableViewCell categoryCell, hoursCell, descriptionCell, photoCell;
 			readonly UILabel category;
 			readonly UITextField cost;
-			readonly UITextView description;
+			readonly PlaceholderTextView description;
 			readonly UIButton photoButton;
 			readonly UIImageView photo;
 			ExpenseCategorySheet expenseSheet;
@@ -150,13 +150,20 @@ namespace FieldService.iOS
 				});
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new UITextView(new RectangleF(0, 0, 470, 90))
+				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, 470, 90))
 				{
 					BackgroundColor = UIColor.Clear,
 					TextColor = Theme.LabelColor,
+					Placeholder = "Please enter notes here",
 				};
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				description.SetDidChangeNotification (d => expenseController.Expense.Description = d.Text);
+				description.SetDidChangeNotification (d => {
+					if (description.Text != description.Placeholder) {
+						expenseController.Expense.Description = d.Text;
+					} else {
+						expenseController.Expense.Description = string.Empty;
+					}
+				});
 
 				photoCell = new UITableViewCell(UITableViewCellStyle.Default, null);
 				photoCell.SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -193,7 +200,7 @@ namespace FieldService.iOS
 			{
 				category.Text = expense.Category.ToString ();
 				cost.Text = expense.Cost.ToString ("$0.00");
-				description.Text = expense.Description;
+				description.Text = string.IsNullOrEmpty (expense.Description) ? description.Placeholder : expense.Description;
 
 				if (photo.Image != null) {
 					photo.Image.Dispose ();

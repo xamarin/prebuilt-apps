@@ -109,7 +109,7 @@ namespace FieldService.iOS
 			readonly LaborController laborController;
 			readonly UITableViewCell typeCell, hoursCell, descriptionCell;
 			readonly UILabel type;
-			readonly UITextView description;
+			readonly PlaceholderTextView description;
 			readonly HoursField hours;
 			LaborTypeSheet laborSheet;
 			
@@ -133,20 +133,27 @@ namespace FieldService.iOS
 				hours.ValueChanged += (sender, e) => laborController.Labor.Hours = TimeSpan.FromHours (hours.Value);
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new UITextView(new RectangleF(0, 0, 470, 400))
+				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, 470, 400))
 				{
 					BackgroundColor = UIColor.Clear,
 					TextColor = Theme.LabelColor,
+					Placeholder = "Please enter notes here",
 				};
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				description.SetDidChangeNotification (d => laborController.Labor.Description = d.Text);
+				description.SetDidChangeNotification (d => {
+					if (description.Text != description.Placeholder) {
+						laborController.Labor.Description = d.Text;
+					} else {
+						laborController.Labor.Description = string.Empty;
+					}
+				});
 			}
 
 			public void Load (Labor labor)
 			{
 				type.Text = labor.TypeAsString;
 				hours.Value = labor.Hours.TotalHours;
-				description.Text = labor.Description;
+				description.Text = string.IsNullOrEmpty (labor.Description) ? description.Placeholder : labor.Description;
 			}
 
 			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)

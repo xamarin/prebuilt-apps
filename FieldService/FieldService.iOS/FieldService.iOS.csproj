@@ -312,6 +312,7 @@
     <Compile Include="Views\HistoryCell.designer.cs">
       <DependentUpon>HistoryCell.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\PlaceholderTextView.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
