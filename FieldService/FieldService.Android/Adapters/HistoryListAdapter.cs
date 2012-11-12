@@ -51,8 +51,8 @@ namespace FieldService.Android.Adapters {
                 jobNumber.Text = assignment.JobNumber;
             } else {
                 phoneIcon.Visibility = ViewStates.Visible;
-                mapIcon.Visibility =
-                    jobNumber.Visibility = ViewStates.Gone;
+                mapIcon.Visibility = ViewStates.Invisible;
+                jobNumber.Visibility = ViewStates.Gone;
                 address.Text = string.Format ("Length: {0}  {1}", assignment.CallLength.ToString (@"hh\:mm\:ss"), assignment.CallDescription);
             }
             title.Text = assignment.Title;

@@ -324,13 +324,16 @@ namespace FieldService.Android {
                     break;
                 case "History": {
                         var fragment = new HistoryFragment ();
-                        transaction.SetTransition (FragmentTransit.FragmentOpen);
-                        transaction.Replace (Resource.Id.contentFrame, fragment);
-                        transaction.Commit ();
-                        items.Visibility =
-                            addItems.Visibility = ViewStates.Invisible;
-                        addExpense.Visibility =
-                            addLabor.Visibility = ViewStates.Gone;
+                        historyViewModel.LoadHistory (Assignment).ContinueOnUIThread (_ => {
+                            fragment.History = historyViewModel.History;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            items.Visibility =
+                                addItems.Visibility = ViewStates.Invisible;
+                            addExpense.Visibility =
+                                addLabor.Visibility = ViewStates.Gone;
+                        });
                     }
                     break;
                 default:

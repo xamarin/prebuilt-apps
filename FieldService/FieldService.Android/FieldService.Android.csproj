@@ -384,6 +384,9 @@
     <AndroidResource Include="Resources\Drawable\cameraIcon.png" />
     <AndroidResource Include="Resources\Drawable\documentIcon.png" />
     <AndroidResource Include="Resources\Drawable\darkPhoneIcon.png" />
+    <AndroidResource Include="Resources\Drawable\tab_selector.xml" />
+    <AndroidResource Include="Resources\Drawable\tab_selected.xml" />
+    <AndroidResource Include="Resources\Drawable\tab_unselected.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

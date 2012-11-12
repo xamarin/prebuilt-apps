@@ -10,9 +10,10 @@
         android:layout_height="wrap_content"
         android:id="@+id/historyItemPhoneImage"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="30dp"
         android:visibility="gone"
-        android:minWidth="80dp"
+        android:maxWidth="70dp"
+        android:minWidth="70dp"
         android:scaleType="center" />
     <TextView
         android:text="#789234"
@@ -21,21 +22,24 @@
         android:id="@+id/historyItemJobNumber"
         android:layout_marginLeft="30dp"
         android:textColor="@android:color/black"
-        android:maxWidth="80dp"
-        android:minWidth="80dp"
+        android:maxWidth="70dp"
+        android:minWidth="70dp"
         android:ellipsize="end"
         android:singleLine="true"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:visibility="visible"
+        android:gravity="center_horizontal" />
     <TextView
-        android:text="10/12/12"
+        android:text="12/12/2012"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemDate"
         android:layout_marginLeft="10dp"
-        android:minWidth="70dp"
-        android:maxWidth="70dp"
+        android:minWidth="80dp"
+        android:maxWidth="80dp"
         android:textColor="@android:color/black"
-        android:layout_gravity="center_vertical" />
+        android:layout_gravity="center_vertical"
+        android:gravity="right" />
     <TextView
         android:text="Coil Replacement"
         android:layout_width="wrap_content"
@@ -77,7 +81,8 @@
         android:layout_gravity="center_vertical"
         android:background="@drawable/roundedblack"
         android:scaleType="center"
-        android:layout_marginLeft="20dp" />
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp" />
     <TextView
         android:text="323 Park Ave."
         android:layout_width="wrap_content"
@@ -88,6 +93,5 @@
         android:lines="2"
         android:gravity="center_vertical"
         android:layout_weight="1"
-        android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp" />
 </LinearLayout>

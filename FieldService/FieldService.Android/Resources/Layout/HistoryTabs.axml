@@ -1,11 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/historyTabsLayout"
-    android:layout_width="fill_parent"
+    android:layout_width="100dp"
     android:layout_height="fill_parent"
     android:padding="10dp"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@drawable/tab_selector">
     <TextView
         android:id="@+id/tabsText"
         android:layout_width="wrap_content"
