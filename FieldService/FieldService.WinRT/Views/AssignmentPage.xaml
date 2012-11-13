@@ -557,6 +557,183 @@
                     </ListView>
                 </Grid>
 
+                <!--History Section-->
+                <Grid Height="590" Width="500" Margin="25,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+
+                    <Grid Margin="5,10">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}">History</TextBlock>
+                        <Button Grid.Column="1" Margin="10,0" Style="{StaticResource TextButtonStyle}" VerticalAlignment="Center" Command="{Binding HistoryCommand}">View all entries</Button>
+                    </Grid>
+
+                    <ListView 
+                        Grid.Row="1" SelectionMode="None" IsItemClickEnabled="True" ItemClick="OnSummaryClick"
+                        ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled">
+                        <ListView.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                        <ColumnDefinition />
+                                    </Grid.ColumnDefinitions>
+                                </Grid>
+                            </ItemsPanelTemplate>
+                        </ListView.ItemsPanel>
+
+                        <!--Latest History section-->
+                        <ListViewItem Grid.RowSpan="2" Grid.ColumnSpan="2" Margin="5">
+                            <Border x:Name="viewHistory" Width="324" Height="342" BorderThickness="0" Background="{StaticResource ItemsBrush}" 
+                                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="Auto"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image Source="{StaticResource ConfirmationIcon}" Stretch="None"  HorizontalAlignment="Center" VerticalAlignment="Center" Grid.ColumnSpan="2"/>
+                                    <StackPanel Grid.Row="1"  Orientation="Vertical" Background="{StaticResource DarkBlueItemsBrush}">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="10,5,0,0" Text="{Binding RecentHistory.JobNumberFormatted}" 
+                                                   Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" FontSize="14"/>
+                                            <TextBlock Margin="10,5,0,0" Text="{Binding RecentHistory.DateFormatted}" Grid.Column="1"
+                                                   Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" FontSize="14"/>
+                                        </StackPanel>
+                                        <TextBlock Margin="10,5,0,10" Text="{Binding RecentHistory.Title}" Grid.ColumnSpan="2" 
+                                                   Style="{StaticResource SubheaderTextStyle}" FontSize="12" LineHeight="12" />
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--View Calls section-->
+                        <ListViewItem Grid.Column="2" Margin="5">
+                            <Border x:Name="viewCalls" Width="154" Height="162" BorderThickness="0" Background="{StaticResource HoursBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{StaticResource PhoneLargeIcon}" Stretch="None" />
+
+                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Center" Text="Calls" Style="{StaticResource SubheaderTextStyle}" />
+
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--View Assignments section-->
+                        <ListViewItem Grid.Row="1" Grid.Column="2" Margin="5">
+                            <Border x:Name="viewAssignment" Width="154" Height="162" BorderThickness="0" Background="{StaticResource ItemsBrush}">
+                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition />
+                                        <RowDefinition />
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{StaticResource AssignmentIcon}" Stretch="None" />
+
+                                    <TextBlock Margin="5,5" Grid.Row="1" VerticalAlignment="Top" Text="Assignments" FontSize="16" />
+
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--Top History section-->
+                        <ListViewItem Grid.Row="2" Margin="5">
+                            <Border x:Name="recentHistory1" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding FirstHistory.Image, Converter={StaticResource PhotoConverter}}" Stretch="UniformToFill"/>
+
+                                    <StackPanel Grid.Row="1"  Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="10,5,0,0" Text="{Binding FirstHistory.JobNumberFormatted}" 
+                                                   Foreground="White" FontWeight="Medium" FontSize="14"/>
+                                            <TextBlock Margin="10,5,0,0" Text="{Binding FirstHistory.DateFormatted}" Grid.Column="1"
+                                                   Foreground="White" FontWeight="Medium" FontSize="14"/>
+                                        </StackPanel>
+                                        <TextBlock Margin="10,5,0,10" Text="{Binding FirstHistory.Title}" Grid.ColumnSpan="2" 
+                                                   FontSize="12" Foreground="White"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--Top History section-->
+                        <ListViewItem Grid.Row="2" Margin="5">
+                            <Border x:Name="recentHistory2" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding SecondHistory.Image, Converter={StaticResource PhotoConverter}}" Stretch="UniformToFill"/>
+
+                                    <StackPanel Grid.Row="1"  Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="10,5,0,0" Text="{Binding SecondHistory.JobNumberFormatted}" 
+                                                   Foreground="White" FontWeight="Medium" FontSize="14"/>
+                                            <TextBlock Margin="10,5,0,0" Text="{Binding SecondHistory.DateFormatted}" Grid.Column="1"
+                                                   Foreground="White" FontWeight="Medium" FontSize="14"/>
+                                        </StackPanel>
+                                        <TextBlock Margin="10,5,0,10" Text="{Binding SecondHistory.Title}" Grid.ColumnSpan="2" 
+                                                   FontSize="12" Foreground="White"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                        <!--Top History section-->
+                        <ListViewItem Grid.Row="2" Margin="5">
+                            <Border x:Name="recentHistory3" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="Auto"/>
+                                    </Grid.RowDefinitions>
+
+                                    <Image Source="{Binding ThirdHistory.Image, Converter={StaticResource PhotoConverter}}" Stretch="UniformToFill"/>
+
+                                    <StackPanel Grid.Row="1"  Orientation="Vertical" VerticalAlignment="Top" HorizontalAlignment="Left">
+                                        <StackPanel Orientation="Horizontal">
+                                            <TextBlock Margin="10,5,0,0" Text="{Binding ThirdHistory.JobNumberFormatted}" 
+                                                   Foreground="White" FontWeight="Medium" FontSize="14"/>
+                                            <TextBlock Margin="10,5,0,0" Text="{Binding ThirdHistory.DateFormatted}" Grid.Column="1"
+                                                   Foreground="White" FontWeight="Medium" FontSize="14"/>
+                                        </StackPanel>
+                                        <TextBlock Margin="10,5,0,10" Text="{Binding ThirdHistory.Title}" Grid.ColumnSpan="2" 
+                                                   FontSize="12" Foreground="White"/>
+                                    </StackPanel>
+                                </Grid>
+                            </Border>
+                        </ListViewItem>
+
+                    </ListView>
+                </Grid>
+
             </StackPanel>
         </ScrollViewer>
 

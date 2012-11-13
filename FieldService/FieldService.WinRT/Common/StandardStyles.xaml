@@ -43,6 +43,8 @@
     <BitmapImage x:Key="ItemsIcon" UriSource="ms-appx:///Assets/itemsicon.png" />
     <BitmapImage x:Key="TimerIcon" UriSource="ms-appx:///Assets/timericon.png" />
     <BitmapImage x:Key="MapLargeIcon" UriSource="ms-appx:///Assets/maplargeicon.png" />
+    <BitmapImage x:Key="AssignmentIcon" UriSource="ms-appx:///Assets/assignmenticon.png"/>
+    <BitmapImage x:Key="PhoneLargeIcon" UriSource="ms-appx:///Assets/phoneiconlarge.png"/>
     
     <!--Brushes-->
     <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">

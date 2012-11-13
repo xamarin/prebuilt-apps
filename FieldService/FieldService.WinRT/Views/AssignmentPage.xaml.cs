@@ -40,6 +40,7 @@ namespace FieldService.WinRT.Views {
         readonly PhotoViewModel photoViewModel;
         readonly ExpenseViewModel expenseViewModel;
         readonly DocumentViewModel documentViewModel;
+        readonly HistoryViewModel historyViewModel;
         MediaPicker picker;
 
         public AssignmentPage ()
@@ -70,6 +71,12 @@ namespace FieldService.WinRT.Views {
             documentsListView.DataContext =
                 documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
 
+            viewHistory.DataContext =
+                recentHistory1.DataContext =
+                recentHistory2.DataContext =
+                recentHistory3.DataContext = 
+                historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+
             picker = new MediaPicker ();
         }
 
@@ -89,6 +96,8 @@ namespace FieldService.WinRT.Views {
             expenseViewModel.LoadExpenses (assignmentViewModel.SelectedAssignment);
 
             documentViewModel.LoadDocuments ();
+
+            historyViewModel.LoadHistory (assignmentViewModel.SelectedAssignment);
         }
 
         private void OnItemClick (object sender, ItemClickEventArgs e)

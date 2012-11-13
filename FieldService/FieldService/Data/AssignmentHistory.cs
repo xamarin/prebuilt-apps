@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using SQLite;
+using FieldService.Utilities;
 
 namespace FieldService.Data {
     /// <summary>
@@ -92,6 +93,32 @@ namespace FieldService.Data {
         /// </summary>
         public string Zip { get; set; }
 
+        #endregion
+
+        #region WinRT properties
+        /// <summary>
+        /// A formatted version of the job number for WinRT
+        /// </summary>
+        public string JobNumberFormatted
+        {
+            get
+            {
+                if (string.IsNullOrEmpty (JobNumber))
+                    return JobNumber;
+                return "#" + JobNumber;
+            }
+        }
+
+        /// <summary>
+        /// A formatted version of the start date for WinRT
+        /// </summary>
+        public string DateFormatted
+        {
+            get
+            {
+                return Date.ToShortDateString ();
+            }
+        }
         #endregion
     }
 }

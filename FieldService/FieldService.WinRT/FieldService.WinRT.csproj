@@ -211,6 +211,7 @@
     <Compile Include="ViewModels\AssignmentViewModel.cs" />
     <Compile Include="ViewModels\DocumentViewModel.cs" />
     <Compile Include="ViewModels\ExpenseViewModel.cs" />
+    <Compile Include="ViewModels\HistoryViewModel.cs" />
     <Compile Include="ViewModels\ItemViewModel.cs" />
     <Compile Include="ViewModels\LaborViewModel.cs" />
     <Compile Include="ViewModels\LoginViewModel.cs" />
@@ -229,6 +230,9 @@
     </Compile>
     <Compile Include="Views\AssignmentControl.xaml.cs">
       <DependentUpon>AssignmentControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AssignmentHistoryPage.xaml.cs">
+      <DependentUpon>AssignmentHistoryPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\AssignmentMapPage.xaml.cs">
       <DependentUpon>AssignmentMapPage.xaml</DependentUpon>
@@ -308,6 +312,7 @@
       <Link>sqlite3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <Content Include="Assets\assignmenticon.png" />
     <Content Include="Assets\cameraicon.png" />
     <Content Include="Assets\completeicon.png" />
     <Content Include="Assets\confirmationicon.png" />
@@ -321,6 +326,7 @@
     <Content Include="Assets\map_triangle.png" />
     <Content Include="Assets\personicon.png" />
     <Content Include="Assets\phoneicon.png" />
+    <Content Include="Assets\phoneiconlarge.png" />
     <Content Include="Assets\SmallLogo.png" />
     <Content Include="Assets\smoothbg.png" />
     <Content Include="Assets\SplashScreen.png" />
@@ -354,6 +360,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\AssignmentControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\AssignmentHistoryPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

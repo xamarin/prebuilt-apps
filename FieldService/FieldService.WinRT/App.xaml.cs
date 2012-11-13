@@ -48,6 +48,7 @@ namespace FieldService.WinRT {
             ServiceContainer.Register<PhotoViewModel>();
             ServiceContainer.Register<ExpenseViewModel> ();
             ServiceContainer.Register<DocumentViewModel> ();
+            ServiceContainer.Register<HistoryViewModel> ();
             ServiceContainer.Register(this);
         }
 
