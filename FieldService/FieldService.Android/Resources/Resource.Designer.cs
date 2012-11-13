@@ -44,6 +44,9 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f04000a
 			public const int confirmationborder = 2130968586;
 			
+			// aapt resource value: 0x7f04000c
+			public const int disabledText = 2130968588;
+			
 			// aapt resource value: 0x7f040002
 			public const int greybutton = 2130968578;
 			
@@ -62,8 +65,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f040008
 			public const int navigationitemselected = 2130968584;
 			
-			// aapt resource value: 0x7f04000c
-			public const int radio_selector_color = 2130968588;
+			// aapt resource value: 0x7f04000d
+			public const int radio_selector_color = 2130968589;
 			
 			private Color()
 			{

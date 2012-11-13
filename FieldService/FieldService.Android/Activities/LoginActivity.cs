@@ -46,18 +46,10 @@ namespace FieldService.Android {
 
             loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
-            //busy changed to hide log in button and show spinner
-            loginViewModel.IsBusyChanged += (sender, e) => {
-                if (login != null) {
-                    login.Visibility = loginViewModel.IsBusy ? ViewStates.Invisible : ViewStates.Visible;
-                    progressIndicator.Visibility = loginViewModel.IsBusy ? ViewStates.Visible : ViewStates.Invisible;
-                }
-            };
-
             //sets valid changed to show the login button.
             loginViewModel.IsValidChanged += (sender, e) => {
                 if (login != null) {
-                    login.Visibility = loginViewModel.IsValid ? ViewStates.Visible : ViewStates.Invisible;
+                    login.Enabled = loginViewModel.IsValid ? true : false;
                 }
             };
         }
@@ -106,11 +98,10 @@ namespace FieldService.Android {
             //this hides the keyboard
             var imm = (InputMethodManager)GetSystemService (Context.InputMethodService); 
             imm.HideSoftInputFromWindow (password.WindowToken, HideSoftInputFlags.NotAlways);
-
+            login.Visibility = ViewStates.Invisible;
+            progressIndicator.Visibility = ViewStates.Visible;
             loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
 
-                //will do something else later.
-                //Toast.MakeText (this, "Success!", ToastLength.Short).Show ();
                 StartActivity (typeof (AssignmentTabActivity));
                 Finish ();
             });

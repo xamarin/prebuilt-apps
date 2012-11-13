@@ -387,6 +387,7 @@
     <AndroidResource Include="Resources\Drawable\tab_selector.xml" />
     <AndroidResource Include="Resources\Drawable\tab_selected.xml" />
     <AndroidResource Include="Resources\Drawable\tab_unselected.xml" />
+    <AndroidResource Include="Resources\Color\disabledText.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
