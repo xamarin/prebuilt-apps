@@ -29,10 +29,13 @@
         android:orientation="vertical"
         android:layout_marginTop="5dp"
         android:layout_marginBottom="5dp"
-        android:layout_marginLeft="10dp">
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical">
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:id="@+id/assignmentPhoneLayout"
+            android:clickable="true">
             <ImageView
                 android:src="@drawable/PhoneIcon"
                 android:id="@+id/assignmentPhoneIcon"
@@ -40,7 +43,7 @@
                 android:scaleType="centerInside"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="2dp" />
+                android:layout_centerVertical="true" />
             <TextView
                 android:id="@+id/assignmentName"
                 android:textSize="12dp"
@@ -65,7 +68,10 @@
         </RelativeLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:id="@+id/assignmentAddressLayout"
+            android:clickable="true">
             <ImageView
                 android:src="@drawable/MapIcon"
                 android:id="@+id/assignmentMapIcon"
@@ -74,7 +80,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/assignmentPhone"
-                android:layout_marginTop="12dp" />
+                android:layout_centerVertical="true" />
             <TextView
                 android:id="@+id/assignmentAddress"
                 android:textSize="12dp"
@@ -83,10 +89,10 @@
                 android:minWidth="150dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/assignmentPhone"
                 android:layout_toRightOf="@+id/assignmentMapIcon"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginTop="10dp"
+                android:layout_centerVertical="true" />
         </RelativeLayout>
     </LinearLayout>
     <LinearLayout

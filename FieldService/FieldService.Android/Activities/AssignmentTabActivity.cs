@@ -17,10 +17,13 @@ using System;
 using System.ComponentModel;
 using Android.App;
 using Android.Content;
+using Android.GoogleMaps;
 using Android.OS;
 using Android.Util;
+using Android.Views;
 using Android.Widget;
 using FieldService.Android.Utilities;
+using FieldService.Data;
 using FieldService.Utilities;
 
 namespace FieldService.Android {
@@ -48,31 +51,58 @@ namespace FieldService.Android {
             localManger.DispatchCreate (savedInstanceState);
             tabHost.Setup (localManger);
 
-            TabHost.TabSpec assignmentsSpec = tabHost.NewTabSpec ("Priority");
+            TabHost.TabSpec assignmentsSpec = tabHost.NewTabSpec ("list");
             Intent assignmentIntent = new Intent (this, typeof (AssignmentsActivity));
             assignmentsSpec.SetContent (assignmentIntent);
-            assignmentsSpec.SetIndicator ("Priority");
+            assignmentsSpec.SetIndicator ("list");
 
-            TabHost.TabSpec mapViewSpec = tabHost.NewTabSpec ("Map View");
+            TabHost.TabSpec mapViewSpec = tabHost.NewTabSpec ("map");
             Intent mapViewIntent = new Intent (this, typeof (MapViewActivity));
             mapViewSpec.SetContent (mapViewIntent);
-            mapViewSpec.SetIndicator ("Map View");
+            mapViewSpec.SetIndicator ("map");
 
             tabHost.AddTab (assignmentsSpec);
             tabHost.AddTab (mapViewSpec);
 
+            tabHost.Click += (sender, e) => {
+                
+                };
+
             try {
-                if (savedInstanceState != null && savedInstanceState.ContainsKey (Constants.CurrentTab)) {
-                    var currentTab = savedInstanceState.GetInt (Constants.CurrentTab, 0);
-                    tabHost.CurrentTab = currentTab;
+                if (savedInstanceState != null) {
+                    if (savedInstanceState.ContainsKey (Constants.CurrentTab)) {
+                        var currentTab = savedInstanceState.GetInt (Constants.CurrentTab, 0);
+                        tabHost.CurrentTab = currentTab;
+                    } else {
+                        tabHost.CurrentTab = 0;
+                    }
+                    if (savedInstanceState.ContainsKey ("mapData")) {
+                        MapData = (MapDataWrapper)savedInstanceState.GetSerializable ("mapData");
+                    } else {
+                        MapData = null;
+                    }
                 } else {
+                    MapData = null;
                     tabHost.CurrentTab = 0;
                 }
             } catch (Exception) {
                 tabHost.CurrentTab = 0;
             }
+
+            ServiceContainer.Register<AssignmentTabActivity> (this);
         }
 
+        public TabHost TabHost
+        {
+            get { return tabHost; }
+        }
+
+        public MapDataWrapper MapData
+        {
+            get;
+            set;
+        }
+        
         protected override void OnResume ()
         {
             //have to clean up the local activity manager in on resume.
@@ -96,8 +126,15 @@ namespace FieldService.Android {
 
         protected override void OnSaveInstanceState (Bundle outState)
         {
+            outState.PutSerializable ("mapData", MapData);
             outState.PutInt (Constants.CurrentTab, (int)tabHost.CurrentTab);
             base.OnSaveInstanceState (outState);
+        }
+
+        public class MapDataWrapper : Java.Lang.Object, Java.IO.ISerializable {
+            public int Zoom { get; set; }
+            public View OverlayBubble { get; set; }
+            public GeoPoint OverlayPoint { get; set; }
         }
     }
 }

@@ -42,7 +42,7 @@ namespace FieldService.Android {
         readonly HistoryViewModel historyViewModel;
         NavigationFragment navigationFragment;
         FrameLayout navigationFragmentContainer;
-        TextView number, name, phone, address, items;
+        TextView number, name, phone, address, items, title;
         Button addItems, addLabor, addExpense;
         ImageButton navigationMenu;
         int assignmentIndex = 0, navigationIndex = 0;
@@ -77,7 +77,7 @@ namespace FieldService.Android {
                 navigationIndex = Intent.GetIntExtra (Constants.FragmentIndex, 0);
             }
 
-            var title = FindViewById<TextView> (Resource.Id.summaryAssignmentTitle);
+            title = FindViewById<TextView> (Resource.Id.summaryAssignmentTitle);
             number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
             name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
             phone = FindViewById<TextView> (Resource.Id.selectedAssignmentPhoneNumber);
@@ -95,7 +95,7 @@ namespace FieldService.Android {
             };
 
             if (Assignment != null) {
-                title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber, Assignment.Title, Assignment.StartDate.ToShortDateString ());
+                title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber,"Summary", Assignment.StartDate.ToShortDateString ());
 
                 number.Text = Assignment.Priority.ToString ();
                 name.Text = Assignment.ContactName;
@@ -171,6 +171,8 @@ namespace FieldService.Android {
                 navigationFragmentContainer.Visibility = ViewStates.Invisible;
             }
             navigationIndex = e.Value;
+            var screen = Constants.Navigation [e.Value];
+            title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber, screen, Assignment.StartDate.ToShortDateString ());
         }
 
         protected override void OnResume ()

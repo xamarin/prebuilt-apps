@@ -88,6 +88,7 @@ namespace FieldService.Android {
             
             //request focus to the edit text to start on username.
             userName.RequestFocus ();
+
         }
 
         /// <summary>

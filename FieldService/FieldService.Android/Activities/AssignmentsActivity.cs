@@ -38,6 +38,8 @@ namespace FieldService.Android {
             buttonLayout,
             timerLayout,
             timerLinearLayout;
+        RelativeLayout mapButton,
+            phoneButton;
         ToggleButton timer;
         Spinner activeSpinner;
         Assignment assignment;
@@ -87,6 +89,8 @@ namespace FieldService.Android {
             spinnerImage = view.FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
             timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
             timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
+            phoneButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentPhoneLayout);
+            mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
 
             assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.Recording) {
@@ -131,6 +135,13 @@ namespace FieldService.Android {
                     }
                 }
             };
+
+            mapButton.Click += (sender, e) => {
+                var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                activity.TabHost.CurrentTab = 1;
+            };
+
+            phoneButton.Click += (sender, e) => { };
 
             ServiceContainer.Register<AssignmentsActivity> (this);
         }
@@ -234,6 +245,8 @@ namespace FieldService.Android {
             var intent = new Intent (this, typeof (SummaryActivity));
             intent.PutExtra (Constants.BundleIndex, index);
             StartActivity (intent);
+            var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            activity.MapData = null;
         }
     }
 }

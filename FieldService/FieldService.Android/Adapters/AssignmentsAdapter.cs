@@ -73,6 +73,17 @@ namespace FieldService.Android {
             var timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
             var timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
             var accept = view.FindViewById<Button> (Resource.Id.assignmentAccept);
+            var phoneButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentPhoneLayout);
+            var mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
+
+            mapButton.Click += (sender, e) => {
+                var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                var activeAssignment = GetItem (position);
+                activity.TabHost.CurrentTab = 1;
+                };
+            phoneButton.Click += (sender, e) => {
+                };
+
             accept.Click += (sender, e) => {
                 var activeAssignment = GetItem (position);
                 activeAssignment.Status = AssignmentStatus.Hold;

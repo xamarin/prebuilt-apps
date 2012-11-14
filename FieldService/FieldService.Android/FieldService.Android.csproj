@@ -153,7 +153,6 @@
     <Compile Include="..\FieldService\ViewModels\ViewModelBase.cs">
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
-    <Compile Include="Activities\AssignmentHistoryActivity.cs" />
     <Compile Include="Activities\AssignmentsActivity.cs" />
     <Compile Include="Activities\MapFragmentActivity.cs" />
     <Compile Include="Activities\SummaryActivity.cs" />

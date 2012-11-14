@@ -34,46 +34,58 @@
         android:layout_gravity="center_vertical"
         android:maxWidth="100dp"
         android:minWidth="100dp" />
-    <ImageView
-        android:src="@drawable/PhoneIcon"
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/assignmentPhoneIcon"
+        android:layout_height="fill_parent"
+        android:id="@+id/assignmentPhoneLayout"
         android:layout_marginLeft="10dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/roundedblack"
-        android:scaleType="centerInside" />
-    <TextView
+        android:clickable="true">
+        <ImageView
+            android:src="@drawable/PhoneIcon"
+            android:id="@+id/assignmentPhoneIcon"
+            android:background="@drawable/roundedblack"
+            android:scaleType="centerInside"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:id="@+id/assignmentPhone"
+            android:textSize="12dp"
+            android:textColor="@android:color/black"
+            android:maxWidth="100dp"
+            android:minWidth="100dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@id/assignmentPhoneIcon"
+            android:layout_marginLeft="10dp" />
+    </RelativeLayout>
+    <RelativeLayout
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/assignmentPhone"
-        android:textSize="12dp"
-        android:textColor="@android:color/black"
+        android:layout_height="fill_parent"
+        android:id="@+id/assignmentAddressLayout"
         android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_vertical"
-        android:maxWidth="100dp"
-        android:minWidth="100dp" />
-    <ImageView
-        android:src="@drawable/MapIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/assignmentMapIcon"
-        android:layout_marginLeft="10dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/roundedblack"
-        android:scaleType="centerInside" />
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/assignmentAddress"
-        android:textSize="12dp"
-        android:textColor="@android:color/black"
-        android:layout_marginLeft="10dp"
-        android:gravity="center_vertical"
-        android:layout_gravity="center_vertical"
-        android:maxWidth="150dp"
-        android:minWidth="150dp" />
+        android:clickable="true">
+        <ImageView
+            android:src="@drawable/MapIcon"
+            android:id="@+id/assignmentMapIcon"
+            android:background="@drawable/roundedblack"
+            android:scaleType="centerInside"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true" />
+        <TextView
+            android:id="@+id/assignmentAddress"
+            android:textSize="12dp"
+            android:textColor="@android:color/black"
+            android:maxWidth="150dp"
+            android:minWidth="150dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/assignmentMapIcon"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp" />
+    </RelativeLayout>
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"

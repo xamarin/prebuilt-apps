@@ -82,6 +82,8 @@ namespace FieldService.Android.Utilities {
                 }
 
                 mapView.AddView (bubbleView);
+                mapView.Controller.AnimateTo (item.Point);
+                mapView.Controller.SetZoom (10);
             }
             return true;
         }

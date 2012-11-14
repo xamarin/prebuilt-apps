@@ -17,6 +17,7 @@ using System;
 using System.Linq;
 using Android.App;
 using Android.Content;
+using Android.Content.PM;
 using Android.GoogleMaps;
 using Android.Graphics;
 using Android.Graphics.Drawables;
@@ -51,7 +52,7 @@ namespace FieldService.Android {
             phone,
             address,
             timerText;
-
+        AssignmentTabActivity.MapDataWrapper mapData;
 
         public MapViewActivity ()
         {
@@ -71,18 +72,18 @@ namespace FieldService.Android {
                 var intent = new Intent (this, typeof (SummaryActivity));
                 intent.PutExtra (Constants.BundleIndex, -1);
                 StartActivity (intent);
+                var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                tabActivity.MapData = null;
             };
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
 
             myLocation = new MyLocationOverlay (this, mapView);
-            myLocation.RunOnFirstFix (() => {
-                mapView.Controller.AnimateTo (myLocation.MyLocation);
-            });
+
             mapView.Overlays.Add (myLocation);
-            mapView.Controller.SetZoom (5);
             mapView.Clickable = true;
             mapView.Enabled = true;
             mapView.SetBuiltInZoomControls (true);
+
 
             //View containing the active assignment
             var view = new View (this);
@@ -160,6 +161,22 @@ namespace FieldService.Android {
 
             UpdateLocations ();
             myLocation.EnableMyLocation ();
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            AssignmentTabActivity.MapDataWrapper mapDataWrapper = null;
+            if (tabActivity != null) {
+                mapDataWrapper = tabActivity.MapData;
+            }
+
+            if (mapDataWrapper != null) {
+                mapView.Controller.SetZoom (mapDataWrapper.Zoom);
+                mapView.Controller.AnimateTo (mapDataWrapper.OverlayPoint);
+                mapView.AddView (mapDataWrapper.OverlayBubble);
+            } else {
+                myLocation.RunOnFirstFix (() => {
+                    mapView.Controller.AnimateTo (myLocation.MyLocation);
+                });
+                mapView.Controller.SetZoom (5);
+            }
 
             if (assignmentViewModel.ActiveAssignment != null) {
                 SetAssignment (true);
@@ -196,6 +213,23 @@ namespace FieldService.Android {
                 }
             });
         }
+        
+        protected override void OnSaveInstanceState (Bundle outState)
+        {
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            if (mapView.ChildCount > 0) {
+                if (mapData == null) {
+                    mapData = new AssignmentTabActivity.MapDataWrapper ();
+                }
+                mapData.OverlayBubble = mapView.GetChildAt (0);
+                mapData.Zoom = 10;
+                mapData.OverlayPoint = ((MapView.LayoutParams)mapData.OverlayBubble.LayoutParameters).Point;
+            }
+            if (tabActivity != null) {
+                tabActivity.MapData = mapData;
+            }
+            base.OnSaveInstanceState (outState);
+        }
 
         /// <summary>
         /// Clearing overlays on map, stopping my location, clearing active assignment in the layout.
@@ -205,6 +239,17 @@ namespace FieldService.Android {
             myLocation.DisableMyLocation ();
             mapView.Overlays.Clear ();
             base.OnStop ();
+        }
+
+        /// <summary>
+        /// Clearing overlay bubble when you leave the screen.
+        /// </summary>
+        protected override void OnPause ()
+        {
+            if (mapView.ChildCount > 0) {
+                mapView.RemoveViewAt (0);
+            }
+            base.OnPause ();
         }
 
         /// <summary>
@@ -218,7 +263,7 @@ namespace FieldService.Android {
                 });
             }
         }
-        
+
         /// <summary>
         /// Override for MapActivity
         /// </summary>
