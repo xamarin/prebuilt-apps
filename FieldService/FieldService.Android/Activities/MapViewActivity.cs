@@ -28,6 +28,7 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Extensions = FieldService.Android.Utilities.Extensions;
 
 namespace FieldService.Android {
     /// <summary>
@@ -110,10 +111,13 @@ namespace FieldService.Android {
             mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
 
             phoneButton.Click += (sender, e) => {
+                Extensions.MakePhoneCall (this, phone.Text);
             };
 
             mapButton.Click += (sender, e) => {
-
+                //already on the screen. maybe should zoom in on the active address
+                var overlayItem = mapView.Overlays.LastOrDefault () as MapOverlayItem;
+                overlayItem.AddressSelected ();
             };
 
             assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {

@@ -24,12 +24,13 @@ using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using Orientation = Android.Content.Res.Orientation;
+using Extensions = FieldService.Android.Utilities.Extensions;
 
 namespace FieldService.Android {
     /// <summary>
     /// Adapter for a list of assignments
     /// </summary>
-    public class AssignmentsAdapter : ArrayAdapter<Assignment> {
+    public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener {
 
         AssignmentViewModel assignmentViewModel;
         IList<Assignment> assignments;
@@ -73,29 +74,18 @@ namespace FieldService.Android {
             var timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
             var timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
             var accept = view.FindViewById<Button> (Resource.Id.assignmentAccept);
+            var decline = view.FindViewById<Button> (Resource.Id.assignmentDecline);
             var phoneButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentPhoneLayout);
             var mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
 
-            mapButton.Click += (sender, e) => {
-                var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-                var activeAssignment = GetItem (position);
-                activity.TabHost.CurrentTab = 1;
-                };
-            phoneButton.Click += (sender, e) => {
-                };
+            mapButton.SetOnClickListener (this);
+            phoneButton.SetOnClickListener (this);
+            accept.SetOnClickListener (this);
+            decline.SetOnClickListener (this);
 
-            accept.Click += (sender, e) => {
-                var activeAssignment = GetItem (position);
-                activeAssignment.Status = AssignmentStatus.Hold;
-                SaveAssignment (activeAssignment, position);
-            };
-
-            var decline = view.FindViewById<Button> (Resource.Id.assignmentDecline);
-            decline.Click += (sender, e) => {
-                var activeAssignment = GetItem (position);
-                activeAssignment.Status = AssignmentStatus.Declined;
-                SaveAssignment (activeAssignment, position);
-            };
+            accept.Tag = position;
+            decline.Tag = position;
+            mapButton.Tag = position;
 
             if (assignment.Status == AssignmentStatus.New) {
                 buttonLayout.Visibility = ViewStates.Visible;
@@ -136,7 +126,7 @@ namespace FieldService.Android {
                                     var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
                                     var intent = new Intent (activity, typeof (SummaryActivity));
                                     intent.PutExtra (Constants.BundleIndex, index);
-                                    intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf(Constants.Confirmations));
+                                    intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
                                     activity.StartActivity (intent);
                                 }
                                 break;
@@ -175,6 +165,46 @@ namespace FieldService.Android {
                     activity.ReloadSingleListItem (index);
                 }
             });
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="v"></param>
+        public void OnClick (View v)
+        {
+            switch (v.Id) {
+                case Resource.Id.assignmentAccept: {
+                        var position = v.Tag.ToString ().ToInt ();
+                        var activeAssignment = GetItem (position);
+                        activeAssignment.Status = AssignmentStatus.Hold;
+                        SaveAssignment (activeAssignment, position);
+                    }
+                    break;
+                case Resource.Id.assignmentDecline: {
+                        var position = v.Tag.ToString ().ToInt ();
+                        var activeAssignment = GetItem (position);
+                        activeAssignment.Status = AssignmentStatus.Declined;
+                        SaveAssignment (activeAssignment, position);
+                    }
+                    break;
+                case Resource.Id.assignmentPhoneLayout: {
+                        var view = (View)v.Parent;
+                        var phone = view.FindViewById<TextView> (Resource.Id.assignmentPhone);
+                        var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
+                        Extensions.MakePhoneCall (activity, phone.Text);
+                    }
+                    break;
+                case Resource.Id.assignmentAddressLayout: {
+                        var position = v.Tag.ToString ().ToInt ();
+                        var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                        var activeAssignment = GetItem (position);
+                        activity.TabHost.CurrentTab = 1;
+                    }
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

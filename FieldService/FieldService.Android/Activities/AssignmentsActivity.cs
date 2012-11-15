@@ -25,6 +25,7 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Extensions = FieldService.Android.Utilities.Extensions;
 
 namespace FieldService.Android {
     /// <summary>
@@ -141,7 +142,9 @@ namespace FieldService.Android {
                 activity.TabHost.CurrentTab = 1;
             };
 
-            phoneButton.Click += (sender, e) => { };
+            phoneButton.Click += (sender, e) => {
+                Extensions.MakePhoneCall (this, phone.Text);
+            };
 
             ServiceContainer.Register<AssignmentsActivity> (this);
         }

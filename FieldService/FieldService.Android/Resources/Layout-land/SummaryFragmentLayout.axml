@@ -54,44 +54,57 @@
             android:layout_gravity="center_vertical"
             android:maxWidth="100dp"
             android:minWidth="100dp" />
-        <ImageView
-            android:src="@drawable/PhoneIcon"
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/roundedblack"
-            android:scaleType="centerInside" />
-        <TextView
+            android:layout_height="fill_parent"
+            android:id="@+id/summaryPhoneIconLayout"
+            android:layout_marginLeft="10dp">
+            <ImageView
+                android:src="@drawable/PhoneIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/roundedblack"
+                android:scaleType="centerInside"
+                android:id="@+id/summaryFragmentPhoneIcon" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectedAssignmentPhoneNumber"
+                android:textSize="12dp"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:maxWidth="100dp"
+                android:minWidth="100dp" />
+        </LinearLayout>
+        <LinearLayout
+            android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/selectedAssignmentPhoneNumber"
-            android:textSize="12dp"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:maxWidth="100dp"
-            android:minWidth="100dp" />
-        <ImageView
-            android:src="@drawable/MapIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_gravity="center_vertical"
-            android:background="@drawable/roundedblack"
-            android:scaleType="centerInside" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/selectedAssignmentAddress"
-            android:textSize="12dp"
-            android:textColor="@android:color/black"
-            android:layout_marginLeft="10dp"
-            android:gravity="center_vertical"
-            android:layout_gravity="center_vertical"
-            android:maxWidth="150dp"
-            android:minWidth="150dp" />
+            android:layout_height="fill_parent"
+            android:id="@+id/summaryMapIconLayout"
+            android:layout_marginLeft="10dp">
+            <ImageView
+                android:src="@drawable/MapIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/roundedblack"
+                android:scaleType="centerInside" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/selectedAssignmentAddress"
+                android:textSize="12dp"
+                android:textColor="@android:color/black"
+                android:layout_marginLeft="10dp"
+                android:gravity="center_vertical"
+                android:layout_gravity="center_vertical"
+                android:maxWidth="150dp"
+                android:minWidth="150dp" />
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -49,6 +49,8 @@ namespace FieldService.Android {
         ItemsDialog itemDialog;
         AddLaborDialog laborDialog;
         ExpenseDialog expenseDialog;
+        LinearLayout mapButton,
+            phoneButton;
 
         public SummaryActivity ()
         {
@@ -89,13 +91,24 @@ namespace FieldService.Android {
             navigationMenu = FindViewById<ImageButton> (Resource.Id.navigationMenu);
             navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
             var back = FindViewById<ImageButton> (Resource.Id.backSummary);
+            mapButton = FindViewById<LinearLayout> (Resource.Id.summaryMapIconLayout);
+            phoneButton = FindViewById<LinearLayout> (Resource.Id.summaryPhoneIconLayout);
+
+            phoneButton.Click += (sender, e) => {
+                Extensions.MakePhoneCall (this, phone.Text);
+            };
+            mapButton.Click += (sender, e) => {
+                var navFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);
+                var index = Constants.Navigation.IndexOf("Map");
+                navFragment.SetNavigation (index);
+            };
 
             back.Click += (sender, e) => {
                 OnBackPressed ();
             };
 
             if (Assignment != null) {
-                title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber,"Summary", Assignment.StartDate.ToShortDateString ());
+                title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber, "Summary", Assignment.StartDate.ToShortDateString ());
 
                 number.Text = Assignment.Priority.ToString ();
                 name.Text = Assignment.ContactName;

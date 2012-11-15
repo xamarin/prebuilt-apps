@@ -53,6 +53,16 @@ namespace FieldService.Android.Utilities {
             return 1;
         }
 
+        public void AddressSelected ()
+        {
+            OnTap (0);
+        }
+
+        public GeoPoint Point
+        {
+            get { return item.Point; }
+        }
+
         /// <summary>
         /// When tapped, show a popup bubble
         /// </summary>

@@ -64,9 +64,11 @@ namespace FieldService.Android {
             tabHost.AddTab (assignmentsSpec);
             tabHost.AddTab (mapViewSpec);
 
-            tabHost.Click += (sender, e) => {
-                
-                };
+            tabHost.TabChanged += (sender, e) => {
+                if (tabHost.CurrentTab == 0) {
+                    MapData = null;
+                }
+            };
 
             try {
                 if (savedInstanceState != null) {
@@ -126,6 +128,7 @@ namespace FieldService.Android {
 
         protected override void OnSaveInstanceState (Bundle outState)
         {
+            localManger.SaveInstanceState ();
             outState.PutSerializable ("mapData", MapData);
             outState.PutInt (Constants.CurrentTab, (int)tabHost.CurrentTab);
             base.OnSaveInstanceState (outState);

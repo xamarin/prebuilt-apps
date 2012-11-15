@@ -18,6 +18,8 @@ using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using Android.Graphics;
 using Android.Util;
+using Android.App;
+using Android.Content;
 
 namespace FieldService.Android.Utilities {
     public static class Extensions {
@@ -95,6 +97,11 @@ namespace FieldService.Android.Utilities {
             return input;
         }
 
+        /// <summary>
+        /// Helper method that copies a file to a new location for the documents fragment
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="output"></param>
         public static void CopyFile (System.IO.Stream input, System.IO.Stream output)
         {
             byte [] buffer = new byte [4096];
@@ -103,6 +110,19 @@ namespace FieldService.Android.Utilities {
                 read = input.Read (buffer, 0, 4096);
                 output.Write (buffer, 0, read);
             }
+        }
+
+        /// <summary>
+        /// Helper method to make a phone call from the device.
+        /// </summary>
+        /// <param name="activity"></param>
+        /// <param name="number"></param>
+        public static void MakePhoneCall (Activity activity, string number)
+        {
+            var intent = new Intent (Intent.ActionDial);
+            string uri = "tel:" + number.Trim ();
+            intent.SetData (global::Android.Net.Uri.Parse (uri));
+            activity.StartActivity (intent);
         }
     }
 }

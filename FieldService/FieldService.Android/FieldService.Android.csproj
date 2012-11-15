@@ -469,7 +469,9 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\trianglewhite.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\UpLaborHours.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\XamarinTitle.png" />
-    <AndroidResource Include="Resources\Drawable\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\Icon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

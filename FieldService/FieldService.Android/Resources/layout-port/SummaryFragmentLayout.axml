@@ -59,21 +59,21 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp">
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp">
             <LinearLayout
                 android:orientation="horizontal"
-                android:id="@+id/linearLayout1"
+                android:id="@+id/summaryPhoneIconLayout"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content">
                 <ImageView
                     android:src="@drawable/PhoneIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/roundedblack"
                     android:scaleType="centerInside"
-                    android:id="@+id/imageView1" />
+                    android:id="@+id/summaryFragmentPhoneIcon" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -90,16 +90,15 @@
                 android:orientation="horizontal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="10dp">
+                android:layout_marginTop="10dp"
+                android:id="@+id/summaryMapIconLayout">
                 <ImageView
                     android:src="@drawable/MapIcon"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/roundedblack"
-                    android:scaleType="centerInside"
-                    android:id="@+id/imageView2" />
+                    android:scaleType="centerInside" />
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
