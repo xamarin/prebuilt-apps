@@ -48,17 +48,22 @@ namespace EmployeeDirectory.iOS
 		{
 			firstNameLabel = new UILabel {
 				Font = NormalFont,
+				TextColor = UIColor.Black,
+				HighlightedTextColor = UIColor.White,
 			};
 			ContentView.Add (firstNameLabel);
 
 			lastNameLabel = new UILabel {
 				Font = BoldFont,
+				TextColor = UIColor.Black,
+				HighlightedTextColor = UIColor.White,
 			};
 			ContentView.Add (lastNameLabel);
 
 			detailsLabel = new UILabel {
 				Font = DetailsFont,
 				TextColor = UIColor.Gray,
+				HighlightedTextColor = UIColor.White,
 			};
 			ContentView.Add (detailsLabel);
 		}

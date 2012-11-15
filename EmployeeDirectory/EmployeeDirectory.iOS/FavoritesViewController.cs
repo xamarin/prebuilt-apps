@@ -33,8 +33,8 @@ namespace EmployeeDirectory.iOS
 		{
 			Title = "Favorites";
 
-			this.viewModel = new FavoritesViewModel (favoritesRepository, groupByLastName: true);
-			this.searchViewModel = new SearchViewModel (service, savedSearch);
+			viewModel = new FavoritesViewModel (favoritesRepository, groupByLastName: true);
+			searchViewModel = new SearchViewModel (service, savedSearch);
 
 			//
 			// Configure this view
@@ -53,6 +53,7 @@ namespace EmployeeDirectory.iOS
 
 			searchController = new UISearchDisplayController (searchBar, this) {
 				SearchResultsDataSource = new PeopleGroupsDataSource (searchViewModel.Groups),
+				Delegate = new SearchDisplayDelegate (searchViewModel),
 			};
 
 			TableView.TableHeaderView = searchBar;
@@ -72,6 +73,8 @@ namespace EmployeeDirectory.iOS
 				}
 			}
 		}
+
+
 	}
 }
 

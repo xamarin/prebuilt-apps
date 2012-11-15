@@ -96,13 +96,13 @@ namespace EmployeeDirectory.ViewModels
 			lastCancelSource = new CancellationTokenSource ();
 			var token = lastCancelSource.Token;
 			service.SearchAsync (search.Filter, 200).ContinueWith (
-				OnSearchCompleted,
+				t => OnSearchCompleted (SearchText, SearchProperty, t),
 				token,
 				TaskContinuationOptions.None,
 				TaskScheduler.FromCurrentSynchronizationContext ());
 		}
 
-		void OnSearchCompleted (Task<IList<Person>> searchTask)
+		void OnSearchCompleted (string searchText, SearchProperty searchProperty, Task<IList<Person>> searchTask)
 		{
 			if (searchTask.IsFaulted) {
 				var ev = Error;
@@ -117,7 +117,10 @@ namespace EmployeeDirectory.ViewModels
 
 				var ev = SearchCompleted;
 				if (ev != null) {
-					ev (this, EventArgs.Empty);
+					ev (this, new SearchCompletedEventArgs { 
+						SearchText = searchText,
+						SearchProperty = searchProperty
+					});
 				}
 			}
 		}
@@ -137,10 +140,14 @@ namespace EmployeeDirectory.ViewModels
 
 		public event EventHandler<ErrorEventArgs> Error;
 
-		public event EventHandler SearchCompleted;
+		public event EventHandler<SearchCompletedEventArgs> SearchCompleted;
 
 		#endregion
 	}
 
-
+	public class SearchCompletedEventArgs : EventArgs
+	{
+		public string SearchText { get; set; }
+		public SearchProperty SearchProperty { get; set; }
+	}
 }
