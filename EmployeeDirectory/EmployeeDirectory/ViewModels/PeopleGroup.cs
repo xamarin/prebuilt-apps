@@ -49,7 +49,7 @@ namespace EmployeeDirectory.ViewModels
 				
 				pg.People.Add (p);
 			}
-			
+
 			return new ObservableCollection<PeopleGroup> (pgs.Values.OrderBy (x => x.Title));
 		}
 

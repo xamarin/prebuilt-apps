@@ -28,6 +28,8 @@ namespace EmployeeDirectory.Data
 	{
 		string fileName;
 
+		public event EventHandler Changed;
+
 		public List<Person> People { get; set; }
 
 		public static XmlFavoritesRepository Open (string fileName)
@@ -49,13 +51,18 @@ namespace EmployeeDirectory.Data
 			}
 		}
 
-		void Save ()
+		void Commit ()
 		{
 			var serializer = new XmlSerializer (typeof(XmlFavoritesRepository));
 			var iso = IsolatedStorageFile.GetUserStoreForApplication ();
 
 			using (var f = iso.OpenFile (fileName, FileMode.Create)) {
 				serializer.Serialize (f, this);
+			}
+
+			var ev = Changed;
+			if (ev != null) {
+				ev (this, EventArgs.Empty);
 			}
 		}
 
@@ -83,7 +90,7 @@ namespace EmployeeDirectory.Data
 				People.Remove (existing);
 			}
 			People.Add (person);
-			Save ();
+			Commit ();
 		}
 
 		public void Delete (Person person)
@@ -93,7 +100,7 @@ namespace EmployeeDirectory.Data
 			var n = People.Count - newPeople.Count;
 			People = newPeople;
 			if (n != 0) {
-				Save ();
+				Commit ();
 			}
 		}
 

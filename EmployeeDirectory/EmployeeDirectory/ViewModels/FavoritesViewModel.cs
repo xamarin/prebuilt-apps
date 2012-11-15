@@ -21,6 +21,9 @@ namespace EmployeeDirectory.ViewModels
 {
 	public class FavoritesViewModel : ViewModel
 	{
+		IFavoritesRepository favoritesRepository;
+		bool groupByLastName;
+
 		public ObservableCollection<PeopleGroup> Groups { get; private set; }
 
 		public FavoritesViewModel (IFavoritesRepository favoritesRepository, bool groupByLastName)
@@ -29,9 +32,22 @@ namespace EmployeeDirectory.ViewModels
 				throw new ArgumentNullException ("favoritesRepository");
 			}
 
+			this.favoritesRepository = favoritesRepository;
+			this.groupByLastName = groupByLastName;
+
+			CreateGroups ();
+
+			favoritesRepository.Changed += delegate {
+				CreateGroups ();
+			};
+		}
+
+		void CreateGroups ()
+		{
 			Groups = PeopleGroup.CreateGroups (
 				favoritesRepository.GetAll (),
 				groupByLastName);
+			OnPropertyChanged ("Groups");
 		}
 
 		public bool IsEmpty

@@ -33,7 +33,7 @@ namespace EmployeeDirectory.iOS
 		{
 			personViewModel = new PersonViewModel (person, favoritesRepository);
 
-			Title = person.SafeDisplayName;
+			Title = person.SafeFirstName;
 
 			TableView.DataSource = new PersonDataSource (this);
 			TableView.Delegate = new PersonDelegate (this);
@@ -123,14 +123,27 @@ namespace EmployeeDirectory.iOS
 			}
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				var prop = controller.personViewModel.PropertyGroups[indexPath.Section].Properties[indexPath.Row];
-				controller.OnPropertySelected (prop);
+				var section = indexPath.Section;
+
+				if (section == 1) {
+					controller.personViewModel.ToggleFavorite ();
+
+					tableView.DeselectRow (indexPath, true);
+					tableView.ReloadRows (new [] { indexPath }, UITableViewRowAnimation.Automatic);
+				}
+				else if (section >= 2) {
+					var prop = controller.personViewModel.PropertyGroups [section-2].Properties [indexPath.Row];
+					controller.OnPropertySelected (prop);
+				}
 			}
 		}
 
 		class PersonDataSource : UITableViewDataSource
 		{
+			static readonly UIColor ValueColor = UIColor.FromRGB (50, 79, 133);
+
 			PersonViewController controller;
+
 			public PersonDataSource (PersonViewController controller)
 			{
 				this.controller = controller;
@@ -138,31 +151,61 @@ namespace EmployeeDirectory.iOS
 
 			public override int NumberOfSections (UITableView tableView)
 			{
-				return controller.personViewModel.PropertyGroups.Count;
+				return controller.personViewModel.PropertyGroups.Count + 2;
 			}
 
 			public override int RowsInSection (UITableView tableView, int section)
 			{
-				return controller.personViewModel.PropertyGroups[section].Properties.Count;
+				if (section < 2)
+					return 1;
+				else
+					return controller.personViewModel.PropertyGroups[section - 2].Properties.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				var cell = tableView.DequeueReusableCell ("C");
-				if (cell == null) {
-					cell = new UITableViewCell (UITableViewCellStyle.Value2, "C");
-				}
+				var section = indexPath.Section;
 
-				var prop = controller.personViewModel.PropertyGroups[indexPath.Section].Properties[indexPath.Row];
+				if (section == 0) {
+					var cell = tableView.DequeueReusableCell ("N");
+					if (cell == null) {
+						cell = new UITableViewCell (UITableViewCellStyle.Default, "N");
+						cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+					}
 
-				cell.TextLabel.Text = prop.Name.ToLowerInvariant ();
-				cell.DetailTextLabel.Text = prop.Value;
+					cell.TextLabel.Text = controller.personViewModel.Person.SafeDisplayName;
 
-				cell.SelectionStyle = prop.Type == PersonViewModel.PropertyType.Generic ?
+					return cell;
+				} else if (section == 1) {
+					var cell = tableView.DequeueReusableCell ("F");
+					if (cell == null) {
+						cell = new UITableViewCell (UITableViewCellStyle.Default, "F");
+						cell.TextLabel.TextColor = ValueColor;
+					}
+
+					cell.TextLabel.Text = "Favorite";
+					cell.Accessory = controller.personViewModel.IsFavorite ?
+						UITableViewCellAccessory.Checkmark :
+						UITableViewCellAccessory.None;
+
+					return cell;
+				} else {
+					var cell = tableView.DequeueReusableCell ("C");
+					if (cell == null) {
+						cell = new UITableViewCell (UITableViewCellStyle.Value2, "C");
+					}
+
+					var prop = controller.personViewModel.PropertyGroups [section - 2].Properties [indexPath.Row];
+
+					cell.TextLabel.Text = prop.Name.ToLowerInvariant ();
+					cell.DetailTextLabel.Text = prop.Value;
+
+					cell.SelectionStyle = prop.Type == PersonViewModel.PropertyType.Generic ?
 						UITableViewCellSelectionStyle.None :
 						UITableViewCellSelectionStyle.Blue;
 
-				return cell;
+					return cell;
+				}
 			}
 		}
 	}

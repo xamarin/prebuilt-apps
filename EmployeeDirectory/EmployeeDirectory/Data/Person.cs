@@ -171,6 +171,17 @@ namespace EmployeeDirectory.Data
 			}
 		}
 
+		public string SafeFirstName {
+			get {
+				if (!string.IsNullOrWhiteSpace (FirstName)) {
+					return FirstName;
+				}
+				else {
+					return SplitFirstAndLastName ()[0];
+				}
+			}
+		}
+
 		public string SafeLastName {
 			get {
 				if (!string.IsNullOrWhiteSpace (LastName)) {

@@ -24,13 +24,13 @@ namespace EmployeeDirectory.iOS
 {
 	public class PeopleGroupsDelegate : UITableViewDelegate
 	{
-		UITableViewController controller;
+		UITableView tableView;
 
 		public event EventHandler<PersonSelectedEventArgs> PersonSelected;
 
-		public PeopleGroupsDelegate (UITableViewController controller)
+		public PeopleGroupsDelegate (UITableView tableView)
 		{
-			this.controller = controller;
+			this.tableView = tableView;
 		}
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
@@ -47,7 +47,6 @@ namespace EmployeeDirectory.iOS
 		public void DidEndDragging (UIScrollView scrollView, bool willDecelerate)
 		{
 			if (!willDecelerate) {
-				var tableView = controller.TableView;
 				((PeopleGroupsDataSource)tableView.DataSource).LoadImagesForOnscreenRows (tableView);
 			}
 		}
@@ -55,7 +54,6 @@ namespace EmployeeDirectory.iOS
 		[Export ("scrollViewDidEndDecelerating:")]
 		public void DidEndDecelerating (UIScrollView scrollView)
 		{
-			var tableView = controller.TableView;
 			((PeopleGroupsDataSource)tableView.DataSource).LoadImagesForOnscreenRows (tableView);
 		}
 	}
