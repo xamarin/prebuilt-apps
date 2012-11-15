@@ -27,7 +27,10 @@ namespace EmployeeDirectory.iOS
 		SearchViewModel searchViewModel;
 
 		UISearchBar searchBar;
+
+		#pragma warning disable 414
 		UISearchDisplayController searchController;
+		#pragma warning restore 414
 
 		public FavoritesViewController (IFavoritesRepository favoritesRepository, IDirectoryService service, Search savedSearch)
 		{

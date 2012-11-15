@@ -153,6 +153,7 @@
     <Compile Include="PeopleGroupsDataSource.cs" />
     <Compile Include="PeopleGroupsDelegate.cs" />
     <Compile Include="SearchDisplayDelegate.cs" />
+    <Compile Include="ActivityView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

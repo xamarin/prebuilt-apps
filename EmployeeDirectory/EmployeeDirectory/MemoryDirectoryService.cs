@@ -15,12 +15,14 @@
 //
 using System;
 using System.Collections.Generic;
-using EmployeeDirectory.Data;
-using System.Threading.Tasks;
-using System.Linq;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+
+using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory
 {
@@ -38,13 +40,13 @@ namespace EmployeeDirectory
 
 		#region IDirectoryService implementation
 
-		public Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit)
+		public Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit, CancellationToken cancellationToken)
 		{
 			return Task.Factory.StartNew (() => {
 				var s = Search (filter);
 				var list = s.ToList ();
 				return (IList<Person>)list;
-			});
+			}, cancellationToken);
 		}
 
 		IEnumerable<Person> Search (Filter filter)

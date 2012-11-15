@@ -29,6 +29,9 @@ namespace EmployeeDirectory.iOS
 		SearchProperty lastSearchProperty = SearchProperty.All;
 		UITableView lastTableView;
 
+		Lazy<ActivityView> activity = new Lazy<ActivityView> (
+			() => new ActivityView { Text = "Searching..." });
+
 		public SearchDisplayDelegate (SearchViewModel searchViewModel)
 		{
 			this.searchViewModel = searchViewModel;
@@ -38,7 +41,11 @@ namespace EmployeeDirectory.iOS
 
 		void HandleSearchCompleted (object sender, SearchCompletedEventArgs e)
 		{
+			// Only update the UI if these are the results for the last search
 			if (e.SearchText == lastSearchText && e.SearchProperty == lastSearchProperty) {
+
+				activity.Value.Stop ();
+
 				if (lastTableView != null) {
 					var data = (PeopleGroupsDataSource)lastTableView.DataSource;
 					data.Groups = searchViewModel.Groups;
@@ -54,8 +61,7 @@ namespace EmployeeDirectory.iOS
 			} else {
 				searchViewModel.SearchText = forSearchString;
 
-				lastTableView = controller.SearchResultsTableView;
-				BeginSearch ();
+				BeginSearch (controller);
 				return false; // We'll search asynchronously
 			}
 		}
@@ -77,15 +83,26 @@ namespace EmployeeDirectory.iOS
 				break;
 			}
 
-			lastTableView = controller.SearchResultsTableView;
-			BeginSearch ();
+			BeginSearch (controller);
 			return false; // We'll search asynchronously
 		}
 
-		void BeginSearch ()
+		void BeginSearch (UISearchDisplayController controller)
 		{
+			// Remember the search criteria so we can respond only to relevant events
+			lastTableView = controller.SearchResultsTableView;
 			lastSearchText = searchViewModel.SearchText;
 			lastSearchProperty = searchViewModel.SearchProperty;
+
+			// Display an activity indicator
+			if (lastTableView != null) {
+				if (!activity.Value.IsRunning) {
+					activity.Value.StartInView (lastTableView);
+				}
+				lastTableView.BringSubviewToFront (activity.Value);
+			}
+
+			// Begin the search
 			searchViewModel.Search ();
 		}
 	}

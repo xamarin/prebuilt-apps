@@ -95,7 +95,7 @@ namespace EmployeeDirectory.ViewModels
 			//
 			lastCancelSource = new CancellationTokenSource ();
 			var token = lastCancelSource.Token;
-			service.SearchAsync (search.Filter, 200).ContinueWith (
+			service.SearchAsync (search.Filter, 200, token).ContinueWith (
 				t => OnSearchCompleted (SearchText, SearchProperty, t),
 				token,
 				TaskContinuationOptions.None,

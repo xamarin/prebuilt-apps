@@ -14,13 +14,16 @@
 //    limitations under the License.
 //
 using System;
-using Novell.Directory.Ldap;
-using Novell.Directory.Ldap.Utilclass;
-using System.Threading.Tasks;
 using System.Collections.Generic;
-using EmployeeDirectory.Data;
 using System.Linq;
 using System.Reflection;
+using System.Threading;
+using System.Threading.Tasks;
+
+using Novell.Directory.Ldap;
+using Novell.Directory.Ldap.Utilclass;
+
+using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory
 {
@@ -42,7 +45,7 @@ namespace EmployeeDirectory
 			SearchBase = "";
 		}
 
-		public Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit)
+		public Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit, CancellationToken cancellationToken)
 		{
 			ValidateConfiguration ();
 
@@ -63,7 +66,7 @@ namespace EmployeeDirectory
 				// Search
 				//
 				return Search (compiledFilter, sizeLimit);
-			});
+			}, cancellationToken);
 		}
 
 		/// <summary>
