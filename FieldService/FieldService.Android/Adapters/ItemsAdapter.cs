@@ -66,8 +66,7 @@ namespace FieldService.Android {
             }
 
             var name = view.FindViewById<TextView> (Resource.Id.itemName);
-            var checkBox = view.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
-			checkBox.Tag = position;
+            name.Tag = position;
 
             var trashButton = view.FindViewById<ImageButton> (Resource.Id.itemTrashButton);
             trashButton.Click += (sender, e) => Fragment.DeleteItem (item);
@@ -75,7 +74,6 @@ namespace FieldService.Android {
             name.Text = string.Format ("#{0} {1}", item.Number, item.Name);
             trashButton.Tag = position;
             trashButton.Focusable = false;
-            checkBox.Focusable = false;
             return view;
         }
     }

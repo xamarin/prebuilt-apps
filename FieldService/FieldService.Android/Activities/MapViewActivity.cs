@@ -53,6 +53,8 @@ namespace FieldService.Android {
             address,
             timerText;
         AssignmentTabActivity.MapDataWrapper mapData;
+        RelativeLayout phoneButton,
+            mapButton;
 
         public MapViewActivity ()
         {
@@ -104,6 +106,15 @@ namespace FieldService.Android {
             spinnerImage = view.FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
             timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
             timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
+            phoneButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentPhoneLayout);
+            mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
+
+            phoneButton.Click += (sender, e) => {
+            };
+
+            mapButton.Click += (sender, e) => {
+
+            };
 
             assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.Recording) {

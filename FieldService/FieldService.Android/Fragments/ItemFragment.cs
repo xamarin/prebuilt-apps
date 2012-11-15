@@ -48,14 +48,10 @@ namespace FieldService.Android.Fragments {
             itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
             ReloadAssignmentItems ();
             itemsListView.ItemClick += (sender, e) => {
-                var checkbox = e.View.FindViewById<CheckBox> (Resource.Id.itemCheckBox);
-                checkbox.Checked = !checkbox.Checked;
-                checkbox.Enabled = false;
-                var item = AssignmentItems.ElementAtOrDefault (checkbox.Tag.ToString ().ToInt ());
+                var textView = e.View.FindViewById<TextView> (Resource.Id.itemName);
+                var item = AssignmentItems.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
                 item.Used = !item.Used;
-                itemViewModel
-                    .SaveAssignmentItem (Assignment, item)
-                    .ContinueOnUIThread (_ => checkbox.Enabled = true);
+                itemViewModel.SaveAssignmentItem (Assignment, item);
             };
             return view;
         }
