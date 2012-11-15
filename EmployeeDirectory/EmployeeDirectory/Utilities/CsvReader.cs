@@ -95,13 +95,20 @@ namespace EmployeeDirectory
 				ch = reader.Read ();
 			}
 
-			prop.SetValue (
-				r,
-				Convert.ChangeType (
-					sb.ToString ().Trim (), 
-					prop.PropertyType, 
-					formatProvider),
-				null);
+			var valueString = sb.ToString ().Trim ();
+
+			if (typeof(System.Collections.IList).IsAssignableFrom (prop.PropertyType)) {
+				var coll = (System.Collections.IList)prop.GetValue (r, null);
+				coll.Add (valueString);
+			} else {
+				prop.SetValue (
+					r,
+					Convert.ChangeType (
+						valueString, 
+						prop.PropertyType, 
+						formatProvider),
+					null);
+			}
 
 			return ch;
 		}

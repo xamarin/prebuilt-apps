@@ -1,55 +1,15 @@
-Name,Title,Email,Twitter
-Alan McGovern ,Resident Irish Hacker ,alan@xamarin.com ,@amcgovern 
-Alec Rowell ,Editor ,alecr@xamarin.com , 
-Alex Corrado ,Hacker ,alexc@xamarin.com ,@chknofthescene 
-Alex Rønne Petersen ,Docs Team Hacker ,alex.petersen@xamarin.com ,@xtzgzorex 
-Andrew Way ,Customer Success Engineer ,andrew.way@xamarin.com ,@away168 
-Anuj Bhatia ,Customer Success Engineer ,anuj.bhatia@xamarin.com , 
-Atsushi Enomoto ,Hacker ,atsushi@xamarin.com ,@atsushi_eno 
-Betai Koffi ,Customer Success Engineer ,betai@xamarin.com , 
-Bojan Rajković ,"Web/dev-ops hacker—maintaining the web-facing side of Xamarin and making sure our infrastructure stays up and running, as well as developing new tools and software to make everything run smoother. ",bojan.rajkovic@xamarin.com ,@bojanrajkovic 
-Bryan Costanich ,Director of Education ,bryanc@xamarin.com ,@bryancostanich 
-Bryan Moulton ,Mobile Developer ,bryan.moulton@xamarin.com , 
-Chris Hardy ,Support Dude ,chrisntr@xamarin.com ,@chrisntr 
-Chris Howie , ,me@chrishowie.com ,@cdhowie 
-Craig Dunn ,Technical Writer ,craig.dunn@xamarin.com ,@conceptdev 
-David Siegel ,UX Designer ,david.siegel@xamarin.com ,dvdsgl 
-Dominique Louis ,Doing stuff ,dominique@xamarin.com ,@SoftSavage 
-Duncan Mak ,Release Engineering ,duncan.mak@xamarin.com ,@duncanmak 
-Eric Maupin ,"Software Engineer: System.Drawing on MonoTouch and Mono for Android, Xamarin Mobile, XWT.WPF ",eric.maupin@xamarin.com ,@ermau 
-Frank Krueger ,Software developer: Add-ons team creating sample apps as guidance for cross-platform developers ,frank.krueger@xamarin.com ,@praeclarum 
-Gonzalo Paniagua ,Hacker ,gonzalo@xamarin.com ,@gonziboy 
-Gouri Kumari ,Junior Software QA Engineer ,gouri.kumari@xamarin.com , 
-James Clancey ,Product Manager ,clancey@xamarin.com ,@jtclancey 
-Jeffrey Stedfast ,Hacker ,jeff@xamarin.com ,@jstedfast 
-Jérémie Laval ,Contractofrench ,jeremie.laval@xamarin.com ,@jeremie_laval 
-Jo Ann Buckner ,Marketing ,jo.ann.buckner@xamarin.com , 
-John Sheehan , ,john.sheehan@xamarin.com ,@johnsheehan 
-Jonathan Pryor ,Hacker ,jonp@xamarin.com ,jonpryor 
-Jose Miguel Torres ,Philosopher ,josemiguel@xamarin.com ,@alegrebandolero 
-Joseph Hill ,COO ,joseph@xamarin.com ,@josephhill 
-Lance Chu ,Financial Controller ,LChu@ravixgroup.com , 
-Larry Ewing ,"Dev-ops team, Marketo, Salesforce, Support tools ",lewing@xamarin.com ,@lewing 
-Lluis Sanchez ,MonoDevelop Team lead ,lluis@xamarin.com ,@slluis 
-Lorna Le ,Executive Assistant  ,Lorna@xamarin.com  , 
-Marek Habersack ,Hacker ,grendel@xamarin.com ,@grendelpl 
-Marek Safar ,"Mono, MonoTouch, C# compiler, debugging, base class library, bindings ",msafar@xamarin.com , 
-Mark Probst ,"Runtime, Garbage collection ",mark@xamarin.com ,@markprobst 
-Michael Hutchinson ,MonoDevelop Hacker (most of it) ,mhutch@xamarin.com ,@mjhutchinson 
-Miguel de Icaza ,CTO ,miguel@xamarin.com , 
-Mike Bluestein ,Technical Writer ,mike.bluestein@xamarin.com ,@mikebluestein 
-Mike Krüger ,MonoDevelop Hacker ,mkrueger@xamarin.com ,@mikrueger 
-Nat Friedman ,CEO ,nat@xamarin.com , 
-Nic Wise ,Developer Evangelist ,nic.wise@xamarin.com ,@fastchicken 
-Nina Vyedin ,"Mayor, DevDocs Hacker ",nina.vyedin@xamarin.com ,@ka11isto 
-Paolo Molaro ,Hacker ,lupus@xamarin.com , 
-Peter Collins ,Junior Software QA Engineer ,peter.collins@xamarin.com , 
-PJ Beaman ,QA Manager ,pj.beaman@xamarin.com ,@xamarinQA 
-Rodrigo Kumpera ,Hacker ,kumpera@xamarin.com ,@kumpera 
-Rolf Bjarne Kvinge ,Hacker ,rolf@xamarin.com , 
-Sebastien Pouliot ,iOS MonoTouch ,sebastien@xamarin.com ,@SPouliot 
-Tom Opgenorth , ,tom.opgenorth@xamarin.com ,topgenorth 
-Vinicius Depizzol ,"Interface Designer for everything: website front-end, T-Shirts, graphic design ",vinicius.depizzol@xamarin.com ,@vdepizzol 
-Vinicius Jarina ,MonoTouch for Visual Studio ,vinicius.jarina@xamarin.com ,@viniciusjarina 
-Zoltan Varga ,Runtime Hacker ,vargaz@xamarin.com , 
-Xander A. Monkey, Mascot,hello@xamarin.com,@xamarinhq
+Name,Title,Email,Twitter,TelephoneNumbers
+Andrew Way ,Customer Success Engineer ,andrew.way@xamarin.com ,@away168,1-855-926-2746
+Anuj Bhatia ,Customer Success Engineer ,anuj.bhatia@xamarin.com ,,1-855-926-2746
+Betai Koffi ,Customer Success Engineer ,betai@xamarin.com ,,1-855-926-2746
+Bryan Costanich ,Director of Education ,bryanc@xamarin.com ,@bryancostanich,1-855-926-2746
+Chris Hardy ,Support Dude ,chrisntr@xamarin.com ,@chrisntr,1-855-926-2746
+Frank Krueger ,Developer (Prebuilt app developer),fak@xamarin.com ,@praeclarum,1-855-926-2746
+James Clancey ,Product Manager (Prebuilt app developer),clancey@xamarin.com ,@jtclancey,1-855-926-2746
+Jo Ann Buckner ,Marketing ,jo.ann.buckner@xamarin.com ,@joannbuckner,1-855-926-2746
+Joseph Hill ,COO ,joseph@xamarin.com ,@josephhill,1-855-926-2746 
+Miguel de Icaza ,CTO ,miguel@xamarin.com ,@migueldeicaza,1-855-926-2746
+Nat Friedman ,CEO ,nat@xamarin.com,@natfriedman,1-855-926-2746
+Xander A. Monkey, Mascot,hello@xamarin.com,@xamarinhq,1-855-926-2746
+Ryan Paul,Evangelist,ryan@xamarin.com,@ryan,1-855-926-2746
+Stephanie Schatz,VP Sales,stephanie.schatz@xamarin.com,@she_travels,1-855-926-2746

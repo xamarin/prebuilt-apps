@@ -36,18 +36,23 @@ namespace EmployeeDirectory.iOS
 			//
 
 			// Local CSV file
-//			var service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
+			var service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
 
 			// LDAP service
-			var service = new LdapDirectoryService {
-				Host = "ldap.mit.edu",
-				SearchBase = "dc=mit,dc=edu",
-			};
+//			var service = new LdapDirectoryService {
+//				Host = "ldap.mit.edu",
+//				SearchBase = "dc=mit,dc=edu",
+//			};
 
 			//
 			// Load the favorites
 			//
-			var favoritesRepository = XmlFavoritesRepository.Open ("Favorites.xml");
+			var favoritesRepository = XmlFavoritesRepository.OpenIsolatedStorage ("Favorites.xml");
+
+			if (favoritesRepository.GetAll ().Count () == 0) {
+				favoritesRepository = XmlFavoritesRepository.OpenFile ("Data/XamarinFavorites.xml");
+				favoritesRepository.IsolatedStorageName = "Favorites.xml";
+			}
 
 			//
 			// Load the last search

@@ -176,5 +176,8 @@
     <Content Include="..\Data\XamarinDirectory.csv">
       <Link>Data\XamarinDirectory.csv</Link>
     </Content>
+    <Content Include="..\Data\XamarinFavorites.xml">
+      <Link>Data\XamarinFavorites.xml</Link>
+    </Content>
   </ItemGroup>
 </Project>
