@@ -37,6 +37,8 @@ namespace EmployeeDirectory.iOS
 
 			TableView.DataSource = new PersonDataSource (this);
 			TableView.Delegate = new PersonDelegate (this);
+
+			TableView.BackgroundView = new UIView ();
 		}
 
 		public override void ViewWillAppear (bool animated)

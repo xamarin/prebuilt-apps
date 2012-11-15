@@ -46,6 +46,14 @@
     <Content Include="PrebuiltAppImages\topnav%402x.png" />
     <Content Include="PrebuiltAppImages\topnavbtn.png" />
     <Content Include="PrebuiltAppImages\topnavbtn%402x.png" />
+    <Content Include="PrebuiltAppImages\backbutton.png" />
+    <Content Include="PrebuiltAppImages\backbutton%402x.png" />
+    <Content Include="PrebuiltAppImages\bluebar.png" />
+    <Content Include="PrebuiltAppImages\bluebar%402x.png" />
+    <Content Include="PrebuiltAppImages\bluenavbutton.png" />
+    <Content Include="PrebuiltAppImages\bluenavbutton%402x.png" />
+    <Content Include="PrebuiltAppImages\buttondark.png" />
+    <Content Include="PrebuiltAppImages\buttondark%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="PrebuiltAppTheme.cs" />
