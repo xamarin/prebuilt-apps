@@ -179,5 +179,7 @@
     <Content Include="..\Data\XamarinFavorites.xml">
       <Link>Data\XamarinFavorites.xml</Link>
     </Content>
+    <Content Include="Images\DetailsPlaceholder.jpg" />
+    <Content Include="Images\DetailsPlaceholder%402x.jpg" />
   </ItemGroup>
 </Project>

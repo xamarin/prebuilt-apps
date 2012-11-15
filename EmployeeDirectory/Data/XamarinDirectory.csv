@@ -1,15 +1,15 @@
-Name,Title,Email,Twitter,TelephoneNumbers
-Andrew Way ,Customer Success Engineer ,andrew.way@xamarin.com ,@away168,1-855-926-2746
-Anuj Bhatia ,Customer Success Engineer ,anuj.bhatia@xamarin.com ,,1-855-926-2746
-Betai Koffi ,Customer Success Engineer ,betai@xamarin.com ,,1-855-926-2746
-Bryan Costanich ,Director of Education ,bryanc@xamarin.com ,@bryancostanich,1-855-926-2746
-Chris Hardy ,Support Dude ,chrisntr@xamarin.com ,@chrisntr,1-855-926-2746
-Frank Krueger ,Developer (Prebuilt app developer),fak@xamarin.com ,@praeclarum,1-855-926-2746
-James Clancey ,Product Manager (Prebuilt app developer),clancey@xamarin.com ,@jtclancey,1-855-926-2746
-Jo Ann Buckner ,Marketing ,jo.ann.buckner@xamarin.com ,@joannbuckner,1-855-926-2746
-Joseph Hill ,COO ,joseph@xamarin.com ,@josephhill,1-855-926-2746 
-Miguel de Icaza ,CTO ,miguel@xamarin.com ,@migueldeicaza,1-855-926-2746
-Nat Friedman ,CEO ,nat@xamarin.com,@natfriedman,1-855-926-2746
-Xander A. Monkey, Mascot,hello@xamarin.com,@xamarinhq,1-855-926-2746
-Ryan Paul,Evangelist,ryan@xamarin.com,@ryan,1-855-926-2746
-Stephanie Schatz,VP Sales,stephanie.schatz@xamarin.com,@she_travels,1-855-926-2746
+Name,Title,Email,Twitter,TelephoneNumbers,Company
+Andrew Way ,Customer Success Engineer ,andrew.way@xamarin.com ,@away168,1-855-926-2746,Xamarin
+Anuj Bhatia ,Customer Success Engineer ,anuj.bhatia@xamarin.com ,,1-855-926-2746,Xamarin
+Betai Koffi ,Customer Success Engineer ,betai@xamarin.com ,,1-855-926-2746,Xamarin
+Bryan Costanich ,Director of Education ,bryanc@xamarin.com ,@bryancostanich,1-855-926-2746,Xamarin
+Chris Hardy ,Support Dude ,chrisntr@xamarin.com ,@chrisntr,1-855-926-2746,Xamarin
+Frank Krueger ,Developer (Prebuilt app developer),fak@xamarin.com ,@praeclarum,1-855-926-2746,Xamarin
+James Clancey ,Product Manager (Prebuilt app developer),clancey@xamarin.com,@jtclancey,1-855-926-2746,Xamarin
+Jo Ann Buckner ,Marketing ,jo.ann.buckner@xamarin.com ,@joannbuckner,1-855-926-2746,Xamarin
+Joseph Hill ,COO ,joseph@xamarin.com ,@josephhill,1-855-926-2746,Xamarin
+Miguel de Icaza ,CTO ,miguel@xamarin.com ,@migueldeicaza,1-855-926-2746,Xamarin
+Nat Friedman ,CEO ,nat@xamarin.com,@natfriedman,1-855-926-2746,Xamarin
+Xander A. Monkey, Mascot,hello@xamarin.com,@xamarinhq,1-855-926-2746,Xamarin
+Ryan Paul,Evangelist,ryan@xamarin.com,@ryan,1-855-926-2746,Xamarin
+Stephanie Schatz,VP Sales,stephanie.schatz@xamarin.com,@she_travels,1-855-926-2746,Xamarin

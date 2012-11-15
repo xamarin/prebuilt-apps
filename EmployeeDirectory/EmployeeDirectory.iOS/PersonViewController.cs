@@ -21,12 +21,16 @@ using MonoTouch.UIKit;
 
 using EmployeeDirectory.ViewModels;
 using EmployeeDirectory.Data;
+using EmployeeDirectory.Utilities;
+using System.Threading.Tasks;
 
 namespace EmployeeDirectory.iOS
 {
 	public class PersonViewController : UITableViewController
 	{
 		PersonViewModel personViewModel;
+
+		static readonly UIKitImageDownloader imageDownloader = new UIKitImageDownloader ();
 
 		public PersonViewController (Person person, IFavoritesRepository favoritesRepository)
 			: base (UITableViewStyle.Grouped)
@@ -37,8 +41,6 @@ namespace EmployeeDirectory.iOS
 
 			TableView.DataSource = new PersonDataSource (this);
 			TableView.Delegate = new PersonDelegate (this);
-
-			TableView.BackgroundView = new UIView ();
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -138,11 +140,27 @@ namespace EmployeeDirectory.iOS
 					controller.OnPropertySelected (prop);
 				}
 			}
+
+			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			{
+				if (indexPath.Section == 0) {
+					return 100;
+				} else {
+					return 44;
+				}
+			}
 		}
 
 		class PersonDataSource : UITableViewDataSource
 		{
 			static readonly UIColor ValueColor = UIColor.FromRGB (50, 79, 133);
+
+			const string PlaceholderImagePath = "Images/DetailsPlaceholder.jpg";
+
+			static Lazy<UIImage> PlaceholderImage = new Lazy<UIImage> (
+				() => UIImage.FromBundle (PlaceholderImagePath));
+
+			const int ImageSize = 88*2;
 
 			PersonViewController controller;
 
@@ -173,9 +191,27 @@ namespace EmployeeDirectory.iOS
 					if (cell == null) {
 						cell = new UITableViewCell (UITableViewCellStyle.Default, "N");
 						cell.SelectionStyle = UITableViewCellSelectionStyle.None;
+						cell.ImageView.Layer.CornerRadius = 6;
+						cell.ImageView.Layer.MasksToBounds = true;//.FillMode = 5;
 					}
 
-					cell.TextLabel.Text = controller.personViewModel.Person.SafeDisplayName;
+					var person = controller.personViewModel.Person;
+
+					cell.TextLabel.Text = person.SafeDisplayName;
+
+					if (person.HasEmail) {
+						var imageUrl = Gravatar.GetImageUrl (controller.personViewModel.Person.Email, ImageSize);
+
+						if (imageDownloader.HasLocallyCachedCopy (imageUrl)) {
+							cell.ImageView.Image = (UIImage)imageDownloader.GetImageAsync (imageUrl).Result;
+						}
+						else {
+							cell.ImageView.Image = PlaceholderImage.Value;
+							imageDownloader.GetImageAsync (imageUrl).ContinueWith (t => {
+								cell.ImageView.Image = (UIImage)t.Result;
+							}, TaskScheduler.FromCurrentSynchronizationContext ());
+						}
+					}
 
 					return cell;
 				} else if (section == 1) {

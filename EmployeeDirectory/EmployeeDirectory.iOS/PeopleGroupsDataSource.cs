@@ -124,7 +124,7 @@ namespace EmployeeDirectory.iOS
 			if (imageDownloadsInProgress.Contains (person.Id)) return;
 			imageDownloadsInProgress.Add (person.Id);
 
-			imageDownloader.GetImageAsync (Gravatar.GetUrl (person.Email, 88)).ContinueWith (t => {
+			imageDownloader.GetImageAsync (Gravatar.GetImageUrl (person.Email, 88)).ContinueWith (t => {
 				if (!t.IsFaulted) {
 					FinishImageDownload (tableView, indexPath, person, (UIImage)t.Result);
 				}

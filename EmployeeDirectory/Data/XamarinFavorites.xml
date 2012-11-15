@@ -12,6 +12,7 @@
       <Email>nat@xamarin.com</Email>
       <Twitter>@natfriedman</Twitter>
       <Title>CEO</Title>
+      <Company>Xamarin</Company>
     </Person>
     <Person>
       <Id>miguel@xamarin.com</Id>
@@ -24,6 +25,7 @@
       <Email>miguel@xamarin.com</Email>
       <Twitter>@migueldeicaza</Twitter>
       <Title>CTO</Title>
+      <Company>Xamarin</Company>
     </Person>
     <Person>
       <Id>joseph@xamarin.com</Id>
@@ -36,6 +38,7 @@
       <Email>joseph@xamarin.com</Email>
       <Twitter>@josephhill</Twitter>
       <Title>COO</Title>
+      <Company>Xamarin</Company>
     </Person>
     <Person>
       <Id>stephanie.schatz@xamarin.com</Id>
@@ -48,6 +51,7 @@
       <Email>stephanie.schatz@xamarin.com</Email>
       <Twitter>@she_travels</Twitter>
       <Title>VP Sales</Title>
+      <Company>Xamarin</Company>
     </Person>
     <Person>
       <Id>hello@xamarin.com</Id>
@@ -60,6 +64,7 @@
       <Email>hello@xamarin.com</Email>
       <Twitter>@xamarinhq</Twitter>
       <Title>Mascot</Title>
+      <Company>Xamarin</Company>
     </Person>
   </People>
 </Favorites>

@@ -48,7 +48,7 @@ namespace EmployeeDirectory.iOS
 
 		protected override object LoadImage (Stream stream)
 		{
-			return UIImage.LoadFromData (NSData.FromStream (stream));
+			return UIImage.LoadFromData (NSData.FromStream (stream), 2);
 		}
 	}
 }

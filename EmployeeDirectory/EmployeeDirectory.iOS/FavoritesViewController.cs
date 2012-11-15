@@ -65,6 +65,7 @@ namespace EmployeeDirectory.iOS
 				Delegate = new SearchDisplayDelegate (searchViewModel),
 			};
 			var searchDelegate = new PeopleGroupsDelegate (searchController.SearchResultsTableView);
+			searchController.SearchResultsTableView.SectionIndexMinimumDisplayRowCount = 10;
 			searchDelegate.PersonSelected += HandleSearchPersonSelected;
 			searchController.SearchResultsDelegate = searchDelegate;
 
@@ -112,8 +113,6 @@ namespace EmployeeDirectory.iOS
 				TableView.DeselectRow (sel, true);
 			}
 		}
-
-
 	}
 }
 
