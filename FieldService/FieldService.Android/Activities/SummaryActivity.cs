@@ -218,7 +218,7 @@ namespace FieldService.Android {
         /// <summary>
         /// Sets the child fragment for when each navigation item is selected
         /// </summary>
-        public void SetFrameFragment (int index)
+        private void SetFrameFragment (int index)
         {
             var transaction = FragmentManager.BeginTransaction ();
             var screen = Constants.Navigation [index];

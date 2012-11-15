@@ -699,17 +699,26 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f070090
 			public const int summaryAssignmentDescriptionHeader = 2131165328;
 			
-			// aapt resource value: 0x7f070094
-			public const int summaryAssignmentExpenses = 2131165332;
-			
-			// aapt resource value: 0x7f070092
-			public const int summaryAssignmentItems = 2131165330;
+			// aapt resource value: 0x7f070097
+			public const int summaryAssignmentExpenses = 2131165335;
 			
 			// aapt resource value: 0x7f070093
-			public const int summaryAssignmentLaborHours = 2131165331;
+			public const int summaryAssignmentItems = 2131165331;
+			
+			// aapt resource value: 0x7f070095
+			public const int summaryAssignmentLaborHours = 2131165333;
 			
 			// aapt resource value: 0x7f07008c
 			public const int summaryAssignmentTitle = 2131165324;
+			
+			// aapt resource value: 0x7f070096
+			public const int summaryExpensesLayout = 2131165334;
+			
+			// aapt resource value: 0x7f070092
+			public const int summaryItemsLayout = 2131165330;
+			
+			// aapt resource value: 0x7f070094
+			public const int summaryLaborLayout = 2131165332;
 			
 			// aapt resource value: 0x7f070054
 			public const int tabsText = 2131165268;

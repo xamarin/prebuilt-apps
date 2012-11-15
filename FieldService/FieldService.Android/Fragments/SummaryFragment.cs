@@ -17,7 +17,9 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Utilities;
 using FieldService.Data;
+using FieldService.Utilities;
 
 namespace FieldService.Android.Fragments {
     /// <summary>
@@ -29,7 +31,10 @@ namespace FieldService.Android.Fragments {
             expenses,
             description,
             descriptionHeader;
-        
+        RelativeLayout itemsLayout,
+            expensesLayout,
+            laborHoursLayout;
+
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
@@ -40,6 +45,9 @@ namespace FieldService.Android.Fragments {
             expenses = view.FindViewById<TextView> (Resource.Id.summaryAssignmentExpenses);
             description = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescription);
             descriptionHeader = view.FindViewById<TextView> (Resource.Id.summaryAssignmentDescriptionHeader);
+            itemsLayout = view.FindViewById<RelativeLayout> (Resource.Id.summaryItemsLayout);
+            laborHoursLayout = view.FindViewById<RelativeLayout> (Resource.Id.summaryLaborLayout);
+            expensesLayout = view.FindViewById<RelativeLayout> (Resource.Id.summaryExpensesLayout);
 
             if (Assignment != null) {
                 description.Text = Assignment.Description;
@@ -49,7 +57,30 @@ namespace FieldService.Android.Fragments {
                 expenses.Text = Assignment.TotalExpenses.ToString ("$#.00");
             }
 
+            itemsLayout.Click += (sender, e) => {
+                var index = Constants.Navigation.IndexOf("Items");
+                SelectNavigation (index);
+            };
+            laborHoursLayout.Click += (sender, e) => {
+                var index = Constants.Navigation.IndexOf ("Labor Hours");
+                SelectNavigation (index);
+            };
+            expensesLayout.Click += (sender, e) => {
+                var index = Constants.Navigation.IndexOf ("Expenses");
+                SelectNavigation (index);
+            };
+
             return view;
+        }
+
+        /// <summary>
+        /// Call to the navigation fragment to select the correct value in the list view to change fragments
+        /// </summary>
+        /// <param name="index"></param>
+        private void SelectNavigation (int index)
+        {
+            var fragment = Activity.FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);
+            fragment.SetNavigation (index);
         }
 
         /// <summary>

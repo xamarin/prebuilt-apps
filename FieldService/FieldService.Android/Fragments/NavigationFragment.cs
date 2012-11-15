@@ -159,8 +159,10 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void SetNavigation (int index)
         {
-            //navigationListView.SetSelection (index);
-            //OnItemClick (navigationListView, navigationListView.GetChildAt (index), index, 0);
+            var currentPosition = navigationListView.SelectedItemPosition;
+            if (currentPosition != index) {
+                navigationSelector.OnItemClick (navigationListView, navigationListView.GetChildAt (index), index, 0);
+            }
         }
 
         /// <summary>
