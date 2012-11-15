@@ -19,6 +19,7 @@ using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+
 using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory.iOS
@@ -62,19 +63,18 @@ namespace EmployeeDirectory.iOS
 			//
 			// Build the UI
 			//
-			var searchViewController = new SearchViewController (search, service, favoritesRepository);
-			var favoritesViewController = new FavoritesViewController (favoritesRepository);
-
-			var tabs = new UITabBarController ();
-			tabs.SetViewControllers (new UIViewController[] {
-				new UINavigationController (searchViewController),
-				new UINavigationController (favoritesViewController),
-			}, false);
+			var favoritesViewController = new FavoritesViewController (favoritesRepository, service, search);
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			window.RootViewController = tabs;
+			window.RootViewController = new UINavigationController (favoritesViewController);
 			window.MakeKeyAndVisible ();			
 			return true;
+		}
+
+		// This is the main entry point of the application.
+		static void Main (string[] args)
+		{
+			UIApplication.Main (args, null, "AppDelegate");
 		}
 	}
 }

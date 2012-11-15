@@ -14,11 +14,13 @@
 //    limitations under the License.
 //
 using System;
+
+using MonoTouch.Foundation;
+using MonoTouch.MessageUI;
 using MonoTouch.UIKit;
+
 using EmployeeDirectory.ViewModels;
 using EmployeeDirectory.Data;
-using MonoTouch.MessageUI;
-using MonoTouch.Foundation;
 
 namespace EmployeeDirectory.iOS
 {

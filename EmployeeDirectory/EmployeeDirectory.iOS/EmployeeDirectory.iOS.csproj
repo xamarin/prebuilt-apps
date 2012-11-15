@@ -84,7 +84,6 @@
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="UIViewControllerEx.cs" />
     <Compile Include="..\EmployeeDirectory\Filter.cs">
@@ -105,7 +104,6 @@
     <Compile Include="..\EmployeeDirectory\Data\Search.cs">
       <Link>EmployeeDirectory\Data\Search.cs</Link>
     </Compile>
-    <Compile Include="SearchEditorView.cs" />
     <Compile Include="..\EmployeeDirectory\Utilities\ImageDownloader.cs">
       <Link>EmployeeDirectory\Utilities\ImageDownloader.cs</Link>
     </Compile>
@@ -113,7 +111,6 @@
     <Compile Include="..\EmployeeDirectory\Data\SearchProperty.cs">
       <Link>EmployeeDirectory\Data\SearchProperty.cs</Link>
     </Compile>
-    <Compile Include="SearchViewController.cs" />
     <Compile Include="..\EmployeeDirectory\ViewModels\ErrorEventArgs.cs">
       <Link>EmployeeDirectory\ViewModels\ErrorEventArgs.cs</Link>
     </Compile>
@@ -152,6 +149,9 @@
     <Compile Include="..\EmployeeDirectory\ViewModels\FavoritesViewModel.cs">
       <Link>EmployeeDirectory\ViewModels\FavoritesViewModel.cs</Link>
     </Compile>
+    <Compile Include="PersonCell.cs" />
+    <Compile Include="PeopleGroupsDataSource.cs" />
+    <Compile Include="PeopleGroupsDelegate.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

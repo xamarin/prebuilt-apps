@@ -14,8 +14,9 @@
 //    limitations under the License.
 //
 using System;
-using MonoTouch.UIKit;
+
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
 
 namespace EmployeeDirectory.iOS
 {
