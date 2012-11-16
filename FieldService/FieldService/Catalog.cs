@@ -25,15 +25,12 @@ namespace FieldService {
     /// - a developer could replace this with *.resx supporting globalization if desired
     /// </summary>
     public class Catalog {
-        /// <summary>
-        /// Username error message
-        /// </summary>
-        private const string UsernameValidation = "Please enter a username.";
 
-        /// <summary>
-        /// Password error message
-        /// </summary>
+        private const string UsernameValidation = "Please enter a username.";
         private const string PasswordValidation = "Please enter a password.";
+        private const string LaborTypeHourly = "Hourly";
+        private const string LaborTypeOverTime = "Over Time";
+        private const string LaborTypeHolidayTime = "Holiday Time";
 
         public static string GetString (string key, string comment = null)
         {
@@ -42,6 +39,12 @@ namespace FieldService {
                     return UsernameValidation;
                 case "PasswordValidation":
                     return PasswordValidation;
+                case "LaborTypeHourly":
+                    return LaborTypeHourly;
+                case "LaborTypeOverTime":
+                    return LaborTypeOverTime;
+                case "LaborTypeHolidayTime":
+                    return LaborTypeHolidayTime;
                 default:
                     return string.Empty;
             }
