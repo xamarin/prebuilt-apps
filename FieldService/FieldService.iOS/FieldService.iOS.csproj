@@ -100,8 +100,8 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="..\FieldService\Strings.cs">
-      <Link>FieldService\Strings.cs</Link>
+    <Compile Include="..\FieldService\Catalog.cs">
+      <Link>FieldService\Catalog.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
@@ -110,8 +110,8 @@
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Utilities\Theme.cs" />
-    <Compile Include="..\FieldService\Data\ILoginService.cs">
-      <Link>FieldService\Data\ILoginService.cs</Link>
+    <Compile Include="..\FieldService\ILoginService.cs">
+      <Link>FieldService\ILoginService.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Data\SampleLoginService.cs">
       <Link>FieldService\Data\SampleLoginService.cs</Link>
@@ -131,8 +131,8 @@
     <Compile Include="..\FieldService\Data\Enumerations.cs">
       <Link>FieldService\Data\Enumerations.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Data\IAssignmentService.cs">
-      <Link>FieldService\Data\IAssignmentService.cs</Link>
+    <Compile Include="..\FieldService\IAssignmentService.cs">
+      <Link>FieldService\IAssignmentService.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Data\Item.cs">
       <Link>FieldService\Data\Item.cs</Link>
@@ -149,8 +149,8 @@
     <Compile Include="..\FieldService\ViewModels\AssignmentViewModel.cs">
       <Link>FieldService\ViewModels\AssignmentViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Bootstrapper.cs">
-      <Link>FieldService\Bootstrapper.cs</Link>
+    <Compile Include="..\FieldService\ServiceRegistrar.cs">
+      <Link>FieldService\ServiceRegistrar.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
       <Link>FieldService\Utilities\ServiceContainer.cs</Link>
