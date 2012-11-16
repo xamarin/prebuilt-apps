@@ -47,7 +47,7 @@ namespace FieldService.WinRT.ViewModels {
             });
             saveAddLaborCommand = new DelegateCommand (async _ => {
                 selectedLabor.Hours = TimeSpan.FromHours (currentLaborHours.ToDouble ());
-                selectedLabor.Assignment = assignmentViewModel.SelectedAssignment.ID;
+                selectedLabor.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
                 await SaveLaborAsync (assignmentViewModel.SelectedAssignment, selectedLabor);
                 await LoadLaborHoursAsync (assignmentViewModel.SelectedAssignment);
                 addLaborPopUp.IsOpen = false;

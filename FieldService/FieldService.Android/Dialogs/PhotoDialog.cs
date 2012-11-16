@@ -179,7 +179,7 @@ namespace FieldService.Android.Dialogs {
                 savePhoto.Image = imageBitmap.ToByteArray ();
             }
             savePhoto.Description = optionalCaption.Text;
-            savePhoto.Assignment = Assignment.ID;
+            savePhoto.AssignmentId = Assignment.Id;
 
             photoViewModel.SavePhotoAsync (Assignment, savePhoto)
                 .ContinueOnUIThread (_ => {

@@ -44,7 +44,7 @@ namespace FieldService.WinRT.ViewModels {
             });
 
             savePhotoCommand = new DelegateCommand (async _ => {
-                selectedPhoto.Assignment = assignmentViewModel.SelectedAssignment.ID;
+                selectedPhoto.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
                 await SavePhotoAsync (assignmentViewModel.SelectedAssignment, selectedPhoto);
                 await LoadPhotosAsync (assignmentViewModel.SelectedAssignment);
                 OnPropertyChanged ("Photos");

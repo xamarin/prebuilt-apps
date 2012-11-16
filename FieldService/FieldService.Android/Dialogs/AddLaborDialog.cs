@@ -64,7 +64,7 @@ namespace FieldService.Android.Dialogs {
             var delete = (Button)FindViewById (Resource.Id.deleteAddLabor);
             delete.Click += (sender, e) => {
                 //delete & reload
-                if (CurrentLabor != null && CurrentLabor.ID != -1) {
+                if (CurrentLabor != null && CurrentLabor.Id != -1) {
                     DeleteLabor ();
                 } else {
                     Dismiss ();
@@ -166,7 +166,7 @@ namespace FieldService.Android.Dialogs {
         {
             CurrentLabor.Hours = TimeSpan.FromHours (hours.Text.ToDouble ());
             CurrentLabor.Description = description.Text;
-            CurrentLabor.Assignment = Assignment.ID;
+            CurrentLabor.AssignmentId = Assignment.Id;
 
             laborViewModel
                 .SaveLaborAsync (Assignment, CurrentLabor)

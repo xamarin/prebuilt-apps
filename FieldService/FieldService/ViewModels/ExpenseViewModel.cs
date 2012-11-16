@@ -43,7 +43,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task SaveExpenseAsync (Assignment assignment, Expense expense)
         {
-            bool newItem = expense.ID == 0;
+            bool newItem = expense.Id == 0;
 
             return service.SaveExpense (expense)
                 .ContinueWith (t => {

@@ -26,10 +26,10 @@ namespace FieldService.Data {
     /// </summary>
     public class Expense {
         /// <summary>
-        /// ID of the item
+        /// Id of the item
         /// </summary>
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// A category to identify the expense
@@ -55,7 +55,7 @@ namespace FieldService.Data {
         /// Link to an assignment
         /// </summary>
         [Indexed]
-        public int Assignment { get; set; }
+        public int AssignmentId { get; set; }
 
         /// <summary>
         /// A nicely string formatted version of Type

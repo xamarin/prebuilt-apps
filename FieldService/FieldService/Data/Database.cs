@@ -17,7 +17,6 @@ using SQLite;
 using System.Linq;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Threading.Tasks;
 using FieldService.Utilities;
 
@@ -30,6 +29,8 @@ namespace FieldService.Data
     {
 #if NETFX_CORE
         private static readonly string Path = "Database.db"; //TODO: change this later
+#elif NCRUNCH
+        private static readonly string Path = System.IO.Path.GetTempFileName();
 #else
         private static readonly string Path = System.IO.Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "Database.db");
 #endif
@@ -49,7 +50,7 @@ namespace FieldService.Data
         #region Test Data
 
         private static Assignment assignment1 = new Assignment {
-            ID = 1,
+            Id = 1,
             Priority = 1,
             JobNumber = "2001",
             Title = "Assignment 1",
@@ -68,7 +69,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment2 = new Assignment {
-            ID = 2,
+            Id = 2,
             Priority = 2,
             JobNumber = "2002",
             Title = "Assignment 2",
@@ -87,7 +88,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment3 = new Assignment {
-            ID = 3,
+            Id = 3,
             Priority = 3,
             JobNumber = "3113",
             Title = "Assignment 3",
@@ -106,7 +107,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment4 = new Assignment {
-            ID = 4,
+            Id = 4,
             Priority = 4,
             JobNumber = "3114",
             Title = "Assignment 4",
@@ -125,7 +126,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment5 = new Assignment {
-            ID = 5,
+            Id = 5,
             Priority = 5,
             JobNumber = "4445",
             Title = "Assignment 5",
@@ -144,7 +145,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment6 = new Assignment {
-            ID = 6,
+            Id = 6,
             Priority = 6,
             JobNumber = "4446",
             Title = "Assignment 6",
@@ -163,7 +164,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment7 = new Assignment {
-            ID = 7,
+            Id = 7,
             Priority = 7,
             JobNumber = "5677",
             Title = "Assignment 7",
@@ -182,7 +183,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment8 = new Assignment {
-            ID = 8,
+            Id = 8,
             Priority = 8,
             JobNumber = "5678",
             Title = "Assignment 8",
@@ -201,7 +202,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment9 = new Assignment {
-            ID = 9,
+            Id = 9,
             Priority = 9,
             JobNumber = "7809",
             Title = "Assignment 9",
@@ -220,7 +221,7 @@ namespace FieldService.Data
         };
 
         private static Assignment assignment10 = new Assignment {
-            ID = 10,
+            Id = 10,
             Priority = 10,
             JobNumber = "7810",
             Title = "Assignment 10",
@@ -268,22 +269,6 @@ namespace FieldService.Data
             return connection;
         }
 
-        /// <summary>
-        /// A helper method to reset the database
-        /// </summary>
-        public static Task DropTables ()
-        {
-            var connection = new SQLiteAsyncConnection (Path, true);
-            return connection
-                .DropTableAsync<Assignment> ()
-                .ContinueWith (connection.DropTableAsync<Item> ())
-                .ContinueWith (connection.DropTableAsync<AssignmentItem> ())
-                .ContinueWith (connection.DropTableAsync<Labor> ())
-                .ContinueWith (connection.DropTableAsync<Expense> ())
-                .ContinueWith (connection.DropTableAsync<TimerEntry> ())
-                .ContinueWith (_ => initialized = false);
-        }
-
         private static Task CreateDatabase(SQLiteAsyncConnection connection)
         {
             return Task.Factory.StartNew(() =>
@@ -316,19 +301,19 @@ namespace FieldService.Data
                         //Some items
                         new Item
                         {
-                            ID = 1,
+                            Id = 1,
                             Name = "Sheet Metal Screws",
                             Number = "1001",
                         },
                         new Item
                         {
-                            ID = 2,
+                            Id = 2,
                             Name = "PVC Pipe - Small",
                             Number = "1002",
                         },
                         new Item
                         {
-                            ID = 3,
+                            Id = 3,
                             Name = "PVC Pipe - Medium",
                             Number = "1003",
                         },
@@ -336,60 +321,60 @@ namespace FieldService.Data
                         //Some items on assignments
                         new AssignmentItem
                         {
-                            Assignment = assignment1.ID,
-                            Item = 1,
+                            AssignmentId = assignment1.Id,
+                            ItemId = 1,
                         },
                         new AssignmentItem
                         {
-                            Assignment = assignment1.ID,
-                            Item = 2,
+                            AssignmentId = assignment1.Id,
+                            ItemId = 2,
                         },
                         new AssignmentItem
                         {
-                            Assignment = assignment2.ID,
-                            Item = 2,
+                            AssignmentId = assignment2.Id,
+                            ItemId = 2,
                         },
                         new AssignmentItem
                         {
-                            Assignment = assignment2.ID,
-                            Item = 3,
+                            AssignmentId = assignment2.Id,
+                            ItemId = 3,
                         },
 			new AssignmentItem
 			{
-			    Assignment = assignment3.ID,
-			    Item = 1,
+			    AssignmentId = assignment3.Id,
+			    ItemId = 1,
 			},
                         new AssignmentItem
 			{
-			    Assignment = assignment5.ID,
-			    Item = 1,
+			    AssignmentId = assignment5.Id,
+			    ItemId = 1,
 			},
 
                         //Some labor for assignments
                         new Labor
                         {
-                            Assignment = assignment1.ID,
+                            AssignmentId = assignment1.Id,
                             Description = "Sheet Metal Screw Sorting",
                             Hours = TimeSpan.FromHours(10),
                             Type = LaborType.HolidayTime,
                         },
                         new Labor
                         {
-                            Assignment = assignment1.ID,
+                            AssignmentId = assignment1.Id,
                             Description = "Pipe Fitting",
                             Hours = TimeSpan.FromHours(4),
                             Type = LaborType.Hourly,
                         },
                         new Labor
                         {
-                            Assignment = assignment2.ID,
+                            AssignmentId = assignment2.Id,
                             Description = "Attaching Sheet Metal To PVC Pipe",
                             Hours = TimeSpan.FromHours(8),
                             Type = LaborType.OverTime,
                         },
                         new Labor
                         {
-                            Assignment = assignment3.ID,
+                            AssignmentId = assignment3.Id,
                             Description = "Sheet Metal / Pipe Decoupling",
                             Hours = TimeSpan.FromHours(4),
                             Type = LaborType.Hourly,
@@ -398,70 +383,70 @@ namespace FieldService.Data
                         //Some expenses for assignments
                         new Expense
                         {
-                            Assignment = assignment1.ID,
+                            AssignmentId = assignment1.Id,
                             Description = "Filled up tank at Speedway",
                             Category = ExpenseCategory.Gas,
                             Cost = 40.5M,
                         },
                         new Expense
                         {
-                            Assignment = assignment1.ID,
+                            AssignmentId = assignment1.Id,
                             Description = "Hot Dog from Speedway",
                             Category = ExpenseCategory.Food,
                             Cost = 0.99M,
                         },
                         new Expense
                         {
-                            Assignment = assignment2.ID,
+                            AssignmentId = assignment2.Id,
                             Description = "Duct Tape",
                             Category = ExpenseCategory.Supplies,
                             Cost = 3.5M,
                         },
                         new Expense
                         {
-                            Assignment = assignment3.ID,
+                            AssignmentId = assignment3.Id,
                             Description = "Taquito from Speedway",
                             Category = ExpenseCategory.Food,
                             Cost = 0.99M,
                         },
                         new Expense
                         {
-                            Assignment = assignment5.ID,
+                            AssignmentId = assignment5.Id,
                             Description = "Toll Road",
                             Category = ExpenseCategory.Other,
                             Cost = 1,
                         },
                         new Expense
                         {
-                            Assignment = assignment6.ID,
+                            AssignmentId = assignment6.Id,
                             Description = "Chocolate",
                             Category = ExpenseCategory.Food,
                             Cost = 1.5M,
                         },
                         new Expense
                         {
-                            Assignment = assignment7.ID,
+                            AssignmentId = assignment7.Id,
                             Description = "Advertising",
                             Category = ExpenseCategory.Other,
                             Cost = 200M,
                         },
                         new Expense
                         {
-                            Assignment = assignment8.ID,
+                            AssignmentId = assignment8.Id,
                             Description = "Cleaning Supplies",
                             Category = ExpenseCategory.Supplies,
                             Cost = 1.99M,
                         },
                         new Expense
                         {
-                            Assignment = assignment9.ID,
+                            AssignmentId = assignment9.Id,
                             Description = "Ingredients",
                             Category = ExpenseCategory.Food,
                             Cost = 1.99M,
                         },
                         new Expense
                         {
-                            Assignment = assignment10.ID,
+                            AssignmentId = assignment10.Id,
                             Description = "Universal Stuff",
                             Category = ExpenseCategory.Supplies,
                             Cost = 99.99M,
@@ -469,12 +454,12 @@ namespace FieldService.Data
 
                         new AssignmentHistory
                         {
-                            Assignment = assignment1.ID,
+                            AssignmentId = assignment1.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment1.ID,
+                            AssignmentId = assignment1.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -482,17 +467,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment1.ID,
+                            AssignmentId = assignment1.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment2.ID,
+                            AssignmentId = assignment2.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment2.ID,
+                            AssignmentId = assignment2.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -500,17 +485,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment2.ID,
+                            AssignmentId = assignment2.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment3.ID,
+                            AssignmentId = assignment3.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment3.ID,
+                            AssignmentId = assignment3.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -518,17 +503,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment3.ID,
+                            AssignmentId = assignment3.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment4.ID,
+                            AssignmentId = assignment4.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment4.ID,
+                            AssignmentId = assignment4.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -536,17 +521,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment4.ID,
+                            AssignmentId = assignment4.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment5.ID,
+                            AssignmentId = assignment5.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment5.ID,
+                            AssignmentId = assignment5.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -554,17 +539,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment5.ID,
+                            AssignmentId = assignment5.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment6.ID,
+                            AssignmentId = assignment6.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment6.ID,
+                            AssignmentId = assignment6.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -572,17 +557,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment6.ID,
+                            AssignmentId = assignment6.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment7.ID,
+                            AssignmentId = assignment7.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment7.ID,
+                            AssignmentId = assignment7.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -590,17 +575,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment7.ID,
+                            AssignmentId = assignment7.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment8.ID,
+                            AssignmentId = assignment8.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment8.ID,
+                            AssignmentId = assignment8.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -608,17 +593,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment8.ID,
+                            AssignmentId = assignment8.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment9.ID,
+                            AssignmentId = assignment9.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment9.ID,
+                            AssignmentId = assignment9.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -626,17 +611,17 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment9.ID,
+                            AssignmentId = assignment9.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment10.ID,
+                            AssignmentId = assignment10.Id,
                             Date = DateTime.Today.AddDays(-30),
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment10.ID,
+                            AssignmentId = assignment10.Id,
                             Type = AssignmentHistoryType.PhoneCall,
                             CallLength = TimeSpan.FromHours(1.25),
                             CallDescription = "Received call about a new issue.",
@@ -644,7 +629,7 @@ namespace FieldService.Data
                         },
                         new AssignmentHistory
                         {
-                            Assignment = assignment10.ID,
+                            AssignmentId = assignment10.Id,
                             Date = DateTime.Today.AddDays(-90),
                         },
                     });

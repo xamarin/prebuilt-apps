@@ -30,8 +30,7 @@ namespace FieldService.Tests.Data {
         [SetUp]
         public void SetUp ()
         {
-            var task = Database.DropTables ().ContinueWith (Database.Initialize ());
-            task.Wait ();
+            Database.Initialize ().Wait ();
 
             service = new SampleAssignmentService ();
         }
@@ -54,7 +53,7 @@ namespace FieldService.Tests.Data {
 
             assignmentTask.Wait ();
 
-            var assignment = assignmentTask.Result.FirstOrDefault (a => a.ID == 1);
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.Title == "Assignment 1");
 
             Assert.That (assignment.TotalHours, Is.EqualTo (TimeSpan.FromHours (14)));
         }
@@ -66,7 +65,7 @@ namespace FieldService.Tests.Data {
 
             assignmentTask.Wait ();
 
-            var assignment = assignmentTask.Result.FirstOrDefault (a => a.ID == 1);
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.Title == "Assignment 1");
 
             Assert.That (assignment.TotalItems, Is.EqualTo (2));
         }
@@ -78,7 +77,7 @@ namespace FieldService.Tests.Data {
 
             assignmentTask.Wait ();
 
-            var assignment = assignmentTask.Result.FirstOrDefault (a => a.ID == 1);
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.Title == "Assignment 1");
 
             Assert.That (assignment.TotalExpenses, Is.EqualTo (41.49M));
         }
@@ -102,8 +101,8 @@ namespace FieldService.Tests.Data {
         public void SaveAssignmentItemInsert ()
         {
             var assignmentItem = new AssignmentItem ();
-            assignmentItem.Item = 1;
-            assignmentItem.Assignment = 1;
+            assignmentItem.ItemId = 1;
+            assignmentItem.AssignmentId = 1;
 
             var saveTask = service.SaveAssignmentItem (assignmentItem);
             saveTask.Wait ();
@@ -115,14 +114,14 @@ namespace FieldService.Tests.Data {
         public void SaveAssignmentItemUpdate ()
         {
             var assignmentItem = new AssignmentItem ();
-            assignmentItem.Item = 1;
-            assignmentItem.Assignment = 1;
+            assignmentItem.ItemId = 1;
+            assignmentItem.AssignmentId = 1;
 
             var saveTask = service.SaveAssignmentItem (assignmentItem);
             saveTask.Wait ();
 
-            assignmentItem.Item = 1;
-            assignmentItem.Assignment = 2;
+            assignmentItem.ItemId = 1;
+            assignmentItem.AssignmentId = 2;
             saveTask = service.SaveAssignmentItem (assignmentItem);
             saveTask.Wait ();
 
@@ -203,7 +202,7 @@ namespace FieldService.Tests.Data {
 
             assignmentTask.Wait ();
 
-            var task = service.GetItemsForAssignmentAsync (assignmentTask.Result.First (a => a.ID == 1));
+            var task = service.GetItemsForAssignmentAsync (assignmentTask.Result.First (a => a.Id == 1));
 
             task.Wait ();
 
@@ -350,7 +349,7 @@ namespace FieldService.Tests.Data {
             getTask.Wait ();
             
             var result = getTask.Result;
-            Assert.That (entry.ID, Is.EqualTo (result.ID));
+            Assert.That (entry.Id, Is.EqualTo (result.Id));
             Assert.That (entry.Date, Is.EqualTo (result.Date));
         }
 
@@ -389,7 +388,7 @@ namespace FieldService.Tests.Data {
              
             var assignment = assignmentTask.Result.First ();
 
-            var task = service.SavePhoto (new Photo { Assignment = assignment.ID, Image = new byte [] { 255 } });
+            var task = service.SavePhoto (new Photo { AssignmentId = assignment.Id, Image = new byte [] { 255 } });
 
             task.Wait ();
 
@@ -404,7 +403,7 @@ namespace FieldService.Tests.Data {
             assignmentTask.Wait ();
 
             var assignment = assignmentTask.Result.First ();
-            var photo = new Photo { Assignment = assignment.ID, Image = new byte [] { 255 } };
+            var photo = new Photo { AssignmentId = assignment.Id, Image = new byte [] { 255 } };
 
             var task = service.SavePhoto (photo);
 

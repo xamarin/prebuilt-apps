@@ -30,22 +30,22 @@ namespace FieldService.Data {
         bool used = false;
 
         /// <summary>
-        /// ID of the assignment item, not really used
+        /// Id of the assignment item, not really used
         /// </summary>
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Link to an item
         /// </summary>
         [Indexed]
-        public int Item { get; set; }
+        public int ItemId { get; set; }
 
         /// <summary>
         /// Link to an assignment
         /// </summary>
         [Indexed]
-        public int Assignment { get; set; }
+        public int AssignmentId { get; set; }
 
         /// <summary>
         /// The item's name

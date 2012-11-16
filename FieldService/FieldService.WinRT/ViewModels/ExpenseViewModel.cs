@@ -50,7 +50,7 @@ namespace FieldService.WinRT.ViewModels {
 
             saveExpenseCommand = new DelegateCommand (async _ => {
                 selectedExpense.Cost = ExpenseCost.ToDecimal ();
-                selectedExpense.Assignment = assignmentViewModel.SelectedAssignment.ID;
+                selectedExpense.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
                 await SaveExpenseAsync (assignmentViewModel.SelectedAssignment, selectedExpense);
                 await LoadExpensesAsync (assignmentViewModel.SelectedAssignment);
                 addExpensePopUp.IsOpen = false;

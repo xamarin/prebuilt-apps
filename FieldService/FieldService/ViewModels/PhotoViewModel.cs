@@ -57,7 +57,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task SavePhotoAsync (Assignment assignment, Photo photo)
         {
-            bool newPhoto = photo.ID == 0;
+            bool newPhoto = photo.Id == 0;
 
             //Update the date
             photo.Date = DateTime.Now;

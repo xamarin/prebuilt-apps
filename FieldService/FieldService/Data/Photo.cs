@@ -24,15 +24,15 @@ namespace FieldService.Data {
     /// </summary>
     public class Photo {
         /// <summary>
-        /// Photo ID
+        /// Photo Id
         /// </summary>
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Link to assignment
         /// </summary>
-        public int Assignment { get; set; }
+        public int AssignmentId { get; set; }
 
         /// <summary>
         /// Actual image

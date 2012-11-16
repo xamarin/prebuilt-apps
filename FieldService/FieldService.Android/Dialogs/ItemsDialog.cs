@@ -52,8 +52,8 @@ namespace FieldService.Android.Dialogs {
             itemsListView.ItemClick += (sender, e) => {
                 var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (e.Position);
                 itemViewModel.SaveAssignmentItemAsync (Assignment, new AssignmentItem {
-                    Item = item.ID,
-                    Assignment = Assignment.ID,
+                    ItemId = item.Id,
+                    AssignmentId = Assignment.Id,
                 })
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);

@@ -43,7 +43,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task SaveLaborAsync (Assignment assignment, Labor labor)
         {
-            bool newItem = labor.ID == 0;
+            bool newItem = labor.Id == 0;
 
             return service.SaveLabor (labor)
                 .ContinueWith (t => {

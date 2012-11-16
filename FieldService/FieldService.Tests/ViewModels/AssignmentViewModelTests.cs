@@ -82,7 +82,7 @@ namespace FieldService.Tests.ViewModels {
 
             Assert.That (viewModel.IsBusy, Is.False);
             Assert.That (activeAssignment.Status, Is.EqualTo (AssignmentStatus.Hold));
-            Assert.That (activeAssignment.ID, Is.Not.EqualTo (assignment.ID));
+            Assert.That (activeAssignment.Id, Is.Not.EqualTo (assignment.Id));
             Assert.That (viewModel.ActiveAssignment.Status, Is.EqualTo (AssignmentStatus.Active));
         }
 

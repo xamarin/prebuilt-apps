@@ -77,7 +77,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task SaveAssignmentItemAsync (Assignment assignment, AssignmentItem item)
         {
-            bool newItem = item.ID == 0;
+            bool newItem = item.Id == 0;
 
             return service
                 .SaveAssignmentItem (item)

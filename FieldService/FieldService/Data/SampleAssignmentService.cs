@@ -28,9 +28,9 @@ namespace FieldService.Data {
             return Database.GetConnection ()
                 .QueryAsync<Assignment> (@"
                     select Assignment.*, 
-                           (SELECT SUM(Labor.Ticks) FROM Labor WHERE Assignment.ID = Labor.Assignment) as TotalTicks,       
-                           (SELECT COUNT(AssignmentItem.ID) FROM AssignmentItem WHERE Assignment.ID = AssignmentItem.Assignment) AS TotalItems,       
-                           (SELECT SUM(Expense.Cost) FROM Expense WHERE Assignment.ID = Expense.Assignment) AS TotalExpenses
+                           (SELECT SUM(Labor.Ticks) FROM Labor WHERE Assignment.Id = Labor.AssignmentId) as TotalTicks,       
+                           (SELECT COUNT(AssignmentItem.Id) FROM AssignmentItem WHERE Assignment.Id = AssignmentItem.AssignmentId) AS TotalItems,       
+                           (SELECT SUM(Expense.Cost) FROM Expense WHERE Assignment.Id = Expense.AssignmentId) AS TotalExpenses
                     from Assignment
                     where Assignment.Status != ? and Assignment.Status !=?
                     order by Assignment.Priority
@@ -52,17 +52,17 @@ namespace FieldService.Data {
                     select AssignmentItem.*, Item.Number, Item.Name
                     from AssignmentItem
                     inner join Item
-                    on Item.ID = AssignmentItem.Item
-                    where AssignmentItem.Assignment = ?
+                    on Item.Id = AssignmentItem.ItemId
+                    where AssignmentItem.AssignmentId = ?
                     order by Item.Name",
-                    assignment.ID);
+                    assignment.Id);
         }
 
         public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment)
         {
             return Database.GetConnection ()
                 .Table<Labor> ()
-                .Where (l => l.Assignment == assignment.ID)
+                .Where (l => l.AssignmentId == assignment.Id)
                 .ToListAsync ();
         }
 
@@ -70,7 +70,7 @@ namespace FieldService.Data {
         {
             return Database.GetConnection ()
                 .Table<Expense> ()
-                .Where (e => e.Assignment == assignment.ID)
+                .Where (e => e.AssignmentId == assignment.Id)
                 .ToListAsync ();
         }
 
@@ -78,7 +78,7 @@ namespace FieldService.Data {
         {
             return Database.GetConnection ()
                 .Table<Photo> ()
-                .Where (p => p.Assignment == assignment.ID)
+                .Where (p => p.AssignmentId == assignment.Id)
                 .ToListAsync ();
         }
 
@@ -90,7 +90,7 @@ namespace FieldService.Data {
 
         public Task<int> SaveAssignmentItem (AssignmentItem assignmentItem)
         {
-            if (assignmentItem.ID == 0)
+            if (assignmentItem.Id == 0)
                 return Database.GetConnection ().InsertAsync (assignmentItem);
             else
                 return Database.GetConnection ().UpdateAsync (assignmentItem);
@@ -98,7 +98,7 @@ namespace FieldService.Data {
 
         public Task<int> SaveLabor (Labor labor)
         {
-            if (labor.ID == 0)
+            if (labor.Id == 0)
                 return Database.GetConnection ().InsertAsync (labor);
             else
                 return Database.GetConnection ().UpdateAsync (labor);
@@ -106,7 +106,7 @@ namespace FieldService.Data {
 
         public Task<int> SaveExpense (Expense expense)
         {
-            if (expense.ID == 0)
+            if (expense.Id == 0)
                 return Database.GetConnection ().InsertAsync (expense);
             else
                 return Database.GetConnection ().UpdateAsync (expense);
@@ -114,7 +114,7 @@ namespace FieldService.Data {
 
         public Task<int> SavePhoto (Photo photo)
         {
-            if (photo.ID == 0)
+            if (photo.Id == 0)
                 return Database.GetConnection ().InsertAsync (photo);
             else
                 return Database.GetConnection ().UpdateAsync (photo);
@@ -147,9 +147,9 @@ namespace FieldService.Data {
 
         public Task<int> SaveTimerEntry (TimerEntry entry)
         {
-            //If the ID is zero, it's an insert, also set the ID to 1
-            if (entry.ID == 0) {
-                entry.ID = 1;
+            //If the Id is zero, it's an insert, also set the Id to 1
+            if (entry.Id == 0) {
+                entry.Id = 1;
                 return Database.GetConnection ().InsertAsync (entry);
             } else {
                 return Database.GetConnection ().UpdateAsync (entry);
@@ -191,10 +191,10 @@ namespace FieldService.Data {
                     select AssignmentHistory.*, Assignment.JobNumber, Assignment.Title, Assignment.ContactName, Assignment.ContactPhone, Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip
                     from AssignmentHistory
                     left outer join Assignment
-                    on Assignment.ID = AssignmentHistory.Assignment
-                    where AssignmentHistory.Assignment = ?
+                    on Assignment.Id = AssignmentHistory.AssignmentId
+                    where AssignmentHistory.AssignmentId = ?
                     order by AssignmentHistory.Date desc
-                ", assignment.ID);
+                ", assignment.Id);
         }
     }
 }
