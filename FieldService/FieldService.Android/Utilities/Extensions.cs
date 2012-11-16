@@ -119,8 +119,9 @@ namespace FieldService.Android.Utilities {
         /// <param name="number"></param>
         public static void MakePhoneCall (Activity activity, string number)
         {
-            var intent = new Intent (Intent.ActionDial);
-            string uri = "tel:" + number.Trim ();
+            var intent = new Intent (Intent.ActionView);
+            intent.SetFlags (ActivityFlags.ClearTop);
+            string uri = "tel:" + "270-796-5063";// number.Trim ();
             intent.SetData (global::Android.Net.Uri.Parse (uri));
             activity.StartActivity (intent);
         }

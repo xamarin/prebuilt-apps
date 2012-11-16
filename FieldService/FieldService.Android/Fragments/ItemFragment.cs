@@ -91,9 +91,16 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void DeleteItem (AssignmentItem item)
         {
-            itemViewModel.DeleteAssignmentItem (Assignment, item).ContinueOnUIThread (_ => {
-                ReloadItems ();
-            });
+            AlertDialog.Builder dialog = new AlertDialog.Builder (Activity)
+                .SetTitle ("Delete")
+                .SetMessage ("Are you sure you want to delete this item?")
+                .SetPositiveButton ("Yes", (sender, e) => {
+                    itemViewModel.DeleteAssignmentItem (Assignment, item).ContinueOnUIThread (_ => {
+                        ReloadItems ();
+                    });
+                })
+                .SetNegativeButton ("No", (sender, e) => { });
+            dialog.Show ();
         }
 
         public void ReloadItems ()

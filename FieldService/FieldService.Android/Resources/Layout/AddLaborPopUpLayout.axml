@@ -67,11 +67,15 @@
                 android:id="@+id/addLaborHours"
                 android:background="@android:color/transparent"
                 android:layout_gravity="center_horizontal"
-                android:padding="10dp" />
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="10dp" />
             <ImageView
                 android:src="@drawable/LaborHoursDivider"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
             <ImageButton
                 android:src="@drawable/downlaborhours"
                 android:layout_width="wrap_content"
@@ -79,7 +83,10 @@
                 android:id="@+id/subtractLaborHours"
                 android:background="@android:color/transparent"
                 android:layout_gravity="center_horizontal"
-                android:padding="10dp" />
+                android:paddingBottom="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp" />
         </LinearLayout>
     </LinearLayout>
     <EditText
@@ -90,19 +97,21 @@
         android:layout_marginTop="20dp"
         android:layout_gravity="center_horizontal"
         android:textColor="@android:color/black"
-        android:maxWidth="328dp"
+        android:maxWidth="330dp"
         android:textSize="12dp"
-        android:background="@android:color/transparent"
-        android:minWidth="328dp"
+        android:minWidth="330dp"
         android:maxHeight="120dp"
         android:minHeight="120dp"
-        android:gravity="left" />
+        android:gravity="left"
+        android:background="@android:color/transparent" />
     <ImageView
         android:src="@drawable/labordescriptionbottom"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="5dp" />
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" />
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="fill_parent"

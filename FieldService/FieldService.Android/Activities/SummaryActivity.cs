@@ -90,7 +90,7 @@ namespace FieldService.Android {
             addExpense = FindViewById<Button> (Resource.Id.selectedAssignmentAddExpense);
             navigationMenu = FindViewById<ImageButton> (Resource.Id.navigationMenu);
             navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
-            var back = FindViewById<ImageButton> (Resource.Id.backSummary);
+            var back = FindViewById<LinearLayout> (Resource.Id.backSummary);
             mapButton = FindViewById<LinearLayout> (Resource.Id.summaryMapIconLayout);
             phoneButton = FindViewById<LinearLayout> (Resource.Id.summaryPhoneIconLayout);
 
