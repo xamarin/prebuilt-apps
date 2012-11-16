@@ -261,7 +261,7 @@ namespace FieldService.Tests.Data {
             var task = service.GetAssignmentsAsync ();
             task.Wait ();
 
-            var assignment = task.Result.FirstOrDefault ();
+            var assignment = task.Result.FirstOrDefault (a => a.Title != "Assignment 1");
             assignment.Title = "New Title";
 
             var saveTask = service.SaveAssignment (assignment);
@@ -315,7 +315,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void SaveTimerEntry ()
         {
-            var task = service.SaveTimerEntry (new TimerEntry { Date = DateTime.Now.AddHours (-1) });
+            var task = service.SaveTimerEntry (new TimerEntry { Id = 1, Date = DateTime.Now.AddHours (-1) });
 
             task.Wait ();
 
@@ -325,7 +325,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void UpdateTimerEntry ()
         {
-            var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
+            var entry = new TimerEntry { Id = 1, Date = DateTime.Now.AddHours (-1) };
             var task = service.SaveTimerEntry (entry);
 
             task.Wait ();
