@@ -22,11 +22,11 @@ namespace FieldService.Utilities {
         {
             switch (type) {
                 case LaborType.Hourly:
-                    return "Hourly";
+                    return Catalog.GetString ("LaborTypeHourly");
                 case LaborType.OverTime:
-                    return "Over Time";
+                    return Catalog.GetString ("LaborTypeOverTime");
                 case LaborType.HolidayTime:
-                    return "Holiday Time";
+                    return Catalog.GetString ("LaborTypeHolidayTime");
                 default:
                     return type.ToString ();
             }
