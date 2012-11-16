@@ -38,7 +38,7 @@ namespace FieldService.WinRT {
             Suspending += OnSuspending;
 
             //Register services for core library
-            Bootstrapper.Startup ();
+            ServiceRegistrar.Startup ();
 
             //WinRT specific services
             ServiceContainer.Register<LoginViewModel> ();

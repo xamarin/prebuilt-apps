@@ -93,7 +93,7 @@ namespace FieldService.Android {
             phoneButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentPhoneLayout);
             mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
 
-            assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+            assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.Recording) {
                     timer.Checked = true;
                 } else {
@@ -104,9 +104,9 @@ namespace FieldService.Android {
             timer.CheckedChange += (sender, e) => {
                 if (e.IsChecked != assignmentViewModel.Recording) {
                     if (assignmentViewModel.Recording) {
-                        assignmentViewModel.Pause ();
+                        assignmentViewModel.PauseAsync ();
                     } else {
-                        assignmentViewModel.Record ();
+                        assignmentViewModel.RecordAsync ();
                     }
                 }
             };
@@ -118,7 +118,7 @@ namespace FieldService.Android {
                         switch (selected) {
                             case AssignmentStatus.Hold:
                                 assignment.Status = selected;
-                                assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+                                assignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
                                     ReloadAssignments ();
                                 });
                                 break;
@@ -156,7 +156,7 @@ namespace FieldService.Android {
         {
             base.OnResume ();
 
-            assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
+            assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.ActiveAssignment != null) {
                     SetActiveAssignmentVisible (true);
                 } else {
@@ -181,7 +181,7 @@ namespace FieldService.Android {
         /// </summary>
         public void ReloadAssignments ()
         {
-            assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
+            assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.ActiveAssignment != null) {
                     SetActiveAssignmentVisible (true);
                 } else {

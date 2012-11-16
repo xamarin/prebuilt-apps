@@ -86,7 +86,7 @@ namespace FieldService.Android {
                 var currentLabor = laborHours [position];
                 if (status != currentLabor.Type) {
                     currentLabor.Type = status;
-                    laborViewModel.SaveLabor (Assignment, currentLabor).ContinueOnUIThread (_ => {
+                    laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueOnUIThread (_ => {
                         var fragment = ServiceContainer.Resolve<LaborHourFragment> ();
                         fragment.ReloadSingleListItem (position);
                         });

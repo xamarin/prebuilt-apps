@@ -26,7 +26,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadAssignmentItems ()
         {
-            var task = viewModel.LoadAssignmentItems (new Assignment ());
+            var task = viewModel.LoadAssignmentItemsAsync (new Assignment ());
 
             task.Wait ();
 
@@ -36,7 +36,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadItems ()
         {
-            var task = viewModel.LoadItems ();
+            var task = viewModel.LoadItemsAsync ();
 
             task.Wait ();
 
@@ -47,7 +47,7 @@ namespace FieldService.Tests.ViewModels {
         public void SaveAssignmentItem ()
         {
             var assignment = new Assignment();
-            var task = viewModel.SaveAssignmentItem (assignment, new AssignmentItem ());
+            var task = viewModel.SaveAssignmentItemAsync (assignment, new AssignmentItem ());
 
             task.Wait ();
 
@@ -58,7 +58,7 @@ namespace FieldService.Tests.ViewModels {
         public void DeleteAssignmentItem ()
         {
             var assignment = new Assignment { TotalItems = 1 };
-            var task = viewModel.DeleteAssignmentItem (assignment, new AssignmentItem ());
+            var task = viewModel.DeleteAssignmentItemAsync (assignment, new AssignmentItem ());
 
             task.Wait ();
 

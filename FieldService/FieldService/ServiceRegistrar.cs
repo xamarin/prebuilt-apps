@@ -25,7 +25,7 @@ namespace FieldService {
     /// <summary>
     /// Class for registering services for the app
     /// </summary>
-    public static class Bootstrapper {
+    public static class ServiceRegistrar {
 
         /// <summary>
         /// Call on startup of the app, it configures ServiceContainer

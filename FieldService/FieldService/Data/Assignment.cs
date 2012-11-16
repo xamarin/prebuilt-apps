@@ -25,10 +25,10 @@ namespace FieldService.Data {
     /// </summary>
     public class Assignment {
         /// <summary>
-        /// Assignment ID
+        /// Assignment Id
         /// </summary>
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// The assignment's status
@@ -135,7 +135,7 @@ namespace FieldService.Data {
         /// </summary>
         public decimal TotalExpenses { get; set; }
 
-        #region WinRT properties
+        #region UI properties
 
         /// <summary>
         /// A formatted version of the job number for WinRT

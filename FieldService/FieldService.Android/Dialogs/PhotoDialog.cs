@@ -157,7 +157,7 @@ namespace FieldService.Android.Dialogs {
                 .SetMessage ("Are you sure?")
                 .SetPositiveButton ("Yes", (sender, e) => {
                     photoViewModel
-                   .DeletePhoto (Assignment, Photo)
+                   .DeletePhotoAsync (Assignment, Photo)
                    .ContinueOnUIThread (_ => {
                        var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
                        fragment.ReloadConfirmation ();
@@ -179,9 +179,9 @@ namespace FieldService.Android.Dialogs {
                 savePhoto.Image = imageBitmap.ToByteArray ();
             }
             savePhoto.Description = optionalCaption.Text;
-            savePhoto.Assignment = Assignment.ID;
+            savePhoto.AssignmentId = Assignment.Id;
 
-            photoViewModel.SavePhoto (Assignment, savePhoto)
+            photoViewModel.SavePhotoAsync (Assignment, savePhoto)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
                     fragment.ReloadConfirmation ();

@@ -57,9 +57,12 @@ namespace FieldService.WinRT.Views {
         {
             Item item = e.ClickedItem as Item;
             if (item != null) {
-                AssignmentItem assignmentItem = new AssignmentItem { Assignment = assignmentViewModel.SelectedAssignment.ID, Item = item.ID };
+                AssignmentItem assignmentItem = new AssignmentItem { 
+                    AssignmentId = assignmentViewModel.SelectedAssignment.Id, 
+                    ItemId = item.Id,
+                };
                 itemViewModel.SaveAssignmentItemCommand.Invoke (assignmentItem);
-                itemViewModel.LoadAssignmentItems (assignmentViewModel.SelectedAssignment);
+                itemViewModel.LoadAssignmentItemsAsync (assignmentViewModel.SelectedAssignment);
                 itemViewModel.CancelAddItemCommand.Invoke ();
             }
         }

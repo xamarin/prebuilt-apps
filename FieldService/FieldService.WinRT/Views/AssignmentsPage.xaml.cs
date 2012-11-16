@@ -48,10 +48,10 @@ namespace FieldService.WinRT.Views {
             assignmentViewModel.Assignments = null;
 
             if (!timerLoaded) {
-                assignmentViewModel.LoadTimerEntry ().ContinueWith (assignmentViewModel.LoadAssignments ());
+                assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (assignmentViewModel.LoadAssignmentsAsync ());
                 timerLoaded = true;
             } else {
-                assignmentViewModel.LoadAssignments ();
+                assignmentViewModel.LoadAssignmentsAsync ();
             }
         }
 

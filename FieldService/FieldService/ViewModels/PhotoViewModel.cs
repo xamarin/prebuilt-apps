@@ -45,7 +45,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads all the photos for an assignment
         /// </summary>
-        public Task LoadPhotos (Assignment assignment)
+        public Task LoadPhotosAsync (Assignment assignment)
         {
             return service
                 .GetPhotosForAssignmentAsync (assignment)
@@ -55,9 +55,9 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Saves a photo
         /// </summary>
-        public Task SavePhoto (Assignment assignment, Photo photo)
+        public Task SavePhotoAsync (Assignment assignment, Photo photo)
         {
-            bool newPhoto = photo.ID == 0;
+            bool newPhoto = photo.Id == 0;
 
             //Update the date
             photo.Date = DateTime.Now;
@@ -77,7 +77,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Deletes a photo
         /// </summary>
-        public Task DeletePhoto (Assignment assignment, Photo photo)
+        public Task DeletePhotoAsync (Assignment assignment, Photo photo)
         {
             return service
                 .DeletePhoto (photo)

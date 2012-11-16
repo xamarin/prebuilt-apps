@@ -11,10 +11,10 @@ namespace FieldService.Data {
     /// </summary>
     public class AssignmentHistory {
         /// <summary>
-        /// Assignment ID
+        /// Assignment Id
         /// </summary>
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Type of history record
@@ -24,7 +24,8 @@ namespace FieldService.Data {
         /// <summary>
         /// Link to an assignment or zero if it were a phone call
         /// </summary>
-        public int Assignment { get; set; }
+        [Indexed]
+        public int AssignmentId { get; set; }
 
         /// <summary>
         /// Length of the call
@@ -95,7 +96,7 @@ namespace FieldService.Data {
 
         #endregion
 
-        #region WinRT properties
+        #region UI properties
         /// <summary>
         /// A formatted version of the job number for WinRT
         /// </summary>

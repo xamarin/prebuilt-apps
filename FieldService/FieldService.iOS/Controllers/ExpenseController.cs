@@ -74,7 +74,7 @@ namespace FieldService.iOS
 			
 			addItem = new UIBarButtonItem ("Add Expense", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				Expense = new Expense {
-					Assignment = detailsController.Assignment.ID,
+					AssignmentId = detailsController.Assignment.Id,
 				};
 				PerformSegue ("AddExpense", this);
 			});
@@ -120,7 +120,7 @@ namespace FieldService.iOS
 					};
 				}
 
-				expenseViewModel.LoadExpenses (detailsController.Assignment)
+				expenseViewModel.LoadExpensesAsync (detailsController.Assignment)
 					.ContinueOnUIThread (_ => {
 						if (expenseViewModel.Expenses == null || expenseViewModel.Expenses.Count == 0) 
 							title.Text = "Expenses";
@@ -173,7 +173,7 @@ namespace FieldService.iOS
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				expenseViewModel
-					.DeleteExpense(detailsController.Assignment, expenseViewModel.Expenses[indexPath.Row])
+					.DeleteExpenseAsync (detailsController.Assignment, expenseViewModel.Expenses[indexPath.Row])
 					.ContinueOnUIThread (_ => expenseController.ReloadExpenses ());
 			}
 

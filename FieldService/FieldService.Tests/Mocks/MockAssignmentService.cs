@@ -31,7 +31,7 @@ namespace FieldService.Tests.Mocks {
             {
                 new Assignment
                 {
-                    ID = 1,
+                    Id = 1,
                     Status = AssignmentStatus.Active,
                     Title = "active test assignment",
                     StartDate = DateTime.Now,
@@ -39,7 +39,7 @@ namespace FieldService.Tests.Mocks {
                 },
                 new Assignment
                 {
-                    ID = 2,
+                    Id = 2,
                     Status = AssignmentStatus.New,
                     Title = "test assignment",
                     StartDate = DateTime.Now,
@@ -54,7 +54,7 @@ namespace FieldService.Tests.Mocks {
             {
                 new Item
                 {
-                    ID = 1,
+                    Id = 1,
                     Name = "test item",
                     Number = "1234",
                 },
@@ -67,9 +67,9 @@ namespace FieldService.Tests.Mocks {
             {
                 new AssignmentItem
                 {
-                    ID = 1,
-                    Assignment = 1,
-                    Item = 1,
+                    Id = 1,
+                    AssignmentId = 1,
+                    ItemId = 1,
                 },
             });
         }
@@ -80,8 +80,8 @@ namespace FieldService.Tests.Mocks {
             {
                 new Labor
                 {
-                    ID = 1,
-                    Assignment = 1,
+                    Id = 1,
+                    AssignmentId = 1,
                     Description = "New Labor",
                     Hours = TimeSpan.FromHours(1),
                     Type = LaborType.Hourly,
@@ -95,8 +95,8 @@ namespace FieldService.Tests.Mocks {
             {
                 new Expense
                 {
-                    ID = 1,
-                    Assignment = 1,
+                    Id = 1,
+                    AssignmentId = 1,
                     Description = "New Expense",
                     Category = ExpenseCategory.Other,
                 },
@@ -160,7 +160,7 @@ namespace FieldService.Tests.Mocks {
 
         public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment)
         {
-            return Task.Factory.StartNew (() => new List<Photo> { new Photo { Assignment = assignment.ID, Image = new byte [0] } });
+            return Task.Factory.StartNew (() => new List<Photo> { new Photo { AssignmentId = assignment.Id, Image = new byte [0] } });
         }
 
         public Task<int> SavePhoto (Photo photo)

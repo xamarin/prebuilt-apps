@@ -26,7 +26,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadDocuments ()
         {
-            var task = viewModel.LoadDocuments ();
+            var task = viewModel.LoadDocumentsAsync ();
 
             task.Wait ();
 

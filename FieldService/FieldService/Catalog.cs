@@ -24,15 +24,27 @@ namespace FieldService {
     /// Static class containing strings used throughout the app
     /// - a developer could replace this with *.resx supporting globalization if desired
     /// </summary>
-    public class Strings {
+    public class Catalog {
         /// <summary>
         /// Username error message
         /// </summary>
-        public const string UsernameValidation = "Please enter a username.";
+        private const string UsernameValidation = "Please enter a username.";
 
         /// <summary>
         /// Password error message
         /// </summary>
-        public const string PasswordValidation = "Please enter a password.";
+        private const string PasswordValidation = "Please enter a password.";
+
+        public static string GetString (string key, string comment = null)
+        {
+            switch (key) {
+                case "UsernameValidation":
+                    return UsernameValidation;
+                case "PasswordValidation":
+                    return PasswordValidation;
+                default:
+                    return string.Empty;
+            }
+        }
     }
 }

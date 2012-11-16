@@ -18,8 +18,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FieldService.Data;
 
-namespace FieldService.Data {
+namespace FieldService {
     /// <summary>
     /// Service for returning and saving assignment information
     /// </summary>

@@ -69,7 +69,7 @@ namespace FieldService.Android.Dialogs {
 
             var delete = (Button)FindViewById (Resource.Id.addExpenseDelete);
             delete.Click += (sender, e) => {
-                if (CurrentExpense != null && CurrentExpense.ID != -1) {
+                if (CurrentExpense != null && CurrentExpense.Id != -1) {
                     DeleteExpense ();
                 } else {
                     Dismiss ();
@@ -182,12 +182,12 @@ namespace FieldService.Android.Dialogs {
         {
             CurrentExpense.Description = expenseDescription.Text;
             CurrentExpense.Cost = expenseAmount.Text.ToDecimal ();
-            CurrentExpense.Assignment = Assignment.ID;
+            CurrentExpense.AssignmentId = Assignment.Id;
             if (CurrentExpense.Photo == null) {
                 CurrentExpense.Photo = imageBitmap.ToByteArray ();
             }
 
-            expenseViewModel.SaveExpense (Assignment, CurrentExpense)
+            expenseViewModel.SaveExpenseAsync (Assignment, CurrentExpense)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
                     fragment.ReloadExpenseData ();
@@ -197,7 +197,7 @@ namespace FieldService.Android.Dialogs {
 
         private void DeleteExpense ()
         {
-            expenseViewModel.DeleteExpense (Assignment, CurrentExpense)
+            expenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
                     fragment.ReloadExpenseData ();

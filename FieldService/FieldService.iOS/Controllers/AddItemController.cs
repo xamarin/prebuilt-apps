@@ -71,7 +71,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Reload items
-			itemViewModel.LoadItems ().ContinueOnUIThread (_ => tableView.ReloadData ());
+			itemViewModel.LoadItemsAsync ().ContinueOnUIThread (_ => tableView.ReloadData ());
 		}
 
 		/// <summary>
@@ -122,9 +122,9 @@ namespace FieldService.iOS
 			{
 				var item = GetItem (indexPath);
 				tableView.UserInteractionEnabled = false;
-				itemViewModel.SaveAssignmentItem (detailController.Assignment, new AssignmentItem {
-					Item = item.ID,
-					Assignment = detailController.Assignment.ID,
+				itemViewModel.SaveAssignmentItemAsync (detailController.Assignment, new AssignmentItem {
+					ItemId = item.Id,
+					AssignmentId = detailController.Assignment.Id,
 				})
 				.ContinueOnUIThread(_ => {
 					tableView.UserInteractionEnabled = true;

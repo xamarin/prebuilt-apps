@@ -47,14 +47,14 @@ namespace FieldService.WinRT.ViewModels {
             });
             saveAddLaborCommand = new DelegateCommand (async _ => {
                 selectedLabor.Hours = TimeSpan.FromHours (currentLaborHours.ToDouble ());
-                selectedLabor.Assignment = assignmentViewModel.SelectedAssignment.ID;
-                await SaveLabor (assignmentViewModel.SelectedAssignment, selectedLabor);
-                await LoadLaborHours (assignmentViewModel.SelectedAssignment);
+                selectedLabor.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
+                await SaveLaborAsync (assignmentViewModel.SelectedAssignment, selectedLabor);
+                await LoadLaborHoursAsync (assignmentViewModel.SelectedAssignment);
                 addLaborPopUp.IsOpen = false;
             });
             deleteAddLaborCommand = new DelegateCommand (async _ => {
-                await DeleteLabor (assignmentViewModel.SelectedAssignment, selectedLabor);
-                await LoadLaborHours (assignmentViewModel.SelectedAssignment);
+                await DeleteLaborAsync (assignmentViewModel.SelectedAssignment, selectedLabor);
+                await LoadLaborHoursAsync (assignmentViewModel.SelectedAssignment);
                 addLaborPopUp.IsOpen = false;
             });
             addLaborCommand = new DelegateCommand (obj => {

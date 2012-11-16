@@ -22,10 +22,10 @@ namespace FieldService.Data {
     /// </summary>
     public class Labor {
         /// <summary>
-        /// ID of the item
+        /// Id of the item
         /// </summary>
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Type of labor performed
@@ -41,7 +41,7 @@ namespace FieldService.Data {
         /// Link to an assignment
         /// </summary>
         [Indexed]
-        public int Assignment { get; set; }
+        public int AssignmentId { get; set; }
 
         /// <summary>
         /// The duration of this labor expressed in hours
@@ -70,7 +70,7 @@ namespace FieldService.Data {
             }
         }
 
-        #region WinRT properties
+        #region UI properties
 
         public string HoursFormatted
         {

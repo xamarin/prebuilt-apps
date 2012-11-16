@@ -26,7 +26,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadPhotos ()
         {
-            var task = viewModel.LoadPhotos (new Assignment());
+            var task = viewModel.LoadPhotosAsync (new Assignment());
 
             task.Wait ();
 
@@ -37,7 +37,7 @@ namespace FieldService.Tests.ViewModels {
         public void SavePhoto ()
         {
             var assignment = new Assignment ();
-            var task = viewModel.SavePhoto (assignment, new Photo ());
+            var task = viewModel.SavePhotoAsync (assignment, new Photo ());
 
             task.Wait ();
 
@@ -50,7 +50,7 @@ namespace FieldService.Tests.ViewModels {
             var assignment = new Assignment { TotalItems = 1 };
             var photo = new Photo ();
             viewModel.Photos = new List<Photo> { photo };
-            var task = viewModel.DeletePhoto (assignment, photo);
+            var task = viewModel.DeletePhotoAsync (assignment, photo);
 
             task.Wait ();
 

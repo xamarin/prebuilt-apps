@@ -89,8 +89,8 @@ namespace FieldService.ViewModels {
         /// </summary>
         protected override void Validate ()
         {
-            ValidateProperty (() => string.IsNullOrEmpty (username), Strings.UsernameValidation);
-            ValidateProperty (() => string.IsNullOrEmpty (password), Strings.PasswordValidation);
+            ValidateProperty (() => string.IsNullOrEmpty (username), Catalog.GetString ("UsernameValidation", comment: "Error message for username"));
+            ValidateProperty (() => string.IsNullOrEmpty (password), Catalog.GetString ("PasswordValidation", comment: "Error message for password"));
 
             base.Validate ();
         }

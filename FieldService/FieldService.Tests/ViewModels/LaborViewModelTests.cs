@@ -26,7 +26,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadLaborHours ()
         {
-            var task = viewModel.LoadLaborHours (new Assignment ());
+            var task = viewModel.LoadLaborHoursAsync (new Assignment ());
 
             task.Wait ();
 
@@ -37,11 +37,11 @@ namespace FieldService.Tests.ViewModels {
         public void SaveLabor ()
         {
             var assignment = new Assignment ();
-            var loadTask = viewModel.LoadLaborHours (assignment);
+            var loadTask = viewModel.LoadLaborHoursAsync (assignment);
 
             loadTask.Wait ();
 
-            var task = viewModel.SaveLabor (assignment, new Labor { Hours = TimeSpan.FromHours (1) });
+            var task = viewModel.SaveLaborAsync (assignment, new Labor { Hours = TimeSpan.FromHours (1) });
 
             task.Wait ();
 
@@ -52,11 +52,11 @@ namespace FieldService.Tests.ViewModels {
         public void DeleteLabor ()
         {
             var assignment = new Assignment();
-            var loadTask = viewModel.LoadLaborHours (assignment);
+            var loadTask = viewModel.LoadLaborHoursAsync (assignment);
 
             loadTask.Wait ();
             
-            var task = viewModel.DeleteLabor (assignment, viewModel.LaborHours.First());
+            var task = viewModel.DeleteLaborAsync (assignment, viewModel.LaborHours.First());
 
             task.Wait ();
 

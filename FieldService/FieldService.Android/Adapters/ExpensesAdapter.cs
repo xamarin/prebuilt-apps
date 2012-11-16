@@ -74,7 +74,7 @@ namespace FieldService.Android {
                 var currentExpense = expenses [position];
                 if (status != currentExpense.Category) {
                     currentExpense.Category = status;
-                    expenseViewModel.SaveExpense (Assignment, currentExpense).ContinueOnUIThread (_ => {
+                    expenseViewModel.SaveExpenseAsync (Assignment, currentExpense).ContinueOnUIThread (_ => {
                         var fragment = ServiceContainer.Resolve<ExpenseFragment> ();
                         fragment.ReloadSingleListItem (position);
                     });

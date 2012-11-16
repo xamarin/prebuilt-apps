@@ -61,7 +61,7 @@ namespace FieldService.iOS
 
 			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				expenseViewModel
-					.SaveExpense (detailController.Assignment, expenseController.Expense)
+					.SaveExpenseAsync (detailController.Assignment, expenseController.Expense)
 					.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);

@@ -120,7 +120,7 @@ namespace FieldService.Android {
                 overlayItem.AddressSelected ();
             };
 
-            assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+            assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
                 if (assignmentViewModel.Recording) {
                     timer.Checked = true;
                 } else {
@@ -131,9 +131,9 @@ namespace FieldService.Android {
             timer.CheckedChange += (sender, e) => {
                 if (e.IsChecked != assignmentViewModel.Recording) {
                     if (assignmentViewModel.Recording) {
-                        assignmentViewModel.Pause ();
+                        assignmentViewModel.PauseAsync ();
                     } else {
-                        assignmentViewModel.Record ();
+                        assignmentViewModel.RecordAsync ();
                     }
                 }
             };
@@ -145,7 +145,7 @@ namespace FieldService.Android {
                         switch (selected) {
                             case AssignmentStatus.Hold:
                                 assignment.Status = selected;
-                                assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+                                assignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
                                     SetAssignment (false);
                                     mapView.Overlays.Clear ();
                                     mapView.Overlays.Add (myLocation);
@@ -205,7 +205,7 @@ namespace FieldService.Android {
         /// </summary>
         private void UpdateLocations ()
         {
-            assignmentViewModel.LoadAssignments ().ContinueOnUIThread (_ => {
+            assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
                 foreach (var item in assignmentViewModel.Assignments) {
                     var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
                         item.Title, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));

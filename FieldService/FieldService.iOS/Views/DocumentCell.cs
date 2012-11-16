@@ -44,10 +44,7 @@ namespace FieldService.iOS
 			SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
 			TextLabel.TextColor = Theme.LabelColor;
 			ImageView.Image = Theme.IconPdf;
-
-			var button = UIButton.FromType (UIButtonType.DetailDisclosure);
-			button.TouchUpInside += (sender, e) => Clicked (sender);
-			AccessoryView = button;
+			Accessory = UITableViewCellAccessory.DisclosureIndicator;
 		}
 
 		public UIDocumentInteractionController DocumentController {
@@ -74,7 +71,7 @@ namespace FieldService.iOS
 			TextLabel.Text = document.Title;
 		}
 
-		public void Clicked (object sender)
+		public void Clicked ()
 		{
 			if (document != null && DocumentController != null) {
 
@@ -82,11 +79,7 @@ namespace FieldService.iOS
 				File.Copy (document.Path, tempPath, true);
 
 				DocumentController.Url = NSUrl.FromFilename (tempPath);
-				if (sender == AccessoryView) {
-					DocumentController.PresentOpenInMenu (AccessoryView.Frame, this, true);
-				} else {
-					DocumentController.PresentOpenInMenu (Frame, Superview, true);
-				}
+				DocumentController.PresentOpenInMenu (Frame, Superview, true);
 			}
 
 			//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke

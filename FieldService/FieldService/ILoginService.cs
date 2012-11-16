@@ -19,7 +19,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace FieldService.Data {
+namespace FieldService {
 
     /// <summary>
     /// Interface providing backend data to ViewModels

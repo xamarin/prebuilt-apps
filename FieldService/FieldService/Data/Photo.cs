@@ -24,20 +24,20 @@ namespace FieldService.Data {
     /// </summary>
     public class Photo {
         /// <summary>
-        /// Photo ID
+        /// Photo Id
         /// </summary>
         [PrimaryKey, AutoIncrement]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// Link to assignment
         /// </summary>
-        public int Assignment { get; set; }
+        public int AssignmentId { get; set; }
 
         /// <summary>
         /// Actual image
         /// </summary>
-        public byte[] Image { get; set; }
+        public byte [] Image { get; set; }
 
         /// <summary>
         /// Date image was saved
@@ -49,14 +49,14 @@ namespace FieldService.Data {
         /// </summary>
         public string Description { get; set; }
 
-        #region WinRT properties
+        #region UI properties
         /// <summary>
         /// The time component of the DateTime on the photo
         /// </summary>
         [Ignore]
         public string TimeFormatted
         {
-            get {return Date.ToString("t");}
+            get { return Date.ToString ("t"); }
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace FieldService.Data {
         [Ignore]
         public string DateFormatted
         {
-            get { return Date.ToString("d"); }
+            get { return Date.ToString ("d"); }
         }
         #endregion
     }

@@ -66,7 +66,7 @@ namespace FieldService.iOS
 			SetChecked (item.Used);
 
 			itemViewModel
-				.SaveAssignmentItem (detailsController.Assignment, item)
+				.SaveAssignmentItemAsync (detailsController.Assignment, item)
 				.ContinueOnUIThread (_ => tableView.UserInteractionEnabled = true);
 		}
 

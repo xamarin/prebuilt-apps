@@ -44,7 +44,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void Load ()
         {
-            var task = viewModel.LoadAssignments ();
+            var task = viewModel.LoadAssignmentsAsync ();
 
             task.Wait ();
 
@@ -55,13 +55,13 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void SaveAssignment ()
         {
-            var loadTask = viewModel.LoadAssignments ();
+            var loadTask = viewModel.LoadAssignmentsAsync ();
             loadTask.Wait ();
 
             var assignment = viewModel.Assignments.First ();
             assignment.Status = AssignmentStatus.Hold;
 
-            var task = viewModel.SaveAssignment (assignment);
+            var task = viewModel.SaveAssignmentAsync (assignment);
             task.Wait ();
 
             Assert.That (viewModel.IsBusy, Is.False);
@@ -70,30 +70,30 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void SaveAssignmentAsActive ()
         {
-            var loadTask = viewModel.LoadAssignments ();
+            var loadTask = viewModel.LoadAssignmentsAsync ();
             loadTask.Wait ();
 
             var activeAssignment = viewModel.ActiveAssignment;
             var assignment = viewModel.Assignments.First ();
             assignment.Status = AssignmentStatus.Active;
 
-            var task = viewModel.SaveAssignment (assignment);
+            var task = viewModel.SaveAssignmentAsync (assignment);
             task.Wait ();
 
             Assert.That (viewModel.IsBusy, Is.False);
             Assert.That (activeAssignment.Status, Is.EqualTo (AssignmentStatus.Hold));
-            Assert.That (activeAssignment.ID, Is.Not.EqualTo (assignment.ID));
+            Assert.That (activeAssignment.Id, Is.Not.EqualTo (assignment.Id));
             Assert.That (viewModel.ActiveAssignment.Status, Is.EqualTo (AssignmentStatus.Active));
         }
 
         [Test]
         public void Record ()
         {
-            var loadTask = viewModel.LoadAssignments ();
+            var loadTask = viewModel.LoadAssignmentsAsync ();
 
             loadTask.Wait ();
 
-            var task = viewModel.Record ();
+            var task = viewModel.RecordAsync ();
 
             task.Wait ();
 
@@ -106,17 +106,17 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void Pause ()
         {
-            var loadTask = viewModel.LoadAssignments ();
+            var loadTask = viewModel.LoadAssignmentsAsync ();
 
             loadTask.Wait ();
 
-            var task = viewModel.Record ();
+            var task = viewModel.RecordAsync ();
 
             task.Wait ();
 
             System.Threading.Thread.Sleep (1500);
 
-            task = viewModel.Pause ();
+            task = viewModel.PauseAsync ();
 
             task.Wait ();
 
@@ -127,7 +127,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadTimerEntry ()
         {
-            var task = viewModel.LoadTimerEntry ();
+            var task = viewModel.LoadTimerEntryAsync ();
 
             task.Wait ();
 

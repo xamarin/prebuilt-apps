@@ -96,7 +96,7 @@ namespace FieldService.iOS
 			if (IsViewLoaded) {
 				signatureTableView.ReloadData ();
 
-				photoViewModel.LoadPhotos (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
+				photoViewModel.LoadPhotosAsync (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
 			}
 		}
 
@@ -105,7 +105,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void AddPhoto ()
 		{
-			Photo = new Photo { Assignment = detailController.Assignment.ID, Date = DateTime.Now };
+			Photo = new Photo { AssignmentId = detailController.Assignment.Id, Date = DateTime.Now };
 			IsNew = true;
 
 			photoSheet.ShowFrom (addPhoto.Frame, addPhoto.Superview, true);

@@ -124,7 +124,7 @@ namespace FieldService.iOS
 			photo.Description = description.Text;
 
 			photoViewModel
-				.SavePhoto (detailsController.Assignment, photo)
+				.SavePhotoAsync (detailsController.Assignment, photo)
 				.ContinueOnUIThread (_ => {
 					confirmationController.ReloadConfirmation ();
 					DismissViewController (true, delegate { });
@@ -141,7 +141,7 @@ namespace FieldService.iOS
 
 				if (e.ButtonIndex == 0) {
 					photoViewModel
-						.DeletePhoto (detailsController.Assignment, confirmationController.Photo)
+						.DeletePhotoAsync (detailsController.Assignment, confirmationController.Photo)
 						.ContinueOnUIThread (_ => {
 							confirmationController.ReloadConfirmation ();
 							DismissViewController (true, delegate { });

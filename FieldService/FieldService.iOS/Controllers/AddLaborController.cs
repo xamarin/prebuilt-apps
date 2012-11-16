@@ -60,7 +60,7 @@ namespace FieldService.iOS
 
 			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				laborViewModel
-					.SaveLabor (detailController.Assignment, laborController.Labor)
+					.SaveLaborAsync (detailController.Assignment, laborController.Labor)
 					.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);

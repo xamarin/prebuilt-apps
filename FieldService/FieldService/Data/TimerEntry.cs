@@ -10,7 +10,7 @@ namespace FieldService.Data {
     /// </summary>
     public class TimerEntry {
         [PrimaryKey]
-        public int ID { get; set; }
+        public int Id { get; set; }
 
         /// <summary>
         /// The time the entry was started

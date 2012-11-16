@@ -50,15 +50,15 @@ namespace FieldService.WinRT.ViewModels {
 
             saveExpenseCommand = new DelegateCommand (async _ => {
                 selectedExpense.Cost = ExpenseCost.ToDecimal ();
-                selectedExpense.Assignment = assignmentViewModel.SelectedAssignment.ID;
-                await SaveExpense (assignmentViewModel.SelectedAssignment, selectedExpense);
-                await LoadExpenses (assignmentViewModel.SelectedAssignment);
+                selectedExpense.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
+                await SaveExpenseAsync (assignmentViewModel.SelectedAssignment, selectedExpense);
+                await LoadExpensesAsync (assignmentViewModel.SelectedAssignment);
                 addExpensePopUp.IsOpen = false;
             });
 
             deleteExpenseCommand = new DelegateCommand (async _ => {
-                await DeleteExpense (assignmentViewModel.SelectedAssignment, selectedExpense);
-                await LoadExpenses (assignmentViewModel.SelectedAssignment);
+                await DeleteExpenseAsync (assignmentViewModel.SelectedAssignment, selectedExpense);
+                await LoadExpensesAsync (assignmentViewModel.SelectedAssignment);
                 addExpensePopUp.IsOpen = false;
             });
 

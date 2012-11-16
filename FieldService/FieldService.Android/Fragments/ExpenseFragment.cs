@@ -108,7 +108,7 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadExpenseData()
         {
-            expenseViewModel.LoadExpenses(Assignment).ContinueOnUIThread (_ => {
+            expenseViewModel.LoadExpensesAsync (Assignment).ContinueOnUIThread (_ => {
                 Expenses = expenseViewModel.Expenses;
                 ReloadExpenses ();
                 var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);

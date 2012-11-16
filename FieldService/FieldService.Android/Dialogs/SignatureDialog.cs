@@ -58,7 +58,7 @@ namespace FieldService.Android.Dialogs {
                     return;
                 }
                 Assignment.Signature = signatureView.GetImage ().ToByteArray ();
-                assignmentViewModel.SaveAssignment (Assignment)
+                assignmentViewModel.SaveAssignmentAsync (Assignment)
                     .ContinueOnUIThread (_ => {
                         var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
                         fragment.ReloadConfirmation ();

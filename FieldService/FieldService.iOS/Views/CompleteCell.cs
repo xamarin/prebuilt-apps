@@ -67,7 +67,7 @@ namespace FieldService.iOS
 			completeButton.Enabled = false;
 			assignment.Status = AssignmentStatus.Complete;
 			assignmentViewModel
-				.SaveAssignment (assignment)
+				.SaveAssignmentAsync (assignment)
 				.ContinueOnUIThread (_ => {
 					detailsController.UpdateAssignment ();
 					menuController.UpdateAssignment ();

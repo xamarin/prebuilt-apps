@@ -106,8 +106,11 @@
     <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
       <Link>FieldService\Data\SQLiteAsync.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Bootstrapper.cs">
-      <Link>FieldService\Bootstrapper.cs</Link>
+    <Compile Include="..\FieldService\Data\TestData.cs">
+      <Link>FieldService\Data\TestData.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService\ServiceRegistrar.cs">
+      <Link>FieldService\ServiceRegistrar.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Data\Assignment.cs">
       <Link>FieldService\Data\Assignment.cs</Link>
@@ -130,11 +133,11 @@
     <Compile Include="..\FieldService\Data\Expense.cs">
       <Link>FieldService\Data\Expense.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Data\IAssignmentService.cs">
-      <Link>FieldService\Data\IAssignmentService.cs</Link>
+    <Compile Include="..\FieldService\IAssignmentService.cs">
+      <Link>FieldService\IAssignmentService.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Data\ILoginService.cs">
-      <Link>FieldService\Data\ILoginService.cs</Link>
+    <Compile Include="..\FieldService\ILoginService.cs">
+      <Link>FieldService\ILoginService.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Data\Item.cs">
       <Link>FieldService\Data\Item.cs</Link>
@@ -157,8 +160,8 @@
     <Compile Include="..\FieldService\Data\TimerEntry.cs">
       <Link>FieldService\Data\TimerEntry.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Strings.cs">
-      <Link>FieldService\Strings.cs</Link>
+    <Compile Include="..\FieldService\Catalog.cs">
+      <Link>FieldService\Catalog.cs</Link>
     </Compile>
     <Compile Include="..\FieldService\Utilities\DataExtensions.cs">
       <Link>FieldService\Utilities\DataExtensions.cs</Link>
