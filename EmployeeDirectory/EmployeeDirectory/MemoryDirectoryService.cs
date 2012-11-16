@@ -40,6 +40,15 @@ namespace EmployeeDirectory
 
 		#region IDirectoryService implementation
 
+		public void Dispose ()
+		{
+		}
+
+		public Task LoginAsync (string username, string password, CancellationToken cancellationToken)
+		{
+			return Task.Factory.StartNew (() => { });
+		}
+
 		public Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit, CancellationToken cancellationToken)
 		{
 			return Task.Factory.StartNew (() => {

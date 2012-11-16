@@ -21,6 +21,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 
 using EmployeeDirectory.Data;
+using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.iOS
 {
@@ -28,21 +29,26 @@ namespace EmployeeDirectory.iOS
 	public partial class AppDelegate : UIApplicationDelegate
 	{
 		UIWindow window;
+		IDirectoryService service;
+
+		FavoritesViewController favoritesViewController;
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
+			Xamarin.Themes.PrebuiltAppTheme.Apply ();
+
 			//
 			// Create the service
 			//
 
 			// Local CSV file
-			var service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
+//			service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
 
 			// LDAP service
-//			var service = new LdapDirectoryService {
-//				Host = "ldap.mit.edu",
-//				SearchBase = "dc=mit,dc=edu",
-//			};
+			service = new LdapDirectoryService {
+				Host = "ldap.mit.edu",
+				SearchBase = "dc=mit,dc=edu",
+			};
 
 			//
 			// Load the favorites
@@ -68,12 +74,26 @@ namespace EmployeeDirectory.iOS
 			//
 			// Build the UI
 			//
-			var favoritesViewController = new FavoritesViewController (favoritesRepository, service, search);
+			favoritesViewController = new FavoritesViewController (favoritesRepository, service, search);
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
 			window.RootViewController = new UINavigationController (favoritesViewController);
-			window.MakeKeyAndVisible ();			
+			window.MakeKeyAndVisible ();
+
 			return true;
+		}
+
+		public override void OnActivated (UIApplication application)
+		{
+			if (LoginViewModel.ShouldShowLogin (Settings.LastLoginTime, Settings.LastUseTime)) {
+				var login = new LoginViewController (service);
+				favoritesViewController.PresentViewController (login, false, null);
+			}
+		}
+
+		public override void OnResignActivation (UIApplication application)
+		{
+			Settings.LastUseTime = DateTime.UtcNow;
 		}
 
 		// This is the main entry point of the application.

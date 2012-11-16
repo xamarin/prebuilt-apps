@@ -23,7 +23,7 @@ using System.Collections.ObjectModel;
 
 namespace EmployeeDirectory.ViewModels
 {
-	public class SearchViewModel : ViewModel
+	public class SearchViewModel : ViewModelBase
 	{
 		IDirectoryService service;
 		Search search;
@@ -138,7 +138,7 @@ namespace EmployeeDirectory.ViewModels
 
 		#region Events
 
-		public event EventHandler<ErrorEventArgs> Error;
+		public new event EventHandler<ErrorEventArgs> Error;
 
 		public event EventHandler<SearchCompletedEventArgs> SearchCompleted;
 

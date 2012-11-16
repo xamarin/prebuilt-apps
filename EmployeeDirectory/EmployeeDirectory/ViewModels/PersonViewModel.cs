@@ -21,7 +21,7 @@ using System.Text;
 
 namespace EmployeeDirectory.ViewModels
 {
-	public class PersonViewModel : ViewModel
+	public class PersonViewModel : ViewModelBase
 	{
 		readonly IFavoritesRepository favoritesRepository;
 

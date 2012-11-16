@@ -38,6 +38,8 @@ namespace EmployeeDirectory
 
 		public string SearchBase { get; set; }
 
+		LdapConnection conn = null;
+
 		public LdapDirectoryService ()
 		{
 			Host = "";
@@ -45,9 +47,50 @@ namespace EmployeeDirectory
 			SearchBase = "";
 		}
 
+		~LdapDirectoryService ()
+		{
+			Dispose (false);
+		}
+
+		public void Dispose ()
+		{
+			Dispose (true);
+			GC.SuppressFinalize (this);
+		}
+
+		protected virtual void Dispose (bool disposing)
+		{
+			if (conn != null) {
+				conn.Disconnect ();
+				conn = null;
+			}
+		}
+
+		public Task LoginAsync (string username, string password, CancellationToken cancellationToken)
+		{
+			ValidateConfiguration ();
+
+			return Task.Factory.StartNew (() => {
+				//
+				// Search
+				//
+				conn = new LdapConnection ();
+				conn.Connect (Host, Port);
+
+				if (!string.IsNullOrEmpty (username)) {
+					conn.Bind (username, password);
+				}
+
+			}, cancellationToken);
+		}
+
 		public Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit, CancellationToken cancellationToken)
 		{
 			ValidateConfiguration ();
+
+			if (conn == null) {
+				throw new InvalidOperationException ("Must Login before searching.");
+			}
 
 			//
 			// Compile the filter
@@ -136,9 +179,6 @@ namespace EmployeeDirectory
 		{
 			var results = new List<Person> ();
 
-			var conn = new LdapConnection ();
-			conn.Connect (Host, Port);
-
 			try {
 				//
 				// Query the server
@@ -196,9 +236,6 @@ namespace EmployeeDirectory
 				else {
 					throw;
 				}
-			}
-			finally {
-				conn.Disconnect ();
 			}
 
 			return results;

@@ -306,6 +306,7 @@ namespace Xamarin.Themes
 		/// </summary>
 		public static void Apply (UISearchBar view, string options = null)
 		{
+			view.TintColor = UIColor.DarkGray;
 		}
 
 		/// <summary>
@@ -313,6 +314,7 @@ namespace Xamarin.Themes
 		/// </summary>
 		public static void Apply (UISearchBar.UISearchBarAppearance appearance, string options = null)
 		{
+			appearance.TintColor = UIColor.DarkGray;
 		}
 
 		#endregion

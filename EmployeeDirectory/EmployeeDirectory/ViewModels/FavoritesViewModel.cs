@@ -19,7 +19,7 @@ using System.Collections.ObjectModel;
 
 namespace EmployeeDirectory.ViewModels
 {
-	public class FavoritesViewModel : ViewModel
+	public class FavoritesViewModel : ViewModelBase
 	{
 		IFavoritesRepository favoritesRepository;
 		bool groupByLastName;
