@@ -37,9 +37,9 @@ namespace FieldService.WinRT.ViewModels {
         {
             recordCommand = new DelegateCommand (async _ => {
                 if (Recording)
-                    await Pause ();
+                    await PauseAsync ();
                 else
-                    await Record ();
+                    await RecordAsync ();
             }, _ => !IsBusy);
 
             mapsCommand = new DelegateCommand (_ => Helpers.NavigateTo<MapPage> ());

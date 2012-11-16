@@ -263,7 +263,7 @@ namespace FieldService.Android {
                 case "Items": {
                         var fragment = new ItemFragment ();
                         fragment.Assignment = Assignment;
-                        itemViewModel.LoadAssignmentItems (Assignment).ContinueOnUIThread (_ => {
+                        itemViewModel.LoadAssignmentItemsAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.AssignmentItems = itemViewModel.AssignmentItems;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
@@ -278,7 +278,7 @@ namespace FieldService.Android {
                     break;
                 case "Labor Hours": {
                         var fragment = new LaborHourFragment ();
-                        laborViewModel.LoadLaborHours (Assignment).ContinueOnUIThread (_ => {
+                        laborViewModel.LoadLaborHoursAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.LaborHours = laborViewModel.LaborHours;
                             fragment.Assignment = Assignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
@@ -294,7 +294,7 @@ namespace FieldService.Android {
                     break;
                 case "Confirmations": {
                         var fragment = new ConfirmationFragment ();
-                        photoViewModel.LoadPhotos (Assignment).ContinueOnUIThread (_ => {
+                        photoViewModel.LoadPhotosAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.Photos = photoViewModel.Photos;
                             fragment.Assignment = Assignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
@@ -309,7 +309,7 @@ namespace FieldService.Android {
                     break;
                 case "Expenses": {
                         var fragment = new ExpenseFragment ();
-                        expenseViewModel.LoadExpenses (Assignment).ContinueOnUIThread (_ => {
+                        expenseViewModel.LoadExpensesAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.Expenses = expenseViewModel.Expenses;
                             fragment.Assignment = Assignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
@@ -325,7 +325,7 @@ namespace FieldService.Android {
                     break;
                 case "Documents": {
                         var fragment = new DocumentFragment ();
-                        documentViewModel.LoadDocuments ().ContinueOnUIThread (_ => {
+                        documentViewModel.LoadDocumentsAsync ().ContinueOnUIThread (_ => {
                             fragment.Documents = documentViewModel.Documents;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
@@ -339,7 +339,7 @@ namespace FieldService.Android {
                     break;
                 case "History": {
                         var fragment = new HistoryFragment ();
-                        historyViewModel.LoadHistory (Assignment).ContinueOnUIThread (_ => {
+                        historyViewModel.LoadHistoryAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.History = historyViewModel.History;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);

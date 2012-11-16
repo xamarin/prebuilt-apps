@@ -157,7 +157,7 @@ namespace FieldService.Android {
         /// </summary>
         private void SaveAssignment (Assignment assignment, int index)
         {
-            assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+            assignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
                 var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
                 if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
                     activity.ReloadAssignments ();

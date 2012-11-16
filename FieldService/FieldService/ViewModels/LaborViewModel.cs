@@ -31,7 +31,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads the list of labor hours
         /// </summary>
-        public Task LoadLaborHours (Assignment assignment)
+        public Task LoadLaborHoursAsync (Assignment assignment)
         {
             return service
                 .GetLaborForAssignmentAsync (assignment)
@@ -41,7 +41,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Saves a labor entry
         /// </summary>
-        public Task SaveLabor (Assignment assignment, Labor labor)
+        public Task SaveLaborAsync (Assignment assignment, Labor labor)
         {
             bool newItem = labor.ID == 0;
 
@@ -56,7 +56,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Deletes a labor entry
         /// </summary>
-        public Task DeleteLabor (Assignment assignment, Labor labor)
+        public Task DeleteLaborAsync (Assignment assignment, Labor labor)
         {
             return service.DeleteLabor (labor)
                 .ContinueWith (t => {

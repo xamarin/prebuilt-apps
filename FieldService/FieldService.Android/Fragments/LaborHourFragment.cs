@@ -92,7 +92,7 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadHours ()
         {
-            laborViewModel.LoadLaborHours (Assignment).ContinueOnUIThread (_ => {
+            laborViewModel.LoadLaborHoursAsync (Assignment).ContinueOnUIThread (_ => {
                 LaborHours = laborViewModel.LaborHours;
                 ReloadLaborHours ();
                 var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);

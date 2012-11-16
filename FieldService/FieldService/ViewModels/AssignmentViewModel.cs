@@ -143,7 +143,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads the assignments asynchronously
         /// </summary>
-        public Task LoadAssignments ()
+        public Task LoadAssignmentsAsync ()
         {
             return service
                 .GetAssignmentsAsync ()
@@ -159,7 +159,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads the timer entry
         /// </summary>
-        public Task LoadTimerEntry ()
+        public Task LoadTimerEntryAsync ()
         {
             return service
                 .GetTimerEntryAsync ()
@@ -177,7 +177,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Saves an assignment, and applies any needed changes to the active one
         /// </summary>
-        public Task SaveAssignment (Assignment assignment)
+        public Task SaveAssignmentAsync (Assignment assignment)
         {
             //Save the assignment
             Task task = service.SaveAssignment (assignment);
@@ -190,7 +190,7 @@ namespace FieldService.ViewModels {
                 //Set the active assignment to hold and save it
                 activeAssignment.Status = AssignmentStatus.Hold;
                 if (Recording) {
-                    task = task.ContinueWith (Pause ());
+                    task = task.ContinueWith (PauseAsync ());
                 }
                 task = task.ContinueWith (service.SaveAssignment (activeAssignment));
             }
@@ -199,7 +199,7 @@ namespace FieldService.ViewModels {
             if (assignment == activeAssignment &&
                 assignment.Status != AssignmentStatus.Active &&
                 Recording) {
-                task = task.ContinueWith (Pause ());
+                task = task.ContinueWith (PauseAsync ());
             }
 
             //Set the active assignment
@@ -213,7 +213,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Starts timer
         /// </summary>
-        public Task Record ()
+        public Task RecordAsync ()
         {
             if (activeAssignment == null)
                 return Task.Factory.StartNew (delegate { });
@@ -231,7 +231,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Pauses timer
         /// </summary>
-        public Task Pause ()
+        public Task PauseAsync ()
         {
             if (activeAssignment == null)
                 return Task.Factory.StartNew (delegate { });
@@ -242,7 +242,7 @@ namespace FieldService.ViewModels {
             var labor = new Labor {
                 Type = LaborType.Hourly,
                 Assignment = activeAssignment.ID,
-		Description = "Time entered automatically at: " + DateTime.Now.ToShortTimeString (),
+                Description = "Time entered automatically at: " + DateTime.Now.ToShortTimeString (),
                 Hours = (DateTime.Now - timerEntry.Date),
             };
 

@@ -31,7 +31,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads the list of expenses
         /// </summary>
-        public Task LoadExpenses (Assignment assignment)
+        public Task LoadExpensesAsync (Assignment assignment)
         {
             return service
                 .GetExpensesForAssignmentAsync (assignment)
@@ -41,7 +41,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Saves an expense report
         /// </summary>
-        public Task SaveExpense (Assignment assignment, Expense expense)
+        public Task SaveExpenseAsync (Assignment assignment, Expense expense)
         {
             bool newItem = expense.ID == 0;
 
@@ -56,7 +56,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Deletes an expense report
         /// </summary>
-        public Task DeleteExpense (Assignment assignment, Expense expense)
+        public Task DeleteExpenseAsync (Assignment assignment, Expense expense)
         {
             return service.DeleteExpense (expense)
                 .ContinueWith (t => {

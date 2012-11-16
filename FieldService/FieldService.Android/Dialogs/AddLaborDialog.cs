@@ -151,7 +151,7 @@ namespace FieldService.Android.Dialogs {
         private void DeleteLabor ()
         {
             laborViewModel
-                .DeleteLabor (Assignment, CurrentLabor)
+                .DeleteLaborAsync (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
                     fragment.ReloadHours ();
@@ -169,7 +169,7 @@ namespace FieldService.Android.Dialogs {
             CurrentLabor.Assignment = Assignment.ID;
 
             laborViewModel
-                .SaveLabor (Assignment, CurrentLabor)
+                .SaveLaborAsync (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
                     fragment.ReloadHours ();

@@ -51,7 +51,7 @@ namespace FieldService.Android.Dialogs {
             itemsListView = (ListView)FindViewById (Resource.Id.itemPopupItemsList);
             itemsListView.ItemClick += (sender, e) => {
                 var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (e.Position);
-                itemViewModel.SaveAssignmentItem (Assignment, new AssignmentItem {
+                itemViewModel.SaveAssignmentItemAsync (Assignment, new AssignmentItem {
                     Item = item.ID,
                     Assignment = Assignment.ID,
                 })
@@ -65,7 +65,7 @@ namespace FieldService.Android.Dialogs {
             var searchText = (EditText)FindViewById (Resource.Id.itemsPopupSearchText);
             var clearText = (ImageButton)FindViewById (Resource.Id.itemsPopupSeachClear);
 
-            itemViewModel.LoadItems ().ContinueOnUIThread (_ => {
+            itemViewModel.LoadItemsAsync ().ContinueOnUIThread (_ => {
                 searchAdapter = new ItemsSearchAdapter (Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
                 itemsListView.Adapter = searchAdapter;
             });

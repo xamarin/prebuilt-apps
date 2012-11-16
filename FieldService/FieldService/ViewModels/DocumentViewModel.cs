@@ -31,7 +31,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Gets the list of documents
         /// </summary>
-        public Task LoadDocuments ()
+        public Task LoadDocumentsAsync ()
         {
             return service.GetDocumentsAsync ()
                 .ContinueOnUIThread (t => Documents = t.Result);

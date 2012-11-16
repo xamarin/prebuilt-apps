@@ -26,7 +26,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadExpenses ()
         {
-            var task = viewModel.LoadExpenses (new Assignment ());
+            var task = viewModel.LoadExpensesAsync (new Assignment ());
 
             task.Wait ();
 
@@ -37,11 +37,11 @@ namespace FieldService.Tests.ViewModels {
         public void SaveExpense ()
         {
             var assignment = new Assignment ();
-            var loadTask = viewModel.LoadExpenses (assignment);
+            var loadTask = viewModel.LoadExpensesAsync (assignment);
 
             loadTask.Wait ();
 
-            var task = viewModel.SaveExpense (assignment, new Expense { Cost = 2 });
+            var task = viewModel.SaveExpenseAsync (assignment, new Expense { Cost = 2 });
 
             task.Wait ();
 
@@ -52,11 +52,11 @@ namespace FieldService.Tests.ViewModels {
         public void DeleteExpense ()
         {
             var assignment = new Assignment();
-            var loadTask = viewModel.LoadExpenses (assignment);
+            var loadTask = viewModel.LoadExpensesAsync (assignment);
 
             loadTask.Wait ();
             
-            var task = viewModel.DeleteExpense (assignment, viewModel.Expenses.First());
+            var task = viewModel.DeleteExpenseAsync (assignment, viewModel.Expenses.First());
 
             task.Wait ();
 

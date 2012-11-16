@@ -87,17 +87,17 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
-            itemViewModel.LoadAssignmentItems (assignmentViewModel.SelectedAssignment);
+            itemViewModel.LoadAssignmentItemsAsync (assignmentViewModel.SelectedAssignment);
 
-            laborViewModel.LoadLaborHours (assignmentViewModel.SelectedAssignment);
+            laborViewModel.LoadLaborHoursAsync (assignmentViewModel.SelectedAssignment);
 
-            photoViewModel.LoadPhotos (assignmentViewModel.SelectedAssignment);
+            photoViewModel.LoadPhotosAsync (assignmentViewModel.SelectedAssignment);
 
-            expenseViewModel.LoadExpenses (assignmentViewModel.SelectedAssignment);
+            expenseViewModel.LoadExpensesAsync (assignmentViewModel.SelectedAssignment);
 
-            documentViewModel.LoadDocuments ();
+            documentViewModel.LoadDocumentsAsync ();
 
-            historyViewModel.LoadHistory (assignmentViewModel.SelectedAssignment);
+            historyViewModel.LoadHistoryAsync (assignmentViewModel.SelectedAssignment);
         }
 
         private void OnItemClick (object sender, ItemClickEventArgs e)

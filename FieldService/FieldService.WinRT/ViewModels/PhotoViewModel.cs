@@ -45,8 +45,8 @@ namespace FieldService.WinRT.ViewModels {
 
             savePhotoCommand = new DelegateCommand (async _ => {
                 selectedPhoto.Assignment = assignmentViewModel.SelectedAssignment.ID;
-                await SavePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto);
-                await LoadPhotos (assignmentViewModel.SelectedAssignment);
+                await SavePhotoAsync (assignmentViewModel.SelectedAssignment, selectedPhoto);
+                await LoadPhotosAsync (assignmentViewModel.SelectedAssignment);
                 OnPropertyChanged ("Photos");
             });
 
@@ -57,8 +57,8 @@ namespace FieldService.WinRT.ViewModels {
                 dialog.Commands.Add(new UICommand("No"));
                 await dialog.ShowAsync ();
                 if (yesDelete) {
-                    await DeletePhoto (assignmentViewModel.SelectedAssignment, selectedPhoto);
-                    await LoadPhotos (assignmentViewModel.SelectedAssignment);
+                    await DeletePhotoAsync (assignmentViewModel.SelectedAssignment, selectedPhoto);
+                    await LoadPhotosAsync (assignmentViewModel.SelectedAssignment);
                     SelectedPhoto = new Photo ();
                 }
             });

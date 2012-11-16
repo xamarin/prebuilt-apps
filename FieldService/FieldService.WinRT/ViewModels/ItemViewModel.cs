@@ -45,12 +45,12 @@ namespace FieldService.WinRT.ViewModels {
             saveAssignmentItemCommand = new DelegateCommand (obj => {
                 var item = obj as AssignmentItem;
                 if (item != null && assignmentViewModel.SelectedAssignment != null) {
-                    SaveAssignmentItem (assignmentViewModel.SelectedAssignment, item);
+                    SaveAssignmentItemAsync (assignmentViewModel.SelectedAssignment, item);
                 }
             });
 
             searchItemsCommand = new DelegateCommand (async _ => {
-                await LoadItems ();
+                await LoadItemsAsync ();
                 var items = new List<Item> ();
                 foreach (var item in Items) {
                     if (item.Name.ToLower ().StartsWith (SearchText) || item.Number.ToLower ().StartsWith (SearchText)) {

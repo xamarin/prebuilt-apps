@@ -187,7 +187,7 @@ namespace FieldService.Android.Dialogs {
                 CurrentExpense.Photo = imageBitmap.ToByteArray ();
             }
 
-            expenseViewModel.SaveExpense (Assignment, CurrentExpense)
+            expenseViewModel.SaveExpenseAsync (Assignment, CurrentExpense)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
                     fragment.ReloadExpenseData ();
@@ -197,7 +197,7 @@ namespace FieldService.Android.Dialogs {
 
         private void DeleteExpense ()
         {
-            expenseViewModel.DeleteExpense (Assignment, CurrentExpense)
+            expenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
                     fragment.ReloadExpenseData ();

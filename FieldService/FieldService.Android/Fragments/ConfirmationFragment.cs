@@ -136,7 +136,7 @@ namespace FieldService.Android.Fragments {
                     return;
                 }
                 Assignment.Status = AssignmentStatus.Complete;
-                assignmentViewModel.SaveAssignment (Assignment)
+                assignmentViewModel.SaveAssignmentAsync (Assignment)
                     .ContinueOnUIThread (_ => {
                         Activity.Finish ();
                     });
@@ -208,7 +208,7 @@ namespace FieldService.Android.Fragments {
         public void ReloadConfirmation ()
         {
             photoViewModel
-                .LoadPhotos (Assignment)
+                .LoadPhotosAsync (Assignment)
                 .ContinueOnUIThread (_ => {
                     Photos = photoViewModel.Photos;
                     ReloadListView ();

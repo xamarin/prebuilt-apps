@@ -31,7 +31,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads the assignment history
         /// </summary>
-        public Task LoadHistory (Assignment assignment)
+        public Task LoadHistoryAsync (Assignment assignment)
         {
             return service
                 .GetAssignmentHistoryAsync (assignment)

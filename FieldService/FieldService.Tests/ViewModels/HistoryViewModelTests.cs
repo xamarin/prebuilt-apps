@@ -26,7 +26,7 @@ namespace FieldService.Tests.ViewModels {
         [Test]
         public void LoadHistory ()
         {
-            var task = viewModel.LoadHistory (new Assignment());
+            var task = viewModel.LoadHistoryAsync (new Assignment());
 
             task.Wait ();
 

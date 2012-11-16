@@ -121,7 +121,7 @@ namespace FieldService.Android.Fragments {
                 navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
                 timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 
-                assignmentViewModel.LoadTimerEntry ().ContinueOnUIThread (_ => {
+                assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
                     if (assignmentViewModel.Recording) {
                         timer.Checked = true;
                     } else {
@@ -132,9 +132,9 @@ namespace FieldService.Android.Fragments {
                 timer.CheckedChange += (sender, e) => {
                     if (e.IsChecked != assignmentViewModel.Recording) {
                         if (assignmentViewModel.Recording) {
-                            assignmentViewModel.Pause ();
+                            assignmentViewModel.PauseAsync ();
                         } else {
-                            assignmentViewModel.Record ();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
+                            assignmentViewModel.RecordAsync ();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
                         }
                     }
                 };
@@ -149,7 +149,7 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         private void SaveAssignment ()
         {
-            assignmentViewModel.SaveAssignment (assignment).ContinueOnUIThread (_ => {
+            assignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
                 SetActiveAssignment ();
             });
         }

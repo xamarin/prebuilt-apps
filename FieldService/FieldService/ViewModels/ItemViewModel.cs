@@ -55,7 +55,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads all the available items
         /// </summary>
-        public Task LoadItems ()
+        public Task LoadItemsAsync ()
         {
             return service
                 .GetItemsAsync ()
@@ -65,7 +65,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Loads a list of items for an assignment
         /// </summary>
-        public Task LoadAssignmentItems (Assignment assignment)
+        public Task LoadAssignmentItemsAsync (Assignment assignment)
         {
             return service
                 .GetItemsForAssignmentAsync (assignment)
@@ -75,7 +75,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Saves an assignment item
         /// </summary>
-        public Task SaveAssignmentItem (Assignment assignment, AssignmentItem item)
+        public Task SaveAssignmentItemAsync (Assignment assignment, AssignmentItem item)
         {
             bool newItem = item.ID == 0;
 
@@ -90,7 +90,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// Deletes an assignment item
         /// </summary>
-        public Task DeleteAssignmentItem (Assignment assignment, AssignmentItem item)
+        public Task DeleteAssignmentItemAsync (Assignment assignment, AssignmentItem item)
         {
             return service
                 .DeleteAssignmentItem (item)
