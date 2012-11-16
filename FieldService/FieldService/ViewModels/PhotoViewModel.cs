@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -48,7 +49,7 @@ namespace FieldService.ViewModels {
         public Task LoadPhotosAsync (Assignment assignment)
         {
             return service
-                .GetPhotosForAssignmentAsync (assignment)
+                .GetPhotosForAssignmentAsync (assignment, CancellationToken.None)
                 .ContinueOnUIThread (t => Photos = t.Result);
         }
 
@@ -63,7 +64,7 @@ namespace FieldService.ViewModels {
             photo.Date = DateTime.Now;
 
             return service
-                .SavePhoto (photo)
+                .SavePhoto (photo, CancellationToken.None)
                 .ContinueOnUIThread (t => {
                     if (newPhoto) {
                         if (photos == null)
@@ -80,7 +81,7 @@ namespace FieldService.ViewModels {
         public Task DeletePhotoAsync (Assignment assignment, Photo photo)
         {
             return service
-                .DeletePhoto (photo)
+                .DeletePhoto (photo, CancellationToken.None)
                 .ContinueOnUIThread (t => {
                     if (photos != null)
                         photos.Remove (photo);

@@ -13,12 +13,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using SQLite;
-using System.Linq;
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Utilities;
+using SQLite;
 
 namespace FieldService.Data
 {
@@ -51,25 +52,25 @@ namespace FieldService.Data
         /// For use within the app on startup, this will create the database
         /// </summary>
         /// <returns></returns>
-        public static Task Initialize()
+        public static Task Initialize (CancellationToken cancellationToken)
         {
-            return CreateDatabase(new SQLiteAsyncConnection(Path, true));
+            return CreateDatabase(new SQLiteAsyncConnection(Path, true), cancellationToken);
         }
 
         /// <summary>
         /// Global way to grab a connection to the database, make sure to wrap in a using
         /// </summary>
-        public static SQLiteAsyncConnection GetConnection()
+        public static SQLiteAsyncConnection GetConnection (CancellationToken cancellationToken)
         {
             var connection = new SQLiteAsyncConnection(Path, true);
             if (!initialized)
             {
-                CreateDatabase(connection).Wait();
+                CreateDatabase(connection, cancellationToken).Wait();
             }
             return connection;
         }
 
-        private static Task CreateDatabase(SQLiteAsyncConnection connection)
+        private static Task CreateDatabase (SQLiteAsyncConnection connection, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew(() =>
             {

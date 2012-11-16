@@ -77,7 +77,7 @@ namespace FieldService.ViewModels {
         {
             IsBusy = true;
             return service
-                .LoginAsync (username, password)
+                .LoginAsync (username, password, CancellationToken.None)
                 .ContinueOnUIThread (t => {
                     IsBusy = false; 
                     return t.Result;

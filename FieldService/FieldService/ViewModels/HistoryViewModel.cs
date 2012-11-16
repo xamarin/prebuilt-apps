@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -34,7 +35,7 @@ namespace FieldService.ViewModels {
         public Task LoadHistoryAsync (Assignment assignment)
         {
             return service
-                .GetAssignmentHistoryAsync (assignment)
+                .GetAssignmentHistoryAsync (assignment, CancellationToken.None)
                 .ContinueOnUIThread (t => History = t.Result);
         }
     }

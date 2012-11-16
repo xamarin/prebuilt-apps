@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -30,7 +31,7 @@ namespace FieldService.Tests.Data {
         [SetUp]
         public void SetUp ()
         {
-            Database.Initialize ().Wait ();
+            Database.Initialize (CancellationToken.None).Wait ();
 
             service = new SampleAssignmentService ();
         }
@@ -38,7 +39,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetAssignments ()
         {
-            var task = service.GetAssignmentsAsync ();
+            var task = service.GetAssignmentsAsync (CancellationToken.None);
 
             task.Wait ();
 
@@ -49,7 +50,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetAssignmentAndCheckTotalHours ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
 
@@ -61,7 +62,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetAssignmentAndCheckTotalItems ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
 
@@ -73,7 +74,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetAssignmentAndCheckTotalExpenses ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
 
@@ -85,13 +86,13 @@ namespace FieldService.Tests.Data {
         [Test]
         public void SaveAssignment ()
         {
-            var task = service.GetAssignmentsAsync ();
+            var task = service.GetAssignmentsAsync (CancellationToken.None);
             task.Wait ();
 
             var assignment = task.Result.FirstOrDefault ();
             assignment.Title = "New Title";
 
-            var saveTask = service.SaveAssignment (assignment);
+            var saveTask = service.SaveAssignment (assignment, CancellationToken.None);
             saveTask.Wait ();
 
             Assert.That (saveTask.Result, Is.EqualTo (1));
@@ -104,7 +105,7 @@ namespace FieldService.Tests.Data {
             assignmentItem.ItemId = 1;
             assignmentItem.AssignmentId = 1;
 
-            var saveTask = service.SaveAssignmentItem (assignmentItem);
+            var saveTask = service.SaveAssignmentItem (assignmentItem, CancellationToken.None);
             saveTask.Wait ();
 
             Assert.That (saveTask.Result, Is.EqualTo (1));
@@ -117,12 +118,12 @@ namespace FieldService.Tests.Data {
             assignmentItem.ItemId = 1;
             assignmentItem.AssignmentId = 1;
 
-            var saveTask = service.SaveAssignmentItem (assignmentItem);
+            var saveTask = service.SaveAssignmentItem (assignmentItem, CancellationToken.None);
             saveTask.Wait ();
 
             assignmentItem.ItemId = 1;
             assignmentItem.AssignmentId = 2;
-            saveTask = service.SaveAssignmentItem (assignmentItem);
+            saveTask = service.SaveAssignmentItem (assignmentItem, CancellationToken.None);
             saveTask.Wait ();
 
             Assert.That (saveTask.Result, Is.EqualTo (1));
@@ -134,7 +135,7 @@ namespace FieldService.Tests.Data {
             var labor = new Labor ();
             labor.Description = "New Description";
 
-            var saveTask = service.SaveLabor (labor);
+            var saveTask = service.SaveLabor (labor, CancellationToken.None);
             saveTask.Wait ();
 
             Assert.That (saveTask.Result, Is.EqualTo (1));
@@ -146,11 +147,11 @@ namespace FieldService.Tests.Data {
             var labor = new Labor ();
             labor.Description = "New Description";
 
-            var saveTask = service.SaveLabor (labor);
+            var saveTask = service.SaveLabor (labor, CancellationToken.None);
             saveTask.Wait ();
 
             labor.Description = "New Description 2";
-            saveTask = service.SaveLabor (labor);
+            saveTask = service.SaveLabor (labor, CancellationToken.None);
             saveTask.Wait ();
 
             Assert.That (saveTask.Result, Is.EqualTo (1));
@@ -162,7 +163,7 @@ namespace FieldService.Tests.Data {
             var expense = new Expense ();
             expense.Description = "New Description";
 
-            var saveTask = service.SaveExpense (expense);
+            var saveTask = service.SaveExpense (expense, CancellationToken.None);
             saveTask.Wait ();
 
             Assert.That (saveTask.Result, Is.EqualTo (1));
@@ -174,11 +175,11 @@ namespace FieldService.Tests.Data {
             var expense = new Expense ();
             expense.Description = "New Description";
 
-            var saveTask = service.SaveExpense (expense);
+            var saveTask = service.SaveExpense (expense, CancellationToken.None);
             saveTask.Wait ();
 
             expense.Description = "New Description 2";
-            saveTask = service.SaveExpense (expense);
+            saveTask = service.SaveExpense (expense, CancellationToken.None);
             saveTask.Wait ();
 
             Assert.That (saveTask.Result, Is.EqualTo (1));
@@ -187,7 +188,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetItems ()
         {
-            var task = service.GetItemsAsync ();
+            var task = service.GetItemsAsync (CancellationToken.None);
 
             task.Wait ();
 
@@ -198,11 +199,11 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetAssignmentItems ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
 
-            var task = service.GetItemsForAssignmentAsync (assignmentTask.Result.First (a => a.Id == 1));
+            var task = service.GetItemsForAssignmentAsync (assignmentTask.Result.First (a => a.Id == 1), CancellationToken.None);
 
             task.Wait ();
 
@@ -218,11 +219,11 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetAssignmentLabor ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
 
-            var task = service.GetLaborForAssignmentAsync (assignmentTask.Result.First ());
+            var task = service.GetLaborForAssignmentAsync (assignmentTask.Result.First (), CancellationToken.None);
 
             task.Wait ();
 
@@ -238,11 +239,11 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetAssignmentExpenses ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
 
-            var task = service.GetExpensesForAssignmentAsync (assignmentTask.Result.First ());
+            var task = service.GetExpensesForAssignmentAsync (assignmentTask.Result.First (), CancellationToken.None);
 
             task.Wait ();
 
@@ -258,16 +259,16 @@ namespace FieldService.Tests.Data {
         [Test]
         public void DeleteAssignment()
         {
-            var task = service.GetAssignmentsAsync ();
+            var task = service.GetAssignmentsAsync (CancellationToken.None);
             task.Wait ();
 
             var assignment = task.Result.FirstOrDefault (a => a.Title != "Assignment 1");
             assignment.Title = "New Title";
 
-            var saveTask = service.SaveAssignment (assignment);
+            var saveTask = service.SaveAssignment (assignment, CancellationToken.None);
             saveTask.Wait ();
 
-            var deleteTask = service.DeleteAssignment (assignment);
+            var deleteTask = service.DeleteAssignment (assignment, CancellationToken.None);
             deleteTask.Wait ();
             Assert.That (deleteTask.Result, Is.EqualTo (1));
         }
@@ -276,10 +277,10 @@ namespace FieldService.Tests.Data {
         public void DeleteAssignmentItem ()
         {
             var assignmentItem = new AssignmentItem ();
-            var saveTask = service.SaveAssignmentItem (assignmentItem);
+            var saveTask = service.SaveAssignmentItem (assignmentItem, CancellationToken.None);
             saveTask.Wait ();
 
-            var deleteTask = service.DeleteAssignmentItem (assignmentItem);
+            var deleteTask = service.DeleteAssignmentItem (assignmentItem, CancellationToken.None);
             deleteTask.Wait ();
             Assert.That (deleteTask.Result, Is.EqualTo (1));
         }
@@ -290,10 +291,10 @@ namespace FieldService.Tests.Data {
             var labor = new Labor ();
             labor.Description = "New Description";
 
-            var saveTask = service.SaveLabor (labor);
+            var saveTask = service.SaveLabor (labor, CancellationToken.None);
             saveTask.Wait ();
 
-            var deleteTask = service.DeleteLabor (labor);
+            var deleteTask = service.DeleteLabor (labor, CancellationToken.None);
             deleteTask.Wait ();
             Assert.That (deleteTask.Result, Is.EqualTo (1));
         }
@@ -304,10 +305,10 @@ namespace FieldService.Tests.Data {
             var expense = new Expense ();
             expense.Description = "New Description";
 
-            var saveTask = service.SaveExpense (expense);
+            var saveTask = service.SaveExpense (expense, CancellationToken.None);
             saveTask.Wait ();
 
-            var deleteTask = service.DeleteExpense (expense);
+            var deleteTask = service.DeleteExpense (expense, CancellationToken.None);
             deleteTask.Wait ();
             Assert.That (deleteTask.Result, Is.EqualTo (1));
         }
@@ -315,7 +316,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void SaveTimerEntry ()
         {
-            var task = service.SaveTimerEntry (new TimerEntry { Id = 1, Date = DateTime.Now.AddHours (-1) });
+            var task = service.SaveTimerEntry (new TimerEntry { Id = 1, Date = DateTime.Now.AddHours (-1) }, CancellationToken.None);
 
             task.Wait ();
 
@@ -326,12 +327,12 @@ namespace FieldService.Tests.Data {
         public void UpdateTimerEntry ()
         {
             var entry = new TimerEntry { Id = 1, Date = DateTime.Now.AddHours (-1) };
-            var task = service.SaveTimerEntry (entry);
+            var task = service.SaveTimerEntry (entry, CancellationToken.None);
 
             task.Wait ();
 
             entry.Date = entry.Date.AddHours (2);
-            task = service.SaveTimerEntry (entry);
+            task = service.SaveTimerEntry (entry, CancellationToken.None);
 
             Assert.That (task.Result, Is.EqualTo (1));
         }
@@ -340,11 +341,11 @@ namespace FieldService.Tests.Data {
         public void GetTimerEntry ()
         {
             var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
-            var task = service.SaveTimerEntry (entry);
+            var task = service.SaveTimerEntry (entry, CancellationToken.None);
 
             task.Wait ();
 
-            var getTask = service.GetTimerEntryAsync ();
+            var getTask = service.GetTimerEntryAsync (CancellationToken.None);
 
             getTask.Wait ();
             
@@ -357,11 +358,11 @@ namespace FieldService.Tests.Data {
         public void DeleteTimerEntry ()
         {
             var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
-            var task = service.SaveTimerEntry (entry);
+            var task = service.SaveTimerEntry (entry, CancellationToken.None);
 
             task.Wait ();
 
-            var deleteTask = service.DeleteTimerEntry (entry);
+            var deleteTask = service.DeleteTimerEntry (entry, CancellationToken.None);
 
             deleteTask.Wait ();
 
@@ -371,7 +372,7 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetPhotos ()
         {
-            var task = service.GetPhotosForAssignmentAsync (new Assignment());
+            var task = service.GetPhotosForAssignmentAsync (new Assignment (), CancellationToken.None);
 
             task.Wait ();
 
@@ -382,13 +383,13 @@ namespace FieldService.Tests.Data {
         [Test]
         public void SavePhoto ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
              
             var assignment = assignmentTask.Result.First ();
 
-            var task = service.SavePhoto (new Photo { AssignmentId = assignment.Id, Image = new byte [] { 255 } });
+            var task = service.SavePhoto (new Photo { AssignmentId = assignment.Id, Image = new byte [] { 255 } }, CancellationToken.None);
 
             task.Wait ();
 
@@ -398,18 +399,18 @@ namespace FieldService.Tests.Data {
         [Test]
         public void DeletePhoto ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
 
             var assignment = assignmentTask.Result.First ();
             var photo = new Photo { AssignmentId = assignment.Id, Image = new byte [] { 255 } };
 
-            var task = service.SavePhoto (photo);
+            var task = service.SavePhoto (photo, CancellationToken.None);
 
             task.Wait ();
 
-            var deleteTask = service.DeletePhoto (photo);
+            var deleteTask = service.DeletePhoto (photo, CancellationToken.None);
 
             deleteTask.Wait ();
 
@@ -419,12 +420,12 @@ namespace FieldService.Tests.Data {
         [Test]
         public void GetHistory ()
         {
-            var assignmentTask = service.GetAssignmentsAsync ();
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
             var assignment = assignmentTask.Result.First ();
 
-            var historyTask = service.GetAssignmentHistoryAsync (assignment);
+            var historyTask = service.GetAssignmentHistoryAsync (assignment, CancellationToken.None);
             historyTask.Wait ();
 
             Assert.That (historyTask.Result.Count, Is.Not.EqualTo (0));

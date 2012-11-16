@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -58,7 +59,7 @@ namespace FieldService.ViewModels {
         public Task LoadItemsAsync ()
         {
             return service
-                .GetItemsAsync ()
+                .GetItemsAsync (CancellationToken.None)
                 .ContinueOnUIThread (t => Items = t.Result);
         }
 
@@ -68,7 +69,7 @@ namespace FieldService.ViewModels {
         public Task LoadAssignmentItemsAsync (Assignment assignment)
         {
             return service
-                .GetItemsForAssignmentAsync (assignment)
+                .GetItemsForAssignmentAsync (assignment, CancellationToken.None)
                 .ContinueOnUIThread (t => AssignmentItems = t.Result);
         }
 
@@ -80,7 +81,7 @@ namespace FieldService.ViewModels {
             bool newItem = item.Id == 0;
 
             return service
-                .SaveAssignmentItem (item)
+                .SaveAssignmentItem (item, CancellationToken.None)
                 .ContinueWith (t => {
                     if (newItem)
                         assignment.TotalItems++;
@@ -93,7 +94,7 @@ namespace FieldService.ViewModels {
         public Task DeleteAssignmentItemAsync (Assignment assignment, AssignmentItem item)
         {
             return service
-                .DeleteAssignmentItem (item)
+                .DeleteAssignmentItem (item, CancellationToken.None)
                 .ContinueWith (t => assignment.TotalItems--);
         }
     }

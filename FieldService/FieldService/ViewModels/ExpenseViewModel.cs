@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -34,7 +35,7 @@ namespace FieldService.ViewModels {
         public Task LoadExpensesAsync (Assignment assignment)
         {
             return service
-                .GetExpensesForAssignmentAsync (assignment)
+                .GetExpensesForAssignmentAsync (assignment, CancellationToken.None)
                 .ContinueOnUIThread (t => Expenses = t.Result);
         }
 
@@ -45,7 +46,7 @@ namespace FieldService.ViewModels {
         {
             bool newItem = expense.Id == 0;
 
-            return service.SaveExpense (expense)
+            return service.SaveExpense (expense, CancellationToken.None)
                 .ContinueWith (t => {
                     if (newItem)
                         expenses.Add (expense);
@@ -58,7 +59,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task DeleteExpenseAsync (Assignment assignment, Expense expense)
         {
-            return service.DeleteExpense (expense)
+            return service.DeleteExpense (expense, CancellationToken.None)
                 .ContinueWith (t => {
                     expenses.Remove (expense);
                     CalculateExpenses (assignment);

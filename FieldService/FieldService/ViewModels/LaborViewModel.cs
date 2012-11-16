@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -34,7 +35,7 @@ namespace FieldService.ViewModels {
         public Task LoadLaborHoursAsync (Assignment assignment)
         {
             return service
-                .GetLaborForAssignmentAsync (assignment)
+                .GetLaborForAssignmentAsync (assignment, CancellationToken.None)
                 .ContinueOnUIThread (t => LaborHours = t.Result);
         }
 
@@ -45,7 +46,7 @@ namespace FieldService.ViewModels {
         {
             bool newItem = labor.Id == 0;
 
-            return service.SaveLabor (labor)
+            return service.SaveLabor (labor, CancellationToken.None)
                 .ContinueWith (t => {
                     if (newItem)
                         laborHours.Add (labor);
@@ -58,7 +59,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task DeleteLaborAsync (Assignment assignment, Labor labor)
         {
-            return service.DeleteLabor (labor)
+            return service.DeleteLabor (labor, CancellationToken.None)
                 .ContinueWith (t => {
                     laborHours.Remove (labor);
                     CalculateHours (assignment);

@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 
@@ -28,106 +29,106 @@ namespace FieldService {
         /// <summary>
         /// Gets a list of assignments
         /// </summary>
-        Task<List<Assignment>> GetAssignmentsAsync ();
+        Task<List<Assignment>> GetAssignmentsAsync (CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets a list of items
         /// </summary>
-        Task<List<Item>> GetItemsAsync ();
+        Task<List<Item>> GetItemsAsync (CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets a list of items for an assignment
         /// </summary>
-        Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment);
+        Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets a list of labor hours for an assignment
         /// </summary>
-        Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment);
+        Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets a list of expenses for an assignment
         /// </summary>
-        Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment);
+        Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves an assignment
         /// </summary>
-        Task<int> SaveAssignment (Assignment assignment);
+        Task<int> SaveAssignment (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves an assignment item
         /// </summary>
-        Task<int> SaveAssignmentItem (AssignmentItem assignmentItem);
+        Task<int> SaveAssignmentItem (AssignmentItem assignmentItem, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves a labor entry
         /// </summary>
-        Task<int> SaveLabor (Labor labor);
+        Task<int> SaveLabor (Labor labor, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves an expense entry
         /// </summary>
-        Task<int> SaveExpense (Expense expense);
+        Task<int> SaveExpense (Expense expense, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes an assignment
         /// </summary>
-        Task<int> DeleteAssignment (Assignment assignment);
+        Task<int> DeleteAssignment (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes an assignment item
         /// </summary>
-        Task<int> DeleteAssignmentItem (AssignmentItem AssignmentItem);
+        Task<int> DeleteAssignmentItem (AssignmentItem AssignmentItem, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes a labor entry
         /// </summary>
-        Task<int> DeleteLabor (Labor labor);
+        Task<int> DeleteLabor (Labor labor, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes an expense entry
         /// </summary>
-        Task<int> DeleteExpense (Expense expense);
+        Task<int> DeleteExpense (Expense expense, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves a timer entry to record an assignment
         /// </summary>
-        Task<int> SaveTimerEntry (TimerEntry entry);
+        Task<int> SaveTimerEntry (TimerEntry entry, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes a timer entry to stop recording an assignment
         /// </summary>
-        Task<int> DeleteTimerEntry (TimerEntry entry);
+        Task<int> DeleteTimerEntry (TimerEntry entry, CancellationToken cancellationToken);
 
         /// <summary>
         /// Retrieves the stored timer entry if there was one
         /// </summary>
-        Task<TimerEntry> GetTimerEntryAsync ();
+        Task<TimerEntry> GetTimerEntryAsync (CancellationToken cancellationToken);
 
         /// <summary>
         /// Retrieves all the photos for an assignment
         /// </summary>
-        Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment);
+        Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves a photo for an assignment
         /// </summary>
-        Task<int> SavePhoto (Photo photo);
+        Task<int> SavePhoto (Photo photo, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes a photo
         /// </summary>
-        Task<int> DeletePhoto (Photo photo);
+        Task<int> DeletePhoto (Photo photo, CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets the list of available documents
         /// </summary>
-        Task<List<Document>> GetDocumentsAsync ();
+        Task<List<Document>> GetDocumentsAsync (CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets the history for an assignment
         /// </summary>
-        Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment);
+        Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment, CancellationToken cancellationToken);
     }
 }

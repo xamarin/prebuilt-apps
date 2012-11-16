@@ -17,6 +17,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 
@@ -25,7 +26,7 @@ namespace FieldService.Tests.Mocks {
     /// This is just a mock service to bypass the SQLite database for speed during test runs
     /// </summary>
     class MockAssignmentService : IAssignmentService {
-        public Task<List<Assignment>> GetAssignmentsAsync ()
+        public Task<List<Assignment>> GetAssignmentsAsync (CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<Assignment> ()
             {
@@ -48,7 +49,7 @@ namespace FieldService.Tests.Mocks {
             });
         }
 
-        public Task<List<Item>> GetItemsAsync ()
+        public Task<List<Item>> GetItemsAsync (CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<Item> ()
             {
@@ -61,7 +62,7 @@ namespace FieldService.Tests.Mocks {
             });
         }
 
-        public Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment)
+        public Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<AssignmentItem> ()
             {
@@ -74,7 +75,7 @@ namespace FieldService.Tests.Mocks {
             });
         }
 
-        public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment)
+        public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<Labor> ()
             {
@@ -89,7 +90,7 @@ namespace FieldService.Tests.Mocks {
             });
         }
 
-        public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment)
+        public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<Expense> ()
             {
@@ -103,82 +104,82 @@ namespace FieldService.Tests.Mocks {
             });
         }
 
-        public Task<int> SaveAssignment (Assignment assignment)
+        public Task<int> SaveAssignment (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> SaveAssignmentItem (AssignmentItem assignmentItem)
+        public Task<int> SaveAssignmentItem (AssignmentItem assignmentItem, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> SaveLabor (Labor labor)
+        public Task<int> SaveLabor (Labor labor, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> SaveExpense (Expense expense)
+        public Task<int> SaveExpense (Expense expense, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteAssignment (Assignment assignment)
+        public Task<int> DeleteAssignment (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteAssignmentItem (AssignmentItem assignmentItem)
+        public Task<int> DeleteAssignmentItem (AssignmentItem assignmentItem, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteLabor (Labor labor)
+        public Task<int> DeleteLabor (Labor labor, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteExpense (Expense expense)
+        public Task<int> DeleteExpense (Expense expense, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> SaveTimerEntry (TimerEntry entry)
+        public Task<int> SaveTimerEntry (TimerEntry entry, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteTimerEntry (TimerEntry entry)
+        public Task<int> DeleteTimerEntry (TimerEntry entry, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<TimerEntry> GetTimerEntryAsync ()
+        public Task<TimerEntry> GetTimerEntryAsync (CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new TimerEntry { Date = DateTime.Now.AddHours (-1) });
         }
 
-        public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment)
+        public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<Photo> { new Photo { AssignmentId = assignment.Id, Image = new byte [0] } });
         }
 
-        public Task<int> SavePhoto (Photo photo)
+        public Task<int> SavePhoto (Photo photo, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeletePhoto (Photo photo)
+        public Task<int> DeletePhoto (Photo photo, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<List<Document>> GetDocumentsAsync ()
+        public Task<List<Document>> GetDocumentsAsync (CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<Document> { new Document { Title = "Test Document", Path = "Test.pdf" } });
         }
 
-        public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment)
+        public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<AssignmentHistory> { new AssignmentHistory () });
         }

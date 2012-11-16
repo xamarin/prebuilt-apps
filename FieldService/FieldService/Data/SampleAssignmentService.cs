@@ -17,15 +17,16 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace FieldService.Data {
     public class SampleAssignmentService : IAssignmentService {
         private List<Document> _documents;
 
-        public Task<List<Assignment>> GetAssignmentsAsync ()
+        public Task<List<Assignment>> GetAssignmentsAsync (CancellationToken cancellationToken)
         {
-            return Database.GetConnection ()
+            return Database.GetConnection (cancellationToken)
                 .QueryAsync<Assignment> (@"
                     select Assignment.*, 
                            (SELECT SUM(Labor.Ticks) FROM Labor WHERE Assignment.Id = Labor.AssignmentId) as TotalTicks,       
@@ -37,17 +38,17 @@ namespace FieldService.Data {
                 ", AssignmentStatus.Declined, AssignmentStatus.Complete);
         }
 
-        public Task<List<Item>> GetItemsAsync ()
+        public Task<List<Item>> GetItemsAsync (CancellationToken cancellationToken)
         {
-            return Database.GetConnection ()
+            return Database.GetConnection (cancellationToken)
                 .Table<Item> ()
                 .OrderBy (i => i.Name)
                 .ToListAsync ();
         }
 
-        public Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment)
+        public Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ()
+            return Database.GetConnection (cancellationToken)
                 .QueryAsync<AssignmentItem> (@"
                     select AssignmentItem.*, Item.Number, Item.Name
                     from AssignmentItem
@@ -58,116 +59,116 @@ namespace FieldService.Data {
                     assignment.Id);
         }
 
-        public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment)
+        public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ()
+            return Database.GetConnection (cancellationToken)
                 .Table<Labor> ()
                 .Where (l => l.AssignmentId == assignment.Id)
                 .ToListAsync ();
         }
 
-        public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment)
+        public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ()
+            return Database.GetConnection (cancellationToken)
                 .Table<Expense> ()
                 .Where (e => e.AssignmentId == assignment.Id)
                 .ToListAsync ();
         }
 
-        public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment)
+        public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ()
+            return Database.GetConnection (cancellationToken)
                 .Table<Photo> ()
                 .Where (p => p.AssignmentId == assignment.Id)
                 .ToListAsync ();
         }
 
-        public Task<int> SaveAssignment (Assignment assignment)
+        public Task<int> SaveAssignment (Assignment assignment, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ()
+            return Database.GetConnection (cancellationToken)
                 .UpdateAsync (assignment);
         }
 
-        public Task<int> SaveAssignmentItem (AssignmentItem assignmentItem)
+        public Task<int> SaveAssignmentItem (AssignmentItem assignmentItem, CancellationToken cancellationToken)
         {
             if (assignmentItem.Id == 0)
-                return Database.GetConnection ().InsertAsync (assignmentItem);
+                return Database.GetConnection (cancellationToken).InsertAsync (assignmentItem);
             else
-                return Database.GetConnection ().UpdateAsync (assignmentItem);
+                return Database.GetConnection (cancellationToken).UpdateAsync (assignmentItem);
         }
 
-        public Task<int> SaveLabor (Labor labor)
+        public Task<int> SaveLabor (Labor labor, CancellationToken cancellationToken)
         {
             if (labor.Id == 0)
-                return Database.GetConnection ().InsertAsync (labor);
+                return Database.GetConnection (cancellationToken).InsertAsync (labor);
             else
-                return Database.GetConnection ().UpdateAsync (labor);
+                return Database.GetConnection (cancellationToken).UpdateAsync (labor);
         }
 
-        public Task<int> SaveExpense (Expense expense)
+        public Task<int> SaveExpense (Expense expense, CancellationToken cancellationToken)
         {
             if (expense.Id == 0)
-                return Database.GetConnection ().InsertAsync (expense);
+                return Database.GetConnection (cancellationToken).InsertAsync (expense);
             else
-                return Database.GetConnection ().UpdateAsync (expense);
+                return Database.GetConnection (cancellationToken).UpdateAsync (expense);
         }
 
-        public Task<int> SavePhoto (Photo photo)
+        public Task<int> SavePhoto (Photo photo, CancellationToken cancellationToken)
         {
             if (photo.Id == 0)
-                return Database.GetConnection ().InsertAsync (photo);
+                return Database.GetConnection (cancellationToken).InsertAsync (photo);
             else
-                return Database.GetConnection ().UpdateAsync (photo);
+                return Database.GetConnection (cancellationToken).UpdateAsync (photo);
         }
 
-        public Task<int> DeleteAssignment (Assignment assignment)
+        public Task<int> DeleteAssignment (Assignment assignment, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ().DeleteAsync (assignment);
+            return Database.GetConnection (cancellationToken).DeleteAsync (assignment);
         }
 
-        public Task<int> DeleteAssignmentItem (AssignmentItem assignmentItem)
+        public Task<int> DeleteAssignmentItem (AssignmentItem assignmentItem, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ().DeleteAsync (assignmentItem);
+            return Database.GetConnection (cancellationToken).DeleteAsync (assignmentItem);
         }
 
-        public Task<int> DeleteLabor (Labor labor)
+        public Task<int> DeleteLabor (Labor labor, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ().DeleteAsync (labor);
+            return Database.GetConnection (cancellationToken).DeleteAsync (labor);
         }
 
-        public Task<int> DeleteExpense (Expense expense)
+        public Task<int> DeleteExpense (Expense expense, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ().DeleteAsync (expense);
+            return Database.GetConnection (cancellationToken).DeleteAsync (expense);
         }
 
-        public Task<int> DeletePhoto (Photo photo)
+        public Task<int> DeletePhoto (Photo photo, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ().DeleteAsync (photo);
+            return Database.GetConnection (cancellationToken).DeleteAsync (photo);
         }
 
-        public Task<int> SaveTimerEntry (TimerEntry entry)
+        public Task<int> SaveTimerEntry (TimerEntry entry, CancellationToken cancellationToken)
         {
             //If the Id is zero, it's an insert, also set the Id to 1
             if (entry.Id == 0) {
                 entry.Id = 1;
-                return Database.GetConnection ().InsertAsync (entry);
+                return Database.GetConnection (cancellationToken).InsertAsync (entry);
             } else {
-                return Database.GetConnection ().UpdateAsync (entry);
+                return Database.GetConnection (cancellationToken).UpdateAsync (entry);
             }
         }
 
-        public Task<int> DeleteTimerEntry (TimerEntry entry)
+        public Task<int> DeleteTimerEntry (TimerEntry entry, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ().DeleteAsync (entry);
+            return Database.GetConnection (cancellationToken).DeleteAsync (entry);
         }
 
-        public Task<TimerEntry> GetTimerEntryAsync ()
+        public Task<TimerEntry> GetTimerEntryAsync (CancellationToken cancellationToken)
         {
             //Just return the first row
-            return Database.GetConnection ().FindAsync<TimerEntry> (_ => true);
+            return Database.GetConnection (cancellationToken).FindAsync<TimerEntry> (_ => true);
         }
 
-        public Task<List<Document>> GetDocumentsAsync ()
+        public Task<List<Document>> GetDocumentsAsync (CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => {
                 if (_documents == null) {
@@ -181,12 +182,12 @@ namespace FieldService.Data {
                     };
                 }
                 return _documents;
-            });
+            }, cancellationToken);
         }
 
-        public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment)
+        public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment, CancellationToken cancellationToken)
         {
-            return Database.GetConnection ()
+            return Database.GetConnection (cancellationToken)
                 .QueryAsync<AssignmentHistory> (@"
                     select AssignmentHistory.*, Assignment.JobNumber, Assignment.Title, Assignment.ContactName, Assignment.ContactPhone, Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip
                     from AssignmentHistory

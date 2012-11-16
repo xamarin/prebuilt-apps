@@ -35,7 +35,7 @@ namespace FieldService.Data {
         private const int Sleep = 1000;
 #endif
 
-        public Task<bool> LoginAsync (string username, string password)
+        public Task<bool> LoginAsync (string username, string password, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => {
 #if NETFX_CORE
@@ -45,7 +45,7 @@ namespace FieldService.Data {
 #endif
 
                 return true;
-            });
+            }, cancellationToken);
         }
     }
 }

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -33,7 +34,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task LoadDocumentsAsync ()
         {
-            return service.GetDocumentsAsync ()
+            return service.GetDocumentsAsync (CancellationToken.None)
                 .ContinueOnUIThread (t => Documents = t.Result);
         }
     }

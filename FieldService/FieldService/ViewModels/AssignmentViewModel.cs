@@ -21,6 +21,7 @@ using System.Text;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
+using CancellationToken = System.Threading.CancellationToken;
 
 #if NETFX_CORE
 using Timer = FieldService.WinRT.Utilities.Timer;
@@ -146,7 +147,7 @@ namespace FieldService.ViewModels {
         public Task LoadAssignmentsAsync ()
         {
             return service
-                .GetAssignmentsAsync ()
+                .GetAssignmentsAsync (CancellationToken.None)
                 .ContinueOnUIThread (t => {
                     //Grab the active assignment
                     ActiveAssignment = t.Result.FirstOrDefault (a => a.Status == AssignmentStatus.Active);
@@ -162,7 +163,7 @@ namespace FieldService.ViewModels {
         public Task LoadTimerEntryAsync ()
         {
             return service
-                .GetTimerEntryAsync ()
+                .GetTimerEntryAsync (CancellationToken.None)
                 .ContinueOnUIThread (t => {
                     timerEntry = t.Result;
                     if (timerEntry != null) {
@@ -180,7 +181,7 @@ namespace FieldService.ViewModels {
         public Task SaveAssignmentAsync (Assignment assignment)
         {
             //Save the assignment
-            Task task = service.SaveAssignment (assignment);
+            Task task = service.SaveAssignment (assignment, CancellationToken.None);
 
             //If the active assignment should be put on hold
             if (activeAssignment != null &&
@@ -192,7 +193,7 @@ namespace FieldService.ViewModels {
                 if (Recording) {
                     task = task.ContinueWith (PauseAsync ());
                 }
-                task = task.ContinueWith (service.SaveAssignment (activeAssignment));
+                task = task.ContinueWith (service.SaveAssignment (activeAssignment, CancellationToken.None));
             }
 
             //If we are saving the active assignment, we need to pause it
@@ -225,7 +226,9 @@ namespace FieldService.ViewModels {
                 timerEntry = new TimerEntry ();
             timerEntry.Date = DateTime.Now;
 
-            return service.SaveTimerEntry (timerEntry).ContinueOnUIThread (_ => IsBusy = false);
+            return service
+                .SaveTimerEntry (timerEntry, CancellationToken.None)
+                .ContinueOnUIThread (_ => IsBusy = false);
         }
 
         /// <summary>
@@ -247,8 +250,8 @@ namespace FieldService.ViewModels {
             };
 
             return service
-                .SaveLabor (labor)
-                .ContinueWith (service.DeleteTimerEntry (timerEntry))
+                .SaveLabor (labor, CancellationToken.None)
+                .ContinueWith (service.DeleteTimerEntry (timerEntry, CancellationToken.None))
                 .ContinueOnUIThread (_ => {
                     Hours = TimeSpan.Zero;
                     IsBusy = false;
