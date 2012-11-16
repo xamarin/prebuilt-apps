@@ -886,6 +886,9 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f050017
 			public const int Done = 2131034135;
 			
+			// aapt resource value: 0x7f050021
+			public const int EnterDescription = 2131034145;
+			
 			// aapt resource value: 0x7f050009
 			public const int Expenses = 2131034121;
 			
@@ -909,6 +912,9 @@ namespace FieldService.Android
 			
 			// aapt resource value: 0x7f050005
 			public const int MapTab = 2131034117;
+			
+			// aapt resource value: 0x7f050022
+			public const int OptionalCaption = 2131034146;
 			
 			// aapt resource value: 0x7f050003
 			public const int Password = 2131034115;
