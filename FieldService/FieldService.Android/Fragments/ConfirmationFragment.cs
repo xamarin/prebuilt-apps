@@ -135,9 +135,11 @@ namespace FieldService.Android.Fragments {
                         .Show ();
                     return;
                 }
+                completeSignature.Enabled = false;
                 Assignment.Status = AssignmentStatus.Complete;
                 assignmentViewModel.SaveAssignmentAsync (Assignment)
                     .ContinueOnUIThread (_ => {
+                        completeSignature.Enabled = true;
                         Activity.Finish ();
                     });
             };

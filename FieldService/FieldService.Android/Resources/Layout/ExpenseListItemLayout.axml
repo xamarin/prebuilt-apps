@@ -8,6 +8,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/expenseType"
         android:layout_marginLeft="20dp"
+        android:minWidth="80dp"
         android:layout_gravity="center_vertical"
         android:maxLines="1"
         android:textSize="18dp"
@@ -41,7 +42,7 @@
             android:src="@drawable/laborHoursBottom"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/expenseText"
+            android:layout_below="@+id/expenseText"
             android:id="@+id/expenseAmountBottom" />
         <TextView
             android:id="@+id/expenseText"

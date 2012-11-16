@@ -36,6 +36,7 @@ namespace FieldService.Android.Dialogs {
         TextView photoCount,
             dateTime;
         Bitmap imageBitmap;
+        LinearLayout deletePhoto;
 
         public PhotoDialog (Context context)
             : base (context)
@@ -52,8 +53,8 @@ namespace FieldService.Android.Dialogs {
             dateTime = (TextView)FindViewById (Resource.Id.photoDateTime);
             photoCount = (TextView)FindViewById (Resource.Id.photoCountText);
 
-            var delete = (LinearLayout)FindViewById (Resource.Id.photoDeleteImage);
-            delete.Click += (sender, e) => DeletePhoto ();
+            deletePhoto = (LinearLayout)FindViewById (Resource.Id.photoDeleteImage);
+            deletePhoto.Click += (sender, e) => DeletePhoto ();
 
             var nextPhoto = (ImageButton)FindViewById (Resource.Id.photoNextButton);
             var previousPhoto = (ImageButton)FindViewById (Resource.Id.photoPreviousButton);
@@ -80,6 +81,7 @@ namespace FieldService.Android.Dialogs {
             if (Photo != null) {
                 dateTime.Text = string.Format ("{0} {1}", Photo.Date.ToString ("t"), Photo.Date.ToString ("d"));
                 optionalCaption.Text = Photo.Description;
+                deletePhoto.Visibility = Photo.Id != 0 ? ViewStates.Visible : ViewStates.Invisible;
                 if (Photo.Image != null) {
                     imageBitmap = BitmapFactory.DecodeByteArray (Photo.Image, 0, Photo.Image.Length);
                     imageBitmap = imageBitmap.ResizeBitmap (Constants.MaxWidth, Constants.MaxHeight);
@@ -89,6 +91,7 @@ namespace FieldService.Android.Dialogs {
                 imageBitmap = BitmapFactory.DecodeStream (PhotoStream);
                 imageBitmap = imageBitmap.ResizeBitmap (Constants.MaxWidth, Constants.MaxHeight);
                 photo.SetImageBitmap (imageBitmap);
+                deletePhoto.Visibility = ViewStates.Invisible;
             }
         }
         

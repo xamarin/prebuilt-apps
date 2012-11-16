@@ -22,7 +22,7 @@
         android:layout_marginTop="10dp" />
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="wrap_content"
+        android:layout_width="238.1dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
         android:layout_gravity="center_horizontal">
@@ -38,21 +38,35 @@
             android:textColor="@android:color/black"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="30dp" />
-        <EditText
+        <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/addExpenseAmount"
             android:layout_marginLeft="5dp"
-            android:drawableBottom="@drawable/laborHoursBottom"
-            android:layout_gravity="center_vertical"
-            android:textColor="@android:color/black"
-            android:background="@android:color/transparent"
-            android:gravity="right"
-            android:paddingRight="2dp"
-            android:inputType="numberDecimal"
-            android:maxWidth="75dp"
-            android:singleLine="true"
-            android:ellipsize="end" />
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:src="@drawable/laborHoursBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addExpenseAmount"
+                android:id="@+id/addExpenseAmountBottom" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addExpenseAmount"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:paddingRight="2dp"
+                android:inputType="numberDecimal"
+                android:minWidth="65dp"
+                android:maxWidth="65dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:layout_marginRight="5dp"
+                android:textSize="16dp"
+                android:layout_alignRight="@+id/addExpenseAmountBottom" />
+        </RelativeLayout>
     </LinearLayout>
     <EditText
         android:inputType="textMultiLine"
@@ -64,11 +78,12 @@
         android:textSize="12dp"
         android:layout_marginLeft="15dp"
         android:background="@android:color/transparent"
-        android:minWidth="325dp"
-        android:maxWidth="325dp"
+        android:minWidth="360dp"
+        android:maxWidth="360dp"
         android:maxHeight="45dp"
         android:gravity="top"
-        android:minHeight="45dp" />
+        android:minHeight="45dp"
+        android:hint="@string/EnterDescription" />
     <ImageView
         android:src="@drawable/labordescriptionbottom"
         android:layout_width="wrap_content"
