@@ -134,7 +134,7 @@ namespace FieldService.iOS
 		private void SaveAssignment ()
 		{
 			assignmentViewModel
-				.SaveAssignment (assignmentViewModel.ActiveAssignment)
+				.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
 				.ContinueOnUIThread (t => {
 					UpdateAssignment ();
 					detailsController.UpdateAssignment ();
@@ -149,7 +149,7 @@ namespace FieldService.iOS
 			record.Enabled = false;
 			if (assignmentViewModel.Recording) {
 				assignmentViewModel
-					.Pause ()
+					.PauseAsync ()
 					.ContinueOnUIThread (t => {
 						record.Enabled = true;
 
@@ -157,7 +157,7 @@ namespace FieldService.iOS
 						laborController.ReloadLabor ();
 					});
 			} else {
-				assignmentViewModel.Record ().ContinueOnUIThread (t => record.Enabled = true);
+				assignmentViewModel.RecordAsync ().ContinueOnUIThread (t => record.Enabled = true);
 			}
 		}
 

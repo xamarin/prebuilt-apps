@@ -143,7 +143,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private void SaveAssignment ()
 		{
-			assignmentViewModel.SaveAssignment (assignment)
+			assignmentViewModel.SaveAssignmentAsync (assignment)
 				.ContinueOnUIThread (t => {
 					var controller = ServiceContainer.Resolve<AssignmentsController> ();
 					if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {

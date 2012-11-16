@@ -124,7 +124,7 @@ namespace FieldService.iOS
 					};
 				}
 
-				laborViewModel.LoadLaborHours (detailsController.Assignment)
+				laborViewModel.LoadLaborHoursAsync (detailsController.Assignment)
 					.ContinueOnUIThread (_ => {
 					if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
 						title.Text = "Labor Hours";
@@ -177,7 +177,7 @@ namespace FieldService.iOS
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				laborViewModel
-					.DeleteLabor(detailsController.Assignment, laborViewModel.LaborHours[indexPath.Row])
+					.DeleteLaborAsync (detailsController.Assignment, laborViewModel.LaborHours[indexPath.Row])
 					.ContinueOnUIThread (_ => laborController.ReloadLabor ());
 			}
 

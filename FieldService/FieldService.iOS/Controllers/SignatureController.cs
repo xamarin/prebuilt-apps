@@ -77,7 +77,7 @@ namespace FieldService.iOS
 					var assignment = detailsController.Assignment;
 					assignment.Signature = signatureView.GetImage ().ToByteArray ();
 
-					assignmentViewModel.SaveAssignment (assignment)
+					assignmentViewModel.SaveAssignmentAsync (assignment)
 						.ContinueOnUIThread (_ => {
 							//Dismiss controller
 							var signatureController = ServiceContainer.Resolve<SignatureController>();

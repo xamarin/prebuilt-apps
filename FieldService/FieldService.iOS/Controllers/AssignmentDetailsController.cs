@@ -215,7 +215,7 @@ namespace FieldService.iOS
 		private void SaveAssignment ()
 		{
 			assignmentViewModel
-				.SaveAssignment (Assignment)
+				.SaveAssignmentAsync (Assignment)
 				.ContinueOnUIThread (t => {
 
 					UpdateAssignment ();

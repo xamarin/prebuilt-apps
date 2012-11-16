@@ -68,7 +68,7 @@ namespace FieldService.iOS
 		public void ReloadHIstory ()
 		{
 			if (IsViewLoaded) {
-				historyViewModel.LoadHistory (detailsController.Assignment)
+				historyViewModel.LoadHistoryAsync (detailsController.Assignment)
 					.ContinueOnUIThread (_ => {
 						if (historyViewModel.History == null || historyViewModel.History.Count == 0) 
 							title.Text = "History";

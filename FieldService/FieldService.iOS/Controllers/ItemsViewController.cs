@@ -110,7 +110,7 @@ namespace FieldService.iOS
 					};
 				}
 
-				itemViewModel.LoadAssignmentItems (detailsController.Assignment)
+				itemViewModel.LoadAssignmentItemsAsync (detailsController.Assignment)
 					.ContinueOnUIThread (_ => {
 					if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
 						title.Text = "Items";
@@ -146,7 +146,7 @@ namespace FieldService.iOS
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				itemViewModel
-					.DeleteAssignmentItem (detailsController.Assignment, itemViewModel.AssignmentItems [indexPath.Row])
+					.DeleteAssignmentItemAsync (detailsController.Assignment, itemViewModel.AssignmentItems [indexPath.Row])
 					.ContinueOnUIThread (_ => itemController.ReloadItems ());
 			}
 

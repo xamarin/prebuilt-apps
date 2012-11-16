@@ -96,7 +96,7 @@ namespace FieldService.iOS
 			if (IsViewLoaded) {
 				signatureTableView.ReloadData ();
 
-				photoViewModel.LoadPhotos (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
+				photoViewModel.LoadPhotosAsync (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
 			}
 		}
 

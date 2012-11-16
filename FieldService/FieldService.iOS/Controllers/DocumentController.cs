@@ -66,7 +66,7 @@ namespace FieldService.iOS
 		public void ReloadDocuments ()
 		{
 			if (IsViewLoaded) {
-				documentViewModel.LoadDocuments ()
+				documentViewModel.LoadDocumentsAsync ()
 					.ContinueOnUIThread (_ => {
 						if (documentViewModel.Documents == null || documentViewModel.Documents.Count == 0) 
 							title.Text = "Documents";
