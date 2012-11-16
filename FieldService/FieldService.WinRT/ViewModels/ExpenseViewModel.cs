@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FieldService.Data;
-using FieldService.WinRT.Utilities;
 using FieldService.Utilities;
+using FieldService.WinRT.Utilities;
 using FieldService.WinRT.Views;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
@@ -49,7 +48,7 @@ namespace FieldService.WinRT.ViewModels {
             });
 
             saveExpenseCommand = new DelegateCommand (async _ => {
-                selectedExpense.Cost = ExpenseCost.ToDecimal ();
+                selectedExpense.Cost = ExpenseCost.ToDecimal (CultureInfo.InvariantCulture);
                 selectedExpense.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
                 await SaveExpenseAsync (assignmentViewModel.SelectedAssignment, selectedExpense);
                 await LoadExpensesAsync (assignmentViewModel.SelectedAssignment);

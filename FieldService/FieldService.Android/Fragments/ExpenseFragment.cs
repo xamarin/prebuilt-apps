@@ -66,7 +66,7 @@ namespace FieldService.Android.Fragments {
             expensesListView.ItemClick += (sender, e) => {
                 var textView = e.View.FindViewById<TextView> (Resource.Id.expenseText);
 
-                var expense = Expenses.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
+                var expense = Expenses.ElementAtOrDefault ((int)textView.Tag);
 
                 expenseDialog = new ExpenseDialog(Activity);
                 expenseDialog.Activity = Activity;

@@ -13,21 +13,22 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
+using FieldService.Android.Fragments;
 using FieldService.Android.Utilities;
-using Extensions = FieldService.Android.Utilities.Extensions;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Android.Views;
-using FieldService.Android.Fragments;
 using Xamarin.Media;
-using System.Collections.Generic;
+using Extensions = FieldService.Android.Utilities.AndroidExtensions;
 
 namespace FieldService.Android.Dialogs {
     public class ExpenseDialog : BaseDialog {
@@ -181,7 +182,7 @@ namespace FieldService.Android.Dialogs {
         private void SaveExpense ()
         {
             CurrentExpense.Description = expenseDescription.Text;
-            CurrentExpense.Cost = expenseAmount.Text.ToDecimal ();
+            CurrentExpense.Cost = expenseAmount.Text.ToDecimal (CultureInfo.InvariantCulture);
             CurrentExpense.AssignmentId = Assignment.Id;
             if (CurrentExpense.Photo == null) {
                 CurrentExpense.Photo = imageBitmap.ToByteArray ();

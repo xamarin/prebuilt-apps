@@ -62,7 +62,7 @@ namespace FieldService.Android.Fragments {
             documentListView.ItemClick += (sender, e) => {
                 var textView = e.View.FindViewById<TextView> (Resource.Id.documentListItemDocTitle);
 
-                var document = Documents.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
+                var document = Documents.ElementAtOrDefault ((int)textView.Tag);
 
                //start intent with the uri path of the document
                 var strings = document.Path.Split ('/');
@@ -91,7 +91,7 @@ namespace FieldService.Android.Fragments {
             try {
                 using (var input = Activity.Assets.Open (fileName)) {
                     using (var output = Activity.OpenFileOutput (file.Name, FileCreationMode.WorldReadable)) {
-                        FieldService.Android.Utilities.Extensions.CopyFile (input, output);
+                        input.CopyTo (output);
                     }
                 }
             } catch (Exception e) {

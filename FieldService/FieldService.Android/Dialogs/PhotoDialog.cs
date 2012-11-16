@@ -82,12 +82,12 @@ namespace FieldService.Android.Dialogs {
                 optionalCaption.Text = Photo.Description;
                 if (Photo.Image != null) {
                     imageBitmap = BitmapFactory.DecodeByteArray (Photo.Image, 0, Photo.Image.Length);
-                    imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                    imageBitmap = imageBitmap.ResizeBitmap (Constants.MaxWidth, Constants.MaxHeight);
                     photo.SetImageBitmap (imageBitmap);
                 }
             } else if (PhotoStream != null) {
                 imageBitmap = BitmapFactory.DecodeStream (PhotoStream);
-                imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                imageBitmap = imageBitmap.ResizeBitmap (Constants.MaxWidth, Constants.MaxHeight);
                 photo.SetImageBitmap (imageBitmap);
             }
         }

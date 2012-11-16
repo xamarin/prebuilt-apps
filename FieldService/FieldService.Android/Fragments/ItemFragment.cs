@@ -49,7 +49,7 @@ namespace FieldService.Android.Fragments {
             ReloadAssignmentItems ();
             itemsListView.ItemClick += (sender, e) => {
                 var textView = e.View.FindViewById<TextView> (Resource.Id.itemName);
-                var item = AssignmentItems.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
+                var item = AssignmentItems.ElementAtOrDefault ((int)textView.Tag);
                 item.Used = !item.Used;
                 itemViewModel.SaveAssignmentItemAsync (Assignment, item);
             };

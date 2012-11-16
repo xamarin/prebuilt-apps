@@ -52,7 +52,7 @@ namespace FieldService.Android.Fragments {
             laborListView.ItemClick += (sender, e) => {
                 var textView = e.View.FindViewById<TextView> (Resource.Id.laborHours);
 
-                var labor = LaborHours.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
+                var labor = LaborHours.ElementAtOrDefault ((int)textView.Tag);
 
                 laborDialog = new AddLaborDialog (Activity);
                 laborDialog.Activity = Activity;
