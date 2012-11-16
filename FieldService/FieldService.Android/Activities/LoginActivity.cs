@@ -42,7 +42,7 @@ namespace FieldService.Android {
         public LoginActivity ()
         {
             //Registers services for core library
-            Bootstrapper.Startup ();
+            ServiceRegistrar.Startup ();
 
             loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
