@@ -15,16 +15,15 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FieldService.Data;
-using Windows.UI.Xaml.Controls.Primitives;
-using Windows.UI.Xaml;
-using Windows.UI.Xaml.Controls;
-using FieldService.WinRT.Views;
 using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
+using FieldService.WinRT.Views;
+using Windows.UI.Xaml;
+using Windows.UI.Xaml.Controls;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace FieldService.WinRT.ViewModels {
     /// <summary>
@@ -46,7 +45,7 @@ namespace FieldService.WinRT.ViewModels {
                 addLaborPopUp.IsOpen = false;
             });
             saveAddLaborCommand = new DelegateCommand (async _ => {
-                selectedLabor.Hours = TimeSpan.FromHours (currentLaborHours.ToDouble ());
+                selectedLabor.Hours = TimeSpan.FromHours (currentLaborHours.ToDouble (CultureInfo.InvariantCulture));
                 selectedLabor.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
                 await SaveLaborAsync (assignmentViewModel.SelectedAssignment, selectedLabor);
                 await LoadLaborHoursAsync (assignmentViewModel.SelectedAssignment);

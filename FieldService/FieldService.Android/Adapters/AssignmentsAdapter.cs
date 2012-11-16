@@ -24,7 +24,7 @@ using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using Orientation = Android.Content.Res.Orientation;
-using Extensions = FieldService.Android.Utilities.Extensions;
+using Extensions = FieldService.Android.Utilities.AndroidExtensions;
 
 namespace FieldService.Android {
     /// <summary>
@@ -192,7 +192,7 @@ namespace FieldService.Android {
                         var view = (View)v.Parent;
                         var phone = view.FindViewById<TextView> (Resource.Id.assignmentPhone);
                         var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
-                        Extensions.MakePhoneCall (activity, phone.Text);
+                        activity.MakePhoneCall (phone.Text);
                     }
                     break;
                 case Resource.Id.assignmentAddressLayout: {

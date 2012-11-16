@@ -14,6 +14,7 @@
 //    limitations under the License.
 using System;
 using System.Drawing;
+using System.Globalization;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Utilities;
@@ -129,7 +130,7 @@ namespace FieldService.iOS
 					method (this, EventArgs.Empty);
 			};
 			textField.EditingDidEnd += (sender, e) => {
-				Value = textField.Text.ToDouble ();
+				Value = textField.Text.ToDouble (CultureInfo.InvariantCulture);
 
 				var method = EditingDidEnd;
 				if (method != null)

@@ -14,13 +14,12 @@
 //    limitations under the License.
 
 using System;
+using System.Globalization;
 using System.Linq;
-using System.Collections.Generic;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
-using Android.Views;
 using Android.Widget;
 using FieldService.Android.Fragments;
 using FieldService.Data;
@@ -78,7 +77,7 @@ namespace FieldService.Android.Dialogs {
             var addHours = (ImageButton)FindViewById (Resource.Id.addLaborHours);
             addHours.Click += (sender, e) => {
                 //add to the hours
-                var total = hours.Text.ToDouble ();
+                double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
                 total += .5;
                 CurrentLabor.Hours = TimeSpan.FromHours (total);
                 hours.Text = total.ToString ("0.0");
@@ -87,7 +86,7 @@ namespace FieldService.Android.Dialogs {
             var subtractHours = (ImageButton)FindViewById (Resource.Id.subtractLaborHours);
             subtractHours.Click += (sender, e) => {
                 //subtract the hours
-                var total = hours.Text.ToDouble ();
+                double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
                 total -= .5;
                 CurrentLabor.Hours = TimeSpan.FromHours (total);
                 hours.Text = total.ToString ("0.0");
@@ -170,7 +169,7 @@ namespace FieldService.Android.Dialogs {
         /// </summary>
         private void SaveLabor ()
         {
-            CurrentLabor.Hours = TimeSpan.FromHours (hours.Text.ToDouble ());
+            CurrentLabor.Hours = TimeSpan.FromHours (hours.Text.ToDouble (CultureInfo.InvariantCulture));
             CurrentLabor.Description = description.Text;
             CurrentLabor.AssignmentId = Assignment.Id;
 

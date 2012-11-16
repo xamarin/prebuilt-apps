@@ -95,7 +95,7 @@ namespace FieldService.Android {
             phoneButton = FindViewById<LinearLayout> (Resource.Id.summaryPhoneIconLayout);
 
             phoneButton.Click += (sender, e) => {
-                Extensions.MakePhoneCall (this, phone.Text);
+                AndroidExtensions.MakePhoneCall (this, phone.Text);
             };
             mapButton.Click += (sender, e) => {
                 var navFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);

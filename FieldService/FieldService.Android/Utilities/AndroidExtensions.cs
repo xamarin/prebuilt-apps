@@ -22,7 +22,10 @@ using Android.App;
 using Android.Content;
 
 namespace FieldService.Android.Utilities {
-    public static class Extensions {
+    /// <summary>
+    /// Set of extension methods for working with Android
+    /// </summary>
+    public static class AndroidExtensions {
 
         /// <summary>
         /// Converts a floating point longitude/latitude to what Google Maps requires
@@ -35,8 +38,6 @@ namespace FieldService.Android.Utilities {
         /// <summary>
         /// Helper method to get the sample size of the image for resampling.
         /// </summary>
-        /// <param name="bytes"></param>
-        /// <returns></returns>
         public static int ToSampleSize (this byte [] bytes)
         {
             var sampleSize = 0;
@@ -50,8 +51,6 @@ namespace FieldService.Android.Utilities {
         /// <summary>
         /// Helper method to turn bmp image into byte array
         /// </summary>
-        /// <param name="bmp"></param>
-        /// <returns></returns>
         public static byte [] ToByteArray (this Bitmap bmp)
         {
             byte [] bytes = null;
@@ -68,11 +67,7 @@ namespace FieldService.Android.Utilities {
         /// <summary>
         /// Helper method to resize the bitmap to a smaller image size
         /// </summary>
-        /// <param name="input"></param>
-        /// <param name="destWidth"></param>
-        /// <param name="destHeight"></param>
-        /// <returns></returns>
-        public static Bitmap ResizeBitmap (Bitmap input, int destWidth, int destHeight)
+        public static Bitmap ResizeBitmap (this Bitmap input, int destWidth, int destHeight)
         {
             int srcWidth = input.Width,
                 srcHeight = input.Height;
@@ -98,26 +93,9 @@ namespace FieldService.Android.Utilities {
         }
 
         /// <summary>
-        /// Helper method that copies a file to a new location for the documents fragment
-        /// </summary>
-        /// <param name="input"></param>
-        /// <param name="output"></param>
-        public static void CopyFile (System.IO.Stream input, System.IO.Stream output)
-        {
-            byte [] buffer = new byte [4096];
-            int read = -1;
-            while (read != 0) {
-                read = input.Read (buffer, 0, 4096);
-                output.Write (buffer, 0, read);
-            }
-        }
-
-        /// <summary>
         /// Helper method to make a phone call from the device.
         /// </summary>
-        /// <param name="activity"></param>
-        /// <param name="number"></param>
-        public static void MakePhoneCall (Activity activity, string number)
+        public static void MakePhoneCall (this Activity activity, string number)
         {
             var intent = new Intent (Intent.ActionView);
             intent.SetFlags (ActivityFlags.ClearTop);

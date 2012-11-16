@@ -25,7 +25,7 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Extensions = FieldService.Android.Utilities.Extensions;
+using Extensions = FieldService.Android.Utilities.AndroidExtensions;
 
 namespace FieldService.Android {
     /// <summary>

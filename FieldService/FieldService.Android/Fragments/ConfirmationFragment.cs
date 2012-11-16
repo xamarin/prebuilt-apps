@@ -62,7 +62,7 @@ namespace FieldService.Android.Fragments {
             photoListView.ItemClick += (sender, e) => {
                 var image = view.FindViewById<ImageView> (Resource.Id.photoListViewImage);
                 if (image != null) {
-                    var index = image.Tag.ToString ().ToInt ();
+                    int index = (int)image.Tag;
                     var photo = Photos.ElementAtOrDefault (index);
                     photoDialog = new PhotoDialog (Activity);
                     photoDialog.Activity = Activity;
