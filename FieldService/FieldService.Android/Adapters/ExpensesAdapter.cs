@@ -17,7 +17,6 @@ using FieldService.ViewModels;
 namespace FieldService.Android {
     public class ExpensesAdapter : ArrayAdapter<Expense> {
         List<Expense> expenses;
-        ExpenseCategory [] expenseTypes;
         int resourceId;
         ExpenseViewModel expenseViewModel;
 
@@ -27,13 +26,6 @@ namespace FieldService.Android {
             this.expenses = expenses;
             this.resourceId = resourceId;
             expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
-            expenseTypes = new ExpenseCategory []
-            {
-                ExpenseCategory.Gas,
-                ExpenseCategory.Food,
-                ExpenseCategory.Supplies,
-                ExpenseCategory.Other,
-            };
         }
 
         public Assignment Assignment
@@ -61,33 +53,14 @@ namespace FieldService.Android {
 
             var description = view.FindViewById<TextView> (Resource.Id.expenseDescription);
             var expenseAmount = view.FindViewById<TextView> (Resource.Id.expenseText);
-            var expenseType = view.FindViewById<Spinner> (Resource.Id.expenseType);
+            var expenseType = view.FindViewById<TextView> (Resource.Id.expenseType);
             var expenseImage = view.FindViewById<ImageView> (Resource.Id.expensePhotoIcon);
 
-            var adapter = new SpinnerAdapter<ExpenseCategory> (expenseTypes, Context, Resource.Layout.SimpleSpinnerItem);
-            adapter.TextColor = Color.Black;
-            adapter.Background = Color.White;
-            expenseType.Adapter = adapter;
-
-            expenseType.ItemSelected += (sender, e) => {
-                var status = expenseTypes [e.Position];
-                var currentExpense = expenses [position];
-                if (status != currentExpense.Category) {
-                    currentExpense.Category = status;
-                    expenseViewModel.SaveExpenseAsync (Assignment, currentExpense).ContinueOnUIThread (_ => {
-                        var fragment = ServiceContainer.Resolve<ExpenseFragment> ();
-                        fragment.ReloadSingleListItem (position);
-                    });
-                }
-            };
-
-            expenseType.SetSelection (expenseTypes.ToList ().IndexOf (expense.Category));
+            expenseType.Text = expense.CategoryAsString;
             expenseAmount.Text = expense.Cost.ToString ("0.00");
             description.Text = expense.Description;
 
             expenseAmount.Tag = position;
-
-            expenseType.Focusable = false;
 
             expenseImage.Visibility = expense.Photo != null ? ViewStates.Visible : ViewStates.Invisible;
 

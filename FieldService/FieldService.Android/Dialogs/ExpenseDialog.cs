@@ -38,7 +38,8 @@ namespace FieldService.Android.Dialogs {
         EditText expenseDescription;
         TextView expenseAmount;
         ImageView expensePhoto;
-        Button expenseAddPhoto;
+        Button expenseAddPhoto,
+            deleteExpense;
         Bitmap imageBitmap;
         MediaPicker mediaPicker;
 
@@ -68,8 +69,8 @@ namespace FieldService.Android.Dialogs {
             var save = (Button)FindViewById (Resource.Id.addExpenseSave);
             save.Click += (sender, e) => SaveExpense ();
 
-            var delete = (Button)FindViewById (Resource.Id.addExpenseDelete);
-            delete.Click += (sender, e) => {
+            deleteExpense = (Button)FindViewById (Resource.Id.addExpenseDelete);
+            deleteExpense.Click += (sender, e) => {
                 if (CurrentExpense != null && CurrentExpense.Id != -1) {
                     DeleteExpense ();
                 } else {
@@ -154,12 +155,14 @@ namespace FieldService.Android.Dialogs {
                 expenseType.SetSelection (expenseTypes.ToList ().IndexOf (CurrentExpense.Category));
                 expenseAmount.Text = CurrentExpense.Cost.ToString ("0.00");
                 expenseDescription.Text = CurrentExpense.Description;
+                deleteExpense.Visibility = CurrentExpense.Id != 0 ? ViewStates.Visible : ViewStates.Gone;
             } else {
                 expensePhoto.SetImageBitmap (null);
                 expenseAmount.Text = "0.00";
                 expenseDescription.Text = string.Empty;
                 expenseType.SetSelection (0);
                 expenseAddPhoto.Visibility = ViewStates.Visible;
+                deleteExpense.Visibility = ViewStates.Gone;
             }
         }
 

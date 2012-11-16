@@ -20,6 +20,7 @@ using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
+using Android.Views;
 using Android.Widget;
 using FieldService.Android.Fragments;
 using FieldService.Data;
@@ -88,6 +89,7 @@ namespace FieldService.Android.Dialogs {
                 //subtract the hours
                 double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
                 total -= .5;
+                total = total < 0 ? 0 : total;
                 CurrentLabor.Hours = TimeSpan.FromHours (total);
                 hours.Text = total.ToString ("0.0");
             };

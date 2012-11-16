@@ -48,7 +48,11 @@
             android:textColor="@android:color/black"
             android:background="@android:color/transparent"
             android:gravity="right"
-            android:paddingRight="2dp" />
+            android:paddingRight="2dp"
+            android:inputType="numberDecimal"
+            android:maxWidth="75dp"
+            android:singleLine="true"
+            android:ellipsize="end" />
     </LinearLayout>
     <EditText
         android:inputType="textMultiLine"
