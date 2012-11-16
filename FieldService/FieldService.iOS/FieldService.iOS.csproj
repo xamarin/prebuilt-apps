@@ -313,6 +313,9 @@
       <DependentUpon>HistoryCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PlaceholderTextView.cs" />
+    <Compile Include="..\FieldService\Data\TestData.cs">
+      <Link>FieldService\Data\TestData.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
