@@ -51,7 +51,7 @@ namespace FieldService.Android.Fragments {
                 var textView = e.View.FindViewById<TextView> (Resource.Id.itemName);
                 var item = AssignmentItems.ElementAtOrDefault (textView.Tag.ToString ().ToInt ());
                 item.Used = !item.Used;
-                itemViewModel.SaveAssignmentItem (Assignment, item);
+                itemViewModel.SaveAssignmentItemAsync (Assignment, item);
             };
             return view;
         }
@@ -95,7 +95,7 @@ namespace FieldService.Android.Fragments {
                 .SetTitle ("Delete")
                 .SetMessage ("Are you sure you want to delete this item?")
                 .SetPositiveButton ("Yes", (sender, e) => {
-                    itemViewModel.DeleteAssignmentItem (Assignment, item).ContinueOnUIThread (_ => {
+                    itemViewModel.DeleteAssignmentItemAsync (Assignment, item).ContinueOnUIThread (_ => {
                         ReloadItems ();
                     });
                 })
@@ -105,7 +105,7 @@ namespace FieldService.Android.Fragments {
 
         public void ReloadItems ()
         {
-            itemViewModel.LoadAssignmentItems (Assignment).ContinueOnUIThread (_ => {
+            itemViewModel.LoadAssignmentItemsAsync (Assignment).ContinueOnUIThread (_ => {
                 AssignmentItems = itemViewModel.AssignmentItems;
                 ReloadAssignmentItems ();
                 var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
