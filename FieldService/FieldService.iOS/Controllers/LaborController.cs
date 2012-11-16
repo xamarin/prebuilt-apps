@@ -78,7 +78,7 @@ namespace FieldService.iOS
 			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				Labor = new Labor {
 					Type = LaborType.Hourly,
-					Assignment = detailsController.Assignment.ID,
+					AssignmentId = detailsController.Assignment.Id,
 				};
 				PerformSegue ("AddLabor", this);
 			});

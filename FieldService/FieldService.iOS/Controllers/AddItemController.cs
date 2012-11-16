@@ -123,8 +123,8 @@ namespace FieldService.iOS
 				var item = GetItem (indexPath);
 				tableView.UserInteractionEnabled = false;
 				itemViewModel.SaveAssignmentItemAsync (detailController.Assignment, new AssignmentItem {
-					Item = item.ID,
-					Assignment = detailController.Assignment.ID,
+					ItemId = item.Id,
+					AssignmentId = detailController.Assignment.Id,
 				})
 				.ContinueOnUIThread(_ => {
 					tableView.UserInteractionEnabled = true;
