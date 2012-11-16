@@ -70,7 +70,7 @@ namespace FieldService.Data {
             }
         }
 
-        #region WinRT properties
+        #region UI properties
 
         public string HoursFormatted
         {

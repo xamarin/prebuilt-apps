@@ -37,7 +37,7 @@ namespace FieldService.Data {
         /// <summary>
         /// Actual image
         /// </summary>
-        public byte[] Image { get; set; }
+        public byte [] Image { get; set; }
 
         /// <summary>
         /// Date image was saved
@@ -49,14 +49,14 @@ namespace FieldService.Data {
         /// </summary>
         public string Description { get; set; }
 
-        #region WinRT properties
+        #region UI properties
         /// <summary>
         /// The time component of the DateTime on the photo
         /// </summary>
         [Ignore]
         public string TimeFormatted
         {
-            get {return Date.ToString("t");}
+            get { return Date.ToString ("t"); }
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace FieldService.Data {
         [Ignore]
         public string DateFormatted
         {
-            get { return Date.ToString("d"); }
+            get { return Date.ToString ("d"); }
         }
         #endregion
     }
