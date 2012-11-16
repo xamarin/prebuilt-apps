@@ -37,6 +37,7 @@ namespace FieldService.Android.Dialogs {
         TextView hours;
         LaborType [] laborTypes;
         Spinner type;
+        Button delete;
 
         public AddLaborDialog (Context context)
             : base (context)
@@ -61,7 +62,7 @@ namespace FieldService.Android.Dialogs {
             var cancel = (Button)FindViewById (Resource.Id.cancelAddLabor);
             cancel.Click += (sender, e) => Dismiss ();
 
-            var delete = (Button)FindViewById (Resource.Id.deleteAddLabor);
+            delete = (Button)FindViewById (Resource.Id.deleteAddLabor);
             delete.Click += (sender, e) => {
                 //delete & reload
                 if (CurrentLabor != null && CurrentLabor.Id != -1) {
@@ -115,6 +116,11 @@ namespace FieldService.Android.Dialogs {
         {
             description.Text = CurrentLabor != null ? CurrentLabor.Description : string.Empty;
             hours.Text = CurrentLabor != null ? CurrentLabor.Hours.TotalHours.ToString ("0.0") : string.Empty;
+            if (CurrentLabor != null && CurrentLabor.Id != 0) {
+                delete.Visibility = ViewStates.Visible;
+            } else {
+                delete.Visibility = ViewStates.Gone;
+            }
             base.OnAttachedToWindow ();
         }
 

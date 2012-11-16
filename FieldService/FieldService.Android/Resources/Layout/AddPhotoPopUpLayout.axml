@@ -28,7 +28,7 @@
         android:textColor="@android:color/black"
         android:background="@android:color/transparent"
         android:textSize="12dp"
-        android:hint="Optional caption..."
+        android:hint="@string/OptionalCaption"
         android:inputType="textMultiLine"
         android:maxHeight="50dp"
         android:minWidth="325dp"

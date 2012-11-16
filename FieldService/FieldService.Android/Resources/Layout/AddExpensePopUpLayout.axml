@@ -49,13 +49,6 @@
             android:background="@android:color/transparent"
             android:gravity="right"
             android:paddingRight="2dp" />
-        <ImageView
-            android:src="@drawable/cameraIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:layout_marginLeft="30dp"
-            android:layout_gravity="center_vertical" />
     </LinearLayout>
     <EditText
         android:inputType="textMultiLine"

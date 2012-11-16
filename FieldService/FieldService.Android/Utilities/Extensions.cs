@@ -121,7 +121,7 @@ namespace FieldService.Android.Utilities {
         {
             var intent = new Intent (Intent.ActionView);
             intent.SetFlags (ActivityFlags.ClearTop);
-            string uri = "tel:" + "270-796-5063";// number.Trim ();
+            string uri = "tel:" + number.Trim ();
             intent.SetData (global::Android.Net.Uri.Parse (uri));
             activity.StartActivity (intent);
         }

@@ -175,14 +175,14 @@ namespace FieldService.Android {
         {
             switch (v.Id) {
                 case Resource.Id.assignmentAccept: {
-                        var position = v.Tag.ToString ().ToInt ();
+                        var position = (int)v.Tag;
                         var activeAssignment = GetItem (position);
                         activeAssignment.Status = AssignmentStatus.Hold;
                         SaveAssignment (activeAssignment, position);
                     }
                     break;
                 case Resource.Id.assignmentDecline: {
-                        var position = v.Tag.ToString ().ToInt ();
+                        var position = (int)v.Tag;
                         var activeAssignment = GetItem (position);
                         activeAssignment.Status = AssignmentStatus.Declined;
                         SaveAssignment (activeAssignment, position);
@@ -196,7 +196,7 @@ namespace FieldService.Android {
                     }
                     break;
                 case Resource.Id.assignmentAddressLayout: {
-                        var position = v.Tag.ToString ().ToInt ();
+                        var position = (int)v.Tag;
                         var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
                         var activeAssignment = GetItem (position);
                         activity.TabHost.CurrentTab = 1;
