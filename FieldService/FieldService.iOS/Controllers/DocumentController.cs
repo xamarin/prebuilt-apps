@@ -100,7 +100,7 @@ namespace FieldService.iOS
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				var cell = tableView.CellAt (indexPath) as DocumentCell;
-				cell.Clicked (this);
+				cell.Clicked ();
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
