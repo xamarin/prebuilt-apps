@@ -36,7 +36,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+			itemViewModel = new ItemViewModel();
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
 		}
 
@@ -70,7 +70,7 @@ namespace FieldService.iOS
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			tableView.Source = new TableSource ();
+			tableView.Source = new TableSource (itemViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -131,11 +131,11 @@ namespace FieldService.iOS
 			readonly AssignmentDetailsController detailsController;
 			const string Identifier = "AssignmentItemCell";
 
-			public TableSource ()
+			public TableSource (ItemViewModel itemViewModel)
 			{
+				this.itemViewModel = itemViewModel;
 				itemController = ServiceContainer.Resolve<ItemsViewController> ();
 				detailsController = ServiceContainer.Resolve <AssignmentDetailsController> ();
-				itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
 			}
 
 			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)

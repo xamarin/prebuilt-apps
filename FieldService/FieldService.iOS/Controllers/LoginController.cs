@@ -33,7 +33,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
+			loginViewModel = new LoginViewModel();
 
 			//Hook up ViewModel events
 			loginViewModel.IsBusyChanged += (sender, e) => {

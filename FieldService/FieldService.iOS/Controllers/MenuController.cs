@@ -35,7 +35,9 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
+
+			assignmentViewModel = assignmentsController.AssignmentViewModel;
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 
 			assignmentViewModel.HoursChanged += (sender, e) => {

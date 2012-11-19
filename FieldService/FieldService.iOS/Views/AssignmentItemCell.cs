@@ -32,7 +32,7 @@ namespace FieldService.iOS
 
 		public AssignmentItemCell (IntPtr handle) : base (handle)
 		{
-			itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
+			itemViewModel = new ItemViewModel();
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 

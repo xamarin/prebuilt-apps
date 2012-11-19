@@ -30,7 +30,7 @@ namespace FieldService.iOS
 
 		public AssignmentStatusSheet ()
 		{
-			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			assignmentViewModel = new AssignmentViewModel();
 
 			foreach (AssignmentStatus status in assignmentViewModel.AvailableStatuses) {
 				AddButton (status.ToString ());

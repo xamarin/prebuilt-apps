@@ -33,7 +33,7 @@ namespace FieldService.iOS
 
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
-			photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
+			photoViewModel = new PhotoViewModel();
 			detailController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 
@@ -77,7 +77,7 @@ namespace FieldService.iOS
 			var descriptionButton = new UIBarButtonItem (label);
 			toolbar.Items = new UIBarButtonItem[] { descriptionButton };
 
-			photoTableView.Source = new PhotoTableSource ();
+			photoTableView.Source = new PhotoTableSource (photoViewModel);
 			signatureTableView.Source = new SignatureTableSource ();
 		}
 
@@ -120,9 +120,9 @@ namespace FieldService.iOS
 			readonly PhotoViewModel photoViewModel;
 			readonly ConfirmationController confirmationController;
 
-			public PhotoTableSource ()
+			public PhotoTableSource (PhotoViewModel photoViewModel)
 			{
-				photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+				this.photoViewModel = photoViewModel;
 				confirmationController = ServiceContainer.Resolve<ConfirmationController> ();
 			}
 

@@ -37,7 +37,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel>();
+			expenseViewModel = new ExpenseViewModel();
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 
@@ -81,7 +81,7 @@ namespace FieldService.iOS
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			tableView.Source = new TableSource ();
+			tableView.Source = new TableSource (expenseViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -141,9 +141,9 @@ namespace FieldService.iOS
 			readonly AssignmentDetailsController detailsController;
 			const string Identifier = "ExpenseCell";
 
-			public TableSource ()
+			public TableSource (ExpenseViewModel expenseViewModel)
 			{
-				expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+				this.expenseViewModel = expenseViewModel;
 				expenseController = ServiceContainer.Resolve<ExpenseController> ();
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 			}
