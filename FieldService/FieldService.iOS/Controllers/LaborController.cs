@@ -37,7 +37,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			laborViewModel = ServiceContainer.Resolve <LaborViewModel> ();
+			laborViewModel = new LaborViewModel();
 			detailsController = ServiceContainer.Resolve <AssignmentDetailsController> ();
 		}
 
@@ -85,7 +85,7 @@ namespace FieldService.iOS
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			tableView.Source = new TableSource ();
+			tableView.Source = new TableSource (laborViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -145,9 +145,9 @@ namespace FieldService.iOS
 			readonly AssignmentDetailsController detailsController;
 			const string Identifier = "LaborCell";
 
-			public TableSource ()
+			public TableSource (LaborViewModel laborViewModel)
 			{
-				laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+				this.laborViewModel = laborViewModel;
 				laborController = ServiceContainer.Resolve<LaborController> ();
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 			}

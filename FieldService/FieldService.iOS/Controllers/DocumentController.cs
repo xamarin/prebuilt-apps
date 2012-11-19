@@ -31,7 +31,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			documentViewModel = ServiceContainer.Resolve<DocumentViewModel>();
+			documentViewModel = new DocumentViewModel();
 		}
 
 		public override void ViewDidLoad ()
@@ -50,7 +50,7 @@ namespace FieldService.iOS
 			
 			toolbar.Items = new UIBarButtonItem[] { titleButton };
 
-			tableView.Source = new TableSource ();
+			tableView.Source = new TableSource (documentViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -86,9 +86,9 @@ namespace FieldService.iOS
 			UIDocumentInteractionController documentController;
 			const string Identifier = "DocumentCell";
 
-			public TableSource ()
+			public TableSource (DocumentViewModel documentViewModel)
 			{
-				documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
+				this.documentViewModel = documentViewModel;
 				documentController = new UIDocumentInteractionController();
 			}
 

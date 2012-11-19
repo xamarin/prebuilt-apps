@@ -31,24 +31,29 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AssignmentsController : BaseController
 	{
-		readonly AssignmentViewModel assignmentViewModel;
 		bool activeAssignmentVisible = true;
 		MKMapView mapView;
 		UIActionSheet actionSheet;
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
-			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
-			assignmentViewModel.HoursChanged += (sender, e) => {
+			AssignmentViewModel = new AssignmentViewModel();
+			AssignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {
-					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+					timerLabel.Text = AssignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 				}
 			};
-			assignmentViewModel.RecordingChanged += (sender, e) => {
+			AssignmentViewModel.RecordingChanged += (sender, e) => {
 				if (IsViewLoaded) {
-					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+					record.SetBackgroundImage (AssignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 				}
 			};
+		}
+
+		public AssignmentViewModel AssignmentViewModel
+		{
+			get;
+			private set;
 		}
 
 		public override void ViewDidLoad ()
@@ -76,8 +81,8 @@ namespace FieldService.iOS
 				startAndEnd.TextColor = Theme.LabelColor;
 
 			status.StatusChanged += (sender, e) => {
-				assignmentViewModel
-					.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
+				AssignmentViewModel
+					.SaveAssignmentAsync (AssignmentViewModel.ActiveAssignment)
 					.ContinueOnUIThread (_ => ReloadAssignments ());
 			};
 
@@ -86,9 +91,9 @@ namespace FieldService.iOS
 
 			//Load the current timer status
 			record.Enabled = false;
-			assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
+			AssignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
 				record.Enabled = true;
-				if (assignmentViewModel.Recording) {
+				if (AssignmentViewModel.Recording) {
 					record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
 				} else {
 					record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
@@ -156,8 +161,8 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadAssignments ()
 		{
-			assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
-				if (assignmentViewModel.ActiveAssignment == null) {
+			AssignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
+				if (AssignmentViewModel.ActiveAssignment == null) {
 					SetActiveAssignmentVisible (false);
 				} else {
 					SetActiveAssignmentVisible (true);
@@ -182,7 +187,7 @@ namespace FieldService.iOS
 		partial void ActiveAssignmentSelected ()
 		{
 			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
-			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
+			assignmentController.Assignment = AssignmentViewModel.ActiveAssignment;
 			Theme.TransitionController <MainController>();
 		}
 
@@ -253,7 +258,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private void LoadActiveAssignment ()
 		{
-			var assignment = assignmentViewModel.ActiveAssignment;
+			var assignment = AssignmentViewModel.ActiveAssignment;
 			priority.Text = assignment.Priority.ToString ();
 			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
 			titleLabel.Text = assignment.Title;
@@ -271,10 +276,10 @@ namespace FieldService.iOS
 		partial void Record ()
 		{
 			record.Enabled = false;
-			if (assignmentViewModel.Recording) {
-				assignmentViewModel.PauseAsync ().ContinueOnUIThread (t => record.Enabled = true);
+			if (AssignmentViewModel.Recording) {
+				AssignmentViewModel.PauseAsync ().ContinueOnUIThread (t => record.Enabled = true);
 			} else {
-				assignmentViewModel.RecordAsync ().ContinueOnUIThread (t => record.Enabled = true);
+				AssignmentViewModel.RecordAsync ().ContinueOnUIThread (t => record.Enabled = true);
 			}
 		}
 
@@ -306,7 +311,7 @@ namespace FieldService.iOS
 		partial void Address ()
 		{
 			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
-			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
+			assignmentController.Assignment = AssignmentViewModel.ActiveAssignment;
 			Theme.TransitionController <MainController>();
 
 			var menuController = ServiceContainer.Resolve<MenuController>();
@@ -335,13 +340,13 @@ namespace FieldService.iOS
 					mapView.ClearPlacemarks ();
 
 					List<MKPlacemark> placemarks = new List<MKPlacemark>();
-					if (assignmentViewModel.ActiveAssignment != null) {
-						var assignment = assignmentViewModel.ActiveAssignment;
+					if (AssignmentViewModel.ActiveAssignment != null) {
+						var assignment = AssignmentViewModel.ActiveAssignment;
 						if (assignment.Latitude != 0 && assignment.Longitude != 0)
 							placemarks.Add (assignment.ToPlacemark ());
 					}
 
-					foreach (var assignment in assignmentViewModel.Assignments) {
+					foreach (var assignment in AssignmentViewModel.Assignments) {
 						if (assignment.Latitude != 0 && assignment.Longitude != 0)
 							placemarks.Add (assignment.ToPlacemark ());
 					}
@@ -371,7 +376,7 @@ namespace FieldService.iOS
 				
 			public TableSource (AssignmentsController controller)
 			{
-				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+				assignmentViewModel = controller.AssignmentViewModel;
 			}
 
 			public override int RowsInSection (UITableView tableView, int section)

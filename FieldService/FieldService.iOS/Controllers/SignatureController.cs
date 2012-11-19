@@ -48,7 +48,9 @@ namespace FieldService.iOS
 
 			public ContentController ()
 			{
-				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+				var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
+
+				assignmentViewModel = assignmentsController.AssignmentViewModel;
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 				confirmationController = ServiceContainer.Resolve<ConfirmationController>();
 

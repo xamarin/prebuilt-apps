@@ -32,7 +32,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			historyViewModel = ServiceContainer.Resolve<HistoryViewModel>();
+			historyViewModel = new HistoryViewModel();
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 
@@ -52,7 +52,7 @@ namespace FieldService.iOS
 			
 			toolbar.Items = new UIBarButtonItem[] { titleButton };
 
-			tableView.Source = new TableSource ();
+			tableView.Source = new TableSource (historyViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -88,9 +88,9 @@ namespace FieldService.iOS
 			readonly HistoryController historyController;
 			const string Identifier = "HistoryCell";
 
-			public TableSource ()
+			public TableSource (HistoryViewModel historyViewModel)
 			{
-				historyViewModel = ServiceContainer.Resolve<HistoryViewModel>();
+				this.historyViewModel = historyViewModel;
 				historyController = ServiceContainer.Resolve<HistoryController> ();
 			}
 

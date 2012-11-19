@@ -28,7 +28,7 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AssignmentDetailsController : BaseController
 	{
-		readonly AssignmentViewModel assignmentViewModel;
+		readonly AssignmentsController assignmentsController;
 		UIViewController lastChildController;
 		SummaryController summaryController;
 
@@ -36,7 +36,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 
 		/// <summary>
@@ -214,7 +214,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private void SaveAssignment ()
 		{
-			assignmentViewModel
+			assignmentsController.AssignmentViewModel
 				.SaveAssignmentAsync (Assignment)
 				.ContinueOnUIThread (t => {
 

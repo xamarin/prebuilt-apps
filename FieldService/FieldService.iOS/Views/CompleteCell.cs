@@ -34,7 +34,9 @@ namespace FieldService.iOS
 
 		public CompleteCell (IntPtr handle) : base (handle)
 		{
-			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
+
+			assignmentViewModel = assignmentsController.AssignmentViewModel;
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 			menuController = ServiceContainer.Resolve<MenuController>();
 

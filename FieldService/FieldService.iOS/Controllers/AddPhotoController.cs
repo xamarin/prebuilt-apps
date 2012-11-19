@@ -37,9 +37,9 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
+			photoViewModel = new PhotoViewModel();
 			confirmationController = ServiceContainer.Resolve<ConfirmationController> ();
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
-			photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
 		}
 
 		public override void ViewDidLoad ()
