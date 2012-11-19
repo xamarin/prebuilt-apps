@@ -34,15 +34,6 @@ namespace FieldService {
         {
             ServiceContainer.Register<ILoginService> (() => new SampleLoginService ());
             ServiceContainer.Register<IAssignmentService> (() => new SampleAssignmentService ());
-            ServiceContainer.Register<LoginViewModel> ();
-            ServiceContainer.Register<AssignmentViewModel> ();
-	    ServiceContainer.Register<ItemViewModel> ();
-            ServiceContainer.Register<LaborViewModel> ();
-            ServiceContainer.Register<ExpenseViewModel> ();
-            ServiceContainer.Register<DocumentViewModel> ();
-            ServiceContainer.Register<HistoryViewModel> ();
-            ServiceContainer.Register<PhotoViewModel> ();
-            ServiceContainer.Register<DocumentViewModel> ();
         }
     }
 }

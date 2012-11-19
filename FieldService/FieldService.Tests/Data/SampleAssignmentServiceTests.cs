@@ -316,25 +316,40 @@ namespace FieldService.Tests.Data {
         [Test]
         public void SaveTimerEntry ()
         {
-            var task = service.SaveTimerEntry (new TimerEntry { Id = 1, Date = DateTime.Now.AddHours (-1) }, CancellationToken.None);
+            var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
 
-            task.Wait ();
+            try {
+                var task = service.SaveTimerEntry (entry, CancellationToken.None);
 
-            Assert.That (task.Result, Is.EqualTo (1));
+                task.Wait ();
+
+                Assert.That (task.Result, Is.EqualTo (1));
+            } finally {
+                var deleteTask = service.DeleteTimerEntry (entry, CancellationToken.None);
+
+                deleteTask.Wait ();
+            }
         }
 
         [Test]
         public void UpdateTimerEntry ()
         {
-            var entry = new TimerEntry { Id = 1, Date = DateTime.Now.AddHours (-1) };
-            var task = service.SaveTimerEntry (entry, CancellationToken.None);
+            var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
 
-            task.Wait ();
+            try {
+                var task = service.SaveTimerEntry (entry, CancellationToken.None);
 
-            entry.Date = entry.Date.AddHours (2);
-            task = service.SaveTimerEntry (entry, CancellationToken.None);
+                task.Wait ();
 
-            Assert.That (task.Result, Is.EqualTo (1));
+                entry.Date = entry.Date.AddHours (2);
+                task = service.SaveTimerEntry (entry, CancellationToken.None);
+
+                Assert.That (task.Result, Is.EqualTo (1));
+            } finally {
+                var deleteTask = service.DeleteTimerEntry (entry, CancellationToken.None);
+
+                deleteTask.Wait ();
+            }
         }
 
         [Test]
