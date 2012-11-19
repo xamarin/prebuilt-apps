@@ -451,7 +451,9 @@ namespace FieldService.iOS
 			/// </summary>
 			public override void DidUpdateUserLocation (MKMapView mapView, MKUserLocation userLocation)
 			{
-				mapView.SetCenterCoordinate (userLocation.Coordinate, true);
+				var span = new MKCoordinateSpan(15, 15);
+				var region = new MKCoordinateRegion(userLocation.Coordinate, span);
+				mapView.SetRegion (region, true);
 			}
 
 			/// <summary>

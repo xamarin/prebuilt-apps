@@ -54,8 +54,13 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load the placemark
+			var placemark = detailsController.Assignment.ToPlacemark();
+			var span = new MKCoordinateSpan(1, 1);
+			var region = new MKCoordinateRegion(placemark.Coordinate, span);
+
 			mapView.ClearPlacemarks ();
-			mapView.AddPlacemark (detailsController.Assignment.ToPlacemark());
+			mapView.AddPlacemark (placemark);
+			mapView.SetRegion (region, true);
 		}
 
 		/// <summary>
@@ -114,14 +119,6 @@ namespace FieldService.iOS
 				using (var url = NSUrl.FromString (builder.ToString ())) {
 					UIApplication.SharedApplication.OpenUrl (url);
 				}
-			}
-
-			/// <summary>
-			/// Center the map when the user is located
-			/// </summary>
-			public override void DidUpdateUserLocation (MKMapView mapView, MKUserLocation userLocation)
-			{
-				mapView.SetCenterCoordinate (userLocation.Coordinate, true);
 			}
 
 			/// <summary>
