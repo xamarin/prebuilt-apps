@@ -42,7 +42,7 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreate (savedInstanceState);
 
-            documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
+            documentViewModel = new DocumentViewModel ();
         }
 
         public List<Document> Documents

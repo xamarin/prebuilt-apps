@@ -27,7 +27,7 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreate (savedInstanceState);
 
-            historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+            historyViewModel = new HistoryViewModel ();
         }
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

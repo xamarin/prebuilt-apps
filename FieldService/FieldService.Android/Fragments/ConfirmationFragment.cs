@@ -47,8 +47,9 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreate (savedInstanceState);
 
-            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            photoViewModel = new PhotoViewModel ();
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            assignmentViewModel = tabActivity.AssignmentViewModel;
             mediaPicker = new MediaPicker (Activity);
         }
 

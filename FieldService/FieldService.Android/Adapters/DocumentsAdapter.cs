@@ -38,7 +38,7 @@ namespace FieldService.Android.Adapters {
         {
             this.documents = documents;
             this.resourceId = resourceId;
-            documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
+            documentViewModel = new DocumentViewModel ();
         }
 
         public override View GetView (int position, View convertView, ViewGroup parent)

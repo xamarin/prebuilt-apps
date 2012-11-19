@@ -59,7 +59,8 @@ namespace FieldService.Android {
 
         public MapViewActivity ()
         {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            assignmentViewModel = tabActivity.AssignmentViewModel;
             assignmentViewModel.HoursChanged += HoursChanged;
         }
 
@@ -77,6 +78,7 @@ namespace FieldService.Android {
                 StartActivity (intent);
                 var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
                 tabActivity.MapData = null;
+                tabActivity.AssignmentViewModel = assignmentViewModel;
             };
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
 

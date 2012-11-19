@@ -54,13 +54,14 @@ namespace FieldService.Android {
 
         public SummaryActivity ()
         {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
-            itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
-            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
-            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
-            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
-            documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
-            historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            assignmentViewModel = tabActivity.AssignmentViewModel;
+            itemViewModel = new ItemViewModel ();
+            laborViewModel = new LaborViewModel ();
+            photoViewModel = new PhotoViewModel ();
+            expenseViewModel = new ExpenseViewModel ();
+            documentViewModel = new DocumentViewModel ();
+            historyViewModel = new HistoryViewModel ();
         }
 
         protected override void OnCreate (Bundle bundle)

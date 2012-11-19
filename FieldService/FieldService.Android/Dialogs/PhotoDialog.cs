@@ -41,7 +41,7 @@ namespace FieldService.Android.Dialogs {
         public PhotoDialog (Context context)
             : base (context)
         {
-            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+            photoViewModel = new PhotoViewModel ();
         }
 
         protected override void OnCreate (Bundle savedInstanceState)

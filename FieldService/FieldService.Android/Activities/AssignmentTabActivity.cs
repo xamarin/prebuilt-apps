@@ -25,6 +25,7 @@ using Android.Widget;
 using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.Android {
     /// <summary>
@@ -37,6 +38,12 @@ namespace FieldService.Android {
         public AssignmentTabActivity ()
         {
             ServiceContainer.Register<ISynchronizeInvoke> (() => new SynchronizeInvoke { Activity = this });
+        }
+
+        public AssignmentViewModel AssignmentViewModel
+        {
+            get;
+            set;
         }
 
         protected override void OnCreate (Bundle savedInstanceState)

@@ -38,7 +38,7 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreate (savedInstanceState);
 
-            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+            laborViewModel = new LaborViewModel ();
         }
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)

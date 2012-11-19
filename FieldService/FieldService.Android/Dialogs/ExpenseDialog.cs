@@ -46,7 +46,7 @@ namespace FieldService.Android.Dialogs {
         public ExpenseDialog (Context context)
             : base (context)
         {
-            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+            expenseViewModel = new ExpenseViewModel ();
 
             expenseTypes = new ExpenseCategory []
             {

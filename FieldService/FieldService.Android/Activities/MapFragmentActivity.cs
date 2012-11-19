@@ -44,7 +44,8 @@ namespace FieldService.Android {
 
         public MapFragmentActivity ()
         {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            assignmentViewModel = tabActivity.AssignmentViewModel;
         }
 
         protected override void OnCreate (Bundle bundle)

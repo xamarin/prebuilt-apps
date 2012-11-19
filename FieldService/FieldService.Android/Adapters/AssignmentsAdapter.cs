@@ -41,7 +41,7 @@ namespace FieldService.Android {
         {
             this.assignments = assignments;
             this.resourceId = resourceId;
-            this.assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            assignmentViewModel = new AssignmentViewModel ();
         }
 
         public override View GetView (int position, View convertView, ViewGroup parent)

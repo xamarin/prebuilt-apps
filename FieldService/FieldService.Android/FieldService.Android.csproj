@@ -157,6 +157,7 @@
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Activities\AssignmentsActivity.cs" />
+    <Compile Include="Activities\BaseActivity.cs" />
     <Compile Include="Activities\MapFragmentActivity.cs" />
     <Compile Include="Activities\SummaryActivity.cs" />
     <Compile Include="Activities\TabFragmentActivity.cs" />

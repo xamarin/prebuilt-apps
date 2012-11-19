@@ -37,7 +37,8 @@ namespace FieldService.Android.Dialogs {
         public SignatureDialog (Context context)
             : base (context)
         {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            assignmentViewModel = tabActivity.AssignmentViewModel;
         }
 
         protected override void OnCreate (Bundle bundle)

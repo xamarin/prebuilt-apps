@@ -55,7 +55,7 @@ namespace FieldService.Android {
 
         public AssignmentsActivity ()
         {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            assignmentViewModel = new AssignmentViewModel ();
             assignmentViewModel.HoursChanged += HoursChanged;
         }
 
@@ -164,6 +164,8 @@ namespace FieldService.Android {
                 }
                 var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, assignmentViewModel.Assignments);
                 assignmentsListView.Adapter = adapter;
+                var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                activity.AssignmentViewModel = assignmentViewModel;
             });
         }
 
@@ -250,6 +252,7 @@ namespace FieldService.Android {
             StartActivity (intent);
             var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
             activity.MapData = null;
+            activity.AssignmentViewModel = assignmentViewModel;
         }
     }
 }

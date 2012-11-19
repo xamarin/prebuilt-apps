@@ -25,7 +25,7 @@ namespace FieldService.Android {
         {
             this.expenses = expenses;
             this.resourceId = resourceId;
-            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+            expenseViewModel = new ExpenseViewModel ();
         }
 
         public Assignment Assignment

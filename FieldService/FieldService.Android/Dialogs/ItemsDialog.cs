@@ -36,7 +36,7 @@ namespace FieldService.Android.Dialogs {
         public ItemsDialog (Context context)
             : base (context)
         {
-            itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+            itemViewModel = new ItemViewModel ();
         }
 
         protected override void OnCreate (Bundle savedInstanceState)

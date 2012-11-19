@@ -40,7 +40,7 @@ namespace FieldService.Android {
         {
             this.laborHours = laborHours;
             this.resourceId = resourceId;
-            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+            laborViewModel = new LaborViewModel ();
             laborTypes = new LaborType []
             {
                 LaborType.Hourly,

@@ -47,7 +47,8 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreate (savedInstanceState);
 
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            assignmentViewModel = tabActivity.AssignmentViewModel;
             assignmentViewModel.HoursChanged += (sender, e) => {
                 if (timerHours != null && Activity != null) {
                     Activity.RunOnUiThread (() => {
@@ -110,6 +111,16 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        public override void OnResume ()
+        {
+            base.OnResume ();
+            var view = navigationListView.GetChildAt (lastposition);
+            if (view != null) {
+                var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
+                image.Visibility = ViewStates.Visible;
+            }
+        }
+        
         /// <summary>
         /// Sets up the UI for the active assignment
         /// </summary>
@@ -212,8 +223,10 @@ namespace FieldService.Android.Fragments {
                             fragment.navigationListView.Adapter.GetView (fragment.lastposition, oldView, fragment.navigationListView);
                         }
                     }
-                    var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
-                    image.Visibility = ViewStates.Visible;
+                    if (view != null) {
+                        var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
+                        image.Visibility = ViewStates.Visible;
+                    }
                     fragment.lastposition = position;
                     //need to switch fragments here
                     fragment.OnNavigationSelected (position);
