@@ -476,6 +476,10 @@
     <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\MapOverlayIconDown.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\MapOverlayIconDown.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayIconDown.png" />
+    <AndroidResource Include="Resources\Drawable\mapOverlay.xml" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

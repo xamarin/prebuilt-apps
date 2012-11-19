@@ -38,7 +38,6 @@ namespace FieldService.Android.Fragments {
         RelativeLayout timerLayout;
         int lastposition,
             listViewIndex;
-        Assignment assignment;
         AssignmentViewModel assignmentViewModel;
         public event EventHandler<EventArgs<int>> NavigationSelected;
         NavigationItemSelectorListener navigationSelector;
@@ -61,9 +60,13 @@ namespace FieldService.Android.Fragments {
                 listViewIndex = savedInstanceState.GetInt (Constants.BundleIndex);
             }
 
-            assignment = assignmentViewModel.ActiveAssignment;
-
             navigationSelector = new NavigationItemSelectorListener (this);
+        }
+
+        public Assignment Assignment
+        {
+            get;
+            set;
         }
 
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
@@ -83,8 +86,8 @@ namespace FieldService.Android.Fragments {
             navigationStatus.Adapter = spinnerAdapter;
             navigationStatus.ItemSelected += (sender, e) => {
                 var status = assignmentViewModel.AvailableStatuses [e.Position];
-                if (assignment != null && assignment.Status != status) {
-                    assignment.Status = status;
+                if (Assignment != null && Assignment.Status != status) {
+                    Assignment.Status = status;
                     switch (status) {
                         case AssignmentStatus.Complete:
                             //go to confirmations screen
@@ -110,23 +113,13 @@ namespace FieldService.Android.Fragments {
 
             return view;
         }
-
-        public override void OnResume ()
-        {
-            base.OnResume ();
-            var view = navigationListView.GetChildAt (lastposition);
-            if (view != null) {
-                var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
-                image.Visibility = ViewStates.Visible;
-            }
-        }
         
         /// <summary>
         /// Sets up the UI for the active assignment
         /// </summary>
         private void SetActiveAssignment ()
         {
-            if (assignment != null && (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Complete)) {
+            if (Assignment != null && (Assignment.Status == AssignmentStatus.Active || Assignment.Status == AssignmentStatus.Complete)) {
                 timerLayout.Visibility = ViewStates.Visible;
                 navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
                 navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
@@ -160,7 +153,7 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         private void SaveAssignment ()
         {
-            assignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
+            assignmentViewModel.SaveAssignmentAsync (Assignment).ContinueOnUIThread (_ => {
                 SetActiveAssignment ();
             });
         }
@@ -201,7 +194,7 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public override void OnPause ()
         {
-            assignment = null;
+            Assignment = null;
             base.OnPause ();
         }
 

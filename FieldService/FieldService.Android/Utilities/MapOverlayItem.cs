@@ -63,6 +63,12 @@ namespace FieldService.Android.Utilities {
             get { return item.Point; }
         }
 
+        public int AssignmentIndex
+        {
+            get;
+            set;
+        }
+
         /// <summary>
         /// When tapped, show a popup bubble
         /// </summary>
@@ -79,6 +85,7 @@ namespace FieldService.Android.Utilities {
                 var button = bubbleView.FindViewById<ImageButton> (Resource.Id.mapOverlayGetDirections);
                 var address = bubbleView.FindViewById<TextView> (Resource.Id.mapOverlayAddress);
                 var image = bubbleView.FindViewById<ImageView> (Resource.Id.mapOverlayDivider);
+                var overlayLayout = bubbleView.FindViewById<LinearLayout> (Resource.Id.overlayDirectionsLayout);
                 address.Text = item.Snippet;
 
                 image.Visibility = getDirections ? ViewStates.Visible : ViewStates.Gone;
@@ -88,6 +95,14 @@ namespace FieldService.Android.Utilities {
                         var intent = new Intent(Intent.ActionView, 
                             Uri.Parse(string.Format(intentURI, string.Empty, item.Snippet)));
                         context.StartActivity(intent);
+                    };
+                }
+
+                if (!getDirections) {
+                    overlayLayout.Click += (sender, e) => {
+                        var intent = new Intent (context, typeof (SummaryActivity));
+                        intent.PutExtra (Constants.BundleIndex, AssignmentIndex);
+                        context.StartActivity (intent);
                     };
                 }
 

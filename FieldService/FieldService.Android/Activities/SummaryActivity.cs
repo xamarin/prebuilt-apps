@@ -135,6 +135,7 @@ namespace FieldService.Android {
             var summaryFragment = new SummaryFragment ();
             summaryFragment.Assignment = Assignment;
             navigationFragment = new NavigationFragment ();
+            navigationFragment.Assignment = Assignment;
             transaction.SetTransition (FragmentTransit.FragmentOpen);
             transaction.Add (Resource.Id.contentFrame, summaryFragment);
             transaction.Add (Resource.Id.navigationFragmentContainer, navigationFragment);
