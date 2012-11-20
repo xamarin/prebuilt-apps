@@ -58,13 +58,16 @@ namespace FieldService.Android.Dialogs {
                         .Show ();
                     return;
                 }
-                Assignment.Signature = signatureView.GetImage ().ToByteArray ();
-                assignmentViewModel.SaveAssignmentAsync (Assignment)
+                var signature = new Signature {
+                    AssignmentId = Assignment.Id,
+                    Image = signatureView.GetImage ().ToByteArray ()
+                };
+                assignmentViewModel.SaveSignatureAsync (signature)
                     .ContinueOnUIThread (_ => {
                         var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
                         fragment.ReloadConfirmation ();
                         Dismiss ();
-                        });
+                    });
             };
 
             var cancel = (Button)FindViewById (Resource.Id.signatureCancelButton);

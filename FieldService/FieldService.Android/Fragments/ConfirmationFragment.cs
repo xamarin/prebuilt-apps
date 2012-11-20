@@ -127,7 +127,7 @@ namespace FieldService.Android.Fragments {
 
             var completeSignature = view.FindViewById<Button> (Resource.Id.confirmationsComplete);
             completeSignature.Click += (sender, e) => {
-                if (Assignment.Signature == null) {
+                if (assignmentViewModel.Signature == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder (Activity);
                     builder
                         .SetTitle (string.Empty)
@@ -151,7 +151,7 @@ namespace FieldService.Android.Fragments {
 
             return view;
         }
-
+        
         /// <summary>
         /// Reloads the list view
         /// </summary>
@@ -164,13 +164,16 @@ namespace FieldService.Android.Fragments {
 
         private void ReloadSignature ()
         {
-            if (Assignment != null && Assignment.Signature != null) {
-                using (var bmp = BitmapFactory.DecodeByteArray (Assignment.Signature, 0, Assignment.Signature.Length)) {
-                    signatureImage.SetImageBitmap (bmp);
-                }
-            } else {
-                signatureImage.SetImageBitmap (null);
-            }
+            assignmentViewModel.LoadSignatureAsync (Assignment)
+                .ContinueOnUIThread (_ => {
+                    if (assignmentViewModel.Signature != null) {
+                        using (var bmp = BitmapFactory.DecodeByteArray (assignmentViewModel.Signature.Image, 0, assignmentViewModel.Signature.Image.Length)) {
+                            signatureImage.SetImageBitmap (bmp);
+                        }
+                    } else {
+                        signatureImage.SetImageBitmap (null);
+                    }
+                });
         }
 
         /// <summary>
@@ -215,8 +218,8 @@ namespace FieldService.Android.Fragments {
                 .ContinueOnUIThread (_ => {
                     Photos = photoViewModel.Photos;
                     ReloadListView ();
-                    ReloadSignature ();
                 });
+            ReloadSignature ();
         }
     }
 }
