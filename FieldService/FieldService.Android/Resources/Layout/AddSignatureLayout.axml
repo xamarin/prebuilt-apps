@@ -21,7 +21,6 @@
         android:text="@string/PleaseSign"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/textView1"
         android:layout_marginTop="10dp"
         android:layout_marginLeft="20dp"
         android:textColor="@android:color/black"
@@ -34,8 +33,8 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
         <xamarin.controls.SignatureView
-            android:layout_width="350dp"
-            android:layout_height="150dp"
+            android:layout_width="450dp"
+            android:layout_height="180dp"
             android:id="@+id/signatureImage"
             android:maxHeight="150dp"
             android:maxWidth="350dp"

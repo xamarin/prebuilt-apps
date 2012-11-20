@@ -70,7 +70,16 @@ namespace FieldService.Android {
             mapView = FindViewById<MapView> (Resource.Id.fragmentMapView);
             myLocation = new MyLocationOverlay (this, mapView);
             myLocation.RunOnFirstFix (() => {
-                mapView.Controller.AnimateTo (myLocation.MyLocation);
+                //mapView.Controller.AnimateTo (myLocation.MyLocation);
+
+                var maxLat = Math.Max (myLocation.MyLocation.LatitudeE6, assignment.Latitude.ToIntE6 ());
+                var minLat = Math.Min (myLocation.MyLocation.LatitudeE6, assignment.Latitude.ToIntE6 ());
+                var maxLong = Math.Max (myLocation.MyLocation.LongitudeE6, assignment.Longitude.ToIntE6 ());
+                var minLong = Math.Min (myLocation.MyLocation.LongitudeE6, assignment.Longitude.ToIntE6 ());
+
+                mapView.Controller.ZoomToSpan (Math.Abs (maxLat - minLat), Math.Abs (maxLong - minLong));
+
+                mapView.Controller.AnimateTo (new GeoPoint ((maxLat + minLat) / 2, (maxLong + minLong) / 2));
             });
 
             mapView.Overlays.Add (myLocation);

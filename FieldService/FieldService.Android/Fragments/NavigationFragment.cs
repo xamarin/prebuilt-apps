@@ -86,7 +86,7 @@ namespace FieldService.Android.Fragments {
             navigationStatus.Adapter = spinnerAdapter;
             navigationStatus.ItemSelected += (sender, e) => {
                 var status = assignmentViewModel.AvailableStatuses [e.Position];
-                if (Assignment != null && Assignment.Status != status) {
+                if (Assignment != null && Assignment.Status != status && Assignment.Status != AssignmentStatus.New) {
                     Assignment.Status = status;
                     switch (status) {
                         case AssignmentStatus.Complete:
