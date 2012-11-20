@@ -28,9 +28,8 @@ namespace FieldService.iOS
 	public class HoursField : UIView
 	{
 		const int Spacing = 6;
-		static readonly  SizeF ButtonSize = new SizeF (60, 34);
 		private UITextField textField;
-		private UIButton up, down;
+		private UIStepper stepper;
 
 		public event EventHandler EditingDidBegin;
 		public event EventHandler EditingDidEnd;
@@ -85,8 +84,7 @@ namespace FieldService.iOS
 					enabled = value;
 
 					textField.Enabled =
-						up.Enabled =
-						down.Enabled = enabled;
+						stepper.Enabled = enabled;
 				}
 			}
 		}
@@ -101,14 +99,14 @@ namespace FieldService.iOS
 					value = 0;
 				}
 
+				textField.Text = value.ToString ("0.##");
+				stepper.Value = value;
+
 				if (this.value != value) {
 					this.value = value;
-					textField.Text = value.ToString ("0.##");
 					var method = ValueChanged;
 					if (method != null)
 						method (this, EventArgs.Empty);
-				} else {
-					textField.Text = value.ToString ("0.##");
 				}
 			}
 		}
@@ -137,16 +135,12 @@ namespace FieldService.iOS
 					method (this, EventArgs.Empty);
 			};
 
-			up = UIButton.FromType (UIButtonType.Custom);
-			up.SetBackgroundImage (Theme.ArrowUp, UIControlState.Normal);
-			up.TouchUpInside += (sender, e) => Value += Step;
+			stepper = new UIStepper();
+			stepper.StepValue = Step;
+			stepper.Value = 0;
+			stepper.ValueChanged += (sender, e) => Value = stepper.Value;
 
-			down = UIButton.FromType (UIButtonType.Custom);
-			down.SetBackgroundImage (Theme.ArrowDown, UIControlState.Normal);
-			down.TouchUpInside += (sender, e) => Value -= Step;
-
-			AddSubview (up);
-			AddSubview (down);
+			AddSubview (stepper);
 			AddSubview (textField);
 		}
 
@@ -155,13 +149,14 @@ namespace FieldService.iOS
 			var frame = Frame;
 			frame.X =
 				frame.Y = 0;
-			frame.Width -= ButtonSize.Width * 2;
+			frame.Width -= stepper.Frame.Width;
 			frame.Width -= Spacing * 2;
 			textField.Frame = frame;
 
-			float height = (frame.Height - ButtonSize.Height) / 2;
-			up.Frame = new RectangleF (new PointF(frame.Width + Spacing, height), ButtonSize);
-			down.Frame = new RectangleF (new PointF (ButtonSize.Width + frame.Width + Spacing, height), ButtonSize);
+			var stepperFrame = stepper.Frame;
+			stepperFrame.X = frame.Width + Spacing;
+			stepperFrame.Y = (Frame.Height - stepperFrame.Height) / 2;
+			stepper.Frame = stepperFrame;
 		}
 	}
 }
