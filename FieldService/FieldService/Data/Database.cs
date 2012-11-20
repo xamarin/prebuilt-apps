@@ -46,6 +46,7 @@ namespace FieldService.Data
             typeof(TimerEntry),
             typeof(Photo),
             typeof(AssignmentHistory),
+            typeof(Signature),
         };
 
         /// <summary>

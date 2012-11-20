@@ -451,5 +451,27 @@ namespace FieldService.Tests.Data {
                 }
             }
         }
+
+        [Test]
+        public void GetSignature ()
+        {
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
+            
+            assignmentTask.Wait ();
+            var assignment = assignmentTask.Result.First ();
+
+            var signature = new Signature {
+                AssignmentId = assignment.Id,
+                Image = new byte [512],
+            };
+
+            var saveTask = service.SaveSignatureAsync (signature, CancellationToken.None);
+            saveTask.Wait ();
+
+            var signatureTask = service.GetSignatureAsync(assignment, CancellationToken.None);
+            signatureTask.Wait ();
+
+            Assert.That (signatureTask.Result, Is.Not.Null);
+        }
     }
 }

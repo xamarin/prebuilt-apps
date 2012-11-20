@@ -64,7 +64,7 @@ namespace FieldService.WinRT.Views {
                     assignmentViewModel.AddSignatureCommand.Invoke ();
                     break;
                 case "markComplete":
-                    if (assignmentViewModel.SelectedAssignment.Signature == null) {
+                    if (assignmentViewModel.Signature == null) {
                         await new MessageDialog ("No signature!").ShowAsync ();
                     }
                     break;
