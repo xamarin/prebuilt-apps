@@ -39,6 +39,7 @@ namespace FieldService.ViewModels {
         TimeSpan hours = TimeSpan.Zero;
         List<Assignment> assignments;
         Assignment activeAssignment;
+        Signature signature;
         TimerEntry timerEntry;
 
         /// <summary>
@@ -142,6 +143,15 @@ namespace FieldService.ViewModels {
         }
 
         /// <summary>
+        /// The current signature
+        /// </summary>
+        public Signature Signature
+        {
+            get { return signature; }
+            set { signature = value; OnPropertyChanged ("Signature"); }
+        }
+
+        /// <summary>
         /// Loads the assignments asynchronously
         /// </summary>
         public Task LoadAssignmentsAsync ()
@@ -181,7 +191,7 @@ namespace FieldService.ViewModels {
         public Task SaveAssignmentAsync (Assignment assignment)
         {
             //Save the assignment
-            Task task = service.SaveAssignment (assignment, CancellationToken.None);
+            Task task = service.SaveAssignmentAsync (assignment, CancellationToken.None);
 
             //If the active assignment should be put on hold
             if (activeAssignment != null &&
@@ -193,7 +203,7 @@ namespace FieldService.ViewModels {
                 if (Recording) {
                     task = task.ContinueWith (PauseAsync ());
                 }
-                task = task.ContinueWith (service.SaveAssignment (activeAssignment, CancellationToken.None));
+                task = task.ContinueWith (service.SaveAssignmentAsync (activeAssignment, CancellationToken.None));
             }
 
             //If we are saving the active assignment, we need to pause it
@@ -212,6 +222,22 @@ namespace FieldService.ViewModels {
         }
 
         /// <summary>
+        /// Saves a signature for an assignment
+        /// </summary>
+        public Task SaveSignatureAsync (Signature signature)
+        {
+            return service.SaveSignatureAsync (signature, CancellationToken.None);
+        }
+
+        /// <summary>
+        /// Loads the signature for an assignment
+        /// </summary>
+        public Task LoadSignatureAsync (Assignment assignment)
+        {
+            return service.GetSignatureAsync (assignment, CancellationToken.None).ContinueOnUIThread (t => Signature = t.Result);
+        }
+
+        /// <summary>
         /// Starts timer
         /// </summary>
         public Task RecordAsync ()
@@ -227,7 +253,7 @@ namespace FieldService.ViewModels {
             timerEntry.Date = DateTime.Now;
 
             return service
-                .SaveTimerEntry (timerEntry, CancellationToken.None)
+                .SaveTimerEntryAsync (timerEntry, CancellationToken.None)
                 .ContinueOnUIThread (_ => IsBusy = false);
         }
 
@@ -250,8 +276,8 @@ namespace FieldService.ViewModels {
             };
 
             return service
-                .SaveLabor (labor, CancellationToken.None)
-                .ContinueWith (service.DeleteTimerEntry (timerEntry, CancellationToken.None))
+                .SaveLaborAsync (labor, CancellationToken.None)
+                .ContinueWith (service.DeleteTimerEntryAsync (timerEntry, CancellationToken.None))
                 .ContinueOnUIThread (_ => {
                     Hours = TimeSpan.Zero;
                     IsBusy = false;

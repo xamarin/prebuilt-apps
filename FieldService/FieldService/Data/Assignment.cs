@@ -106,11 +106,6 @@ namespace FieldService.Data {
         public float Longitude { get; set; }
 
         /// <summary>
-        /// Gets or sets the signature.
-        /// </summary>
-        public byte [] Signature { get; set; }
-
-        /// <summary>
         /// Total labor hours for the assignment
         /// </summary>
         [Ignore]

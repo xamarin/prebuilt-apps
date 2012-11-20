@@ -46,7 +46,7 @@ namespace FieldService.ViewModels {
         {
             bool newItem = expense.Id == 0;
 
-            return service.SaveExpense (expense, CancellationToken.None)
+            return service.SaveExpenseAsync (expense, CancellationToken.None)
                 .ContinueWith (t => {
                     if (newItem)
                         expenses.Add (expense);
@@ -59,7 +59,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task DeleteExpenseAsync (Assignment assignment, Expense expense)
         {
-            return service.DeleteExpense (expense, CancellationToken.None)
+            return service.DeleteExpenseAsync (expense, CancellationToken.None)
                 .ContinueWith (t => {
                     expenses.Remove (expense);
                     CalculateExpenses (assignment);

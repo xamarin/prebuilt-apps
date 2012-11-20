@@ -104,52 +104,52 @@ namespace FieldService.Tests.Mocks {
             });
         }
 
-        public Task<int> SaveAssignment (Assignment assignment, CancellationToken cancellationToken)
+        public Task<int> SaveAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> SaveAssignmentItem (AssignmentItem assignmentItem, CancellationToken cancellationToken)
+        public Task<int> SaveAssignmentItemAsync (AssignmentItem assignmentItem, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> SaveLabor (Labor labor, CancellationToken cancellationToken)
+        public Task<int> SaveLaborAsync (Labor labor, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> SaveExpense (Expense expense, CancellationToken cancellationToken)
+        public Task<int> SaveExpenseAsync (Expense expense, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteAssignment (Assignment assignment, CancellationToken cancellationToken)
+        public Task<int> DeleteAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteAssignmentItem (AssignmentItem assignmentItem, CancellationToken cancellationToken)
+        public Task<int> DeleteAssignmentItemAsync (AssignmentItem assignmentItem, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteLabor (Labor labor, CancellationToken cancellationToken)
+        public Task<int> DeleteLaborAsync (Labor labor, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteExpense (Expense expense, CancellationToken cancellationToken)
+        public Task<int> DeleteExpenseAsync (Expense expense, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> SaveTimerEntry (TimerEntry entry, CancellationToken cancellationToken)
+        public Task<int> SaveTimerEntryAsync (TimerEntry entry, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeleteTimerEntry (TimerEntry entry, CancellationToken cancellationToken)
+        public Task<int> DeleteTimerEntryAsync (TimerEntry entry, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
@@ -164,12 +164,12 @@ namespace FieldService.Tests.Mocks {
             return Task.Factory.StartNew (() => new List<Photo> { new Photo { AssignmentId = assignment.Id, Image = new byte [0] } });
         }
 
-        public Task<int> SavePhoto (Photo photo, CancellationToken cancellationToken)
+        public Task<int> SavePhotoAsync (Photo photo, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
 
-        public Task<int> DeletePhoto (Photo photo, CancellationToken cancellationToken)
+        public Task<int> DeletePhotoAsync (Photo photo, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => 1);
         }
@@ -182,6 +182,16 @@ namespace FieldService.Tests.Mocks {
         public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Task.Factory.StartNew (() => new List<AssignmentHistory> { new AssignmentHistory () });
+        }
+
+        public Task<int> SaveSignatureAsync (Signature signature, CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<Signature> GetSignatureAsync (Assignment assignment, CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew (() => new Signature());
         }
     }
 }

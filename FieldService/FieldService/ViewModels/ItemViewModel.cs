@@ -81,7 +81,7 @@ namespace FieldService.ViewModels {
             bool newItem = item.Id == 0;
 
             return service
-                .SaveAssignmentItem (item, CancellationToken.None)
+                .SaveAssignmentItemAsync (item, CancellationToken.None)
                 .ContinueWith (t => {
                     if (newItem)
                         assignment.TotalItems++;
@@ -94,7 +94,7 @@ namespace FieldService.ViewModels {
         public Task DeleteAssignmentItemAsync (Assignment assignment, AssignmentItem item)
         {
             return service
-                .DeleteAssignmentItem (item, CancellationToken.None)
+                .DeleteAssignmentItemAsync (item, CancellationToken.None)
                 .ContinueWith (t => assignment.TotalItems--);
         }
     }

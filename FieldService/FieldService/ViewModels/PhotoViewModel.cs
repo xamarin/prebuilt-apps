@@ -64,7 +64,7 @@ namespace FieldService.ViewModels {
             photo.Date = DateTime.Now;
 
             return service
-                .SavePhoto (photo, CancellationToken.None)
+                .SavePhotoAsync (photo, CancellationToken.None)
                 .ContinueOnUIThread (t => {
                     if (newPhoto) {
                         if (photos == null)
@@ -81,7 +81,7 @@ namespace FieldService.ViewModels {
         public Task DeletePhotoAsync (Assignment assignment, Photo photo)
         {
             return service
-                .DeletePhoto (photo, CancellationToken.None)
+                .DeletePhotoAsync (photo, CancellationToken.None)
                 .ContinueOnUIThread (t => {
                     if (photos != null)
                         photos.Remove (photo);

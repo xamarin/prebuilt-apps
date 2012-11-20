@@ -63,6 +63,9 @@
     <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
       <Link>FieldService\Data\SQLiteAsync.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\Signature.cs">
+      <Link>FieldService\Data\Signature.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\Data\TestData.cs">
       <Link>FieldService\Data\TestData.cs</Link>
     </Compile>

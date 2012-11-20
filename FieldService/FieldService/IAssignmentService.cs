@@ -54,52 +54,62 @@ namespace FieldService {
         /// <summary>
         /// Saves an assignment
         /// </summary>
-        Task<int> SaveAssignment (Assignment assignment, CancellationToken cancellationToken);
+        Task<int> SaveAssignmentAsync (Assignment assignment, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Saves a signature for an assignment
+        /// </summary>
+        Task<int> SaveSignatureAsync (Signature signature, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Gets a signature for an assignment or null if none
+        /// </summary>
+        Task<Signature> GetSignatureAsync (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves an assignment item
         /// </summary>
-        Task<int> SaveAssignmentItem (AssignmentItem assignmentItem, CancellationToken cancellationToken);
+        Task<int> SaveAssignmentItemAsync (AssignmentItem assignmentItem, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves a labor entry
         /// </summary>
-        Task<int> SaveLabor (Labor labor, CancellationToken cancellationToken);
+        Task<int> SaveLaborAsync (Labor labor, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves an expense entry
         /// </summary>
-        Task<int> SaveExpense (Expense expense, CancellationToken cancellationToken);
+        Task<int> SaveExpenseAsync (Expense expense, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes an assignment
         /// </summary>
-        Task<int> DeleteAssignment (Assignment assignment, CancellationToken cancellationToken);
+        Task<int> DeleteAssignmentAsync (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes an assignment item
         /// </summary>
-        Task<int> DeleteAssignmentItem (AssignmentItem AssignmentItem, CancellationToken cancellationToken);
+        Task<int> DeleteAssignmentItemAsync (AssignmentItem AssignmentItem, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes a labor entry
         /// </summary>
-        Task<int> DeleteLabor (Labor labor, CancellationToken cancellationToken);
+        Task<int> DeleteLaborAsync (Labor labor, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes an expense entry
         /// </summary>
-        Task<int> DeleteExpense (Expense expense, CancellationToken cancellationToken);
+        Task<int> DeleteExpenseAsync (Expense expense, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves a timer entry to record an assignment
         /// </summary>
-        Task<int> SaveTimerEntry (TimerEntry entry, CancellationToken cancellationToken);
+        Task<int> SaveTimerEntryAsync (TimerEntry entry, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes a timer entry to stop recording an assignment
         /// </summary>
-        Task<int> DeleteTimerEntry (TimerEntry entry, CancellationToken cancellationToken);
+        Task<int> DeleteTimerEntryAsync (TimerEntry entry, CancellationToken cancellationToken);
 
         /// <summary>
         /// Retrieves the stored timer entry if there was one
@@ -114,12 +124,12 @@ namespace FieldService {
         /// <summary>
         /// Saves a photo for an assignment
         /// </summary>
-        Task<int> SavePhoto (Photo photo, CancellationToken cancellationToken);
+        Task<int> SavePhotoAsync (Photo photo, CancellationToken cancellationToken);
 
         /// <summary>
         /// Deletes a photo
         /// </summary>
-        Task<int> DeletePhoto (Photo photo, CancellationToken cancellationToken);
+        Task<int> DeletePhotoAsync (Photo photo, CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets the list of available documents
