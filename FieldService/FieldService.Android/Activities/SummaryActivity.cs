@@ -68,6 +68,8 @@ namespace FieldService.Android {
         {
             base.OnCreate (bundle);
 
+            Window.RequestFeature (WindowFeatures.ActionBar);
+
             SetContentView (Resource.Layout.SummaryFragmentLayout);
 
             if (Intent != null) {
@@ -219,6 +221,15 @@ namespace FieldService.Android {
                     laborDialog.Dismiss ();
                 }
             }
+        }
+
+        public override bool OnCreateOptionsMenu (IMenu menu)
+        {
+            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Vertical) {
+                MenuInflater.Inflate (Resource.Menu.SummaryMenu, menu);
+                return true;
+            }
+            return false;
         }
 
         /// <summary>

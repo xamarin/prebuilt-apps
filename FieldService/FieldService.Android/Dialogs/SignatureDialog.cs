@@ -60,7 +60,8 @@ namespace FieldService.Android.Dialogs {
                 }
                 var signature = new Signature {
                     AssignmentId = Assignment.Id,
-                    Image = signatureView.GetImage ().ToByteArray ()
+                    Image = signatureView.GetImage ().ToByteArray (),
+                    Id = assignmentViewModel.Signature != null ? assignmentViewModel.Signature.Id : 0
                 };
                 assignmentViewModel.SaveSignatureAsync (signature)
                     .ContinueOnUIThread (_ => {
