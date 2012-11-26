@@ -61,7 +61,7 @@ namespace FieldService.iOS
 		partial void Complete ()
 		{
 			//Check if they signed
-			if (assignment.Signature == null) {
+			if (assignmentViewModel.Signature == null) {
 				new UIAlertView(string.Empty, "Signature is required.", null, "Ok").Show ();
 				return;
 			}

@@ -27,12 +27,16 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class ConfirmationController : BaseController
 	{
+		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
 		readonly AssignmentDetailsController detailController;
 		PhotoAlertSheet photoSheet;
 
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
+			var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
+
+			assignmentViewModel = assignmentsController.AssignmentViewModel;
 			photoViewModel = new PhotoViewModel();
 			detailController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
@@ -96,7 +100,9 @@ namespace FieldService.iOS
 			if (IsViewLoaded) {
 				signatureTableView.ReloadData ();
 
-				photoViewModel.LoadPhotosAsync (detailController.Assignment).ContinueOnUIThread (_ => photoTableView.ReloadData ());
+				photoViewModel.LoadPhotosAsync (detailController.Assignment)
+					.ContinueWith (assignmentViewModel.LoadSignatureAsync (detailController.Assignment))
+					.ContinueOnUIThread (_ => photoTableView.ReloadData ());
 			}
 		}
 
@@ -163,10 +169,13 @@ namespace FieldService.iOS
 		{
 			const string SignatureIdentifier = "SignatureCell";
 			const string CompleteIdentifier = "CompleteCell";
+			readonly AssignmentViewModel assignmentViewModel;
 			readonly AssignmentDetailsController detailsController;
 
 			public SignatureTableSource ()
 			{
+				var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
+				assignmentViewModel = assignmentsController.AssignmentViewModel;
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
 			}
 
@@ -191,7 +200,7 @@ namespace FieldService.iOS
 				if (indexPath.Section == 0) {
 					cell = tableView.DequeueReusableCell (SignatureIdentifier);
 					var signatureCell = cell as SignatureCell;
-					signatureCell.SetAssignment (detailsController.Assignment);
+					signatureCell.SetSignature (assignmentViewModel.Signature);
 				} else {
 					cell = tableView.DequeueReusableCell (CompleteIdentifier);
 					var completeCell = cell as CompleteCell;

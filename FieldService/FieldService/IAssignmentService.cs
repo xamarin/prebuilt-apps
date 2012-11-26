@@ -59,12 +59,12 @@ namespace FieldService {
         /// <summary>
         /// Saves a signature for an assignment
         /// </summary>
-        Task<int> SaveSignatureAsync (Signature signature, CancellationToken cancellationToken);
+        Task<int> SaveSignatureAsync (Data.Signature signature, CancellationToken cancellationToken);
 
         /// <summary>
         /// Gets a signature for an assignment or null if none
         /// </summary>
-        Task<Signature> GetSignatureAsync (Assignment assignment, CancellationToken cancellationToken);
+	Task<Data.Signature> GetSignatureAsync (Assignment assignment, CancellationToken cancellationToken);
 
         /// <summary>
         /// Saves an assignment item
