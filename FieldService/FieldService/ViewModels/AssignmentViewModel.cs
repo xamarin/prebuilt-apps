@@ -222,11 +222,11 @@ namespace FieldService.ViewModels {
         }
 
         /// <summary>
-        /// Saves a signature for an assignment
+        /// Saves the current signature
         /// </summary>
-        public Task SaveSignatureAsync (Signature signature)
+        public Task SaveSignatureAsync ()
         {
-            return service.SaveSignatureAsync (signature, CancellationToken.None);
+            return service.SaveSignatureAsync (Signature, CancellationToken.None);
         }
 
         /// <summary>
