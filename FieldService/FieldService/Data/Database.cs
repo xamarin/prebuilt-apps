@@ -43,6 +43,7 @@ namespace FieldService.Data
             typeof(AssignmentItem),
             typeof(Labor),
             typeof(Expense),
+            typeof(ExpensePhoto),
             typeof(TimerEntry),
             typeof(Photo),
             typeof(AssignmentHistory),

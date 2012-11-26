@@ -45,6 +45,7 @@
     <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
       <Link>Data\SQLiteAsync.cs</Link>
     </Compile>
+    <Compile Include="Data\ExpensePhoto.cs" />
     <Compile Include="Data\Signature.cs" />
     <Compile Include="Data\TestData.cs" />
     <Compile Include="ServiceRegistrar.cs" />

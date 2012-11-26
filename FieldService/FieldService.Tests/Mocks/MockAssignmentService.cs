@@ -191,7 +191,17 @@ namespace FieldService.Tests.Mocks {
 
         public Task<Signature> GetSignatureAsync (Assignment assignment, CancellationToken cancellationToken)
         {
-            return Task.Factory.StartNew (() => new Signature());
+            return Task.Factory.StartNew (() => new Signature { AssignmentId = assignment.Id });
+        }
+
+        public Task<int> SaveExpensePhotoAsync (ExpensePhoto photo, CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew (() => 1);
+        }
+
+        public Task<ExpensePhoto> GetExpensePhotoAsync (Expense expense, CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew (() => new ExpensePhoto { ExpenseId = expense.Id });
         }
     }
 }

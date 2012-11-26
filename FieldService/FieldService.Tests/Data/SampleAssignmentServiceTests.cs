@@ -462,7 +462,7 @@ namespace FieldService.Tests.Data {
 
             var signature = new Signature {
                 AssignmentId = assignment.Id,
-                Image = new byte [512],
+                Image = new byte [1],
             };
 
             var saveTask = service.SaveSignatureAsync (signature, CancellationToken.None);
@@ -472,6 +472,32 @@ namespace FieldService.Tests.Data {
             signatureTask.Wait ();
 
             Assert.That (signatureTask.Result, Is.Not.Null);
+        }
+
+        [Test]
+        public void GetExpensePhoto ()
+        {
+            var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
+
+            assignmentTask.Wait ();
+            var assignment = assignmentTask.Result.First (a => a.Title == "Assignment 1");
+
+            var expenseTask = service.GetExpensesForAssignmentAsync (assignment, CancellationToken.None);
+            expenseTask.Wait ();
+
+            var expense = expenseTask.Result.First ();
+
+            var photo = new ExpensePhoto {
+                ExpenseId = expense.Id,
+                Image = new byte [1],
+            };
+
+            service.SaveExpensePhotoAsync (photo, CancellationToken.None).Wait ();
+
+            var expensePhotoTask = service.GetExpensePhotoAsync (expense, CancellationToken.None);
+            expensePhotoTask.Wait ();
+
+            Assert.That (expensePhotoTask.Result, Is.Not.Null);
         }
     }
 }

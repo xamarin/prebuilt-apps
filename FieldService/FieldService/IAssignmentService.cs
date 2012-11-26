@@ -82,6 +82,16 @@ namespace FieldService {
         Task<int> SaveExpenseAsync (Expense expense, CancellationToken cancellationToken);
 
         /// <summary>
+        /// Saves a photo for an expense
+        /// </summary>
+        Task<int> SaveExpensePhotoAsync (ExpensePhoto photo, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Gets an expense photo for an expense or null if there is none
+        /// </summary>
+        Task<ExpensePhoto> GetExpensePhotoAsync (Expense expense, CancellationToken cancellationToken);
+
+        /// <summary>
         /// Deletes an assignment
         /// </summary>
         Task<int> DeleteAssignmentAsync (Assignment assignment, CancellationToken cancellationToken);

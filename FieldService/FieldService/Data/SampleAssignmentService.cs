@@ -210,5 +210,18 @@ namespace FieldService.Data {
                     order by AssignmentHistory.Date desc
                 ", assignment.Id);
         }
+
+        public Task<int> SaveExpensePhotoAsync (ExpensePhoto photo, CancellationToken cancellationToken)
+        {
+            if (photo.Id == 0)
+                return Database.GetConnection (cancellationToken).InsertAsync (photo);
+            else
+                return Database.GetConnection (cancellationToken).UpdateAsync (photo);
+        }
+
+        public Task<ExpensePhoto> GetExpensePhotoAsync (Expense expense, CancellationToken cancellationToken)
+        {
+            return Database.GetConnection (cancellationToken).Table<ExpensePhoto> ().Where (p => p.ExpenseId == expense.Id).FirstOrDefaultAsync ();
+        }
     }
 }

@@ -14,6 +14,7 @@ namespace FieldService.ViewModels {
     public class ExpenseViewModel : ViewModelBase {
         readonly IAssignmentService service;
         List<Expense> expenses;
+        ExpensePhoto photo;
 
         public ExpenseViewModel ()
         {
@@ -27,6 +28,15 @@ namespace FieldService.ViewModels {
         {
             get { return expenses; }
             set { expenses = value; OnPropertyChanged ("Expenses"); }
+        }
+
+        /// <summary>
+        /// The photo for an expense
+        /// </summary>
+        public ExpensePhoto Photo
+        {
+            get { return photo; }
+            set { photo = value; OnPropertyChanged("Photo"); }
         }
 
         /// <summary>
@@ -64,6 +74,24 @@ namespace FieldService.ViewModels {
                     expenses.Remove (expense);
                     CalculateExpenses (assignment);
                 });
+        }
+
+        /// <summary>
+        /// Loads the photo for an expense
+        /// </summary>
+        public Task LoadPhotoAsync (Expense expense)
+        {
+            return service
+                .GetExpensePhotoAsync (expense, CancellationToken.None)
+                .ContinueOnUIThread (t => Photo = t.Result);
+        }
+
+        /// <summary>
+        /// Saves the photo for an expense
+        /// </summary>
+        public Task SavePhotoAsync ()
+        {
+            return service.SaveExpensePhotoAsync (Photo, CancellationToken.None);
         }
 
         /// <summary>
