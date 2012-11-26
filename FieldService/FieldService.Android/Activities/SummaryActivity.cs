@@ -31,7 +31,7 @@ namespace FieldService.Android {
     /// <summary>
     /// Activity for the summary screen
     /// </summary>
-    [Activity (Label = "Summary", Theme = "@style/CustomHoloTheme")]
+    [Activity (Label = "Summary", Theme = "@android:style/Theme.Holo")]
     public class SummaryActivity : Activity {
         readonly AssignmentViewModel assignmentViewModel;
         readonly ItemViewModel itemViewModel;
@@ -42,7 +42,7 @@ namespace FieldService.Android {
         readonly HistoryViewModel historyViewModel;
         NavigationFragment navigationFragment;
         FrameLayout navigationFragmentContainer;
-        TextView number, name, phone, address, items, title;
+        TextView number, name, phone, address, items;
         Button addItems, addLabor, addExpense;
         ImageButton navigationMenu;
         int assignmentIndex = 0, navigationIndex = 0;
@@ -82,7 +82,6 @@ namespace FieldService.Android {
                 navigationIndex = Intent.GetIntExtra (Constants.FragmentIndex, 0);
             }
 
-            title = FindViewById<TextView> (Resource.Id.summaryAssignmentTitle);
             number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
             name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
             phone = FindViewById<TextView> (Resource.Id.selectedAssignmentPhoneNumber);
@@ -111,7 +110,7 @@ namespace FieldService.Android {
             };
 
             if (Assignment != null) {
-                title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber, "Summary", Assignment.StartDate.ToShortDateString ());
+                ActionBar.Title = string.Format ("#{0} {1} {2}", Assignment.JobNumber, "Summary", Assignment.StartDate.ToShortDateString ());
 
                 number.Text = Assignment.Priority.ToString ();
                 name.Text = Assignment.ContactName;
@@ -139,8 +138,8 @@ namespace FieldService.Android {
             navigationFragment = new NavigationFragment ();
             navigationFragment.Assignment = Assignment;
             transaction.SetTransition (FragmentTransit.FragmentOpen);
-            transaction.Add (Resource.Id.contentFrame, summaryFragment);
-            transaction.Add (Resource.Id.navigationFragmentContainer, navigationFragment);
+            transaction.Replace (Resource.Id.contentFrame, summaryFragment);
+            transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
             transaction.Commit ();
 
             items.Visibility =
@@ -173,6 +172,10 @@ namespace FieldService.Android {
             };
 
             ServiceContainer.Register<SummaryActivity> (this);
+
+            ActionBar.SetDisplayHomeAsUpEnabled (true);
+            ActionBar.SetBackgroundDrawable (Resources.GetDrawable(Resource.Drawable.actionbar));
+            ActionBar.SetIcon (Resource.Drawable.XamarinTitle);
         }
 
         protected override void OnSaveInstanceState (Bundle outState)
@@ -189,7 +192,7 @@ namespace FieldService.Android {
             }
             navigationIndex = e.Value;
             var screen = Constants.Navigation [e.Value];
-            title.Text = string.Format ("#{0} {1} {2}", Assignment.JobNumber, screen, Assignment.StartDate.ToShortDateString ());
+            ActionBar.Title = string.Format ("#{0} {1} {2}", Assignment.JobNumber, screen, Assignment.StartDate.ToShortDateString ());
         }
 
         protected override void OnResume ()
@@ -225,11 +228,23 @@ namespace FieldService.Android {
 
         public override bool OnCreateOptionsMenu (IMenu menu)
         {
-            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Vertical) {
-                MenuInflater.Inflate (Resource.Menu.SummaryMenu, menu);
+            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Vertical || WindowManager.DefaultDisplay.Orientation == 3) {
+                var inflater = MenuInflater;
+                inflater.Inflate (Resource.Menu.SummaryMenu, menu);
                 return true;
             }
             return false;
+        }
+
+        public override bool OnOptionsItemSelected (IMenuItem item)
+        {
+            switch (item.ItemId) {
+                case Resource.Id.navigationMenu:
+                    return true;
+                default:
+                    OnBackPressed ();
+                    return true;
+            }
         }
 
         /// <summary>

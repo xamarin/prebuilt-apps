@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<view xmlns:android="http://schemas.android.com/apk/res/android"
+      class="com.android.internal.widget.ActionBarView$HomeView"
+      android:layout_width="wrap_content"
+      android:layout_height="match_parent"
+      android:background="?android:attr/actionBarItemBackground"
+      android:animateLayoutChanges="true">
+  <ImageView android:id="@+id/up"
+             android:src="?android:attr/homeAsUpIndicator"
+             android:layout_gravity="center_vertical|start"
+             android:visibility="gone"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"/>
+  <ImageView android:id="@+id/home"
+             android:layout_width="wrap_content"
+             android:layout_height="wrap_content"
+             android:layout_marginTop="8dp"
+             android:layout_marginBottom="8dp"
+             android:layout_gravity="center"
+             android:adjustViewBounds="true"
+             android:scaleType="fitCenter" />
+</view>

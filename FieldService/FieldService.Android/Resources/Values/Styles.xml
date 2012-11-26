@@ -8,4 +8,16 @@
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:windowNoTitle">true</item>
   </style>
+  <style name="ActionBar" parent="@android:style/Widget.Holo.ActionBar">
+    <item name="android:background">@drawable/actionbar</item>
+    <item name="android:displayOptions">useLogo|showHome|showTitle</item>
+    <item name="android:height">?android:attr/actionBarSize</item>
+    <item name="android:paddingTop">0dp</item>
+    <item name="android:paddingBottom">0dp</item>
+    <item name="android:titleTextStyle">@android:style/TextAppearance.Medium</item>
+    <item name="android:subtitleTextStyle">@android:style/TextAppearance.Small</item>
+    <item name="android:progressBarStyle">@android:style/Widget.ProgressBar.Horizontal</item>
+    <item name="android:indeterminateProgressStyle">@android:style/Widget.ProgressBar.Small</item>
+    <item name="android:homeLayout">@drawable/action_bar</item>
+  </style>
 </resources>
