@@ -39,7 +39,7 @@ namespace FieldService.ViewModels {
         TimeSpan hours = TimeSpan.Zero;
         List<Assignment> assignments;
         Assignment activeAssignment;
-        Signature signature;
+        Data.Signature signature;
         TimerEntry timerEntry;
 
         /// <summary>
@@ -145,7 +145,7 @@ namespace FieldService.ViewModels {
         /// <summary>
         /// The current signature
         /// </summary>
-        public Signature Signature
+        public Data.Signature Signature
         {
             get { return signature; }
             set { signature = value; OnPropertyChanged ("Signature"); }

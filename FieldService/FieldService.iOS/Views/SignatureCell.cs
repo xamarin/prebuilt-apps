@@ -34,9 +34,9 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
-		/// Set the assignment for this cell
+		/// Set the signature for this cell
 		/// </summary>
-		public void SetAssignment (Assignment assignment)
+		public void SetSignature (Data.Signature signature)
 		{
 			//Dispose the previous image if there was one
 			if (image != null) {
@@ -44,19 +44,19 @@ namespace FieldService.iOS
 				image = null;
 			}
 
-			if (assignment.Signature == null) {
-				signature.Hidden = true;
-				signature.SetBackgroundImage (null, UIControlState.Normal);
+			if (signature == null) {
+				this.signature.Hidden = true;
+				this.signature.SetBackgroundImage (null, UIControlState.Normal);
 
 				addSignature.Hidden = false;
 				addSignature.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
 				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
 			} else {
-				image = assignment.Signature.ToUIImage ();
-				signature.Hidden = false;
-				signature.SetBackgroundImage (image, UIControlState.Normal);
-				signature.Layer.CornerRadius = 7;
-				signature.ClipsToBounds = true;
+				image = signature.Image.ToUIImage ();
+				this.signature.Hidden = false;
+				this.signature.SetBackgroundImage (image, UIControlState.Normal);
+				this.signature.Layer.CornerRadius = 7;
+				this.signature.ClipsToBounds = true;
 
 				addSignature.Hidden = true;
 			}

@@ -76,10 +76,12 @@ namespace FieldService.iOS
 						return;
 					}
 
-					var assignment = detailsController.Assignment;
-					assignment.Signature = signatureView.GetImage ().ToByteArray ();
+					if (assignmentViewModel.Signature == null) {
+						assignmentViewModel.Signature = new Data.Signature { AssignmentId = detailsController.Assignment.Id };
+					}
+					assignmentViewModel.Signature.Image = signatureView.GetImage ().ToByteArray ();
 
-					assignmentViewModel.SaveAssignmentAsync (assignment)
+					assignmentViewModel.SaveSignatureAsync ()
 						.ContinueOnUIThread (_ => {
 							//Dismiss controller
 							var signatureController = ServiceContainer.Resolve<SignatureController>();
