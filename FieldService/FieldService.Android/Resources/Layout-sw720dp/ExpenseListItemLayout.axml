@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expenseType"
+        android:layout_marginLeft="20dp"
+        android:minWidth="80dp"
+        android:layout_gravity="center_vertical"
+        android:maxLines="1"
+        android:textSize="18dp"
+        android:textColor="@android:color/black" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expenseDescription"
+        android:layout_marginLeft="30dp"
+        android:layout_weight="1"
+        android:layout_gravity="center_vertical"
+        android:ellipsize="end"
+        android:maxLines="1"
+        android:textSize="18dp"
+        android:textColor="@android:color/black" />
+    <TextView
+        android:text="@string/DollarSign"
+        android:id="@+id/textView2"
+        android:textColor="@android:color/black"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" />
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginBottom="15dp"
+        android:layout_marginTop="15dp">
+        <ImageView
+            android:src="@drawable/laborHoursBottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/expenseText"
+            android:id="@+id/expenseAmountBottom" />
+        <TextView
+            android:id="@+id/expenseText"
+            android:gravity="right"
+            android:textSize="16dp"
+            android:textColor="@android:color/black"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignRight="@id/expenseAmountBottom"
+            android:layout_marginRight="5dp"
+            android:minWidth="65dp"
+            android:maxWidth="65dp"
+            android:singleLine="true"
+            android:ellipsize="end" />
+    </RelativeLayout>
+    <ImageView
+        android:src="@drawable/cameraIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/expensePhotoIcon"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp" />
+</LinearLayout>

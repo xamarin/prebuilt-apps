@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <TextView
+        android:text="@string/Photo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueclick"
+        android:textSize="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="20dp" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ItemPopupDivider"
+        android:layout_marginTop="10dp" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/photoPopupDescription"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="25dp"
+        android:textColor="@android:color/black"
+        android:background="@android:color/transparent"
+        android:textSize="16dp"
+        android:hint="@string/OptionalCaption"
+        android:inputType="textMultiLine"
+        android:maxHeight="50dp"
+        android:minWidth="360dp"
+        android:maxWidth="360dp"
+        android:minHeight="50dp"
+        android:gravity="top|left"
+        android:textColorHint="@color/greyspinnertext" />
+    <ImageView
+        android:src="@drawable/labordescriptionbottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="20dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp">
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/photoDateTime"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:textSize="16dp"
+            android:layout_gravity="center_vertical" />
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/photoDeleteImage"
+            android:layout_gravity="center_vertical"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="5dp">
+            <TextView
+                android:text="@string/DeletePhoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/black"
+                android:textSize="16dp"
+                android:layout_gravity="center_vertical" />
+            <ImageView
+                android:src="@drawable/TrashCanIcon"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="240dp"
+        android:id="@+id/photoImageSource"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="5dp"
+        android:scaleType="fitCenter" />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="10dp">
+        <ImageButton
+            android:src="@drawable/PreviousButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/photoPreviousButton"
+            android:background="@android:color/transparent" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/photoCountText"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/black" />
+        <ImageButton
+            android:src="@drawable/NextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/photoNextButton"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout2"
+        android:layout_marginTop="10dp"
+        android:minHeight="40dp">
+        <Button
+            android:text="@string/Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/photoCancelImage"
+            android:textColor="@android:color/black"
+            android:background="@drawable/cancel_button"
+            android:layout_weight="1" />
+        <Button
+            android:text="@string/Done"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/photoDoneImage"
+            android:textColor="@android:color/black"
+            android:background="@drawable/cancel_button"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>

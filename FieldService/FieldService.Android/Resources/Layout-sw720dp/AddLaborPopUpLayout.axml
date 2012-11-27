@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <TextView
+        android:text="@string/AddLabor"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueclick"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ItemPopupDivider"
+        android:layout_marginTop="10dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+        <Spinner
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addLaborHoursType"
+            android:background="@drawable/trianglewhite"
+            android:layout_gravity="center_vertical" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addLaborHoursText"
+            android:textSize="12dp"
+            android:layout_gravity="center_vertical"
+            android:drawableBottom="@drawable/laborHoursBottom"
+            android:gravity="center_horizontal"
+            android:textColor="@android:color/black"
+            android:layout_marginTop="5dp"
+            android:layout_marginLeft="20dp" />
+        <TextView
+            android:text="@string/HoursAbbrev"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:textSize="12dp"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="3dp" />
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginTop="10dp">
+            <ImageButton
+                android:src="@drawable/UpLaborHours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addLaborHours"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center_horizontal"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="20dp"
+                android:paddingBottom="10dp" />
+            <ImageView
+                android:src="@drawable/LaborHoursDivider"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" />
+            <ImageButton
+                android:src="@drawable/downlaborhours"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/subtractLaborHours"
+                android:background="@android:color/transparent"
+                android:layout_gravity="center_horizontal"
+                android:paddingBottom="20dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp" />
+        </LinearLayout>
+    </LinearLayout>
+    <EditText
+        android:inputType="textMultiLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addLaborDescription"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center_horizontal"
+        android:textColor="@android:color/black"
+        android:maxWidth="330dp"
+        android:textSize="12dp"
+        android:minWidth="330dp"
+        android:maxHeight="120dp"
+        android:minHeight="120dp"
+        android:gravity="left"
+        android:background="@android:color/transparent"
+        android:hint="@string/EnterDescription" />
+    <ImageView
+        android:src="@drawable/labordescriptionbottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginLeft="10dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:minHeight="50dp">
+        <Button
+            android:text="@string/Cancel"
+            android:layout_width="wrap_content"
+            android:id="@+id/cancelAddLabor"
+            android:background="@drawable/cancel_button"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:textSize="14dp"
+            android:layout_height="fill_parent" />
+        <Button
+            android:text="@string/Delete"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/deleteAddLabor"
+            android:background="@drawable/cancel_button"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:textSize="14dp" />
+        <Button
+            android:text="@string/Save"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/saveAddLabor"
+            android:background="@drawable/cancel_button"
+            android:textColor="@android:color/black"
+            android:layout_weight="1"
+            android:textSize="14dp" />
+    </LinearLayout>
+</LinearLayout>

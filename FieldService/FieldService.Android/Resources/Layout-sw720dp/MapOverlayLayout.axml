@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@drawable/mapOverlay"
+    android:clickable="true">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:id="@+id/overlayDirectionsLayout">
+        <ImageButton
+            android:src="@drawable/get_directions_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mapOverlayGetDirections"
+            android:background="@android:color/transparent"
+            android:layout_centerVertical="false"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp" />
+        <ImageView
+            android:src="@drawable/MapOverlayDivider"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mapOverlayDivider"
+            android:layout_marginLeft="5dp" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/mapOverlayAddress"
+            android:textSize="10dp"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="2dp"
+            android:minWidth="120dp"
+            android:maxLines="2"
+            android:maxWidth="120dp"
+            android:ellipsize="end"
+            android:gravity="left" />
+    </LinearLayout>
+</RelativeLayout>

@@ -115,9 +115,9 @@ namespace FieldService.Android {
 
             //portrait mode, flip back and forth when selecting the navigation menu.
             if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Horizontal || WindowManager.DefaultDisplay.Orientation == 2) {
-                navigationFragmentContainer.Visibility = ViewStates.Invisible;
-            } else {
                 navigationFragmentContainer.Visibility = ViewStates.Visible;
+            } else {
+                navigationFragmentContainer.Visibility = ViewStates.Invisible;
             }
 
             //setting up default fragments
@@ -176,7 +176,7 @@ namespace FieldService.Android {
         private void NavigationSelected (object sender, EventArgs<int> e)
         {
             SetFrameFragment (e.Value);
-            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Horizontal || WindowManager.DefaultDisplay.Orientation == 2) {
+            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Vertical || WindowManager.DefaultDisplay.Orientation == 3) {
                 navigationFragmentContainer.Visibility = ViewStates.Invisible;
             }
             navigationIndex = e.Value;

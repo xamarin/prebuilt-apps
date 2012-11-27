@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="400dp"
+    android:layout_height="500dp"
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/itemsSearchTopLinearLayout"
+        android:layout_marginTop="10dp"
+        android:layout_centerHorizontal="true">
+        <TextView
+            android:id="@+id/itemsPopupHeader"
+            android:textColor="@color/blueclick"
+            android:text="@string/Items"
+            android:textSize="22dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical" />
+        <ImageView
+            android:src="@drawable/SearchIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="40dp" />
+        <RelativeLayout
+            android:layout_width="212dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/relativeLayout1"
+            android:layout_marginLeft="5dp">
+            <ImageView
+                android:src="@drawable/bottomSearchBar"
+                android:id="@+id/itemsPopupSearchImage"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/itemsPopupSearchText" />
+            <ImageButton
+                android:src="@drawable/clear_search_button"
+                android:id="@+id/itemsPopupSeachClear"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="5dp" />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/itemsPopupSearchText"
+                android:textSize="16dp"
+                android:layout_toLeftOf="@id/itemsPopupSeachClear"
+                android:layout_marginLeft="5dp"
+                android:layout_centerVertical="true"
+                android:textColor="@color/itemssearchcolor"
+                android:textStyle="normal"
+                android:textColorHint="@color/itemssearchcolor"
+                android:singleLine="true"
+                android:hint="Search"
+                android:background="@android:color/transparent"
+                android:minHeight="30dp" />
+        </RelativeLayout>
+    </LinearLayout>
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/itemsSearchTopLinearLayout"
+        android:background="@drawable/ItemPopupDivider"
+        android:id="@+id/itemsPopupDivider"
+        android:layout_marginTop="10dp" />
+    <ListView
+        android:layout_width="fill_parent"
+        android:id="@+id/itemPopupItemsList"
+        android:layout_below="@+id/itemsPopupDivider"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/itemsPopupCancelButton"
+        android:listSelector="@drawable/items_selector"
+        android:background="@color/assignmentoffwhite"
+        android:dividerHeight="1dp"
+        android:divider="@color/listviewdivider" />
+    <Button
+        android:text="@string/Cancel"
+        android:layout_width="fill_parent"
+        android:layout_height="50dp"
+        android:id="@+id/itemsPopupCancelButton"
+        android:textColor="@android:color/black"
+        android:background="@drawable/cancel_button"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

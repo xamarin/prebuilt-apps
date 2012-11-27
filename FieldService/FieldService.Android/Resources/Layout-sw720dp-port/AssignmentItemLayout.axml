@@ -21,8 +21,8 @@
         android:layout_marginLeft="20dp"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
-        android:maxWidth="100dp"
-        android:minWidth="100dp" />
+        android:maxWidth="120dp"
+        android:minWidth="120dp" />
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -48,8 +48,8 @@
                 android:id="@+id/assignmentName"
                 android:textSize="16dp"
                 android:textColor="@android:color/black"
-                android:maxWidth="100dp"
-                android:minWidth="100dp"
+                android:maxWidth="140dp"
+                android:minWidth="140dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/assignmentPhoneIcon"
@@ -59,8 +59,8 @@
                 android:textSize="16dp"
                 android:textColor="@android:color/black"
                 android:gravity="center_vertical"
-                android:maxWidth="100dp"
-                android:minWidth="100dp"
+                android:maxWidth="140dp"
+                android:minWidth="140dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/assignmentName"
@@ -83,10 +83,10 @@
                 android:layout_centerVertical="true" />
             <TextView
                 android:id="@+id/assignmentAddress"
-                android:textSize="16dp"
+                android:textSize="15dp"
                 android:textColor="@android:color/black"
-                android:maxWidth="150dp"
-                android:minWidth="150dp"
+                android:maxWidth="230dp"
+                android:minWidth="230dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/assignmentMapIcon"
@@ -116,8 +116,9 @@
                 android:id="@+id/assignmentTimerText"
                 android:gravity="right"
                 android:textColor="@android:color/black"
-                android:maxWidth="85dp"
-                android:minWidth="85dp"
+                android:maxWidth="125dp"
+                android:minWidth="125dp"
+                android:textSize="16dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical" />
@@ -173,7 +174,7 @@
             android:id="@+id/assignmentAccept"
             android:background="@drawable/accept_assignment"
             android:textColor="@android:color/black"
-            android:layout_width="95dp"
+            android:layout_width="125dp"
             android:layout_height="42dp"
             android:layout_marginBottom="5dp"
             android:focusable="false"
@@ -181,13 +182,13 @@
             android:layout_gravity="center_vertical" />
         <Button
             android:text="@string/Decline"
-            android:layout_width="95dp"
+            android:layout_width="125dp"
             android:layout_height="42dp"
             android:id="@+id/assignmentDecline"
             android:background="@drawable/decline_assignment"
             android:textColor="@android:color/black"
             android:focusable="false"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
 </LinearLayout>

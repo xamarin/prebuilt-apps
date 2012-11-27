@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white">
+    <ImageView
+        android:src="@drawable/darkPhoneIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/historyItemPhoneImage"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="30dp"
+        android:visibility="gone"
+        android:maxWidth="70dp"
+        android:minWidth="70dp"
+        android:scaleType="center" />
+    <TextView
+        android:text="#789234"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/historyItemJobNumber"
+        android:layout_marginLeft="30dp"
+        android:textColor="@android:color/black"
+        android:maxWidth="70dp"
+        android:minWidth="70dp"
+        android:ellipsize="end"
+        android:singleLine="true"
+        android:layout_gravity="center_vertical"
+        android:visibility="visible"
+        android:gravity="center_horizontal" />
+    <TextView
+        android:text="12/12/2012"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/historyItemDate"
+        android:layout_marginLeft="10dp"
+        android:minWidth="80dp"
+        android:maxWidth="80dp"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_vertical"
+        android:gravity="right" />
+    <TextView
+        android:text="Coil Replacement"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/historyItemJobTitle"
+        android:layout_marginLeft="10dp"
+        android:ellipsize="end"
+        android:textColor="@android:color/black"
+        android:maxWidth="140dp"
+        android:minWidth="140dp"
+        android:singleLine="true"
+        android:layout_gravity="center_vertical" />
+    <ImageView
+        android:src="@drawable/PhoneIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/roundedblack"
+        android:scaleType="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp" />
+    <TextView
+        android:text="9.999.999.9999"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/historyItemPhoneNumber"
+        android:layout_marginLeft="10dp"
+        android:layout_gravity="center_vertical"
+        android:textColor="@android:color/black"
+        android:singleLine="true"
+        android:maxWidth="110dp"
+        android:minWidth="110dp"
+        android:ellipsize="end" />
+    <ImageView
+        android:src="@drawable/MapIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/historyItemMapImage"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/roundedblack"
+        android:scaleType="center"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="10dp" />
+    <TextView
+        android:text="323 Park Ave."
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/historyItemAddress"
+        android:textColor="@android:color/black"
+        android:layout_gravity="center_vertical"
+        android:lines="2"
+        android:gravity="center_vertical"
+        android:layout_weight="1"
+        android:layout_marginRight="10dp" />
+</LinearLayout>

@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="220dp"
+    android:layout_height="fill_parent">
+    <ListView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:listSelector="@drawable/navigation_selector"
+        android:divider="@android:color/transparent"
+        android:layout_marginLeft="5dp"
+        android:id="@+id/navigationListView" />
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_alignParentBottom="true"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@color/navigationitemselected">
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragmentStatusImage"
+                android:src="@drawable/EnrouteImage"
+                android:layout_marginLeft="20dp"
+                android:layout_gravity="center_vertical" />
+            <Spinner
+                android:id="@+id/fragmentStatus"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="5dp"
+                android:background="@drawable/triangledark" />
+        </LinearLayout>
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:id="@+id/fragmentTimerTextLayout"
+            android:layout_marginBottom="10dp">
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/fragmentHours"
+                android:layout_alignParentLeft="true"
+                android:textSize="16dp"
+                android:layout_toLeftOf="@+id/fragmentTimer"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp" />
+            <ToggleButton
+                android:layout_width="47dp"
+                android:layout_height="46dp"
+                android:id="@+id/fragmentTimer"
+                android:layout_gravity="right"
+                android:background="@drawable/summary_timer"
+                android:layout_alignParentRight="true"
+                android:textOff=" "
+                android:textOn=" "
+                android:layout_marginRight="10dp" />
+        </RelativeLayout>
+    </LinearLayout>
+</RelativeLayout>

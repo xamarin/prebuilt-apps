@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="@android:color/white"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+    <TextView
+        android:text="@string/AddExpense"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/blueclick"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="10dp" />
+    <ImageView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ItemPopupDivider"
+        android:layout_marginTop="10dp" />
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="238.1dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center_horizontal">
+        <Spinner
+            android:layout_width="120dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/addExpenseType"
+            android:background="@drawable/trianglewhite" />
+        <TextView
+            android:text="@string/DollarSign"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="30dp" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:layout_gravity="center_vertical">
+            <ImageView
+                android:src="@drawable/laborHoursBottom"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/addExpenseAmount"
+                android:id="@+id/addExpenseAmountBottom" />
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/addExpenseAmount"
+                android:layout_gravity="center_vertical"
+                android:textColor="@android:color/black"
+                android:background="@android:color/transparent"
+                android:gravity="right"
+                android:paddingRight="2dp"
+                android:inputType="numberDecimal"
+                android:minWidth="65dp"
+                android:maxWidth="65dp"
+                android:singleLine="true"
+                android:ellipsize="end"
+                android:layout_marginRight="5dp"
+                android:textSize="16dp"
+                android:layout_alignRight="@+id/addExpenseAmountBottom" />
+        </RelativeLayout>
+    </LinearLayout>
+    <EditText
+        android:inputType="textMultiLine"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addExpenseDescription"
+        android:layout_marginTop="20dp"
+        android:textColor="@android:color/black"
+        android:textSize="12dp"
+        android:layout_marginLeft="15dp"
+        android:background="@android:color/transparent"
+        android:minWidth="360dp"
+        android:maxWidth="360dp"
+        android:maxHeight="45dp"
+        android:gravity="top"
+        android:minHeight="45dp"
+        android:hint="@string/EnterDescription" />
+    <ImageView
+        android:src="@drawable/labordescriptionbottom"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="5dp" />
+    <FrameLayout
+        android:layout_width="fill_parent"
+        android:layout_height="240dp"
+        android:layout_margin="10dp"
+        android:background="@color/confirmationborder">
+        <ImageView
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/addExpenseImage"
+            android:layout_margin="1dp"
+            android:scaleType="fitCenter" />
+        <Button
+            android:text="@string/AddPhoto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/addExpenseAddPhoto"
+            android:layout_gravity="center"
+            android:textColor="@android:color/black"
+            android:background="@drawable/accept_assignment"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp" />
+    </FrameLayout>
+    <LinearLayout
+        android:orientation="horizontal"
+        android:minHeight="40dp"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/linearLayout1">
+        <Button
+            android:text="@string/Cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/addExpenseCancel"
+            android:background="@drawable/cancel_button"
+            android:textColor="@android:color/black"
+            android:layout_weight="1" />
+        <Button
+            android:text="@string/Delete"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/addExpenseDelete"
+            android:textColor="@android:color/black"
+            android:background="@drawable/cancel_button"
+            android:layout_weight="1" />
+        <Button
+            android:text="@string/Save"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:id="@+id/addExpenseSave"
+            android:background="@drawable/cancel_button"
+            android:textColor="@android:color/black"
+            android:layout_weight="1" />
+    </LinearLayout>
+</LinearLayout>
