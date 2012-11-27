@@ -47,9 +47,9 @@ namespace FieldService.Data {
         public decimal Cost { get; set; }
 
         /// <summary>
-        /// An attached photo
+        /// The expense has a photo attached to it
         /// </summary>
-        public byte[] Photo { get; set; }
+        public bool HasPhoto { get; set; }
 
         /// <summary>
         /// Link to an assignment

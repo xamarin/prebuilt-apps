@@ -163,7 +163,6 @@
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Activities\AssignmentsActivity.cs" />
-    <Compile Include="Activities\BaseActivity.cs" />
     <Compile Include="Activities\MapFragmentActivity.cs" />
     <Compile Include="Activities\SummaryActivity.cs" />
     <Compile Include="Activities\TabFragmentActivity.cs" />
@@ -314,6 +313,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Menu\SummaryMenu.xml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout\NavigationMenu.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>
@@ -489,7 +491,9 @@
     <AndroidResource Include="Resources\Drawable-mdpi\MapOverlayIconDown.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayIconDown.png" />
     <AndroidResource Include="Resources\Drawable\mapOverlay.xml" />
-    <AndroidResource Include="Resources\Drawable\action_bar.xml" />
+    <AndroidResource Include="Resources\Drawable\action_bar_back.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />

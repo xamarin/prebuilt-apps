@@ -62,7 +62,7 @@ namespace FieldService.Android {
 
             expenseAmount.Tag = position;
 
-            expenseImage.Visibility = expense.Photo != null ? ViewStates.Visible : ViewStates.Invisible;
+            expenseImage.Visibility = expense.HasPhoto ? ViewStates.Visible : ViewStates.Invisible;
 
             return view;
         }

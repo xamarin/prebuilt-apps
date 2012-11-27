@@ -16,6 +16,8 @@
 using System;
 using Android.App;
 using Android.Content;
+using Android.Graphics;
+using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Util;
 using Android.Views;
@@ -44,7 +46,6 @@ namespace FieldService.Android {
         FrameLayout navigationFragmentContainer;
         TextView number, name, phone, address, items;
         Button addItems, addLabor, addExpense;
-        ImageButton navigationMenu;
         int assignmentIndex = 0, navigationIndex = 0;
         ItemsDialog itemDialog;
         AddLaborDialog laborDialog;
@@ -90,9 +91,7 @@ namespace FieldService.Android {
             addItems = FindViewById<Button> (Resource.Id.selectedAssignmentAddItem);
             addLabor = FindViewById<Button> (Resource.Id.selectedAssignmentAddLabor);
             addExpense = FindViewById<Button> (Resource.Id.selectedAssignmentAddExpense);
-            navigationMenu = FindViewById<ImageButton> (Resource.Id.navigationMenu);
             navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
-            var back = FindViewById<LinearLayout> (Resource.Id.backSummary);
             mapButton = FindViewById<LinearLayout> (Resource.Id.summaryMapIconLayout);
             phoneButton = FindViewById<LinearLayout> (Resource.Id.summaryPhoneIconLayout);
 
@@ -105,10 +104,6 @@ namespace FieldService.Android {
                 navFragment.SetNavigation (index);
             };
 
-            back.Click += (sender, e) => {
-                OnBackPressed ();
-            };
-
             if (Assignment != null) {
                 ActionBar.Title = string.Format ("#{0} {1} {2}", Assignment.JobNumber, "Summary", Assignment.StartDate.ToShortDateString ());
 
@@ -119,14 +114,8 @@ namespace FieldService.Android {
             }
 
             //portrait mode, flip back and forth when selecting the navigation menu.
-            if (navigationMenu != null) {
-                navigationMenu.Click += (sender, e) => {
-                    if (navigationFragmentContainer.Visibility == ViewStates.Visible) {
-                        navigationFragmentContainer.Visibility = ViewStates.Invisible;
-                    } else {
-                        navigationFragmentContainer.Visibility = ViewStates.Visible;
-                    }
-                };
+            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Horizontal || WindowManager.DefaultDisplay.Orientation == 2) {
+                navigationFragmentContainer.Visibility = ViewStates.Invisible;
             } else {
                 navigationFragmentContainer.Visibility = ViewStates.Visible;
             }
@@ -173,9 +162,9 @@ namespace FieldService.Android {
 
             ServiceContainer.Register<SummaryActivity> (this);
 
+            ActionBar.SetLogo (Resource.Drawable.XamarinTitle);
+            ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));
             ActionBar.SetDisplayHomeAsUpEnabled (true);
-            ActionBar.SetBackgroundDrawable (Resources.GetDrawable(Resource.Drawable.actionbar));
-            ActionBar.SetIcon (Resource.Drawable.XamarinTitle);
         }
 
         protected override void OnSaveInstanceState (Bundle outState)
@@ -187,7 +176,7 @@ namespace FieldService.Android {
         private void NavigationSelected (object sender, EventArgs<int> e)
         {
             SetFrameFragment (e.Value);
-            if (navigationMenu != null) {
+            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Horizontal || WindowManager.DefaultDisplay.Orientation == 2) {
                 navigationFragmentContainer.Visibility = ViewStates.Invisible;
             }
             navigationIndex = e.Value;
@@ -240,6 +229,20 @@ namespace FieldService.Android {
         {
             switch (item.ItemId) {
                 case Resource.Id.navigationMenu:
+                    var view = LayoutInflater.Inflate (Resource.Layout.NavigationMenu, null, false);
+                    var listview = view.FindViewById<ListView> (Resource.Id.navigationMenuListView);
+                    var adapter = new SpinnerAdapter<string> (Constants.Navigation.ToArray (), this, Resource.Layout.SimpleSpinnerItem);
+                    var window = new PopupWindow (view, 300, 366, true);
+
+                    adapter.TextColor = Color.White;
+                    listview.Adapter = adapter;
+                    listview.ItemClick += (sender, e) => {
+                        navigationFragment.SetNavigation (e.Position);
+                        window.Dismiss ();
+                        };
+                    window.SetBackgroundDrawable (new BitmapDrawable ());
+                    window.OutsideTouchable = true;
+                    window.ShowAtLocation (FindViewById<FrameLayout> (Resource.Id.contentFrame), GravityFlags.Top | GravityFlags.Right, 0, 48);
                     return true;
                 default:
                     OnBackPressed ();
@@ -388,5 +391,6 @@ namespace FieldService.Android {
         {
             Finish ();
         }
+
     }
 }

@@ -143,8 +143,8 @@ namespace FieldService.Android.Dialogs {
         {
             base.OnAttachedToWindow ();
             if (CurrentExpense != null) {
-                if (CurrentExpense.Photo != null) {
-                    imageBitmap = BitmapFactory.DecodeByteArray (CurrentExpense.Photo, 0, CurrentExpense.Photo.Length);
+                if (expenseViewModel.Photo != null) {
+                    imageBitmap = BitmapFactory.DecodeByteArray (expenseViewModel.Photo.Image, 0, expenseViewModel.Photo.Image.Length);
                     imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                     expensePhoto.SetImageBitmap (imageBitmap);
                     expenseAddPhoto.Visibility = ViewStates.Gone;
@@ -187,8 +187,8 @@ namespace FieldService.Android.Dialogs {
             CurrentExpense.Description = expenseDescription.Text;
             CurrentExpense.Cost = expenseAmount.Text.ToDecimal (CultureInfo.InvariantCulture);
             CurrentExpense.AssignmentId = Assignment.Id;
-            if (CurrentExpense.Photo == null) {
-                CurrentExpense.Photo = imageBitmap.ToByteArray ();
+            if (expenseViewModel.Photo == null) {
+                expenseViewModel.Photo.Image = imageBitmap.ToByteArray ();
             }
 
             expenseViewModel.SaveExpenseAsync (Assignment, CurrentExpense)

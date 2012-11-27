@@ -39,4 +39,9 @@
   <string name="GoogleMapsAPIKey">0Z6S_l7uiuX_zAuh76fsJA37zCiyXr7e5BK5okQ</string>
   <string name="EnterDescription">Please enter description here.</string>
   <string name="OptionalCaption">Optional caption...</string>
+  <string name="Summary">Summary</string>
+  <string name="Map">Map</string>
+  <string name="History">History</string>
+  <string name="Documents">Documents</string>
+  <string name="Confirmations">Confirmations</string>
 </resources>

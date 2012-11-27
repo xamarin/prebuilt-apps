@@ -2,18 +2,11 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <ImageView
-        android:id="@+id/actionBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:background="@drawable/actionbar" />
     <FrameLayout
         android:layout_width="220dp"
         android:layout_height="fill_parent"
         android:id="@+id/navigationFragmentContainer"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="55dp"
         android:visibility="visible" />
     <LinearLayout
         android:orientation="horizontal"
@@ -178,29 +171,4 @@
         android:id="@+id/summaryAssignmentTitle"
         android:layout_alignLeft="@id/contentFrame"
         android:layout_marginTop="15dp" />
-    <LinearLayout
-        android:orientation="horizontal"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/backSummary"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentLeft="true"
-        android:paddingTop="15dp"
-        android:paddingBottom="15dp"
-        android:clickable="true">
-        <ImageView
-            android:src="@drawable/back_button"
-            android:background="@android:color/transparent"
-            android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
-            android:layout_marginLeft="5dp"
-            android:layout_gravity="center_vertical" />
-        <ImageView
-            android:id="@+id/actionBarTitle"
-            android:src="@drawable/XamarinTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="5dp" />
-    </LinearLayout>
 </RelativeLayout>
