@@ -242,7 +242,7 @@ namespace FieldService.Android {
                         };
                     window.SetBackgroundDrawable (new BitmapDrawable ());
                     window.OutsideTouchable = true;
-                    window.ShowAtLocation (FindViewById<FrameLayout> (Resource.Id.contentFrame), GravityFlags.Top | GravityFlags.Right, 0, 48);
+                    window.ShowAtLocation (FindViewById<FrameLayout> (Resource.Id.contentFrame), GravityFlags.Top | GravityFlags.Right, 0, 52);
                     return true;
                 default:
                     OnBackPressed ();

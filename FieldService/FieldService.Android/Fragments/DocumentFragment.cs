@@ -57,7 +57,9 @@ namespace FieldService.Android.Fragments {
             var view = inflater.Inflate (Resource.Layout.DocumentFragmentLayout, null, true);
 
             documentListView = view.FindViewById<ListView> (Resource.Id.documentsListView);
-            documentListView.Adapter = new DocumentsAdapter (Activity, Resource.Layout.DocumentListItemLayout, Documents);
+            if (Documents != null) {
+                documentListView.Adapter = new DocumentsAdapter (Activity, Resource.Layout.DocumentListItemLayout, Documents);
+            }
 
             documentListView.ItemClick += (sender, e) => {
                 var textView = e.View.FindViewById<TextView> (Resource.Id.documentListItemDocTitle);

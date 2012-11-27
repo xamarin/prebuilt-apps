@@ -29,13 +29,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/selectedAssignmentContactName"
-            android:textSize="12dp"
+            android:textSize="16dp"
             android:textColor="@android:color/black"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
-            android:maxWidth="100dp"
-            android:minWidth="100dp" />
+            android:maxWidth="140dp"
+            android:minWidth="140dp" />
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
@@ -54,13 +54,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/selectedAssignmentPhoneNumber"
-                android:textSize="12dp"
+                android:textSize="16dp"
                 android:textColor="@android:color/black"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:maxWidth="100dp"
-                android:minWidth="100dp" />
+                android:maxWidth="140dp"
+                android:minWidth="140dp" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
@@ -79,13 +79,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/selectedAssignmentAddress"
-                android:textSize="12dp"
+                android:textSize="16dp"
                 android:textColor="@android:color/black"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
                 android:layout_gravity="center_vertical"
-                android:maxWidth="150dp"
-                android:minWidth="150dp" />
+                android:maxWidth="230dp"
+                android:minWidth="230dp" />
         </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
@@ -153,22 +153,5 @@
         android:layout_height="fill_parent"
         android:background="@android:color/white"
         android:layout_below="@+id/selectedAssignment"
-        android:layout_alignLeft="@+id/selectedAssignment"
-        android:minWidth="25px"
-        android:minHeight="25px">
-        <FrameLayout
-            android:id="@+id/contentFrame"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@android:color/white"
-            android:layout_below="@+id/selectedAssignment"
-            android:layout_alignLeft="@+id/selectedAssignment" />
-    </FrameLayout>
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/summaryAssignmentTitle"
-        android:layout_alignLeft="@id/contentFrame"
-        android:layout_marginTop="15dp" />
+        android:layout_alignLeft="@+id/selectedAssignment"/>
 </RelativeLayout>
