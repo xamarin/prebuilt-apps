@@ -84,7 +84,9 @@ namespace FieldService.WinRT.ViewModels {
                         var mediaFile = await picker.TakePhotoAsync (options);
                         
                         await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
-                            SelectedExpense.Photo = t.Result;
+                            if (Photo == null)
+                                Photo = new ExpensePhoto { ExpenseId = SelectedExpense.Id };
+                            Photo.Image = t.Result;
                         });
                         OnPropertyChanged ("SelectedExpense");
                     } catch (Exception exc) {
@@ -96,7 +98,9 @@ namespace FieldService.WinRT.ViewModels {
                         var mediaFile = await picker.PickPhotoAsync ();
 
                         await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
-                            SelectedExpense.Photo = t.Result;
+                            if (Photo == null)
+                                Photo = new ExpensePhoto { ExpenseId = SelectedExpense.Id };
+                            Photo.Image = t.Result;
                         });
                         OnPropertyChanged ("SelectedExpense");
                     } catch (Exception exc) {
