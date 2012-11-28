@@ -70,9 +70,13 @@ namespace FieldService.Data {
         public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
         {
             return Database.GetConnection (cancellationToken)
-                .Table<Expense> ()
-                .Where (e => e.AssignmentId == assignment.Id)
-                .ToListAsync ();
+                .QueryAsync<Expense> (@"
+                    select Expense.*, case when ExpensePhoto.Id is null then 0 else 1 end as HasPhoto
+                    from Expense
+                    left outer join ExpensePhoto
+                    on ExpensePhoto.ExpenseId = Expense.Id
+                    where Expense.AssignmentId = ?", 
+                    assignment.Id);
         }
 
         public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
