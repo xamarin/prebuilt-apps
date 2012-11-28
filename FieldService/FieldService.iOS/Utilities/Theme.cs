@@ -27,7 +27,7 @@ namespace FieldService.iOS
 	{
 		#region Images
 
-		static Lazy<UIImage> accept = new Lazy<UIImage> (() => UIImage.FromFile ("Images/accept.png").CreateResizableImage (new UIEdgeInsets (19, 16, 19, 16)));
+		static Lazy<UIImage> accept = new Lazy<UIImage> (() => UIImage.FromFile ("Images/accept.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Accept button on assignments
@@ -36,7 +36,7 @@ namespace FieldService.iOS
 			get { return accept.Value; }
 		}
 
-		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (18, 19, 21, 19)));
+		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Image for add photo button on expenses
