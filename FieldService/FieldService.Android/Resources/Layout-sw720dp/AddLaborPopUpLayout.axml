@@ -89,22 +89,23 @@
                 android:paddingTop="10dp" />
         </LinearLayout>
     </LinearLayout>
+  <FrameLayout
+    android:layout_width="330dp"
+    android:layout_height="120dp"
+    android:layout_gravity="center_horizontal"
+    android:background="@color/confirmationborder">
     <EditText
         android:inputType="textMultiLine"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:id="@+id/addLaborDescription"
-        android:layout_marginTop="20dp"
-        android:layout_gravity="center_horizontal"
+        android:layout_margin="1dp"
         android:textColor="@android:color/black"
-        android:maxWidth="330dp"
         android:textSize="12dp"
-        android:minWidth="330dp"
-        android:maxHeight="120dp"
-        android:minHeight="120dp"
         android:gravity="left"
-        android:background="@android:color/transparent"
+        android:background="@color/assignmentoffwhite"
         android:hint="@string/EnterDescription" />
+  </FrameLayout>
     <ImageView
         android:src="@drawable/labordescriptionbottom"
         android:layout_width="wrap_content"
