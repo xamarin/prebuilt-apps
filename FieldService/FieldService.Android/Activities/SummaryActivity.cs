@@ -35,7 +35,7 @@ namespace FieldService.Android {
     /// Activity for the summary screen
     /// </summary>
     [Activity (Label = "Summary", Theme = "@android:style/Theme.Holo")]
-    public class SummaryActivity : Activity {
+    public class SummaryActivity : Activity, PopupMenu.IOnMenuItemClickListener {
         readonly AssignmentViewModel assignmentViewModel;
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
@@ -51,8 +51,7 @@ namespace FieldService.Android {
         ItemsDialog itemDialog;
         AddLaborDialog laborDialog;
         ExpenseDialog expenseDialog;
-        LinearLayout mapButton,
-            phoneButton;
+        LinearLayout mapButton, phoneButton;
 
         public SummaryActivity ()
         {
@@ -230,27 +229,22 @@ namespace FieldService.Android {
         {
             switch (item.ItemId) {
                 case Resource.Id.navigationMenu:
-                    //var view = LayoutInflater.Inflate (Resource.Layout.NavigationMenu, null, false);
-                    //var listview = view.FindViewById<ListView> (Resource.Id.navigationMenuListView);
-                    //var adapter = new SpinnerAdapter<string> (Constants.Navigation.ToArray (), this, Resource.Layout.SimpleSpinnerItem);
-                    //var window = new PopupWindow (view, 300, 366, true);
-
-                    //adapter.TextColor = Color.White;
-                    //listview.Adapter = adapter;
-                    //listview.ItemClick += (sender, e) => {
-                    //    navigationFragment.SetNavigation (e.Position);
-                    //    window.Dismiss ();
-                    //    };
-                    //window.SetBackgroundDrawable (new BitmapDrawable ());
-                    //window.OutsideTouchable = true;
-                    //window.ShowAtLocation (FindViewById<FrameLayout> (Resource.Id.contentFrame), GravityFlags.Top | GravityFlags.Right, 0, 52);
-
-                    var popup = new PopupMenu (this, FindViewById<LinearLayout> (Resource.Id.selectedAssignment));
+                    var popup = new PopupMenu (this, FindViewById<TextView> (Resource.Id.selectedAssignmentAnchor));
                     MenuInflater.Inflate (Resource.Menu.FragmentNavigationMenu, popup.Menu);
+                    popup.SetOnMenuItemClickListener (this);
                     popup.Show ();
                     return true;
                 default:
                     OnBackPressed ();
+                    return true;
+            }
+        }
+
+        public bool OnMenuItemClick (IMenuItem item)
+        {
+            switch (item.ItemId) {
+                default:
+                    navigationFragment.SetNavigation (Constants.Navigation.IndexOf (item.TitleFormatted.ToString()));
                     return true;
             }
         }
@@ -396,6 +390,5 @@ namespace FieldService.Android {
         {
             Finish ();
         }
-
     }
 }

@@ -585,26 +585,26 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f080073
 			public const int mapViewAssignmentLayout = 2131230835;
 			
+			// aapt resource value: 0x7f0800a1
+			public const int navigationConfirmations = 2131230881;
+			
 			// aapt resource value: 0x7f0800a0
-			public const int navigationConfirmations = 2131230880;
+			public const int navigationDocuments = 2131230880;
 			
-			// aapt resource value: 0x7f08009f
-			public const int navigationDocuments = 2131230879;
-			
-			// aapt resource value: 0x7f08009d
-			public const int navigationExpenses = 2131230877;
+			// aapt resource value: 0x7f08009e
+			public const int navigationExpenses = 2131230878;
 			
 			// aapt resource value: 0x7f080082
 			public const int navigationFragmentContainer = 2131230850;
 			
-			// aapt resource value: 0x7f08009e
-			public const int navigationHistory = 2131230878;
-			
-			// aapt resource value: 0x7f08009b
-			public const int navigationItems = 2131230875;
+			// aapt resource value: 0x7f08009f
+			public const int navigationHistory = 2131230879;
 			
 			// aapt resource value: 0x7f08009c
-			public const int navigationLaborHours = 2131230876;
+			public const int navigationItems = 2131230876;
+			
+			// aapt resource value: 0x7f08009d
+			public const int navigationLaborHours = 2131230877;
 			
 			// aapt resource value: 0x7f080075
 			public const int navigationListView = 2131230837;
@@ -615,17 +615,17 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f08007b
 			public const int navigationListViewText = 2131230843;
 			
-			// aapt resource value: 0x7f08009a
-			public const int navigationMap = 2131230874;
+			// aapt resource value: 0x7f08009b
+			public const int navigationMap = 2131230875;
 			
-			// aapt resource value: 0x7f0800a1
-			public const int navigationMenu = 2131230881;
+			// aapt resource value: 0x7f0800a2
+			public const int navigationMenu = 2131230882;
 			
 			// aapt resource value: 0x7f08007d
 			public const int navigationMenuListView = 2131230845;
 			
-			// aapt resource value: 0x7f080099
-			public const int navigationSummary = 2131230873;
+			// aapt resource value: 0x7f08009a
+			public const int navigationSummary = 2131230874;
 			
 			// aapt resource value: 0x7f08006f
 			public const int overlayDirectionsLayout = 2131230831;
@@ -690,6 +690,9 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f08008a
 			public const int selectedAssignmentAddress = 2131230858;
 			
+			// aapt resource value: 0x7f080090
+			public const int selectedAssignmentAnchor = 2131230864;
+			
 			// aapt resource value: 0x7f080085
 			public const int selectedAssignmentContactName = 2131230853;
 			
@@ -717,32 +720,32 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f08000d
 			public const int subtractLaborHours = 2131230733;
 			
+			// aapt resource value: 0x7f080092
+			public const int summaryAssignmentDescription = 2131230866;
+			
 			// aapt resource value: 0x7f080091
-			public const int summaryAssignmentDescription = 2131230865;
+			public const int summaryAssignmentDescriptionHeader = 2131230865;
 			
-			// aapt resource value: 0x7f080090
-			public const int summaryAssignmentDescriptionHeader = 2131230864;
+			// aapt resource value: 0x7f080099
+			public const int summaryAssignmentExpenses = 2131230873;
 			
-			// aapt resource value: 0x7f080098
-			public const int summaryAssignmentExpenses = 2131230872;
-			
-			// aapt resource value: 0x7f080094
-			public const int summaryAssignmentItems = 2131230868;
-			
-			// aapt resource value: 0x7f080096
-			public const int summaryAssignmentLaborHours = 2131230870;
+			// aapt resource value: 0x7f080095
+			public const int summaryAssignmentItems = 2131230869;
 			
 			// aapt resource value: 0x7f080097
-			public const int summaryExpensesLayout = 2131230871;
+			public const int summaryAssignmentLaborHours = 2131230871;
+			
+			// aapt resource value: 0x7f080098
+			public const int summaryExpensesLayout = 2131230872;
 			
 			// aapt resource value: 0x7f080087
 			public const int summaryFragmentPhoneIcon = 2131230855;
 			
-			// aapt resource value: 0x7f080092
-			public const int summaryItemsLayout = 2131230866;
+			// aapt resource value: 0x7f080093
+			public const int summaryItemsLayout = 2131230867;
 			
-			// aapt resource value: 0x7f080095
-			public const int summaryLaborLayout = 2131230869;
+			// aapt resource value: 0x7f080096
+			public const int summaryLaborLayout = 2131230870;
 			
 			// aapt resource value: 0x7f080089
 			public const int summaryMapIconLayout = 2131230857;
@@ -753,8 +756,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f080055
 			public const int tabsText = 2131230805;
 			
-			// aapt resource value: 0x7f080093
-			public const int textView1 = 2131230867;
+			// aapt resource value: 0x7f080094
+			public const int textView1 = 2131230868;
 			
 			// aapt resource value: 0x7f080042
 			public const int textView2 = 2131230786;

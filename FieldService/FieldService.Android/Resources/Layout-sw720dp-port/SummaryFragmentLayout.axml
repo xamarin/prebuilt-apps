@@ -144,6 +144,11 @@
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
             android:visibility="gone" />
+      <TextView
+          android:layout_width="1dp"
+          android:layout_height="1dp"
+          android:id="@+id/selectedAssignmentAnchor"
+          android:layout_gravity="top"/>
     </LinearLayout>
     <FrameLayout
         android:id="@+id/contentFrame"
