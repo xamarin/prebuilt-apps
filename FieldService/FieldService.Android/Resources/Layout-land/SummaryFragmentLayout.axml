@@ -153,22 +153,5 @@
         android:layout_height="fill_parent"
         android:background="@android:color/white"
         android:layout_below="@+id/selectedAssignment"
-        android:layout_alignLeft="@+id/selectedAssignment"
-        android:minWidth="25px"
-        android:minHeight="25px">
-        <FrameLayout
-            android:id="@+id/contentFrame"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@android:color/white"
-            android:layout_below="@+id/selectedAssignment"
-            android:layout_alignLeft="@+id/selectedAssignment" />
-    </FrameLayout>
-    <TextView
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/summaryAssignmentTitle"
-        android:layout_alignLeft="@id/contentFrame"
-        android:layout_marginTop="15dp" />
+        android:layout_alignLeft="@+id/selectedAssignment"/>
 </RelativeLayout>

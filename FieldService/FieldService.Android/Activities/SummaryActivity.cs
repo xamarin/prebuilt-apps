@@ -28,6 +28,7 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Orientation = Android.Content.Res.Orientation;
 
 namespace FieldService.Android {
     /// <summary>
@@ -114,12 +115,12 @@ namespace FieldService.Android {
             }
 
             //portrait mode, flip back and forth when selecting the navigation menu.
-            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Horizontal || WindowManager.DefaultDisplay.Orientation == 2) {
+            if (Resources.Configuration.Orientation == Orientation.Landscape) {
                 navigationFragmentContainer.Visibility = ViewStates.Visible;
             } else {
                 navigationFragmentContainer.Visibility = ViewStates.Invisible;
-            }
-
+            }            
+            
             //setting up default fragments
             var transaction = FragmentManager.BeginTransaction ();
             var summaryFragment = new SummaryFragment ();
@@ -176,7 +177,7 @@ namespace FieldService.Android {
         private void NavigationSelected (object sender, EventArgs<int> e)
         {
             SetFrameFragment (e.Value);
-            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Vertical || WindowManager.DefaultDisplay.Orientation == 3) {
+            if (Resources.Configuration.Orientation == Orientation.Portrait) {
                 navigationFragmentContainer.Visibility = ViewStates.Invisible;
             }
             navigationIndex = e.Value;
@@ -217,7 +218,7 @@ namespace FieldService.Android {
 
         public override bool OnCreateOptionsMenu (IMenu menu)
         {
-            if (WindowManager.DefaultDisplay.Orientation == (int)Orientation.Vertical || WindowManager.DefaultDisplay.Orientation == 3) {
+            if (Resources.Configuration.Orientation == Orientation.Portrait) {
                 var inflater = MenuInflater;
                 inflater.Inflate (Resource.Menu.SummaryMenu, menu);
                 return true;
@@ -229,20 +230,24 @@ namespace FieldService.Android {
         {
             switch (item.ItemId) {
                 case Resource.Id.navigationMenu:
-                    var view = LayoutInflater.Inflate (Resource.Layout.NavigationMenu, null, false);
-                    var listview = view.FindViewById<ListView> (Resource.Id.navigationMenuListView);
-                    var adapter = new SpinnerAdapter<string> (Constants.Navigation.ToArray (), this, Resource.Layout.SimpleSpinnerItem);
-                    var window = new PopupWindow (view, 300, 366, true);
+                    //var view = LayoutInflater.Inflate (Resource.Layout.NavigationMenu, null, false);
+                    //var listview = view.FindViewById<ListView> (Resource.Id.navigationMenuListView);
+                    //var adapter = new SpinnerAdapter<string> (Constants.Navigation.ToArray (), this, Resource.Layout.SimpleSpinnerItem);
+                    //var window = new PopupWindow (view, 300, 366, true);
 
-                    adapter.TextColor = Color.White;
-                    listview.Adapter = adapter;
-                    listview.ItemClick += (sender, e) => {
-                        navigationFragment.SetNavigation (e.Position);
-                        window.Dismiss ();
-                        };
-                    window.SetBackgroundDrawable (new BitmapDrawable ());
-                    window.OutsideTouchable = true;
-                    window.ShowAtLocation (FindViewById<FrameLayout> (Resource.Id.contentFrame), GravityFlags.Top | GravityFlags.Right, 0, 52);
+                    //adapter.TextColor = Color.White;
+                    //listview.Adapter = adapter;
+                    //listview.ItemClick += (sender, e) => {
+                    //    navigationFragment.SetNavigation (e.Position);
+                    //    window.Dismiss ();
+                    //    };
+                    //window.SetBackgroundDrawable (new BitmapDrawable ());
+                    //window.OutsideTouchable = true;
+                    //window.ShowAtLocation (FindViewById<FrameLayout> (Resource.Id.contentFrame), GravityFlags.Top | GravityFlags.Right, 0, 52);
+
+                    var popup = new PopupMenu (this, FindViewById<LinearLayout> (Resource.Id.selectedAssignment));
+                    MenuInflater.Inflate (Resource.Menu.FragmentNavigationMenu, popup.Menu);
+                    popup.Show ();
                     return true;
                 default:
                     OnBackPressed ();

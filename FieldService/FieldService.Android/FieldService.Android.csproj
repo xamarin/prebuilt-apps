@@ -229,7 +229,7 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout-port\SummaryFragmentLayout.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\SummaryLayout.axml">
       <SubType>AndroidResource</SubType>
@@ -596,6 +596,9 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayIconDown.png" />
     <AndroidResource Include="Resources\Drawable\mapOverlay.xml" />
     <AndroidResource Include="Resources\Drawable\action_bar_back.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Menu\FragmentNavigationMenu.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>

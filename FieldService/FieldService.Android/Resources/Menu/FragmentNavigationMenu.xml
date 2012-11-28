@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?> 
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+  <item android:id="@+id/navigationSummary"
+        android:title="@string/Summary"/>
+  <item android:id="@+id/navigationMap"
+        android:title="@string/Map"/>
+  <item android:id="@+id/navigationItems"
+      android:title="@string/Items"/>
+  <item android:id="@+id/navigationLaborHours"
+      android:title="@string/LaborHours"/>
+  <item android:id="@+id/navigationExpenses"
+      android:title="@string/Expenses"/>
+  <item android:id="@+id/navigationHistory"
+      android:title="@string/History"/>
+  <item android:id="@+id/navigationDocuments"
+      android:title="@string/Documents"/>
+  <item android:id="@+id/navigationConfirmations"
+      android:title="@string/Confirmations"/>
+</menu>
