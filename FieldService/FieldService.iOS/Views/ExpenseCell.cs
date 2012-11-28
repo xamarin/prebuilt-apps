@@ -37,7 +37,7 @@ namespace FieldService.iOS
 			type.Text = expense.Category.ToString ();
 			description.Text = expense.Description;
 			cost.Text = expense.Cost.ToString ("$0.00");
-			if (expense.Photo == null) {
+			if (!expense.HasPhoto) {
 				icon.Hidden = true;
 			} else {
 				icon.Hidden = false;

@@ -71,7 +71,7 @@ namespace FieldService.iOS
 			space2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 			
 			tableView.Source = 
-				tableSource = new TableSource();
+				tableSource = new TableSource(expenseViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -91,7 +91,9 @@ namespace FieldService.iOS
 			} else {
 				toolbar.Items = new UIBarButtonItem[] { cancel, space1, expense, space2 };
 			}
-			tableSource.Load (enabled, expenseController.Expense);
+
+			expenseViewModel.LoadPhotoAsync (expenseController.Expense)
+				.ContinueOnUIThread (_ => tableSource.Load (enabled, expenseController.Expense));
 		}
 
 		public override void ViewWillDisappear (bool animated)
@@ -122,12 +124,14 @@ namespace FieldService.iOS
 			readonly PlaceholderTextView description;
 			readonly UIButton photoButton;
 			readonly UIImageView photo;
+			readonly ExpenseViewModel expenseViewModel;
 			ExpenseCategorySheet expenseSheet;
 			PhotoAlertSheet photoSheet;
 			bool enabled;
 			
-			public TableSource ()
+			public TableSource (ExpenseViewModel expenseViewModel)
 			{
+				this.expenseViewModel = expenseViewModel;
 				expenseController = ServiceContainer.Resolve<ExpenseController>();
 
 				categoryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
@@ -184,10 +188,13 @@ namespace FieldService.iOS
 				photoButton.Frame = new RectangleF(210, 130, 115, 40);
 				photoButton.TouchUpInside += (sender, e) => {
 					photoSheet = new PhotoAlertSheet();
-					photoSheet.Callback = image => {
-						var expense = expenseController.Expense;
-						expense.Photo = image;
-						Load (enabled, expense);
+					photoSheet.Callback = image => { 
+						if (expenseViewModel.Photo == null)
+							expenseViewModel.Photo = new ExpensePhoto { ExpenseId = expenseController.Expense.Id };
+						expenseViewModel.Photo.Image = image;
+
+						expenseViewModel.SavePhotoAsync ()
+							.ContinueOnUIThread (_ => Load (enabled, expenseController.Expense));
 					};
 					photoSheet.ShowFrom (photoButton.Frame, photoCell, true);
 				};
@@ -224,10 +231,10 @@ namespace FieldService.iOS
 					photo.Image.Dispose ();
 					photo.Image = null;
 				}
-				if (expense.Photo != null) {
+				if (expenseViewModel.Photo != null) {
 					photo.Hidden = false;
 					photoButton.Hidden = true;
-					photo.Image = expense.Photo.ToUIImage ();
+					photo.Image = expenseViewModel.Photo.Image.ToUIImage ();
 				} else {
 					photo.Hidden = true;
 					photoButton.Hidden = !enabled;

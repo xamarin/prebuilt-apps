@@ -319,6 +319,9 @@
     <Compile Include="..\FieldService\Data\Signature.cs">
       <Link>FieldService\Data\Signature.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\Data\ExpensePhoto.cs">
+      <Link>FieldService\Data\ExpensePhoto.cs</Link>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
