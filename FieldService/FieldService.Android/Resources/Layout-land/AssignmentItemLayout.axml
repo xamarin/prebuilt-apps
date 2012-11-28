@@ -16,24 +16,24 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/assignmentJob"
-        android:textSize="16dp"
+        android:textSize="14dp"
         android:textColor="@android:color/black"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
-        android:maxWidth="100dp"
-        android:minWidth="100dp" />
+        android:maxWidth="120dp"
+        android:minWidth="120dp" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/assignmentName"
-        android:textSize="12dp"
+        android:textSize="14dp"
         android:textColor="@android:color/black"
         android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
         android:layout_gravity="center_vertical"
-        android:maxWidth="100dp"
-        android:minWidth="100dp" />
+        android:maxWidth="120dp"
+        android:minWidth="120dp" />
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
@@ -50,10 +50,10 @@
             android:layout_centerVertical="true" />
         <TextView
             android:id="@+id/assignmentPhone"
-            android:textSize="12dp"
+            android:textSize="14dp"
             android:textColor="@android:color/black"
-            android:maxWidth="100dp"
-            android:minWidth="100dp"
+            android:maxWidth="120dp"
+            android:minWidth="120dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
@@ -76,7 +76,7 @@
             android:layout_centerVertical="true" />
         <TextView
             android:id="@+id/assignmentAddress"
-            android:textSize="16dp"
+            android:textSize="14dp"
             android:textColor="@android:color/black"
             android:maxWidth="150dp"
             android:minWidth="150dp"
@@ -112,6 +112,7 @@
                 android:maxWidth="85dp"
                 android:layout_gravity="center_vertical"
                 android:minWidth="85dp"
+                android:textSize="14dp"
                 android:layout_weight="1" />
             <ToggleButton
                 android:layout_width="47dp"
@@ -163,7 +164,7 @@
             android:id="@+id/assignmentAccept"
             android:background="@drawable/accept_assignment"
             android:textColor="@android:color/black"
-            android:layout_width="110dp"
+            android:layout_width="120dp"
             android:layout_height="42dp"
             android:layout_marginBottom="5dp"
             android:focusable="false"
@@ -171,13 +172,13 @@
             android:layout_gravity="center_vertical" />
         <Button
             android:text="Decline"
-            android:layout_width="110dp"
+            android:layout_width="120dp"
             android:layout_height="42dp"
             android:id="@+id/assignmentDecline"
             android:background="@drawable/decline_assignment"
             android:textColor="@android:color/black"
             android:focusable="false"
-            android:layout_marginLeft="5dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
 </LinearLayout>
