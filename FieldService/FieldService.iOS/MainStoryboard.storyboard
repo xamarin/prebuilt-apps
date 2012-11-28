@@ -4,19 +4,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
-        <!--Main Controller-->
-        <scene sceneID="b0a-Hl-1tF">
-            <objects>
-                <splitViewController storyboardIdentifier="MainController" id="N0g-2c-5yc" customClass="MainController" sceneMemberID="viewController">
-                    <toolbarItems/>
-                    <connections>
-                        <segue destination="3fg-bz-aRY" kind="relationship" relationship="masterViewController" id="Hir-15-2W8"/>
-                    </connections>
-                </splitViewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Yqr-sC-1WH" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-1053" y="-212"/>
-        </scene>
         <!--Login Controller-->
         <scene sceneID="4">
             <objects>
@@ -83,6 +70,7 @@
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <navigationItem key="navigationItem" id="ebQ-qO-7PC"/>
+                    <nil key="simulatedTopBarMetrics"/>
                     <connections>
                         <outlet property="box" destination="1qh-og-QUy" id="uGy-Y7-1Hl"/>
                         <outlet property="companyName" destination="BzU-Gu-Q24" id="0im-4U-hGX"/>
@@ -95,31 +83,75 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="3" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1053" y="988"/>
+            <point key="canvasLocation" x="-71" y="960"/>
+        </scene>
+        <!--Main Navigation Controller-->
+        <scene sceneID="Z9H-Rg-QoZ">
+            <objects>
+                <navigationController storyboardIdentifier="MainNavigationController" definesPresentationContext="YES" id="EDL-vm-W03" customClass="MainNavigationController" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="VAd-0r-CKq">
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="9SI-FO-E9U" kind="relationship" relationship="rootViewController" id="RhO-cK-8fn"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Rc9-ym-d3I" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-71" y="-1316"/>
+        </scene>
+        <!--Split Controller-->
+        <scene sceneID="iIn-iJ-1Op">
+            <objects>
+                <viewController storyboardIdentifier="SplitController" id="Sal-Ci-lP4" customClass="SplitController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="jaw-r6-LwV">
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <containerView contentMode="scaleToFill" id="iYy-jV-4RN">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="704"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="3fg-bz-aRY" kind="embed" id="ooc-FE-LI9"/>
+                                </connections>
+                            </containerView>
+                            <containerView contentMode="scaleToFill" id="JT2-b1-G5v">
+                                <rect key="frame" x="320" y="0.0" width="704" height="748"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="Wja-7D-ne0"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="detailView" destination="JT2-b1-G5v" id="mc1-FK-tPn"/>
+                        <outlet property="masterView" destination="iYy-jV-4RN" id="N6h-pm-EdC"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gQA-Os-G6C" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1673" y="-1188"/>
         </scene>
         <!--Menu Controller-->
         <scene sceneID="Ncm-Cv-v1o">
             <objects>
                 <viewController id="3fg-bz-aRY" customClass="MenuController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Wx-fV-IaY">
-                        <rect key="frame" x="0.0" y="20" width="320" height="832"/>
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="1cd-b0-TkV">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem id="976-Ig-Adn"/>
-                                </items>
-                            </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="KYW-7V-7HF">
-                                <rect key="frame" x="10" y="54" width="300" height="633"/>
+                                <rect key="frame" x="10" y="10" width="300" height="677"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                 <color key="separatorColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </tableView>
                             <view contentMode="scaleToFill" id="dEo-hZ-16a">
-                                <rect key="frame" x="0.0" y="695" width="320" height="137"/>
+                                <rect key="frame" x="0.0" y="567" width="320" height="137"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="Eeu-NW-yEj">
@@ -171,9 +203,9 @@
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <connections>
-                        <outlet property="navigationBar" destination="1cd-b0-TkV" id="AkO-Od-cMm"/>
                         <outlet property="record" destination="jLX-YX-W6c" id="c4v-Mg-eFD"/>
                         <outlet property="status" destination="old-2v-nee" id="mUn-9U-jyL"/>
                         <outlet property="tableView" destination="KYW-7V-7HF" id="X2Z-3z-Es2"/>
@@ -185,18 +217,18 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VLB-Dc-Lkv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-71" y="-1179"/>
+            <point key="canvasLocation" x="2780" y="-1156"/>
         </scene>
-        <!--Assignments Controller-->
+        <!--Assignments Controller - Assignments-->
         <scene sceneID="gdB-Mk-vxQ">
             <objects>
                 <viewController storyboardIdentifier="AssignmentsController" id="9SI-FO-E9U" customClass="AssignmentsController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1nI-Vo-uG2">
-                        <rect key="frame" x="0.0" y="20" width="768" height="1004"/>
+                        <rect key="frame" x="0.0" y="64" width="768" height="960"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" id="7qz-aP-fVk">
-                                <rect key="frame" x="0.0" y="88" width="768" height="99"/>
+                                <rect key="frame" x="0.0" y="44" width="768" height="99"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="IVt-PH-pyz">
@@ -316,27 +348,14 @@
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
-                            <navigationBar contentMode="scaleToFill" barStyle="blackOpaque" id="om3-8U-YQF">
-                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <items>
-                                    <navigationItem title="Assignments" id="KSy-FT-X6a">
-                                        <barButtonItem key="rightBarButtonItem" image="Images/iconsettings.png" width="60" id="yir-oo-6f4">
-                                            <connections>
-                                                <action selector="Settings:" destination="9SI-FO-E9U" id="8ma-Hq-HzC"/>
-                                            </connections>
-                                        </barButtonItem>
-                                    </navigationItem>
-                                </items>
-                            </navigationBar>
                             <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" barStyle="blackOpaque" id="gK8-h4-6JI">
-                                <rect key="frame" x="0.0" y="44" width="768" height="44"/>
+                                <rect key="frame" x="0.0" y="0.0" width="768" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="uPB-sI-7YD"/>
                                     <barButtonItem width="200" style="plain" id="8Oh-Ai-HXY">
                                         <segmentedControl key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="bar" selectedSegmentIndex="0" id="i90-DF-PWb">
-                                            <rect key="frame" x="284" y="8" width="200" height="30"/>
+                                            <rect key="frame" x="284" y="7" width="200" height="30"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <segments>
                                                 <segment title="Priority"/>
@@ -351,15 +370,15 @@
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" rowHeight="95" sectionHeaderHeight="22" sectionFooterHeight="22" id="P5x-M2-bEJ">
-                                <rect key="frame" x="10" y="182" width="748" height="822"/>
+                                <rect key="frame" x="0.0" y="138" width="768" height="822"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                 <prototypes>
                                     <tableViewCell contentMode="scaleToFill" selectionStyle="blue" indentationWidth="10" reuseIdentifier="AssignmentCell" rowHeight="95" id="MkX-Oz-VUV" customClass="AssignmentCell">
-                                        <rect key="frame" x="0.0" y="22" width="748" height="95"/>
+                                        <rect key="frame" x="0.0" y="22" width="768" height="95"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="748" height="94"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="768" height="94"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="q0D-lK-Alg">
@@ -395,7 +414,7 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="RIZ-br-ZQC">
-                                                    <rect key="frame" x="646" y="29" width="84" height="35"/>
+                                                    <rect key="frame" x="666" y="29" width="84" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                                                     <state key="normal" title="Decline">
@@ -410,7 +429,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="rQD-76-nC2">
-                                                    <rect key="frame" x="544" y="29" width="84" height="35"/>
+                                                    <rect key="frame" x="564" y="29" width="84" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                                                     <state key="normal" title="Accept">
@@ -455,7 +474,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Hv9-WG-ZUM" customClass="StatusButton">
-                                                    <rect key="frame" x="544" y="29" width="186" height="37"/>
+                                                    <rect key="frame" x="564" y="29" width="186" height="37"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
                                                     <inset key="contentEdgeInsets" minX="55" minY="0.0" maxX="0.0" maxY="0.0"/>
@@ -486,7 +505,7 @@
                                 </prototypes>
                             </tableView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="EFU-QE-2TR">
-                                <rect key="frame" x="0.0" y="182" width="768" height="4"/>
+                                <rect key="frame" x="0.0" y="138" width="768" height="4"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                         </subviews>
@@ -495,12 +514,18 @@
                             <accessibilityTraits key="traits" none="YES" button="YES"/>
                         </accessibility>
                     </view>
+                    <navigationItem key="navigationItem" title="Assignments" id="ad6-RF-U8k">
+                        <barButtonItem key="rightBarButtonItem" image="Images/iconsettings.png" width="60" id="yir-oo-6f4">
+                            <connections>
+                                <action selector="Settings:" destination="9SI-FO-E9U" id="8ma-Hq-HzC"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="activeAssignment" destination="7qz-aP-fVk" id="DXQ-Lh-64i"/>
                         <outlet property="address" destination="w99-Xm-MF4" id="6ps-ql-eDL"/>
                         <outlet property="assignmentButton" destination="IVt-PH-pyz" id="BOv-nh-7RQ"/>
                         <outlet property="contact" destination="b06-fw-Ka7" id="Fyk-fc-cIt"/>
-                        <outlet property="navigationBar" destination="om3-8U-YQF" id="JLw-Hz-RhU"/>
                         <outlet property="numberAndDate" destination="edc-gH-eoM" id="DB9-qC-Qec"/>
                         <outlet property="priority" destination="dYL-OX-IS7" id="bYY-jF-Nv8"/>
                         <outlet property="priorityBackground" destination="IFe-Hn-KDO" id="eqp-U1-567"/>
@@ -514,11 +539,12 @@
                         <outlet property="timerLabel" destination="hxL-lP-Z7g" id="SI9-s0-akU"/>
                         <outlet property="titleLabel" destination="dDV-BQ-22g" id="wvm-RP-2sm"/>
                         <outlet property="toolbarShadow" destination="EFU-QE-2TR" id="IZL-aJ-TDo"/>
+                        <segue destination="Sal-Ci-lP4" kind="push" identifier="AssignmentDetails" id="Cu6-9C-nsK"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="iPw-b0-RQa" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-79" y="988"/>
+            <point key="canvasLocation" x="824" y="-1316"/>
         </scene>
         <!--Add Expense Controller-->
         <scene sceneID="UpS-Kc-rwq">
@@ -817,7 +843,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="US3-qf-4Ef" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-71" y="-212"/>
+            <point key="canvasLocation" x="-71" y="-180"/>
         </scene>
         <!--Items View Controller-->
         <scene sceneID="HtG-EA-ePq">
@@ -1606,7 +1632,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="1jU-Yf-kgl" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="824" y="-152"/>
+            <point key="canvasLocation" x="824" y="-123"/>
         </scene>
     </scenes>
     <resources>
@@ -1715,7 +1741,6 @@
                 <relationship kind="outlet" name="address" candidateClass="TextButton"/>
                 <relationship kind="outlet" name="assignmentButton" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
-                <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
                 <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
@@ -1826,14 +1851,13 @@
                 <relationship kind="outlet" name="username" candidateClass="UITextField"/>
             </relationships>
         </class>
-        <class className="MainController" superclassName="UISplitViewController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainController.h"/>
+        <class className="MainNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainNavigationController.h"/>
         </class>
         <class className="MenuController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MenuController.h"/>
             <relationships>
                 <relationship kind="action" name="Record"/>
-                <relationship kind="outlet" name="navigationBar" candidateClass="UINavigationBar"/>
                 <relationship kind="outlet" name="record" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
                 <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
@@ -1858,6 +1882,13 @@
                 <relationship kind="action" name="AddSignature"/>
                 <relationship kind="outlet" name="addSignature" candidateClass="UIButton"/>
                 <relationship kind="outlet" name="signature" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SplitController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplitController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="masterView" candidateClass="UIView"/>
             </relationships>
         </class>
         <class className="StatusButton" superclassName="UIButton">

@@ -41,8 +41,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI to setup from code
-			View.BackgroundColor = Theme.LinenPattern;
-
 			title = new UILabel (new RectangleF (0, 0, 160, 36)) { 
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,

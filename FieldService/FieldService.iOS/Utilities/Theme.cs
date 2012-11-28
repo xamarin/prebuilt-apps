@@ -571,15 +571,6 @@ namespace FieldService.iOS
 			get { return linenPattern.Value; }
 		}
 
-		static Lazy<UIColor> linenLeft = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/linen_left.png")));
-		
-		/// <summary>
-		/// Linen pattern background for the left menu
-		/// </summary>
-		public static UIColor LinenLeft {
-			get { return linenLeft.Value; }
-		}
-
 		static Lazy<UIColor> checkboxTextColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x7f, 0x7f, 0x7f));
 		
 		/// <summary>
@@ -649,7 +640,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public static void SetupControllers(UIStoryboard storyboard)
 		{
-			ServiceContainer.Register<MainController> (() => (MainController)storyboard.InstantiateViewController ("MainController"));
+			ServiceContainer.Register<MainNavigationController> (() => (MainNavigationController)storyboard.InstantiateViewController ("MainNavigationController"));
 			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)storyboard.InstantiateViewController ("AssignmentsController"));
 			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)storyboard.InstantiateViewController ("AssignmentDetailsController"));
 			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));

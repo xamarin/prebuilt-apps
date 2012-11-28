@@ -52,7 +52,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI that is required to be setup from code
-			container.BackgroundColor = View.BackgroundColor = Theme.LinenPattern;
 			assignmentBackground.Image = Theme.AssignmentActive;
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;

@@ -131,9 +131,11 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
+			var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
+			var assignmentController = ServiceContainer.Resolve<AssignmentDetailsController>();
 			assignmentController.Assignment = assignment;
-			Theme.TransitionController <MainController>();
+
+			assignmentsController.PerformSegue ("AssignmentDetails", assignmentsController);
 
 			var menuController = ServiceContainer.Resolve<MenuController>();
 			menuController.ShowMaps(false);
