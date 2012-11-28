@@ -21,13 +21,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/selectedAssignmentContactName"
-            android:textSize="12dp"
+            android:textSize="14dp"
             android:textColor="@android:color/black"
             android:layout_marginLeft="10dp"
             android:gravity="center_vertical"
             android:layout_gravity="center_vertical"
-            android:maxWidth="100dp"
-            android:minWidth="100dp" />
+            android:maxWidth="120dp"
+            android:minWidth="120dp" />
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
@@ -52,13 +52,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/selectedAssignmentPhoneNumber"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"
-                    android:maxWidth="100dp"
-                    android:minWidth="100dp" />
+                    android:maxWidth="120dp"
+                    android:minWidth="120dp" />
             </LinearLayout>
             <LinearLayout
                 android:orientation="horizontal"
@@ -77,13 +77,13 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/selectedAssignmentAddress"
-                    android:textSize="12dp"
+                    android:textSize="14dp"
                     android:textColor="@android:color/black"
                     android:layout_marginLeft="10dp"
                     android:gravity="center_vertical"
                     android:layout_gravity="center_vertical"
-                    android:maxWidth="150dp"
-                    android:minWidth="150dp" />
+                    android:maxWidth="160dp"
+                    android:minWidth="160dp" />
             </LinearLayout>
         </LinearLayout>
         <TextView
@@ -124,6 +124,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginRight="5dp"
             android:background="@drawable/accept_assignment"
             android:paddingLeft="20dp"
             android:paddingRight="20dp"
@@ -143,6 +144,7 @@
             android:layout_marginRight="5dp"
             android:paddingRight="10dp"
             android:paddingLeft="10dp"
+            android:layout_gravity="center_vertical"
             android:visibility="gone" />
       <TextView
         android:layout_width="1dp"

@@ -315,9 +315,6 @@
     <AndroidResource Include="Resources\Menu\SummaryMenu.xml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout\NavigationMenu.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
     <AndroidResource Include="Resources\Layout-sw720dp\AddExpensePopUpLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -384,9 +381,6 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout-sw720dp\NavigationListItemLayout.axml">
-      <SubType>AndroidResource</SubType>
-    </AndroidResource>
-    <AndroidResource Include="Resources\Layout-sw720dp\NavigationMenu.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout-sw720dp\PhotoItemLayout.axml">

@@ -80,6 +80,8 @@ namespace FieldService.Android.Dialogs {
             };
 
             signatureView = (SignatureView)FindViewById (Resource.Id.signatureImage);
+            signatureView.BackgroundColor = Color.White;
+            signatureView.StrokeColor = Color.Black;
         }
 
         /// <summary>
