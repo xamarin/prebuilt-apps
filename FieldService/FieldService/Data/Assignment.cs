@@ -41,9 +41,9 @@ namespace FieldService.Data {
         public string JobNumber { get; set; }
 
         /// <summary>
-        /// Title for the job
+        /// Company Name for the job
         /// </summary>
-        public string Title { get; set; }
+        public string CompanyName { get; set; }
 
         /// <summary>
         /// Priority for the assignment

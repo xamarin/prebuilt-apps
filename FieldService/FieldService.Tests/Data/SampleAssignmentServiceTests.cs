@@ -54,7 +54,7 @@ namespace FieldService.Tests.Data {
 
             assignmentTask.Wait ();
 
-            var assignment = assignmentTask.Result.FirstOrDefault (a => a.Title == "Assignment 1");
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.CompanyName == "Xamarin");
 
             Assert.That (assignment.TotalHours, Is.EqualTo (TimeSpan.FromHours (14)));
         }
@@ -66,7 +66,7 @@ namespace FieldService.Tests.Data {
 
             assignmentTask.Wait ();
 
-            var assignment = assignmentTask.Result.FirstOrDefault (a => a.Title == "Assignment 1");
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.CompanyName == "Xamarin");
 
             Assert.That (assignment.TotalItems, Is.EqualTo (2));
         }
@@ -78,7 +78,7 @@ namespace FieldService.Tests.Data {
 
             assignmentTask.Wait ();
 
-            var assignment = assignmentTask.Result.FirstOrDefault (a => a.Title == "Assignment 1");
+            var assignment = assignmentTask.Result.FirstOrDefault (a => a.CompanyName == "Xamarin");
 
             Assert.That (assignment.TotalExpenses, Is.EqualTo (41.49M));
         }
@@ -90,7 +90,7 @@ namespace FieldService.Tests.Data {
             task.Wait ();
 
             var assignment = task.Result.FirstOrDefault ();
-            assignment.Title = "New Title";
+            assignment.CompanyName = "New Company";
 
             var saveTask = service.SaveAssignmentAsync (assignment, CancellationToken.None);
             saveTask.Wait ();
@@ -262,8 +262,8 @@ namespace FieldService.Tests.Data {
             var task = service.GetAssignmentsAsync (CancellationToken.None);
             task.Wait ();
 
-            var assignment = task.Result.FirstOrDefault (a => a.Title != "Assignment 1");
-            assignment.Title = "New Title";
+            var assignment = task.Result.FirstOrDefault (a => a.CompanyName != "Xamarin");
+            assignment.CompanyName = "New Company";
 
             var saveTask = service.SaveAssignmentAsync (assignment, CancellationToken.None);
             saveTask.Wait ();
@@ -480,7 +480,7 @@ namespace FieldService.Tests.Data {
             var assignmentTask = service.GetAssignmentsAsync (CancellationToken.None);
 
             assignmentTask.Wait ();
-            var assignment = assignmentTask.Result.First (a => a.Title == "Assignment 1");
+            var assignment = assignmentTask.Result.First (a => a.CompanyName == "Xamarin");
 
             var expenseTask = service.GetExpensesForAssignmentAsync (assignment, CancellationToken.None);
             expenseTask.Wait ();

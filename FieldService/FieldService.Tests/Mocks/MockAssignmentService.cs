@@ -34,7 +34,7 @@ namespace FieldService.Tests.Mocks {
                 {
                     Id = 1,
                     Status = AssignmentStatus.Active,
-                    Title = "active test assignment",
+                    CompanyName = "active test assignment",
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddHours(2),
                 },
@@ -42,7 +42,7 @@ namespace FieldService.Tests.Mocks {
                 {
                     Id = 2,
                     Status = AssignmentStatus.New,
-                    Title = "test assignment",
+                    CompanyName = "test assignment",
                     StartDate = DateTime.Now,
                     EndDate = DateTime.Now.AddHours(2),
                 },
