@@ -15,7 +15,7 @@
 
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
             <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" />
-            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.Title}" />
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.JobNumberFormatted}" />
         </StackPanel>
 
         <ScrollViewer Margin="0,0,20,0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">

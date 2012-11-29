@@ -16,7 +16,7 @@
 
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
             <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" />
-            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.Title}" />
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.JobNumberFormatted}" />
         </StackPanel>
 
         <maps:Map x:Name="map" Grid.Row="1" />

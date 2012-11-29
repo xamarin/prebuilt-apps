@@ -60,7 +60,7 @@
                         </Grid.ColumnDefinitions>
 
                         <Border VerticalAlignment="Top" Grid.RowSpan="3" Margin="15" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
-                            <TextBlock Margin="0,4,0,0" Text="{Binding ActiveAssignment.Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
+                            <TextBlock Margin="0,4,0,0" Text="{Binding ActiveAssignment.Priority}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" TextAlignment="Center" />
                         </Border>
 
                         <Button Grid.Column="1" Margin="5" FontWeight="Medium" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding ActiveAssignment.JobNumberFormatted}" Click="ActiveAssignmentClick"/>
