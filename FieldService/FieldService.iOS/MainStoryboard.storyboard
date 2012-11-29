@@ -108,14 +108,6 @@
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <containerView contentMode="scaleToFill" id="iYy-jV-4RN">
-                                <rect key="frame" x="0.0" y="0.0" width="320" height="704"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="3fg-bz-aRY" kind="embed" id="ooc-FE-LI9"/>
-                                </connections>
-                            </containerView>
                             <containerView contentMode="scaleToFill" id="JT2-b1-G5v">
                                 <rect key="frame" x="321" y="0.0" width="704" height="704"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -124,8 +116,15 @@
                                     <segue destination="Uec-i7-601" kind="embed" id="r9Y-7X-GiR"/>
                                 </connections>
                             </containerView>
+                            <containerView contentMode="scaleToFill" id="iYy-jV-4RN">
+                                <rect key="frame" x="0.0" y="0.0" width="321" height="704"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="3fg-bz-aRY" kind="embed" id="ooc-FE-LI9"/>
+                                </connections>
+                            </containerView>
                         </subviews>
-                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
                         <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
                     </view>
                     <navigationItem key="navigationItem" id="Wja-7D-ne0"/>
@@ -144,7 +143,7 @@
             <objects>
                 <viewController id="3fg-bz-aRY" customClass="MenuController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="1Wx-fV-IaY">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="704"/>
+                        <rect key="frame" x="0.0" y="0.0" width="321" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" dataMode="prototypes" style="grouped" separatorStyle="singleLineEtched" rowHeight="44" sectionHeaderHeight="10" sectionFooterHeight="10" id="KYW-7V-7HF">
@@ -203,6 +202,11 @@
                                     </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" id="qnV-qE-ahQ">
+                                <rect key="frame" x="320" y="0.0" width="1" height="704"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>

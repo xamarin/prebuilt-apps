@@ -26,7 +26,8 @@ namespace FieldService.iOS
 	public partial class SplitController : BaseController
 	{
 		private UIPopoverController popover;
-		private bool wasLandscape = true;
+		private UIBarButtonItem menu, hide;
+		private bool wasLandscape = true, masterPopoverShown = false;
 		private const float masterWidth = 321;
 
 		public SplitController (IntPtr handle) : base(handle)
@@ -38,6 +39,11 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			NavigationItem.LeftItemsSupplementBackButton = true;
+			menu = new UIBarButtonItem("Menu", UIBarButtonItemStyle.Bordered, (sender, e) => ShowPopover ());
+			menu.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			hide = new UIBarButtonItem("Hide", UIBarButtonItemStyle.Bordered, (sender, e) => HidePopover ());
+			hide.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			SwitchOrientation (InterfaceOrientation, false);
 		}
 
@@ -48,19 +54,59 @@ namespace FieldService.iOS
 			SwitchOrientation (toInterfaceOrientation, true, duration);
 		}
 
+		public void ShowPopover()
+		{
+			if (!masterPopoverShown)
+			{
+				NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { hide }, true);
+				AnimateMasterView (true);
+			}
+		}
+
+		public void HidePopover()
+		{
+			if (masterPopoverShown)
+			{
+				NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { menu }, true);
+				AnimateMasterView (false);
+			}
+		}
+
+		private void AnimateMasterView(bool visible)
+		{
+			UIView.BeginAnimations ("SwitchOrientation");
+			UIView.SetAnimationDuration (.3);
+			UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+
+			var frame = masterView.Frame;
+			frame.X = visible ? 0 : -masterWidth;
+			masterView.Frame = frame;
+
+			UIView.CommitAnimations ();
+			masterPopoverShown = visible;
+		}
+
 		private void SwitchOrientation(UIInterfaceOrientation orientation, bool animated, double duration = .5)
 		{
-			if (animated)
-			{
-				UIView.BeginAnimations ("SwitchOrientation");
-				UIView.SetAnimationDuration (duration);
-				UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
-			}
-
 			if (orientation.IsLandscape ())
 			{
 				if (!wasLandscape)
 				{
+					//Set the navbar to have only the back button
+					NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[0], true);
+
+					//Hide the master view if needed
+					if (masterPopoverShown) {
+						AnimateMasterView (false);
+					}
+
+					if (animated)
+					{
+						UIView.BeginAnimations ("SwitchOrientation");
+						UIView.SetAnimationDuration (duration);
+						UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+					}
+
 					//Slide the masterView inward
 					var frame = masterView.Frame;
 					frame.X = 0;
@@ -72,6 +118,10 @@ namespace FieldService.iOS
 					frame.Width -= masterWidth;
 					detailView.Frame = frame;
 
+					if (animated)
+					{
+						UIView.CommitAnimations ();
+					}
 					wasLandscape = true;
 				}
 			}
@@ -79,6 +129,16 @@ namespace FieldService.iOS
 			{
 				if (wasLandscape)
 				{
+					//Set the nav bar to include the menu button
+					NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { menu }, true);
+
+					if (animated)
+					{
+						UIView.BeginAnimations ("SwitchOrientation");
+						UIView.SetAnimationDuration (duration);
+						UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+					}
+
 					//Slide the masterView off screen
 					var frame = masterView.Frame;
 					frame.X = -frame.Width;
@@ -90,55 +150,22 @@ namespace FieldService.iOS
 					frame.Width += masterWidth;
 					detailView.Frame = frame;
 
+					if (animated)
+					{
+						UIView.CommitAnimations ();
+					}
 					wasLandscape = false;
 				}
 			}
-
-			if (animated)
-			{
-				UIView.CommitAnimations ();
-			}
 		}
 
-		/// <summary>
-		/// Hides the popover if it is present
-		/// </summary>
-		public void HidePopover()
+		public override void TouchesEnded (NSSet touches, UIEvent evt)
 		{
-			if (popover != null)
-				popover.Dismiss (true);
-		}
+			base.TouchesEnded (touches, evt);
 
-		/// <summary>
-		/// Delegate for split view controller
-		/// </summary>
-		private class SplitDelegate : UISplitViewControllerDelegate
-		{
-			readonly SplitController mainController;
-			readonly AssignmentDetailsController detailsController;
-
-			public SplitDelegate ()
+			if (masterPopoverShown && evt.TouchesForView (masterView) == null)
 			{
-				mainController = ServiceContainer.Resolve<SplitController>();
-				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
-			}
-
-			public override void WillHideViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem barButtonItem, UIPopoverController pc)
-			{
-				//Add a UIBarButtonItem for the master controller in portrait
-				mainController.popover = pc;
-				barButtonItem.Title = "Menu";
-				barButtonItem.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-				barButtonItem.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-
-				detailsController.NavigationItem.SetLeftBarButtonItem(barButtonItem, true);
-			}
-
-			public override void WillShowViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem button)
-			{
-				//Hide the UIBarButtonItem
-				mainController.popover = null;
-				detailsController.NavigationItem.SetLeftBarButtonItem(null, true);
+				HidePopover ();
 			}
 		}
 	}
