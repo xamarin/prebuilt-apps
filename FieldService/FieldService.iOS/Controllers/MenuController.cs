@@ -204,7 +204,8 @@ namespace FieldService.iOS
 
 			private void SetupCell (UITableViewCell cell, bool start = false, bool end = false)
 			{
-				cell.TextLabel.TextColor = UIColor.White;
+				cell.TextLabel.TextColor = Theme.LabelColor;
+				cell.TextLabel.HighlightedTextColor = UIColor.White;
 				cell.BackgroundColor = UIColor.Clear;	
 				if (start) {
 					cell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };

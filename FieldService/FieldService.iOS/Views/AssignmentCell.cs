@@ -77,7 +77,7 @@ namespace FieldService.iOS
 			((UIImageView)BackgroundView).Image = Theme.AssignmentGrey;
 			priority.Text = assignment.Priority.ToString ();
 			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
-			title.Text = assignment.Title;
+			title.Text = assignment.CompanyName;
 			startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
 			contact.TopLabel.Text = assignment.ContactName;
 			contact.BottomLabel.Text = assignment.ContactPhone;

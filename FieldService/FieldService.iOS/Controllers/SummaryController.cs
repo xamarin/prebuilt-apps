@@ -81,7 +81,7 @@ namespace FieldService.iOS
 			//Update for assignment
 			var assignment = detailsController.Assignment;
 			description.Text = assignment.Description;
-			descriptionTitle.Text = assignment.Title;
+			descriptionTitle.Text = assignment.CompanyName;
 			items.Text = assignment.TotalItems.ToString ();
 			hours.Text = assignment.TotalHours.TotalHours.ToString ("0.0");
 			expenses.Text = assignment.TotalExpenses.ToString ("$0.00");
