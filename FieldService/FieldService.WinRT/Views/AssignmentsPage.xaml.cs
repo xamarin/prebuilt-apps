@@ -71,19 +71,25 @@ namespace FieldService.WinRT.Views {
                 if (assignmentViewModel.ActiveAssignment != null) {
                     switch (assignmentViewModel.ActiveAssignment.Status) {
                         case AssignmentStatus.Hold:
+                            activeAssignment.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                             await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment);
                             await assignmentViewModel.LoadAssignmentsAsync ();
-                            activeAssignment.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                             break;
                         case AssignmentStatus.Complete:
                             //take you to the confirmations page.
-                            Helpers.NavigateTo<ConfirmationsPage> ();
                             break;
                         default:
                             break;
                     }
                 }
             }
+        }
+
+        private void ActiveAssignmentClick (object sender, RoutedEventArgs e)
+        {
+            assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+
+            Helpers.NavigateTo<AssignmentPage> ();
         }
     }
 }

@@ -77,6 +77,16 @@ namespace FieldService.WinRT.Views {
                 MapLayer.SetPosition (pin, new Location (assignment.Latitude, assignment.Longitude));
             }
 
+            if (assignmentViewModel.ActiveAssignment != null) {
+                var pin = new Pushpin {
+                    Background = assignmentViewModel.ActiveAssignment.Status.GetBrushForStatus(),
+                    Tag = assignmentViewModel.ActiveAssignment,
+                };
+                pin.Tapped += OnPinTapped;
+                map.Children.Add (pin);
+                MapLayer.SetPosition (pin, new Location (assignmentViewModel.ActiveAssignment.Latitude, assignmentViewModel.ActiveAssignment.Longitude));
+            }
+
             UpdatePosition ();
         }
 

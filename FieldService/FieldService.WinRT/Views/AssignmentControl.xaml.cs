@@ -21,6 +21,7 @@ using Windows.UI.Xaml.Navigation;
 namespace FieldService.WinRT.Views {
     public sealed partial class AssignmentControl : UserControl {
         AssignmentViewModel assignmentViewModel;
+        bool ignoreNext = true;
 
         public AssignmentControl ()
         {
@@ -31,6 +32,10 @@ namespace FieldService.WinRT.Views {
 
         private async void SelectionChanged (object sender, SelectionChangedEventArgs e)
         {
+            if (ignoreNext) {
+                ignoreNext = false;
+                return;
+            }
             var assignmentStatus = status.SelectedItem;
             switch ((AssignmentStatus)assignmentStatus) {
                 case AssignmentStatus.Active:
@@ -45,7 +50,6 @@ namespace FieldService.WinRT.Views {
                     break;
                 case AssignmentStatus.Complete:
                     //take you to the confirmations page.
-                    Helpers.NavigateTo<ConfirmationsPage> ();
                     break;
                 default:
                     break;

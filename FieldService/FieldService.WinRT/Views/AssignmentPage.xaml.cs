@@ -50,32 +50,18 @@ namespace FieldService.WinRT.Views {
             DataContext =
                 assignmentControl.DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
-
-            itemsListView.DataContext =
-            summaryAddItems.DataContext =
-                itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
-
-            laborListView.DataContext =
-                summaryAddLabor.DataContext =
-                laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
-
-            confirmationImage1.DataContext =
-                confirmationImage2.DataContext =
-                confirmationImage3.DataContext =
-                photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
-
-            expensesListView.DataContext =
-                summaryAddExpense.DataContext =
-                expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
-
-            documentsListView.DataContext =
-                documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
-
-            viewHistory.DataContext =
-                recentHistory1.DataContext =
-                recentHistory2.DataContext =
-                recentHistory3.DataContext = 
-                historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+            
+            itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+            
+            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+            
+            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+            
+            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+            
+            documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
+            
+            historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
 
             picker = new MediaPicker ();
         }
