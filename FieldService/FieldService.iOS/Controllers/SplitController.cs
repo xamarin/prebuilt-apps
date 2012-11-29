@@ -22,12 +22,12 @@ namespace FieldService.iOS
 	/// <summary>
 	/// The main split controller in the app
 	/// </summary>
-	[Register("MainController")]
-	public class MainController : UISplitViewController
+	[Register("SplitController")]
+	public partial class SplitController : UIViewController
 	{
 		private UIPopoverController popover;
 
-		public MainController (IntPtr handle) : base(handle)
+		public SplitController (IntPtr handle) : base(handle)
 		{
 			ServiceContainer.Register (this);
 		}
@@ -40,14 +40,10 @@ namespace FieldService.iOS
 			navigationController.NavigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
 
 			//Setup our child controllers, the master controller is already setup in the storyboard
-			ViewControllers = new UIViewController[]
-			{
-				ViewControllers[0],
-				navigationController,
-			};
+			AddChildViewController (navigationController);
 
 			//Hook up our delegate
-			Delegate = new SplitDelegate();
+			//Delegate = new SplitDelegate();
 		}
 
 		/// <summary>
@@ -80,12 +76,12 @@ namespace FieldService.iOS
 		/// </summary>
 		private class SplitDelegate : UISplitViewControllerDelegate
 		{
-			readonly MainController mainController;
+			readonly SplitController mainController;
 			readonly AssignmentDetailsController detailsController;
 
 			public SplitDelegate ()
 			{
-				mainController = ServiceContainer.Resolve<MainController>();
+				mainController = ServiceContainer.Resolve<SplitController>();
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 			}
 

@@ -27,7 +27,7 @@ namespace FieldService.iOS
 	{
 		#region Images
 
-		static Lazy<UIImage> accept = new Lazy<UIImage> (() => UIImage.FromFile ("Images/accept.png").CreateResizableImage (new UIEdgeInsets (19, 16, 19, 16)));
+		static Lazy<UIImage> accept = new Lazy<UIImage> (() => UIImage.FromFile ("Images/accept.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Accept button on assignments
@@ -36,7 +36,7 @@ namespace FieldService.iOS
 			get { return accept.Value; }
 		}
 
-		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (18, 19, 21, 19)));
+		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Image for add photo button on expenses
@@ -152,6 +152,16 @@ namespace FieldService.iOS
 		public static UIImage Complete {
 			get { return complete.Value; }
 		}
+
+		static Lazy<UIImage> completeInactive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete_inactive.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
+		
+		/// <summary>
+		/// Image for the complete button when disabled
+		/// </summary>
+		public static UIImage CompleteInactive {
+			get { return completeInactive.Value; }
+		}
+
 
 		static Lazy<UIImage> deleteButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/deletebutton.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
@@ -571,15 +581,6 @@ namespace FieldService.iOS
 			get { return linenPattern.Value; }
 		}
 
-		static Lazy<UIColor> linenLeft = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/linen_left.png")));
-		
-		/// <summary>
-		/// Linen pattern background for the left menu
-		/// </summary>
-		public static UIColor LinenLeft {
-			get { return linenLeft.Value; }
-		}
-
 		static Lazy<UIColor> checkboxTextColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x7f, 0x7f, 0x7f));
 		
 		/// <summary>
@@ -649,7 +650,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public static void SetupControllers(UIStoryboard storyboard)
 		{
-			ServiceContainer.Register<MainController> (() => (MainController)storyboard.InstantiateViewController ("MainController"));
+			ServiceContainer.Register<MainNavigationController> (() => (MainNavigationController)storyboard.InstantiateViewController ("MainNavigationController"));
 			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)storyboard.InstantiateViewController ("AssignmentsController"));
 			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)storyboard.InstantiateViewController ("AssignmentDetailsController"));
 			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));

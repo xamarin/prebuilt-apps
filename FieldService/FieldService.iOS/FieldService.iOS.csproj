@@ -212,7 +212,6 @@
     <Compile Include="Controllers\ItemsViewController.designer.cs">
       <DependentUpon>ItemsViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="Controllers\LaborController.cs" />
     <Compile Include="Controllers\LaborController.designer.cs">
       <DependentUpon>LaborController.cs</DependentUpon>
@@ -321,6 +320,14 @@
     </Compile>
     <Compile Include="..\FieldService\Data\ExpensePhoto.cs">
       <Link>FieldService\Data\ExpensePhoto.cs</Link>
+    </Compile>
+    <Compile Include="Controllers\MainNavigationController.cs" />
+    <Compile Include="Controllers\MainNavigationController.designer.cs">
+      <DependentUpon>MainNavigationController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\SplitController.cs" />
+    <Compile Include="Controllers\SplitController.designer.cs">
+      <DependentUpon>SplitController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -440,8 +447,6 @@
     <Content Include="Images\topnavbtn%402x.png" />
     <Content Include="Images\toolbarshadow.png" />
     <Content Include="Images\toolbarshadow%402x.png" />
-    <Content Include="Images\linen_left.png" />
-    <Content Include="Images\linen_left%402x.png" />
     <Content Include="Images\row.png" />
     <Content Include="Images\row%402x.png" />
     <Content Include="Images\rowend.png" />
@@ -476,5 +481,7 @@
     <Content Include="..\Data\Introduction_to_Mobile_Development.pdf">
       <Link>Data\Introduction_to_Mobile_Development.pdf</Link>
     </Content>
+    <Content Include="Images\complete_inactive.png" />
+    <Content Include="Images\complete_inactive%402x.png" />
   </ItemGroup>
 </Project>

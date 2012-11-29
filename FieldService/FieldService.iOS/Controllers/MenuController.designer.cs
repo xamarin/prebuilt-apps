@@ -15,9 +15,6 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UITableView tableView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UINavigationBar navigationBar { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UIView timerView { get; set; }
 
 		[Outlet]
@@ -43,11 +40,6 @@ namespace FieldService.iOS
 			if (tableView != null) {
 				tableView.Dispose ();
 				tableView = null;
-			}
-
-			if (navigationBar != null) {
-				navigationBar.Dispose ();
-				navigationBar = null;
 			}
 
 			if (timerView != null) {

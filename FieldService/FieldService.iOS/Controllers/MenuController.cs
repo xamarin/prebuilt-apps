@@ -29,7 +29,6 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly AssignmentDetailsController detailsController;
-		UIBarButtonItem backButton;
 
 		public MenuController (IntPtr handle) : base (handle)
 		{
@@ -57,15 +56,8 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI we have to setup from code
-			View.BackgroundColor = Theme.LinenLeft;
 			tableView.Source = new TableSource ();
-
-			backButton = new UIBarButtonItem ("Assignments", UIBarButtonItemStyle.Bordered, (sender, e) => Theme.TransitionController <AssignmentsController>());
-			backButton.SetBackgroundImage (Theme.BackButton, UIControlState.Normal, UIBarMetrics.Default);
-			backButton.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			timerLabel.TextColor = Theme.LabelColor;
-			navigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
-
 			timerBackground.Image = Theme.TimerBackground;
 			timerLabelBackground.Image = Theme.TimerField;
 
@@ -75,8 +67,6 @@ namespace FieldService.iOS
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-
-			navigationBar.TopItem.LeftBarButtonItem = backButton;
 
 			using (var indexPath = NSIndexPath.FromRowSection (0, 0)) {
 				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
@@ -171,12 +161,12 @@ namespace FieldService.iOS
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, documentsCell, confirmationCell, historyCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
 			readonly AssignmentDetailsController detailsController;
-			readonly MainController mainController;
+			readonly SplitController mainController;
 
 			public TableSource ()
 			{
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
-				mainController = ServiceContainer.Resolve<MainController>();
+				mainController = ServiceContainer.Resolve<SplitController>();
 
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";

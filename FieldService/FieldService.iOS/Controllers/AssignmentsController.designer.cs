@@ -12,9 +12,6 @@ namespace FieldService.iOS
 	partial class AssignmentsController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UINavigationBar navigationBar { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UIBarButtonItem settings { get; set; }
 
 		[Outlet]
@@ -82,11 +79,6 @@ namespace FieldService.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (navigationBar != null) {
-				navigationBar.Dispose ();
-				navigationBar = null;
-			}
-
 			if (settings != null) {
 				settings.Dispose ();
 				settings = null;

@@ -37,6 +37,8 @@ namespace FieldService.iOS
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
+			ServiceContainer.Register (this);
+
 			AssignmentViewModel = new AssignmentViewModel();
 			AssignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {
@@ -61,7 +63,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//Setup UI that is required from code
-			View.BackgroundColor = Theme.LinenPattern;
 			tableView.Source = new TableSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
@@ -73,7 +74,6 @@ namespace FieldService.iOS
 			timerBackgroundImage.Image = Theme.TimerField;
 			toolbarShadow.Image = Theme.ToolbarShadow;
 			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-			navigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
 
 			timerLabel.TextColor =
 				numberAndDate.TextColor =
@@ -119,7 +119,7 @@ namespace FieldService.iOS
 
 		/// <summary>
 		/// We override this to show/hide some controls during rotation
-		/// </summary>
+		/// </summary>c
 		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)
 		{
 			bool wasPortrait = InterfaceOrientation.IsPortrait ();
@@ -188,7 +188,7 @@ namespace FieldService.iOS
 		{
 			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
 			assignmentController.Assignment = AssignmentViewModel.ActiveAssignment;
-			Theme.TransitionController <MainController>();
+			PerformSegue ("AssignmentDetails", this);
 		}
 
 		/// <summary>
@@ -312,7 +312,8 @@ namespace FieldService.iOS
 		{
 			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
 			assignmentController.Assignment = AssignmentViewModel.ActiveAssignment;
-			Theme.TransitionController <MainController>();
+
+			PerformSegue ("AssignmentDetails", this);
 
 			var menuController = ServiceContainer.Resolve<MenuController>();
 			menuController.ShowMaps(false);
@@ -328,7 +329,7 @@ namespace FieldService.iOS
 					mapView = new MKMapView (tableView.Frame) { 
 						ShowsUserLocation = true,
 						AutoresizingMask = tableView.AutoresizingMask,
-						Delegate = new MapViewDelegate(),
+						Delegate = new MapViewDelegate(this),
 					};
 				} else {
 					//This fixes a bug when rotating and flipping views
@@ -372,10 +373,12 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
+			readonly AssignmentsController controller;
 			readonly AssignmentViewModel assignmentViewModel;
 				
 			public TableSource (AssignmentsController controller)
 			{
+				this.controller = controller;
 				assignmentViewModel = controller.AssignmentViewModel;
 			}
 
@@ -396,7 +399,7 @@ namespace FieldService.iOS
 			{
 				var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
 				assignmentController.Assignment = assignmentViewModel.Assignments[indexPath.Row];
-				Theme.TransitionController <MainController>();
+				controller.PerformSegue ("AssignmentDetails", controller);
 			}
 		}
 
@@ -406,10 +409,12 @@ namespace FieldService.iOS
 		private class MapViewDelegate : MKMapViewDelegate
 		{
 			const string Identifier = "AssignmentAnnotation";
+			readonly AssignmentsController controller;
 			readonly UIPopoverController popoverController;
 
-			public MapViewDelegate ()
+			public MapViewDelegate (AssignmentsController controller)
 			{
+				this.controller = controller;
 				popoverController = new UIPopoverController(new UIViewController());
 				popoverController.PopoverContentSize = new System.Drawing.SizeF(100, 100);
 			}
@@ -443,7 +448,7 @@ namespace FieldService.iOS
 			{
 				var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
 				assignmentController.Assignment = GetAssignment (view.Annotation as MKPlacemark);
-				Theme.TransitionController <MainController>();
+				controller.PerformSegue ("AssignmentDetails", controller);
 			}
 
 			/// <summary>

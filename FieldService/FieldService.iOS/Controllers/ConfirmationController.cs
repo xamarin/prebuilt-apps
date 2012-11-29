@@ -67,7 +67,6 @@ namespace FieldService.iOS
 				Photo.Image = image;
 				PerformSegue ("AddPhoto", this);
 			};
-			View.BackgroundColor = Theme.LinenPattern;
 			addPhoto.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
 			addPhoto.SetTitleColor (UIColor.White, UIControlState.Normal);
 
