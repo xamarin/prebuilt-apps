@@ -58,7 +58,13 @@ namespace FieldService.WinRT.Views {
         {
             if (e.Key == Windows.System.VirtualKey.Enter) {
                 e.Handled = true;
-                loginViewModel.LoginCommand.Invoke ();
+                if (string.IsNullOrEmpty (password.Password) && FocusManager.GetFocusedElement () is TextBox) {
+
+                    password.Focus (Windows.UI.Xaml.FocusState.Keyboard);
+                    e.Handled = true;
+                } else {
+                    loginViewModel.LoginCommand.Invoke ();
+                }
             }
 
             base.OnKeyDown (e);

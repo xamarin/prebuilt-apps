@@ -19,14 +19,14 @@
 
         <Image Source="{StaticResource LogoImage}" Stretch="None" Margin="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-        <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Margin="25" HorizontalAlignment="Center">Log In</TextBlock>
+        <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Margin="25" HorizontalAlignment="Center">Field Service App</TextBlock>
         
         <Grid Grid.Row="2" Height="230" Background="{StaticResource BlueGradientBrush}">
             <StackPanel VerticalAlignment="Center">
-                <TextBlock Width="280" Foreground="{StaticResource DarkTextBrush}" VerticalAlignment="Center" Margin="5">Username</TextBlock>
+                <TextBlock Width="280" FontSize="18" Foreground="{StaticResource DarkTextBrush}" VerticalAlignment="Center" Margin="5">Username</TextBlock>
                 <TextBox Width="280" BorderThickness="2" BorderBrush="#198aab" Background="#d3f3fb" x:Name="username" Margin="5" VerticalAlignment="Center" />
 
-                <TextBlock Width="280" Foreground="{StaticResource DarkTextBrush}" VerticalAlignment="Center" Margin="5">Password</TextBlock>
+                <TextBlock Width="280" FontSize="18" Foreground="{StaticResource DarkTextBrush}" VerticalAlignment="Center" Margin="5">Password</TextBlock>
                 <PasswordBox Width="280" BorderThickness="2" BorderBrush="#198aab" Background="#d3f3fb" x:Name="password" Margin="5" VerticalAlignment="Center" />
 
                 <Grid Width="280">

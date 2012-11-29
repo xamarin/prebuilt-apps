@@ -38,8 +38,10 @@ namespace FieldService.Android.Fragments {
 
             searchText = view.FindViewById<EditText> (Resource.Id.historySearchText);
             searchText.TextChanged += (sender, e) => {
-                historySearchAdapter.FilterItems (searchText.Text);
-                };
+                if (historySearchAdapter != null) {
+                    historySearchAdapter.FilterItems (searchText.Text);
+                }
+            };
             var clearSearch = view.FindViewById<ImageButton> (Resource.Id.historyClearSearch);
             clearSearch.Click += (sender, e) => searchText.Text = string.Empty;
 
