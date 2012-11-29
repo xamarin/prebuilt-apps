@@ -483,5 +483,7 @@
     </Content>
     <Content Include="Images\complete_inactive.png" />
     <Content Include="Images\complete_inactive%402x.png" />
+    <Content Include="Images\bg_left.png" />
+    <Content Include="Images\bg_left%402x.png" />
   </ItemGroup>
 </Project>

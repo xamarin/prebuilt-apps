@@ -589,7 +589,7 @@ namespace FieldService.iOS
 			get { return checkboxTextColor.Value; }
 		}
 
-		static Lazy<UIColor> leftMenuColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xcf, 0xcf, 0xcf));
+		static Lazy<UIColor> leftMenuColor = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/bg_left.png")));
 		
 		/// <summary>
 		/// Color for the left menu on the assignment details screen
