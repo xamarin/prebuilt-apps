@@ -29,6 +29,7 @@ namespace FieldService.iOS
 	public partial class AssignmentDetailsController : BaseController
 	{
 		readonly AssignmentsController assignmentsController;
+		SplitController splitController;
 		UIViewController lastChildController;
 		SummaryController summaryController;
 
@@ -50,6 +51,8 @@ namespace FieldService.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
+			splitController = ServiceContainer.Resolve<SplitController>();
 
 			//UI that is required to be setup from code
 			assignmentBackground.Image = Theme.AssignmentActive;
@@ -157,8 +160,9 @@ namespace FieldService.iOS
 		{
 			if (Assignment != null && IsViewLoaded) {
 
+				splitController.NavigationItem.Title = Assignment.JobNumberFormatted;
 				priority.Text = Assignment.Priority.ToString ();
-				numberAndDate.Text = string.Format ("#{0} {1}", Assignment.JobNumber, Assignment.StartDate.Date.ToShortDateString ());
+				numberAndDate.Text = string.Format ("{0} {1}", Assignment.JobNumberFormatted, Assignment.StartDate.Date.ToShortDateString ());
 				titleLabel.Text = Assignment.CompanyName;
 				startAndEnd.Text = string.Format ("Start: {0} End: {1}", Assignment.StartDate.ToShortTimeString (), Assignment.EndDate.ToShortTimeString ());
 				contact.TopLabel.Text = Assignment.ContactName;
