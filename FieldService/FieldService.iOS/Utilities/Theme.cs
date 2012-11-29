@@ -153,6 +153,16 @@ namespace FieldService.iOS
 			get { return complete.Value; }
 		}
 
+		static Lazy<UIImage> completeInactive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete_inactive.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
+		
+		/// <summary>
+		/// Image for the complete button when disabled
+		/// </summary>
+		public static UIImage CompleteInactive {
+			get { return completeInactive.Value; }
+		}
+
+
 		static Lazy<UIImage> deleteButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/deletebutton.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>

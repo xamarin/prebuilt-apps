@@ -481,5 +481,7 @@
     <Content Include="..\Data\Introduction_to_Mobile_Development.pdf">
       <Link>Data\Introduction_to_Mobile_Development.pdf</Link>
     </Content>
+    <Content Include="Images\complete_inactive.png" />
+    <Content Include="Images\complete_inactive%402x.png" />
   </ItemGroup>
 </Project>
