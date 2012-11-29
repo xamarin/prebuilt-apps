@@ -32,6 +32,8 @@ namespace FieldService.WinRT.Views {
             pin = new Pushpin ();
             pin.Tapped += OnPinTapped;
             map.Children.Add (pin);
+            map.ShowNavigationBar = false;
+            map.ShowScaleBar = false;
         }
 
         private void OnLoaded (object sender, RoutedEventArgs e)
