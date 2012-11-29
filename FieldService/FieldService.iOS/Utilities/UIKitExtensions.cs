@@ -73,7 +73,7 @@ namespace FieldService.iOS
 		public static MKPlacemark ToPlacemark (this Assignment assignment)
 		{
 			var address = new PersonAddress ();
-			address.Street = assignment.Title + " - " + assignment.Address;
+			address.Street = assignment.JobNumberFormatted + " - " + assignment.Address;
 			address.City = assignment.City;
 			address.State = assignment.State;
 			address.Country = string.Empty;
