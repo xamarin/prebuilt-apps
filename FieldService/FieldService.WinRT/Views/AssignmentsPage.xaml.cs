@@ -42,16 +42,19 @@ namespace FieldService.WinRT.Views {
         /// </summary>
         /// <param name="e">Event data that describes how this page was reached.  The Parameter
         /// property is typically used to configure the page.</param>
-        protected override void OnNavigatedTo (NavigationEventArgs e)
+        protected async override void OnNavigatedTo (NavigationEventArgs e)
         {
             //Do this to fix animation when navigating to screen
             assignmentViewModel.Assignments = null;
 
             if (!timerLoaded) {
-                assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (assignmentViewModel.LoadAssignmentsAsync ());
+                await assignmentViewModel.LoadTimerEntryAsync ();
+                await assignmentViewModel.LoadAssignmentsAsync ();
+                activeAssignment.Visibility = assignmentViewModel.ActiveAssignment != null ? Visibility.Visible : Visibility.Collapsed;
                 timerLoaded = true;
             } else {
-                assignmentViewModel.LoadAssignmentsAsync ();
+                await assignmentViewModel.LoadAssignmentsAsync ();
+                activeAssignment.Visibility = assignmentViewModel.ActiveAssignment != null ? Visibility.Visible : Visibility.Collapsed;
             }
         }
 
@@ -60,6 +63,27 @@ namespace FieldService.WinRT.Views {
             assignmentViewModel.SelectedAssignment = e.ClickedItem as Assignment;
 
             Helpers.NavigateTo<AssignmentPage> ();
+        }
+
+        private async void Status_SelectionChanged (object sender, SelectionChangedEventArgs e)
+        {
+            if (activeAssignment.Visibility == Windows.UI.Xaml.Visibility.Visible) {
+                if (assignmentViewModel.ActiveAssignment != null) {
+                    switch (assignmentViewModel.ActiveAssignment.Status) {
+                        case AssignmentStatus.Hold:
+                            await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment);
+                            await assignmentViewModel.LoadAssignmentsAsync ();
+                            activeAssignment.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                            break;
+                        case AssignmentStatus.Complete:
+                            //take you to the confirmations page.
+                            Helpers.NavigateTo<ConfirmationsPage> ();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            }
         }
     }
 }

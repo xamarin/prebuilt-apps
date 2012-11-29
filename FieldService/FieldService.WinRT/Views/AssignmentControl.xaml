@@ -65,12 +65,12 @@
             <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" BorderThickness="3" Width="30" Height="30" />
 
             <ComboBox 
-                x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" 
+                x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" SelectionChanged="SelectionChanged"
                 ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding SelectedAssignment.Status, Mode=TwoWay}" />
 
         </Grid>
 
-        <Grid Grid.Row="2" Background="{StaticResource DarkTextBrush}" Margin="5,13,5,5">
+        <Grid Grid.Row="2" Background="{StaticResource DarkTextBrush}" Margin="5,13,5,5" x:Name="timerControl">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />

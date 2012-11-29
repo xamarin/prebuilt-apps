@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using FieldService.Data;
+using FieldService.Utilities;
+using FieldService.WinRT.Utilities;
+using FieldService.WinRT.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
@@ -16,9 +20,36 @@ using Windows.UI.Xaml.Navigation;
 
 namespace FieldService.WinRT.Views {
     public sealed partial class AssignmentControl : UserControl {
+        AssignmentViewModel assignmentViewModel;
+
         public AssignmentControl ()
         {
             this.InitializeComponent ();
+
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+        }
+
+        private async void SelectionChanged (object sender, SelectionChangedEventArgs e)
+        {
+            var assignmentStatus = status.SelectedItem;
+            switch ((AssignmentStatus)assignmentStatus) {
+                case AssignmentStatus.Active:
+                    timerControl.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                    await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.SelectedAssignment);
+                    await assignmentViewModel.LoadAssignmentsAsync ();
+                    break;
+                case AssignmentStatus.Hold:
+                    timerControl.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                    await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.SelectedAssignment);
+                    await assignmentViewModel.LoadAssignmentsAsync ();
+                    break;
+                case AssignmentStatus.Complete:
+                    //take you to the confirmations page.
+                    Helpers.NavigateTo<ConfirmationsPage> ();
+                    break;
+                default:
+                    break;
+            }            
         }
     }
 }
