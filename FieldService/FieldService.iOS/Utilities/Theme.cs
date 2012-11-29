@@ -162,7 +162,6 @@ namespace FieldService.iOS
 			get { return completeInactive.Value; }
 		}
 
-
 		static Lazy<UIImage> deleteButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/deletebutton.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
@@ -588,6 +587,24 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIColor CheckboxTextColor {
 			get { return checkboxTextColor.Value; }
+		}
+
+		static Lazy<UIColor> leftMenuColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xcf, 0xcf, 0xcf));
+		
+		/// <summary>
+		/// Color for the left menu on the assignment details screen
+		/// </summary>
+		public static UIColor LeftMenuColor {
+			get { return leftMenuColor.Value; }
+		}
+
+		static Lazy<UIColor> backgroundColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x55, 0x55, 0x55));
+		
+		/// <summary>
+		/// General background color for the app
+		/// </summary>
+		public static UIColor BackgroundColor {
+			get { return backgroundColor.Value; }
 		}
 
 		#endregion

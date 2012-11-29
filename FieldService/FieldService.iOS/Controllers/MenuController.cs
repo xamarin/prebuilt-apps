@@ -56,6 +56,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI we have to setup from code
+			View.BackgroundColor = Theme.LeftMenuColor;
 			tableView.Source = new TableSource ();
 			timerLabel.TextColor = Theme.LabelColor;
 			timerBackground.Image = Theme.TimerBackground;

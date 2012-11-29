@@ -20,12 +20,14 @@ using FieldService.Utilities;
 namespace FieldService.iOS
 {
 	/// <summary>
-	/// The main split controller in the app
+	/// The main split controller in the app, we couldn't use UISplitViewController because it must be the very root controller of the app
 	/// </summary>
 	[Register("SplitController")]
-	public partial class SplitController : UIViewController
+	public partial class SplitController : BaseController
 	{
 		private UIPopoverController popover;
+		private bool wasLandscape = true;
+		private const float masterWidth = 321;
 
 		public SplitController (IntPtr handle) : base(handle)
 		{
@@ -36,14 +38,66 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
-			var navigationController = new UINavigationController(ServiceContainer.Resolve<AssignmentDetailsController>());
-			navigationController.NavigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
+			SwitchOrientation (InterfaceOrientation, false);
+		}
 
-			//Setup our child controllers, the master controller is already setup in the storyboard
-			AddChildViewController (navigationController);
+		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			base.WillRotate (toInterfaceOrientation, duration);
 
-			//Hook up our delegate
-			//Delegate = new SplitDelegate();
+			SwitchOrientation (toInterfaceOrientation, true, duration);
+		}
+
+		private void SwitchOrientation(UIInterfaceOrientation orientation, bool animated, double duration = .5)
+		{
+			if (animated)
+			{
+				UIView.BeginAnimations ("SwitchOrientation");
+				UIView.SetAnimationDuration (duration);
+				UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+			}
+
+			if (orientation.IsLandscape ())
+			{
+				if (!wasLandscape)
+				{
+					//Slide the masterView inward
+					var frame = masterView.Frame;
+					frame.X = 0;
+					masterView.Frame = frame;
+
+					//Shrink the detailView
+					frame = detailView.Frame;
+					frame.X += masterWidth;
+					frame.Width -= masterWidth;
+					detailView.Frame = frame;
+
+					wasLandscape = true;
+				}
+			}
+			else
+			{
+				if (wasLandscape)
+				{
+					//Slide the masterView off screen
+					var frame = masterView.Frame;
+					frame.X = -frame.Width;
+					masterView.Frame = frame;
+
+					//Grow the detailView
+					frame = detailView.Frame;
+					frame.X -= masterWidth;
+					frame.Width += masterWidth;
+					detailView.Frame = frame;
+
+					wasLandscape = false;
+				}
+			}
+
+			if (animated)
+			{
+				UIView.CommitAnimations ();
+			}
 		}
 
 		/// <summary>
@@ -53,22 +107,6 @@ namespace FieldService.iOS
 		{
 			if (popover != null)
 				popover.Dismiss (true);
-		}
-
-		/// <summary>
-		/// This is how orientation is setup on iOS 6
-		/// </summary>
-		public override bool ShouldAutorotate ()
-		{
-			return true;
-		}
-        
-		/// <summary>
-		/// This is how orientation is setup on iOS 6
-		/// </summary>
-		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
-		{
-			return UIInterfaceOrientationMask.All;
 		}
 
 		/// <summary>
