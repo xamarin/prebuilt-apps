@@ -56,6 +56,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI we have to setup from code
+			View.BackgroundColor = Theme.LeftMenuColor;
 			tableView.Source = new TableSource ();
 			timerLabel.TextColor = Theme.LabelColor;
 			timerBackground.Image = Theme.TimerBackground;
@@ -161,12 +162,12 @@ namespace FieldService.iOS
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, documentsCell, confirmationCell, historyCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
 			readonly AssignmentDetailsController detailsController;
-			readonly SplitController mainController;
+			readonly SplitController splitController;
 
 			public TableSource ()
 			{
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
-				mainController = ServiceContainer.Resolve<SplitController>();
+				splitController = ServiceContainer.Resolve<SplitController>();
 
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";
@@ -231,7 +232,7 @@ namespace FieldService.iOS
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				detailsController.SectionSelected (tableView, indexPath);
-				mainController.HidePopover ();
+				splitController.HidePopover ();
 			}
 
 			protected override void Dispose (bool disposing)

@@ -20,12 +20,15 @@ using FieldService.Utilities;
 namespace FieldService.iOS
 {
 	/// <summary>
-	/// The main split controller in the app
+	/// The main split controller in the app, we couldn't use UISplitViewController because it must be the very root controller of the app
 	/// </summary>
 	[Register("SplitController")]
-	public partial class SplitController : UIViewController
+	public partial class SplitController : BaseController
 	{
 		private UIPopoverController popover;
+		private UIBarButtonItem menu, hide;
+		private bool wasLandscape = true, masterPopoverShown = false;
+		private const float masterWidth = 321;
 
 		public SplitController (IntPtr handle) : base(handle)
 		{
@@ -36,71 +39,133 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
-			var navigationController = new UINavigationController(ServiceContainer.Resolve<AssignmentDetailsController>());
-			navigationController.NavigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
-
-			//Setup our child controllers, the master controller is already setup in the storyboard
-			AddChildViewController (navigationController);
-
-			//Hook up our delegate
-			//Delegate = new SplitDelegate();
+			NavigationItem.LeftItemsSupplementBackButton = true;
+			menu = new UIBarButtonItem("Menu", UIBarButtonItemStyle.Bordered, (sender, e) => ShowPopover ());
+			menu.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			hide = new UIBarButtonItem("Hide", UIBarButtonItemStyle.Bordered, (sender, e) => HidePopover ());
+			hide.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			SwitchOrientation (InterfaceOrientation, false);
 		}
 
-		/// <summary>
-		/// Hides the popover if it is present
-		/// </summary>
+		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			base.WillRotate (toInterfaceOrientation, duration);
+
+			SwitchOrientation (toInterfaceOrientation, true, duration);
+		}
+
+		public void ShowPopover()
+		{
+			if (!masterPopoverShown)
+			{
+				NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { hide }, true);
+				AnimateMasterView (true);
+			}
+		}
+
 		public void HidePopover()
 		{
-			if (popover != null)
-				popover.Dismiss (true);
-		}
-
-		/// <summary>
-		/// This is how orientation is setup on iOS 6
-		/// </summary>
-		public override bool ShouldAutorotate ()
-		{
-			return true;
-		}
-        
-		/// <summary>
-		/// This is how orientation is setup on iOS 6
-		/// </summary>
-		public override UIInterfaceOrientationMask GetSupportedInterfaceOrientations ()
-		{
-			return UIInterfaceOrientationMask.All;
-		}
-
-		/// <summary>
-		/// Delegate for split view controller
-		/// </summary>
-		private class SplitDelegate : UISplitViewControllerDelegate
-		{
-			readonly SplitController mainController;
-			readonly AssignmentDetailsController detailsController;
-
-			public SplitDelegate ()
+			if (masterPopoverShown)
 			{
-				mainController = ServiceContainer.Resolve<SplitController>();
-				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+				NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { menu }, true);
+				AnimateMasterView (false);
 			}
+		}
 
-			public override void WillHideViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem barButtonItem, UIPopoverController pc)
+		private void AnimateMasterView(bool visible)
+		{
+			UIView.BeginAnimations ("SwitchOrientation");
+			UIView.SetAnimationDuration (.3);
+			UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+
+			var frame = masterView.Frame;
+			frame.X = visible ? 0 : -masterWidth;
+			masterView.Frame = frame;
+
+			UIView.CommitAnimations ();
+			masterPopoverShown = visible;
+		}
+
+		private void SwitchOrientation(UIInterfaceOrientation orientation, bool animated, double duration = .5)
+		{
+			if (orientation.IsLandscape ())
 			{
-				//Add a UIBarButtonItem for the master controller in portrait
-				mainController.popover = pc;
-				barButtonItem.Title = "Menu";
-				barButtonItem.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-				barButtonItem.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
+				if (!wasLandscape)
+				{
+					//Set the navbar to have only the back button
+					NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[0], true);
 
-				detailsController.NavigationItem.SetLeftBarButtonItem(barButtonItem, true);
+					//Hide the master view if needed
+					if (masterPopoverShown) {
+						AnimateMasterView (false);
+					}
+
+					if (animated)
+					{
+						UIView.BeginAnimations ("SwitchOrientation");
+						UIView.SetAnimationDuration (duration);
+						UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+					}
+
+					//Slide the masterView inward
+					var frame = masterView.Frame;
+					frame.X = 0;
+					masterView.Frame = frame;
+
+					//Shrink the detailView
+					frame = detailView.Frame;
+					frame.X += masterWidth;
+					frame.Width -= masterWidth;
+					detailView.Frame = frame;
+
+					if (animated)
+					{
+						UIView.CommitAnimations ();
+					}
+					wasLandscape = true;
+				}
 			}
-
-			public override void WillShowViewController (UISplitViewController svc, UIViewController aViewController, UIBarButtonItem button)
+			else
 			{
-				//Hide the UIBarButtonItem
-				mainController.popover = null;
-				detailsController.NavigationItem.SetLeftBarButtonItem(null, true);
+				if (wasLandscape)
+				{
+					//Set the nav bar to include the menu button
+					NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { menu }, true);
+
+					if (animated)
+					{
+						UIView.BeginAnimations ("SwitchOrientation");
+						UIView.SetAnimationDuration (duration);
+						UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+					}
+
+					//Slide the masterView off screen
+					var frame = masterView.Frame;
+					frame.X = -frame.Width;
+					masterView.Frame = frame;
+
+					//Grow the detailView
+					frame = detailView.Frame;
+					frame.X -= masterWidth;
+					frame.Width += masterWidth;
+					detailView.Frame = frame;
+
+					if (animated)
+					{
+						UIView.CommitAnimations ();
+					}
+					wasLandscape = false;
+				}
+			}
+		}
+
+		public override void TouchesEnded (NSSet touches, UIEvent evt)
+		{
+			base.TouchesEnded (touches, evt);
+
+			if (masterPopoverShown && evt.TouchesForView (masterView) == null)
+			{
+				HidePopover ();
 			}
 		}
 	}
