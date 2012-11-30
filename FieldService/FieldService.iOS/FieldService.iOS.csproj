@@ -225,7 +225,6 @@
     <Compile Include="Controllers\SummaryController.designer.cs">
       <DependentUpon>SummaryController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Controllers\MapController.cs" />
     <Compile Include="Controllers\MenuController.cs" />
     <Compile Include="Controllers\MenuController.designer.cs">
       <DependentUpon>MenuController.cs</DependentUpon>
@@ -328,6 +327,15 @@
     <Compile Include="Controllers\SplitController.cs" />
     <Compile Include="Controllers\SplitController.designer.cs">
       <DependentUpon>SplitController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\TabController.cs" />
+    <Compile Include="Controllers\TabController.designer.cs">
+      <DependentUpon>TabController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\MainMapController.cs" />
+    <Compile Include="Controllers\MainMapController.designer.cs">
+      <DependentUpon>MainMapController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

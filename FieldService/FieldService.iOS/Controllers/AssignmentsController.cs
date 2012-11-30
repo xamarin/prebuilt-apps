@@ -17,12 +17,9 @@ using System.Linq;
 using System.Collections.Generic;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using MonoTouch.MapKit;
 using FieldService.ViewModels;
 using FieldService.Data;
 using FieldService.Utilities;
-using MonoTouch.CoreLocation;
-using MonoTouch.AddressBook;
 
 namespace FieldService.iOS
 {
@@ -32,8 +29,6 @@ namespace FieldService.iOS
 	public partial class AssignmentsController : BaseController
 	{
 		bool activeAssignmentVisible = true;
-		MKMapView mapView;
-		UIActionSheet actionSheet;
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
@@ -84,7 +79,6 @@ namespace FieldService.iOS
 			record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
 			timerBackgroundImage.Image = Theme.TimerField;
 			toolbarShadow.Image = Theme.ToolbarShadow;
-			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			timerLabel.TextColor =
 				numberAndDate.TextColor =
@@ -243,19 +237,6 @@ namespace FieldService.iOS
 				}
 				toolbarShadow.Frame = frame;
 
-				//Now apply to mapView, if it has been created
-				if (mapView != null) {
-					frame = mapView.Frame;
-					if (visible) {
-						frame.Y += height;
-						frame.Height -= height;
-					} else {
-						frame.Y -= height;
-						frame.Height += height;
-					}
-					mapView.Frame = frame;
-				}
-
 				if (animate) {
 					UIView.CommitAnimations ();
 				}
@@ -294,28 +275,6 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
-		/// Event when the settings toolbar item is clicked
-		/// </summary>
-		partial void Settings (NSObject sender)
-		{
-			if (actionSheet == null) {
-				actionSheet = new UIActionSheet();
-				actionSheet.AddButton ("Logout");
-				actionSheet.Dismissed += (s, e) => {
-					if (e.ButtonIndex == 0) {
-						Theme.TransitionController<LoginController>();
-					}
-
-					actionSheet.Dispose ();
-					actionSheet = null;
-				};
-				actionSheet.ShowFrom (sender as UIBarButtonItem, true);
-			} else {
-				actionSheet.DismissWithClickedButtonIndex (-1, true);
-			}
-		}
-
-		/// <summary>
 		/// Event when the address is clicked on the active assignment
 		/// </summary>
 		partial void Address ()
@@ -325,55 +284,6 @@ namespace FieldService.iOS
 
 			var menuController = ServiceContainer.Resolve<MenuController>();
 			menuController.ShowMaps(false);
-		}
-
-		/// <summary>
-		/// Event when user changes the current tab
-		/// </summary>
-		partial void TabChanged ()
-		{
-			if (segmentedControl.SelectedSegment == 1) {
-				if (mapView == null) {
-					mapView = new MKMapView (tableView.Frame) { 
-						ShowsUserLocation = true,
-						AutoresizingMask = tableView.AutoresizingMask,
-						Delegate = new MapViewDelegate(this),
-					};
-				} else {
-					//This fixes a bug when rotating and flipping views
-					mapView.Frame = tableView.Frame;
-				}
-
-
-				UIView.Transition (tableView, mapView, .3, UIViewAnimationOptions.TransitionCurlUp, delegate {
-					mapView.ClearPlacemarks ();
-
-					List<MKPlacemark> placemarks = new List<MKPlacemark>();
-					if (AssignmentViewModel.ActiveAssignment != null) {
-						var assignment = AssignmentViewModel.ActiveAssignment;
-						if (assignment.Latitude != 0 && assignment.Longitude != 0)
-							placemarks.Add (assignment.ToPlacemark ());
-					}
-
-					foreach (var assignment in AssignmentViewModel.Assignments) {
-						if (assignment.Latitude != 0 && assignment.Longitude != 0)
-							placemarks.Add (assignment.ToPlacemark ());
-					}
-
-					if (placemarks.Count > 0)
-						mapView.AddPlacemarks (placemarks.ToArray ());
-				});
-			} else {
-				//This fixes a bug when rotating and flipping views
-				tableView.Frame = mapView.Frame;
-
-				UIView.Transition (mapView, tableView, .3, UIViewAnimationOptions.TransitionCurlDown, delegate {
-					ReloadAssignments ();
-				});
-			}
-
-			//Bring the toolbarShadow to the front, UIView.Transition() puts it behind
-			View.BringSubviewToFront (toolbarShadow);
 		}
 
 		/// <summary>
@@ -407,72 +317,6 @@ namespace FieldService.iOS
 			{
 				controller.Assignment = assignmentViewModel.Assignments[indexPath.Row];
 				controller.PerformSegue ("AssignmentDetails", controller);
-			}
-		}
-
-		/// <summary>
-		/// Delegate for the map view
-		/// </summary>
-		private class MapViewDelegate : MKMapViewDelegate
-		{
-			const string Identifier = "AssignmentAnnotation";
-			readonly AssignmentsController controller;
-			readonly UIPopoverController popoverController;
-
-			public MapViewDelegate (AssignmentsController controller)
-			{
-				this.controller = controller;
-				popoverController = new UIPopoverController(new UIViewController());
-				popoverController.PopoverContentSize = new System.Drawing.SizeF(100, 100);
-			}
-
-			/// <summary>
-			/// Returns our custom MKAnnotationView
-			/// </summary>
-			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, NSObject annotation)
-			{
-				if (annotation is MKUserLocation) {
-					return null;
-				} else {
-					var annotationView = mapView.DequeueReusableAnnotation (Identifier) as MKPinAnnotationView;
-					if (annotationView == null) {
-						annotationView = new MKPinAnnotationView(annotation, Identifier);
-						annotationView.PinColor = MKPinAnnotationColor.Green;
-						annotationView.AnimatesDrop = true;
-						annotationView.CanShowCallout = true;
-						annotationView.RightCalloutAccessoryView = UIButton.FromType (UIButtonType.DetailDisclosure);
-					} else {
-						annotationView.Annotation = annotation;
-					}
-					return annotationView;
-				}
-			}
-
-			/// <summary>
-			/// This is the callback for when the detail disclosure is clicked
-			/// </summary>
-			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
-			{
-				controller.Assignment = GetAssignment (view.Annotation as MKPlacemark);
-				controller.PerformSegue ("AssignmentDetails", controller);
-			}
-
-			/// <summary>
-			/// Center the map when the user is located
-			/// </summary>
-			public override void DidUpdateUserLocation (MKMapView mapView, MKUserLocation userLocation)
-			{
-				var span = new MKCoordinateSpan(15, 15);
-				var region = new MKCoordinateRegion(userLocation.Coordinate, span);
-				mapView.SetRegion (region, true);
-			}
-
-			/// <summary>
-			/// This pulls out an assignment we placed in a MKPlacemark
-			/// </summary>
-			private Assignment GetAssignment(MKPlacemark annotation)
-			{
-				return annotation.AddressDictionary[new NSString("Assignment")].UnwrapObject<Assignment>();
 			}
 		}
 	}

@@ -12,13 +12,7 @@ namespace FieldService.iOS
 	partial class AssignmentsController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIBarButtonItem settings { get; set; }
-
-		[Outlet]
 		MonoTouch.UIKit.UITableView tableView { get; set; }
-
-		[Outlet]
-		MonoTouch.UIKit.UISegmentedControl segmentedControl { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UIView activeAssignment { get; set; }
@@ -68,30 +62,14 @@ namespace FieldService.iOS
 		[Action ("Record")]
 		partial void Record ();
 
-		[Action ("Settings:")]
-		partial void Settings (MonoTouch.Foundation.NSObject sender);
-
 		[Action ("Address")]
 		partial void Address ();
-
-		[Action ("TabChanged")]
-		partial void TabChanged ();
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (settings != null) {
-				settings.Dispose ();
-				settings = null;
-			}
-
 			if (tableView != null) {
 				tableView.Dispose ();
 				tableView = null;
-			}
-
-			if (segmentedControl != null) {
-				segmentedControl.Dispose ();
-				segmentedControl = null;
 			}
 
 			if (activeAssignment != null) {
