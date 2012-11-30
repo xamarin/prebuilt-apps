@@ -18,7 +18,9 @@ namespace FieldService.WinRT.ViewModels {
         DelegateCommand addExpenseCommand, saveExpenseCommand, deleteExpenseCommand, cancelExpenseCommand, addImageCommand;
         Expense selectedExpense;
         ExpenseCategory [] expenseTypes = new ExpenseCategory [] { ExpenseCategory.Gas, ExpenseCategory.Food, ExpenseCategory.Supplies, ExpenseCategory.Other };
-        string expenseCost = string.Empty;
+        string expenseCost = string.Empty,
+            addExpenseHeader = string.Empty;
+        bool canDelete = false;
         Popup addExpensePopUp;
         MediaPicker picker;
         AssignmentViewModel assignmentViewModel;
@@ -31,10 +33,15 @@ namespace FieldService.WinRT.ViewModels {
 
             addExpenseCommand = new DelegateCommand (obj => {
                 var expense = obj as Expense;
-                if (expense != null)
+                if (expense != null) {
                     SelectedExpense = expense;
-                else
+                    CanDelete = true;
+                    AddExpenseHeader = "Expense";
+                } else {
                     SelectedExpense = new Expense ();
+                    CanDelete = false;
+                    AddExpenseHeader = "Add Expense";
+                }
                 addExpensePopUp = new Popup ();
                 addExpensePopUp.Height = Window.Current.Bounds.Height;
                 addExpensePopUp.Width = Constants.PopUpWidth;
@@ -109,6 +116,24 @@ namespace FieldService.WinRT.ViewModels {
                     }
                 }
             });
+        }
+
+        /// <summary>
+        /// header for the expense flyout
+        /// </summary>
+        public string AddExpenseHeader
+        {
+            get { return addExpenseHeader; }
+            set { addExpenseHeader = value; OnPropertyChanged ("AddExpenseHeader"); }
+        }
+
+        /// <summary>
+        /// bool value for the delete being visible
+        /// </summary>
+        public bool CanDelete
+        {
+            get { return canDelete; }
+            set { canDelete = value; OnPropertyChanged ("CanDelete"); }
         }
 
         /// <summary>
