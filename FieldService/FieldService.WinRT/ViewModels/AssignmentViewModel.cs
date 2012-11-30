@@ -44,7 +44,12 @@ namespace FieldService.WinRT.ViewModels {
 
             mapsCommand = new DelegateCommand (_ => Helpers.NavigateTo<MapPage> ());
 
-            goBackCommand = new DelegateCommand (_ => Helpers.GoBack (), _ => Helpers.CanGoBack);
+            goBackCommand = new DelegateCommand (_ => {
+                if (addSignaturePopup != null && addSignaturePopup.IsOpen) {
+                    addSignaturePopup.IsOpen = false;
+                }
+                    Helpers.GoBack ();
+                }, _ => Helpers.CanGoBack);
 
             itemsCommand = new DelegateCommand (_ => Helpers.NavigateTo<ItemsPage> ());
 

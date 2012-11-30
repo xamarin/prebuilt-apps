@@ -118,6 +118,11 @@ namespace FieldService.WinRT.ViewModels {
             });
         }
 
+        public Popup ExpensePopUp 
+        {
+            get { return addExpensePopUp; }
+        }
+
         /// <summary>
         /// header for the expense flyout
         /// </summary>

@@ -60,6 +60,14 @@ namespace FieldService.WinRT.Views {
         {
         }
 
+        protected override void OnNavigatedFrom (NavigationEventArgs e)
+        {
+            if (expenseViewModel.ExpensePopUp.IsOpen) {
+                expenseViewModel.ExpensePopUp.IsOpen = false;
+            }
+            base.OnNavigatedFrom (e);
+        }
+
 
         /// <summary>
         /// Item click for the expense list view
