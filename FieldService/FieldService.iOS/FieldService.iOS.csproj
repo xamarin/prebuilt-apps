@@ -35,7 +35,6 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <MtouchLink>None</MtouchLink>
-    <MtouchArch>Default</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
     <DebugSymbols>True</DebugSymbols>
@@ -59,7 +58,6 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <CodesignKey>iPhone Developer</CodesignKey>
-    <MtouchArch>Default</MtouchArch>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
     <DebugType>none</DebugType>
@@ -80,7 +78,6 @@
     <WarningLevel>4</WarningLevel>
     <ConsolePause>False</ConsolePause>
     <CodesignKey>iPhone Distribution</CodesignKey>
-    <MtouchArch>Default</MtouchArch>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -351,6 +348,7 @@
     <Folder Include="Controllers\" />
     <Folder Include="Views\" />
     <Folder Include="Data\" />
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\accept.png" />
@@ -467,10 +465,6 @@
     <Content Include="Images\assignmentactiveblue%402x.png" />
     <Content Include="Images\deletebutton.png" />
     <Content Include="Images\deletebutton%402x.png" />
-    <Content Include="Default-Landscape.png" />
-    <Content Include="Default-Landscape%402x.png" />
-    <Content Include="Default-Portrait.png" />
-    <Content Include="Default-Portrait%402x.png" />
     <Content Include="..\Data\Building_Cross_Platform_Apps.pdf">
       <Link>Data\Building_Cross_Platform_Apps.pdf</Link>
     </Content>
@@ -499,5 +493,17 @@
     <Content Include="Images\listicon%402x.png" />
     <Content Include="Images\mapicon.png" />
     <Content Include="Images\mapicon%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+    <BundleResource Include="Resources\Default-Landscape.png" />
+    <BundleResource Include="Resources\Default-Landscape%402x.png" />
+    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\100.png" />
+    <BundleResource Include="Resources\144.png" />
+    <BundleResource Include="Resources\29.png" />
+    <BundleResource Include="Resources\50.png" />
+    <BundleResource Include="Resources\58.png" />
+    <BundleResource Include="Resources\72.png" />
   </ItemGroup>
 </Project>

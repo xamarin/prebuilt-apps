@@ -4,6 +4,15 @@
 <dict>
 	<key>CFBundleDisplayName</key>
 	<string>Field Service</string>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>Resources/72.png</string>
+		<string>Resources/144.png</string>
+		<string>Resources/50.png</string>
+		<string>Resources/100.png</string>
+		<string>Resources/29.png</string>
+		<string>Resources/58.png</string>
+	</array>
 	<key>CFBundleIdentifier</key>
 	<string>com.hitcents.fieldservice</string>
 	<key>CFBundleVersion</key>
@@ -16,6 +25,8 @@
 	</array>
 	<key>UIMainStoryboardFile</key>
 	<string>MainStoryboard</string>
+	<key>UIPrerenderedIcon</key>
+	<true/>
 	<key>UIStatusBarHidden</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
