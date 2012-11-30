@@ -131,9 +131,9 @@ namespace FieldService.Data {
             Id = 7,
             Priority = 7,
             JobNumber = "5677",
-            CompanyName = "M$oft",
+            CompanyName = "Microsoft Corporation",
             Description = Description,
-            ContactName = "Microsoft",
+            ContactName = "Anders Hejlsberg",
             ContactPhone = "425.882.8080",
             Address = "1 157th Avenue Northeast",
             City = "Redmond",
@@ -150,9 +150,9 @@ namespace FieldService.Data {
             Id = 8,
             Priority = 8,
             JobNumber = "5678",
-            CompanyName = "Strikes Back",
+            CompanyName = "The Empire",
             Description = Description,
-            ContactName = "The Empire",
+            ContactName = "Darth Vader",
             ContactPhone = "212.736.3100",
             Address = "350 5th Avenue",
             City = "New York",
@@ -188,9 +188,9 @@ namespace FieldService.Data {
             Id = 10,
             Priority = 10,
             JobNumber = "7810",
-            CompanyName= "NBCUniversal",
+            CompanyName = "Universal Studios",
             Description = Description,
-            ContactName = "Universal Studios",
+            ContactName = "John Doe",
             ContactPhone = "800.864.8377",
             Address = "100 Universal City Plaza",
             City = "Universal City",
@@ -234,6 +234,60 @@ namespace FieldService.Data {
                 Id = 3,
                 Name = "PVC Pipe - Medium",
                 Number = "1003",
+            },
+            new Item
+            {
+                Id = 4,
+                Name = "Diatium Power Cell",
+                Number = "1004",
+            },
+            new Item
+            {
+                Id = 5,
+                Name = "Flux Aperture",
+                Number = "1005",
+            },
+            new Item
+            {
+                Id = 6,
+                Name = "Ion Energy Cell",
+                Number = "1006",
+            },
+            new Item
+            {
+                Id = 7,
+                Name = "Telgorn Jolt Cell Mark I",
+                Number = "1007",
+            },
+            new Item
+            {
+                Id = 8,
+                Name = "Bifurcating Cyclical-Ignition Pulse",
+                Number = "1008",
+            },
+            new Item
+            {
+                Id = 9,
+                Name = "Flux Capacitor",
+                Number = "1009",
+            },
+            new Item
+            {
+                Id = 10,
+                Name = "Unobtainium",
+                Number = "1010",
+            },
+            new Item
+            {
+                Id = 11,
+                Name = "Adamantium",
+                Number = "1011",
+            },
+            new Item
+            {
+                Id = 12,
+                Name = "Tesseract",
+                Number = "1012",
             },
 
             //Some items on assignments

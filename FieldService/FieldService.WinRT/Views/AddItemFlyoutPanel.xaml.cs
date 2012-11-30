@@ -53,7 +53,7 @@ namespace FieldService.WinRT.Views {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        public void OnItemClick (object sender, ItemClickEventArgs e)
+        public async void OnItemClick (object sender, ItemClickEventArgs e)
         {
             Item item = e.ClickedItem as Item;
             if (item != null) {
@@ -62,9 +62,21 @@ namespace FieldService.WinRT.Views {
                     ItemId = item.Id,
                 };
                 itemViewModel.SaveAssignmentItemCommand.Invoke (assignmentItem);
-                itemViewModel.LoadAssignmentItemsAsync (assignmentViewModel.SelectedAssignment);
+                await itemViewModel.LoadAssignmentItemsAsync (assignmentViewModel.SelectedAssignment);
                 itemViewModel.CancelAddItemCommand.Invoke ();
             }
+        }
+
+        /// <summary>
+        /// Used for hooking up enter key to search
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnKeyDown (KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter) {
+                itemViewModel.SearchItemsCommand.Invoke ();
+            }
+            base.OnKeyDown (e);
         }
     }
 }

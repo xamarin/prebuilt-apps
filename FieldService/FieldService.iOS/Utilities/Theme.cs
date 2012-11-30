@@ -354,10 +354,28 @@ namespace FieldService.iOS
 		static Lazy<UIImage> map = new Lazy<UIImage> (() => UIImage.FromFile ("Images/map.png"));
 		
 		/// <summary>
-		/// 
+		/// Map image
 		/// </summary>
 		public static UIImage Map {
 			get { return map.Value; }
+		}
+
+		static Lazy<UIImage> mapIcon = new Lazy<UIImage> (() => UIImage.FromFile ("Images/mapicon.png"));
+		
+		/// <summary>
+		/// Map icon for tab bar
+		/// </summary>
+		public static UIImage MapIcon {
+			get { return mapIcon.Value; }
+		}
+
+		static Lazy<UIImage> listIcon = new Lazy<UIImage> (() => UIImage.FromFile ("Images/listicon.png"));
+		
+		/// <summary>
+		/// Assignment list icon for tab bar
+		/// </summary>
+		public static UIImage ListIcon {
+			get { return listIcon.Value; }
 		}
 
 		static Lazy<UIImage> modal = new Lazy<UIImage> (() => UIImage.FromFile ("Images/modal.png").CreateResizableImage (new UIEdgeInsets (65, 43, 38, 43)));
@@ -504,7 +522,7 @@ namespace FieldService.iOS
 			get { return timerfield.Value; }
 		}
 
-		static Lazy<UIImage> topnav = new Lazy<UIImage> (() => UIImage.FromFile ("Images/topnav.png").CreateResizableImage (new UIEdgeInsets (0, 0, 0, 0)));
+		static Lazy<UIImage> topnav = new Lazy<UIImage> (() => UIImage.FromFile ("Images/topnav.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Image for the top navigation bar
