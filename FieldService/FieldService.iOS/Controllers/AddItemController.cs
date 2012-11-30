@@ -34,7 +34,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			itemViewModel = ServiceContainer.Resolve <ItemViewModel>();
+			itemViewModel = new ItemViewModel();
 		}
 
 		public override void ViewDidLoad ()
@@ -60,8 +60,8 @@ namespace FieldService.iOS
 				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
 			};
 
-			tableView.Source = new TableSource();
-			var searchDataSource = new SearchSource ();
+			tableView.Source = new TableSource(itemViewModel);
+			var searchDataSource = new SearchSource (itemViewModel);
 			SearchDisplayController.SearchResultsSource = searchDataSource;
 			SearchDisplayController.Delegate = new SearchDisplay (tableView, searchDataSource);
 		}
@@ -93,12 +93,12 @@ namespace FieldService.iOS
 			readonly AssignmentsController assignmentController;
 			protected readonly ItemViewModel itemViewModel;
 
-			public TableSource ()
+			public TableSource (ItemViewModel itemViewModel)
 			{
+				this.itemViewModel = itemViewModel;
 				addItemController = ServiceContainer.Resolve <AddItemController>();
 				itemController = ServiceContainer.Resolve <ItemsViewController>();
 				assignmentController = ServiceContainer.Resolve <AssignmentsController>();
-				itemViewModel = ServiceContainer.Resolve <ItemViewModel>();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -144,6 +144,12 @@ namespace FieldService.iOS
 		/// </summary>
 		private class SearchSource : TableSource, ISearchSource
 		{
+			public SearchSource (ItemViewModel itemViewModel)
+				: base(itemViewModel)
+			{
+				
+			}
+
 			public string SearchText
 			{
 				get;
