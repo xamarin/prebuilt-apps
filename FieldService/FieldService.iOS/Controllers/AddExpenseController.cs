@@ -29,7 +29,7 @@ namespace FieldService.iOS
 	public partial class AddExpenseController : BaseController
 	{
 		readonly ExpenseController expenseController;
-		readonly AssignmentDetailsController detailController;
+		readonly AssignmentsController assignmentController;
 		readonly ExpenseViewModel expenseViewModel;
 		UIBarButtonItem expense, space1, space2, done;
 		TableSource tableSource;
@@ -39,7 +39,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register (this);
 
 			expenseController = ServiceContainer.Resolve<ExpenseController>();
-			detailController = ServiceContainer.Resolve<AssignmentDetailsController>();
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			expenseViewModel = new ExpenseViewModel();
 		}
 
@@ -61,7 +61,7 @@ namespace FieldService.iOS
 
 			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				expenseViewModel
-					.SaveExpenseAsync (detailController.Assignment, expenseController.Expense)
+					.SaveExpenseAsync (assignmentController.Assignment, expenseController.Expense)
 					.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
@@ -79,7 +79,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			bool enabled = detailController.Assignment.Status != AssignmentStatus.Complete;
+			bool enabled = assignmentController.Assignment.Status != AssignmentStatus.Complete;
 			if (enabled) {
 				toolbar.Items = new UIBarButtonItem[] {
 					cancel,

@@ -40,14 +40,6 @@ namespace FieldService.iOS
 			assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 
-		/// <summary>
-		/// Gets or sets the assignment to be shown
-		/// </summary>
-		public Assignment Assignment {
-			get;
-			set;
-		}
-
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
@@ -158,20 +150,21 @@ namespace FieldService.iOS
 		/// </summary>
 		public void UpdateAssignment ()
 		{
-			if (Assignment != null && IsViewLoaded) {
+			var assignment = assignmentsController.Assignment;
+			if (assignment != null && IsViewLoaded) {
 
-				splitController.NavigationItem.Title = Assignment.JobNumberFormatted;
-				priority.Text = Assignment.Priority.ToString ();
-				numberAndDate.Text = string.Format ("{0} {1}", Assignment.JobNumberFormatted, Assignment.StartDate.Date.ToShortDateString ());
-				titleLabel.Text = Assignment.CompanyName;
-				startAndEnd.Text = string.Format ("Start: {0} End: {1}", Assignment.StartDate.ToShortTimeString (), Assignment.EndDate.ToShortTimeString ());
-				contact.TopLabel.Text = Assignment.ContactName;
-				contact.BottomLabel.Text = Assignment.ContactPhone;
-				address.TopLabel.Text = Assignment.Address;
-				address.BottomLabel.Text = string.Format ("{0}, {1} {2}", Assignment.City, Assignment.State, Assignment.Zip);
-				status.Assignment = Assignment;
+				splitController.NavigationItem.Title = assignment.JobNumberFormatted;
+				priority.Text = assignment.Priority.ToString ();
+				numberAndDate.Text = string.Format ("{0} {1}", assignment.JobNumberFormatted, assignment.StartDate.Date.ToShortDateString ());
+				titleLabel.Text = assignment.CompanyName;
+				startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+				contact.TopLabel.Text = assignment.ContactName;
+				contact.BottomLabel.Text = assignment.ContactPhone;
+				address.TopLabel.Text = assignment.Address;
+				address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
+				status.Assignment = assignment;
 
-				if (Assignment.Status == AssignmentStatus.New) {
+				if (assignment.Status == AssignmentStatus.New) {
 					status.Hidden = true;
 					decline.Hidden =
 						accept.Hidden = false;
@@ -188,7 +181,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Accept ()
 		{
-			Assignment.Status = AssignmentStatus.Hold;
+			assignmentsController.Assignment.Status = AssignmentStatus.Hold;
 
 			SaveAssignment ();
 		}
@@ -198,7 +191,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Decline ()
 		{
-			Assignment.Status = AssignmentStatus.Declined;
+			assignmentsController.Assignment.Status = AssignmentStatus.Declined;
 			
 			SaveAssignment ();
 		}
@@ -218,7 +211,7 @@ namespace FieldService.iOS
 		private void SaveAssignment ()
 		{
 			assignmentsController.AssignmentViewModel
-				.SaveAssignmentAsync (Assignment)
+				.SaveAssignmentAsync (assignmentsController.Assignment)
 				.ContinueOnUIThread (t => {
 
 					UpdateAssignment ();

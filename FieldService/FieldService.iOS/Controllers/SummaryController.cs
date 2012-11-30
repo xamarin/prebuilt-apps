@@ -25,13 +25,13 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class SummaryController : BaseController
 	{
-		readonly AssignmentDetailsController detailsController;
+		readonly AssignmentsController assignmentController;
 
 		public SummaryController (IntPtr handle) : base (handle)
 		{
 			ServiceContainer.Register (this);
 
-			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 
 		public override void ViewDidLoad ()
@@ -79,7 +79,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Update for assignment
-			var assignment = detailsController.Assignment;
+			var assignment = assignmentController.Assignment;
 			description.Text = assignment.Description;
 			descriptionTitle.Text = assignment.CompanyName;
 			items.Text = assignment.TotalItems.ToString ();

@@ -25,7 +25,7 @@ namespace FieldService.iOS
 	public partial class HistoryController : BaseController
 	{
 		readonly HistoryViewModel historyViewModel;
-		readonly AssignmentDetailsController detailsController;
+		readonly AssignmentsController assignmentController;
 		UILabel title;
 
 		public HistoryController (IntPtr handle) : base (handle)
@@ -33,7 +33,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register (this);
 
 			historyViewModel = new HistoryViewModel();
-			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 
 		public override void ViewDidLoad ()
@@ -66,7 +66,7 @@ namespace FieldService.iOS
 		public void ReloadHIstory ()
 		{
 			if (IsViewLoaded) {
-				historyViewModel.LoadHistoryAsync (detailsController.Assignment)
+				historyViewModel.LoadHistoryAsync (assignmentController.Assignment)
 					.ContinueOnUIThread (_ => {
 						if (historyViewModel.History == null || historyViewModel.History.Count == 0) 
 							title.Text = "History";

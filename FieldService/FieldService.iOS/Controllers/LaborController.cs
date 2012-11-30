@@ -29,7 +29,7 @@ namespace FieldService.iOS
 	public partial class LaborController : BaseController
 	{
 		readonly LaborViewModel laborViewModel;
-		readonly AssignmentDetailsController detailsController;
+		readonly AssignmentsController assignmentController;
 		UILabel title;
 		UIBarButtonItem titleButton, edit, addItem, space;
 
@@ -38,7 +38,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register (this);
 
 			laborViewModel = new LaborViewModel();
-			detailsController = ServiceContainer.Resolve <AssignmentDetailsController> ();
+			assignmentController = ServiceContainer.Resolve <AssignmentsController> ();
 		}
 
 		/// <summary>
@@ -76,7 +76,7 @@ namespace FieldService.iOS
 			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				Labor = new Labor {
 					Type = LaborType.Hourly,
-					AssignmentId = detailsController.Assignment.Id,
+					AssignmentId = assignmentController.Assignment.Id,
 				};
 				PerformSegue ("AddLabor", this);
 			});
@@ -111,7 +111,7 @@ namespace FieldService.iOS
 		{
 			if (IsViewLoaded) {
 
-				if (detailsController.Assignment.Status == AssignmentStatus.Complete) {
+				if (assignmentController.Assignment.Status == AssignmentStatus.Complete) {
 					toolbar.Items = new UIBarButtonItem[] { titleButton };
 				} else {
 					toolbar.Items = new UIBarButtonItem[] {
@@ -122,7 +122,7 @@ namespace FieldService.iOS
 					};
 				}
 
-				laborViewModel.LoadLaborHoursAsync (detailsController.Assignment)
+				laborViewModel.LoadLaborHoursAsync (assignmentController.Assignment)
 					.ContinueOnUIThread (_ => {
 					if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
 						title.Text = "Labor Hours";
@@ -140,14 +140,14 @@ namespace FieldService.iOS
 		{
 			readonly LaborViewModel laborViewModel;
 			readonly LaborController laborController;
-			readonly AssignmentDetailsController detailsController;
+			readonly AssignmentsController assignmentsController;
 			const string Identifier = "LaborCell";
 
 			public TableSource (LaborViewModel laborViewModel)
 			{
 				this.laborViewModel = laborViewModel;
 				laborController = ServiceContainer.Resolve<LaborController> ();
-				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+				assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -169,13 +169,13 @@ namespace FieldService.iOS
 
 			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return detailsController.Assignment.Status != AssignmentStatus.Complete;
+				return assignmentsController.Assignment.Status != AssignmentStatus.Complete;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				laborViewModel
-					.DeleteLaborAsync (detailsController.Assignment, laborViewModel.LaborHours[indexPath.Row])
+					.DeleteLaborAsync (assignmentsController.Assignment, laborViewModel.LaborHours[indexPath.Row])
 					.ContinueOnUIThread (_ => laborController.ReloadLabor ());
 			}
 

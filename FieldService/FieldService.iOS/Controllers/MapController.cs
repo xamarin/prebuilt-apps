@@ -27,12 +27,12 @@ namespace FieldService.iOS
 	/// </summary>
 	public class MapController : BaseController
 	{
-		readonly AssignmentDetailsController detailsController;
+		readonly AssignmentsController assignmentController;
 		MKMapView mapView;
 
 		public MapController ()
 		{
-			detailsController = ServiceContainer.Resolve <AssignmentDetailsController>();
+			assignmentController = ServiceContainer.Resolve <AssignmentsController>();
 		}
 
 		public override void ViewDidLoad ()
@@ -54,7 +54,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load the placemark
-			var placemark = detailsController.Assignment.ToPlacemark();
+			var placemark = assignmentController.Assignment.ToPlacemark();
 			var span = new MKCoordinateSpan(1, 1);
 			var region = new MKCoordinateRegion(placemark.Coordinate, span);
 

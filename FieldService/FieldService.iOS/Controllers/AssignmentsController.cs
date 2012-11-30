@@ -52,8 +52,19 @@ namespace FieldService.iOS
 			};
 		}
 
-		public AssignmentViewModel AssignmentViewModel
-		{
+		/// <summary>
+		/// The currently accepted assignment
+		/// </summary>
+		public Assignment Assignment {
+			get;
+			set;
+		}
+
+		/// <summary>
+		/// A shared instance of the AssignmentViewModel
+		/// -used between several other controllers, etc.
+		/// </summary>
+		public AssignmentViewModel AssignmentViewModel {
 			get;
 			private set;
 		}
@@ -186,8 +197,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void ActiveAssignmentSelected ()
 		{
-			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
-			assignmentController.Assignment = AssignmentViewModel.ActiveAssignment;
+			Assignment = AssignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
 		}
 
@@ -310,9 +320,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
-			assignmentController.Assignment = AssignmentViewModel.ActiveAssignment;
-
+			Assignment = AssignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
 
 			var menuController = ServiceContainer.Resolve<MenuController>();
@@ -397,8 +405,7 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
-				assignmentController.Assignment = assignmentViewModel.Assignments[indexPath.Row];
+				controller.Assignment = assignmentViewModel.Assignments[indexPath.Row];
 				controller.PerformSegue ("AssignmentDetails", controller);
 			}
 		}
@@ -446,8 +453,7 @@ namespace FieldService.iOS
 			/// </summary>
 			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
 			{
-				var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
-				assignmentController.Assignment = GetAssignment (view.Annotation as MKPlacemark);
+				controller.Assignment = GetAssignment (view.Annotation as MKPlacemark);
 				controller.PerformSegue ("AssignmentDetails", controller);
 			}
 

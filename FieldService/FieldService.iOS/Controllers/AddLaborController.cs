@@ -28,7 +28,7 @@ namespace FieldService.iOS
 	public partial class AddLaborController : BaseController
 	{
 		readonly LaborController laborController;
-		readonly AssignmentDetailsController detailController;
+		readonly AssignmentsController assignmentController;
 		readonly LaborViewModel laborViewModel;
 		UIBarButtonItem labor, space1, space2, done;
 		TableSource tableSource;
@@ -39,7 +39,7 @@ namespace FieldService.iOS
 
 			laborViewModel = new LaborViewModel();
 			laborController = ServiceContainer.Resolve<LaborController>();
-			detailController = ServiceContainer.Resolve<AssignmentDetailsController>();
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 
 		public override void ViewDidLoad ()
@@ -60,7 +60,7 @@ namespace FieldService.iOS
 
 			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				laborViewModel
-					.SaveLaborAsync (detailController.Assignment, laborController.Labor)
+					.SaveLaborAsync (assignmentController.Assignment, laborController.Labor)
 					.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
@@ -78,7 +78,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			bool enabled = detailController.Assignment.Status != AssignmentStatus.Complete;
+			bool enabled = assignmentController.Assignment.Status != AssignmentStatus.Complete;
 			if (enabled) {
 				toolbar.Items = new UIBarButtonItem[] {
 					cancel,

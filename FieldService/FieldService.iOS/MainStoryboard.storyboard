@@ -703,7 +703,7 @@
         <!--Assignment Details Controller - AssignmentDetailsController-->
         <scene sceneID="JsO-me-mzK">
             <objects>
-                <viewController storyboardIdentifier="AssignmentDetailsController" title="AssignmentDetailsController" id="zAT-XQ-7PQ" customClass="AssignmentDetailsController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" title="AssignmentDetailsController" id="zAT-XQ-7PQ" customClass="AssignmentDetailsController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="3YU-F5-6qe">
                         <rect key="frame" x="0.0" y="0.0" width="704" height="704"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

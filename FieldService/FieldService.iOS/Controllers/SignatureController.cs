@@ -40,7 +40,7 @@ namespace FieldService.iOS
 		private class ContentController : UIViewController
 		{
 			readonly AssignmentViewModel assignmentViewModel;
-			readonly AssignmentDetailsController detailsController;
+			readonly AssignmentsController assignmentController;
 			readonly ConfirmationController confirmationController;
 			SignatureView signatureView;
 			UIBarButtonItem cancel;
@@ -48,11 +48,9 @@ namespace FieldService.iOS
 
 			public ContentController ()
 			{
-				var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
-
-				assignmentViewModel = assignmentsController.AssignmentViewModel;
-				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 				confirmationController = ServiceContainer.Resolve<ConfirmationController>();
+				assignmentViewModel = assignmentController.AssignmentViewModel;
 
 				Title = "Add Signature";
 			}
@@ -77,7 +75,7 @@ namespace FieldService.iOS
 					}
 
 					if (assignmentViewModel.Signature == null) {
-						assignmentViewModel.Signature = new Data.Signature { AssignmentId = detailsController.Assignment.Id };
+						assignmentViewModel.Signature = new Data.Signature { AssignmentId = assignmentController.Assignment.Id };
 					}
 					assignmentViewModel.Signature.Image = signatureView.GetImage ().ToByteArray ();
 

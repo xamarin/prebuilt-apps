@@ -27,18 +27,14 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class ConfirmationController : BaseController
 	{
-		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
-		readonly AssignmentDetailsController detailController;
+		readonly AssignmentsController assignmentController;
 		PhotoAlertSheet photoSheet;
 
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
-			var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
-
-			assignmentViewModel = assignmentsController.AssignmentViewModel;
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			photoViewModel = new PhotoViewModel();
-			detailController = ServiceContainer.Resolve<AssignmentDetailsController>();
 		}
 
 		/// <summary>
@@ -62,6 +58,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI setup from code
+			View.BackgroundColor = Theme.BackgroundColor;
 			photoSheet = new PhotoAlertSheet();
 			photoSheet.Callback = image => {
 				Photo.Image = image;
@@ -99,8 +96,8 @@ namespace FieldService.iOS
 			if (IsViewLoaded) {
 				signatureTableView.ReloadData ();
 
-				photoViewModel.LoadPhotosAsync (detailController.Assignment)
-					.ContinueWith (assignmentViewModel.LoadSignatureAsync (detailController.Assignment))
+				photoViewModel.LoadPhotosAsync (assignmentController.Assignment)
+					.ContinueWith (assignmentController.AssignmentViewModel.LoadSignatureAsync (assignmentController.Assignment))
 					.ContinueOnUIThread (_ => photoTableView.ReloadData ());
 			}
 		}
@@ -110,7 +107,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void AddPhoto ()
 		{
-			Photo = new Photo { AssignmentId = detailController.Assignment.Id, Date = DateTime.Now };
+			Photo = new Photo { AssignmentId = assignmentController.Assignment.Id, Date = DateTime.Now };
 			IsNew = true;
 
 			photoSheet.ShowFrom (addPhoto.Frame, addPhoto.Superview, true);
@@ -168,14 +165,11 @@ namespace FieldService.iOS
 		{
 			const string SignatureIdentifier = "SignatureCell";
 			const string CompleteIdentifier = "CompleteCell";
-			readonly AssignmentViewModel assignmentViewModel;
-			readonly AssignmentDetailsController detailsController;
+			readonly AssignmentsController assignmentController;
 
 			public SignatureTableSource ()
 			{
-				var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
-				assignmentViewModel = assignmentsController.AssignmentViewModel;
-				detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
+				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			}
 
 			public override UIView GetViewForHeader (UITableView tableView, int section)
@@ -199,11 +193,11 @@ namespace FieldService.iOS
 				if (indexPath.Section == 0) {
 					cell = tableView.DequeueReusableCell (SignatureIdentifier);
 					var signatureCell = cell as SignatureCell;
-					signatureCell.SetSignature (assignmentViewModel.Signature);
+					signatureCell.SetSignature (assignmentController.AssignmentViewModel.Signature);
 				} else {
 					cell = tableView.DequeueReusableCell (CompleteIdentifier);
 					var completeCell = cell as CompleteCell;
-					completeCell.SetAssignment (detailsController.Assignment);
+					completeCell.SetAssignment (assignmentController.Assignment);
 				}
 				return cell;
 			}

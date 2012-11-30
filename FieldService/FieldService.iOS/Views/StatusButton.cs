@@ -81,11 +81,9 @@ namespace FieldService.iOS
 						method(this, EventArgs.Empty);
 					}
 				} else {
-					var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
-					var assignmentController = ServiceContainer.Resolve <AssignmentDetailsController>();
+					var assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 					assignmentController.Assignment = assignment;
-
-					assignmentsController.PerformSegue ("AssignmentDetails", assignmentsController);
+					assignmentController.PerformSegue ("AssignmentDetails", assignmentController);
 
 					var menuController = ServiceContainer.Resolve<MenuController>();
 					menuController.ShowConfirmation ();

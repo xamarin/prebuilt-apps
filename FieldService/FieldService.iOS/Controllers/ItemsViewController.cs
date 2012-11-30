@@ -27,7 +27,7 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class ItemsViewController : BaseController
 	{
-		readonly AssignmentDetailsController detailsController;
+		readonly AssignmentsController assignmentController;
 		readonly ItemViewModel itemViewModel;
 		UILabel title;
 		UIBarButtonItem titleButton, edit, addItem, space;
@@ -37,7 +37,7 @@ namespace FieldService.iOS
 			ServiceContainer.Register (this);
 
 			itemViewModel = new ItemViewModel();
-			detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
+			assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
 		}
 
 		public override void ViewDidLoad ()
@@ -68,7 +68,7 @@ namespace FieldService.iOS
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			tableView.Source = new TableSource (itemViewModel);
+			tableView.Source = new TableSource (this);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -97,7 +97,7 @@ namespace FieldService.iOS
 		{
 			if (IsViewLoaded) {
 
-				if (detailsController.Assignment.Status == AssignmentStatus.Complete) {
+				if (assignmentController.Assignment.Status == AssignmentStatus.Complete) {
 					toolbar.Items = new UIBarButtonItem[] { titleButton };
 				} else {
 					toolbar.Items = new UIBarButtonItem[] {
@@ -108,7 +108,7 @@ namespace FieldService.iOS
 					};
 				}
 
-				itemViewModel.LoadAssignmentItemsAsync (detailsController.Assignment)
+				itemViewModel.LoadAssignmentItemsAsync (assignmentController.Assignment)
 					.ContinueOnUIThread (_ => {
 					if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
 						title.Text = "Items";
@@ -126,25 +126,25 @@ namespace FieldService.iOS
 		{
 			readonly ItemViewModel itemViewModel;
 			readonly ItemsViewController itemController;
-			readonly AssignmentDetailsController detailsController;
+			readonly AssignmentsController assignmentController;
 			const string Identifier = "AssignmentItemCell";
 
-			public TableSource (ItemViewModel itemViewModel)
+			public TableSource (ItemsViewController itemController)
 			{
-				this.itemViewModel = itemViewModel;
-				itemController = ServiceContainer.Resolve<ItemsViewController> ();
-				detailsController = ServiceContainer.Resolve <AssignmentDetailsController> ();
+				this.itemController = itemController;
+				this.itemViewModel = itemController.itemViewModel;
+				assignmentController = ServiceContainer.Resolve <AssignmentsController> ();
 			}
 
 			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return detailsController.Assignment.Status != AssignmentStatus.Complete;
+				return assignmentController.Assignment.Status != AssignmentStatus.Complete;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				itemViewModel
-					.DeleteAssignmentItemAsync (detailsController.Assignment, itemViewModel.AssignmentItems [indexPath.Row])
+					.DeleteAssignmentItemAsync (assignmentController.Assignment, itemViewModel.AssignmentItems [indexPath.Row])
 					.ContinueOnUIThread (_ => itemController.ReloadItems ());
 			}
 

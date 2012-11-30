@@ -27,13 +27,13 @@ namespace FieldService.iOS
 	public partial class AssignmentItemCell : UITableViewCell
 	{
 		readonly ItemViewModel itemViewModel;
-		readonly AssignmentDetailsController detailsController;
+		readonly AssignmentsController assignmentController;
 		AssignmentItem item;
 
 		public AssignmentItemCell (IntPtr handle) : base (handle)
 		{
 			itemViewModel = new ItemViewModel();
-			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 
 		/// <summary>
@@ -66,7 +66,7 @@ namespace FieldService.iOS
 			SetChecked (item.Used);
 
 			itemViewModel
-				.SaveAssignmentItemAsync (detailsController.Assignment, item)
+				.SaveAssignmentItemAsync (assignmentController.Assignment, item)
 				.ContinueOnUIThread (_ => tableView.UserInteractionEnabled = true);
 		}
 

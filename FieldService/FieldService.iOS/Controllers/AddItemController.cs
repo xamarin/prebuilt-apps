@@ -90,14 +90,14 @@ namespace FieldService.iOS
 			const string Identifier = "ItemCell";
 			readonly AddItemController addItemController;
 			readonly ItemsViewController itemController;
-			readonly AssignmentDetailsController detailController;
+			readonly AssignmentsController assignmentController;
 			protected readonly ItemViewModel itemViewModel;
 
 			public TableSource ()
 			{
 				addItemController = ServiceContainer.Resolve <AddItemController>();
 				itemController = ServiceContainer.Resolve <ItemsViewController>();
-				detailController = ServiceContainer.Resolve <AssignmentDetailsController>();
+				assignmentController = ServiceContainer.Resolve <AssignmentsController>();
 				itemViewModel = ServiceContainer.Resolve <ItemViewModel>();
 			}
 
@@ -122,9 +122,9 @@ namespace FieldService.iOS
 			{
 				var item = GetItem (indexPath);
 				tableView.UserInteractionEnabled = false;
-				itemViewModel.SaveAssignmentItemAsync (detailController.Assignment, new AssignmentItem {
+				itemViewModel.SaveAssignmentItemAsync (assignmentController.Assignment, new AssignmentItem {
 					ItemId = item.Id,
-					AssignmentId = detailController.Assignment.Id,
+					AssignmentId = assignmentController.Assignment.Id,
 				})
 				.ContinueOnUIThread(_ => {
 					tableView.UserInteractionEnabled = true;

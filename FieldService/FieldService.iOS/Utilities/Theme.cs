@@ -669,7 +669,6 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register<MainNavigationController> (() => (MainNavigationController)storyboard.InstantiateViewController ("MainNavigationController"));
 			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)storyboard.InstantiateViewController ("AssignmentsController"));
-			ServiceContainer.Register<AssignmentDetailsController> (() => (AssignmentDetailsController)storyboard.InstantiateViewController ("AssignmentDetailsController"));
 			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));
 			ServiceContainer.Register<LaborController> (() => (LaborController)storyboard.InstantiateViewController ("LaborController"));
 			ServiceContainer.Register<ExpenseController> (() => (ExpenseController)storyboard.InstantiateViewController ("ExpenseController"));

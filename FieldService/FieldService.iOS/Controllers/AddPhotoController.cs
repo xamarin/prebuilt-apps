@@ -28,7 +28,7 @@ namespace FieldService.iOS
 	public partial class AddPhotoController : BaseController
 	{
 		readonly ConfirmationController confirmationController;
-		readonly AssignmentDetailsController detailsController;
+		readonly AssignmentsController assignmentController;
 		readonly PhotoViewModel photoViewModel;
 		UIImage image;
 		UIAlertView alertView;
@@ -39,7 +39,7 @@ namespace FieldService.iOS
 
 			photoViewModel = new PhotoViewModel();
 			confirmationController = ServiceContainer.Resolve<ConfirmationController> ();
-			detailsController = ServiceContainer.Resolve<AssignmentDetailsController> ();
+			assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
 		}
 
 		public override void ViewDidLoad ()
@@ -124,7 +124,7 @@ namespace FieldService.iOS
 			photo.Description = description.Text;
 
 			photoViewModel
-				.SavePhotoAsync (detailsController.Assignment, photo)
+				.SavePhotoAsync (assignmentController.Assignment, photo)
 				.ContinueOnUIThread (_ => {
 					confirmationController.ReloadConfirmation ();
 					DismissViewController (true, delegate { });
@@ -141,7 +141,7 @@ namespace FieldService.iOS
 
 				if (e.ButtonIndex == 0) {
 					photoViewModel
-						.DeletePhotoAsync (detailsController.Assignment, confirmationController.Photo)
+						.DeletePhotoAsync (assignmentController.Assignment, confirmationController.Photo)
 						.ContinueOnUIThread (_ => {
 							confirmationController.ReloadConfirmation ();
 							DismissViewController (true, delegate { });

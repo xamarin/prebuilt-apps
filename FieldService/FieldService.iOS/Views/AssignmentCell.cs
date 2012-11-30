@@ -28,6 +28,7 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AssignmentCell : UITableViewCell
 	{
+		readonly AssignmentsController assignmentController;
 		readonly AssignmentViewModel assignmentViewModel;
 		bool loaded = false;
 		NSIndexPath indexPath;
@@ -36,8 +37,8 @@ namespace FieldService.iOS
 
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
-			var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
-			assignmentViewModel = assignmentsController.AssignmentViewModel;
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+			assignmentViewModel = assignmentController.AssignmentViewModel;
 
 			SelectedBackgroundView = new UIImageView { Image = Theme.AssignmentBlue };
 		}
@@ -131,11 +132,8 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
-			var assignmentController = ServiceContainer.Resolve<AssignmentDetailsController>();
 			assignmentController.Assignment = assignment;
-
-			assignmentsController.PerformSegue ("AssignmentDetails", assignmentsController);
+			assignmentController.PerformSegue ("AssignmentDetails", assignmentController);
 
 			var menuController = ServiceContainer.Resolve<MenuController>();
 			menuController.ShowMaps(false);
