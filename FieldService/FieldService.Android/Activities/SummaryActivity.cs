@@ -57,6 +57,7 @@ namespace FieldService.Android {
         {
             var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
             assignmentViewModel = tabActivity.AssignmentViewModel;
+            Assignment = tabActivity.SelectedAssignment;
             itemViewModel = new ItemViewModel ();
             laborViewModel = new LaborViewModel ();
             photoViewModel = new PhotoViewModel ();
@@ -74,12 +75,7 @@ namespace FieldService.Android {
             SetContentView (Resource.Layout.SummaryFragmentLayout);
 
             if (Intent != null) {
-                assignmentIndex = Intent.GetIntExtra (Constants.BundleIndex, -1);
-                if (assignmentIndex != -1) {
-                    Assignment = assignmentViewModel.Assignments [assignmentIndex];
-                } else {
-                    Assignment = assignmentViewModel.ActiveAssignment;
-                }
+
                 navigationIndex = Intent.GetIntExtra (Constants.FragmentIndex, 0);
             }
 

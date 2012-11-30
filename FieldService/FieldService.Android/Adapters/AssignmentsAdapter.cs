@@ -144,7 +144,7 @@ namespace FieldService.Android {
             }
 
             number.Text = assignment.Priority.ToString ();
-            job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.Title);
+            job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.CompanyName);
             name.Text = assignment.ContactName;
             phone.Text = assignment.ContactPhone;
             address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);

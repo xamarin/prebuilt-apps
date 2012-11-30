@@ -74,11 +74,11 @@ namespace FieldService.Android {
             assignmentMapViewLayout = FindViewById<LinearLayout> (Resource.Id.mapViewAssignmentLayout);
             assignmentMapViewLayout.Click += (sender, e) => {
                 var intent = new Intent (this, typeof (SummaryActivity));
-                intent.PutExtra (Constants.BundleIndex, -1);
-                StartActivity (intent);
                 var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
                 tabActivity.MapData = null;
                 tabActivity.AssignmentViewModel = assignmentViewModel;
+                tabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                StartActivity (intent);
             };
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
 
@@ -211,7 +211,7 @@ namespace FieldService.Android {
                 int i = 0;
                 foreach (var item in assignmentViewModel.Assignments) {
                     var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
-                        item.Title, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
+                        item.CompanyName, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
                     Drawable drawable = null;
                     switch (item.Status) {
                         case AssignmentStatus.Hold:
@@ -228,7 +228,7 @@ namespace FieldService.Android {
                 }
                 if (assignmentViewModel.ActiveAssignment != null) {
                     var activeOverlay = new OverlayItem (new GeoPoint (assignmentViewModel.ActiveAssignment.Latitude.ToIntE6 (), assignmentViewModel.ActiveAssignment.Longitude.ToIntE6 ()),
-                        assignmentViewModel.ActiveAssignment.Title, string.Format ("{0} {1}, {2} {3}", assignmentViewModel.ActiveAssignment.Address,
+                        assignmentViewModel.ActiveAssignment.CompanyName, string.Format ("{0} {1}, {2} {3}", assignmentViewModel.ActiveAssignment.Address,
                         assignmentViewModel.ActiveAssignment.City, assignmentViewModel.ActiveAssignment.State, assignmentViewModel.ActiveAssignment.Zip));
                     var mapoverlay = new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), activeOverlay, mapView);
                     mapoverlay.AssignmentIndex = -1;
@@ -317,7 +317,7 @@ namespace FieldService.Android {
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
                 number.Text = assignment.Priority.ToString ();
-                job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.Title);
+                job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.CompanyName);
                 name.Text = assignment.ContactName;
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);

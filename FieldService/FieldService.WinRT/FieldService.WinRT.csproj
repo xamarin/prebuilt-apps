@@ -283,6 +283,9 @@
     <Compile Include="Views\MapTile.xaml.cs">
       <DependentUpon>MapTile.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\SignatureView.xaml.cs">
+      <DependentUpon>SignatureView.xaml</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
@@ -427,6 +430,10 @@
     <Page Include="Views\MapTile.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SignatureView.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

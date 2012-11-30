@@ -230,7 +230,7 @@ namespace FieldService.Android {
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
                 number.Text = assignment.Priority.ToString ();
-                job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.Title);
+                job.Text = string.Format ("#{0} {1}\n{2}", assignment.JobNumber, assignment.StartDate.ToShortDateString (), assignment.CompanyName);
                 name.Text = assignment.ContactName;
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
@@ -248,11 +248,15 @@ namespace FieldService.Android {
         private void AssignmentSelected (int index)
         {
             var intent = new Intent (this, typeof (SummaryActivity));
-            intent.PutExtra (Constants.BundleIndex, index);
-            StartActivity (intent);
             var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
             activity.MapData = null;
             activity.AssignmentViewModel = assignmentViewModel;
+            if (index != -1) {
+                activity.SelectedAssignment = assignmentViewModel.Assignments [index];
+            } else {
+                activity.SelectedAssignment =  assignmentViewModel.ActiveAssignment;
+            }
+            StartActivity (intent);
         }
     }
 }

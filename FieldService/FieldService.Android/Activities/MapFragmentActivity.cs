@@ -97,7 +97,7 @@ namespace FieldService.Android {
             base.OnResume ();
             myLocation.EnableMyLocation ();
             if (assignment != null) {
-                var overlayItem = new OverlayItem (new GeoPoint (assignment.Latitude.ToIntE6 (), assignment.Longitude.ToIntE6 ()), assignment.Title,
+                var overlayItem = new OverlayItem (new GeoPoint (assignment.Latitude.ToIntE6 (), assignment.Longitude.ToIntE6 ()), assignment.CompanyName,
                     string.Format ("{0} {1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip));
                 MapOverlayItem overlay = new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), overlayItem, mapView, true);
                 mapView.Overlays.Add (overlay);
