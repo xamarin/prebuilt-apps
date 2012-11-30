@@ -69,15 +69,17 @@ namespace FieldService.WinRT.ViewModels {
                         AddLaborHeader = "Add Labor";
                         CanDelete = false;
                     }
-                    addLaborPopUp = new Popup ();
-                    addLaborPopUp.Height = Window.Current.Bounds.Height;
-                    addLaborPopUp.Width = Constants.PopUpWidth;
-                    AddLaborFlyoutPanel flyoutpanel = new AddLaborFlyoutPanel ();
-                    flyoutpanel.Width = addLaborPopUp.Width;
-                    flyoutpanel.Height = addLaborPopUp.Height;
-                    addLaborPopUp.Child = flyoutpanel;
-                    addLaborPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
-                    addLaborPopUp.SetValue (Canvas.TopProperty, 0);
+                    if (addLaborPopUp == null) {
+                        addLaborPopUp = new Popup ();
+                        addLaborPopUp.Height = Window.Current.Bounds.Height;
+                        addLaborPopUp.Width = Constants.PopUpWidth;
+                        AddLaborFlyoutPanel flyoutpanel = new AddLaborFlyoutPanel ();
+                        flyoutpanel.Width = addLaborPopUp.Width;
+                        flyoutpanel.Height = addLaborPopUp.Height;
+                        addLaborPopUp.Child = flyoutpanel;
+                        addLaborPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
+                        addLaborPopUp.SetValue (Canvas.TopProperty, 0);
+                    }
                     addLaborPopUp.IsOpen = true;
                 });
         }

@@ -60,9 +60,13 @@ namespace FieldService.WinRT.Views {
         {
         }
 
+        /// <summary>
+        /// Invoked when this page is unloaded.
+        /// </summary>
+        /// <param name="e"></param>
         protected override void OnNavigatedFrom (NavigationEventArgs e)
         {
-            if (expenseViewModel.ExpensePopUp.IsOpen) {
+            if (expenseViewModel.ExpensePopUp != null && expenseViewModel.ExpensePopUp.IsOpen) {
                 expenseViewModel.ExpensePopUp.IsOpen = false;
             }
             base.OnNavigatedFrom (e);
