@@ -63,15 +63,6 @@ namespace FieldService.iOS
 			get { return arrowUp.Value; }
 		}
 
-		static Lazy<UIImage> arrow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/arrow.png"));
-		
-		/// <summary>
-		/// 
-		/// </summary>
-		public static UIImage Arrow {
-			get { return arrow.Value; }
-		}
-
 		static Lazy<UIImage> arrowwhite = new Lazy<UIImage> (() => UIImage.FromFile ("Images/arrowwhite.png"));
 		
 		/// <summary>
@@ -180,7 +171,7 @@ namespace FieldService.iOS
 			get { return decline.Value; }
 		}
 
-		static Lazy<UIImage> dropdown = new Lazy<UIImage> (() => UIImage.FromFile ("Images/dropdown.png").CreateResizableImage (new UIEdgeInsets (6, 39, 6, 6)));
+		static Lazy<UIImage> dropdown = new Lazy<UIImage> (() => UIImage.FromFile ("Images/dropdown.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Drop down button image

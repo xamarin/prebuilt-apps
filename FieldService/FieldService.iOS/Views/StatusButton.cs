@@ -34,9 +34,8 @@ namespace FieldService.iOS
 
 		public StatusButton (IntPtr handle) : base (handle)
 		{
-			var frame = Frame;
-			AddSubview (statusImage = new UIImageView (new RectangleF (12, (frame.Height - 16) / 2, 16, 16)));
-			AddSubview (new UIImageView (new RectangleF (frame.Width - 23, (frame.Height - 7) / 2, 13, 7)) { Image = Theme.Arrow });
+			ContentEdgeInsets = new UIEdgeInsets(0, 38, 0, 0);
+			AddSubview (statusImage = new UIImageView (new RectangleF (12, (Frame.Height - 16) / 2, 16, 16)));
 
 			SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 			SetBackgroundImage (Theme.DropDown, UIControlState.Normal);

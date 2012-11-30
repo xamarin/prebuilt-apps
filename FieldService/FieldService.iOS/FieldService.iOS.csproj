@@ -359,8 +359,6 @@
     <Content Include="Images\arrow_down%402x.png" />
     <Content Include="Images\arrow_up.png" />
     <Content Include="Images\arrow_up%402x.png" />
-    <Content Include="Images\arrow.png" />
-    <Content Include="Images\arrow%402x.png" />
     <Content Include="Images\arrowwhite.png" />
     <Content Include="Images\arrowwhite%402x.png" />
     <Content Include="Images\assignmentactive.png" />

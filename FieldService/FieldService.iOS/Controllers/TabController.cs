@@ -35,6 +35,7 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			TabBar.TintColor = UIColor.FromRGB (0x28, 0x2b, 0x30);
 			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 		}
 

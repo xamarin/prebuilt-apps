@@ -53,9 +53,7 @@ namespace FieldService.iOS
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
 			accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
-			accept.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 			decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
-			decline.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 			lastChildController =
 				summaryController = ServiceContainer.Resolve <SummaryController>();
 
