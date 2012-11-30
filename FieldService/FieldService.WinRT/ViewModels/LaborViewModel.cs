@@ -35,7 +35,9 @@ namespace FieldService.WinRT.ViewModels {
         readonly DelegateCommand cancelAddLaborCommand, saveAddLaborCommand, deleteAddLaborCommand, addLaborCommand;
         Popup addLaborPopUp;
         Labor selectedLabor;
-        string currentLaborHours = string.Empty;
+        bool canDelete = false;
+        string currentLaborHours = string.Empty, 
+            addLaborHeader = "Add Labor";
         LaborType [] laborTypes = new LaborType [] { LaborType.Hourly, LaborType.OverTime, LaborType.HolidayTime };
 
         public LaborViewModel ()
@@ -58,10 +60,15 @@ namespace FieldService.WinRT.ViewModels {
             });
             addLaborCommand = new DelegateCommand (obj => {
                     var labor = obj as Labor;
-                    if (labor != null)
+                    if (labor != null) {
                         SelectedLabor = labor;
-                    else
+                        AddLaborHeader = "Labor";
+                        CanDelete = true;
+                    } else {
                         SelectedLabor = new Labor ();
+                        AddLaborHeader = "Add Labor";
+                        CanDelete = false;
+                    }
                     addLaborPopUp = new Popup ();
                     addLaborPopUp.Height = Window.Current.Bounds.Height;
                     addLaborPopUp.Width = Constants.PopUpWidth;
@@ -87,6 +94,24 @@ namespace FieldService.WinRT.ViewModels {
 
                 return LaborHours.Take (5);
             }
+        }
+
+        /// <summary>
+        /// header for add labor
+        /// </summary>
+        public string AddLaborHeader
+        {
+            get { return addLaborHeader; }
+            set { addLaborHeader = value; OnPropertyChanged ("AddLaborHeader"); }
+        }
+
+        /// <summary>
+        /// bool value for delete visibilty
+        /// </summary>
+        public bool CanDelete
+        {
+            get { return canDelete; }
+            set { canDelete = value; OnPropertyChanged ("CanDelete"); }
         }
 
         /// <summary>

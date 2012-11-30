@@ -54,7 +54,6 @@
                             <DataTemplate>
                                 <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">
                                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
-                                        <CheckBox Command="{Binding DataContext.SaveAssignmentItemCommand, ElementName=itemsListView}" CommandParameter="{Binding}" IsChecked="{Binding Used, Mode=TwoWay}" Margin="10,0,25,0" VerticalAlignment="Center" />
                                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Text="#" VerticalAlignment="Center" />
                                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Text="{Binding Number}" VerticalAlignment="Center" />
                                         <TextBlock Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding Name}" VerticalAlignment="Center" />
@@ -68,7 +67,7 @@
                         Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482"
                         Background="{StaticResource ItemsBrush}" Height="75" Padding="0"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddItemCommand}">
-                        <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Items" VerticalAlignment="Center" />
+                        <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Item" VerticalAlignment="Center" />
                     </Button>
                 </Grid>
 
