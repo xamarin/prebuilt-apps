@@ -493,5 +493,11 @@
     <Content Include="Images\complete_inactive%402x.png" />
     <Content Include="Images\bg_left.png" />
     <Content Include="Images\bg_left%402x.png" />
+    <Content Include="Images\dot.png" />
+    <Content Include="Images\dot%402x.png" />
+    <Content Include="Images\listicon.png" />
+    <Content Include="Images\listicon%402x.png" />
+    <Content Include="Images\mapicon.png" />
+    <Content Include="Images\mapicon%402x.png" />
   </ItemGroup>
 </Project>

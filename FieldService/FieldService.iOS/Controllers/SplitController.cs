@@ -25,7 +25,6 @@ namespace FieldService.iOS
 	[Register("SplitController")]
 	public partial class SplitController : BaseController
 	{
-		private UIPopoverController popover;
 		private UIBarButtonItem menu, hide;
 		private bool wasLandscape = true, masterPopoverShown = false;
 		private const float masterWidth = 321;
