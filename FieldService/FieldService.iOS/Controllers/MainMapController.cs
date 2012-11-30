@@ -34,6 +34,8 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
+			TabBarItem.Image = Theme.MapIcon;
+
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 

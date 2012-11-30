@@ -34,6 +34,8 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
+			TabBarItem.Image = Theme.ListIcon;
+
 			AssignmentViewModel = new AssignmentViewModel();
 			AssignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {
