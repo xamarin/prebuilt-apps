@@ -66,15 +66,17 @@ namespace FieldService.WinRT.ViewModels {
             cancelAddSignatureCommand = new DelegateCommand (_ => { addSignaturePopup.IsOpen = false; });
 
             addSignatureCommand = new DelegateCommand (_ => {
-                addSignaturePopup = new Popup ();
-                addSignaturePopup.Height = Window.Current.Bounds.Height;
-                addSignaturePopup.Width = popUpWidth;
-                AddSignatureFlyoutPanel flyoutpanel = new AddSignatureFlyoutPanel ();
-                flyoutpanel.Width = addSignaturePopup.Width;
-                flyoutpanel.Height = addSignaturePopup.Height;
-                addSignaturePopup.Child = flyoutpanel;
-                addSignaturePopup.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
-                addSignaturePopup.SetValue (Canvas.TopProperty, 0);
+                if (addSignaturePopup == null) {
+                    addSignaturePopup = new Popup ();
+                    addSignaturePopup.Height = Window.Current.Bounds.Height;
+                    addSignaturePopup.Width = popUpWidth;
+                    AddSignatureFlyoutPanel flyoutpanel = new AddSignatureFlyoutPanel ();
+                    flyoutpanel.Width = addSignaturePopup.Width;
+                    flyoutpanel.Height = addSignaturePopup.Height;
+                    addSignaturePopup.Child = flyoutpanel;
+                    addSignaturePopup.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
+                    addSignaturePopup.SetValue (Canvas.TopProperty, 0);
+                }
                 addSignaturePopup.IsOpen = true;
             });
         }
