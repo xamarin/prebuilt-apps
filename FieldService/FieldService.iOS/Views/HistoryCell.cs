@@ -20,6 +20,9 @@ using FieldService.Data;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// History table view cell
+	/// </summary>
 	public partial class HistoryCell : UITableViewCell
 	{
 		bool loaded = false;
@@ -30,6 +33,9 @@ namespace FieldService.iOS
 			SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
 		}
 
+		/// <summary>
+		/// Sets up the history record for this cell
+		/// </summary>
 		public void SetHistory (AssignmentHistory history)
 		{
 			//Any 1-time settings

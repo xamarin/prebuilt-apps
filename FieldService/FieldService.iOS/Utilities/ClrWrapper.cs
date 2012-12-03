@@ -30,13 +30,22 @@ namespace FieldService.iOS
 		public object Value { get; private set; }
 	}
 
+	/// <summary>
+	/// Extension methods for use in conjunction with ClrWrapper
+	/// </summary>
 	public static class ClrWrapperExtensions
 	{
+		/// <summary>
+		/// Wraps the CLR object for use as an NSObject
+		/// </summary>
 		public static ClrWrapper WrapObject(this object value)
 		{
 			return new ClrWrapper(value);
 		}
 
+		/// <summary>
+		/// Unwraps a ClrWrapper to return the underlying CLR object
+		/// </summary>
 		public static T UnwrapObject<T>(this NSObject obj)
 		{
 			return (T)((ClrWrapper)obj).Value;

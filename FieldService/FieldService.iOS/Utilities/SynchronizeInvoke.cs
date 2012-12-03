@@ -55,7 +55,8 @@ namespace FieldService.iOS
 		public IAsyncResult BeginInvoke (Delegate method, object [] args)
 		{
 			var result = new AsyncResult ();
-			
+
+			//Uses NSObject.BeginInvokeOnMainThread
 			BeginInvokeOnMainThread (() => {
 				result.AsyncWaitHandle = new ManualResetEvent (false);
 				result.AsyncState = method.DynamicInvoke (args);
@@ -76,6 +77,7 @@ namespace FieldService.iOS
 		
 		public object Invoke (Delegate method, object [] args)
 		{
+			//Uses NSObject.InvokeOnMainThread
 			object result = null;
 			InvokeOnMainThread (() => result = method.DynamicInvoke (args));
 			return result;

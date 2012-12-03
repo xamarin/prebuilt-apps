@@ -316,10 +316,6 @@
     <Compile Include="..\FieldService\Data\ExpensePhoto.cs">
       <Link>FieldService\Data\ExpensePhoto.cs</Link>
     </Compile>
-    <Compile Include="Controllers\MainNavigationController.cs" />
-    <Compile Include="Controllers\MainNavigationController.designer.cs">
-      <DependentUpon>MainNavigationController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Controllers\SplitController.cs" />
     <Compile Include="Controllers\SplitController.designer.cs">
       <DependentUpon>SplitController.cs</DependentUpon>
@@ -334,6 +330,10 @@
       <DependentUpon>MainMapController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\LaborTypeTextField.cs" />
+    <Compile Include="Controllers\BaseNavigationController.designer.cs">
+      <DependentUpon>BaseNavigationController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\BaseNavigationController.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

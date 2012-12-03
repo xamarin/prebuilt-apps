@@ -4,10 +4,10 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
     <scenes>
-        <!--Main Navigation Controller - Map-->
+        <!--Base Navigation Controller - Map-->
         <scene sceneID="OE4-qi-bDt">
             <objects>
-                <navigationController definesPresentationContext="YES" id="cpx-ha-60G" customClass="MainNavigationController" sceneMemberID="viewController">
+                <navigationController definesPresentationContext="YES" id="cpx-ha-60G" customClass="BaseNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" id="jeg-P0-MiI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bKN-Jq-4Aj">
                         <autoresizingMask key="autoresizingMask"/>
@@ -101,10 +101,10 @@
             </objects>
             <point key="canvasLocation" x="-1057" y="-528"/>
         </scene>
-        <!--Main Navigation Controller - List-->
+        <!--Base Navigation Controller - List-->
         <scene sceneID="Z9H-Rg-QoZ">
             <objects>
-                <navigationController storyboardIdentifier="" definesPresentationContext="YES" id="EDL-vm-W03" customClass="MainNavigationController" sceneMemberID="viewController">
+                <navigationController storyboardIdentifier="" definesPresentationContext="YES" id="EDL-vm-W03" customClass="BaseNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="List" id="FXC-ng-6cd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="VAd-0r-CKq">
                         <autoresizingMask key="autoresizingMask"/>
@@ -1906,9 +1906,6 @@
             <relationships>
                 <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
             </relationships>
-        </class>
-        <class className="MainNavigationController" superclassName="UINavigationController">
-            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainNavigationController.h"/>
         </class>
         <class className="MenuController" superclassName="UIViewController">
             <source key="sourceIdentifier" type="project" relativePath="./Classes/MenuController.h"/>

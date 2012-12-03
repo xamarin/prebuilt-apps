@@ -21,6 +21,9 @@ namespace FieldService.iOS
 	/// </summary>
 	public interface ISearchSource
 	{
+		/// <summary>
+		/// Gets or sets the search text the user entered
+		/// </summary>
 		string SearchText
 		{
 			get;

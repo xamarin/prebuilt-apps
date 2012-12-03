@@ -8,8 +8,8 @@ using MonoTouch.Foundation;
 
 namespace FieldService.iOS
 {
-	[Register ("MainNavigationController")]
-	partial class MainNavigationController
+	[Register ("BaseNavigationController")]
+	partial class BaseNavigationController
 	{
 		
 		void ReleaseDesignerOutlets ()

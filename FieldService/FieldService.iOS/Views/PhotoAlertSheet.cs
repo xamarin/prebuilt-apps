@@ -68,11 +68,17 @@ namespace FieldService.iOS
 			};
 		}
 
+		/// <summary>
+		/// Gets or sets the size to scale the image to, SizeF.Zero turns off sizing
+		/// </summary>
 		public SizeF DesiredSize {
 			get;
 			set;
 		}
 
+		/// <summary>
+		/// Gets or sets the callback for when an image is selected and resized
+		/// </summary>
 		public Action<UIImage> Callback {
 			get;
 			set;
@@ -100,7 +106,8 @@ namespace FieldService.iOS
 						{
 							scale = DesiredSize.Width / image.Size.Width;
 						}
-						
+
+						//Scale the image
 						var newSize = image.Size;
 						newSize.Width *= scale;
 						newSize.Height *= scale;

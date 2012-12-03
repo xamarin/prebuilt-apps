@@ -17,6 +17,9 @@ using MonoTouch.UIKit;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// A really simple UISearchDisplayDelegate that could be used throughout the app on multiple UITableViews
+	/// </summary>
 	public class SearchDisplay : UISearchDisplayDelegate
 	{
 		private readonly UITableView tableView;
@@ -27,7 +30,10 @@ namespace FieldService.iOS
 			this.tableView = tableView;
 			this.dataSource = dataSource;
 		}
-		
+
+		/// <summary>
+		/// Sets ISearchSource.SearchText and reloads the UITableView
+		/// </summary>
 		public override bool ShouldReloadForSearchString (UISearchDisplayController controller, string forSearchString)
 		{
 			dataSource.SearchText = forSearchString.ToLower ();

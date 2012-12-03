@@ -32,6 +32,7 @@ namespace FieldService.iOS
 		{
 			assignmentViewModel = new AssignmentViewModel();
 
+			//Loop through the list of statuses you can change an assignment to
 			foreach (AssignmentStatus status in assignmentViewModel.AvailableStatuses) {
 				AddButton (status.ToString ());
 			}
