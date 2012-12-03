@@ -7,7 +7,6 @@
         <!--Main Navigation Controller - Map-->
         <scene sceneID="OE4-qi-bDt">
             <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="lO3-Uo-pnk" userLabel="First Responder" sceneMemberID="firstResponder"/>
                 <navigationController definesPresentationContext="YES" id="cpx-ha-60G" customClass="MainNavigationController" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Map" id="jeg-P0-MiI"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="bKN-Jq-4Aj">
@@ -17,6 +16,7 @@
                         <segue destination="sDR-b9-ZCZ" kind="relationship" relationship="rootViewController" id="LSn-ga-tie"/>
                     </connections>
                 </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="lO3-Uo-pnk" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-71" y="-1332"/>
         </scene>
@@ -1296,7 +1296,7 @@
                                                         <action selector="AddSignature" destination="Gfk-lW-8LA" eventType="touchUpInside" id="0l8-K6-fwo"/>
                                                     </connections>
                                                 </button>
-                                                <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="75G-VY-ZNf">
+                                                <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="75G-VY-ZNf">
                                                     <rect key="frame" x="7" y="6" width="309" height="78"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>

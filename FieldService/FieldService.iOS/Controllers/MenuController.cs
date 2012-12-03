@@ -19,6 +19,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.Data;
 
 namespace FieldService.iOS
 {
@@ -28,15 +29,15 @@ namespace FieldService.iOS
 	public partial class MenuController : UIViewController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
+		readonly AssignmentsController assignmentController;
 		readonly AssignmentDetailsController detailsController;
 
 		public MenuController (IntPtr handle) : base (handle)
 		{
 			ServiceContainer.Register (this);
 
-			var assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
-
-			assignmentViewModel = assignmentsController.AssignmentViewModel;
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+			assignmentViewModel = assignmentController.AssignmentViewModel;
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 
 			assignmentViewModel.HoursChanged += (sender, e) => {
@@ -104,7 +105,7 @@ namespace FieldService.iOS
 		public void UpdateAssignment()
 		{
 			if (IsViewLoaded) {
-				if (assignmentViewModel.ActiveAssignment != null && assignmentViewModel.ActiveAssignment.Status == FieldService.Data.AssignmentStatus.Active) {
+				if (assignmentController.Assignment.Status == AssignmentStatus.Active) {
 					status.Assignment = assignmentViewModel.ActiveAssignment;
 					timerView.Hidden = false;
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
