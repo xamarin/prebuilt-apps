@@ -39,7 +39,7 @@ namespace FieldService.iOS
 		{
 			type.Text = labor.TypeAsString;
 			description.Text = labor.Description;
-			hours.Text = labor.Hours.TotalHours.ToString ("0.0");
+			hours.Text = labor.Hours.ToString (@"hh\:mm\:ss");
 
 			type.TextColor =
 				description.TextColor =
