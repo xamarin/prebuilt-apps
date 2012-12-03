@@ -35,15 +35,7 @@ using Uri = Android.Net.Uri;
 namespace FieldService.Android.Fragments {
     public class DocumentFragment : Fragment {
         ListView documentListView;
-        DocumentViewModel documentViewModel;
         File file;
-
-        public override void OnCreate (Bundle savedInstanceState)
-        {
-            base.OnCreate (savedInstanceState);
-
-            documentViewModel = new DocumentViewModel ();
-        }
 
         public List<Document> Documents
         {

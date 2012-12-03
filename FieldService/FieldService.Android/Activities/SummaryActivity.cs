@@ -36,7 +36,6 @@ namespace FieldService.Android {
     /// </summary>
     [Activity (Label = "Summary", Theme = "@android:style/Theme.Holo")]
     public class SummaryActivity : Activity, PopupMenu.IOnMenuItemClickListener {
-        readonly AssignmentViewModel assignmentViewModel;
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
         readonly PhotoViewModel photoViewModel;
@@ -56,7 +55,6 @@ namespace FieldService.Android {
         public SummaryActivity ()
         {
             var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-            assignmentViewModel = tabActivity.AssignmentViewModel;
             Assignment = tabActivity.SelectedAssignment;
             itemViewModel = new ItemViewModel ();
             laborViewModel = new LaborViewModel ();

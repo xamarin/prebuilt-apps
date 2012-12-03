@@ -37,8 +37,7 @@ namespace FieldService.Android {
         ListView assignmentsListView;
         LinearLayout assignmentActiveLayout,
             buttonLayout,
-            timerLayout,
-            timerLinearLayout;
+            timerLayout;
         RelativeLayout mapButton,
             phoneButton;
         ToggleButton timer;
@@ -85,7 +84,6 @@ namespace FieldService.Android {
             address = view.FindViewById<TextView> (Resource.Id.assignmentAddress);
             buttonLayout = view.FindViewById<LinearLayout> (Resource.Id.assignmentButtonLayout);
             timerLayout = view.FindViewById<LinearLayout> (Resource.Id.assignmentTimerLayout);
-            timerLinearLayout = view.FindViewById<LinearLayout> (Resource.Id.timerLinearLayout);
             activeSpinner = view.FindViewById<Spinner> (Resource.Id.assignmentStatus);
             spinnerImage = view.FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
             timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);

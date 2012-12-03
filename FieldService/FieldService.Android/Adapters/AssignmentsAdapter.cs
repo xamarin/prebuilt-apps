@@ -71,8 +71,6 @@ namespace FieldService.Android {
             var timerlinearLayout = view.FindViewById<LinearLayout> (Resource.Id.timerLinearLayout);
             var spinner = view.FindViewById<Spinner> (Resource.Id.assignmentStatus);
             var spinnerImage = view.FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
-            var timer = view.FindViewById<ToggleButton> (Resource.Id.assignmentTimer);
-            var timerText = view.FindViewById<TextView> (Resource.Id.assignmentTimerText);
             var accept = view.FindViewById<Button> (Resource.Id.assignmentAccept);
             var decline = view.FindViewById<Button> (Resource.Id.assignmentDecline);
             var phoneButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentPhoneLayout);
@@ -196,9 +194,7 @@ namespace FieldService.Android {
                     }
                     break;
                 case Resource.Id.assignmentAddressLayout: {
-                        var position = (int)v.Tag;
                         var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-                        var activeAssignment = GetItem (position);
                         activity.TabHost.CurrentTab = 1;
                     }
                     break;

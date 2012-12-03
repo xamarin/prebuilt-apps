@@ -94,7 +94,7 @@ namespace FieldService.Android.Fragments {
 
             historyListView.ItemClick += (sender, e) => {
                 //load the history item as the selected assignment
-                var history = historySearchAdapter.GetAssignmentHistory (e.Position);
+                //var history = historySearchAdapter.GetAssignmentHistory (e.Position);
                 //set history and then go to summary for history
             };
 
