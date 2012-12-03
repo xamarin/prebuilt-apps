@@ -99,7 +99,10 @@ namespace FieldService.ViewModels {
         /// </summary>
         private void CalculateExpenses (Assignment assignment)
         {
-            assignment.TotalExpenses = expenses.Sum (e => e.Cost);
+            if (expenses == null)
+                assignment.TotalExpenses = 0;
+            else
+                assignment.TotalExpenses = expenses.Sum (e => e.Cost);
         }
     }
 }
