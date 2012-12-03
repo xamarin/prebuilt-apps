@@ -23,7 +23,7 @@
         </StackPanel>
         <StackPanel Orientation="Horizontal" Background="{StaticResource LightGreyBackgroundBrush}" Grid.Row="1">
             <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="30,0,0,0" VerticalAlignment="Center"
-                     BorderThickness="2" BorderBrush="Gray" Width="300" Text="{Binding SearchText, Mode=TwoWay}"/>
+                     BorderThickness="2" BorderBrush="Gray" Width="300" x:Name="itemSearchText"/>
             <Button BorderThickness="2" Width="93" BorderBrush="Gray"
             	Background="{StaticResource GreyBackgroundBrush}" Command="{Binding SearchItemsCommand}"
             	HorizontalAlignment="Right" VerticalAlignment="Center" Margin="20,0,0,0">
@@ -34,11 +34,7 @@
             Grid.Row="2" ItemsSource="{Binding SearchItems}" 
             HorizontalContentAlignment="Stretch" SelectionMode="None" ItemClick="OnItemClick" IsItemClickEnabled="True"
             ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
-            <ListView.ItemsPanel>
-                <ItemsPanelTemplate>
-                    <WrapGrid Orientation="Vertical" />
-                </ItemsPanelTemplate>
-            </ListView.ItemsPanel>
+
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderThickness="1" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}" Height="75" Width="474">

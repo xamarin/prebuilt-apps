@@ -46,6 +46,10 @@ namespace FieldService.WinRT.Views {
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
 
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+
+            itemSearchText.TextChanged += (sender, e) => {
+                itemViewModel.SearchText = itemSearchText.Text;
+                };
         }
 
         /// <summary>
@@ -75,6 +79,7 @@ namespace FieldService.WinRT.Views {
         {
             if (e.Key == Windows.System.VirtualKey.Enter) {
                 itemViewModel.SearchItemsCommand.Invoke ();
+                e.Handled = true;
             }
             base.OnKeyDown (e);
         }

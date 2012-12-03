@@ -53,7 +53,7 @@ namespace FieldService.WinRT.ViewModels {
                 await LoadItemsAsync ();
                 var items = new List<Item> ();
                 foreach (var item in Items) {
-                    if (item.Name.ToLower ().StartsWith (SearchText) || item.Number.ToLower ().StartsWith (SearchText)) {
+                    if (item.Name.ToLower ().StartsWith (SearchText.ToLower()) || item.Number.ToLower ().StartsWith (SearchText.ToLower())) {
                         items.Add (item);
                     }
                 }
@@ -83,7 +83,7 @@ namespace FieldService.WinRT.ViewModels {
         }
 
         /// <summary>
-        /// Flyout panel for adding an item
+        /// Flyout anel for adding an item
         /// </summary>
         public Popup ItemPopUp
         {
