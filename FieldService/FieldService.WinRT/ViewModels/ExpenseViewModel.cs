@@ -37,10 +37,12 @@ namespace FieldService.WinRT.ViewModels {
                     SelectedExpense = expense;
                     CanDelete = true;
                     AddExpenseHeader = "Expense";
+                    LoadPhotoAsync (expense);
                 } else {
                     SelectedExpense = new Expense ();
                     CanDelete = false;
                     AddExpenseHeader = "Add Expense";
+                    Photo = new ExpensePhoto ();
                 }
                 if (addExpensePopUp == null) {
                     addExpensePopUp = new Popup ();
@@ -59,6 +61,7 @@ namespace FieldService.WinRT.ViewModels {
             saveExpenseCommand = new DelegateCommand (async _ => {
                 selectedExpense.Cost = ExpenseCost.ToDecimal (CultureInfo.InvariantCulture);
                 selectedExpense.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
+                await SavePhotoAsync ();
                 await SaveExpenseAsync (assignmentViewModel.SelectedAssignment, selectedExpense);
                 await LoadExpensesAsync (assignmentViewModel.SelectedAssignment);
                 addExpensePopUp.IsOpen = false;
@@ -91,13 +94,12 @@ namespace FieldService.WinRT.ViewModels {
                     };
                     try {
                         var mediaFile = await picker.TakePhotoAsync (options);
-                        
-                        await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
-                            if (Photo == null)
-                                Photo = new ExpensePhoto { ExpenseId = SelectedExpense.Id };
-                            Photo.Image = t.Result;
-                        });
-                        OnPropertyChanged ("SelectedExpense");
+
+                        var photo = await mediaFile.GetStream ().LoadBytes ();
+                        if (Photo == null)
+                            Photo = new ExpensePhoto { ExpenseId = SelectedExpense.Id };
+                        Photo.Image = photo;
+                        OnPropertyChanged ("Photo");
                     } catch (Exception exc) {
                         Debug.WriteLine (exc.Message);
                         //this could happen if they cancel, etc.
@@ -106,12 +108,11 @@ namespace FieldService.WinRT.ViewModels {
                     try {
                         var mediaFile = await picker.PickPhotoAsync ();
 
-                        await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
-                            if (Photo == null)
-                                Photo = new ExpensePhoto { ExpenseId = SelectedExpense.Id };
-                            Photo.Image = t.Result;
-                        });
-                        OnPropertyChanged ("SelectedExpense");
+                        var photo = await mediaFile.GetStream ().LoadBytes ();
+                        if (Photo == null)
+                            Photo = new ExpensePhoto { ExpenseId = SelectedExpense.Id };
+                        Photo.Image = photo;
+                        OnPropertyChanged ("Photo");
                     } catch (Exception exc) {
                         Debug.WriteLine (exc.Message);
                         //this could happen if they cancel, etc.

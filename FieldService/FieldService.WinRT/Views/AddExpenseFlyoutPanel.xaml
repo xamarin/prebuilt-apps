@@ -55,6 +55,6 @@
             <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="0 5,30,30" Height="80"
                      BorderThickness="1" BorderBrush="Gray" Text="{Binding SelectedExpense.Description, Mode=TwoWay}" AcceptsReturn="True"/>
         </StackPanel>
-        <Image Margin="5" Grid.Row="4" Height="418" Stretch="UniformToFill" Source="{Binding SelectedExpense.Photo, Converter={StaticResource PhotoConverter}}" />
+        <Image Margin="5" Grid.Row="4" Height="418" Stretch="UniformToFill" Source="{Binding Photo.Image, Converter={StaticResource PhotoConverter}}" />
     </Grid>
 </UserControl>

@@ -15,8 +15,8 @@
         </Grid.RowDefinitions>
 
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
-            <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" />
-            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.JobNumberFormatted}" />
+            <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" VerticalAlignment="Center" />
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.JobNumberFormatted}" VerticalAlignment="Center"/>
         </StackPanel>
 
         <maps:Map x:Name="map" Grid.Row="1" />

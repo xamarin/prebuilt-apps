@@ -129,7 +129,7 @@ namespace FieldService.WinRT.Views {
             catch (Exception exc)
             {
                 //This means our location was not found
-                ShowError("Could not find location: " + exc.Message);
+                //ShowError("Could not find location: " + exc.Message);
             }
         }
 

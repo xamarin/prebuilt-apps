@@ -191,6 +191,9 @@ namespace FieldService.WinRT.Views {
                 case "documents":
                     Helpers.NavigateTo<DocumentsPage> ();
                     break;
+                case "history":
+                    Helpers.NavigateTo<AssignmentHistoryPage> ();
+                    break;
                 default:
                     await new MessageDialog ("Coming soon!").ShowAsync ();
                     break;

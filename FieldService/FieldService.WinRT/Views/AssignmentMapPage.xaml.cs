@@ -99,16 +99,21 @@ namespace FieldService.WinRT.Views {
         {
             try
             {
+                 var assignment = assignmentViewModel.SelectedAssignment;
                 var position = await locator.GetGeopositionAsync();
+                
                 var location = new Location(position.Coordinate.Latitude, position.Coordinate.Longitude);
 
                 //Set the user's pin
                 MapLayer.SetPosition(userPin, location);
+                var lat = Math.Max (assignment.Latitude, location.Latitude) - Math.Min (assignment.Latitude, location.Latitude);
+                var lon = Math.Max (assignment.Longitude, location.Longitude) - Math.Min (assignment.Longitude, location.Longitude);
+                map.SetView (new Location (lat, lon), 6);                
             }
-            catch (Exception exc)
+            catch (Exception)
             {
                 //This means our location was not found
-                ShowError("Could not find location: " + exc.Message);
+                //ShowError("Could not find location: " + exc.Message);
             }
         }
 
