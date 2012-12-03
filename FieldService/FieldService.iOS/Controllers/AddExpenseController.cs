@@ -138,6 +138,7 @@ namespace FieldService.iOS
 				categoryCell.TextLabel.Text = "Category";
 				categoryCell.AccessoryView = category = new UILabel (new RectangleF(0, 0, 200, 36))
 				{
+					TextColor = Theme.BlueTextColor,
 					TextAlignment = UITextAlignment.Right,
 					BackgroundColor = UIColor.Clear,
 				};
@@ -148,6 +149,7 @@ namespace FieldService.iOS
 				hoursCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				hoursCell.AccessoryView = cost = new UITextField(new RectangleF(0, 0, 200, 36))
 				{
+					TextColor = Theme.BlueTextColor,
 					VerticalAlignment = UIControlContentVerticalAlignment.Center,
 					TextAlignment = UITextAlignment.Right,
 				};
@@ -166,7 +168,7 @@ namespace FieldService.iOS
 				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, 470, 90))
 				{
 					BackgroundColor = UIColor.Clear,
-					TextColor = Theme.LabelColor,
+					TextColor = Theme.BlueTextColor,
 					Placeholder = "Please enter notes here",
 				};
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
