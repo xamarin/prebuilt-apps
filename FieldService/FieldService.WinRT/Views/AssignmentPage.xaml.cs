@@ -85,32 +85,7 @@ namespace FieldService.WinRT.Views {
 
             historyViewModel.LoadHistoryAsync (assignmentViewModel.SelectedAssignment);
         }
-
-        private void OnItemClick (object sender, ItemClickEventArgs e)
-        {
-            AssignmentItem item = e.ClickedItem as AssignmentItem;
-            if (item != null) {
-                item.Used = !item.Used;
-                itemViewModel.SaveAssignmentItemCommand.Invoke (item);
-            }
-        }
-
-        private void OnLaborItemClick (object sender, ItemClickEventArgs e)
-        {
-            var labor = e.ClickedItem as Labor;
-            if (labor != null) {
-                laborViewModel.AddLaborCommand.Invoke (labor);
-            }
-        }
-
-        private void OnExpenseItemClick (object sender, ItemClickEventArgs e)
-        {
-            var expense = e.ClickedItem as Expense;
-            if (expense != null) {
-                expenseViewModel.AddExpenseCommand.Invoke (expense);
-            }
-        }
-
+        
         private async void OnDocumentItemClick (object sender, ItemClickEventArgs e)
         {
             var document = e.ClickedItem as Document;

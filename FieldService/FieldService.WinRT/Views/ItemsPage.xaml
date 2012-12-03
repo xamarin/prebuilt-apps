@@ -42,7 +42,7 @@
                     </Grid>
 
                     <ListView 
-                        x:Name="itemsListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
+                        x:Name="itemsListView" IsItemClickEnabled="True"
                         ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
                         Grid.Row="1" ItemsSource="{Binding AssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
                         <ListView.ItemsPanel>

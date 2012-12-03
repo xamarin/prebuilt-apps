@@ -49,14 +49,5 @@ namespace FieldService.WinRT.Views {
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
         }
-
-        private void OnItemClick (object sender, ItemClickEventArgs e)
-        {
-            AssignmentItem item = e.ClickedItem as AssignmentItem;
-            if (item != null) {
-                item.Used = !item.Used;
-                itemViewModel.SaveAssignmentItemCommand.Invoke (item);
-            }
-        }
     }
 }
