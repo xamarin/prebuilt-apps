@@ -674,7 +674,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public static void SetupControllers(UIStoryboard storyboard)
 		{
-			ServiceContainer.Register<MainNavigationController> (() => (MainNavigationController)storyboard.InstantiateViewController ("MainNavigationController"));
+			ServiceContainer.Register<TabController> (() => (TabController)storyboard.InstantiateViewController ("TabController"));
 			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)storyboard.InstantiateViewController ("AssignmentsController"));
 			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));
 			ServiceContainer.Register<LaborController> (() => (LaborController)storyboard.InstantiateViewController ("LaborController"));

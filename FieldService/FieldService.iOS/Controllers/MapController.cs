@@ -13,12 +13,14 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Linq;
 using System.Text;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.MapKit;
 using FieldService.Data;
 using FieldService.Utilities;
+using MonoTouch.CoreLocation;
 
 namespace FieldService.iOS
 {
@@ -42,7 +44,7 @@ namespace FieldService.iOS
 			//Setup the map view
 			mapView = new MKMapView(View.Frame);
 			mapView.ShowsUserLocation = true;
-			mapView.AutoresizingMask = View.AutoresizingMask;
+			mapView.AutoresizingMask = UIViewAutoresizing.All;
 			mapView.Delegate = new MapViewDelegate();
 
 			View.BackgroundColor = UIColor.Clear;
@@ -53,14 +55,14 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
-			//Load the placemark
+			//Load the placemark and by default zoom into the placemark
 			var placemark = assignmentController.Assignment.ToPlacemark();
 			var span = new MKCoordinateSpan(1, 1);
 			var region = new MKCoordinateRegion(placemark.Coordinate, span);
 
 			mapView.ClearPlacemarks ();
 			mapView.AddPlacemark (placemark);
-			mapView.SetRegion (region, true);
+			mapView.SetRegion (region, false);
 		}
 
 		/// <summary>
@@ -96,6 +98,29 @@ namespace FieldService.iOS
 						annotationView.Annotation = annotation;
 					}
 					return annotationView;
+				}
+			}
+
+			/// <summary>
+			/// Callback for when the user's location is found, we want to zoom in when this happens
+			/// </summary>
+			public override void DidUpdateUserLocation (MKMapView mapView, MKUserLocation userLocation)
+			{
+				var placemark = mapView.Annotations.OfType<MKPlacemark>().FirstOrDefault ();
+				if (placemark != null)
+				{
+					//Calculate the mid point between 2 locations
+					double latitude = Math.Min (userLocation.Coordinate.Latitude, placemark.Coordinate.Latitude) +
+						Math.Abs (userLocation.Coordinate.Latitude - placemark.Coordinate.Latitude) / 2;
+					double longitude = Math.Min (userLocation.Coordinate.Longitude, placemark.Coordinate.Longitude) +
+						Math.Abs (userLocation.Coordinate.Longitude - placemark.Coordinate.Longitude) / 2;
+					var midPoint = new CLLocationCoordinate2D(latitude, longitude);
+
+					//Display the distance between the points (and multiple by 1.05 to get space on the edges)
+					var distance = userLocation.Location.DistanceFrom (placemark.Location) * 1.05;
+					var region = MKCoordinateRegion.FromDistance (midPoint, distance, distance);
+
+					mapView.SetRegion (region, true);
 				}
 			}
 

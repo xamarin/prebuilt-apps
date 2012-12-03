@@ -29,6 +29,19 @@ namespace FieldService.iOS
 		public TabController (IntPtr handle) : base (handle)
 		{
 			Title = "Assignments";
+
+			//Hook up a "fade" animation between tabs
+			ShouldSelectViewController = (tabController, controller) =>
+			{
+				if (SelectedViewController == null)
+					return true;
+
+				UIView fromView = SelectedViewController.View;
+				UIView toView = controller.View;
+
+				UIView.Transition (fromView, toView, .3f, UIViewAnimationOptions.TransitionCrossDissolve, delegate { });
+				return true;
+			};
 		}
 
 		public override void ViewDidLoad ()

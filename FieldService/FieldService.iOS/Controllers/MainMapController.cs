@@ -44,7 +44,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//Setup mapView
-			mapView.Delegate = new MapViewDelegate(assignmentController);
+			mapView.Delegate = new MapViewDelegate(this, assignmentController);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -76,14 +76,13 @@ namespace FieldService.iOS
 		private class MapViewDelegate : MKMapViewDelegate
 		{
 			const string Identifier = "AssignmentAnnotation";
+			readonly MainMapController mapController;
 			readonly AssignmentsController assignmentController;
-			readonly UIPopoverController popoverController;
 			
-			public MapViewDelegate (AssignmentsController assignmentController)
+			public MapViewDelegate (MainMapController mapController, AssignmentsController assignmentController)
 			{
+				this.mapController = mapController;
 				this.assignmentController = assignmentController;
-				popoverController = new UIPopoverController(new UIViewController());
-				popoverController.PopoverContentSize = new System.Drawing.SizeF(100, 100);
 			}
 			
 			/// <summary>
@@ -114,7 +113,7 @@ namespace FieldService.iOS
 			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
 			{
 				assignmentController.Assignment = GetAssignment (view.Annotation as MKPlacemark);
-				assignmentController.PerformSegue ("AssignmentDetails", assignmentController);
+				mapController.PerformSegue ("AssignmentDetails", mapController);
 			}
 			
 			/// <summary>

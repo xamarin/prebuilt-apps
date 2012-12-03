@@ -108,7 +108,7 @@ namespace FieldService.iOS
 			username.ResignFirstResponder ();
 			password.ResignFirstResponder ();
 			
-			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => Theme.TransitionController<MainNavigationController>());
+			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => Theme.TransitionController<TabController>());
 		}
 
 		protected override void OnKeyboardChanged (bool visible, float height)
