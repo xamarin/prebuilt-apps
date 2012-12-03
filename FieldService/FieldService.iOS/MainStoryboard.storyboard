@@ -1432,7 +1432,7 @@
                                 <rect key="frame" x="20" y="120" width="500" height="436"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="1KW-FD-Kui">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" id="1KW-FD-Kui">
                                 <rect key="frame" x="32" y="130" width="475" height="410"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                             </imageView>

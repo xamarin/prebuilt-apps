@@ -68,7 +68,12 @@ namespace FieldService.iOS
 			};
 		}
 
-		public Action<byte[]> Callback {
+		public SizeF DesiredSize {
+			get;
+			set;
+		}
+
+		public Action<UIImage> Callback {
 			get;
 			set;
 		}
@@ -79,9 +84,30 @@ namespace FieldService.iOS
 		private void SetImage(Stream stream)
 		{
 			using (stream) {
-				byte[] buffer = new byte[stream.Length];
-				stream.Read (buffer, 0, buffer.Length);
-				BeginInvokeOnMainThread (() => Callback(buffer));
+				using (var data = NSData.FromStream (stream)) {
+					var image = UIImage.LoadFromData (data);
+					//Check if we should scale anything or not
+					if (DesiredSize.Width == 0 || DesiredSize.Height == 0 || (image.Size.Width < DesiredSize.Width && image.Size.Height < DesiredSize.Height)) {
+						BeginInvokeOnMainThread (() => Callback(image));
+					} else {
+						//Some math to scale the image to the DesiredSize
+						float scale = 1;
+						if (image.Size.Width / image.Size.Height < DesiredSize.Width / DesiredSize.Height)
+						{
+							scale = DesiredSize.Height / image.Size.Height;
+						}
+						else
+						{
+							scale = DesiredSize.Width / image.Size.Width;
+						}
+						
+						var newSize = image.Size;
+						newSize.Width *= scale;
+						newSize.Height *= scale;
+						
+						BeginInvokeOnMainThread (() => Callback(image.Scale (newSize)));
+					}
+				}
 			}
 		}
 	}
