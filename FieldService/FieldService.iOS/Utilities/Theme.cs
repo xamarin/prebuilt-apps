@@ -562,6 +562,15 @@ namespace FieldService.iOS
 			get { return labelColor.Value; }
 		}
 
+		static Lazy<UIColor> blueTextColor = new Lazy<UIColor> (() => UIColor.FromRGB (0.22f, 0.33f, 0.53f));
+		
+		/// <summary>
+		/// Default blue text color for editable text - same as seen in Settings app
+		/// </summary>
+		public static UIColor BlueTextColor {
+			get { return blueTextColor.Value; }
+		}
+
 		static Lazy<UIColor> indicatorColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x77, 0x77, 0x77));
 
 		/// <summary>
@@ -569,15 +578,6 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIColor IndicatorColor {
 			get { return indicatorColor.Value; }
-		}
-
-		static Lazy<UIColor> segmentedTintColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x18, 0xa0, 0xd2));
-		
-		/// <summary>
-		/// Tint color for UISegmentedControl
-		/// </summary>
-		public static UIColor SegmentedTintColor {
-			get { return segmentedTintColor.Value; }
 		}
 
 		static Lazy<UIColor> linenPattern = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/linenpattern.png")));
@@ -626,8 +626,6 @@ namespace FieldService.iOS
 			UIActivityIndicatorView.Appearance.Color = IndicatorColor;
 
 			UIToolbar.Appearance.SetBackgroundImage (BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
-
-			UISegmentedControl.Appearance.TintColor = SegmentedTintColor;
 
 			UIBarButtonItem.Appearance.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
 		}

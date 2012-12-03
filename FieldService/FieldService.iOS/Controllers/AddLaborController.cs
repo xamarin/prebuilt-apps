@@ -131,6 +131,7 @@ namespace FieldService.iOS
 				typeCell.AccessoryView = type = new UILabel (new RectangleF(0, 0, 200, 36))
 				{
 					TextAlignment = UITextAlignment.Right,
+					TextColor = Theme.BlueTextColor,
 					BackgroundColor = UIColor.Clear,
 				};
 				typeCell.SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -145,7 +146,7 @@ namespace FieldService.iOS
 				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, 470, 400))
 				{
 					BackgroundColor = UIColor.Clear,
-					TextColor = Theme.LabelColor,
+					TextColor = Theme.BlueTextColor,
 					Placeholder = "Please enter notes here",
 				};
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;

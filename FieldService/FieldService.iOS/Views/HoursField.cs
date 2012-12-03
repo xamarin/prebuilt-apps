@@ -119,7 +119,7 @@ namespace FieldService.iOS
 			{
 				TextAlignment = UITextAlignment.Right,
 				VerticalAlignment = UIControlContentVerticalAlignment.Center,
-				TextColor = Theme.LabelColor,
+				TextColor = Theme.BlueTextColor,
 				KeyboardType = UIKeyboardType.NumberPad,
 			};
 			textField.EditingDidBegin += (sender, e) => {
