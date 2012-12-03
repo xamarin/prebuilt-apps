@@ -71,7 +71,10 @@ namespace FieldService.ViewModels {
         /// </summary>
         private void CalculateHours (Assignment assignment)
         {
-            assignment.TotalHours = TimeSpan.FromMilliseconds (laborHours.Sum (l => l.Hours.TotalMilliseconds));
+            if (laborHours == null)
+                assignment.TotalHours = TimeSpan.Zero;
+            else
+                assignment.TotalHours = TimeSpan.FromMilliseconds (laborHours.Sum (l => l.Hours.TotalMilliseconds));
         }
     }
 }

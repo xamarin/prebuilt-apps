@@ -244,7 +244,6 @@
     <Compile Include="Views\LaborCell.designer.cs">
       <DependentUpon>LaborCell.cs</DependentUpon>
     </Compile>
-    <Compile Include="Views\LaborTypeSheet.cs" />
     <Compile Include="Views\PhotoCell.cs" />
     <Compile Include="Views\PhotoCell.designer.cs">
       <DependentUpon>PhotoCell.cs</DependentUpon>
@@ -334,6 +333,7 @@
     <Compile Include="Controllers\MainMapController.designer.cs">
       <DependentUpon>MainMapController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Views\LaborTypeTextField.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

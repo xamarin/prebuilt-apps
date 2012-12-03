@@ -110,16 +110,24 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
+		/// Overriding this allows us to dismiss the keyboard programmatically from a modal controller
+		/// </summary>
+		public override bool DisablesAutomaticKeyboardDismissal {
+			get {
+				return false;
+			}
+		}
+
+		/// <summary>
 		/// The table source - has static cells
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
 			readonly LaborController laborController;
 			readonly UITableViewCell typeCell, hoursCell, descriptionCell;
-			readonly UILabel type;
+			readonly LaborTypeTextField type;
 			readonly PlaceholderTextView description;
 			readonly HoursField hours;
-			LaborTypeSheet laborSheet;
 			bool enabled;
 			
 			public TableSource ()
@@ -128,13 +136,17 @@ namespace FieldService.iOS
 
 				typeCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				typeCell.TextLabel.Text = "Type";
-				typeCell.AccessoryView = type = new UILabel (new RectangleF(0, 0, 200, 36))
+				typeCell.AccessoryView = type = new LaborTypeTextField (new RectangleF(0, 0, 200, 36))
 				{
 					TextAlignment = UITextAlignment.Right,
+					VerticalAlignment = UIControlContentVerticalAlignment.Center,
 					TextColor = Theme.BlueTextColor,
 					BackgroundColor = UIColor.Clear,
 				};
 				typeCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				type.EditingDidEnd += (sender, e) => {
+					laborController.Labor.Type = type.LaborType;
+				};
 
 				hoursCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				hoursCell.TextLabel.Text = "Hours";
@@ -167,7 +179,7 @@ namespace FieldService.iOS
 					hours.Enabled =
 					description.UserInteractionEnabled = enabled;
 
-				type.Text = labor.TypeAsString;
+				type.LaborType = labor.Type;
 				hours.Value = labor.Hours.TotalHours;
 				description.Text = string.IsNullOrEmpty (labor.Description) ? description.Placeholder : labor.Description;
 			}
@@ -192,20 +204,8 @@ namespace FieldService.iOS
 				if (enabled) {
 					if (indexPath.Section == 0) {
 						if (indexPath.Row == 0) {
-							//Type changed
-							laborSheet = new LaborTypeSheet ();
-							laborSheet.Dismissed += (sender, e) => {
-								var labor = laborController.Labor;
-								if (laborSheet.Type.HasValue && labor.Type != laborSheet.Type) {
-									labor.Type = laborSheet.Type.Value;
-
-									Load (enabled, labor);
-								}
-
-								laborSheet.Dispose ();
-								laborSheet = null;
-							};
-							laborSheet.ShowFrom (typeCell.Frame, tableView, true);
+							//Give type "focus"
+							type.BecomeFirstResponder ();
 						} else {
 							//Give hours "focus"
 							hours.BecomeFirstResponder ();
