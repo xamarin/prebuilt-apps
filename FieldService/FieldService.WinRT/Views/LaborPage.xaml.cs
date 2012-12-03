@@ -61,6 +61,18 @@ namespace FieldService.WinRT.Views {
         }
 
         /// <summary>
+        /// Invoked when this page is unloaded.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedFrom (NavigationEventArgs e)
+        {
+            if (laborViewModel.LaborPopUp != null && laborViewModel.LaborPopUp.IsOpen) {
+                laborViewModel.LaborPopUp.IsOpen = false;
+            }
+            base.OnNavigatedFrom (e);
+        }
+
+        /// <summary>
         /// Item click event for the labor list view
         /// </summary>
         /// <param name="sender"></param>

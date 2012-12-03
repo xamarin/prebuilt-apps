@@ -49,5 +49,17 @@ namespace FieldService.WinRT.Views {
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
         }
+
+        /// <summary>
+        /// Invoked when this page is unloaded.
+        /// </summary>
+        /// <param name="e"></param>
+        protected override void OnNavigatedFrom (NavigationEventArgs e)
+        {
+            if (itemViewModel.ItemPopUp != null && itemViewModel.ItemPopUp.IsOpen) {
+                itemViewModel.ItemPopUp.IsOpen = false;
+            }
+            base.OnNavigatedFrom (e);
+        }
     }
 }

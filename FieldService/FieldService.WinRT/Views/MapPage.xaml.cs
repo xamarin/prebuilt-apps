@@ -67,14 +67,16 @@ namespace FieldService.WinRT.Views {
             map.Children.Clear ();
 
             //Add pins for the assignments
-            foreach (var assignment in assignmentViewModel.Assignments) {
-                var pin = new Pushpin {
-                    Background = assignment.Status.GetBrushForStatus(),
-                    Tag = assignment,
-                };
-                pin.Tapped += OnPinTapped;
-                map.Children.Add (pin);
-                MapLayer.SetPosition (pin, new Location (assignment.Latitude, assignment.Longitude));
+            if (assignmentViewModel.Assignments != null) {
+                foreach (var assignment in assignmentViewModel.Assignments) {
+                    var pin = new Pushpin {
+                        Background = assignment.Status.GetBrushForStatus (),
+                        Tag = assignment,
+                    };
+                    pin.Tapped += OnPinTapped;
+                    map.Children.Add (pin);
+                    MapLayer.SetPosition (pin, new Location (assignment.Latitude, assignment.Longitude));
+                }
             }
 
             if (assignmentViewModel.ActiveAssignment != null) {

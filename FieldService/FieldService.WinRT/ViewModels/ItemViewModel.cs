@@ -83,6 +83,14 @@ namespace FieldService.WinRT.ViewModels {
         }
 
         /// <summary>
+        /// Flyout panel for adding an item
+        /// </summary>
+        public Popup ItemPopUp
+        {
+            get { return addItemPopUp; }
+        }
+
+        /// <summary>
         /// Command for saving the assignment item
         /// </summary>
         public DelegateCommand SaveAssignmentItemCommand

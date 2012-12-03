@@ -83,6 +83,14 @@ namespace FieldService.WinRT.ViewModels {
                     addLaborPopUp.IsOpen = true;
                 });
         }
+        
+        /// <summary>
+        /// Flyout panel for adding a labor item
+        /// </summary>
+        public Popup LaborPopUp
+        {
+            get { return addLaborPopUp; }
+        }
 
         /// <summary>
         /// list of top 5 labor hour items
