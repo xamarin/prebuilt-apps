@@ -27,8 +27,6 @@ namespace FieldService.Data {
     /// </summary>
     public class AssignmentItem : PropertyChangedBase {
 
-        bool used = false;
-
         /// <summary>
         /// Id of the assignment item, not really used
         /// </summary>
@@ -56,14 +54,5 @@ namespace FieldService.Data {
         /// The item's number
         /// </summary>
         public string Number { get; private set; }
-
-        /// <summary>
-        /// If the item was used
-        /// </summary>
-        public bool Used
-        {
-            get { return used; }
-            set { used = value; OnPropertyChanged ("Used"); }
-        }
     }
 }
