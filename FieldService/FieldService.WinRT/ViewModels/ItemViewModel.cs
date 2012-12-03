@@ -83,7 +83,7 @@ namespace FieldService.WinRT.ViewModels {
         }
 
         /// <summary>
-        /// Flyout anel for adding an item
+        /// Flyout panel for adding an item
         /// </summary>
         public Popup ItemPopUp
         {

@@ -62,15 +62,16 @@
 
             <Button Grid.Row="5" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.AddressFormatted}" />
 
-            <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" BorderThickness="3" Width="30" Height="30" />
+            <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" 
+                    BorderThickness="3" Width="30" Height="30" Visibility="{Binding IsNotNew, Converter={StaticResource BooleanConverter}}"/>
 
-            <ComboBox 
+            <ComboBox Visibility="{Binding IsNotNew, Converter={StaticResource BooleanConverter}}"
                 x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" SelectionChanged="SelectionChanged"
                 ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding SelectedAssignment.Status, Mode=TwoWay}" />
 
         </Grid>
 
-        <Grid Grid.Row="2" Background="{StaticResource DarkTextBrush}" Margin="5,13,5,5" x:Name="timerControl">
+        <Grid Grid.Row="2" Background="{StaticResource DarkTextBrush}" Margin="5,13,5,5" x:Name="timerControl" Visibility="{Binding IsNotNew, Converter={StaticResource BooleanConverter}}">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -80,6 +81,21 @@
 
             <ToggleButton Grid.Row="1" IsChecked="{Binding Recording}" Style="{StaticResource RecordButtonStyle}" Command="{Binding RecordCommand}" />
 
+        </Grid>
+
+        <Grid Grid.Row="2" x:Name="newAssignmentControl" Visibility="{Binding IsNew, Converter={StaticResource BooleanConverter}}">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Button  Background="{StaticResource ItemsBrush}" Command="{Binding AcceptAssignmentCommand}" BorderBrush="{StaticResource ItemsBrush}"
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+                <TextBlock Text="Accept" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
+            </Button>
+            <Button Background="{StaticResource GreyBackgroundBrush}" Command="{Binding DeclineAssignmentCommand}" Grid.Row="1"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,0" BorderBrush="{StaticResource GreyBackgroundBrush}">
+                <TextBlock Text="Decline" HorizontalAlignment="Left" Margin="10,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
+            </Button>
         </Grid>
 
     </Grid>

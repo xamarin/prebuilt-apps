@@ -112,23 +112,6 @@
                             </Border>
                         </ListViewItem>
 
-                        <!--Map button section-->
-                        <ListViewItem Grid.Column="2" Margin="5">
-                            <Border x:Name="mapButton" Width="154" Height="162" BorderThickness="0" Background="{StaticResource MapBrush}">
-                                <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
-                                        <ColumnDefinition Width="*" />
-                                    </Grid.ColumnDefinitions>
-
-                                    <Image Source="{StaticResource MapLargeIcon}" Stretch="None" />
-
-                                    <TextBlock Margin="10,5" Grid.Column="1" VerticalAlignment="Center" Text="Map" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
-
-                                </Grid>
-                            </Border>
-                        </ListViewItem>
-
                         <!--Time of day section-->
                         <ListViewItem Grid.Row="1" Grid.Column="2" Margin="5">
                             <Border x:Name="times" Width="154" Height="162" BorderThickness="0" Background="{StaticResource TimesBrush}">
@@ -136,11 +119,15 @@
                                     <Grid.RowDefinitions>
                                         <RowDefinition />
                                         <RowDefinition />
+                                        <RowDefinition />
+                                        <RowDefinition />
                                     </Grid.RowDefinitions>
-
-                                    <TextBlock Margin="10,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.StartTimeFormatted}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" />
-
-                                    <TextBlock Margin="10,5" Grid.Row="1" VerticalAlignment="Top" Text="{Binding SelectedAssignment.EndTimeFormatted}" Style="{StaticResource SubheaderTextStyle}" />
+                                    <TextBlock Text="Appointment" Style="{StaticResource SubheaderTextStyle}" FontSize="22"/>
+                                    <TextBlock Margin="10,5" HorizontalAlignment="Center" VerticalAlignment="Bottom" Text="{Binding SelectedAssignment.StartTimeFormatted}" 
+                                               Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" Grid.Row="1"/>
+                                    <TextBlock Text="to" Style="{StaticResource SubheaderTextStyle}" FontSize="22" Grid.Row="2" HorizontalAlignment="Center"/>
+                                    <TextBlock Margin="10,5" Grid.Row="3" VerticalAlignment="Top" Text="{Binding SelectedAssignment.EndTimeFormatted}" 
+                                               Style="{StaticResource SubheaderTextStyle}"  FontWeight="Medium"/>
 
                                 </Grid>
                             </Border>
@@ -165,8 +152,8 @@
 
 
                         <!---Map section-->
-                        <ListViewItem Grid.Column="3" Grid.ColumnSpan="2" Margin="5">
-                            <views:MapTile x:Name="mapTile" Width="324" Height="162" DataContext="{Binding SelectedAssignment}" IsHitTestVisible="False"/>
+                        <ListViewItem Grid.Column="2" Grid.ColumnSpan="3" Margin="5">
+                            <views:MapTile x:Name="mapTile" Width="494" Height="162" DataContext="{Binding SelectedAssignment}" IsHitTestVisible="False"/>
                         </ListViewItem>
 
                         <!--Confirmation section-->

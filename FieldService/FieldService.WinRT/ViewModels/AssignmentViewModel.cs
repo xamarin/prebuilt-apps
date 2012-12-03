@@ -28,7 +28,7 @@ using Windows.UI.Xaml.Controls.Primitives;
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
         readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
-            addSignatureCommand, expensesCommand, documentsCommand, historyCommand;
+            addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand;
         Assignment assignment;
         Popup addSignaturePopup;
         int popUpWidth = 930;
@@ -65,6 +65,18 @@ namespace FieldService.WinRT.ViewModels {
 
             cancelAddSignatureCommand = new DelegateCommand (_ => { addSignaturePopup.IsOpen = false; });
 
+            declineCommand = new DelegateCommand (async _ => {
+                SelectedAssignment.Status = AssignmentStatus.Declined;
+                await SaveAssignmentAsync (SelectedAssignment);
+                Helpers.GoBack ();
+            });
+
+            acceptCommand = new DelegateCommand (async _ => {
+                SelectedAssignment.Status = AssignmentStatus.Hold;
+                await SaveAssignmentAsync (SelectedAssignment);
+                SelectedAssignment = SelectedAssignment;
+            });
+
             addSignatureCommand = new DelegateCommand (_ => {
                 if (addSignaturePopup == null) {
                     addSignaturePopup = new Popup ();
@@ -95,7 +107,13 @@ namespace FieldService.WinRT.ViewModels {
         public Assignment SelectedAssignment
         {
             get { return assignment; }
-            set { assignment = value; OnPropertyChanged ("SelectedAssignment"); }
+            set
+            {
+                assignment = value;
+                OnPropertyChanged ("SelectedAssignment");
+                OnPropertyChanged ("IsNew");
+                OnPropertyChanged ("IsNotNew");
+            }
         }
 
         /// <summary>
@@ -186,6 +204,22 @@ namespace FieldService.WinRT.ViewModels {
             get { return historyCommand; }
         }
 
+        /// <summary>
+        /// Command for accepting assignments
+        /// </summary>
+        public DelegateCommand AcceptAssignmentCommand
+        {
+            get { return acceptCommand; }
+        }
+
+        /// <summary>
+        /// Command for declining assignments
+        /// </summary>
+        public DelegateCommand DeclineAssignmentCommand
+        {
+            get { return declineCommand; }
+        }
+
         protected override void OnIsBusyChanged ()
         {
             base.OnIsBusyChanged ();
@@ -194,6 +228,16 @@ namespace FieldService.WinRT.ViewModels {
                 recordCommand.RaiseCanExecuteChanged ();
             if (goBackCommand != null)
                 goBackCommand.RaiseCanExecuteChanged ();
+        }
+
+        public bool IsNew
+        {
+            get { return SelectedAssignment != null && SelectedAssignment.Status == AssignmentStatus.New; }
+        }
+
+        public bool IsNotNew
+        {
+            get { return SelectedAssignment != null && SelectedAssignment.Status != AssignmentStatus.New; }
         }
 
         protected override void OnHoursChanged ()
