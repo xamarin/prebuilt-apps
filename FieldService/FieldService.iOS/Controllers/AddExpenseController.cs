@@ -16,10 +16,10 @@ using System;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+using MonoTouch.CoreGraphics;
 using FieldService.ViewModels;
 using FieldService.Utilities;
 using FieldService.Data;
-using MonoTouch.CoreGraphics;
 
 namespace FieldService.iOS
 {
@@ -60,9 +60,16 @@ namespace FieldService.iOS
 			expense = new UIBarButtonItem(label);
 
 			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
-				expenseViewModel
-					.SaveExpenseAsync (assignmentController.Assignment, expenseController.Expense)
-					.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
+				//Save the expense
+				var task = expenseViewModel.SaveExpenseAsync (assignmentController.Assignment, expenseController.Expense);
+				//Save the photo if we need to
+				if (expenseViewModel.Photo != null) {
+					task = task
+						.ContinueWith(_ => expenseViewModel.Photo.ExpenseId = expenseController.Expense.Id)
+						.ContinueWith(expenseViewModel.SavePhotoAsync ());
+				}
+				//Dismiss the controller after the other tasks
+				task.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			done.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
@@ -92,8 +99,13 @@ namespace FieldService.iOS
 				toolbar.Items = new UIBarButtonItem[] { cancel, space1, expense, space2 };
 			}
 
-			expenseViewModel.LoadPhotoAsync (expenseController.Expense)
-				.ContinueOnUIThread (_ => tableSource.Load (enabled, expenseController.Expense));
+			if (expenseController.Expense.Id == 0) {
+				expenseViewModel.Photo = null;
+				tableSource.Load (enabled, expenseController.Expense);
+			} else {
+				expenseViewModel.LoadPhotoAsync (expenseController.Expense)
+					.ContinueOnUIThread (_ => tableSource.Load (enabled, expenseController.Expense));
+			}
 		}
 
 		public override void ViewWillDisappear (bool animated)
@@ -189,15 +201,24 @@ namespace FieldService.iOS
 				photoButton.ContentEdgeInsets = new UIEdgeInsets(0, 0, 2, 0);
 				photoButton.Frame = new RectangleF(210, 130, 115, 40);
 				photoButton.TouchUpInside += (sender, e) => {
-					photoSheet = new PhotoAlertSheet();
-					photoSheet.Callback = image => { 
-						if (expenseViewModel.Photo == null)
-							expenseViewModel.Photo = new ExpensePhoto { ExpenseId = expenseController.Expense.Id };
-						expenseViewModel.Photo.Image = image;
+					if (photoSheet == null) {
+						photoSheet = new PhotoAlertSheet();
 
-						expenseViewModel.SavePhotoAsync ()
-							.ContinueOnUIThread (_ => Load (enabled, expenseController.Expense));
-					};
+						//Set the desired size for the resulting image
+						var size = photo.Frame.Size;
+						var scale = UIScreen.MainScreen.Scale;
+						size.Width *= scale;
+						size.Height *= scale;
+						photoSheet.DesiredSize = size;
+
+						//Set the callback for when the image is selected
+						photoSheet.Callback = image => { 
+							if (expenseViewModel.Photo == null)
+								expenseViewModel.Photo = new ExpensePhoto { ExpenseId = expenseController.Expense.Id };
+							expenseViewModel.Photo.Image = image.ToByteArray ();
+							Load (enabled, expenseController.Expense);
+						};
+					}
 					photoSheet.ShowFrom (photoButton.Frame, photoCell, true);
 				};
 				photoCell.AddSubview (photoButton);
@@ -206,7 +227,7 @@ namespace FieldService.iOS
 				frame.Width -= 34;
 				photo = new UIImageView(frame);
 				photo.AutoresizingMask = UIViewAutoresizing.All;
-				photo.ContentMode = UIViewContentMode.ScaleAspectFill;
+				photo.ContentMode = UIViewContentMode.ScaleAspectFit;
 				photo.Layer.BorderWidth = 1;
 				photo.Layer.BorderColor = new CGColor(0xcf, 0xcf, 0xcf, 0x7f);
 				photo.Layer.CornerRadius = 10;

@@ -29,12 +29,18 @@ namespace FieldService.iOS
 	{
 		readonly PhotoViewModel photoViewModel;
 		readonly AssignmentsController assignmentController;
+		readonly SizeF photoSize = new SizeF(475, 410); //Used for desired size of photos
 		PhotoAlertSheet photoSheet;
 
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			photoViewModel = new PhotoViewModel();
+
+			//Update photoSize for screen scale
+			var scale = UIScreen.MainScreen.Scale;
+			photoSize.Width *= scale;
+			photoSize.Height *= scale;
 		}
 
 		/// <summary>
@@ -60,8 +66,9 @@ namespace FieldService.iOS
 			//UI setup from code
 			View.BackgroundColor = Theme.BackgroundColor;
 			photoSheet = new PhotoAlertSheet();
+			photoSheet.DesiredSize = photoSize;
 			photoSheet.Callback = image => {
-				Photo.Image = image;
+				Photo.Image = image.ToByteArray ();
 				PerformSegue ("AddPhoto", this);
 			};
 			addPhoto.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);

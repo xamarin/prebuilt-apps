@@ -13,7 +13,7 @@ namespace FieldService.ViewModels {
     /// </summary>
     public class ExpenseViewModel : ViewModelBase {
         readonly IAssignmentService service;
-        List<Expense> expenses;
+        List<Expense> expenses = new List<Expense>();
         ExpensePhoto photo;
 
         public ExpenseViewModel ()
