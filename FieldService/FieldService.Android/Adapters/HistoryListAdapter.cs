@@ -55,7 +55,7 @@ namespace FieldService.Android.Adapters {
                 jobNumber.Visibility = ViewStates.Gone;
                 address.Text = string.Format ("Length: {0}  {1}", assignment.CallLength.ToString (@"hh\:mm\:ss"), assignment.CallDescription);
             }
-            title.Text = assignment.Title;
+            title.Text = assignment.CompanyName;
             date.Text = assignment.Date.ToString ("d");
             phoneNumber.Text = assignment.ContactPhone;
 
@@ -67,7 +67,7 @@ namespace FieldService.Android.Adapters {
             var filtered = new List<AssignmentHistory> ();
 
             foreach (var item in non_filtered) {
-                if (item.Title.ToLower ().StartsWith (filter) || item.JobNumber.ToLower ().StartsWith (filter)) {
+                if (item.CompanyName.ToLower ().StartsWith (filter) || item.JobNumber.ToLower ().StartsWith (filter)) {
                     filtered.Add (item);
                 }
             }

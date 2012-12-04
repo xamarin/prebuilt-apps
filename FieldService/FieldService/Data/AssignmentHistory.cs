@@ -60,9 +60,9 @@ namespace FieldService.Data {
         public string JobNumber { get; private set; }
 
         /// <summary>
-        /// Title for the job
+        /// Company Name for the job
         /// </summary>
-        public string Title { get; private set; }
+        public string CompanyName { get; set; }
 
         /// <summary>
         /// Name of the contact
