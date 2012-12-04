@@ -179,7 +179,11 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Accept ()
 		{
-			assignmentsController.Assignment.Status = AssignmentStatus.Hold;
+			if (assignmentsController.AssignmentViewModel.ActiveAssignment == null) {
+				assignmentsController.Assignment.Status = AssignmentStatus.Active;
+			} else {
+				assignmentsController.Assignment.Status = AssignmentStatus.Hold;
+			}
 
 			SaveAssignment ();
 		}

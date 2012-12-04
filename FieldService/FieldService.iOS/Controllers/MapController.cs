@@ -42,7 +42,10 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//Setup the map view
-			mapView = new MKMapView(View.Frame);
+			var frame = View.Frame;
+			frame.X = 0;
+			frame.Y = 0;
+			mapView = new MKMapView(frame);
 			mapView.ShowsUserLocation = true;
 			mapView.AutoresizingMask = UIViewAutoresizing.All;
 			mapView.Delegate = new MapViewDelegate();

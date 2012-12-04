@@ -447,7 +447,7 @@ namespace FieldService.Tests.Data {
 
             foreach (var history in historyTask.Result) {
                 if (history.Type == AssignmentHistoryType.Assignment) {
-                    Assert.That (history.Title, Is.Not.Null);
+                    Assert.That (history.CompanyName, Is.Not.Null);
                 }
             }
         }
