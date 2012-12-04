@@ -66,8 +66,8 @@ namespace FieldService.Data {
             Latitude = 37.762658f,
             Longitude = -122.400239f,
             Status = AssignmentStatus.New,
-            StartDate = DateTime.Now.AddDays (1),
-            EndDate = DateTime.Now.AddDays (1).AddHours (2),
+            StartDate = new DateTime (2012, 10, 4),
+            EndDate = new DateTime (2012, 12, 6),
         };
 
         public static readonly Assignment Assignment4 = new Assignment {
@@ -131,7 +131,7 @@ namespace FieldService.Data {
             Id = 7,
             Priority = 7,
             JobNumber = "5677",
-            CompanyName = "Microsoft Corporation",
+            CompanyName = "Microsoft",
             Description = Description,
             ContactName = "Anders Hejlsberg",
             ContactPhone = "425.882.8080",
@@ -142,8 +142,8 @@ namespace FieldService.Data {
             Latitude = 47.710108f,
             Longitude = -122.130572f,
             Status = AssignmentStatus.New,
-            StartDate = DateTime.Now.AddDays (1),
-            EndDate = DateTime.Now.AddDays (1).AddHours (2),
+            StartDate = new DateTime (2013, 7, 5),
+            EndDate = new DateTime (2013, 8, 12),
         };
 
         public static readonly Assignment Assignment8 = new Assignment {
@@ -169,7 +169,7 @@ namespace FieldService.Data {
             Id = 9,
             Priority = 9,
             JobNumber = "7809",
-            CompanyName = "Tolkein Enterprises",
+            CompanyName = "Hobbits, Inc.",
             Description = Description,
             ContactName = "The Shire",
             ContactPhone = "360.748.3720",
@@ -188,7 +188,7 @@ namespace FieldService.Data {
             Id = 10,
             Priority = 10,
             JobNumber = "7810",
-            CompanyName = "Universal Studios",
+            CompanyName = "NBC",
             Description = Description,
             ContactName = "John Doe",
             ContactPhone = "800.864.8377",
@@ -201,6 +201,101 @@ namespace FieldService.Data {
             Status = AssignmentStatus.New,
             StartDate = DateTime.Now.AddDays (1),
             EndDate = DateTime.Now.AddDays (1).AddHours (2),
+        };
+
+        public static readonly Assignment Assignment11 = new Assignment {
+            Id = 11,
+            Priority = 11,
+            JobNumber = "7531",
+            CompanyName = "The Onion",
+            Description = Description,
+            ContactName = "H. Cuthbert Zweibel",
+            ContactPhone = "312.751.0503",
+            Address = "212 West Superior Street",
+            City = "Chicago",
+            Zip = "60654",
+            State = "IL",
+            Latitude = 41.89568f,
+            Longitude = -87.634931f,
+            Status = AssignmentStatus.New,
+            StartDate = new DateTime(2013, 8, 27),
+            EndDate = new DateTime (2013, 8, 30),
+        };
+
+        public static readonly Assignment Assignment12 = new Assignment {
+            Id = 12,
+            Priority = 12,
+            JobNumber = "7810",
+            CompanyName = "TxDPS",
+            Description = Description,
+            ContactName = "Sgt. Cordell Walker",
+            ContactPhone = "512.424.2160",
+            Address = "PO Box 4087",
+            City = "Austin",
+            Zip = "78773-0600",
+            State = "TX",
+            Latitude = 30.33f,
+            Longitude = -97.7f,
+            Status = AssignmentStatus.New,
+            StartDate = new DateTime (2013, 9, 18),
+            EndDate = new DateTime (2013, 9, 30),
+        };
+
+        public static readonly Assignment Assignment13 = new Assignment {
+            Id = 13,
+            Priority = 13,
+            JobNumber = "7810",
+            CompanyName = "Globo Gym",
+            Description = Description,
+            ContactName = "White Goodman",
+            ContactPhone = "752.555.5555",
+            Address = "121 East Sunset Road",
+            City = "Las Vegas",
+            Zip = "89119",
+            State = "NV",
+            Latitude = 36069925f,
+            Longitude = -115.166316f,
+            Status = AssignmentStatus.New,
+            StartDate = new DateTime (2013, 10, 24),
+            EndDate = new DateTime (2013, 11, 15),
+        };
+
+        public static readonly Assignment Assignment14 = new Assignment {
+            Id = 14,
+            Priority = 14,
+            JobNumber = "7810",
+            CompanyName = "Gifts R' Us",
+            Description = Description,
+            ContactName = "Santa Claus",
+            ContactPhone = "800.555.5555",
+            Address = "5400 Mail Trail",
+            City = "Fairbanks",
+            Zip = "99709-9998",
+            State = "AK",
+            Latitude = 90f,
+            Longitude = 0f,
+            Status = AssignmentStatus.New,
+            StartDate = new DateTime (2013, 12, 24),
+            EndDate = new DateTime (2013, 12, 25),
+        };
+
+        public static readonly Assignment Assignment15 = new Assignment {
+            Id = 15,
+            Priority = 15,
+            JobNumber = "7810",
+            CompanyName = "Amazon",
+            Description = Description,
+            ContactName = "Jeffery P. Bezos",
+            ContactPhone = "206.266.1000",
+            Address = "410 Terry Avenue North",
+            City = "Seattle",
+            Zip = "98109",
+            State = "WA",
+            Latitude = 47.62246f,
+            Longitude = -122.336775f,
+            Status = AssignmentStatus.New,
+            StartDate = new DateTime (2013, 4, 10),
+            EndDate = new DateTime (2013, 4, 17),
         };
 
         public static object [] All = new object [] {

@@ -6,14 +6,15 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d"
-    d:DesignHeight="300"
+    d:DesignHeight="800"
     d:DesignWidth="400">
 
     <Grid Height="586" Width="276" Margin="27,2">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
-            <RowDefinition Height="180" />
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
         <TextBlock Margin="5,10" Style="{StaticResource SubheaderTextStyle}">Details</TextBlock>
@@ -40,7 +41,9 @@
 
             <Button Grid.Column="1" Margin="5" FontWeight="Medium" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding SelectedAssignment.JobNumberFormatted}" />
 
-            <Button Grid.Row="1" Grid.Column="1" FontWeight="Medium" Margin="5" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding SelectedAssignment.CompanyName}" />
+            <Button Grid.Row="1" Grid.Column="1" FontWeight="Medium" Margin="5" Style="{StaticResource SubheaderTextButtonStyle}">
+                <TextBlock Text="{Binding SelectedAssignment.CompanyName}" TextTrimming="WordEllipsis"/>
+            </Button>
 
             <Button Grid.Row="2" Grid.Column="1" Margin="5" Style="{StaticResource TextButtonStyle}" Content="{Binding SelectedAssignment.StartDateFormatted}" />
 
@@ -71,7 +74,8 @@
 
         </Grid>
 
-        <Grid Grid.Row="2" Background="{StaticResource DarkTextBrush}" Margin="5,13,5,5" x:Name="timerControl" Visibility="{Binding IsNotNew, Converter={StaticResource BooleanConverter}}">
+        <Grid Grid.Row="2" Background="{StaticResource DarkTextBrush}" Margin="5,11,5,7" x:Name="timerControl" 
+              Visibility="{Binding IsNotNew, Converter={StaticResource BooleanConverter}}" Height="162">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
@@ -83,18 +87,18 @@
 
         </Grid>
 
-        <Grid Grid.Row="2" x:Name="newAssignmentControl" Visibility="{Binding IsNew, Converter={StaticResource BooleanConverter}}">
+        <Grid Grid.Row="3" x:Name="newAssignmentControl" Margin="2,8,2,5" Visibility="{Binding IsNew, Converter={StaticResource BooleanConverter}}" Height="167">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <Button  Background="{StaticResource ItemsBrush}" Command="{Binding AcceptAssignmentCommand}" BorderBrush="{StaticResource ItemsBrush}"
-                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-                <TextBlock Text="Accept" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="10,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
+                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,5">
+                <TextBlock Text="Accept" Style="{StaticResource SubheaderTextStyle}"/>
             </Button>
             <Button Background="{StaticResource GreyBackgroundBrush}" Command="{Binding DeclineAssignmentCommand}" Grid.Row="1"
                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,5,0,0" BorderBrush="{StaticResource GreyBackgroundBrush}">
-                <TextBlock Text="Decline" HorizontalAlignment="Left" Margin="10,0,0,0" Style="{StaticResource SubheaderTextStyle}"/>
+                <TextBlock Text="Decline" Style="{StaticResource SubheaderTextStyle}"/>
             </Button>
         </Grid>
 
