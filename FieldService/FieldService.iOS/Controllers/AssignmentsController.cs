@@ -79,7 +79,7 @@ namespace FieldService.iOS
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
-			record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
+			record.SetBackgroundImage (AssignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 			timerBackgroundImage.Image = Theme.TimerField;
 			toolbarShadow.Image = Theme.ToolbarShadow;
 
