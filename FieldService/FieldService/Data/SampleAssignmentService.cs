@@ -34,7 +34,7 @@ namespace FieldService.Data {
                            (SELECT SUM(Expense.Cost) FROM Expense WHERE Assignment.Id = Expense.AssignmentId) AS TotalExpenses
                     from Assignment
                     where Assignment.Status != ? and Assignment.Status !=?
-                    order by Assignment.Priority
+                    order by Assignment.Status DESC, Assignment.Priority
                 ", AssignmentStatus.Declined, AssignmentStatus.Complete);
         }
 
