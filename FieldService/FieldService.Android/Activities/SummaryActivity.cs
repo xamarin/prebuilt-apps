@@ -73,7 +73,6 @@ namespace FieldService.Android {
             SetContentView (Resource.Layout.SummaryFragmentLayout);
 
             if (Intent != null) {
-
                 navigationIndex = Intent.GetIntExtra (Constants.FragmentIndex, 0);
             }
 
@@ -129,9 +128,6 @@ namespace FieldService.Android {
                  addItems.Visibility = ViewStates.Invisible;
             addLabor.Visibility = ViewStates.Gone;
 
-            if (bundle != null && bundle.ContainsKey (Constants.BundleIndex)) {
-                navigationIndex = bundle.GetInt (Constants.BundleIndex, 0);
-            }
             addItems.Click += (sender, e) => {
                 itemDialog = new ItemsDialog (this);
                 itemDialog.Assignment = Assignment;
@@ -185,7 +181,7 @@ namespace FieldService.Android {
                 navigationFragment.NavigationSelected += NavigationSelected;
             }
             if (navigationIndex != 0) {
-                SetFrameFragment (navigationIndex);
+                navigationFragment.SetNavigation (navigationIndex);
             }
         }
 
@@ -274,7 +270,6 @@ namespace FieldService.Android {
                     break;
                 case "Map": {
                         var fragment = new MapFragment ();
-                        fragment.AssignmentIndex = assignmentIndex;
                         transaction.SetTransition (FragmentTransit.FragmentOpen);
                         transaction.Replace (Resource.Id.contentFrame, fragment);
                         transaction.Commit ();

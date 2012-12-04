@@ -121,10 +121,10 @@ namespace FieldService.Android {
                             case AssignmentStatus.Complete: {
                                     //go to confirmations
                                     activeAssignment.Status = selected;
-                                    var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
+                                    var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
                                     var intent = new Intent (activity, typeof (SummaryActivity));
-                                    intent.PutExtra (Constants.BundleIndex, index);
                                     intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
+                                    activity.SelectedAssignment = activeAssignment;
                                     activity.StartActivity (intent);
                                 }
                                 break;
@@ -175,7 +175,11 @@ namespace FieldService.Android {
                 case Resource.Id.assignmentAccept: {
                         var position = (int)v.Tag;
                         var activeAssignment = GetItem (position);
-                        activeAssignment.Status = AssignmentStatus.Hold;
+                        if (assignmentViewModel.ActiveAssignment == null) {
+                            activeAssignment.Status = AssignmentStatus.Active;
+                        } else {
+                            activeAssignment.Status = AssignmentStatus.Hold;
+                        }
                         SaveAssignment (activeAssignment, position);
                     }
                     break;
@@ -194,8 +198,15 @@ namespace FieldService.Android {
                     }
                     break;
                 case Resource.Id.assignmentAddressLayout: {
-                        var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-                        activity.TabHost.CurrentTab = 1;
+                        var position = (int)v.Tag;
+                        var activeAssignment = GetItem (position);
+                        var intent = new Intent (Context, typeof (SummaryActivity));
+                        var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                        tabActivity.MapData = null;
+                        tabActivity.AssignmentViewModel = assignmentViewModel;
+                        tabActivity.SelectedAssignment = activeAssignment;
+                        intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
+                        Context.StartActivity (intent);
                     }
                     break;
                 default:

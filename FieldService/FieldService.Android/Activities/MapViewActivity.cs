@@ -75,8 +75,8 @@ namespace FieldService.Android {
                 var intent = new Intent (this, typeof (SummaryActivity));
                 var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
                 tabActivity.MapData = null;
-                tabActivity.AssignmentViewModel = assignmentViewModel;
                 tabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
                 StartActivity (intent);
             };
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
@@ -115,9 +115,12 @@ namespace FieldService.Android {
             };
 
             mapButton.Click += (sender, e) => {
-                //already on the screen. maybe should zoom in on the active address
-                var overlayItem = mapView.Overlays.LastOrDefault () as MapOverlayItem;
-                overlayItem.AddressSelected ();
+                var intent = new Intent (this, typeof (SummaryActivity));
+                var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                tabActivity.MapData = null;
+                tabActivity.AssignmentViewModel = assignmentViewModel;
+                tabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                StartActivity (intent);
             };
 
             assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {

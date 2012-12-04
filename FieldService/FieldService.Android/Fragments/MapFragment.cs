@@ -36,20 +36,10 @@ namespace FieldService.Android.Fragments {
             localManager.DispatchCreate (savedInstanceState);
         }
 
-        /// <summary>
-        /// Index of the current assignment
-        /// </summary>
-        public int AssignmentIndex
-        {
-            get;
-            set;
-        }
-
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             var intent = new Intent (Activity, typeof (MapFragmentActivity));
             //pass the index of the assignment through to the actual map activity
-            intent.PutExtra (Constants.BundleIndex, AssignmentIndex);
             var window = localManager.StartActivity ("MapFragmentActivity", intent);
             View currentView = window.DecorView;
             currentView.Visibility = ViewStates.Visible;

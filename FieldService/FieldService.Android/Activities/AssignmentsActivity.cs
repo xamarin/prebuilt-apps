@@ -137,7 +137,10 @@ namespace FieldService.Android {
 
             mapButton.Click += (sender, e) => {
                 var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-                activity.TabHost.CurrentTab = 1;
+                var intent = new Intent (activity, typeof (SummaryActivity));
+                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
+                activity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                activity.StartActivity (intent);
             };
 
             phoneButton.Click += (sender, e) => {
@@ -254,6 +257,7 @@ namespace FieldService.Android {
             } else {
                 activity.SelectedAssignment =  assignmentViewModel.ActiveAssignment;
             }
+            intent.PutExtra (Constants.FragmentIndex, 0);
             StartActivity (intent);
         }
     }

@@ -46,6 +46,7 @@ namespace FieldService.Android {
         {
             var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
             assignmentViewModel = tabActivity.AssignmentViewModel;
+            assignment = tabActivity.SelectedAssignment;
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -53,19 +54,6 @@ namespace FieldService.Android {
             base.OnCreate (bundle);
 
             SetContentView (Resource.Layout.MapFragmentLayout);
-
-            int index = 0;
-            if (Intent.HasExtra (Constants.BundleIndex)) {
-                index = Intent.GetIntExtra (Constants.BundleIndex, -99);
-            }
-
-            if (index != -99) {
-                if (index != -1) {
-                    assignment = assignmentViewModel.Assignments [index];
-                } else {
-                    assignment = assignmentViewModel.ActiveAssignment;
-                }
-            }
 
             mapView = FindViewById<MapView> (Resource.Id.fragmentMapView);
             myLocation = new MyLocationOverlay (this, mapView);

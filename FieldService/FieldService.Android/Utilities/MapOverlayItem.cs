@@ -19,6 +19,8 @@ using Android.Graphics.Drawables;
 using Android.Net;
 using Android.Views;
 using Android.Widget;
+using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.Android.Utilities {
     /// <summary>
@@ -101,7 +103,8 @@ namespace FieldService.Android.Utilities {
                 if (!getDirections) {
                     overlayLayout.Click += (sender, e) => {
                         var intent = new Intent (context, typeof (SummaryActivity));
-                        intent.PutExtra (Constants.BundleIndex, AssignmentIndex);
+                        var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                        tabActivity.SelectedAssignment = tabActivity.AssignmentViewModel.Assignments [AssignmentIndex];
                         context.StartActivity (intent);
                     };
                 }
