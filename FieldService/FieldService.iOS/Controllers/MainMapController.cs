@@ -20,6 +20,7 @@ using MonoTouch.UIKit;
 using MonoTouch.MapKit;
 using FieldService.Utilities;
 using FieldService.Data;
+using FieldService.ViewModels;
 
 namespace FieldService.iOS
 {
@@ -28,15 +29,29 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class MainMapController : BaseController
 	{
+		bool activeAssignmentVisible = true;
 		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
 
 		public MainMapController (IntPtr handle) : base (handle)
 		{
 			ServiceContainer.Register (this);
+			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+			assignmentViewModel = assignmentController.AssignmentViewModel;
 
 			TabBarItem.Image = Theme.MapIcon;
 
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+			//Hook up viewModel events
+			assignmentViewModel.HoursChanged += (sender, e) => {
+				if (IsViewLoaded) {
+					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+				}
+			};
+			assignmentViewModel.RecordingChanged += (sender, e) => {
+				if (IsViewLoaded) {
+					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				}
+			};
 		}
 
 		public override void ViewDidLoad ()
@@ -45,13 +60,38 @@ namespace FieldService.iOS
 
 			//Setup mapView
 			mapView.Delegate = new MapViewDelegate(this, assignmentController);
+
+			//Setup other UI
+			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
+			assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
+			contact.IconImage = Theme.IconPhone;
+			address.IconImage = Theme.Map;
+			priority.TextColor = UIColor.White;
+			priorityBackground.Image = Theme.NumberBox;
+			record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+			timerBackgroundImage.Image = Theme.TimerField;
+			toolbarShadow.Image = Theme.ToolbarShadow;
+			
+			timerLabel.TextColor =
+				numberAndDate.TextColor =
+				titleLabel.TextColor =
+				startAndEnd.TextColor = Theme.LabelColor;
+			
+			status.StatusChanged += (sender, e) => {
+				assignmentViewModel
+					.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
+					.ContinueOnUIThread (_ => LoadActiveAssignment ());
+			};
+			
+			//Start the active assignment out as not visible
+			SetActiveAssignmentVisible (false, false);
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
 
-			var assignmentViewModel = assignmentController.AssignmentViewModel;
+			//Clear and reload our map placemarks
 			mapView.ClearPlacemarks ();
 
 			List<MKPlacemark> placemarks = new List<MKPlacemark>();
@@ -68,6 +108,162 @@ namespace FieldService.iOS
 			
 			if (placemarks.Count > 0)
 				mapView.AddPlacemarks (placemarks.ToArray ());
+
+			//Show/hide the active assignment
+			LoadActiveAssignment ();
+
+			//Apply the current orientation
+			if (InterfaceOrientation.IsLandscape ()) {
+				contact.Alpha = 
+					address.Alpha = 1;
+			} else {
+				contact.Alpha = 
+					address.Alpha = 0;
+			}
+		}
+
+		/// <summary>
+		/// Sets the visibility of the active assignment, with a nice animation
+		/// </summary>
+		private void SetActiveAssignmentVisible (bool visible, bool animate = true)
+		{
+			if (visible != activeAssignmentVisible) {
+				if (animate) {
+					UIView.BeginAnimations ("ChangeActiveAssignment");
+					UIView.SetAnimationDuration (.3);
+					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+				}
+				
+				//Modify the mapViews's frame
+				float height = 95;
+				var frame = mapView.Frame;
+				if (visible) {
+					frame.Y += height;
+					frame.Height -= height;
+				} else {
+					frame.Y -= height;
+					frame.Height += height;
+				}
+				mapView.Frame = frame;
+				
+				//Modify the active assignment's frame
+				frame = activeAssignment.Frame;
+				if (visible) {
+					frame.Y += height;
+				} else {
+					frame.Y -= height;
+				}
+				activeAssignment.Frame = frame;
+				
+				//Modify the toolbar shadow's frame
+				frame = toolbarShadow.Frame;
+				if (visible) {
+					frame.Y += height;
+				} else {
+					frame.Y -= height;
+				}
+				toolbarShadow.Frame = frame;
+				
+				if (animate) {
+					UIView.CommitAnimations ();
+				}
+				activeAssignmentVisible = visible;
+			}
+		}
+
+		/// <summary>
+		/// Sets the active assignment's views
+		/// </summary>
+		private void LoadActiveAssignment ()
+		{
+			if (assignmentViewModel.ActiveAssignment == null) {
+				SetActiveAssignmentVisible (false);
+			} else {
+				SetActiveAssignmentVisible (true);
+				var assignment = assignmentViewModel.ActiveAssignment;
+				priority.Text = assignment.Priority.ToString ();
+				numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
+				titleLabel.Text = assignment.CompanyName;
+				startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+				contact.TopLabel.Text = assignment.ContactName;
+				contact.BottomLabel.Text = assignment.ContactPhone;
+				address.TopLabel.Text = assignment.Address;
+				address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
+				status.Assignment = assignment;
+			}
+		}
+
+		/// <summary>
+		/// We override this to show/hide some controls during rotation
+		/// </summary>c
+		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)
+		{
+			bool wasPortrait = InterfaceOrientation.IsPortrait ();
+			bool willBePortrait = toInterfaceOrientation.IsPortrait ();
+			bool wasLandscape = InterfaceOrientation.IsLandscape ();
+			bool willBeLandscape = toInterfaceOrientation.IsLandscape ();
+			
+			if (wasPortrait && willBeLandscape) {
+				SetContactVisible (true, duration);
+			} else if (wasLandscape && willBePortrait) {
+				SetContactVisible (false, duration);
+			}
+			
+			base.WillRotate (toInterfaceOrientation, duration);
+		}
+		
+		/// <summary>
+		/// This is uses to show/hide contact and address on rotation
+		/// </summary>
+		private void SetContactVisible (bool visible, double duration)
+		{
+			UIView.BeginAnimations ("SetContactVisible");
+			UIView.SetAnimationDuration (duration);
+			UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+			
+			if (visible) {
+				contact.Alpha = 
+					address.Alpha = 1;
+			} else {
+				contact.Alpha = 
+					address.Alpha = 0;
+			}
+			
+			UIView.CommitAnimations ();
+		}
+
+		/// <summary>
+		/// Event when record button is pressed
+		/// </summary>
+		partial void Record ()
+		{
+			record.Enabled = false;
+			if (assignmentViewModel.Recording) {
+				assignmentViewModel.PauseAsync ().ContinueOnUIThread (t => record.Enabled = true);
+			} else {
+				assignmentViewModel.RecordAsync ().ContinueOnUIThread (t => record.Enabled = true);
+			}
+		}
+		
+		/// <summary>
+		/// Event when the address is clicked on the active assignment
+		/// </summary>
+		partial void Address ()
+		{
+			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
+			PerformSegue ("AssignmentDetails", this);
+			
+			var menuController = ServiceContainer.Resolve<MenuController>();
+			menuController.ShowMaps(false);
+		}
+
+		/// <summary>
+		/// Event when the active assignment is clicked
+		/// </summary>
+		partial void ActiveAssignmentSelected ()
+		{
+			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
+			PerformSegue ("AssignmentDetails", this);
 		}
 
 		/// <summary>
