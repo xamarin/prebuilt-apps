@@ -18,14 +18,12 @@ namespace FieldService.Android {
     public class ExpensesAdapter : ArrayAdapter<Expense> {
         List<Expense> expenses;
         int resourceId;
-        ExpenseViewModel expenseViewModel;
 
         public ExpensesAdapter (Context context, int resourceId, List<Expense> expenses)
             : base (context, resourceId, expenses)
         {
             this.expenses = expenses;
             this.resourceId = resourceId;
-            expenseViewModel = new ExpenseViewModel ();
         }
 
         public Assignment Assignment

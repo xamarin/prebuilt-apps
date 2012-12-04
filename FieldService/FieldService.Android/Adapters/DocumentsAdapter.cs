@@ -31,14 +31,12 @@ namespace FieldService.Android.Adapters {
     public class DocumentsAdapter : ArrayAdapter<Document> {
         List<Document> documents;
         int resourceId;
-        DocumentViewModel documentViewModel;
 
         public DocumentsAdapter (Context context, int resourceId, List<Document> documents)
             : base (context, resourceId, documents)
         {
             this.documents = documents;
             this.resourceId = resourceId;
-            documentViewModel = new DocumentViewModel ();
         }
 
         public override View GetView (int position, View convertView, ViewGroup parent)
@@ -59,7 +57,6 @@ namespace FieldService.Android.Adapters {
             }
             var title = view.FindViewById<TextView> (Resource.Id.documentListItemDocTitle);
             var docType = view.FindViewById<TextView> (Resource.Id.documentListItemDocType);
-            var image = view.FindViewById<ImageView> (Resource.Id.documentListItemIcon);
 
             title.Text = document.Title;
             docType.Text = "PDF";

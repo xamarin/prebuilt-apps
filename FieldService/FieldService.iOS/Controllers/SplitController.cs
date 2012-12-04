@@ -38,6 +38,7 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			//Setup some of our UI
 			NavigationItem.LeftItemsSupplementBackButton = true;
 			menu = new UIBarButtonItem("Menu", UIBarButtonItemStyle.Bordered, (sender, e) => ShowPopover ());
 			menu.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
@@ -50,9 +51,13 @@ namespace FieldService.iOS
 		{
 			base.WillRotate (toInterfaceOrientation, duration);
 
+			//Start an animation to switch orientations
 			SwitchOrientation (toInterfaceOrientation, true, duration);
 		}
 
+		/// <summary>
+		/// Shows the popover.
+		/// </summary>
 		public void ShowPopover()
 		{
 			if (!masterPopoverShown)
@@ -62,6 +67,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Hides the popover.
+		/// </summary>
 		public void HidePopover()
 		{
 			if (masterPopoverShown)
@@ -71,6 +79,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Animates the master view for when the toolbar button is clicked
+		/// </summary>
 		private void AnimateMasterView(bool visible)
 		{
 			UIView.BeginAnimations ("SwitchOrientation");
@@ -85,6 +96,9 @@ namespace FieldService.iOS
 			masterPopoverShown = visible;
 		}
 
+		/// <summary>
+		/// Performs the work for animating the orientation
+		/// </summary>
 		private void SwitchOrientation(UIInterfaceOrientation orientation, bool animated, double duration = .5)
 		{
 			if (orientation.IsLandscape ())
@@ -158,6 +172,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Dismiss the popover 
+		/// </summary>
 		public override void TouchesEnded (NSSet touches, UIEvent evt)
 		{
 			base.TouchesEnded (touches, evt);

@@ -28,8 +28,8 @@ namespace FieldService.iOS
 	public class HoursField : UIView
 	{
 		const int Spacing = 6;
-		private UITextField textField;
-		private UIStepper stepper;
+		UITextField textField;
+		UIStepper stepper;
 
 		public event EventHandler EditingDidBegin;
 		public event EventHandler EditingDidEnd;
@@ -111,6 +111,9 @@ namespace FieldService.iOS
 			}
 		}
 
+		/// <summary>
+		/// Called by all constructor overloads
+		/// </summary>
 		private void Initialize ()
 		{
 			Step = 0.5f;
@@ -144,6 +147,9 @@ namespace FieldService.iOS
 			AddSubview (textField);
 		}
 
+		/// <summary>
+		/// We've overridden this to auto-size the textField and stepper
+		/// </summary>
 		public override void LayoutSubviews ()
 		{
 			var frame = Frame;

@@ -1,13 +1,29 @@
+//
+//  Copyright 2012  Xamarin Inc.
+//
+//    Licensed under the Apache License, Version 2.0 (the "License");
+//    you may not use this file except in compliance with the License.
+//    You may obtain a copy of the License at
+//
+//        http://www.apache.org/licenses/LICENSE-2.0
+//
+//    Unless required by applicable law or agreed to in writing, software
+//    distributed under the License is distributed on an "AS IS" BASIS,
+//    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//    See the License for the specific language governing permissions and
+//    limitations under the License.using System;
 using System;
+using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using System.Drawing;
 using FieldService.Data;
 using FieldService.Utilities;
-using MonoTouch.ObjCRuntime;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Custom text field for choosing a labor type -> uses UIPickerView underneath
+	/// </summary>
 	[Register("LaborTypeTextField")]
 	public class LaborTypeTextField : UITextField
 	{
@@ -33,10 +49,13 @@ namespace FieldService.iOS
 			Initialize ();
 		}
 
+		/// <summary>
+		/// Sets up the text field, toolbar, input accessory view, etc.
+		/// </summary>
 		private void Initialize ()
 		{
 			toolbar = new UIToolbar (new RectangleF (0, 0, UIScreen.MainScreen.Bounds.Width, 44));
-			done = new UIBarButtonItem (UIBarButtonSystemItem.Done, OnDone);
+			done = new UIBarButtonItem (UIBarButtonSystemItem.Done, (sender, e) => ResignFirstResponder ());
 			toolbar.Items = new UIBarButtonItem[] {
 				new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace),
 				done
@@ -51,6 +70,9 @@ namespace FieldService.iOS
 			TextAlignment = UITextAlignment.Left;
 		}
 
+		/// <summary>
+		/// Gets or sets the current labor type
+		/// </summary>
 		public LaborType LaborType
 		{
 			get { return laborType; }
@@ -65,11 +87,6 @@ namespace FieldService.iOS
 			}
 		}
 
-		private void OnDone (object sender, EventArgs e)
-		{
-			ResignFirstResponder ();
-		}
-
 		protected override void Dispose (bool disposing)
 		{
 			done.Dispose ();
@@ -79,6 +96,9 @@ namespace FieldService.iOS
 			base.Dispose (disposing);
 		}
 
+		///<summary>
+		/// Sets up the "delegate" for the UIPickerView - not sure why Apple chose "ViewModel" as their wording here
+		/// </summary>			
 		private class PickerModel : UIPickerViewModel
 		{
 			readonly LaborTypeTextField textField;

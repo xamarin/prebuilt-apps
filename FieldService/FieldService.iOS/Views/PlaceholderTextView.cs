@@ -60,6 +60,9 @@ namespace FieldService.iOS
 			};
 		}
 
+		/// <summary>
+		/// Gets or sets the placeholder to show prior to editing - doesn't exist on UITextView by default
+		/// </summary>
 		public string Placeholder {
 			get;
 			set;

@@ -19,9 +19,12 @@ using MonoTouch.UIKit;
 
 namespace FieldService.iOS
 {
-	public partial class MainNavigationController : UINavigationController
+	/// <summary>
+	/// Base navigation controller, used in a couple places throughout our Storyboard file
+	/// </summary>
+	public partial class BaseNavigationController : UINavigationController
 	{
-		public MainNavigationController (IntPtr handle) : base (handle)
+		public BaseNavigationController (IntPtr handle) : base (handle)
 		{
 		}
 
@@ -29,6 +32,7 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
+			//Setup a few things on our navigation bar
 			NavigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
 			NavigationBar.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White, TextShadowColor = Theme.LabelColor });
 		}

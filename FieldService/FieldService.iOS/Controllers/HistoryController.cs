@@ -22,6 +22,9 @@ using FieldService.ViewModels;
 
 namespace FieldService.iOS
 {
+	/// <summary>
+	/// Controller for the history section
+	/// </summary>
 	public partial class HistoryController : BaseController
 	{
 		readonly HistoryViewModel historyViewModel;

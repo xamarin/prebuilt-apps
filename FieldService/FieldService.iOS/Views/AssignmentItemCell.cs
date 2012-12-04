@@ -29,7 +29,7 @@ namespace FieldService.iOS
 		public AssignmentItemCell (IntPtr handle) : base (handle)
 		{
 			BackgroundView = new UIImageView { Image = Theme.Row };
-			SelectionStyle = UITableViewCellSelectionStyle.None;
+			SelectionStyle = UITableViewCellSelectionStyle.None; //Shouldn't be clickable
 		}
 
 		/// <summary>

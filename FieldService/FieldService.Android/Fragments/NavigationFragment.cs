@@ -36,8 +36,7 @@ namespace FieldService.Android.Fragments {
         TextView timerHours;
         ToggleButton timer;
         RelativeLayout timerLayout;
-        int lastposition,
-            listViewIndex;
+        int lastposition;
         AssignmentViewModel assignmentViewModel;
         public event EventHandler<EventArgs<int>> NavigationSelected;
         NavigationItemSelectorListener navigationSelector;
@@ -57,7 +56,7 @@ namespace FieldService.Android.Fragments {
             };
 
             if (savedInstanceState != null && savedInstanceState.ContainsKey (Constants.BundleIndex)) {
-                listViewIndex = savedInstanceState.GetInt (Constants.BundleIndex);
+                savedInstanceState.GetInt (Constants.BundleIndex);
             }
 
             navigationSelector = new NavigationItemSelectorListener (this);

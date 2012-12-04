@@ -26,6 +26,7 @@ namespace FieldService.iOS
 
 		public ExpenseCategorySheet ()
 		{
+			//Pull out all ExpenseCategory values
 			categories = (ExpenseCategory[])Enum.GetValues (typeof(ExpenseCategory));
 
 			foreach (ExpenseCategory type in categories) {
