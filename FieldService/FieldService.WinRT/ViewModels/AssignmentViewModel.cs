@@ -72,7 +72,11 @@ namespace FieldService.WinRT.ViewModels {
             });
 
             acceptCommand = new DelegateCommand (async _ => {
-                SelectedAssignment.Status = AssignmentStatus.Hold;
+                if (ActiveAssignment == null) {
+                    SelectedAssignment.Status = AssignmentStatus.Active;
+                } else {
+                    SelectedAssignment.Status = AssignmentStatus.Hold;
+                }
                 await SaveAssignmentAsync (SelectedAssignment);
                 SelectedAssignment = SelectedAssignment;
             });
