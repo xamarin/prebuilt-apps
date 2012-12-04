@@ -126,7 +126,7 @@ namespace FieldService.WinRT.Views {
                 map.Children.Add(userPin);
                 MapLayer.SetPosition(userPin, location);
             }
-            catch (Exception exc)
+            catch (Exception)
             {
                 //This means our location was not found
                 //ShowError("Could not find location: " + exc.Message);

@@ -230,14 +230,28 @@ namespace FieldService.WinRT.ViewModels {
                 goBackCommand.RaiseCanExecuteChanged ();
         }
 
+        /// <summary>
+        /// Value for showing accept/decline
+        /// </summary>
         public bool IsNew
         {
             get { return SelectedAssignment != null && SelectedAssignment.Status == AssignmentStatus.New; }
         }
 
+        /// <summary>
+        /// Value for showing combo box
+        /// </summary>
         public bool IsNotNew
         {
             get { return SelectedAssignment != null && SelectedAssignment.Status != AssignmentStatus.New; }
+        }
+
+        /// <summary>
+        /// Value for showing complete checkmark
+        /// </summary>
+        public bool IsComplete
+        {
+            get { return SelectedAssignment != null && SelectedAssignment.Status == AssignmentStatus.Complete; }
         }
 
         protected override void OnHoursChanged ()

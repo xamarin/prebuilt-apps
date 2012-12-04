@@ -65,18 +65,30 @@ namespace FieldService.WinRT.Views {
             Helpers.NavigateTo<AssignmentPage> ();
         }
 
-        private async void Status_SelectionChanged (object sender, SelectionChangedEventArgs e)
+        private void Status_SelectionChanged (object sender, SelectionChangedEventArgs e)
         {
             if (activeAssignment.Visibility == Windows.UI.Xaml.Visibility.Visible) {
-                if (assignmentViewModel.ActiveAssignment != null) {
-                    switch (assignmentViewModel.ActiveAssignment.Status) {
+                if (assignmentViewModel.ActiveAssignment != null && status.SelectedItem != null) {
+                    var assignmentStatus = status.SelectedItem;
+                    switch ((AssignmentStatus)assignmentStatus) {
                         case AssignmentStatus.Hold:
                             activeAssignment.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                            await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment);
-                            await assignmentViewModel.LoadAssignmentsAsync ();
+                            assignmentViewModel.ActiveAssignment.Status = AssignmentStatus.Hold;
+                            assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
+                               .ContinueOnUIThread (_ => {
+                                    assignmentViewModel.LoadAssignmentsAsync ();
+                                });
                             break;
                         case AssignmentStatus.Complete:
-                            //take you to the confirmations page.
+                            assignmentViewModel.ActiveAssignment.Status = AssignmentStatus.Active;
+                            assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                            assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
+                                .ContinueOnUIThread (_ => {
+                                    assignmentViewModel.LoadAssignmentsAsync ().ContinueWith (obj => {
+                                            Helpers.NavigateTo<AssignmentPage> ();
+                                            Helpers.NavigateTo<ConfirmationsPage> ();
+                                        });
+                                    });
                             break;
                         default:
                             break;

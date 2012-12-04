@@ -91,7 +91,7 @@
 
                         <ComboBox 
                         x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" SelectionChanged="Status_SelectionChanged"
-                        ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding ActiveAssignment.Status, Mode=TwoWay}" />
+                        ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding ActiveAssignment.Status, Mode=OneWay}" />
 
                     </Grid>
 

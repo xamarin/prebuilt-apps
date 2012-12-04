@@ -95,7 +95,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="{StaticResource CompleteIcon}" Stretch="None" HorizontalAlignment="Right" Margin="30,0,0,0"/>
+                                    <Image Source="{StaticResource CompleteIcon}" Stretch="None" HorizontalAlignment="Right" Margin="30,0,0,0" Visibility="{Binding IsComplete, Converter={StaticResource BooleanConverter}}"/>
 
                                     <TextBlock Margin="20,5,0,0" Grid.Column="1" VerticalAlignment="Center" Text="Mark Complete"
                                                Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" HorizontalAlignment="Left" />
