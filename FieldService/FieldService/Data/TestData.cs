@@ -225,7 +225,7 @@ namespace FieldService.Data {
         public static readonly Assignment Assignment12 = new Assignment {
             Id = 12,
             Priority = 12,
-            JobNumber = "7810",
+            JobNumber = "1680",
             CompanyName = "TxDPS",
             Description = Description,
             ContactName = "Sgt. Cordell Walker",
@@ -244,7 +244,7 @@ namespace FieldService.Data {
         public static readonly Assignment Assignment13 = new Assignment {
             Id = 13,
             Priority = 13,
-            JobNumber = "7810",
+            JobNumber = "3052",
             CompanyName = "Globo Gym",
             Description = Description,
             ContactName = "White Goodman",
@@ -253,7 +253,7 @@ namespace FieldService.Data {
             City = "Las Vegas",
             Zip = "89119",
             State = "NV",
-            Latitude = 36069925f,
+            Latitude = 36.069925f,
             Longitude = -115.166316f,
             Status = AssignmentStatus.New,
             StartDate = new DateTime (2013, 10, 24),
@@ -263,7 +263,7 @@ namespace FieldService.Data {
         public static readonly Assignment Assignment14 = new Assignment {
             Id = 14,
             Priority = 14,
-            JobNumber = "7810",
+            JobNumber = "9610",
             CompanyName = "Gifts R' Us",
             Description = Description,
             ContactName = "Santa Claus",
@@ -282,7 +282,7 @@ namespace FieldService.Data {
         public static readonly Assignment Assignment15 = new Assignment {
             Id = 15,
             Priority = 15,
-            JobNumber = "7810",
+            JobNumber = "4873",
             CompanyName = "Amazon",
             Description = Description,
             ContactName = "Jeffery P. Bezos",
@@ -310,6 +310,11 @@ namespace FieldService.Data {
             Assignment8,
             Assignment9,
             Assignment10,
+            Assignment11,
+            Assignment12,
+            Assignment13,
+            Assignment14,
+            Assignment15,
 
             //Some items
             new Item
@@ -697,6 +702,96 @@ namespace FieldService.Data {
             new AssignmentHistory
             {
                 AssignmentId = Assignment10.Id,
+                Date = DateTime.Today.AddDays(-90),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment11.Id,
+                Date = DateTime.Today.AddDays(-30),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment11.Id,
+                Type = AssignmentHistoryType.PhoneCall,
+                CallLength = TimeSpan.FromHours(1.25),
+                CallDescription = "Received call about a new issue.",
+                Date = DateTime.Today.AddDays(-60),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment11.Id,
+                Date = DateTime.Today.AddDays(-90),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment12.Id,
+                Date = DateTime.Today.AddDays(-30),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment12.Id,
+                Type = AssignmentHistoryType.PhoneCall,
+                CallLength = TimeSpan.FromHours(1.25),
+                CallDescription = "Received call about a new issue.",
+                Date = DateTime.Today.AddDays(-60),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment12.Id,
+                Date = DateTime.Today.AddDays(-90),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment13.Id,
+                Date = DateTime.Today.AddDays(-30),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment13.Id,
+                Type = AssignmentHistoryType.PhoneCall,
+                CallLength = TimeSpan.FromHours(1.25),
+                CallDescription = "Received call about a new issue.",
+                Date = DateTime.Today.AddDays(-60),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment13.Id,
+                Date = DateTime.Today.AddDays(-90),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment14.Id,
+                Date = DateTime.Today.AddDays(-30),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment14.Id,
+                Type = AssignmentHistoryType.PhoneCall,
+                CallLength = TimeSpan.FromHours(1.25),
+                CallDescription = "Received call about a new issue.",
+                Date = DateTime.Today.AddDays(-60),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment14.Id,
+                Date = DateTime.Today.AddDays(-90),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment15.Id,
+                Date = DateTime.Today.AddDays(-30),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment15.Id,
+                Type = AssignmentHistoryType.PhoneCall,
+                CallLength = TimeSpan.FromHours(1.25),
+                CallDescription = "Received call about a new issue.",
+                Date = DateTime.Today.AddDays(-60),
+            },
+            new AssignmentHistory
+            {
+                AssignmentId = Assignment15.Id,
                 Date = DateTime.Today.AddDays(-90),
             },
         };
