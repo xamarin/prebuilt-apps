@@ -13,18 +13,15 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
-using Windows.UI.Xaml.Controls.Primitives;
+using FieldService.WinRT.Utilities;
 using FieldService.WinRT.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
-using FieldService.WinRT.Utilities;
+using Windows.UI.Xaml.Controls.Primitives;
 
 namespace FieldService.WinRT.ViewModels {
     /// <summary>

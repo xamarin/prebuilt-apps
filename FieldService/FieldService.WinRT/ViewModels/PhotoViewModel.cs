@@ -13,15 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
-using FieldService.Data;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Windows.UI.Xaml.Controls;
-using FieldService.WinRT.Utilities;
-using Windows.UI.Xaml.Media;
+using FieldService.Data;
 using FieldService.Utilities;
 using Windows.UI.Popups;
 
