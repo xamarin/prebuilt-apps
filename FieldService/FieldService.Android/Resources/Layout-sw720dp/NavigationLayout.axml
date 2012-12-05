@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="220dp"
     android:layout_height="fill_parent">
     <ListView
@@ -46,7 +45,7 @@
                 android:layout_height="wrap_content"
                 android:id="@+id/fragmentHours"
                 android:layout_alignParentLeft="true"
-                android:textSize="16dp"
+                android:textSize="20dp"
                 android:layout_toLeftOf="@+id/fragmentTimer"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="10dp" />

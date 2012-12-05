@@ -76,6 +76,11 @@ namespace FieldService.Android {
                 navigationIndex = Intent.GetIntExtra (Constants.FragmentIndex, 0);
             }
 
+            if (bundle != null && bundle.ContainsKey (Constants.BundleIndex)) {
+                navigationIndex = bundle.GetInt (Constants.BundleIndex, 0);
+            }
+
+
             number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
             name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
             phone = FindViewById<TextView> (Resource.Id.selectedAssignmentPhoneNumber);

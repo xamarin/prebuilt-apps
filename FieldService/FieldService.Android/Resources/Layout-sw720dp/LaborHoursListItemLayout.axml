@@ -23,7 +23,7 @@
         android:layout_centerVertical="true"
         android:layout_toRightOf="@id/laborType"
         android:focusable="false"
-        android:textSize="16dp"
+        android:textSize="18dp"
         android:layout_weight="1"
         android:maxLines="1"
         android:ellipsize="end" />
@@ -33,9 +33,9 @@
         android:id="@+id/laborHours"
         android:layout_gravity="center_vertical"
         android:textColor="@android:color/black"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:layout_centerVertical="true"
         android:layout_alignParentRight="true"
         android:focusable="false"
-        android:textSize="16dp" />
+        android:textSize="18dp" />
 </LinearLayout>

@@ -10,7 +10,7 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/summaryAssignmentDescriptionHeader"
-        android:textSize="16dp"
+        android:textSize="20dp"
         android:textStyle="bold"
         android:textColor="@android:color/black" />
     <TextView
@@ -19,7 +19,7 @@
         android:id="@+id/summaryAssignmentDescription"
         android:layout_marginTop="10dp"
         android:textColor="@android:color/black"
-        android:textSize="14dp"
+        android:textSize="18dp"
         android:textStyle="normal"
         android:minHeight="100dp"
         android:maxHeight="100dp"

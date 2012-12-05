@@ -18,6 +18,7 @@
         android:id="@+id/documentListItemDocType"
         android:textColor="@android:color/black"
         android:textStyle="bold"
+        android:textSize="16dp"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="10dp" />
     <TextView
@@ -27,6 +28,7 @@
         android:textColor="@android:color/black"
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="30dp"
+        android:textSize="16dp"
         android:layout_weight="1"
         android:maxLines="1"
         android:minLines="1"

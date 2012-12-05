@@ -10,7 +10,7 @@
         android:layout_gravity="center_vertical"
         android:textColor="@android:color/black"
         android:layout_marginLeft="30dp"
-        android:textSize="16dp"
+        android:textSize="18dp"
         android:layout_weight="1" />
     <ImageButton
         android:src="@drawable/TrashCanIcon"
@@ -20,5 +20,5 @@
         android:layout_gravity="center_vertical"
         android:background="@android:color/transparent"
         android:focusable="false"
-        android:padding="10dp" />
+        android:padding="20dp" />
 </LinearLayout>
