@@ -81,7 +81,7 @@ namespace FieldService.WinRT.Views {
 
             if (assignmentViewModel.ActiveAssignment != null) {
                 var pin = new Pushpin {
-                    Background = assignmentViewModel.ActiveAssignment.Status.GetBrushForStatus(),
+                    Background = assignmentViewModel.ActiveAssignment.Status.GetBrushForStatus (),
                     Tag = assignmentViewModel.ActiveAssignment,
                 };
                 pin.Tapped += OnPinTapped;
@@ -104,7 +104,7 @@ namespace FieldService.WinRT.Views {
                 popup.DataContext = pin.Tag;
             }
 
-            if (!map.Children.Contains(popup))
+            if (!map.Children.Contains (popup))
                 map.Children.Add (popup);
 
             //Set position
@@ -114,28 +114,20 @@ namespace FieldService.WinRT.Views {
 
         private async void UpdatePosition ()
         {
-            try
-            {
-                var position = await locator.GetGeopositionAsync();
-                var location = new Location(position.Coordinate.Latitude, position.Coordinate.Longitude);
+            try {
+                var position = await locator.GetGeopositionAsync ();
+                var location = new Location (position.Coordinate.Latitude, position.Coordinate.Longitude);
 
                 //Move the map
-                map.SetView(location, 6);
+                map.SetView (location, 6);
 
                 //Move the user's pin
-                map.Children.Add(userPin);
-                MapLayer.SetPosition(userPin, location);
-            }
-            catch (Exception)
-            {
-                //This means our location was not found
-                //ShowError("Could not find location: " + exc.Message);
-            }
-        }
+                map.Children.Add (userPin);
+                MapLayer.SetPosition (userPin, location);
 
-        private async void ShowError(string error)
-        {
-            await new MessageDialog(error).ShowAsync();
+            } catch (Exception exc) {
+                System.Diagnostics.Debug.WriteLine ("Error updating position: " + exc.Message);
+            }
         }
     }
 }

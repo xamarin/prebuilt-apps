@@ -54,7 +54,6 @@ namespace FieldService.WinRT.Views {
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
         }
 
-
         /// <summary>
         /// Invoked when this page is about to be displayed in a Frame.
         /// </summary>
@@ -87,7 +86,7 @@ namespace FieldService.WinRT.Views {
                 popup.DataContext = assignmentViewModel.SelectedAssignment;
             }
 
-            if (!map.Children.Contains(popup))
+            if (!map.Children.Contains (popup))
                 map.Children.Add (popup);
 
             //Set position
@@ -97,29 +96,20 @@ namespace FieldService.WinRT.Views {
 
         private async void UpdatePosition ()
         {
-            try
-            {
-                 var assignment = assignmentViewModel.SelectedAssignment;
-                var position = await locator.GetGeopositionAsync();
-                
-                var location = new Location(position.Coordinate.Latitude, position.Coordinate.Longitude);
+            try {
+                var assignment = assignmentViewModel.SelectedAssignment;
+                var position = await locator.GetGeopositionAsync ();
+
+                var location = new Location (position.Coordinate.Latitude, position.Coordinate.Longitude);
 
                 //Set the user's pin
-                MapLayer.SetPosition(userPin, location);
+                MapLayer.SetPosition (userPin, location);
                 var lat = Math.Max (assignment.Latitude, location.Latitude) - Math.Min (assignment.Latitude, location.Latitude);
                 var lon = Math.Max (assignment.Longitude, location.Longitude) - Math.Min (assignment.Longitude, location.Longitude);
-                map.SetView (new Location (lat, lon), 6);                
+                map.SetView (new Location (lat, lon), 6);
+            } catch (Exception exc) {
+                System.Diagnostics.Debug.WriteLine ("Error updating position: " + exc.Message);
             }
-            catch (Exception)
-            {
-                //This means our location was not found
-                //ShowError("Could not find location: " + exc.Message);
-            }
-        }
-
-        private async void ShowError(string error)
-        {
-            await new MessageDialog(error).ShowAsync();
         }
     }
 }
