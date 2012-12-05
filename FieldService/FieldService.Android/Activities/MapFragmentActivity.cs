@@ -35,7 +35,7 @@ namespace FieldService.Android {
     /// "Fragment" for the map - it is required to be an activity although used as a fragment
     /// </summary>
     [Activity (Label = "Map View Fragment", Theme = "@style/CustomHoloTheme")]
-    public class MapFragmentActivity : MapActivity {
+    public class MapFragmentActivity : BaseMapActivity {
 
         AssignmentViewModel assignmentViewModel;
         MapView mapView;
@@ -100,11 +100,6 @@ namespace FieldService.Android {
             myLocation.DisableMyLocation ();
             mapView.Overlays.Clear ();
             base.OnPause ();
-        }
-
-        protected override bool IsRouteDisplayed
-        {
-            get { return false; }
         }
     }
 }
