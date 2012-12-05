@@ -20,6 +20,7 @@ using System.Linq;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.iOS
 {
@@ -29,8 +30,7 @@ namespace FieldService.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		DateTime dateBackgrounded = DateTime.Now;
-		TimeSpan autoLogoutTime = TimeSpan.FromMinutes (2); //This can be changed
+		readonly LoginViewModel loginViewModel = new LoginViewModel();
 
 		/// <summary>
 		/// Gets or sets the main window of the application
@@ -70,7 +70,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public override void DidEnterBackground (UIApplication application)
 		{
-			dateBackgrounded = DateTime.Now;
+			loginViewModel.ResetInactiveTime ();
 		}
 
 		/// <summary>
@@ -78,12 +78,12 @@ namespace FieldService.iOS
 		/// </summary>
 		public override void WillEnterForeground (UIApplication application)
 		{
-			if (DateTime.Now - dateBackgrounded > autoLogoutTime) {
+			if (loginViewModel.IsInactive) {
 				Theme.TransitionController<LoginController>();
 			}
 
 			//Let's reset the time, just to be safe
-			dateBackgrounded = DateTime.Now;
+			loginViewModel.ResetInactiveTime ();
 		}
 	}
 }
