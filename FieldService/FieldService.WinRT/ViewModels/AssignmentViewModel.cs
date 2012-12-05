@@ -248,6 +248,14 @@ namespace FieldService.WinRT.ViewModels {
         }
 
         /// <summary>
+        /// Value for showing timer control
+        /// </summary>
+        public bool IsTimerVisible
+        {
+            get { return SelectedAssignment != null && SelectedAssignment.Status == AssignmentStatus.Active; }
+        }
+
+        /// <summary>
         /// Value for showing complete checkmark
         /// </summary>
         public bool IsComplete

@@ -21,7 +21,6 @@ using Windows.UI.Xaml.Navigation;
 namespace FieldService.WinRT.Views {
     public sealed partial class AssignmentControl : UserControl {
         AssignmentViewModel assignmentViewModel;
-        bool ignoreNext = true;
 
         public AssignmentControl ()
         {
@@ -32,28 +31,28 @@ namespace FieldService.WinRT.Views {
 
         private async void SelectionChanged (object sender, SelectionChangedEventArgs e)
         {
-            if (ignoreNext) {
-                ignoreNext = false;
-                return;
-            }
             var assignmentStatus = status.SelectedItem;
-            switch ((AssignmentStatus)assignmentStatus) {
-                case AssignmentStatus.Active:
-                    timerControl.Visibility = Windows.UI.Xaml.Visibility.Visible;
-                    await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.SelectedAssignment);
-                    await assignmentViewModel.LoadAssignmentsAsync ();
-                    break;
-                case AssignmentStatus.Hold:
-                    timerControl.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
-                    await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.SelectedAssignment);
-                    await assignmentViewModel.LoadAssignmentsAsync ();
-                    break;
-                case AssignmentStatus.Complete:
-                    //take you to the confirmations page.
-                    break;
-                default:
-                    break;
-            }            
+            if (assignmentStatus != null && (AssignmentStatus)assignmentStatus != assignmentViewModel.SelectedAssignment.Status) {
+                switch ((AssignmentStatus)assignmentStatus) {
+                    case AssignmentStatus.Active:
+                        timerControl.Visibility = Windows.UI.Xaml.Visibility.Visible;
+                        assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Active;
+                        await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.SelectedAssignment);
+                        await assignmentViewModel.LoadAssignmentsAsync ();
+                        break;
+                    case AssignmentStatus.Hold:
+                        timerControl.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+                        assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Hold;
+                        await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.SelectedAssignment);
+                        await assignmentViewModel.LoadAssignmentsAsync ();
+                        break;
+                    case AssignmentStatus.Complete:
+                        Helpers.NavigateTo<ConfirmationsPage> ();
+                        break;
+                    default:
+                        break;
+                }
+            }
         }
     }
 }
