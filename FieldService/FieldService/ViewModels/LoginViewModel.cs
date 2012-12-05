@@ -31,6 +31,8 @@ namespace FieldService.ViewModels {
         readonly ILoginService service;
         string username;
         string password;
+        TimeSpan autoLogoutTime = TimeSpan.FromMinutes(2); //This value can be changed.
+        DateTime dateInactive = DateTime.Now;
 
         /// <summary>
         /// Constructor, requires an IService
@@ -82,6 +84,22 @@ namespace FieldService.ViewModels {
                     IsBusy = false; 
                     return t.Result;
                 });
+        }
+
+        /// <summary>
+        /// True if the login screen should be presented
+        /// </summary>
+        public bool IsInactive
+        {
+            get { return DateTime.Now - dateInactive > autoLogoutTime; }
+        }
+
+        /// <summary>
+        /// Should be called to reset the last inactive time, so on DidEnterBackground on iOS, for example
+        /// </summary>
+        public void ResetInactiveTime ()
+        {
+            dateInactive = DateTime.Now;
         }
 
         /// <summary>
