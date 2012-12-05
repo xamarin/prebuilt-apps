@@ -306,6 +306,7 @@
     <Content Include="..\Data\Intro_to_Web_Services.pdf">
       <Link>Data\Intro_to_Web_Services.pdf</Link>
     </Content>
+    <Content Include="Assets\WideLogo.png" />
     <None Include="FieldService.WinRT_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
