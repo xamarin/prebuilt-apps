@@ -19,11 +19,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FieldService.Data;
+using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.Views;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
+using Windows.UI.Xaml.Media;
 
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
@@ -256,6 +258,44 @@ namespace FieldService.WinRT.ViewModels {
         public bool IsComplete
         {
             get { return SelectedAssignment != null && SelectedAssignment.Status == AssignmentStatus.Complete; }
+        }
+
+        /// <summary>
+        /// Value for showing complete text
+        /// </summary>
+        public string IsCompleteText
+        {
+            get { return IsComplete ? "Complete" : "Mark Complete";}
+        }
+
+        /// <summary>
+        /// Value for showing correct brush color
+        /// </summary>
+        public SolidColorBrush IsCompleteColor
+        {
+            get
+            {
+                var app = ServiceContainer.Resolve<App> ();
+                if (IsComplete) {
+                    return app.Resources ["DarkTextBrush"] as SolidColorBrush;
+                }
+                return app.Resources ["LightItemsBrush"] as SolidColorBrush;                
+            }
+        }
+
+        /// <summary>
+        /// Value for showing correct brush color
+        /// </summary>
+        public SolidColorBrush IsCompleteBottomColor
+        {
+            get
+            {
+                var app = ServiceContainer.Resolve<App> ();
+                if (IsComplete) {
+                    return app.Resources ["DarkBottomTextBrush"] as SolidColorBrush;
+                }
+                return app.Resources ["DarkBlueItemsBrush"] as SolidColorBrush;
+            }
         }
 
         protected override void OnHoursChanged ()

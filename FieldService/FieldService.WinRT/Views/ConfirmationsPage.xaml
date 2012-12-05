@@ -62,8 +62,8 @@
                             <Border x:Name="addSignature" Width="340" Height="162" BorderThickness="0" Background="{StaticResource ItemsBrush}">
                                 <Grid >
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="81"/>
-                                        <RowDefinition Height="81"/>
+                                        <RowDefinition Height="100"/>
+                                        <RowDefinition Height="62"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="Auto" />
@@ -84,23 +84,23 @@
 
                         <!--Mark Complete section-->
                         <ListViewItem  Margin="5" Grid.Row="1">
-                            <Border x:Name="markComplete" Width="340" Height="162" BorderThickness="0" Background="{StaticResource ExpensesBrush}">
+                            <Border x:Name="markComplete" Width="340" Height="162" BorderThickness="0" Background="{Binding IsCompleteColor}">
                                 <Grid >
                                     <Grid.RowDefinitions>
-                                        <RowDefinition Height="81"/>
-                                        <RowDefinition Height="81"/>
+                                        <RowDefinition Height="100"/>
+                                        <RowDefinition Height="62"/>
                                     </Grid.RowDefinitions>
                                     <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="Auto" />
+                                        <ColumnDefinition Width="84" />
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
                                     <Image Source="{StaticResource CompleteIcon}" Stretch="None" HorizontalAlignment="Right" Margin="30,0,0,0" Visibility="{Binding IsComplete, Converter={StaticResource BooleanConverter}}"/>
 
-                                    <TextBlock Margin="20,5,0,0" Grid.Column="1" VerticalAlignment="Center" Text="Mark Complete"
+                                    <TextBlock Margin="20,5,0,0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding IsCompleteText}" x:Name="markCompleteText"
                                                Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" HorizontalAlignment="Left" />
 
-                                    <Grid Background="{StaticResource DarkRedExpensesBrush}" Grid.Row="1" Grid.ColumnSpan="2">
+                                    <Grid Background="{Binding IsCompleteBottomColor}" Grid.Row="1" Grid.ColumnSpan="2">
                                         <TextBlock Text="After it is marked complete, this assignment will no longer be accessible to you." TextWrapping="Wrap" Margin="10,10"/>
                                     </Grid>
                                 </Grid>

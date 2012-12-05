@@ -12,4 +12,5 @@
   <color name="itemssearchcolor">#BEBEBE</color>
   <color name="confirmationborder">#CCCCCC</color>
   <color name="listviewdivider">#A9A9A9</color>
+  <color name="historycolor">#FEA736</color>
 </resources>

@@ -52,6 +52,7 @@
         <GradientStop Offset="1" Color="#27cbef" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="DarkTextBrush">#333333</SolidColorBrush>
+    <SolidColorBrush x:Key="DarkBottomTextBrush">#1c1c1c</SolidColorBrush>
     <SolidColorBrush x:Key="BlueBackgroundBrush">#2b9ac1</SolidColorBrush>
     <SolidColorBrush x:Key="LightBlueBackgroundBrush">#24c3ed</SolidColorBrush>
     <SolidColorBrush x:Key="DarkBlueBackgroundBrush">#12759a</SolidColorBrush>
@@ -69,6 +70,7 @@
     <SolidColorBrush x:Key="GreyBackgroundBrush">#c4c4c4</SolidColorBrush>
     <SolidColorBrush x:Key="DarkGreenButtonBrush">#15ab2a</SolidColorBrush>
     <SolidColorBrush x:Key="DarkGreenButtonBorderBrush">#02a218</SolidColorBrush>
+    <SolidColorBrush x:Key="LightItemsBrush">#1db0e7</SolidColorBrush>
     <SolidColorBrush x:Key="DarkBlueItemsBrush">#12759a</SolidColorBrush>
     <SolidColorBrush x:Key="DarkRedExpensesBrush">#760138</SolidColorBrush>
     <SolidColorBrush x:Key="DarkRedButtonBrush">#ac1552</SolidColorBrush>
