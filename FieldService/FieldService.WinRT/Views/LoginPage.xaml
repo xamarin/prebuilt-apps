@@ -7,6 +7,23 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
     
+    <Page.Resources>
+        <!-- The soft keyboard uses the same animation curve. These details can be pulled from the   
+         Windows.UI.Core.AnimationMetrics.AnimationDescription(AnimationEffect.HidePanel, AnimationEffectTarget.Primary)  
+         function call. -->
+        <Storyboard x:Name="keyboardShowing">
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.733" Storyboard.TargetName="transform" Storyboard.TargetProperty="Y">
+                <SplineDoubleKeyFrame x:Name="keyboardShowingFrame" KeyTime="0:0:0.733" KeySpline="0.10,0.90, 0.20,1" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+
+        <Storyboard x:Name="keyboardHiding">
+            <DoubleAnimationUsingKeyFrames Duration="0:0:0.367" Storyboard.TargetName="transform" Storyboard.TargetProperty="Y">
+                <SplineDoubleKeyFrame KeyTime="0:0:0.367" KeySpline="0.10,0.90, 0.20,1" Value="0" />
+            </DoubleAnimationUsingKeyFrames>
+        </Storyboard>
+    </Page.Resources>
+    
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition />
@@ -14,6 +31,10 @@
             <RowDefinition Height="Auto" />
             <RowDefinition />
         </Grid.RowDefinitions>
+        
+        <Grid.RenderTransform>
+            <TranslateTransform x:Name="transform" />
+        </Grid.RenderTransform>
 
         <Image Source="{StaticResource BackgroundImage}" Grid.RowSpan="4" Stretch="None" />
 

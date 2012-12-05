@@ -16,6 +16,7 @@
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.WinRT.ViewModels;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Navigation;
@@ -25,6 +26,7 @@ namespace FieldService.WinRT.Views {
     /// The initial login page
     /// </summary>
     public sealed partial class LoginPage : Page {
+        bool navigatedTo = false;
         readonly LoginViewModel loginViewModel;
 
         public LoginPage ()
@@ -37,6 +39,19 @@ namespace FieldService.WinRT.Views {
             //Generally I would use two-way bindings here, but UpdateSourceTrigger is not available in WinRT
             username.TextChanged += (sender, e) => loginViewModel.Username = username.Text;
             password.PasswordChanged += (sender, e) => loginViewModel.Password = password.Password;
+
+            //Hook up keyboard events
+            var inputPane = InputPane.GetForCurrentView ();
+            inputPane.Showing += (sender, e) => {
+                if (navigatedTo) {
+                    keyboardShowingFrame.Value = -e.OccludedRect.Height / 2;
+                    keyboardShowing.Begin ();
+                }
+            };
+            inputPane.Hiding += (sender, e) => {
+                if (navigatedTo)
+                    keyboardHiding.Begin ();
+            };
         }
 
         /// <summary>
@@ -46,8 +61,16 @@ namespace FieldService.WinRT.Views {
         /// property is typically used to configure the page.</param>
         protected override void OnNavigatedTo (NavigationEventArgs e)
         {
+            navigatedTo = true;
             username.Text = string.Empty;
             password.Password = string.Empty;
+        }
+
+        protected override void OnNavigatedFrom (NavigationEventArgs e)
+        {
+            base.OnNavigatedFrom (e);
+
+            navigatedTo = false;
         }
 
         /// <summary>
