@@ -17,8 +17,8 @@ using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
 using FieldService.WinRT.Views;
-using Windows.ApplicationModel;
 using Windows.ApplicationModel.Activation;
+using Windows.UI.Core;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -27,6 +27,9 @@ namespace FieldService.WinRT {
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application {
+
+        readonly LoginViewModel loginViewModel;
+
         /// <summary>
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
@@ -34,8 +37,9 @@ namespace FieldService.WinRT {
         public App ()
         {
             InitializeComponent ();
+
+            //Create our RootFrame
             RootFrame = new Frame ();
-            Suspending += OnSuspending;
 
             //Register services for core library
             ServiceRegistrar.Startup ();
@@ -50,6 +54,8 @@ namespace FieldService.WinRT {
             ServiceContainer.Register<DocumentViewModel> ();
             ServiceContainer.Register<HistoryViewModel> ();
             ServiceContainer.Register(this);
+
+            loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
         }
 
         public Frame RootFrame
@@ -69,6 +75,7 @@ namespace FieldService.WinRT {
             Window.Current.Content = RootFrame;
 
             if (RootFrame.Content == null) {
+                Window.Current.VisibilityChanged += OnVisibilityChanged;
                 Helpers.NavigateTo<LoginPage> ();
             }
 
@@ -77,17 +84,19 @@ namespace FieldService.WinRT {
         }
 
         /// <summary>
-        /// Invoked when application execution is being suspended.  Application state is saved
-        /// without knowing whether the application will be terminated or resumed with the contents
-        /// of memory still intact.
+        /// Event when the visibility is changed on the main window
         /// </summary>
-        /// <param name="sender">The source of the suspend request.</param>
-        /// <param name="e">Details about the suspend request.</param>
-        private void OnSuspending (object sender, SuspendingEventArgs e)
+        private void OnVisibilityChanged (object sender, VisibilityChangedEventArgs e)
         {
-            var deferral = e.SuspendingOperation.GetDeferral ();
-            //TODO: Save application state and stop any background activity
-            deferral.Complete ();
+            if (e.Visible) {
+                if (loginViewModel.IsInactive) {
+                    Helpers.NavigateTo<LoginPage> ();
+                }
+            } else {
+                System.Diagnostics.Debug.WriteLine ("");
+            }
+
+            loginViewModel.ResetInactiveTime ();
         }
     }
 }
