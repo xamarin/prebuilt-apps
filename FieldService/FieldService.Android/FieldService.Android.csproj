@@ -220,7 +220,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout-land\SummaryFragmentLayout.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout\NavigationLayout.axml">
       <SubType>AndroidResource</SubType>

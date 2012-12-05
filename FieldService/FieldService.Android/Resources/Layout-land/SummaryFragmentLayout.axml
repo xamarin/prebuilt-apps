@@ -39,15 +39,16 @@
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:id="@+id/summaryPhoneIconLayout"
             android:layout_marginLeft="10dp">
             <ImageView
                 android:src="@drawable/PhoneIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:background="@drawable/roundedblack"
+                android:layout_gravity="center_vertical"
                 android:scaleType="centerInside"
                 android:id="@+id/summaryFragmentPhoneIcon" />
             <TextView
@@ -56,24 +57,27 @@
                 android:id="@+id/selectedAssignmentPhoneNumber"
                 android:textSize="14dp"
                 android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
                 android:maxWidth="110dp"
                 android:minWidth="110dp" />
         </LinearLayout>
         <LinearLayout
             android:orientation="horizontal"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"
+            android:layout_height="wrap_content"
             android:id="@+id/summaryMapIconLayout"
+            android:layout_gravity="center_vertical"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
             android:layout_marginLeft="10dp">
             <ImageView
                 android:src="@drawable/MapIcon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
                 android:background="@drawable/roundedblack"
+                android:layout_gravity="center_vertical"
                 android:scaleType="centerInside" />
             <TextView
                 android:layout_width="wrap_content"
@@ -81,9 +85,9 @@
                 android:id="@+id/selectedAssignmentAddress"
                 android:textSize="14dp"
                 android:textColor="@android:color/black"
+                android:layout_gravity="center_vertical"
                 android:layout_marginLeft="10dp"
                 android:gravity="center_vertical"
-                android:layout_gravity="center_vertical"
                 android:maxWidth="150dp"
                 android:minWidth="150dp" />
         </LinearLayout>
