@@ -215,6 +215,14 @@ namespace FieldService.Data {
                 ", assignment.Id);
         }
 
+        public Task<Assignment> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken)
+        {
+            return Database.GetConnection (cancellationToken)
+                .Table<Assignment> ()
+                .Where (a => a.Id == assignmentHistory.AssignmentId)
+                .FirstOrDefaultAsync ();
+        }
+
         public Task<int> SaveExpensePhotoAsync (ExpensePhoto photo, CancellationToken cancellationToken)
         {
             if (photo.Id == 0)

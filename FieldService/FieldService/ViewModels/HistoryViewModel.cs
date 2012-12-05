@@ -14,6 +14,7 @@ namespace FieldService.ViewModels {
     public class HistoryViewModel : ViewModelBase {
         readonly IAssignmentService service;
         List<AssignmentHistory> history;
+        Assignment assignment;
 
         public HistoryViewModel ()
         {
@@ -29,6 +30,12 @@ namespace FieldService.ViewModels {
             set { history = value; OnPropertyChanged ("History"); }
         }
 
+        public Assignment PastAssignment
+        {
+            get { return assignment; }
+            set { assignment = value; OnPropertyChanged ("PastAssignment"); }
+        }
+
         /// <summary>
         /// Loads the assignment history
         /// </summary>
@@ -37,6 +44,13 @@ namespace FieldService.ViewModels {
             return service
                 .GetAssignmentHistoryAsync (assignment, CancellationToken.None)
                 .ContinueOnUIThread (t => History = t.Result);
+        }
+
+        public Task LoadAssignmentFromHistory (AssignmentHistory assignmentHistory)
+        {
+            return service
+                .GetAssignmentFromHistory (assignmentHistory, CancellationToken.None)
+                .ContinueOnUIThread (t => PastAssignment = t.Result);
         }
     }
 }

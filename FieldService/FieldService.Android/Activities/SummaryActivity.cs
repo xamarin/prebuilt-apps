@@ -46,7 +46,7 @@ namespace FieldService.Android {
         FrameLayout navigationFragmentContainer;
         TextView number, name, phone, address, items;
         Button addItems, addLabor, addExpense;
-        int assignmentIndex = 0, navigationIndex = 0;
+        int navigationIndex = 0;
         ItemsDialog itemDialog;
         AddLaborDialog laborDialog;
         ExpenseDialog expenseDialog;

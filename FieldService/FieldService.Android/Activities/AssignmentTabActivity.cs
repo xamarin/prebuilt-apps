@@ -52,6 +52,12 @@ namespace FieldService.Android {
             set;
         }
 
+        public AssignmentHistory SelectedHistoryAssignment
+        {
+            get;
+            set;
+        }
+
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);

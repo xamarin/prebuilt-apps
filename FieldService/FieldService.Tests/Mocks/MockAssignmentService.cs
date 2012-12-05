@@ -203,5 +203,10 @@ namespace FieldService.Tests.Mocks {
         {
             return Task.Factory.StartNew (() => new ExpensePhoto { ExpenseId = expense.Id });
         }
+
+        public Task<Assignment> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken)
+        {
+            return Task.Factory.StartNew (() => new Assignment { Id = assignmentHistory.AssignmentId });
+        }
     }
 }

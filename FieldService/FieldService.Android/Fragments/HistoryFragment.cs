@@ -9,7 +9,9 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Activities;
 using FieldService.Android.Adapters;
+using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -93,9 +95,11 @@ namespace FieldService.Android.Fragments {
             }
 
             historyListView.ItemClick += (sender, e) => {
-                //load the history item as the selected assignment
-                //var history = historySearchAdapter.GetAssignmentHistory (e.Position);
-                //set history and then go to summary for history
+                var intent = new Intent (Activity, typeof (SummaryHistoryActivity));
+                var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                activity.SelectedHistoryAssignment = History.ElementAtOrDefault (e.Position);
+                intent.PutExtra (Constants.FragmentIndex, 0);
+                StartActivity (intent);
             };
 
             return view;

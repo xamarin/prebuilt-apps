@@ -150,5 +150,10 @@ namespace FieldService {
         /// Gets the history for an assignment
         /// </summary>
         Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment, CancellationToken cancellationToken);
+
+        /// <summary>
+        /// Gets the past assignment
+        /// </summary>
+        Task<Assignment> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken);
     }
 }

@@ -167,7 +167,7 @@
     <Compile Include="Activities\BaseMapActivity.cs" />
     <Compile Include="Activities\MapFragmentActivity.cs" />
     <Compile Include="Activities\SummaryActivity.cs" />
-    <Compile Include="Activities\TabFragmentActivity.cs" />
+    <Compile Include="Activities\SummaryHistoryActivity.cs" />
     <Compile Include="Adapters\AssignmentsAdapter.cs" />
     <Compile Include="Activities\AssignmentTabActivity.cs" />
     <Compile Include="Activities\LoginActivity.cs" />
@@ -584,9 +584,6 @@
     <AndroidResource Include="Resources\Drawable-xhdpi\trianglewhite.9.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\UpLaborHours.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\XamarinTitle.png" />
-    <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
-    <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
-    <AndroidResource Include="Resources\Drawable-mdpi\Icon.png" />
     <AndroidResource Include="Resources\Drawable-hdpi\MapOverlayIconDown.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\MapOverlayIconDown.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayIconDown.png" />
@@ -597,6 +594,9 @@
     <AndroidResource Include="Resources\Menu\FragmentNavigationMenu.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
+    <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
