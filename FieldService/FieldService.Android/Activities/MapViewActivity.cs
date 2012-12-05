@@ -35,7 +35,7 @@ namespace FieldService.Android {
     /// Activity for the map overview
     /// </summary>
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
-    public class MapViewActivity : MapActivity {
+    public class MapViewActivity : BaseMapActivity {
         AssignmentViewModel assignmentViewModel;
         MapView mapView;
         MyLocationOverlay myLocation;
@@ -286,14 +286,6 @@ namespace FieldService.Android {
                     timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
                 });
             }
-        }
-
-        /// <summary>
-        /// Override for MapActivity
-        /// </summary>
-        protected override bool IsRouteDisplayed
-        {
-            get { return false; }
         }
 
         /// <summary>

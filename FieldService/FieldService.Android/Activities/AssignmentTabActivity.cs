@@ -32,7 +32,7 @@ namespace FieldService.Android {
     /// Activity for the tab bar between "Assignments" and "Map Overview"
     /// </summary>
     [Activity (Label = "Assignment Tabs", Theme = "@style/CustomHoloTheme")]
-    public class AssignmentTabActivity : Activity {
+    public class AssignmentTabActivity : BaseActivity {
         LocalActivityManager localManger;
         TabHost tabHost;
         public AssignmentTabActivity ()

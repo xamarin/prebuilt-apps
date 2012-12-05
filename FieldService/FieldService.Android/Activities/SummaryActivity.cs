@@ -35,7 +35,7 @@ namespace FieldService.Android {
     /// Activity for the summary screen
     /// </summary>
     [Activity (Label = "Summary", Theme = "@android:style/Theme.Holo")]
-    public class SummaryActivity : Activity, PopupMenu.IOnMenuItemClickListener {
+    public class SummaryActivity : BaseActivity, PopupMenu.IOnMenuItemClickListener {
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
         readonly PhotoViewModel photoViewModel;

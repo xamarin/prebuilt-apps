@@ -32,7 +32,7 @@ namespace FieldService.Android {
     /// Activity for the list of assignments
     /// </summary>
     [Activity (Label = "Assignments", Theme = "@style/CustomHoloTheme")]
-    public class AssignmentsActivity : Activity {
+    public class AssignmentsActivity : BaseActivity {
         readonly AssignmentViewModel assignmentViewModel;
         ListView assignmentsListView;
         LinearLayout assignmentActiveLayout,
