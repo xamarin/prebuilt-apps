@@ -14,17 +14,14 @@
 //    limitations under the License.
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+using System.IO;
 using System.Threading.Tasks;
 using FieldService.Data;
 using FieldService.Utilities;
+using Windows.Storage.Streams;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Media.Imaging;
-using System.IO;
-using Windows.Storage.Streams;
 
 namespace FieldService.WinRT.Utilities {
     /// <summary>
