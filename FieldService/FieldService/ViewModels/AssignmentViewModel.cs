@@ -37,6 +37,7 @@ namespace FieldService.ViewModels {
         readonly IAssignmentService service;
         readonly Timer timer;
         TimeSpan hours = TimeSpan.Zero;
+        TimeSpan currentHours = TimeSpan.Zero;
         List<Assignment> assignments;
         Assignment activeAssignment;
         Data.Signature signature;
@@ -70,6 +71,7 @@ namespace FieldService.ViewModels {
             timer.SynchronizingObject = ServiceContainer.Resolve<ISynchronizeInvoke> ();
 #endif
             timer.Elapsed += (sender, e) => {
+                CurrentHours = currentHours.Add (TimeSpan.FromSeconds (1));
                 Hours = hours.Add (TimeSpan.FromSeconds (1));
             };
         }
@@ -101,6 +103,15 @@ namespace FieldService.ViewModels {
             var method = RecordingChanged;
             if (method != null)
                 RecordingChanged (this, EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Number of hours for the current record session on the active assignment
+        /// </summary>
+        public TimeSpan CurrentHours
+        {
+            get { return currentHours; }
+            set { currentHours = value; OnPropertyChanged ("CurrentHours"); }
         }
 
         /// <summary>
@@ -178,7 +189,8 @@ namespace FieldService.ViewModels {
                     timerEntry = t.Result;
                     if (timerEntry != null) {
                         Recording = true;
-                        Hours = (DateTime.Now - timerEntry.Date);
+                        CurrentHours =
+                            Hours = (DateTime.Now - timerEntry.Date);
                         timer.Enabled = true;
                     }
                     return timerEntry;
@@ -279,7 +291,7 @@ namespace FieldService.ViewModels {
                 .SaveLaborAsync (labor, CancellationToken.None)
                 .ContinueWith (service.DeleteTimerEntryAsync (timerEntry, CancellationToken.None))
                 .ContinueOnUIThread (_ => {
-                    Hours = TimeSpan.Zero;
+                    CurrentHours = TimeSpan.Zero;
                     IsBusy = false;
                 });
         }

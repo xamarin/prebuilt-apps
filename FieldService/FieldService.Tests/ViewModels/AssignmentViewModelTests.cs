@@ -121,7 +121,8 @@ namespace FieldService.Tests.ViewModels {
             task.Wait ();
 
             Assert.That (viewModel.Recording, Is.False);
-            Assert.That (viewModel.Hours, Is.EqualTo(TimeSpan.Zero));
+            Assert.That (viewModel.CurrentHours, Is.EqualTo(TimeSpan.Zero));
+            Assert.That (viewModel.Hours, Is.Not.EqualTo (TimeSpan.Zero));
         }
 
         [Test]
