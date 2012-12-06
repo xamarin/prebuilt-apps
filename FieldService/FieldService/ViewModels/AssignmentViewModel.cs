@@ -274,7 +274,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task PauseAsync ()
         {
-            if (activeAssignment == null)
+            if (activeAssignment == null || timerEntry == null)
                 return Task.Factory.StartNew (delegate { });
 
             IsBusy = true;
