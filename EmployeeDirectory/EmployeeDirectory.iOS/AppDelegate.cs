@@ -19,7 +19,9 @@ using System.Linq;
 
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
+
 using EmployeeDirectory.Data;
+using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.iOS
 {
@@ -27,18 +29,23 @@ namespace EmployeeDirectory.iOS
 	public partial class AppDelegate : UIApplicationDelegate
 	{
 		UIWindow window;
+		IDirectoryService service;
+
+		FavoritesViewController favoritesViewController;
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
+			Xamarin.Themes.PrebuiltAppTheme.Apply ();
+
 			//
 			// Create the service
 			//
 
 			// Local CSV file
-//			var service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
+//			service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
 
 			// LDAP service
-			var service = new LdapDirectoryService {
+			service = new LdapDirectoryService {
 				Host = "ldap.mit.edu",
 				SearchBase = "dc=mit,dc=edu",
 			};
@@ -46,7 +53,12 @@ namespace EmployeeDirectory.iOS
 			//
 			// Load the favorites
 			//
-			var favoritesRepository = XmlFavoritesRepository.Open ("Favorites.xml");
+			var favoritesRepository = XmlFavoritesRepository.OpenIsolatedStorage ("Favorites.xml");
+
+			if (favoritesRepository.GetAll ().Count () == 0) {
+				favoritesRepository = XmlFavoritesRepository.OpenFile ("Data/XamarinFavorites.xml");
+				favoritesRepository.IsolatedStorageName = "Favorites.xml";
+			}
 
 			//
 			// Load the last search
@@ -62,19 +74,32 @@ namespace EmployeeDirectory.iOS
 			//
 			// Build the UI
 			//
-			var searchViewController = new SearchViewController (search, service, favoritesRepository);
-			var favoritesViewController = new FavoritesViewController (favoritesRepository);
-
-			var tabs = new UITabBarController ();
-			tabs.SetViewControllers (new UIViewController[] {
-				new UINavigationController (searchViewController),
-				new UINavigationController (favoritesViewController),
-			}, false);
+			favoritesViewController = new FavoritesViewController (favoritesRepository, service, search);
 
 			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			window.RootViewController = tabs;
-			window.MakeKeyAndVisible ();			
+			window.RootViewController = new UINavigationController (favoritesViewController);
+			window.MakeKeyAndVisible ();
+
 			return true;
+		}
+
+		public override void OnActivated (UIApplication application)
+		{
+			if (LoginViewModel.ShouldShowLogin (Settings.LastLoginTime, Settings.LastUseTime)) {
+				var login = new LoginViewController (service);
+				favoritesViewController.PresentViewController (login, false, null);
+			}
+		}
+
+		public override void OnResignActivation (UIApplication application)
+		{
+			Settings.LastUseTime = DateTime.UtcNow;
+		}
+
+		// This is the main entry point of the application.
+		static void Main (string[] args)
+		{
+			UIApplication.Main (args, null, "AppDelegate");
 		}
 	}
 }

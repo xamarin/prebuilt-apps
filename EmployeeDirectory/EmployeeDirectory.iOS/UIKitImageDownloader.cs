@@ -14,10 +14,12 @@
 //    limitations under the License.
 //
 using System;
-using EmployeeDirectory.Utilities;
-using MonoTouch.UIKit;
-using MonoTouch.Foundation;
 using System.IO;
+
+using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+
+using EmployeeDirectory.Utilities;
 
 namespace EmployeeDirectory.iOS
 {
@@ -46,7 +48,7 @@ namespace EmployeeDirectory.iOS
 
 		protected override object LoadImage (Stream stream)
 		{
-			return UIImage.LoadFromData (NSData.FromStream (stream));
+			return UIImage.LoadFromData (NSData.FromStream (stream), 2);
 		}
 	}
 }

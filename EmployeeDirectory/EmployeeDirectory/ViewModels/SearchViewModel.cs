@@ -23,7 +23,7 @@ using System.Collections.ObjectModel;
 
 namespace EmployeeDirectory.ViewModels
 {
-	public class SearchViewModel : ViewModel
+	public class SearchViewModel : ViewModelBase
 	{
 		IDirectoryService service;
 		Search search;
@@ -95,14 +95,14 @@ namespace EmployeeDirectory.ViewModels
 			//
 			lastCancelSource = new CancellationTokenSource ();
 			var token = lastCancelSource.Token;
-			service.SearchAsync (search.Filter, 200).ContinueWith (
-				OnSearchCompleted,
+			service.SearchAsync (search.Filter, 200, token).ContinueWith (
+				t => OnSearchCompleted (SearchText, SearchProperty, t),
 				token,
 				TaskContinuationOptions.None,
 				TaskScheduler.FromCurrentSynchronizationContext ());
 		}
 
-		void OnSearchCompleted (Task<IList<Person>> searchTask)
+		void OnSearchCompleted (string searchText, SearchProperty searchProperty, Task<IList<Person>> searchTask)
 		{
 			if (searchTask.IsFaulted) {
 				var ev = Error;
@@ -117,7 +117,10 @@ namespace EmployeeDirectory.ViewModels
 
 				var ev = SearchCompleted;
 				if (ev != null) {
-					ev (this, EventArgs.Empty);
+					ev (this, new SearchCompletedEventArgs { 
+						SearchText = searchText,
+						SearchProperty = searchProperty
+					});
 				}
 			}
 		}
@@ -135,12 +138,16 @@ namespace EmployeeDirectory.ViewModels
 
 		#region Events
 
-		public event EventHandler<ErrorEventArgs> Error;
+		public new event EventHandler<ErrorEventArgs> Error;
 
-		public event EventHandler SearchCompleted;
+		public event EventHandler<SearchCompletedEventArgs> SearchCompleted;
 
 		#endregion
 	}
 
-
+	public class SearchCompletedEventArgs : EventArgs
+	{
+		public string SearchText { get; set; }
+		public SearchProperty SearchProperty { get; set; }
+	}
 }

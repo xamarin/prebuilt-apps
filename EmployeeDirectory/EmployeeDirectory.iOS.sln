@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novell.Directory.Ldap", "De
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDirectory", "EmployeeDirectory\EmployeeDirectory.csproj", "{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDirectory.Android", "EmployeeDirectory.Android\EmployeeDirectory.Android.csproj", "{1F970077-7126-4E41-901F-DDEE795B32FC}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrebuiltAppTheme.iOS", "..\PrebuiltAppTheme\PrebuiltAppTheme.iOS\PrebuiltAppTheme.iOS.csproj", "{78EC813C-4567-4ECC-A627-5B45C3761F81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,22 +21,6 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.AppStore|iPhone.Build.0 = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|iPhone.Build.0 = Release|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{1F970077-7126-4E41-901F-DDEE795B32FC}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
@@ -53,6 +37,22 @@ Global
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.Release|iPhone.Build.0 = Release|Any CPU
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|Any CPU.Build.0 = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|iPhone.Build.0 = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
 		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
 		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
@@ -87,7 +87,7 @@ Global
 		{8735A806-2338-4494-944F-5439944AFFB4}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = EmployeeDirectory.Android\EmployeeDirectory.Android.csproj
+		StartupItem = EmployeeDirectory.iOS\EmployeeDirectory.iOS.csproj
 		Policies = $0
 		$0.StandardHeader = $1
 		$1.Text = @\n Copyright ${Year}  ${CopyrightHolder}\n\n   Licensed under the Apache License, Version 2.0 (the "License");\n   you may not use this file except in compliance with the License.\n   You may obtain a copy of the License at\n\n       http://www.apache.org/licenses/LICENSE-2.0\n\n   Unless required by applicable law or agreed to in writing, software\n   distributed under the License is distributed on an "AS IS" BASIS,\n   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.\n   See the License for the specific language governing permissions and\n   limitations under the License.
