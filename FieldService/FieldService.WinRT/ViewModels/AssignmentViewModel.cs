@@ -301,6 +301,14 @@ namespace FieldService.WinRT.ViewModels {
             }
         }
 
+        /// <summary>
+        /// Value for showing total accumulated time
+        /// </summary>
+        public string TotalAccumulated
+        {
+            get { return string.Format ("Total {0}:{1}", Hours.Hours.ToString("#0"), Hours.Minutes.ToString("00")); }
+        }
+
         protected override void OnHoursChanged ()
         {
             base.OnHoursChanged ();

@@ -79,11 +79,14 @@
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />
+                <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
 
             <TextBlock Margin="8" FontSize="32" FontWeight="Medium" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" Text="{Binding HoursFormatted}" />
 
             <ToggleButton Grid.Row="1" IsChecked="{Binding Recording}" Style="{StaticResource RecordButtonStyle}" Command="{Binding RecordCommand}" />
+            
+            <TextBlock Grid.Row="2" Margin="0,0,7,7" VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="{Binding TotalAccumulated}" FontSize="20" FontWeight="Light"/>
 
         </Grid>
 

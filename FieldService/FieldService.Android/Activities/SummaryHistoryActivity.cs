@@ -105,14 +105,6 @@ namespace FieldService.Android.Activities {
             };
 
             selectedAssignmentLayout.SetBackgroundColor (Resources.GetColor (Resource.Color.historycolor));
-            if (AssignmentHistory != null) {
-                ActionBar.Title = string.Format ("#{0} {1} {2}", AssignmentHistory.JobNumber, "Summary", "1/1/01");// AssignmentHistory.StartDate.ToShortDateString ());
-
-                number.Text = "1";// AssignmentHistory.prio.Priority.ToString ();
-                name.Text = AssignmentHistory.ContactName;
-                phone.Text = AssignmentHistory.ContactPhone;
-                address.Text = string.Format ("{0}\n{1}, {2} {3}", AssignmentHistory.Address, AssignmentHistory.City, AssignmentHistory.State, AssignmentHistory.Zip);
-            }
 
             historyViewModel.LoadAssignmentFromHistory (AssignmentHistory)
                 .ContinueOnUIThread (_ => {
@@ -126,6 +118,14 @@ namespace FieldService.Android.Activities {
                         transaction.Replace (Resource.Id.contentFrame, summaryFragment);
                         transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
                         transaction.Commit ();
+                        if (historyViewModel.PastAssignment != null) {
+                            ActionBar.Title = string.Format ("#{0} {1} {2}", AssignmentHistory.JobNumber, "Summary", historyViewModel.PastAssignment.StartDate.ToShortDateString ());
+
+                            number.Text = historyViewModel.PastAssignment.Priority.ToString ();
+                            name.Text = AssignmentHistory.ContactName;
+                            phone.Text = AssignmentHistory.ContactPhone;
+                            address.Text = string.Format ("{0}\n{1}, {2} {3}", AssignmentHistory.Address, AssignmentHistory.City, AssignmentHistory.State, AssignmentHistory.Zip);
+                        }
                     });
 
             items.Visibility =
