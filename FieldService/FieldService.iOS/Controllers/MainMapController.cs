@@ -317,9 +317,11 @@ namespace FieldService.iOS
 			/// </summary>
 			public override void DidUpdateUserLocation (MKMapView mapView, MKUserLocation userLocation)
 			{
-				var span = new MKCoordinateSpan(15, 15);
-				var region = new MKCoordinateRegion(userLocation.Coordinate, span);
-				mapView.SetRegion (region, true);
+				if (userLocation != null) {
+					var span = new MKCoordinateSpan (15, 15);
+					var region = new MKCoordinateRegion (userLocation.Coordinate, span);
+					mapView.SetRegion (region, true);
+				}
 			}
 			
 			/// <summary>

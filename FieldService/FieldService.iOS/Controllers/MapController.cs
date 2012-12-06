@@ -110,7 +110,7 @@ namespace FieldService.iOS
 			public override void DidUpdateUserLocation (MKMapView mapView, MKUserLocation userLocation)
 			{
 				var placemark = mapView.Annotations.OfType<MKPlacemark>().FirstOrDefault ();
-				if (placemark != null)
+				if (placemark != null && userLocation.Location != null)
 				{
 					//Calculate the mid point between 2 locations
 					double latitude = Math.Min (userLocation.Coordinate.Latitude, placemark.Coordinate.Latitude) +
