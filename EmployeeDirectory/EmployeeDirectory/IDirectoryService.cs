@@ -14,17 +14,18 @@
 //    limitations under the License.
 //
 using System;
-using System.Threading.Tasks;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
+
 using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory
 {
-	public interface IDirectoryService
+	public interface IDirectoryService : IDisposable
 	{
-		Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit);
+		Task LoginAsync (string username, string password, CancellationToken cancellationToken);
+		Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit, CancellationToken cancellationToken);
 	}
-
-
 }
 

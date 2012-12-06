@@ -25,6 +25,8 @@ namespace EmployeeDirectory.Data
 		bool IsFavorite (Person person);
 		void InsertOrUpdate (Person person);
 		void Delete (Person person);
+
+		event EventHandler Changed;
 	}
 }
 

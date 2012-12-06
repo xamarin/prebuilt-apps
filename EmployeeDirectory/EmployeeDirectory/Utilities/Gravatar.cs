@@ -32,7 +32,7 @@ namespace EmployeeDirectory.Utilities
 #endif
         }
 
-		public static Uri GetUrl (string email, int size)
+		public static Uri GetImageUrl (string email, int size)
 		{
 			if (string.IsNullOrEmpty (email)) {
 				throw new ArgumentException ("Email must be a valid email address.", "email");

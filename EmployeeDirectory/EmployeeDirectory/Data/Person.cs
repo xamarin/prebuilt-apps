@@ -128,7 +128,7 @@ namespace EmployeeDirectory.Data
 
 		public Uri GravatarUrl {
 			get {
-				return HasEmail ? EmployeeDirectory.Utilities.Gravatar.GetUrl (Email, 80) : null;
+				return HasEmail ? EmployeeDirectory.Utilities.Gravatar.GetImageUrl (Email, 80) : null;
 			}
 		}
 
@@ -164,6 +164,17 @@ namespace EmployeeDirectory.Data
 					else {
 						return FirstName;
 					}
+				}
+				else {
+					return SplitFirstAndLastName ()[0];
+				}
+			}
+		}
+
+		public string SafeFirstName {
+			get {
+				if (!string.IsNullOrWhiteSpace (FirstName)) {
+					return FirstName;
 				}
 				else {
 					return SplitFirstAndLastName ()[0];

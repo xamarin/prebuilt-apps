@@ -26,36 +26,54 @@ namespace EmployeeDirectory.Data
 	[XmlRoot ("Favorites")]
 	public class XmlFavoritesRepository : IFavoritesRepository
 	{
-		string fileName;
+		public string IsolatedStorageName { get; set; }
+
+		public event EventHandler Changed;
 
 		public List<Person> People { get; set; }
 
-		public static XmlFavoritesRepository Open (string fileName)
+		public static XmlFavoritesRepository OpenIsolatedStorage (string isolatedStorageName)
 		{
 			var serializer = new XmlSerializer (typeof(XmlFavoritesRepository));
 			var iso = IsolatedStorageFile.GetUserStoreForApplication ();
 
 			try {
-				using (var f = iso.OpenFile (fileName, FileMode.Open)) {
+				using (var f = iso.OpenFile (isolatedStorageName, FileMode.Open)) {
 					var repo = (XmlFavoritesRepository)serializer.Deserialize (f);
-					repo.fileName = fileName;
+					repo.IsolatedStorageName = isolatedStorageName;
 					return repo;
 				}
 			} catch (Exception) {
 				return new XmlFavoritesRepository {
-					fileName = fileName,
+					IsolatedStorageName = isolatedStorageName,
 					People = new List<Person> ()
 				};
 			}
 		}
 
-		void Save ()
+		public static XmlFavoritesRepository OpenFile (string path)
+		{
+			var serializer = new XmlSerializer (typeof(XmlFavoritesRepository));
+
+			using (var f = File.Open (path, FileMode.Open)) {
+				var repo = (XmlFavoritesRepository)serializer.Deserialize (f);
+				repo.IsolatedStorageName = Path.GetFileName (path);
+				return repo;
+			}
+		}
+
+		void Commit ()
 		{
 			var serializer = new XmlSerializer (typeof(XmlFavoritesRepository));
 			var iso = IsolatedStorageFile.GetUserStoreForApplication ();
 
-			using (var f = iso.OpenFile (fileName, FileMode.Create)) {
+			using (var f = iso.OpenFile (IsolatedStorageName, FileMode.Create)) {
 				serializer.Serialize (f, this);
+			}
+
+			var ev = Changed;
+			if (ev != null) {
+				ev (this, EventArgs.Empty);
 			}
 		}
 
@@ -83,7 +101,7 @@ namespace EmployeeDirectory.Data
 				People.Remove (existing);
 			}
 			People.Add (person);
-			Save ();
+			Commit ();
 		}
 
 		public void Delete (Person person)
@@ -93,7 +111,7 @@ namespace EmployeeDirectory.Data
 			var n = People.Count - newPeople.Count;
 			People = newPeople;
 			if (n != 0) {
-				Save ();
+				Commit ();
 			}
 		}
 

@@ -54,7 +54,8 @@
     <Compile Include="Data\IFavoritesRepository.cs" />
     <Compile Include="Data\XmlFavoritesRepository.cs" />
     <Compile Include="ViewModels\FavoritesViewModel.cs" />
-    <Compile Include="ViewModels\ViewModel.cs" />
+    <Compile Include="ViewModels\LoginViewModel.cs" />
+    <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">

@@ -84,7 +84,6 @@
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
     <Compile Include="UIViewControllerEx.cs" />
     <Compile Include="..\EmployeeDirectory\Filter.cs">
@@ -105,7 +104,6 @@
     <Compile Include="..\EmployeeDirectory\Data\Search.cs">
       <Link>EmployeeDirectory\Data\Search.cs</Link>
     </Compile>
-    <Compile Include="SearchEditorView.cs" />
     <Compile Include="..\EmployeeDirectory\Utilities\ImageDownloader.cs">
       <Link>EmployeeDirectory\Utilities\ImageDownloader.cs</Link>
     </Compile>
@@ -113,7 +111,6 @@
     <Compile Include="..\EmployeeDirectory\Data\SearchProperty.cs">
       <Link>EmployeeDirectory\Data\SearchProperty.cs</Link>
     </Compile>
-    <Compile Include="SearchViewController.cs" />
     <Compile Include="..\EmployeeDirectory\ViewModels\ErrorEventArgs.cs">
       <Link>EmployeeDirectory\ViewModels\ErrorEventArgs.cs</Link>
     </Compile>
@@ -146,12 +143,22 @@
     <Compile Include="..\EmployeeDirectory\Data\XmlFavoritesRepository.cs">
       <Link>EmployeeDirectory\Data\XmlFavoritesRepository.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\ViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\ViewModel.cs</Link>
-    </Compile>
     <Compile Include="..\EmployeeDirectory\ViewModels\FavoritesViewModel.cs">
       <Link>EmployeeDirectory\ViewModels\FavoritesViewModel.cs</Link>
     </Compile>
+    <Compile Include="PersonCell.cs" />
+    <Compile Include="PeopleGroupsDataSource.cs" />
+    <Compile Include="PeopleGroupsDelegate.cs" />
+    <Compile Include="SearchDisplayDelegate.cs" />
+    <Compile Include="ActivityView.cs" />
+    <Compile Include="LoginViewController.cs" />
+    <Compile Include="..\EmployeeDirectory\ViewModels\LoginViewModel.cs">
+      <Link>EmployeeDirectory\ViewModels\LoginViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\EmployeeDirectory\ViewModels\ViewModelBase.cs">
+      <Link>EmployeeDirectory\ViewModels\ViewModelBase.cs</Link>
+    </Compile>
+    <Compile Include="Settings.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -166,6 +173,10 @@
       <Project>{7D5FA77D-740A-461F-96D0-E1B41C901BED}</Project>
       <Name>Novell.Directory.Ldap</Name>
     </ProjectReference>
+    <ProjectReference Include="..\..\PrebuiltAppTheme\PrebuiltAppTheme.iOS\PrebuiltAppTheme.iOS.csproj">
+      <Project>{78EC813C-4567-4ECC-A627-5B45C3761F81}</Project>
+      <Name>PrebuiltAppTheme.iOS</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default-568h%402x.png" />
@@ -174,5 +185,18 @@
     <Content Include="..\Data\XamarinDirectory.csv">
       <Link>Data\XamarinDirectory.csv</Link>
     </Content>
+    <Content Include="..\Data\XamarinFavorites.xml">
+      <Link>Data\XamarinFavorites.xml</Link>
+    </Content>
+    <Content Include="Images\DetailsPlaceholder.jpg" />
+    <Content Include="Images\DetailsPlaceholder%402x.jpg" />
+    <Content Include="Images\logo.png" />
+    <Content Include="Images\logo%402x.png" />
+    <Content Include="Images\login_box.png" />
+    <Content Include="Images\login_box%402x.png" />
+    <Content Include="Images\login_btn.png" />
+    <Content Include="Images\login_btn%402x.png" />
+    <Content Include="Images\login_textfield.png" />
+    <Content Include="Images\login_textfield%402x.png" />
   </ItemGroup>
 </Project>
