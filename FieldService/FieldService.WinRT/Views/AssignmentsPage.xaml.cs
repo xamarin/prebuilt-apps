@@ -56,6 +56,10 @@ namespace FieldService.WinRT.Views {
                 await assignmentViewModel.LoadAssignmentsAsync ();
                 activeAssignment.Visibility = assignmentViewModel.ActiveAssignment != null ? Visibility.Visible : Visibility.Collapsed;
             }
+            //toggle button state changed isn't being called unless is checked changes, this does not call the record button by setting this property
+            //this was the only way at the moment to get the toggle button to have its recording state changed when navigating to and from this screen.
+            record.IsChecked = !assignmentViewModel.Recording;
+            record.IsChecked = assignmentViewModel.Recording;
         }
 
         private void OnItemClick (object sender, ItemClickEventArgs e)
