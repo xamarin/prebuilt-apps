@@ -57,20 +57,27 @@ namespace FieldService.Android.Fragments {
                 expenses.Text = Assignment.TotalExpenses.ToString ("$#.00");
             }
 
-            itemsLayout.Click += (sender, e) => {
-                var index = Constants.Navigation.IndexOf("Items");
-                SelectNavigation (index);
-            };
-            laborHoursLayout.Click += (sender, e) => {
-                var index = Constants.Navigation.IndexOf ("Labor Hours");
-                SelectNavigation (index);
-            };
-            expensesLayout.Click += (sender, e) => {
-                var index = Constants.Navigation.IndexOf ("Expenses");
-                SelectNavigation (index);
-            };
+            if (!IsHistory) {
+                itemsLayout.Click += (sender, e) => {
+                    var index = Constants.Navigation.IndexOf ("Items");
+                    SelectNavigation (index);
+                };
+                laborHoursLayout.Click += (sender, e) => {
+                    var index = Constants.Navigation.IndexOf ("Labor Hours");
+                    SelectNavigation (index);
+                };
+                expensesLayout.Click += (sender, e) => {
+                    var index = Constants.Navigation.IndexOf ("Expenses");
+                    SelectNavigation (index);
+                };
+            }
 
             return view;
+        }
+
+        public bool IsHistory
+        {
+            get;set;
         }
 
         /// <summary>

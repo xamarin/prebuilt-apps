@@ -28,13 +28,14 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Orientation = Android.Content.Res.Orientation;
 
 namespace FieldService.Android.Activities {
     /// <summary>
     /// History Activity
     /// </summary>
     [Activity (Label = "Summary History", Theme = "@android:style/Theme.Holo")]
-    public class SummaryHistoryActivity : Activity {
+    public class SummaryHistoryActivity : Activity, PopupMenu.IOnMenuItemClickListener {
         
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
@@ -111,6 +112,7 @@ namespace FieldService.Android.Activities {
                         //setting up default fragments
                         var transaction = FragmentManager.BeginTransaction ();
                         var summaryFragment = new SummaryFragment ();
+                        summaryFragment.IsHistory = true;
                         summaryFragment.Assignment = historyViewModel.PastAssignment;
                         navigationFragment = new NavigationFragment ();
                         navigationFragment.Assignment = historyViewModel.PastAssignment;
@@ -139,11 +141,105 @@ namespace FieldService.Android.Activities {
             ActionBar.SetDisplayHomeAsUpEnabled (true);
         }
 
+        protected override void OnResume ()
+        {
+            base.OnResume ();
+            if (navigationFragment != null) {
+                navigationFragment.NavigationSelected += NavigationSelected;
+            }
+            if (navigationIndex != 0) {
+                navigationFragment.SetNavigation (navigationIndex);
+            }
+        }
+
+        protected override void OnPause ()
+        {
+            base.OnPause ();
+            if (navigationFragment != null) {
+                navigationFragment.NavigationSelected -= NavigationSelected;
+            }
+        }
+
+        private void NavigationSelected (object sender, EventArgs<int> e)
+        {
+            SetFrameFragment (e.Value);
+            if (Resources.Configuration.Orientation == Orientation.Portrait) {
+                navigationFragmentContainer.Visibility = ViewStates.Invisible;
+            }
+            navigationIndex = e.Value;
+            var screen = Constants.Navigation [e.Value];
+            ActionBar.Title = string.Format ("#{0} {1} {2}", AssignmentHistory.JobNumber, screen, historyViewModel.PastAssignment.StartDate.ToShortDateString ());
+        }
+
+        /// <summary>
+        /// Sets the child fragment for when each navigation item is selected
+        /// </summary>
+        private void SetFrameFragment (int index)
+        {
+            var transaction = FragmentManager.BeginTransaction ();
+            var screen = Constants.Navigation [index];
+            switch (screen) {
+                case "Summary": {
+                        var fragment = new SummaryFragment ();
+                        fragment.Assignment = historyViewModel.PastAssignment;
+                        fragment.IsHistory = true;
+                        transaction.SetTransition (FragmentTransit.FragmentOpen);
+                        transaction.Replace (Resource.Id.contentFrame, fragment);
+                        transaction.Commit ();
+                        items.Visibility =
+                            addItems.Visibility = ViewStates.Invisible;
+                        addExpense.Visibility =
+                            addLabor.Visibility = ViewStates.Gone;
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
 
         protected override void OnSaveInstanceState (Bundle outState)
         {
             outState.PutInt (Constants.BundleIndex, navigationIndex);
             base.OnSaveInstanceState (outState);
+        }
+
+        public override bool OnCreateOptionsMenu (IMenu menu)
+        {
+            if (Resources.Configuration.Orientation == Orientation.Portrait) {
+                var inflater = MenuInflater;
+                inflater.Inflate (Resource.Menu.SummaryMenu, menu);
+                return true;
+            }
+            return false;
+        }
+
+        public override bool OnOptionsItemSelected (IMenuItem item)
+        {
+            switch (item.ItemId) {
+                case Resource.Id.navigationMenu:
+                    var popup = new PopupMenu (this, FindViewById<TextView> (Resource.Id.selectedAssignmentAnchor));
+                    MenuInflater.Inflate (Resource.Menu.FragmentNavigationMenu, popup.Menu);
+                    popup.SetOnMenuItemClickListener (this);
+                    popup.Show ();
+                    return true;
+                default:
+                    OnBackPressed ();
+                    return true;
+            }
+        }
+
+        public bool OnMenuItemClick (IMenuItem item)
+        {
+            switch (item.ItemId) {
+                default:
+                    navigationFragment.SetNavigation (Constants.Navigation.IndexOf (item.TitleFormatted.ToString ()));
+                    return true;
+            }
+        }
+
+        public override void OnBackPressed ()
+        {
+            Finish ();
         }
     }
 }
