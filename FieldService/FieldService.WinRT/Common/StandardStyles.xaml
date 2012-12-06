@@ -1573,6 +1573,12 @@
         <Setter Property="Margin" Value="0,0,18,40"/>
     </Style>
 
+    <Style x:Key="DeleteAppBarButtonStyle" TargetType="Button" BasedOn="{StaticResource AppBarButtonStyle}">
+        <Setter Property="AutomationProperties.AutomationId" Value="DeleteAppBarButton"/>
+        <Setter Property="AutomationProperties.Name" Value="Delete"/>
+        <Setter Property="Content" Value="&#xE106;"/>
+    </Style>
+
     <!--
         BackButtonStyle is used to style a Button for use in the title area of a page.  Margins appropriate for
         the conventional page layout are included as part of the style.

@@ -138,5 +138,12 @@ namespace FieldService.Android.Activities {
             ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));
             ActionBar.SetDisplayHomeAsUpEnabled (true);
         }
+
+
+        protected override void OnSaveInstanceState (Bundle outState)
+        {
+            outState.PutInt (Constants.BundleIndex, navigationIndex);
+            base.OnSaveInstanceState (outState);
+        }
     }
 }

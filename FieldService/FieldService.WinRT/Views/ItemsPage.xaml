@@ -7,13 +7,21 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:views="using:FieldService.WinRT.Views"
     mc:Ignorable="d">
+    
+    <Page.BottomAppBar>
+        <AppBar x:Name="applicationBar" Padding="10,0" AutomationProperties.Name="Bottom App Bar">
+            <Grid>
+                <Button x:Name="Delete" Tag="Delete" Style="{StaticResource DeleteAppBarButtonStyle}" Click="Delete_Click"/>
+            </Grid>
+        </AppBar>
+    </Page.BottomAppBar>
 
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
+        
         <Image Grid.RowSpan="2" Source="{StaticResource BackgroundImage}" Stretch="None" />
 
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
@@ -44,7 +52,7 @@
                     </Grid>
 
                     <ListView 
-                        x:Name="itemsListView" IsItemClickEnabled="True"
+                        x:Name="itemsListView" IsItemClickEnabled="True" ItemClick="ItemClick"
                         ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
                         Grid.Row="1" ItemsSource="{Binding AssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
                         <ListView.ItemsPanel>

@@ -17,6 +17,7 @@ using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
+using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Navigation;
 
@@ -39,6 +40,8 @@ namespace FieldService.WinRT.Views {
             itemsListView.DataContext =
                 itemsAddItem.DataContext =
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+
+            applicationBar.Closed += (sender, e) => itemViewModel.SelectedItem = null;
         }
 
         /// <summary>
@@ -60,6 +63,20 @@ namespace FieldService.WinRT.Views {
                 itemViewModel.ItemPopUp.IsOpen = false;
             }
             base.OnNavigatedFrom (e);
+        }
+
+        private void ItemClick (object sender, ItemClickEventArgs e)
+        {
+            var item = e.ClickedItem as AssignmentItem;
+            if (item != null) {
+                itemViewModel.SelectedItem = item;
+                applicationBar.IsOpen = true;
+            }
+        }
+        private void Delete_Click (object sender, RoutedEventArgs e)
+        {
+            itemViewModel.DeleteItemCommand.Invoke ();
+            applicationBar.IsOpen = false;
         }
     }
 }

@@ -30,10 +30,11 @@ namespace FieldService.WinRT.ViewModels {
     /// </summary>
     public class ItemViewModel : FieldService.ViewModels.ItemViewModel {
         readonly AssignmentViewModel assignmentViewModel;
-        readonly DelegateCommand saveAssignmentItemCommand, searchItemsCommand, addItemCommand, cancelAddItemCommand;
+        readonly DelegateCommand saveAssignmentItemCommand, searchItemsCommand, addItemCommand, cancelAddItemCommand, deleteItemCommand;
         string searchText = string.Empty;
         Popup addItemPopUp;
         IEnumerable<Item> searchItems;
+        AssignmentItem selectedItem;
 
         public ItemViewModel ()
         {
@@ -50,7 +51,7 @@ namespace FieldService.WinRT.ViewModels {
                 await LoadItemsAsync ();
                 var items = new List<Item> ();
                 foreach (var item in Items) {
-                    if (item.Name.ToLower ().StartsWith (SearchText.ToLower()) || item.Number.ToLower ().StartsWith (SearchText.ToLower())) {
+                    if (item.Name.ToLower ().StartsWith (SearchText.ToLower ()) || item.Number.ToLower ().StartsWith (SearchText.ToLower ())) {
                         items.Add (item);
                     }
                 }
@@ -75,8 +76,15 @@ namespace FieldService.WinRT.ViewModels {
             });
 
             cancelAddItemCommand = new DelegateCommand (_ => {
-                    addItemPopUp.IsOpen = false;
-                });
+                addItemPopUp.IsOpen = false;
+            });
+
+            deleteItemCommand = new DelegateCommand (async _ => {
+                if (selectedItem != null) {
+                    await DeleteAssignmentItemAsync (assignmentViewModel.SelectedAssignment, selectedItem);
+                    await LoadAssignmentItemsAsync (assignmentViewModel.SelectedAssignment);
+                }
+            });
         }
 
         /// <summary>
@@ -120,6 +128,14 @@ namespace FieldService.WinRT.ViewModels {
         }
 
         /// <summary>
+        /// Command to delete an item
+        /// </summary>
+        public DelegateCommand DeleteItemCommand
+        {
+            get { return deleteItemCommand; }
+        }
+
+        /// <summary>
         /// list of top assignment items
         /// </summary>
         public IEnumerable<AssignmentItem> TopAssignmentItems
@@ -148,6 +164,12 @@ namespace FieldService.WinRT.ViewModels {
         {
             get { return searchItems; }
             set { searchItems = value; OnPropertyChanged ("SearchItems"); }
+        }
+
+        public AssignmentItem SelectedItem
+        {
+            get { return selectedItem; }
+            set { selectedItem = value; OnPropertyChanged ("SelectedItem"); }
         }
 
         protected override void OnPropertyChanged (string propertyName)
