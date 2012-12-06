@@ -110,6 +110,7 @@ namespace FieldService.WinRT.Views {
             //Set position
             var location = MapLayer.GetPosition (pin);
             MapLayer.SetPosition (popup, location);
+            map.SetView (location, TimeSpan.FromSeconds (.3));
         }
 
         private async void UpdatePosition ()

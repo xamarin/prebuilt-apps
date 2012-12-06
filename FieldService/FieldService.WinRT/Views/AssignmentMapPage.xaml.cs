@@ -92,6 +92,7 @@ namespace FieldService.WinRT.Views {
             //Set position
             var location = MapLayer.GetPosition (pin);
             MapLayer.SetPosition (popup, location);
+            map.SetView (location, TimeSpan.FromSeconds (.3));
         }
 
         private async void UpdatePosition ()
@@ -103,10 +104,15 @@ namespace FieldService.WinRT.Views {
                 var location = new Location (position.Coordinate.Latitude, position.Coordinate.Longitude);
 
                 //Set the user's pin
+                const double spacing = 3;
                 MapLayer.SetPosition (userPin, location);
-                var lat = Math.Max (assignment.Latitude, location.Latitude) - Math.Min (assignment.Latitude, location.Latitude);
-                var lon = Math.Max (assignment.Longitude, location.Longitude) - Math.Min (assignment.Longitude, location.Longitude);
-                map.SetView (new Location (lat, lon), 6);
+                var northWest = new Location(Math.Max(assignment.Latitude, location.Latitude), Math.Min(assignment.Longitude, location.Longitude));
+                northWest.Longitude -= spacing;
+                northWest.Latitude += spacing;
+                var southEast = new Location(Math.Min(assignment.Latitude, location.Latitude), Math.Max(assignment.Longitude, location.Longitude));
+                southEast.Longitude += spacing;
+                southEast.Latitude -= spacing;
+                map.SetView (new LocationRect (northWest, southEast));
             } catch (Exception exc) {
                 System.Diagnostics.Debug.WriteLine ("Error updating position: " + exc.Message);
             }
