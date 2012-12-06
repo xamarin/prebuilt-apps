@@ -45,6 +45,7 @@
     <BitmapImage x:Key="MapLargeIcon" UriSource="ms-appx:///Assets/maplargeicon.png" />
     <BitmapImage x:Key="AssignmentIcon" UriSource="ms-appx:///Assets/assignmenticon.png"/>
     <BitmapImage x:Key="PhoneLargeIcon" UriSource="ms-appx:///Assets/phoneiconlarge.png"/>
+    <BitmapImage x:Key="SnapLogo" UriSource="ms-appx:///Assets/snaplogo.png"/>
     
     <!--Brushes-->
     <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">

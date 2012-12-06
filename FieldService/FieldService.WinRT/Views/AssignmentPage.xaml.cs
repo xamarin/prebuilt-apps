@@ -27,8 +27,6 @@ using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Navigation;
 using Xamarin.Media;
 
-// The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
-
 namespace FieldService.WinRT.Views {
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
@@ -195,7 +193,6 @@ namespace FieldService.WinRT.Views {
                     Helpers.NavigateTo<AssignmentHistoryPage> ();
                     break;
                 default:
-                    await new MessageDialog ("Coming soon!").ShowAsync ();
                     break;
             }
         }

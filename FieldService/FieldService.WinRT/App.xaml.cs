@@ -19,6 +19,7 @@ using FieldService.WinRT.ViewModels;
 using FieldService.WinRT.Views;
 using Windows.ApplicationModel.Activation;
 using Windows.UI.Core;
+using Windows.UI.ViewManagement;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 
@@ -27,7 +28,7 @@ namespace FieldService.WinRT {
     /// Provides application-specific behavior to supplement the default Application class.
     /// </summary>
     sealed partial class App : Application {
-
+        object lastPage;
         readonly LoginViewModel loginViewModel;
 
         /// <summary>
@@ -75,6 +76,7 @@ namespace FieldService.WinRT {
             Window.Current.Content = RootFrame;
 
             if (RootFrame.Content == null) {
+                Window.Current.CoreWindow.SizeChanged += OnSizeChanged;
                 Window.Current.VisibilityChanged += OnVisibilityChanged;
                 Helpers.NavigateTo<LoginPage> ();
             }
@@ -97,6 +99,26 @@ namespace FieldService.WinRT {
             }
 
             loginViewModel.ResetInactiveTime ();
+        }
+
+        private void OnSizeChanged (CoreWindow sender, WindowSizeChangedEventArgs args)
+        {
+            switch (ApplicationView.Value) {
+                case ApplicationViewState.Filled:
+                case ApplicationViewState.FullScreenLandscape:
+                case ApplicationViewState.FullScreenPortrait:
+                    if (lastPage != null) {
+                        Helpers.NavigateTo (lastPage.GetType ());
+                        lastPage = null;
+                    }
+                    break;
+                case ApplicationViewState.Snapped:
+                    lastPage = RootFrame.Content;
+                    Helpers.NavigateTo<SnapPage> ();
+                    break;
+                default:
+                    break;
+            }
         }
     }
 }

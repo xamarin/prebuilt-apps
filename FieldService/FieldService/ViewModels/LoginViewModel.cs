@@ -31,7 +31,7 @@ namespace FieldService.ViewModels {
         readonly ILoginService service;
         string username;
         string password;
-        TimeSpan autoLogoutTime = TimeSpan.FromMinutes(.25); //This value can be changed.
+        TimeSpan autoLogoutTime = TimeSpan.FromMinutes(2); //This value can be changed.
         DateTime dateInactive = DateTime.Now;
 
         /// <summary>
