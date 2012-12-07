@@ -198,12 +198,14 @@ namespace FieldService.iOS
 		{
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, documentsCell, confirmationCell, historyCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
+			readonly AssignmentsController assignmentController;
 			readonly AssignmentDetailsController detailsController;
 			readonly MenuController menuController;
 
 			public TableSource (MenuController menuController)
 			{
 				this.menuController = menuController;
+				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
@@ -256,11 +258,20 @@ namespace FieldService.iOS
 				}
 				cell.ImageView.Image = Theme.TransparentDot;
 				cell.ImageView.HighlightedImage = Theme.Dot;
-				cells.Add (cell);
+
+				if (!cells.Contains (cell))
+					cells.Add (cell);
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
+				if (assignmentController.Assignment.IsHistory) {
+					SetupCell (confirmationCell, end: true);
+					return cells.Count - 1;
+				}
+
+				SetupCell (confirmationCell);
+				SetupCell (historyCell, end: true);
 				return cells.Count;
 			}
 

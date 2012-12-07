@@ -46,13 +46,17 @@ namespace FieldService.WinRT.Views {
         /// <summary>
         /// History list view item click 
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void OnHistoryClick (object sender, ItemClickEventArgs e)
+        private void OnItemClick (object sender, ItemClickEventArgs e)
         {
             var history = e.ClickedItem as AssignmentHistory;
             if (history != null) {
+                //TODO: implement this
             }
+        }
+
+        private void Status_SelectionChanged (object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }
