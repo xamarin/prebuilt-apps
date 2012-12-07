@@ -204,15 +204,17 @@ namespace FieldService.Data {
 
         public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment, CancellationToken cancellationToken)
         {
+            //We are returning history with matching company names - in the real world there would be a company or customer table here
+
             return Database.GetConnection (cancellationToken)
                 .QueryAsync<AssignmentHistory> (@"
                     select AssignmentHistory.*, Assignment.JobNumber, Assignment.CompanyName, Assignment.ContactName, Assignment.ContactPhone, Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip
                     from AssignmentHistory
                     left outer join Assignment
                     on Assignment.Id = AssignmentHistory.AssignmentId
-                    where AssignmentHistory.AssignmentId = ?
+                    where Assignment.CompanyName = ?
                     order by AssignmentHistory.Date desc
-                ", assignment.Id);
+                ", assignment.CompanyName);
         }
 
         public Task<Assignment> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken)
