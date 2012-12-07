@@ -212,9 +212,9 @@ namespace FieldService.Data {
                     from AssignmentHistory
                     left outer join Assignment
                     on Assignment.Id = AssignmentHistory.AssignmentId
-                    where Assignment.CompanyName = ?
+                    where Assignment.CompanyName = ? and Assignment.Status = ?
                     order by AssignmentHistory.Date desc
-                ", assignment.CompanyName);
+                ", assignment.CompanyName, AssignmentStatus.Complete);
         }
 
         public Task<Assignment> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken)
