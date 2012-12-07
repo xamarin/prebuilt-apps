@@ -31,16 +31,8 @@ namespace FieldService.Android.Fragments {
     /// </summary>
     public class LaborHourFragment : Fragment {
         ListView laborListView;
-        LaborViewModel laborViewModel;
         AddLaborDialog laborDialog;
-
-        public override void OnCreate (Bundle savedInstanceState)
-        {
-            base.OnCreate (savedInstanceState);
-
-            laborViewModel = new LaborViewModel ();
-        }
-
+        
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
@@ -58,6 +50,7 @@ namespace FieldService.Android.Fragments {
                 laborDialog.Activity = Activity;
                 laborDialog.Assignment = Assignment;
                 laborDialog.CurrentLabor = labor;
+                laborDialog.LaborViewModel = LaborViewModel;
                 laborDialog.Show ();
             };
             return view;
@@ -94,8 +87,8 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadHours ()
         {
-            laborViewModel.LoadLaborHoursAsync (Assignment).ContinueOnUIThread (_ => {
-                LaborHours = laborViewModel.LaborHours;
+            LaborViewModel.LoadLaborHoursAsync (Assignment).ContinueOnUIThread (_ => {
+                LaborHours = LaborViewModel.LaborHours;
                 ReloadLaborHours ();
                 var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
                 items.Text = string.Format ("{0} hrs", Assignment.TotalHours.TotalHours.ToString ("0.0"));
@@ -131,6 +124,15 @@ namespace FieldService.Android.Fragments {
         {
             get;
             set;
-        }        
+        }
+
+        /// <summary>
+        /// the labor view model from the summary activity
+        /// </summary>
+        public LaborViewModel LaborViewModel
+        {
+            get;
+            set;
+        }
     }
 }

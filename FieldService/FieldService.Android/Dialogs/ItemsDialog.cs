@@ -96,6 +96,15 @@ namespace FieldService.Android.Dialogs {
             get;
             set;
         }
+        
+        /// <summary>
+        /// item view model from the fragment
+        /// </summary>
+        public ItemViewModel ItemViewModel
+        {
+            get;
+            set;
+        }
 
         public void OnClick (View v)
         {

@@ -19,19 +19,11 @@ using FieldService.ViewModels;
 namespace FieldService.Android.Fragments {
     public class HistoryFragment : Fragment {
         ListView historyListView;
-        HistoryViewModel historyViewModel;
         TabHost tabHost;
         LocalActivityManager localManger;
         EditText searchText;
         HistoryListAdapter historySearchAdapter;
-
-        public override void OnCreate (Bundle savedInstanceState)
-        {
-            base.OnCreate (savedInstanceState);
-
-            historyViewModel = new HistoryViewModel ();
-        }
-
+        
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
@@ -108,6 +100,9 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        /// <summary>
+        /// the selected assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
@@ -127,10 +122,22 @@ namespace FieldService.Android.Fragments {
             return view;
         }
 
+        /// <summary>
+        /// list of history items.
+        /// </summary>
         public List<AssignmentHistory> History
         {
             get;
             set;
+        }
+
+        /// <summary>
+        /// history view model from summary activity
+        /// </summary>
+        public HistoryViewModel HistoryViewModel
+        {
+            get;
+            set; 
         }
 
         public override void OnResume ()

@@ -32,7 +32,6 @@ namespace FieldService.Android.Dialogs {
     /// Dialog for adding labor entries
     /// </summary>
     public class AddLaborDialog : BaseDialog {
-        LaborViewModel laborViewModel;
         EditText description;
         TextView hours;
         LaborType [] laborTypes;
@@ -42,8 +41,6 @@ namespace FieldService.Android.Dialogs {
         public AddLaborDialog (Context context)
             : base (context)
         {
-            laborViewModel = new LaborViewModel ();
-
             laborTypes = new LaborType []
             {
                 LaborType.Hourly,
@@ -151,6 +148,15 @@ namespace FieldService.Android.Dialogs {
         }
 
         /// <summary>
+        /// The labor view model
+        /// </summary>
+        public LaborViewModel LaborViewModel
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// The parent activity
         /// </summary>
         public Activity Activity
@@ -164,7 +170,7 @@ namespace FieldService.Android.Dialogs {
         /// </summary>
         private void DeleteLabor ()
         {
-            laborViewModel
+            LaborViewModel
                 .DeleteLaborAsync (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
@@ -182,7 +188,7 @@ namespace FieldService.Android.Dialogs {
             CurrentLabor.Description = description.Text;
             CurrentLabor.AssignmentId = Assignment.Id;
 
-            laborViewModel
+            LaborViewModel
                 .SaveLaborAsync (Assignment, CurrentLabor)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);

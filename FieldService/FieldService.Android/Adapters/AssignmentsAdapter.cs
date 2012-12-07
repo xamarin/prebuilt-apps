@@ -30,7 +30,7 @@ namespace FieldService.Android {
     /// <summary>
     /// Adapter for a list of assignments
     /// </summary>
-    public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener {
+    public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
 
         AssignmentViewModel assignmentViewModel;
         IList<Assignment> assignments;
@@ -105,40 +105,7 @@ namespace FieldService.Android {
                 spinner.SetBackgroundResource (Resource.Drawable.trianglewhite);
                 spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
 
-                spinner.ItemSelected += (sender, e) => {
-                    var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (e.Position);
-                    var index = int.Parse (e.Parent.Tag.ToString ());
-                    var activeAssignment = GetItem (index);
-                    if (activeAssignment.Status != selected) {
-                        switch (selected) {
-                            case AssignmentStatus.Active: {
-                                    spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
-                                    spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    activeAssignment.Status = AssignmentStatus.Active;
-                                    SaveAssignment (activeAssignment, index);
-                                }
-                                break;
-                            case AssignmentStatus.Complete: {
-                                    //go to confirmations
-                                    activeAssignment.Status = selected;
-                                    var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-                                    var intent = new Intent (activity, typeof (SummaryActivity));
-                                    intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
-                                    activity.SelectedAssignment = activeAssignment;
-                                    activity.StartActivity (intent);
-                                }
-                                break;
-                            default: {
-                                    spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
-                                    spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
-                                    spinner.SetBackgroundResource (Resource.Drawable.trianglewhite);
-                                    activeAssignment.Status = selected;
-                                    SaveAssignment (activeAssignment, index);
-                                }
-                                break;
-                        }
-                    }
-                };
+                spinner.OnItemSelectedListener = this;
             }
 
             number.Text = assignment.Priority.ToString ();
@@ -212,6 +179,48 @@ namespace FieldService.Android {
                 default:
                     break;
             }
+        }
+
+        public void OnItemSelected (AdapterView parent, View view, int position, long id)
+        {
+            var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (position);
+            var spinnerImage = ((View)parent.Parent).FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
+            var index = int.Parse (parent.Tag.ToString ());
+            var activeAssignment = GetItem (index);
+            if (activeAssignment.Status != selected) {
+                switch (selected) {
+                    case AssignmentStatus.Active: {
+                            spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
+                            spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
+                            activeAssignment.Status = AssignmentStatus.Active;
+                            SaveAssignment (activeAssignment, index);
+                        }
+                        break;
+                    case AssignmentStatus.Complete: {
+                            //go to confirmations
+                            activeAssignment.Status = selected;
+                            var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                            var intent = new Intent (activity, typeof (SummaryActivity));
+                            intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
+                            activity.SelectedAssignment = activeAssignment;
+                            activity.StartActivity (intent);
+                        }
+                        break;
+                    default: {
+                            spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
+                            spinnerImage.InvalidateDrawable (spinnerImage.Drawable);
+                            parent.SetBackgroundResource (Resource.Drawable.trianglewhite);
+                            activeAssignment.Status = selected;
+                            SaveAssignment (activeAssignment, index);
+                        }
+                        break;
+                }
+            }
+        }
+
+        public void OnNothingSelected (AdapterView parent)
+        {
+
         }
     }
 }

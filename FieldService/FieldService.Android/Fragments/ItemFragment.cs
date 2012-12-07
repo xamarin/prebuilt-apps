@@ -32,15 +32,7 @@ namespace FieldService.Android.Fragments {
     public class ItemFragment : Fragment{
 
         ListView itemsListView;
-        ItemViewModel itemViewModel;
-
-        public override void OnCreate (Bundle savedInstanceState)
-        {
-            base.OnCreate (savedInstanceState);
-
-            itemViewModel = new ItemViewModel ();
-        }
-
+        
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
@@ -81,6 +73,15 @@ namespace FieldService.Android.Fragments {
         }
 
         /// <summary>
+        /// item view model from the summary activity
+        /// </summary>
+        public ItemViewModel ItemViewModel
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Deletes an AssignmentItem
         /// </summary>
         public void DeleteItem (AssignmentItem item)
@@ -89,7 +90,7 @@ namespace FieldService.Android.Fragments {
                 .SetTitle ("Delete")
                 .SetMessage ("Are you sure you want to delete this item?")
                 .SetPositiveButton ("Yes", (sender, e) => {
-                    itemViewModel.DeleteAssignmentItemAsync (Assignment, item).ContinueOnUIThread (_ => {
+                    ItemViewModel.DeleteAssignmentItemAsync (Assignment, item).ContinueOnUIThread (_ => {
                         ReloadItems ();
                     });
                 })
@@ -99,8 +100,8 @@ namespace FieldService.Android.Fragments {
 
         public void ReloadItems ()
         {
-            itemViewModel.LoadAssignmentItemsAsync (Assignment).ContinueOnUIThread (_ => {
-                AssignmentItems = itemViewModel.AssignmentItems;
+            ItemViewModel.LoadAssignmentItemsAsync (Assignment).ContinueOnUIThread (_ => {
+                AssignmentItems = ItemViewModel.AssignmentItems;
                 ReloadAssignmentItems ();
                 var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
                 items.Text = string.Format ("({0}) Items", Assignment.TotalItems.ToString ());

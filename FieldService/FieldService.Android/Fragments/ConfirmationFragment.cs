@@ -35,7 +35,6 @@ namespace FieldService.Android.Fragments {
     /// Fragment for the confirmation section
     /// </summary>
     public class ConfirmationFragment : Fragment {
-        PhotoViewModel photoViewModel;
         AssignmentViewModel assignmentViewModel;
         SignatureDialog signatureDialog;
         PhotoDialog photoDialog;
@@ -47,7 +46,6 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreate (savedInstanceState);
 
-            photoViewModel = new PhotoViewModel ();
             var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
             assignmentViewModel = tabActivity.AssignmentViewModel;
             mediaPicker = new MediaPicker (Activity);
@@ -96,6 +94,7 @@ namespace FieldService.Android.Fragments {
                                 photoDialog.Activity = Activity;
                                 photoDialog.Assignment = Assignment;
                                 photoDialog.PhotoStream = t.Result.GetStream ();
+                                photoDialog.PhotoViewModel = PhotoViewModel;
                                 photoDialog.Show ();
                             });
                         });
@@ -112,6 +111,7 @@ namespace FieldService.Android.Fragments {
                                 photoDialog.Activity = Activity;
                                 photoDialog.Assignment = Assignment;
                                 photoDialog.PhotoStream = t.Result.GetStream ();
+                                photoDialog.PhotoViewModel = PhotoViewModel;
                                 photoDialog.Show ();
                             });
                         });
@@ -204,6 +204,24 @@ namespace FieldService.Android.Fragments {
         }
 
         /// <summary>
+        /// photo view model from summary activity
+        /// </summary>
+        public PhotoViewModel PhotoViewModel
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// assignment view model from summary activity
+        /// </summary>
+        public AssignmentViewModel AssignmentViewModel
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Dismiss the signature dialog if shown
         /// </summary>
         public override void OnPause ()
@@ -222,10 +240,10 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadConfirmation ()
         {
-            photoViewModel
+            PhotoViewModel
                 .LoadPhotosAsync (Assignment)
                 .ContinueOnUIThread (_ => {
-                    Photos = photoViewModel.Photos;
+                    Photos = PhotoViewModel.Photos;
                     ReloadListView ();
                 });
             ReloadSignature ();

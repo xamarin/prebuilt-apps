@@ -32,7 +32,6 @@ using Extensions = FieldService.Android.Utilities.AndroidExtensions;
 
 namespace FieldService.Android.Dialogs {
     public class ExpenseDialog : BaseDialog {
-        ExpenseViewModel expenseViewModel;
         ExpenseCategory [] expenseTypes;
         Spinner expenseType;
         EditText expenseDescription;
@@ -46,8 +45,6 @@ namespace FieldService.Android.Dialogs {
         public ExpenseDialog (Context context)
             : base (context)
         {
-            expenseViewModel = new ExpenseViewModel ();
-
             expenseTypes = new ExpenseCategory []
             {
                 ExpenseCategory.Gas,
@@ -110,6 +107,7 @@ namespace FieldService.Android.Dialogs {
                                 imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
                                 imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                                 expensePhoto.SetImageBitmap (imageBitmap);
+                                ExpenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
                             });
                         });
                     } else if (innerE.Which == 1) {
@@ -125,6 +123,7 @@ namespace FieldService.Android.Dialogs {
                                 imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
                                 imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                                 expensePhoto.SetImageBitmap (imageBitmap);
+                                ExpenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
                             });
                         });
                     }
@@ -147,21 +146,24 @@ namespace FieldService.Android.Dialogs {
         public override void OnAttachedToWindow ()
         {
             base.OnAttachedToWindow ();
-            if (CurrentExpense != null) {
-                if (expenseViewModel.Photo != null) {
-                    imageBitmap = BitmapFactory.DecodeByteArray (expenseViewModel.Photo.Image, 0, expenseViewModel.Photo.Image.Length);
-                    imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
-                    expensePhoto.SetImageBitmap (imageBitmap);
-                    expenseAddPhoto.Visibility = ViewStates.Gone;
-                } else {
-                    expensePhoto.SetImageBitmap (null);
-                    expenseAddPhoto.Visibility = ViewStates.Visible;
-                }
+            if (CurrentExpense != null && CurrentExpense.Id != 0) {
+                ExpenseViewModel.LoadPhotoAsync (CurrentExpense).ContinueOnUIThread (_ => {
+                        if (ExpenseViewModel.Photo != null) {
+                            imageBitmap = BitmapFactory.DecodeByteArray (ExpenseViewModel.Photo.Image, 0, ExpenseViewModel.Photo.Image.Length);
+                            imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                            expensePhoto.SetImageBitmap (imageBitmap);
+                            expenseAddPhoto.Visibility = ViewStates.Gone;
+                        } else {
+                            expensePhoto.SetImageBitmap (null);
+                            expenseAddPhoto.Visibility = ViewStates.Visible;
+                        }
+                    });
                 expenseType.SetSelection (expenseTypes.ToList ().IndexOf (CurrentExpense.Category));
                 expenseAmount.Text = CurrentExpense.Cost.ToString ("0.00");
                 expenseDescription.Text = CurrentExpense.Description;
                 deleteExpense.Visibility = CurrentExpense.Id != 0 ? ViewStates.Visible : ViewStates.Gone;
             } else {
+                ExpenseViewModel.Photo = null;
                 expensePhoto.SetImageBitmap (null);
                 expenseAmount.Text = "0.00";
                 expenseDescription.Text = string.Empty;
@@ -192,21 +194,23 @@ namespace FieldService.Android.Dialogs {
             CurrentExpense.Description = expenseDescription.Text;
             CurrentExpense.Cost = expenseAmount.Text.ToDecimal (CultureInfo.InvariantCulture);
             CurrentExpense.AssignmentId = Assignment.Id;
-            if (expenseViewModel.Photo == null) {
-                expenseViewModel.Photo.Image = imageBitmap.ToByteArray ();
-            }
 
-            expenseViewModel.SaveExpenseAsync (Assignment, CurrentExpense)
-                .ContinueOnUIThread (_ => {
-                    var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
-                    fragment.ReloadExpenseData ();
-                    Dismiss ();
-                });
+            var task = ExpenseViewModel.SaveExpenseAsync (Assignment, CurrentExpense);
+            if (ExpenseViewModel.Photo != null) {
+                task = task
+                    .ContinueWith(_ => ExpenseViewModel.Photo.ExpenseId = CurrentExpense.Id)
+                    .ContinueWith(ExpenseViewModel.SavePhotoAsync());
+            }
+            task.ContinueOnUIThread (_ => {
+                var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
+                fragment.ReloadExpenseData ();
+                Dismiss ();
+            });
         }
 
         private void DeleteExpense ()
         {
-            expenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
+            ExpenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
                     fragment.ReloadExpenseData ();
@@ -227,6 +231,12 @@ namespace FieldService.Android.Dialogs {
         }
 
         public Expense CurrentExpense
+        {
+            get;
+            set;
+        }
+
+        public ExpenseViewModel ExpenseViewModel
         {
             get;
             set;

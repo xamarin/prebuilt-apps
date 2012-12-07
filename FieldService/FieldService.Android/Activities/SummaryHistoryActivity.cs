@@ -206,6 +206,7 @@ namespace FieldService.Android.Activities {
                         fragment.Assignment = historyViewModel.PastAssignment;
                         itemViewModel.LoadAssignmentItemsAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
                             fragment.AssignmentItems = itemViewModel.AssignmentItems;
+                            fragment.ItemViewModel = itemViewModel;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
@@ -222,6 +223,7 @@ namespace FieldService.Android.Activities {
                         laborViewModel.LoadLaborHoursAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
                             fragment.LaborHours = laborViewModel.LaborHours;
                             fragment.Assignment = historyViewModel.PastAssignment;
+                            fragment.LaborViewModel = laborViewModel;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
@@ -238,6 +240,7 @@ namespace FieldService.Android.Activities {
                         photoViewModel.LoadPhotosAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
                             fragment.Photos = photoViewModel.Photos;
                             fragment.Assignment = historyViewModel.PastAssignment;
+                            fragment.PhotoViewModel = photoViewModel;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
@@ -253,6 +256,7 @@ namespace FieldService.Android.Activities {
                         expenseViewModel.LoadExpensesAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
                             fragment.Expenses = expenseViewModel.Expenses;
                             fragment.Assignment = historyViewModel.PastAssignment;
+                            fragment.ExpenseViewModel = expenseViewModel;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
@@ -282,6 +286,7 @@ namespace FieldService.Android.Activities {
                         var fragment = new HistoryFragment ();
                         historyViewModel.LoadHistoryAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
                             fragment.History = historyViewModel.History;
+                            fragment.HistoryViewModel = historyViewModel;
                             fragment.Assignment = historyViewModel.PastAssignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);

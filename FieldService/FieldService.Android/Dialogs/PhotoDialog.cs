@@ -30,7 +30,6 @@ namespace FieldService.Android.Dialogs {
     /// Dialog for the photos
     /// </summary>
     public class PhotoDialog : BaseDialog {
-        PhotoViewModel photoViewModel;
         ImageView photo;
         EditText optionalCaption;
         TextView photoCount,
@@ -41,7 +40,6 @@ namespace FieldService.Android.Dialogs {
         public PhotoDialog (Context context)
             : base (context)
         {
-            photoViewModel = new PhotoViewModel ();
         }
 
         protected override void OnCreate (Bundle savedInstanceState)
@@ -152,6 +150,15 @@ namespace FieldService.Android.Dialogs {
         }
 
         /// <summary>
+        /// photo view model from confirmation fragment
+        /// </summary>
+        public PhotoViewModel PhotoViewModel
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Show a dialog to delete the photo
         /// </summary>
         private void DeletePhoto ()
@@ -161,7 +168,7 @@ namespace FieldService.Android.Dialogs {
                 .SetTitle ("Delete?")
                 .SetMessage ("Are you sure?")
                 .SetPositiveButton ("Yes", (sender, e) => {
-                    photoViewModel
+                    PhotoViewModel
                    .DeletePhotoAsync (Assignment, Photo)
                    .ContinueOnUIThread (_ => {
                        var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
@@ -186,7 +193,7 @@ namespace FieldService.Android.Dialogs {
             savePhoto.Description = optionalCaption.Text;
             savePhoto.AssignmentId = Assignment.Id;
 
-            photoViewModel.SavePhotoAsync (Assignment, savePhoto)
+            PhotoViewModel.SavePhotoAsync (Assignment, savePhoto)
                 .ContinueOnUIThread (_ => {
                     var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
                     fragment.ReloadConfirmation ();

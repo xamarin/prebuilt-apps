@@ -34,14 +34,6 @@ namespace FieldService.Android.Fragments {
     public class ExpenseFragment : Fragment {
         ListView expensesListView;
         ExpenseDialog expenseDialog;
-        ExpenseViewModel expenseViewModel;
-
-        public override void OnCreate (Bundle savedInstanceState)
-        {
-            base.OnCreate (savedInstanceState);
-
-            expenseViewModel = new ExpenseViewModel ();
-        }
 
         public List<Expense> Expenses
         {
@@ -49,7 +41,19 @@ namespace FieldService.Android.Fragments {
             set;
         }
 
+        /// <summary>
+        /// selected assignment
+        /// </summary>
         public Assignment Assignment
+        {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// expense view model from summary activity
+        /// </summary>
+        public ExpenseViewModel ExpenseViewModel
         {
             get;
             set;
@@ -72,6 +76,7 @@ namespace FieldService.Android.Fragments {
                 expenseDialog.Activity = Activity;
                 expenseDialog.Assignment = Assignment;
                 expenseDialog.CurrentExpense = expense;
+                expenseDialog.ExpenseViewModel = ExpenseViewModel;
                 expenseDialog.Show ();
             };
 
@@ -108,8 +113,8 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadExpenseData()
         {
-            expenseViewModel.LoadExpensesAsync (Assignment).ContinueOnUIThread (_ => {
-                Expenses = expenseViewModel.Expenses;
+            ExpenseViewModel.LoadExpensesAsync (Assignment).ContinueOnUIThread (_ => {
+                Expenses = ExpenseViewModel.Expenses;
                 ReloadExpenses ();
                 var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
                 items.Text = Assignment.TotalExpenses.ToString ("$0.00");

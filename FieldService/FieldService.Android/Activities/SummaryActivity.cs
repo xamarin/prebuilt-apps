@@ -42,6 +42,7 @@ namespace FieldService.Android {
         readonly ExpenseViewModel expenseViewModel;
         readonly DocumentViewModel documentViewModel;
         readonly HistoryViewModel historyViewModel;
+        AssignmentViewModel assignmentViewModel;
         NavigationFragment navigationFragment;
         FrameLayout navigationFragmentContainer;
         TextView number, name, phone, address, items;
@@ -56,6 +57,7 @@ namespace FieldService.Android {
         {
             var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
             Assignment = tabActivity.SelectedAssignment;
+            assignmentViewModel = tabActivity.AssignmentViewModel;
             itemViewModel = new ItemViewModel ();
             laborViewModel = new LaborViewModel ();
             photoViewModel = new PhotoViewModel ();
@@ -137,6 +139,7 @@ namespace FieldService.Android {
                 itemDialog = new ItemsDialog (this);
                 itemDialog.Assignment = Assignment;
                 itemDialog.Activity = this;
+                itemDialog.ItemViewModel = itemViewModel;
                 itemDialog.Show ();
             };
             addLabor.Click += (sender, e) => {
@@ -144,6 +147,7 @@ namespace FieldService.Android {
                 laborDialog.Assignment = Assignment;
                 laborDialog.Activity = this;
                 laborDialog.CurrentLabor = new Labor ();
+                laborDialog.LaborViewModel = laborViewModel;
                 laborDialog.Show ();
             };
             addExpense.Click += (sender, e) => {
@@ -152,6 +156,7 @@ namespace FieldService.Android {
                 expenseDialog.Assignment = Assignment;
                 expenseDialog.Activity = this;
                 expenseDialog.CurrentExpense = new Expense ();
+                expenseDialog.ExpenseViewModel = expenseViewModel;
                 expenseDialog.Show ();
             };
 
@@ -258,6 +263,8 @@ namespace FieldService.Android {
         /// </summary>
         private void SetFrameFragment (int index)
         {
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            Assignment = tabActivity.SelectedAssignment;
             var transaction = FragmentManager.BeginTransaction ();
             var screen = Constants.Navigation [index];
             switch (screen) {
@@ -289,6 +296,7 @@ namespace FieldService.Android {
                         fragment.Assignment = Assignment;
                         itemViewModel.LoadAssignmentItemsAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.AssignmentItems = itemViewModel.AssignmentItems;
+                            fragment.ItemViewModel = itemViewModel;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
@@ -305,6 +313,7 @@ namespace FieldService.Android {
                         laborViewModel.LoadLaborHoursAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.LaborHours = laborViewModel.LaborHours;
                             fragment.Assignment = Assignment;
+                            fragment.LaborViewModel = laborViewModel;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
@@ -321,6 +330,7 @@ namespace FieldService.Android {
                         photoViewModel.LoadPhotosAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.Photos = photoViewModel.Photos;
                             fragment.Assignment = Assignment;
+                            fragment.PhotoViewModel = photoViewModel;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
@@ -335,6 +345,7 @@ namespace FieldService.Android {
                         var fragment = new ExpenseFragment ();
                         expenseViewModel.LoadExpensesAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.Expenses = expenseViewModel.Expenses;
+                            fragment.ExpenseViewModel = expenseViewModel;
                             fragment.Assignment = Assignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
@@ -365,6 +376,7 @@ namespace FieldService.Android {
                         var fragment = new HistoryFragment ();
                         historyViewModel.LoadHistoryAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.History = historyViewModel.History;
+                            fragment.HistoryViewModel = historyViewModel;
                             fragment.Assignment = Assignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
