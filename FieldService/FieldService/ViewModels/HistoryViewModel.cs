@@ -51,7 +51,7 @@ namespace FieldService.ViewModels {
             return service
                 .GetAssignmentFromHistory (assignmentHistory, CancellationToken.None)
                 .ContinueOnUIThread (t => {
-                    PastAssignment = t.Result;
+                    PastAssignment = t.Result.FirstOrDefault();
                     PastAssignment.IsHistory = true;
                     return t.Result;
                 });

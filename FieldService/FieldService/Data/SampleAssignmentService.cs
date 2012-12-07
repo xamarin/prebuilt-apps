@@ -217,10 +217,10 @@ namespace FieldService.Data {
                 ", assignment.CompanyName, AssignmentStatus.Complete);
         }
 
-        public Task<Assignment> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken)
+        public Task<List<Assignment>> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken)
         {
             return Database.GetConnection (cancellationToken)
-                .ExecuteScalarAsync<Assignment> (@"
+                .QueryAsync<Assignment> (@"
                     select Assignment.*, 
                            (SELECT SUM(Labor.Ticks) FROM Labor WHERE Assignment.Id = Labor.AssignmentId) as TotalTicks,       
                            (SELECT COUNT(AssignmentItem.Id) FROM AssignmentItem WHERE Assignment.Id = AssignmentItem.AssignmentId) AS TotalItems,       
