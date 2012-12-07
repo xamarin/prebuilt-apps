@@ -43,7 +43,7 @@ namespace FieldService.iOS
 
 			//UI setup from code
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-			cancel.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
 				Text = "Items",

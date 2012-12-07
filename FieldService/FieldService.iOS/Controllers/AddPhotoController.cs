@@ -54,7 +54,7 @@ namespace FieldService.iOS
 				return false;
 			};
 			cancel.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
-			cancel.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			deleteButton.SetBackgroundImage (Theme.DeleteButton, UIControlState.Normal);
 			deleteButton.SetTitleColor (UIColor.White, UIControlState.Normal);
 			
@@ -68,7 +68,7 @@ namespace FieldService.iOS
 
 			var done = new UIBarButtonItem ("Done", UIBarButtonItemStyle.Bordered, (sender, e) => Save ());
 			done.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
-			done.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			done.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
 			toolbar.Items = new UIBarButtonItem[] {
 				cancel,

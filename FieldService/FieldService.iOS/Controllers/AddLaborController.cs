@@ -48,7 +48,7 @@ namespace FieldService.iOS
 
 			//UI setup from code
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-			cancel.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
 			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
 				Text = "Labor",
@@ -64,7 +64,7 @@ namespace FieldService.iOS
 					.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-			done.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			done.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
 			space1 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 			space2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
@@ -78,7 +78,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			bool enabled = assignmentController.Assignment.Status != AssignmentStatus.Complete;
+			bool enabled = assignmentController.Assignment.Status != AssignmentStatus.Complete && !assignmentController.Assignment.IsHistory;
 			if (enabled) {
 				toolbar.Items = new UIBarButtonItem[] {
 					cancel,

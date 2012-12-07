@@ -108,13 +108,22 @@ namespace FieldService.iOS
 			get { return bluebar.Value; }
 		}
 
-		static Lazy<UIImage> barButonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
+		static Lazy<UIImage> blueBarButtonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
 		/// Button image for blue toolbar buttons
 		/// </summary>
-		public static UIImage BarButtonItem {
-			get { return barButonItem.Value; }
+		public static UIImage BlueBarButtonItem {
+			get { return blueBarButtonItem.Value; }
+		}
+
+		static Lazy<UIImage> orangeBarButtonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/orangenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
+		
+		/// <summary>
+		/// Button image for orange toolbar buttons
+		/// </summary>
+		public static UIImage OrangeBarButtonItem {
+			get { return orangeBarButtonItem.Value; }
 		}
 
 		static Lazy<UIImage> buttondark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/buttondark.png").CreateResizableImage (new UIEdgeInsets (16, 17, 17, 17)));

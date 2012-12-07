@@ -61,13 +61,13 @@ namespace FieldService.iOS
 				tableView.SetEditing (!tableView.Editing, true);
 			});
 			edit.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
-			edit.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			edit.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 
 			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, (sender, e) => PerformSegue ("AddItem", this));
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
-			addItem.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			tableView.Source = new TableSource (this);
 		}
@@ -97,8 +97,8 @@ namespace FieldService.iOS
 		public void ReloadItems ()
 		{
 			if (IsViewLoaded) {
-
-				if (assignmentController.Assignment.Status == AssignmentStatus.Complete) {
+				var assignment = assignmentController.Assignment;
+				if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
 					toolbar.Items = new UIBarButtonItem[] { titleButton };
 				} else {
 					toolbar.Items = new UIBarButtonItem[] {
@@ -108,16 +108,16 @@ namespace FieldService.iOS
 						addItem
 					};
 				}
-				toolbar.SetBackgroundImage (assignmentController.Assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
-				itemViewModel.LoadAssignmentItemsAsync (assignmentController.Assignment)
+				itemViewModel.LoadAssignmentItemsAsync (assignment)
 					.ContinueOnUIThread (_ => {
-					if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
-						title.Text = "Items";
-					else
-						title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
-					tableView.ReloadData ();
-				});
+						if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
+							title.Text = "Items";
+						else
+							title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
+						tableView.ReloadData ();
+					});
 			}
 		}
 
@@ -140,7 +140,7 @@ namespace FieldService.iOS
 
 			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return assignmentController.Assignment.Status != AssignmentStatus.Complete;
+				return assignmentController.Assignment.Status != AssignmentStatus.Complete && !assignmentController.Assignment.IsHistory;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)

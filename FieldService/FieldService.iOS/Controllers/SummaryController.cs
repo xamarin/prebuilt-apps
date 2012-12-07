@@ -26,6 +26,7 @@ namespace FieldService.iOS
 	public partial class SummaryController : BaseController
 	{
 		readonly AssignmentsController assignmentController;
+		UIBarButtonItem viewHistory;
 
 		public SummaryController (IntPtr handle) : base (handle)
 		{
@@ -62,12 +63,10 @@ namespace FieldService.iOS
 			};
 			var descriptionButton = new UIBarButtonItem(label);
 
-			//Removed temporarily
-			var viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, (sender, e) => {
+			viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				var menuController = ServiceContainer.Resolve<MenuController>();
 				menuController.ShowHistory ();
 			});
-			viewHistory.SetBackgroundImage (Theme.BarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 
 			toolbar.Items = new UIBarButtonItem[] { 
@@ -89,6 +88,7 @@ namespace FieldService.iOS
 			hours.Text = assignment.TotalHours.TotalHours.ToString ("0.0");
 			expenses.Text = assignment.TotalExpenses.ToString ("$0.00");
 			toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+			viewHistory.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBarButtonItem : Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 		}
 	}
 }
