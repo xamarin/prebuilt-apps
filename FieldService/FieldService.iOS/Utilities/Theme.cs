@@ -36,7 +36,7 @@ namespace FieldService.iOS
 			get { return accept.Value; }
 		}
 
-		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
+		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (18, 19, 21, 19)));
 		
 		/// <summary>
 		/// Image for add photo button on expenses
