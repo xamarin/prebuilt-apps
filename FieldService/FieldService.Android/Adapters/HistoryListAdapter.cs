@@ -25,6 +25,12 @@ namespace FieldService.Android.Adapters {
             this.resourceId = resourceId;
         }
 
+        public Assignment Assignment
+        {
+            get;
+            set;
+        }
+
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             AssignmentHistory assignment = null;
@@ -58,6 +64,10 @@ namespace FieldService.Android.Adapters {
             title.Text = assignment.CompanyName;
             date.Text = assignment.Date.ToString ("d");
             phoneNumber.Text = assignment.ContactPhone;
+
+            if (Assignment != null) {
+                title.Focusable = Assignment.IsHistory;
+            }
 
             return view;
         }

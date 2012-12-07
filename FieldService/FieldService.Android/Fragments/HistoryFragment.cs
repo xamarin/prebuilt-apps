@@ -86,11 +86,13 @@ namespace FieldService.Android.Fragments {
                             historySearchAdapter = new HistoryListAdapter (Activity, Resource.Layout.HistoryItemLayout, History.Where (h => h.Type == AssignmentHistoryType.Assignment).ToList ());
                             break;
                     }
+                    historySearchAdapter.Assignment = Assignment;
                     historyListView.Adapter = historySearchAdapter;
                 }
             };
             if (History != null) {
                 historySearchAdapter = new HistoryListAdapter (Activity, Resource.Layout.HistoryItemLayout, History.OrderBy (a => a.Date).ToList ());
+                historySearchAdapter.Assignment = Assignment;
                 historyListView.Adapter = historySearchAdapter;
             }
 
@@ -103,6 +105,12 @@ namespace FieldService.Android.Fragments {
             };
 
             return view;
+        }
+
+        public Assignment Assignment
+        {
+            get;
+            set;
         }
 
         /// <summary>

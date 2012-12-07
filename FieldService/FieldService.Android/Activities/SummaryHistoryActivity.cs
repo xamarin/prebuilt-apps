@@ -146,6 +146,7 @@ namespace FieldService.Android.Activities {
             base.OnResume ();
 
             if (navigationIndex != 0 && navigationFragment != null) {
+                navigationFragment.NavigationSelected += NavigationSelected;
                 navigationFragment.SetNavigation (navigationIndex);
             }
         }
@@ -175,7 +176,7 @@ namespace FieldService.Android.Activities {
         private void SetFrameFragment (int index)
         {
             var transaction = FragmentManager.BeginTransaction ();
-            var screen = Constants.HistoryNavigation [index];
+            var screen = Constants.Navigation [index];
             switch (screen) {
                 case "Summary": {
                         var fragment = new SummaryFragment ();
@@ -267,6 +268,21 @@ namespace FieldService.Android.Activities {
                         var fragment = new DocumentFragment ();
                         documentViewModel.LoadDocumentsAsync ().ContinueOnUIThread (_ => {
                             fragment.Documents = documentViewModel.Documents;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            items.Visibility =
+                                addItems.Visibility = ViewStates.Invisible;
+                            addExpense.Visibility =
+                                addLabor.Visibility = ViewStates.Gone;
+                        });
+                    }
+                    break;
+                case "History": {
+                        var fragment = new HistoryFragment ();
+                        historyViewModel.LoadHistoryAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
+                            fragment.History = historyViewModel.History;
+                            fragment.Assignment = historyViewModel.PastAssignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();

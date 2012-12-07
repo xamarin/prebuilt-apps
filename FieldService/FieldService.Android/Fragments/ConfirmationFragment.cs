@@ -74,6 +74,9 @@ namespace FieldService.Android.Fragments {
             };
 
             var addPhoto = view.FindViewById<Button> (Resource.Id.confirmationsAddPhoto);
+            if (Assignment != null) {
+                addPhoto.Enabled = !Assignment.IsHistory;
+            }
             addPhoto.Click += (sender, e) => {
                 var choices = new List<string> ();
                 choices.Add (Resources.GetString (Resource.String.Gallery));
@@ -118,6 +121,9 @@ namespace FieldService.Android.Fragments {
             };
 
             var addSignature = view.FindViewById<Button> (Resource.Id.confirmationsAddSignature);
+            if (Assignment != null) {
+                addSignature.Enabled = !Assignment.IsHistory;
+            }
             addSignature.Click += (sender, e) => {
                 signatureDialog = new SignatureDialog (Activity);
                 signatureDialog.Activity = Activity;
@@ -126,6 +132,9 @@ namespace FieldService.Android.Fragments {
             };
 
             var completeSignature = view.FindViewById<Button> (Resource.Id.confirmationsComplete);
+            if (Assignment != null) {
+                completeSignature.Enabled = !Assignment.IsHistory;
+            }
             completeSignature.Click += (sender, e) => {
                 if (assignmentViewModel.Signature == null) {
                     AlertDialog.Builder builder = new AlertDialog.Builder (Activity);
@@ -158,7 +167,9 @@ namespace FieldService.Android.Fragments {
         private void ReloadListView ()
         {
             if (Photos != null) {
-                photoListView.Adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos);
+                var adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos);
+                adapter.Assignment = Assignment;
+                photoListView.Adapter = adapter;
             }
         }
 

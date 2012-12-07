@@ -365,6 +365,7 @@ namespace FieldService.Android {
                         var fragment = new HistoryFragment ();
                         historyViewModel.LoadHistoryAsync (Assignment).ContinueOnUIThread (_ => {
                             fragment.History = historyViewModel.History;
+                            fragment.Assignment = Assignment;
                             transaction.SetTransition (FragmentTransit.FragmentOpen);
                             transaction.Replace (Resource.Id.contentFrame, fragment);
                             transaction.Commit ();
