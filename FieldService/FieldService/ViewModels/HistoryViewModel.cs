@@ -50,7 +50,11 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetAssignmentFromHistory (assignmentHistory, CancellationToken.None)
-                .ContinueOnUIThread (t => PastAssignment = t.Result);
+                .ContinueOnUIThread (t => {
+                    PastAssignment = t.Result;
+                    PastAssignment.IsHistory = true;
+                    return t.Result;
+                });
         }
     }
 }

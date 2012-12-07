@@ -130,6 +130,12 @@ namespace FieldService.Data {
         /// </summary>
         public decimal TotalExpenses { get; set; }
 
+        /// <summary>
+        /// If true, this is an assignment history record that is readonly
+        /// </summary>
+        [Ignore]
+        public bool IsHistory { get; set; }
+
         #region UI properties
 
         /// <summary>
