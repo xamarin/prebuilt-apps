@@ -198,8 +198,11 @@ namespace FieldService.Android.Dialogs {
             var task = ExpenseViewModel.SaveExpenseAsync (Assignment, CurrentExpense);
             if (ExpenseViewModel.Photo != null) {
                 task = task
-                    .ContinueWith(_ => ExpenseViewModel.Photo.ExpenseId = CurrentExpense.Id)
-                    .ContinueWith(ExpenseViewModel.SavePhotoAsync());
+                    .ContinueWith (_ => {
+                        ExpenseViewModel.Photo.ExpenseId = CurrentExpense.Id;
+                        ExpenseViewModel.Photo.Image = imageBitmap.ToByteArray ();
+                    })
+                    .ContinueWith (ExpenseViewModel.SavePhotoAsync ());
             }
             task.ContinueOnUIThread (_ => {
                 var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
