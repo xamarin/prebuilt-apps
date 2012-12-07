@@ -29,6 +29,7 @@ namespace FieldService.iOS
 	public partial class AssignmentsController : BaseController
 	{
 		bool activeAssignmentVisible = true;
+		Assignment assignment, lastAssignment;
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
@@ -53,8 +54,14 @@ namespace FieldService.iOS
 		/// The currently accepted assignment
 		/// </summary>
 		public Assignment Assignment {
-			get;
-			set;
+			get { return assignment; }
+			set {
+				if (assignment != value) {
+					if (value != null && value.IsHistory)
+						lastAssignment = assignment;
+					assignment = value;
+				}
+			}
 		}
 
 		/// <summary>
@@ -179,6 +186,16 @@ namespace FieldService.iOS
 				
 				tableView.ReloadData ();
 			});
+		}
+
+		/// <summary>
+		/// Removes the current history assignment
+		/// </summary>
+		public void RemoveHistory ()
+		{
+			if (lastAssignment != null) {
+				Assignment = lastAssignment;
+			}
 		}
 
 		/// <summary>

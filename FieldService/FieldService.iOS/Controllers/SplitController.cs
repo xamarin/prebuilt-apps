@@ -26,7 +26,7 @@ namespace FieldService.iOS
 	public partial class SplitController : BaseController
 	{
 		private UIBarButtonItem menu, hide;
-		private bool wasLandscape = true, masterPopoverShown = false;
+		private bool wasLandscape = true, masterPopoverShown = false, isHistory = false;
 		private const float masterWidth = 321;
 
 		public SplitController (IntPtr handle) : base(handle)
@@ -53,6 +53,24 @@ namespace FieldService.iOS
 
 			//Start an animation to switch orientations
 			SwitchOrientation (toInterfaceOrientation, true, duration);
+		}
+
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+
+			var assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
+			isHistory = assignmentController.Assignment.IsHistory;
+		}
+
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+
+			if (isHistory) {
+				var assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
+				assignmentController.RemoveHistory ();
+			}
 		}
 
 		/// <summary>

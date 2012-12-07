@@ -36,7 +36,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets up the history record for this cell
 		/// </summary>
-		public void SetHistory (AssignmentHistory history)
+		public void SetHistory (AssignmentHistory history, bool enabled)
 		{
 			//Any 1-time settings
 			if (!loaded) {
@@ -52,7 +52,7 @@ namespace FieldService.iOS
 				loaded = true;
 			}
 
-			SelectionStyle = history.Type == AssignmentHistoryType.PhoneCall ? UITableViewCellSelectionStyle.None : UITableViewCellSelectionStyle.Blue;
+			SelectionStyle = history.Type == AssignmentHistoryType.PhoneCall || !enabled ? UITableViewCellSelectionStyle.None : UITableViewCellSelectionStyle.Blue;
 			date.Text = history.Date.ToShortDateString ();
 			phone.TopLabel.Text = history.ContactName;
 			phone.BottomLabel.Text = history.ContactPhone;

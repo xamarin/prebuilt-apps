@@ -30,6 +30,7 @@ namespace FieldService.iOS
 		readonly HistoryViewModel historyViewModel;
 		readonly AssignmentsController assignmentController;
 		UILabel title;
+		TableSource tableSource;
 
 		public HistoryController (IntPtr handle) : base (handle)
 		{
@@ -54,7 +55,8 @@ namespace FieldService.iOS
 			
 			toolbar.Items = new UIBarButtonItem[] { titleButton };
 
-			tableView.Source = new TableSource (historyViewModel);
+			tableView.Source = 
+				tableSource = new TableSource (historyViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -70,9 +72,11 @@ namespace FieldService.iOS
 		public void ReloadHIstory ()
 		{
 			if (IsViewLoaded) {
-				toolbar.SetBackgroundImage (assignmentController.Assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				var assignment = assignmentController.Assignment;
+				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				tableSource.Enabled = !assignment.IsHistory;
 
-				historyViewModel.LoadHistoryAsync (assignmentController.Assignment)
+				historyViewModel.LoadHistoryAsync (assignment)
 					.ContinueOnUIThread (_ => {
 						if (historyViewModel.History == null || historyViewModel.History.Count == 0) 
 							title.Text = "History";
@@ -93,6 +97,14 @@ namespace FieldService.iOS
 			readonly AssignmentsController assignmentsController;
 			const string Identifier = "HistoryCell";
 
+			/// <summary>
+			/// If true, you can click on the rows
+			/// </summary>
+			public bool Enabled {
+				get;
+				set;
+			}
+
 			public TableSource (HistoryViewModel historyViewModel)
 			{
 				this.historyViewModel = historyViewModel;
@@ -107,26 +119,30 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				var history = historyViewModel.History[indexPath.Row];
-				historyViewModel.LoadAssignmentFromHistory (history)
-					.ContinueOnUIThread (_ => {
-						var controller = historyController.ParentViewController.ParentViewController;
-						assignmentsController.Assignment = historyViewModel.PastAssignment;
-						controller.PerformSegue ("AssignmentHistory", controller);
-					});
+				if (Enabled) {
+					var history = historyViewModel.History [indexPath.Row];
+					if (history.Type != AssignmentHistoryType.PhoneCall) {
+						historyViewModel.LoadAssignmentFromHistory (history)
+							.ContinueOnUIThread (_ => {
+								var controller = historyController.ParentViewController.ParentViewController;
+								assignmentsController.Assignment = historyViewModel.PastAssignment;
+								controller.PerformSegue ("AssignmentHistory", controller);
+							});
 
-				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
-				BeginInvokeOnMainThread (() => {
-					var cell = tableView.CellAt (indexPath);
-					cell.SetSelected (false, true);
-				});
+						//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
+						BeginInvokeOnMainThread (() => {
+							var cell = tableView.CellAt (indexPath);
+							cell.SetSelected (false, true);
+						});
+					}
+				}
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				var history = historyViewModel.History [indexPath.Row];
 				var cell = tableView.DequeueReusableCell (Identifier) as HistoryCell;
-				cell.SetHistory (history);
+				cell.SetHistory (history, Enabled);
 				return cell;
 			}
 		}
