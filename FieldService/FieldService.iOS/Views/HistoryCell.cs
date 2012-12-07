@@ -30,7 +30,7 @@ namespace FieldService.iOS
 		public HistoryCell (IntPtr handle) : base (handle)
 		{
 			BackgroundView = new UIImageView { Image = Theme.Row };
-			SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
+			SelectedBackgroundView = new UIImageView { Image = Theme.ShortRowPress };
 		}
 
 		/// <summary>

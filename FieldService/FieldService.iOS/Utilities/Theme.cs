@@ -491,6 +491,15 @@ namespace FieldService.iOS
 			get { return toolbarShadow.Value; }
 		}
 
+		static Lazy<UIImage> shortRowPress = new Lazy<UIImage> (() => UIImage.FromFile ("Images/shortrowpress.png").CreateResizableImage (new UIEdgeInsets (25, 25, 25, 25)));
+		
+		/// <summary>
+		/// Image for row in history
+		/// </summary>
+		public static UIImage ShortRowPress {
+			get { return shortRowPress.Value; }
+		}
+
 		static Lazy<UIImage> rowPress = new Lazy<UIImage> (() => UIImage.FromFile ("Images/rowpress.png").CreateResizableImage (new UIEdgeInsets (25, 25, 25, 25)));
 		
 		/// <summary>

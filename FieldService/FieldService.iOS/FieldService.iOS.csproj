@@ -493,6 +493,8 @@
     <Content Include="Images\mapicon%402x.png" />
     <Content Include="Images\orangenavbutton.png" />
     <Content Include="Images\orangenavbutton%402x.png" />
+    <Content Include="Images\shortrowpress.png" />
+    <Content Include="Images\shortrowpress%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
