@@ -220,9 +220,14 @@ namespace FieldService.Data {
         public Task<Assignment> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken)
         {
             return Database.GetConnection (cancellationToken)
-                .Table<Assignment> ()
-                .Where (a => a.Id == assignmentHistory.AssignmentId)
-                .FirstOrDefaultAsync ();
+                .ExecuteScalarAsync<Assignment> (@"
+                    select Assignment.*, 
+                           (SELECT SUM(Labor.Ticks) FROM Labor WHERE Assignment.Id = Labor.AssignmentId) as TotalTicks,       
+                           (SELECT COUNT(AssignmentItem.Id) FROM AssignmentItem WHERE Assignment.Id = AssignmentItem.AssignmentId) AS TotalItems,       
+                           (SELECT SUM(Expense.Cost) FROM Expense WHERE Assignment.Id = Expense.AssignmentId) AS TotalExpenses
+                    from Assignment
+                    where Assignment.Id = ?
+                ", assignmentHistory.AssignmentId);
         }
 
         public Task<int> SaveExpensePhotoAsync (ExpensePhoto photo, CancellationToken cancellationToken)
