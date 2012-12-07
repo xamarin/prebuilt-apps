@@ -29,6 +29,7 @@
 
     <!--Images-->
     <BitmapImage x:Key="BackgroundImage" UriSource="ms-appx:///Assets/smoothbg.png" />
+    <BitmapImage x:Key="HistoryBackgroundImage" UriSource="ms-appx:///Assets/smoothbg_blue.png" />
     <BitmapImage x:Key="LogoImage" UriSource="ms-appx:///Assets/titlelogo.png" />
     <BitmapImage x:Key="PersonIcon" UriSource="ms-appx:///Assets/personicon.png" />
     <BitmapImage x:Key="MapIcon" UriSource="ms-appx:///Assets/mapicon.png" />
@@ -53,6 +54,8 @@
         <GradientStop Offset="1" Color="#27cbef" />
     </LinearGradientBrush>
     <SolidColorBrush x:Key="DarkTextBrush">#333333</SolidColorBrush>
+    <SolidColorBrush x:Key="HistoryTextBrush">#1db0e7</SolidColorBrush>
+    <SolidColorBrush x:Key="HistoryLightTextBrush">#ffffff</SolidColorBrush>
     <SolidColorBrush x:Key="DarkBottomTextBrush">#1c1c1c</SolidColorBrush>
     <SolidColorBrush x:Key="BlueBackgroundBrush">#2b9ac1</SolidColorBrush>
     <SolidColorBrush x:Key="LightBlueBackgroundBrush">#24c3ed</SolidColorBrush>
