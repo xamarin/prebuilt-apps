@@ -58,7 +58,7 @@ namespace FieldService.iOS
 
 			//UI we have to setup from code
 			View.BackgroundColor = Theme.LeftMenuColor;
-			tableView.Source = new TableSource ();
+			tableView.Source = new TableSource (this);
 			timerLabel.TextColor = Theme.LabelColor;
 			timerBackground.Image = Theme.TimerBackground;
 			timerLabelBackground.Image = Theme.TimerField;
@@ -70,11 +70,36 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
-			using (var indexPath = NSIndexPath.FromRowSection (0, 0)) {
-				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-				detailsController.SectionSelected (tableView, indexPath, false);
+			//Switch to the summary tab, unless we are returning from the history section
+			if (!SkipSummary) {
+				using (var indexPath = NSIndexPath.FromRowSection (0, 0)) {
+					tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
+					detailsController.SectionSelected (tableView, indexPath, false);
+				}
+			} else {
+				SkipSummary = false;
 			}
+
+			//Update the UI
 			UpdateAssignment ();
+		}
+
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+
+			var splitController = ParentViewController as SplitController;
+			if (splitController != null && splitController.IsHistory) {
+				SkipSummary = true;
+			}
+		}
+
+		/// <summary>
+		/// If set to true, skips the "auto-selection" to the summary page
+		/// </summary>
+		public bool SkipSummary {
+			get;
+			set;
 		}
 
 		/// <summary>
@@ -174,12 +199,12 @@ namespace FieldService.iOS
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, documentsCell, confirmationCell, historyCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
 			readonly AssignmentDetailsController detailsController;
-			readonly SplitController splitController;
+			readonly MenuController menuController;
 
-			public TableSource ()
+			public TableSource (MenuController menuController)
 			{
+				this.menuController = menuController;
 				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
-				splitController = ServiceContainer.Resolve<SplitController>();
 
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";
@@ -247,7 +272,10 @@ namespace FieldService.iOS
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				detailsController.SectionSelected (tableView, indexPath);
-				splitController.HidePopover ();
+
+				var splitController = menuController.ParentViewController as SplitController;
+				if (splitController != null) 
+					splitController.HidePopover ();
 			}
 
 			protected override void Dispose (bool disposing)

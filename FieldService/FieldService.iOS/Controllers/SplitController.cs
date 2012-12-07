@@ -21,6 +21,7 @@ namespace FieldService.iOS
 {
 	/// <summary>
 	/// The main split controller in the app, we couldn't use UISplitViewController because it must be the very root controller of the app
+	/// NOTE: there are 2 instances of this controller throughout the application, while the other controllers only have 1 instance
 	/// </summary>
 	[Register("SplitController")]
 	public partial class SplitController : BaseController
@@ -31,7 +32,11 @@ namespace FieldService.iOS
 
 		public SplitController (IntPtr handle) : base(handle)
 		{
-			ServiceContainer.Register (this);
+
+		}
+
+		public bool IsHistory {
+			get { return isHistory; }
 		}
 
 		public override void ViewDidLoad ()
@@ -70,6 +75,9 @@ namespace FieldService.iOS
 			if (isHistory) {
 				var assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
 				assignmentController.RemoveHistory ();
+
+//				var menuController = ChildViewControllers[1] as MenuController;
+//				menuController.SkipSummary = true;
 			}
 		}
 

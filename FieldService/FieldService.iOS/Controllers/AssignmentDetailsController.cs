@@ -29,7 +29,6 @@ namespace FieldService.iOS
 	public partial class AssignmentDetailsController : BaseController
 	{
 		readonly AssignmentsController assignmentsController;
-		SplitController splitController;
 		UIViewController lastChildController;
 		SummaryController summaryController;
 
@@ -43,8 +42,6 @@ namespace FieldService.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
-			splitController = ServiceContainer.Resolve<SplitController>();
 
 			//UI that is required to be setup from code
 			assignmentBackground.Image = Theme.AssignmentActive;
@@ -150,8 +147,9 @@ namespace FieldService.iOS
 		{
 			var assignment = assignmentsController.Assignment;
 			if (assignment != null && IsViewLoaded) {
-
-				splitController.NavigationItem.Title = assignment.JobNumberFormatted + " " + assignment.CompanyName;
+				var splitController = ParentViewController as SplitController;
+				if (splitController != null)
+					splitController.NavigationItem.Title = assignment.JobNumberFormatted + " " + assignment.CompanyName;
 				priority.Text = assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("{0} {1}", assignment.JobNumberFormatted, assignment.StartDate.Date.ToShortDateString ());
 				titleLabel.Text = assignment.CompanyName;
