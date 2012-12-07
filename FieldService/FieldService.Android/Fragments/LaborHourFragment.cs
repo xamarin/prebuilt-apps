@@ -49,17 +49,19 @@ namespace FieldService.Android.Fragments {
             laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
 
             ReloadLaborHours ();
-            laborListView.ItemClick += (sender, e) => {
-                var textView = e.View.FindViewById<TextView> (Resource.Id.laborHours);
+            if (!Assignment.IsHistory) {
+                laborListView.ItemClick += (sender, e) => {
+                    var textView = e.View.FindViewById<TextView> (Resource.Id.laborHours);
 
-                var labor = LaborHours.ElementAtOrDefault ((int)textView.Tag);
+                    var labor = LaborHours.ElementAtOrDefault ((int)textView.Tag);
 
-                laborDialog = new AddLaborDialog (Activity);
-                laborDialog.Activity = Activity;
-                laborDialog.Assignment = Assignment;
-                laborDialog.CurrentLabor = labor;
-                laborDialog.Show ();
-            };
+                    laborDialog = new AddLaborDialog (Activity);
+                    laborDialog.Activity = Activity;
+                    laborDialog.Assignment = Assignment;
+                    laborDialog.CurrentLabor = labor;
+                    laborDialog.Show ();
+                };
+            }
             return view;
         }
 
@@ -83,7 +85,9 @@ namespace FieldService.Android.Fragments {
         private void ReloadLaborHours ()
         {
             if (LaborHours != null) {
-                laborListView.Adapter = new LaborHoursAdapter (Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
+                var adapter = new LaborHoursAdapter (Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
+                adapter.Assignment = Assignment;
+                laborListView.Adapter = adapter;
             }
         }
 

@@ -112,7 +112,6 @@ namespace FieldService.Android.Activities {
                         //setting up default fragments
                         var transaction = FragmentManager.BeginTransaction ();
                         var summaryFragment = new SummaryFragment ();
-                        summaryFragment.IsHistory = true;
                         summaryFragment.Assignment = historyViewModel.PastAssignment;
                         navigationFragment = new NavigationFragment ();
                         navigationFragment.Assignment = historyViewModel.PastAssignment;
@@ -128,6 +127,7 @@ namespace FieldService.Android.Activities {
                             phone.Text = AssignmentHistory.ContactPhone;
                             address.Text = string.Format ("{0}\n{1}, {2} {3}", AssignmentHistory.Address, AssignmentHistory.City, AssignmentHistory.State, AssignmentHistory.Zip);
                         }
+                        navigationFragment.NavigationSelected += NavigationSelected;
                     });
 
             items.Visibility =
@@ -144,10 +144,8 @@ namespace FieldService.Android.Activities {
         protected override void OnResume ()
         {
             base.OnResume ();
-            if (navigationFragment != null) {
-                navigationFragment.NavigationSelected += NavigationSelected;
-            }
-            if (navigationIndex != 0) {
+
+            if (navigationIndex != 0 && navigationFragment != null) {
                 navigationFragment.SetNavigation (navigationIndex);
             }
         }
@@ -177,12 +175,11 @@ namespace FieldService.Android.Activities {
         private void SetFrameFragment (int index)
         {
             var transaction = FragmentManager.BeginTransaction ();
-            var screen = Constants.Navigation [index];
+            var screen = Constants.HistoryNavigation [index];
             switch (screen) {
                 case "Summary": {
                         var fragment = new SummaryFragment ();
                         fragment.Assignment = historyViewModel.PastAssignment;
-                        fragment.IsHistory = true;
                         transaction.SetTransition (FragmentTransit.FragmentOpen);
                         transaction.Replace (Resource.Id.contentFrame, fragment);
                         transaction.Commit ();
@@ -190,6 +187,94 @@ namespace FieldService.Android.Activities {
                             addItems.Visibility = ViewStates.Invisible;
                         addExpense.Visibility =
                             addLabor.Visibility = ViewStates.Gone;
+                    }
+                    break;
+                case "Map": {
+                        var fragment = new MapFragment ();
+                        transaction.SetTransition (FragmentTransit.FragmentOpen);
+                        transaction.Replace (Resource.Id.contentFrame, fragment);
+                        transaction.Commit ();
+                        items.Visibility =
+                            addItems.Visibility = ViewStates.Invisible;
+                        addExpense.Visibility =
+                            addLabor.Visibility = ViewStates.Gone;
+                    }
+                    break;
+                case "Items": {
+                        var fragment = new ItemFragment ();
+                        fragment.Assignment = historyViewModel.PastAssignment;
+                        itemViewModel.LoadAssignmentItemsAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
+                            fragment.AssignmentItems = itemViewModel.AssignmentItems;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            items.Visibility = ViewStates.Visible;
+                            addItems.Visibility = ViewStates.Invisible;
+                            addExpense.Visibility =
+                                addLabor.Visibility = ViewStates.Gone;
+                            items.Text = string.Format ("({0}) Items", historyViewModel.PastAssignment.TotalItems.ToString ());
+                        });
+                    }
+                    break;
+                case "Labor Hours": {
+                        var fragment = new LaborHourFragment ();
+                        laborViewModel.LoadLaborHoursAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
+                            fragment.LaborHours = laborViewModel.LaborHours;
+                            fragment.Assignment = historyViewModel.PastAssignment;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            items.Visibility = ViewStates.Visible;
+                            addItems.Visibility = ViewStates.Invisible;
+                            addExpense.Visibility =
+                                addLabor.Visibility = ViewStates.Gone;
+                            items.Text = string.Format ("{0} hrs", historyViewModel.PastAssignment.TotalHours.TotalHours.ToString ("0.0"));
+                        });
+                    }
+                    break;
+                case "Confirmations": {
+                        var fragment = new ConfirmationFragment ();
+                        photoViewModel.LoadPhotosAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
+                            fragment.Photos = photoViewModel.Photos;
+                            fragment.Assignment = historyViewModel.PastAssignment;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            addLabor.Visibility =
+                                items.Visibility = ViewStates.Invisible;
+                            addExpense.Visibility =
+                                addItems.Visibility = ViewStates.Gone;
+                        });
+                    }
+                    break;
+                case "Expenses": {
+                        var fragment = new ExpenseFragment ();
+                        expenseViewModel.LoadExpensesAsync (historyViewModel.PastAssignment).ContinueOnUIThread (_ => {
+                            fragment.Expenses = expenseViewModel.Expenses;
+                            fragment.Assignment = historyViewModel.PastAssignment;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            items.Visibility = ViewStates.Visible;
+                            addItems.Visibility = ViewStates.Invisible;
+                            addExpense.Visibility =
+                                addLabor.Visibility = ViewStates.Gone;
+                            items.Text = historyViewModel.PastAssignment.TotalExpenses.ToString ("$0.00");
+                        });
+                    }
+                    break;
+                case "Documents": {
+                        var fragment = new DocumentFragment ();
+                        documentViewModel.LoadDocumentsAsync ().ContinueOnUIThread (_ => {
+                            fragment.Documents = documentViewModel.Documents;
+                            transaction.SetTransition (FragmentTransit.FragmentOpen);
+                            transaction.Replace (Resource.Id.contentFrame, fragment);
+                            transaction.Commit ();
+                            items.Visibility =
+                                addItems.Visibility = ViewStates.Invisible;
+                            addExpense.Visibility =
+                                addLabor.Visibility = ViewStates.Gone;
+                        });
                     }
                     break;
                 default:

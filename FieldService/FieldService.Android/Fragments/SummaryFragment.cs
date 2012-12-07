@@ -57,7 +57,7 @@ namespace FieldService.Android.Fragments {
                 expenses.Text = Assignment.TotalExpenses.ToString ("$#.00");
             }
 
-            if (!IsHistory) {
+            if (!Assignment.IsHistory) {
                 itemsLayout.Click += (sender, e) => {
                     var index = Constants.Navigation.IndexOf ("Items");
                     SelectNavigation (index);
@@ -73,11 +73,6 @@ namespace FieldService.Android.Fragments {
             }
 
             return view;
-        }
-
-        public bool IsHistory
-        {
-            get;set;
         }
 
         /// <summary>

@@ -104,7 +104,7 @@ namespace FieldService.Android.Fragments {
             };
             timerLayout.Visibility = ViewStates.Gone;
 
-            var adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
+            var adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Assignment.IsHistory ? Constants.HistoryNavigation : Constants.Navigation);
             navigationListView.OnItemClickListener = navigationSelector;
             navigationListView.Adapter = adapter;
 
