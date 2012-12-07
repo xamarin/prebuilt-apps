@@ -202,11 +202,11 @@ namespace FieldService.iOS
 				if (indexPath.Section == 0) {
 					cell = tableView.DequeueReusableCell (SignatureIdentifier);
 					var signatureCell = cell as SignatureCell;
-					signatureCell.SetSignature (assignmentController.AssignmentViewModel.Signature);
+					signatureCell.SetSignature (assignmentController.Assignment, assignmentController.AssignmentViewModel.Signature);
 				} else {
 					cell = tableView.DequeueReusableCell (CompleteIdentifier);
 					var completeCell = cell as CompleteCell;
-					completeCell.SetAssignment (assignmentController.Assignment);
+					completeCell.SetAssignment (assignmentController.Assignment, tableView);
 				}
 				return cell;
 			}

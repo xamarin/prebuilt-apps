@@ -161,6 +161,7 @@ namespace FieldService.iOS
 				address.TopLabel.Text = assignment.Address;
 				address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
 				status.Assignment = assignment;
+				status.Enabled = assignment.Status != AssignmentStatus.Complete && !assignment.IsHistory;
 
 				if (assignment.Status == AssignmentStatus.New) {
 					status.Hidden = true;

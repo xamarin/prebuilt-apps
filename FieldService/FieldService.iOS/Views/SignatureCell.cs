@@ -36,7 +36,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Set the signature for this cell
 		/// </summary>
-		public void SetSignature (Data.Signature signature)
+		public void SetSignature (Assignment assignment, Data.Signature signature)
 		{
 			//Dispose the previous image if there was one
 			if (image != null) {
@@ -49,14 +49,24 @@ namespace FieldService.iOS
 				this.signature.SetBackgroundImage (null, UIControlState.Normal);
 
 				addSignature.Hidden = false;
-				addSignature.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
 				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
+
+				if (assignment.Status != AssignmentStatus.Complete && !assignment.IsHistory) {
+					addSignature.Enabled = true;
+					addSignature.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
+					addSignature.SetTitle ("Add Signature", UIControlState.Normal);
+				} else {
+					addSignature.Enabled = false;
+					addSignature.SetBackgroundImage (null, UIControlState.Normal);
+					addSignature.SetTitle ("No Signature", UIControlState.Normal);
+				}
 			} else {
 				image = signature.Image.ToUIImage ();
 				this.signature.Hidden = false;
 				this.signature.SetBackgroundImage (image, UIControlState.Normal);
 				this.signature.Layer.CornerRadius = 7;
 				this.signature.ClipsToBounds = true;
+				this.signature.Enabled = assignment.Status != AssignmentStatus.Complete && !assignment.IsHistory;
 
 				addSignature.Hidden = true;
 			}

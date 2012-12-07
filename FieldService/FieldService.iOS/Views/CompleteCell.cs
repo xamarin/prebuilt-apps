@@ -31,6 +31,8 @@ namespace FieldService.iOS
 		readonly AssignmentDetailsController detailsController;
 		readonly MenuController menuController;
 		Assignment assignment;
+		UITableView tableView;
+		UIAlertView alertView;
 
 		public CompleteCell (IntPtr handle) : base (handle)
 		{
@@ -46,9 +48,10 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets the assignment for this cell
 		/// </summary>
-		public void SetAssignment(Assignment assignment)
+		public void SetAssignment(Assignment assignment, UITableView tableView)
 		{
 			this.assignment = assignment;
+			this.tableView = tableView;
 
 			completeButton.Enabled = assignment.Status != AssignmentStatus.Complete && !assignment.IsHistory;
 			completeButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
@@ -69,14 +72,24 @@ namespace FieldService.iOS
 				return;
 			}
 
-			completeButton.Enabled = false;
-			assignment.Status = AssignmentStatus.Complete;
-			assignmentViewModel
-				.SaveAssignmentAsync (assignment)
-				.ContinueOnUIThread (_ => {
-					detailsController.UpdateAssignment ();
-					menuController.UpdateAssignment ();
-				});
+			alertView = new UIAlertView("Complete?", "Are you sure?", null, "Yes", "No");
+			alertView.Dismissed += (sender, e) => {
+				alertView.Dispose ();
+				alertView = null;
+
+				if (e.ButtonIndex == 0) {
+					completeButton.Enabled = false;
+					assignment.Status = AssignmentStatus.Complete;
+					assignmentViewModel
+						.SaveAssignmentAsync (assignment)
+						.ContinueOnUIThread (_ => {
+							tableView.ReloadData ();
+							detailsController.UpdateAssignment ();
+							menuController.UpdateAssignment ();
+						});
+				}
+			};
+			alertView.Show();
 		}
 	}
 }
