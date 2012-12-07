@@ -54,6 +54,8 @@ namespace FieldService.iOS
 			completeButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
 			completeButton.SetBackgroundImage (Theme.CompleteInactive, UIControlState.Disabled);
 			completeButton.SetTitleColor (UIColor.White, UIControlState.Normal);
+			completeButton.SetTitle ("Complete", UIControlState.Normal);
+			completeButton.SetTitle ("Completed", UIControlState.Disabled);
 		}
 
 		/// <summary>

@@ -48,7 +48,6 @@ namespace FieldService.iOS
 
 			//UI setup from code
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
 			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
 				Text = "Labor",
@@ -87,8 +86,12 @@ namespace FieldService.iOS
 					space2,
 					done,
 				};
+				toolbar.SetBackgroundImage (Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			} else {
 				toolbar.Items = new UIBarButtonItem[] { cancel, space1, labor, space2 };
+				toolbar.SetBackgroundImage (Theme.OrangeBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				cancel.SetBackgroundImage (Theme.OrangeBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			}
 			tableSource.Load (enabled, laborController.Labor);
 		}
@@ -140,7 +143,6 @@ namespace FieldService.iOS
 				{
 					TextAlignment = UITextAlignment.Right,
 					VerticalAlignment = UIControlContentVerticalAlignment.Center,
-					TextColor = Theme.BlueTextColor,
 					BackgroundColor = UIColor.Clear,
 				};
 				typeCell.SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -178,6 +180,9 @@ namespace FieldService.iOS
 				type.Enabled =
 					hours.Enabled =
 					description.UserInteractionEnabled = enabled;
+				type.TextColor = 
+					hours.TextColor =
+					description.TextColor = enabled ? Theme.BlueTextColor : UIColor.LightGray;
 
 				type.LaborType = labor.Type;
 				hours.Value = labor.Hours.TotalHours;

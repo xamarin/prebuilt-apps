@@ -49,7 +49,6 @@ namespace FieldService.iOS
 
 			//UI setup from code
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
 			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
 				Text = "Expense",
@@ -95,8 +94,12 @@ namespace FieldService.iOS
 					space2,
 					done,
 				};
+				toolbar.SetBackgroundImage (Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			} else {
 				toolbar.Items = new UIBarButtonItem[] { cancel, space1, expense, space2 };
+				toolbar.SetBackgroundImage (Theme.OrangeBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				cancel.SetBackgroundImage (Theme.OrangeBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			}
 
 			if (expenseController.Expense.Id == 0) {
@@ -130,7 +133,7 @@ namespace FieldService.iOS
 		private class TableSource : UITableViewSource
 		{
 			readonly ExpenseController expenseController;
-			readonly UITableViewCell categoryCell, hoursCell, descriptionCell, photoCell;
+			readonly UITableViewCell categoryCell, costCell, descriptionCell, photoCell;
 			readonly UILabel category;
 			readonly UITextField cost;
 			readonly PlaceholderTextView description;
@@ -150,18 +153,16 @@ namespace FieldService.iOS
 				categoryCell.TextLabel.Text = "Category";
 				categoryCell.AccessoryView = category = new UILabel (new RectangleF(0, 0, 200, 36))
 				{
-					TextColor = Theme.BlueTextColor,
 					TextAlignment = UITextAlignment.Right,
 					BackgroundColor = UIColor.Clear,
 				};
 				categoryCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 
-				hoursCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				hoursCell.TextLabel.Text = "Cost";
-				hoursCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				hoursCell.AccessoryView = cost = new UITextField(new RectangleF(0, 0, 200, 36))
+				costCell = new UITableViewCell (UITableViewCellStyle.Default, null);
+				costCell.TextLabel.Text = "Cost";
+				costCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				costCell.AccessoryView = cost = new UITextField(new RectangleF(0, 0, 200, 36))
 				{
-					TextColor = Theme.BlueTextColor,
 					VerticalAlignment = UIControlContentVerticalAlignment.Center,
 					TextAlignment = UITextAlignment.Right,
 				};
@@ -180,7 +181,6 @@ namespace FieldService.iOS
 				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, 470, 90))
 				{
 					BackgroundColor = UIColor.Clear,
-					TextColor = Theme.BlueTextColor,
 					Placeholder = "Please enter notes here",
 				};
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
@@ -238,10 +238,11 @@ namespace FieldService.iOS
 			public void Load (bool enabled, Expense expense)
 			{
 				this.enabled = enabled;
-				category.Enabled =
-					cost.Enabled = 
-					category.Enabled = 
+				cost.Enabled =
 					description.UserInteractionEnabled = enabled;
+				category.TextColor =
+					cost.TextColor =
+					description.TextColor = enabled ? Theme.BlueTextColor : UIColor.LightGray;
 
 				category.Text = expense.Category.ToString ();
 				cost.Text = expense.Cost.ToString ("$0.00");
@@ -319,7 +320,7 @@ namespace FieldService.iOS
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
 				if (indexPath.Section == 0) {
-					return indexPath.Row == 0 ? categoryCell : hoursCell;
+					return indexPath.Row == 0 ? categoryCell : costCell;
 				} else if (indexPath.Section == 1) {
 					return descriptionCell;
 				} else {
@@ -330,7 +331,7 @@ namespace FieldService.iOS
 			protected override void Dispose (bool disposing)
 			{
 				categoryCell.Dispose ();
-				hoursCell.Dispose ();
+				costCell.Dispose ();
 				photoCell.Dispose ();
 				descriptionCell.Dispose ();
 				category.Dispose ();

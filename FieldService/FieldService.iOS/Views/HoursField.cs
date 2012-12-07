@@ -67,6 +67,14 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
+		/// Gets or sets the TextColor for the underlying UITextField
+		/// </summary>
+		public UIColor TextColor {
+			get { return  textField.TextColor; }
+			set { textField.TextColor = value; }
+		}
+
+		/// <summary>
 		/// Gets or sets the step at which the up/down arrows work
 		/// </summary>
 		public double Step {

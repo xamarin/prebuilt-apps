@@ -77,6 +77,7 @@ namespace FieldService.iOS
 				address.TopLabel.Text = history.Address;
 				address.BottomLabel.Text = string.Format ("{0}, {1} {2}", history.City, history.State, history.Zip);
 			}
+			title.Text = history.CompanyName;
 		}
 
 		protected override void Dispose (bool disposing)
