@@ -41,7 +41,10 @@ namespace FieldService.WinRT.Views {
                 itemsAddItem.DataContext =
                 itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
 
-            applicationBar.Closed += (sender, e) => itemViewModel.SelectedItem = null;
+            applicationBar.Closed += (sender, e) => {
+                itemViewModel.SelectedItem = null;
+                applicationBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
+            };
         }
 
         /// <summary>
@@ -70,6 +73,7 @@ namespace FieldService.WinRT.Views {
             var item = e.ClickedItem as AssignmentItem;
             if (item != null) {
                 itemViewModel.SelectedItem = item;
+                applicationBar.Visibility = Windows.UI.Xaml.Visibility.Visible;
                 applicationBar.IsOpen = true;
             }
         }

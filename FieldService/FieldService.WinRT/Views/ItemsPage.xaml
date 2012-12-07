@@ -9,7 +9,7 @@
     mc:Ignorable="d">
     
     <Page.BottomAppBar>
-        <AppBar x:Name="applicationBar" Padding="10,0" AutomationProperties.Name="Bottom App Bar">
+        <AppBar x:Name="applicationBar" Padding="10,0" AutomationProperties.Name="Bottom App Bar" Visibility="Collapsed">
             <Grid>
                 <Button x:Name="Delete" Tag="Delete" Style="{StaticResource DeleteAppBarButtonStyle}" Click="Delete_Click"/>
             </Grid>
