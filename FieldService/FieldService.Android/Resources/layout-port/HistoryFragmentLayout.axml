@@ -30,8 +30,8 @@
         android:layout_marginLeft="5dp"
         android:layout_alignParentRight="true"
         android:id="@+id/historySearchLayout"
-        android:layout_marginRight="30dp"
-        android:layout_marginTop="10dp">
+        android:layout_marginRight="5dp"
+        android:layout_marginTop="20dp">
         <EditText
             android:id="@+id/historySearchText"
             android:layout_width="wrap_content"
@@ -41,13 +41,13 @@
             android:background="@android:color/transparent"
             android:layout_marginLeft="5dp"
             android:layout_marginBottom="5dp"
-            android:minWidth="170dp"
-            android:maxWidth="170dp"
+            android:minWidth="120dp"
+            android:maxWidth="120dp"
             android:inputType="text"
             android:layout_centerVertical="true" />
         <ImageView
             android:src="@drawable/bottomSearchBar"
-            android:layout_width="wrap_content"
+            android:layout_width="160dp"
             android:layout_height="wrap_content"
             android:id="@+id/historySearchBar"
             android:layout_below="@+id/historyClearSearch"
@@ -67,7 +67,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/historySearchLayout"
-        android:layout_marginTop="10dp" />
+        android:layout_marginTop="20dp" />
     <ListView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

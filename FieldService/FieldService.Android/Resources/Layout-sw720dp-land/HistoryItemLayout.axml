@@ -12,44 +12,44 @@
         android:layout_gravity="center_vertical"
         android:layout_marginLeft="30dp"
         android:visibility="gone"
-        android:maxWidth="70dp"
-        android:minWidth="70dp"
+        android:maxWidth="10dp"
+        android:minWidth="100dp"
         android:scaleType="center" />
     <TextView
-        android:text="#789234"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemJobNumber"
         android:layout_marginLeft="30dp"
         android:textColor="@android:color/black"
-        android:maxWidth="70dp"
-        android:minWidth="70dp"
+        android:maxWidth="100dp"
+        android:minWidth="100dp"
+        android:textSize="22dp"
         android:ellipsize="end"
         android:singleLine="true"
         android:layout_gravity="center_vertical"
         android:visibility="visible"
         android:gravity="center_horizontal" />
     <TextView
-        android:text="12/12/2012"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemDate"
         android:layout_marginLeft="10dp"
-        android:minWidth="80dp"
-        android:maxWidth="80dp"
+        android:minWidth="120dp"
+        android:maxWidth="120dp"
         android:textColor="@android:color/black"
         android:layout_gravity="center_vertical"
+        android:textSize="22dp"
         android:gravity="right" />
     <TextView
-        android:text="Coil Replacement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemJobTitle"
         android:layout_marginLeft="10dp"
         android:ellipsize="end"
         android:textColor="@android:color/black"
-        android:maxWidth="140dp"
-        android:minWidth="140dp"
+        android:maxWidth="180dp"
+        android:minWidth="180dp"
+        android:textSize="22dp"
         android:singleLine="true"
         android:layout_gravity="center_vertical" />
     <ImageView
@@ -57,12 +57,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/roundedblack"
+        android:id="@+id/historyItemPhoneIcon"
         android:scaleType="center"
+        android:layout_gravity="center_vertical"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp" />
     <TextView
-        android:text="9.999.999.9999"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemPhoneNumber"
@@ -70,8 +71,9 @@
         android:layout_gravity="center_vertical"
         android:textColor="@android:color/black"
         android:singleLine="true"
-        android:maxWidth="110dp"
-        android:minWidth="110dp"
+        android:maxWidth="140dp"
+        android:minWidth="140dp"
+        android:textSize="22dp"
         android:ellipsize="end" />
     <ImageView
         android:src="@drawable/MapIcon"
@@ -84,14 +86,13 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp" />
     <TextView
-        android:text="323 Park Ave."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemAddress"
         android:textColor="@android:color/black"
         android:layout_gravity="center_vertical"
-        android:lines="2"
         android:gravity="center_vertical"
+        android:textSize="22dp"
         android:layout_weight="1"
         android:layout_marginRight="10dp" />
 </LinearLayout>

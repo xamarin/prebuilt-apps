@@ -36,12 +36,6 @@ namespace FieldService.Android {
             this.resourceId = resourceId;
         }
 
-        public Assignment Assignment
-        {
-            get;
-            set;
-        }
-
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             Photo photo = null;
@@ -79,9 +73,6 @@ namespace FieldService.Android {
                 }
             }
             image.Tag = position;
-            if (Assignment != null) {
-                dateTime.Focusable = Assignment.IsHistory;
-            }
 
             return view;
         }

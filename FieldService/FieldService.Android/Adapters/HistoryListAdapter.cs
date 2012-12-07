@@ -47,29 +47,44 @@ namespace FieldService.Android.Adapters {
             var date = view.FindViewById<TextView> (Resource.Id.historyItemDate);
             var mapIcon = view.FindViewById<ImageView> (Resource.Id.historyItemMapImage);
             var address = view.FindViewById<TextView> (Resource.Id.historyItemAddress);
-            var phoneIcon = view.FindViewById<ImageView> (Resource.Id.historyItemPhoneImage);
+            var phoneImage = view.FindViewById<ImageView> (Resource.Id.historyItemPhoneImage);
+            var phoneIcon = view.FindViewById<ImageView> (Resource.Id.historyItemPhoneIcon);
+            
 
-            if (assignment.Type == AssignmentHistoryType.Assignment) {
-                phoneIcon.Visibility = ViewStates.Gone;
-                mapIcon.Visibility = 
-                    jobNumber.Visibility = ViewStates.Visible;
-                address.Text = string.Format ("{0}\n{1}, {2}{3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
-                jobNumber.Text = assignment.JobNumber;
+            if (assignment != null) {
+                if (assignment.Type == AssignmentHistoryType.Assignment) {
+                    phoneImage.Visibility = ViewStates.Gone;
+                    mapIcon.Visibility =
+                        jobNumber.Visibility = ViewStates.Visible;
+                    address.Text = string.Format ("{0}\n{1}, {2}{3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
+                    jobNumber.Text = assignment.JobNumber;
+                } else {
+                    phoneImage.Visibility = ViewStates.Visible;
+                    mapIcon.Visibility = ViewStates.Invisible;
+                    jobNumber.Visibility = ViewStates.Gone;
+                    address.Text = string.Format ("Length: {0}  {1}", assignment.CallLength.ToString (@"hh\:mm\:ss"), assignment.CallDescription);
+                }
+                title.Text = assignment.CompanyName;
+                date.Text = assignment.Date.ToString ("d");
+                phoneNumber.Text = assignment.ContactPhone;
+
+                if (Assignment != null) {
+                    title.Focusable = Assignment.IsHistory;
+                }
             } else {
-                phoneIcon.Visibility = ViewStates.Visible;
-                mapIcon.Visibility = ViewStates.Invisible;
-                jobNumber.Visibility = ViewStates.Gone;
-                address.Text = string.Format ("Length: {0}  {1}", assignment.CallLength.ToString (@"hh\:mm\:ss"), assignment.CallDescription);
+                phoneIcon.Visibility =
+                phoneImage.Visibility =
+                    mapIcon.Visibility = ViewStates.Gone;
             }
-            title.Text = assignment.CompanyName;
-            date.Text = assignment.Date.ToString ("d");
-            phoneNumber.Text = assignment.ContactPhone;
-
-            if (Assignment != null) {
-                title.Focusable = Assignment.IsHistory;
-            }
-
             return view;
+        }
+
+        public override int Count
+        {
+            get
+            {
+                return assignments.Count;
+            }
         }
 
         public void FilterItems (string filter)
@@ -82,7 +97,7 @@ namespace FieldService.Android.Adapters {
                 }
             }
 
-            assignments = filtered;
+            this.assignments = filtered;
         }
 
         public AssignmentHistory GetAssignmentHistory (int position)

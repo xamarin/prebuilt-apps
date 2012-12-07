@@ -63,6 +63,7 @@ namespace FieldService.Android.Dialogs {
             cancel.Click += (sender, e) => Dismiss ();
 
             delete = (Button)FindViewById (Resource.Id.deleteAddLabor);
+            delete.Enabled = !Assignment.IsHistory;
             delete.Click += (sender, e) => {
                 //delete & reload
                 if (CurrentLabor != null && CurrentLabor.Id != -1) {
@@ -73,9 +74,11 @@ namespace FieldService.Android.Dialogs {
             };
 
             var save = (Button)FindViewById (Resource.Id.saveAddLabor);
+            save.Enabled = !Assignment.IsHistory;
             save.Click += (sender, e) => SaveLabor ();
 
             var addHours = (ImageButton)FindViewById (Resource.Id.addLaborHours);
+            addHours.Enabled = !Assignment.IsHistory;
             addHours.Click += (sender, e) => {
                 //add to the hours
                 double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
@@ -85,6 +88,7 @@ namespace FieldService.Android.Dialogs {
             };
 
             var subtractHours = (ImageButton)FindViewById (Resource.Id.subtractLaborHours);
+            subtractHours.Enabled = !Assignment.IsHistory;
             subtractHours.Click += (sender, e) => {
                 //subtract the hours
                 double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
@@ -95,8 +99,11 @@ namespace FieldService.Android.Dialogs {
             };
 
             type = (Spinner)FindViewById (Resource.Id.addLaborHoursType);
+            type.Enabled = !Assignment.IsHistory;
             description = (EditText)FindViewById (Resource.Id.addLaborDescription);
+            description.Enabled = !Assignment.IsHistory;
             hours = (TextView)FindViewById (Resource.Id.addLaborHoursText);
+            hours.Enabled = !Assignment.IsHistory;
 
             var adapter = new LaborTypeSpinnerAdapter (laborTypes, Context, Resource.Layout.SimpleSpinnerItem);
             adapter.TextColor = Color.Black;

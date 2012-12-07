@@ -26,12 +26,6 @@ namespace FieldService.Android {
             this.resourceId = resourceId;
         }
 
-        public Assignment Assignment
-        {
-            get;
-            set;
-        }
-
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             Expense expense = null;
@@ -61,7 +55,6 @@ namespace FieldService.Android {
             expenseAmount.Tag = position;
 
             expenseImage.Visibility = expense.HasPhoto ? ViewStates.Visible : ViewStates.Invisible;
-            expenseType.Focusable = Assignment.IsHistory;
 
             return view;
         }

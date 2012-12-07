@@ -167,9 +167,7 @@ namespace FieldService.Android.Fragments {
         private void ReloadListView ()
         {
             if (Photos != null) {
-                var adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos);
-                adapter.Assignment = Assignment;
-                photoListView.Adapter = adapter;
+                photoListView.Adapter = new PhotosAdapter (Activity, Resource.Layout.PhotoItemLayout, Photos); ;
             }
         }
 

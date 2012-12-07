@@ -16,7 +16,6 @@
         android:minWidth="70dp"
         android:scaleType="center" />
     <TextView
-        android:text="#789234"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemJobNumber"
@@ -30,7 +29,6 @@
         android:visibility="visible"
         android:gravity="center_horizontal" />
     <TextView
-        android:text="12/12/2012"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemDate"
@@ -41,7 +39,6 @@
         android:layout_gravity="center_vertical"
         android:gravity="right" />
     <TextView
-        android:text="Coil Replacement"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemJobTitle"
@@ -57,12 +54,13 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/roundedblack"
+        android:layout_gravity="center_vertical"
+        android:id="@+id/historyItemPhoneIcon"
         android:scaleType="center"
         android:layout_marginLeft="20dp"
         android:layout_marginBottom="10dp"
         android:layout_marginTop="10dp" />
     <TextView
-        android:text="9.999.999.9999"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemPhoneNumber"
@@ -84,14 +82,14 @@
         android:layout_marginLeft="20dp"
         android:layout_marginRight="10dp" />
     <TextView
-        android:text="323 Park Ave."
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/historyItemAddress"
         android:textColor="@android:color/black"
         android:layout_gravity="center_vertical"
-        android:lines="2"
         android:gravity="center_vertical"
         android:layout_weight="1"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:layout_marginRight="10dp" />
 </LinearLayout>

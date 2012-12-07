@@ -299,7 +299,7 @@
     <AndroidAsset Include="Assets\Hello_MVC.pdf" />
     <AndroidAsset Include="Assets\Intro_to_Web_Services.pdf" />
     <AndroidAsset Include="Assets\Introduction_to_Mobile_Development.pdf" />
-    <AndroidResource Include="Resources\Layout\HistoryFragmentLayout.axml">
+    <AndroidResource Include="Resources\Layout-land\HistoryFragmentLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout-land\HistoryItemLayout.axml">
@@ -416,6 +416,9 @@
       <SubType>AndroidResource</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout-sw720dp-port\SummaryFragmentLayout.axml">
+      <SubType>AndroidResource</SubType>
+    </AndroidResource>
+    <AndroidResource Include="Resources\Layout-port\HistoryFragmentLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
   </ItemGroup>

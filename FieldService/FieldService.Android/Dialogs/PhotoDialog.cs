@@ -50,10 +50,12 @@ namespace FieldService.Android.Dialogs {
             SetContentView (Resource.Layout.AddPhotoPopUpLayout);
 
             optionalCaption = (EditText)FindViewById (Resource.Id.photoPopupDescription);
+            optionalCaption.Enabled = !Assignment.IsHistory;
             dateTime = (TextView)FindViewById (Resource.Id.photoDateTime);
             photoCount = (TextView)FindViewById (Resource.Id.photoCountText);
 
             deletePhoto = (LinearLayout)FindViewById (Resource.Id.photoDeleteImage);
+            deletePhoto.Enabled = !Assignment.IsHistory;
             deletePhoto.Click += (sender, e) => DeletePhoto ();
 
             var nextPhoto = (ImageButton)FindViewById (Resource.Id.photoNextButton);

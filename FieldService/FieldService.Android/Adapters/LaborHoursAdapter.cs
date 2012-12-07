@@ -99,8 +99,8 @@ namespace FieldService.Android {
 
             hours.Tag = position;
 
-            laborType.Focusable = Assignment.IsHistory;
             laborType.Enabled = !Assignment.IsHistory;
+            laborType.Focusable = false;
 
             return view;
         }

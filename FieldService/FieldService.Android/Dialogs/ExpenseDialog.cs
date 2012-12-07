@@ -67,9 +67,11 @@ namespace FieldService.Android.Dialogs {
             SetCancelable (true);
 
             var save = (Button)FindViewById (Resource.Id.addExpenseSave);
+            save.Enabled = !Assignment.IsHistory;
             save.Click += (sender, e) => SaveExpense ();
 
             deleteExpense = (Button)FindViewById (Resource.Id.addExpenseDelete);
+            deleteExpense.Enabled = !Assignment.IsHistory;
             deleteExpense.Click += (sender, e) => {
                 if (CurrentExpense != null && CurrentExpense.Id != -1) {
                     DeleteExpense ();
@@ -83,9 +85,12 @@ namespace FieldService.Android.Dialogs {
 
             expenseType = (Spinner)FindViewById (Resource.Id.addExpenseType);
             expenseDescription = (EditText)FindViewById (Resource.Id.addExpenseDescription);
+            expenseDescription.Enabled = !Assignment.IsHistory;
             expenseAmount = (TextView)FindViewById (Resource.Id.addExpenseAmount);
+            expenseAmount.Enabled = !Assignment.IsHistory;
             expensePhoto = (ImageView)FindViewById (Resource.Id.addExpenseImage);
             expenseAddPhoto = (Button)FindViewById (Resource.Id.addExpenseAddPhoto);
+            expenseAddPhoto.Enabled = !Assignment.IsHistory;
             expenseAddPhoto.Click += (sender, e) => {
                 var choices = new List<string> ();
                 choices.Add (Activity.Resources.GetString (Resource.String.Gallery));
@@ -131,7 +136,7 @@ namespace FieldService.Android.Dialogs {
             adapter.TextColor = Color.Black;
             adapter.Background = Color.White;
             expenseType.Adapter = adapter;
-
+            expenseType.Enabled = !Assignment.IsHistory;
             expenseType.ItemSelected += (sender, e) => {
                 var category = expenseTypes [e.Position];
                 if (CurrentExpense.Category != category)

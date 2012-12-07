@@ -42,6 +42,7 @@ namespace FieldService.Android.Fragments {
             searchText.TextChanged += (sender, e) => {
                 if (historySearchAdapter != null) {
                     historySearchAdapter.FilterItems (searchText.Text);
+                    historySearchAdapter.NotifyDataSetChanged ();
                 }
             };
             var clearSearch = view.FindViewById<ImageButton> (Resource.Id.historyClearSearch);

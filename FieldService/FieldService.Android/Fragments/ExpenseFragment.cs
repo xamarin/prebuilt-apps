@@ -99,9 +99,7 @@ namespace FieldService.Android.Fragments {
         private void ReloadExpenses ()
         {
             if (Expenses != null) {
-                var adapter = new ExpensesAdapter (Activity, Resource.Layout.ExpenseListItemLayout, Expenses);
-                adapter.Assignment = Assignment;
-                expensesListView.Adapter = adapter;
+                expensesListView.Adapter = new ExpensesAdapter (Activity, Resource.Layout.ExpenseListItemLayout, Expenses);
             }
         }
 
