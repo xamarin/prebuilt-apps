@@ -151,7 +151,7 @@ namespace FieldService.iOS
 			var assignment = assignmentsController.Assignment;
 			if (assignment != null && IsViewLoaded) {
 
-				splitController.NavigationItem.Title = assignment.JobNumberFormatted;
+				splitController.NavigationItem.Title = assignment.JobNumberFormatted + " " + assignment.CompanyName;
 				priority.Text = assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("{0} {1}", assignment.JobNumberFormatted, assignment.StartDate.Date.ToShortDateString ());
 				titleLabel.Text = assignment.CompanyName;

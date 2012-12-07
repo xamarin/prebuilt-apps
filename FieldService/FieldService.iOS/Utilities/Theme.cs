@@ -90,6 +90,38 @@ namespace FieldService.iOS
 			get { return assignmentActiveBlue.Value; }
 		}
 
+		static Lazy<UIImage> dot = new Lazy<UIImage> (() => UIImage.FromFile ("Images/dot.png"));
+		
+		/// <summary>
+		/// Dot image for selected state of menu
+		/// </summary>
+		public static UIImage Dot {
+			get { return dot.Value; }
+		}
+
+		static Lazy<UIImage> transparentDot = new Lazy<UIImage> (() => {
+			//This is some quick code to create a transparent image the same size as Theme.Dot
+			UIGraphics.BeginImageContext (Dot.Size);
+			try
+			{
+				using (var context = UIGraphics.GetCurrentContext ())
+				{
+					return UIGraphics.GetImageFromCurrentImageContext ();
+				}
+			}
+			finally
+			{
+				UIGraphics.EndImageContext ();
+			}
+		});
+		
+		/// <summary>
+		/// Dot image for unselected state of menu
+		/// </summary>
+		public static UIImage TransparentDot {
+			get { return transparentDot.Value; }
+		}
+
 		static Lazy<UIImage> backbutton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/backbutton.png").CreateResizableImage (new UIEdgeInsets (15, 15, 15, 5)));
 		
 		/// <summary>
