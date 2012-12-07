@@ -100,6 +100,17 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
+		/// Displays the history page
+		/// </summary>
+		public void ShowHistory ()
+		{
+			using (var indexPath = NSIndexPath.FromRowSection (7, 0)) {
+				tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+				detailsController.SectionSelected (tableView, indexPath, false);
+			}
+		}
+
+		/// <summary>
 		/// Sets up the UI for the active assignment
 		/// </summary>
 		public void UpdateAssignment()

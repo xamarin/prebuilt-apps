@@ -70,6 +70,8 @@ namespace FieldService.iOS
 		public void ReloadHIstory ()
 		{
 			if (IsViewLoaded) {
+				toolbar.SetBackgroundImage (assignmentController.Assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+
 				historyViewModel.LoadHistoryAsync (assignmentController.Assignment)
 					.ContinueOnUIThread (_ => {
 						if (historyViewModel.History == null || historyViewModel.History.Count == 0) 
@@ -88,12 +90,14 @@ namespace FieldService.iOS
 		{
 			readonly HistoryViewModel historyViewModel;
 			readonly HistoryController historyController;
+			readonly AssignmentsController assignmentsController;
 			const string Identifier = "HistoryCell";
 
 			public TableSource (HistoryViewModel historyViewModel)
 			{
 				this.historyViewModel = historyViewModel;
 				historyController = ServiceContainer.Resolve<HistoryController> ();
+				assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -103,8 +107,13 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-//				historyController.Expense = expenseViewModel.Expenses[indexPath.Row];
-//				historyController.PerformSegue ("AddExpense", historyController);
+				var history = historyViewModel.History[indexPath.Row];
+				historyViewModel.LoadAssignmentFromHistory (history)
+					.ContinueOnUIThread (_ => {
+						var controller = historyController.ParentViewController.ParentViewController;
+						assignmentsController.Assignment = historyViewModel.PastAssignment;
+						controller.PerformSegue ("AssignmentHistory", controller);
+					});
 
 				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
 				BeginInvokeOnMainThread (() => {

@@ -101,6 +101,8 @@ namespace FieldService.iOS
 		public void ReloadConfirmation ()
 		{
 			if (IsViewLoaded) {
+				toolbar.SetBackgroundImage (assignmentController.Assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+
 				signatureTableView.ReloadData ();
 
 				photoViewModel.LoadPhotosAsync (assignmentController.Assignment)

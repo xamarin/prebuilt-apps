@@ -52,6 +52,7 @@ namespace FieldService.iOS
 				loaded = true;
 			}
 
+			SelectionStyle = history.Type == AssignmentHistoryType.PhoneCall ? UITableViewCellSelectionStyle.None : UITableViewCellSelectionStyle.Blue;
 			date.Text = history.Date.ToShortDateString ();
 			phone.TopLabel.Text = history.ContactName;
 			phone.BottomLabel.Text = history.ContactPhone;

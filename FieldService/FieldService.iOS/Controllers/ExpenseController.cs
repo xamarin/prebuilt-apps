@@ -118,6 +118,7 @@ namespace FieldService.iOS
 						addItem
 					};
 				}
+				toolbar.SetBackgroundImage (assignmentController.Assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 				expenseViewModel.LoadExpensesAsync (assignmentController.Assignment)
 					.ContinueOnUIThread (_ => {

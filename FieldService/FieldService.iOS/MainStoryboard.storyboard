@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C60" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="2.0" toolsVersion="2844" systemVersion="12C2034" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="1930"/>
     </dependencies>
@@ -147,7 +147,7 @@
         <!--Split Controller-->
         <scene sceneID="iIn-iJ-1Op">
             <objects>
-                <viewController storyboardIdentifier="SplitController" hidesBottomBarWhenPushed="YES" id="Sal-Ci-lP4" customClass="SplitController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="" hidesBottomBarWhenPushed="YES" id="Sal-Ci-lP4" customClass="SplitController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="jaw-r6-LwV">
                         <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
                         <autoresizingMask key="autoresizingMask"/>
@@ -177,6 +177,7 @@
                     <connections>
                         <outlet property="detailView" destination="JT2-b1-G5v" id="mc1-FK-tPn"/>
                         <outlet property="masterView" destination="iYy-jV-4RN" id="N6h-pm-EdC"/>
+                        <segue destination="I4h-8q-13N" kind="push" identifier="AssignmentHistory" id="apx-3z-ahQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="gQA-Os-G6C" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1830,6 +1831,45 @@
             </objects>
             <point key="canvasLocation" x="856" y="-132"/>
         </scene>
+        <!--Split Controller-->
+        <scene sceneID="woO-es-yWQ">
+            <objects>
+                <viewController storyboardIdentifier="" hidesBottomBarWhenPushed="YES" id="I4h-8q-13N" customClass="SplitController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="j4t-Qo-Lth">
+                        <rect key="frame" x="0.0" y="64" width="1024" height="704"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <subviews>
+                            <containerView contentMode="scaleToFill" id="Sf9-oN-uv1">
+                                <rect key="frame" x="321" y="0.0" width="704" height="704"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="zAT-XQ-7PQ" kind="embed" id="iII-kH-wDM"/>
+                                </connections>
+                            </containerView>
+                            <containerView contentMode="scaleToFill" id="Csr-ML-18F">
+                                <rect key="frame" x="0.0" y="0.0" width="320" height="704"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" heightSizable="YES"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                                <connections>
+                                    <segue destination="3fg-bz-aRY" kind="embed" id="6cp-mB-2xW"/>
+                                </connections>
+                            </containerView>
+                        </subviews>
+                        <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="H6S-pR-CfE"/>
+                    <nil key="simulatedBottomBarMetrics"/>
+                    <simulatedOrientationMetrics key="simulatedOrientationMetrics" orientation="landscapeRight"/>
+                    <connections>
+                        <outlet property="detailView" destination="Sf9-oN-uv1" id="mQ4-e3-XUH"/>
+                        <outlet property="masterView" destination="Csr-ML-18F" id="pjb-WV-VzW"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wdK-bB-YA2" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1849" y="-584"/>
+        </scene>
     </scenes>
     <resources>
         <image name="Images/iconsettings.png" width="16" height="16"/>
@@ -2144,6 +2184,8 @@
         <simulatedScreenMetrics key="destination"/>
     </simulatedMetricsContainer>
     <inferredMetricsTieBreakers>
-        <segue reference="Cu6-9C-nsK"/>
+        <segue reference="3lk-Mu-NCO"/>
+        <segue reference="XyT-hw-poB"/>
+        <segue reference="ooc-FE-LI9"/>
     </inferredMetricsTieBreakers>
 </document>
