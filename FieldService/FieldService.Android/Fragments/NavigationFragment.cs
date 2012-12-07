@@ -83,25 +83,27 @@ namespace FieldService.Android.Fragments {
             var spinnerAdapter = new SpinnerAdapter<AssignmentStatus> (assignmentViewModel.AvailableStatuses, Activity, Resource.Layout.SimpleSpinnerItem);
             spinnerAdapter.TextColor = Color.White;
             navigationStatus.Adapter = spinnerAdapter;
-            navigationStatus.ItemSelected += (sender, e) => {
-                var status = assignmentViewModel.AvailableStatuses [e.Position];
-                if (Assignment != null && Assignment.Status != status && Assignment.Status != AssignmentStatus.New) {
-                    Assignment.Status = status;
-                    switch (status) {
-                        case AssignmentStatus.Complete:
-                            //go to confirmations screen
-                            var currentPosition = navigationListView.SelectedItemPosition;
-                            var confirmationPosition = Constants.Navigation.IndexOf ("Confirmations");
-                            if (currentPosition != confirmationPosition) {
-                                navigationSelector.OnItemClick (navigationListView, navigationListView.GetChildAt (confirmationPosition), confirmationPosition, 0);
-                            }
-                            break;
-                        default:
-                            SaveAssignment ();
-                            break;
+            if (!Assignment.IsHistory) {
+                navigationStatus.ItemSelected += (sender, e) => {
+                    var status = assignmentViewModel.AvailableStatuses [e.Position];
+                    if (Assignment != null && Assignment.Status != status && Assignment.Status != AssignmentStatus.New) {
+                        Assignment.Status = status;
+                        switch (status) {
+                            case AssignmentStatus.Complete:
+                                //go to confirmations screen
+                                var currentPosition = navigationListView.SelectedItemPosition;
+                                var confirmationPosition = Constants.Navigation.IndexOf ("Confirmations");
+                                if (currentPosition != confirmationPosition) {
+                                    navigationSelector.OnItemClick (navigationListView, navigationListView.GetChildAt (confirmationPosition), confirmationPosition, 0);
+                                }
+                                break;
+                            default:
+                                SaveAssignment ();
+                                break;
+                        }
                     }
-                }
-            };
+                };
+            }
             timerLayout.Visibility = ViewStates.Gone;
 
             var adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
@@ -118,32 +120,40 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         private void SetActiveAssignment ()
         {
-            if (Assignment != null && (Assignment.Status == AssignmentStatus.Active || Assignment.Status == AssignmentStatus.Complete)) {
-                timerLayout.Visibility = ViewStates.Visible;
-                navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
-                navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
-                timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+            if (Assignment != null) {
+                if (Assignment.IsHistory) {
+                    navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
+                    navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Complete));
+                    timerLayout.Visibility = ViewStates.Gone;
+                } else {
+                    if (Assignment.Status == AssignmentStatus.Active || Assignment.Status == AssignmentStatus.Complete) {
+                        timerLayout.Visibility = ViewStates.Visible;
+                        navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
+                        navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
+                        timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 
-                assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
-                    if (assignmentViewModel.Recording) {
-                        timer.Checked = true;
+                        assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
+                            if (assignmentViewModel.Recording) {
+                                timer.Checked = true;
+                            } else {
+                                timer.Checked = false;
+                            }
+                        });
+
+                        timer.CheckedChange += (sender, e) => {
+                            if (e.IsChecked != assignmentViewModel.Recording) {
+                                if (assignmentViewModel.Recording) {
+                                    assignmentViewModel.PauseAsync ();
+                                } else {
+                                    assignmentViewModel.RecordAsync ();
+                                }
+                            }
+                        };
                     } else {
-                        timer.Checked = false;
+                        navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
+                        timerLayout.Visibility = ViewStates.Gone;
                     }
-                });
-
-                timer.CheckedChange += (sender, e) => {
-                    if (e.IsChecked != assignmentViewModel.Recording) {
-                        if (assignmentViewModel.Recording) {
-                            assignmentViewModel.PauseAsync ();
-                        } else {
-                            assignmentViewModel.RecordAsync ();                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         
-                        }
-                    }
-                };
-            } else {
-                navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-                timerLayout.Visibility = ViewStates.Gone;
+                }
             }
         }
 
