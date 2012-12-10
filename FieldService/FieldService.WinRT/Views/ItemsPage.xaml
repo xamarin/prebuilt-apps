@@ -21,12 +21,12 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        
-        <Image Grid.RowSpan="2" Source="{StaticResource BackgroundImage}" Stretch="None" />
+
+        <Image Grid.RowSpan="2" Source="{Binding BackgroundImage}" Stretch="None" />
 
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
             <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" VerticalAlignment="Center" />
-            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.JobNumberFormatted}" VerticalAlignment="Center"/>
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding AssignmentTitle}" VerticalAlignment="Center"/>
         </StackPanel>
 
         <ScrollViewer Margin="0,0,20,0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">

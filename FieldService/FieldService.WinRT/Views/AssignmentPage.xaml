@@ -18,7 +18,7 @@
 
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
             <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" VerticalAlignment="Center" />
-            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding SelectedAssignment.JobNumberFormatted}" VerticalAlignment="Center"/>
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="{Binding AssignmentTitle}" VerticalAlignment="Center"/>
         </StackPanel>
 
         <ScrollViewer Margin="0,0,20,0" Grid.Row="1" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.VerticalScrollBarVisibility="Hidden">
@@ -192,7 +192,7 @@
                         </ListViewItem>
 
                         <!--History section-->
-                        <ListViewItem Grid.Row="2" Grid.Column="4" Margin="5">
+                        <ListViewItem Grid.Row="2" Grid.Column="4" Margin="5" Visibility="{Binding SelectedAssignment.IsHistory, Converter={StaticResource InverseBooleanConverter}}">
                             <Border x:Name="history" Width="154" Height="162" BorderThickness="0" Background="{StaticResource DocumentsBrush}">
                                 <Grid VerticalAlignment="Center" HorizontalAlignment="Center">
                                     <Grid.RowDefinitions>

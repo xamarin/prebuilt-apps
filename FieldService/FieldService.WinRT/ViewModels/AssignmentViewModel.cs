@@ -317,6 +317,17 @@ namespace FieldService.WinRT.ViewModels {
             }
         }
 
+        public string AssignmentTitle
+        {
+            get
+            {
+                if (SelectedAssignment.IsHistory) {
+                    return string.Format ("History for {0}", SelectedAssignment.JobNumberFormatted);
+                }
+                return SelectedAssignment.JobNumberFormatted;
+            }
+        }
+
         /// <summary>
         /// Value for showing total accumulated time
         /// </summary>

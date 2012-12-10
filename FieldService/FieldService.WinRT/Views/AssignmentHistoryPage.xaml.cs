@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -46,11 +47,13 @@ namespace FieldService.WinRT.Views {
         /// <summary>
         /// History list view item click 
         /// </summary>
-        private void OnItemClick (object sender, ItemClickEventArgs e)
+        private async void OnItemClick (object sender, ItemClickEventArgs e)
         {
             var history = e.ClickedItem as AssignmentHistory;
             if (history != null) {
-
+                await historyViewModel.LoadAssignmentFromHistory (history);
+                assignmentViewModel.SelectedAssignment = historyViewModel.PastAssignment;
+                Helpers.NavigateTo<AssignmentPage> ();
             }
         }
     }
