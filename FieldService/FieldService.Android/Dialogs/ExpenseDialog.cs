@@ -157,7 +157,7 @@ namespace FieldService.Android.Dialogs {
                         ExpenseViewModel.Photo.Image = imageBitmap.ToByteArray ();
                         System.Console.WriteLine (ExpenseViewModel.Photo.Image.Length);
                     })
-                    .ContinueWith (ExpenseViewModel.SavePhotoAsync ());
+                    .ContinueWith (_ => ExpenseViewModel.SavePhotoAsync ());
             }
             task.ContinueOnUIThread (_ => {
                 var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
