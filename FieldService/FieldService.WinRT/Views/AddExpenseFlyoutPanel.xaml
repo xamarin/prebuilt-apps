@@ -41,8 +41,8 @@
             <Border BorderThickness="2" BorderBrush="Gray" Width="110" Height="35" Margin="0,0,10,0">
                 <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                     <TextBlock Text="$" Margin="5,0,0,0" Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" VerticalAlignment="Center"/>
-                    <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="10,0,0,0" VerticalAlignment="Center" InputScope="Number"
-                             Text="{Binding ExpenseCost, Mode=TwoWay}" TextAlignment="Right" Width="90" TextWrapping="NoWrap" />
+                    <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="5,0,0,0" VerticalAlignment="Center" InputScope="Number"
+                             Text="{Binding ExpenseCost, Mode=TwoWay}" TextAlignment="Right" Width="95" TextWrapping="NoWrap" MaxLength="7"/>
                 </StackPanel>
             </Border>
             <Button BorderThickness="2" Width="93" BorderBrush="Gray" Height="41" Margin="0,0,0,1"
@@ -52,7 +52,7 @@
         </StackPanel>
         <StackPanel Grid.Row="3" Margin="30,5,0,0">
             <TextBlock Text="Enter a short description" Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16"/>
-            <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="0 5,30,30" Height="80"
+            <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="0 5,30,30" Height="80" MaxWidth="425" TextWrapping="Wrap"
                      BorderThickness="1" BorderBrush="Gray" Text="{Binding SelectedExpense.Description, Mode=TwoWay}" AcceptsReturn="True"/>
         </StackPanel>
         <Image Margin="5" Grid.Row="4" Height="418" Stretch="UniformToFill" Source="{Binding Photo.Image, Converter={StaticResource PhotoConverter}}" />

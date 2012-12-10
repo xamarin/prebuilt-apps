@@ -61,8 +61,10 @@
                                         </Grid.ColumnDefinitions>
 
                                         <TextBlock Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding CategoryAsString}" HorizontalAlignment="Left" VerticalAlignment="Center" />
-                                        <TextBlock Grid.Column="1" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding Description}" TextWrapping="NoWrap" HorizontalAlignment="Stretch" TextAlignment="Center" VerticalAlignment="Center" />
-                                        <TextBlock Grid.Column="2" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding CostFormatted}" HorizontalAlignment="Right" VerticalAlignment="Center" />
+                                        <TextBlock Grid.Column="1" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding Description}" TextWrapping="NoWrap" 
+                                                   HorizontalAlignment="Stretch" TextAlignment="Left" VerticalAlignment="Center" LineHeight="20"/>
+                                        <TextBlock Grid.Column="2" Margin="10,0" Style="{StaticResource SubheaderTextStyle}" Text="{Binding CostFormatted}" 
+                                                   HorizontalAlignment="Right" VerticalAlignment="Center" />
                                     </Grid>
                                 </Border>
                             </DataTemplate>
