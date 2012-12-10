@@ -190,6 +190,14 @@ namespace FieldService.WinRT.ViewModels {
             set { currentLaborHours = value; OnPropertyChanged ("CurrentLaborHours"); }
         }
 
+        /// <summary>
+        /// Value for not is history
+        /// </summary>
+        public bool IsNotHistory
+        {
+            get { return assignmentViewModel.IsNotHistory; }
+        }
+
         protected override void OnPropertyChanged (string propertyName)
         {
             base.OnPropertyChanged (propertyName);

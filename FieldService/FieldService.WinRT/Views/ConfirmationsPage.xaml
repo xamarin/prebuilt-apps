@@ -43,7 +43,7 @@
                     </Grid>
 
                     <ListView 
-                        ItemClick="OnItemClick" IsItemClickEnabled="True"
+                        ItemClick="OnItemClick" IsItemClickEnabled="True" IsEnabled="{Binding IsNotHistory}"
                         ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
                         Grid.Row="1" HorizontalContentAlignment="Stretch" SelectionMode="None">
 
@@ -60,7 +60,7 @@
                         </ListView.ItemsPanel>
 
                         <!--Confirmation section-->
-                        <ListViewItem  Margin="5">
+                        <ListViewItem  Margin="5" >
                             <Border x:Name="addSignature" Width="340" Height="162" BorderThickness="0" Background="{StaticResource ItemsBrush}">
                                 <Grid >
                                     <Grid.RowDefinitions>
@@ -146,7 +146,8 @@
                     </Grid>
 
                     <ListView x:Name="photoListView" Grid.Row="1" ItemsSource="{Binding Photos}" HorizontalContentAlignment="Stretch" SelectionMode="None"
-                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" ItemClick="OnImageClick">
+                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsEnabled="{Binding IsNotHistory}"
+                              IsItemClickEnabled="True" ItemClick="OnImageClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapGrid Orientation="Vertical" MaxHeight="530"/>

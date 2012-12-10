@@ -298,6 +298,14 @@ namespace FieldService.WinRT.ViewModels {
         }
 
         /// <summary>
+        /// Value for not is history
+        /// </summary>
+        public bool IsNotHistory
+        {
+            get { return !SelectedAssignment.IsHistory; }
+        }
+
+        /// <summary>
         /// Value for showing correct brush color
         /// </summary>
         public SolidColorBrush IsCompleteColor

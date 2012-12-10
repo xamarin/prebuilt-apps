@@ -81,6 +81,7 @@
     <SolidColorBrush x:Key="DarkRedExpensesBrush">#760138</SolidColorBrush>
     <SolidColorBrush x:Key="DarkRedButtonBrush">#ac1552</SolidColorBrush>
     <SolidColorBrush x:Key="DarkRedButtonBorderBrush">#a30242</SolidColorBrush>
+    <SolidColorBrush x:Key="HistoryBackground">#0093ca</SolidColorBrush>
     <LinearGradientBrush x:Key="ItemsBrush" StartPoint="0,0" EndPoint="0,1">
         <GradientStop Offset="0" Color="#1db0e7" />
         <GradientStop Offset="1" Color="#27cbef" />

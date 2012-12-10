@@ -94,7 +94,7 @@ namespace FieldService.WinRT.Views {
             }
         }
 
-        private async void OnSummaryClick (object sender, ItemClickEventArgs e)
+        private void OnSummaryClick (object sender, ItemClickEventArgs e)
         {
             var element = e.ClickedItem as FrameworkElement;
             switch (element.Name) {
@@ -110,78 +110,6 @@ namespace FieldService.WinRT.Views {
                     break;
                 case "confirmation":
                     Helpers.NavigateTo<ConfirmationsPage> ();
-                    break;
-                case "addSignature":
-                    assignmentViewModel.AddSignatureCommand.Invoke ();
-                    break;
-                case "addImage": {
-                        bool cameraCommand = false, imageCommand = false;
-                        var dialog = new MessageDialog ("Take picture with your built in camera or select one from your photo library.", "Add Image");
-                        if (picker.IsCameraAvailable) {
-                            dialog.Commands.Add (new UICommand ("Camera", new UICommandInvokedHandler (_ => cameraCommand = true)));
-                        }
-                        dialog.Commands.Add (new UICommand ("Library", new UICommandInvokedHandler (_ => imageCommand = true)));
-
-                        await dialog.ShowAsync ();
-
-                        if (cameraCommand) {
-                            StoreCameraMediaOptions options = new StoreCameraMediaOptions {
-                                Directory = "FieldService",
-                                Name = "FieldService.jpg",
-                            };
-                            try{
-                            var mediaFile = await picker.TakePhotoAsync (options);
-
-                            var photo = new Photo ();
-                            await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
-                                photo.Image = t.Result;
-                            });
-                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
-                            Helpers.NavigateTo<ImagesPage> ();
-                            } catch (Exception exc) {
-                                Debug.WriteLine (exc.Message);
-                                //this could happen if they cancel, etc.
-                            }
-                        } else if (imageCommand) {
-                            try{
-                            var mediaFile = await picker.PickPhotoAsync ();
-
-                            var photo = new Photo ();
-                            await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
-                                photo.Image = t.Result;
-                            });
-                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
-                            Helpers.NavigateTo<ImagesPage> ();
-                            } catch (Exception exc) {
-                                Debug.WriteLine (exc.Message);
-                                //this could happen if they cancel, etc.
-                            }
-                        }
-                    }
-                    break;
-                case "confirmationImage1": {
-                        var photo = photoViewModel.FirstImage;
-                        if (photo != null) {
-                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
-                            Helpers.NavigateTo<ImagesPage> ();
-                        }
-                    }
-                    break;
-                case "confirmationImage2": {
-                        var photo = photoViewModel.SecondImage;
-                        if (photo != null) {
-                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
-                            Helpers.NavigateTo<ImagesPage> ();
-                        }
-                    }
-                    break;
-                case "confirmationImage3": {
-                        var photo = photoViewModel.ThirdImage;
-                        if (photo != null) {
-                            photoViewModel.PhotoSelectedCommand.Invoke (photo);
-                            Helpers.NavigateTo<ImagesPage> ();
-                        }
-                    }
                     break;
                 case "expenses":
                     Helpers.NavigateTo<ExpensesPage> ();

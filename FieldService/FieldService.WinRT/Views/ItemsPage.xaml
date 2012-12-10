@@ -52,7 +52,7 @@
                     </Grid>
 
                     <ListView 
-                        x:Name="itemsListView" IsItemClickEnabled="True" ItemClick="ItemClick"
+                        x:Name="itemsListView" IsItemClickEnabled="True" ItemClick="ItemClick" IsEnabled="{Binding IsNotHistory}"
                         ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
                         Grid.Row="1" ItemsSource="{Binding AssignmentItems}" HorizontalContentAlignment="Stretch" SelectionMode="None">
                         <ListView.ItemsPanel>
@@ -75,7 +75,7 @@
 
                     <Button x:Name="itemsAddItem"
                         Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482"
-                        Background="{StaticResource ItemsBrush}" Height="75" Padding="0"
+                        Background="{StaticResource ItemsBrush}" Height="75" Padding="0" IsEnabled="{Binding IsNotHistory}"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddItemCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Item" VerticalAlignment="Center" />
                     </Button>

@@ -166,6 +166,14 @@ namespace FieldService.WinRT.ViewModels {
             set { searchItems = value; OnPropertyChanged ("SearchItems"); }
         }
 
+        /// <summary>
+        /// Value for not is history
+        /// </summary>
+        public bool IsNotHistory
+        {
+            get { return assignmentViewModel.IsNotHistory; }
+        }
+
         public AssignmentItem SelectedItem
         {
             get { return selectedItem; }

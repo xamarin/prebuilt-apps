@@ -83,53 +83,18 @@ namespace FieldService.WinRT.ViewModels {
             get { return deletePhotoCommand; }
         }
 
-        public IEnumerable<Photo> TopPhotos
-        {
-            get
-            {
-                if (Photos == null)
-                    return null;
-                return Photos.Take (3);
-            }
-        }
-
-        public Photo FirstImage
-        {
-            get
-            {
-                if (TopPhotos != null) {
-                    return TopPhotos.ElementAtOrDefault (0);
-                }
-                return null;
-            }
-        }
-
-        public Photo SecondImage
-        {
-            get
-            {
-                if (TopPhotos != null) {
-                    return TopPhotos.ElementAtOrDefault (1);
-                }
-                return null;
-            }
-        }
-
-        public Photo ThirdImage
-        {
-            get
-            {
-                if (TopPhotos != null) {
-                    return TopPhotos.ElementAtOrDefault (2);
-                }
-                return null;
-            }
-        }
-
         public Photo SelectedPhoto
         {
             get { return selectedPhoto; }
             set { selectedPhoto = value; OnPropertyChanged ("SelectedPhoto"); }
+        }
+
+        /// <summary>
+        /// Value for not is history
+        /// </summary>
+        public bool IsNotHistory
+        {
+            get { return assignmentViewModel.IsNotHistory; }
         }
 
         protected override void OnPropertyChanged (string propertyName)

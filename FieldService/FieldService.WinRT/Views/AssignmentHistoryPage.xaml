@@ -12,9 +12,9 @@
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-
-        <Image Grid.RowSpan="3" Source="{StaticResource HistoryBackgroundImage}" Stretch="None" />
-
+        <Grid Grid.RowSpan="2" Background="{StaticResource HistoryBackground}"/>
+        
+        <Image Grid.RowSpan="2" Source="{StaticResource HistoryBackgroundImage}" Stretch="None" />
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
             <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackHistoryCommand}" VerticalAlignment="Center" />
             <TextBlock Style="{StaticResource HeaderTextStyle}" Text="History" VerticalAlignment="Center"/>

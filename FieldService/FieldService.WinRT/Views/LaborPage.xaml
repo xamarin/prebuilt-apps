@@ -44,7 +44,8 @@
                     </Grid>
 
                     <ListView x:Name="laborListView" Grid.Row="1" ItemsSource="{Binding LaborHours}" HorizontalContentAlignment="Stretch" SelectionMode="None"
-                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" ItemClick="OnItemClick">
+                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" 
+                              IsEnabled="{Binding IsNotHistory}" ItemClick="OnItemClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapGrid Orientation="Vertical" MaxHeight="450"/>
@@ -71,7 +72,7 @@
 
                     <Button 
                         Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482" x:Name="laborAddLabor"
-                        Background="{StaticResource HoursBrush}" Height="75" Padding="0"
+                        Background="{StaticResource HoursBrush}" Height="75" Padding="0" IsEnabled="{Binding IsNotHistory}"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddLaborCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Labor" VerticalAlignment="Center" />
                     </Button>

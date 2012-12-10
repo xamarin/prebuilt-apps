@@ -43,7 +43,7 @@
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Expenses</TextBlock>
                     </Grid>
 
-                    <ListView x:Name="expensesListView" Grid.Row="1" ItemsSource="{Binding Expenses}" HorizontalContentAlignment="Stretch" SelectionMode="None"
+                    <ListView x:Name="expensesListView" Grid.Row="1" ItemsSource="{Binding Expenses}" HorizontalContentAlignment="Stretch" SelectionMode="None" IsEnabled="{Binding IsNotHistory}"
                               ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" ItemClick="OnItemClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
@@ -71,7 +71,7 @@
 
                     <Button 
                         Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482" x:Name="expensesAddExpense"
-                        Background="{StaticResource ExpensesBrush}" Height="75" Padding="0"
+                        Background="{StaticResource ExpensesBrush}" Height="75" Padding="0" IsEnabled="{Binding IsNotHistory}"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddExpenseCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Expense" VerticalAlignment="Center" />
                     </Button>
