@@ -16,7 +16,7 @@
         <Image Grid.RowSpan="3" Source="{StaticResource HistoryBackgroundImage}" Stretch="None" />
 
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
-            <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" VerticalAlignment="Center" />
+            <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackHistoryCommand}" VerticalAlignment="Center" />
             <TextBlock Style="{StaticResource HeaderTextStyle}" Text="History" VerticalAlignment="Center"/>
         </StackPanel>
 

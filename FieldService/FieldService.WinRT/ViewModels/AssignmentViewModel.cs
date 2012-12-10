@@ -26,8 +26,8 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
         readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
-            addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand;
-        Assignment assignment;
+            addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand, goBackHistoryCommand;
+        Assignment assignment, previousAssignment;
         Popup addSignaturePopup;
         int popUpWidth = 930;
 
@@ -46,8 +46,9 @@ namespace FieldService.WinRT.ViewModels {
                 if (addSignaturePopup != null && addSignaturePopup.IsOpen) {
                     addSignaturePopup.IsOpen = false;
                 }
-                    Helpers.GoBack ();
-                }, _ => Helpers.CanGoBack);
+                Helpers.GoBack ();
+                
+            }, _ => Helpers.CanGoBack);
 
             itemsCommand = new DelegateCommand (_ => Helpers.NavigateTo<ItemsPage> ());
 
@@ -60,6 +61,14 @@ namespace FieldService.WinRT.ViewModels {
             documentsCommand = new DelegateCommand (_ => Helpers.NavigateTo<DocumentsPage> ());
 
             historyCommand = new DelegateCommand (_ => Helpers.NavigateTo<AssignmentHistoryPage> ());
+
+            goBackHistoryCommand = new DelegateCommand (_ => {
+                Helpers.GoBack ();
+                if (SelectedAssignment.IsHistory) {
+                    SelectedAssignment = PreviousSelected;
+                    PreviousSelected = null;
+                }
+            });
 
             cancelAddSignatureCommand = new DelegateCommand (_ => { addSignaturePopup.IsOpen = false; });
 
@@ -115,7 +124,15 @@ namespace FieldService.WinRT.ViewModels {
                 OnPropertyChanged ("SelectedAssignment");
                 OnPropertyChanged ("IsNew");
                 OnPropertyChanged ("IsNotNew");
+                OnPropertyChanged ("AssignmentTitle");
+                OnPropertyChanged ("BackgroundImage");
             }
+        }
+
+        public Assignment PreviousSelected
+        {
+            get { return previousAssignment; }
+            set { previousAssignment = value; OnPropertyChanged ("PreviousSelected"); }
         }
 
         /// <summary>
@@ -220,6 +237,14 @@ namespace FieldService.WinRT.ViewModels {
         public DelegateCommand DeclineAssignmentCommand
         {
             get { return declineCommand; }
+        }
+
+        /// <summary>
+        /// Command for navigating back from history screen
+        /// </summary>
+        public DelegateCommand GoBackHistoryCommand
+        {
+            get { return goBackHistoryCommand; }
         }
 
         protected override void OnIsBusyChanged ()
