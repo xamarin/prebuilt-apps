@@ -94,6 +94,21 @@ namespace FieldService.Data {
         /// </summary>
         public string Zip { get; set; }
 
+        /// <summary>
+        /// Description for the assignment
+        /// </summary>
+        public string Description { get; set; }
+
+        /// <summary>
+        /// Date and time the assignment should start
+        /// </summary>
+        public DateTime StartDate { get; set; }
+
+        /// <summary>
+        /// Date and time the assignment should end
+        /// </summary>
+        public DateTime EndDate { get; set; }
+
         #endregion
 
         #region UI properties
@@ -119,6 +134,40 @@ namespace FieldService.Data {
             {
                 return Date.ToShortDateString ();
             }
+        }
+
+        /// <summary>
+        /// A formatted version of the times for WinRT
+        /// </summary>
+        public string TimesFormatted
+        {
+            get
+            {
+                return StartDate.ToShortTimeString () +
+                    Environment.NewLine +
+                    "· · ·" +
+                    Environment.NewLine +
+                    EndDate.ToShortTimeString ();
+            }
+        }
+
+        /// <summary>
+        /// A formatted version of the start date for WinRT
+        /// </summary>
+        public string CallLengthFormatted
+        {
+            get
+            {
+                return string.Format ("Length: {0}:{1}", CallLength.Hours.ToString ("#0"), CallLength.Minutes.ToString ("00"));
+            }
+        }
+
+        /// <summary>
+        /// Ui property for showing different icons
+        /// </summary>
+        public bool IsCall
+        {
+            get { return Type == AssignmentHistoryType.PhoneCall; }
         }
         #endregion
     }

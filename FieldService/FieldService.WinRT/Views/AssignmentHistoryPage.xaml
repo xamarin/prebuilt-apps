@@ -10,109 +10,22 @@
     <Grid Background="{StaticResource ApplicationPageBackgroundThemeBrush}">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
         <Image Grid.RowSpan="3" Source="{StaticResource HistoryBackgroundImage}" Stretch="None" />
 
-        <TextBlock Margin="50" Style="{StaticResource HeaderTextStyle}">History</TextBlock>
-
-        <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="50,0,50,20">
-            <TextBlock Style="{StaticResource SubheaderTextStyle}">Assignments</TextBlock>
-            <Button Margin="20,0,0,0" Command="{Binding MapsCommand}">
-                <StackPanel Orientation="Horizontal">
-                    <Image Source="{StaticResource MapIcon}" Stretch="None" />
-                    <TextBlock Margin="5">Maps</TextBlock>
-                </StackPanel>
-            </Button>
+        <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
+            <Button Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}" VerticalAlignment="Center" />
+            <TextBlock Style="{StaticResource HeaderTextStyle}" Text="History" VerticalAlignment="Center"/>
         </StackPanel>
 
         <ScrollViewer 
-            Grid.Row="2"
+            Grid.Row="1"
             ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <Grid Height="530" VerticalAlignment="Top" Margin="50,0,50,50">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="Auto" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-
-                <Grid Margin="0,0,20,0" Width="280" x:Name="activeAssignment">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="180" />
-                    </Grid.RowDefinitions>
-
-                    <Grid Background="{StaticResource DarkTextBrush}" Margin="0,4,4,20" >
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="Auto" />
-                            <ColumnDefinition Width="*" />
-                        </Grid.ColumnDefinitions>
-
-                        <Border VerticalAlignment="Top" Grid.RowSpan="3" Margin="15" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource ApplicationForegroundThemeBrush}">
-                            <TextBlock Margin="0,4,0,0" Text="{Binding ActiveAssignment.Priority}" Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" TextAlignment="Center" />
-                        </Border>
-
-                        <Button Grid.Column="1" Margin="5" FontWeight="Medium" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding ActiveAssignment.JobNumberFormatted}"/>
-
-                        <Button Grid.Row="1" Grid.Column="1" FontWeight="Medium" Margin="5" Style="{StaticResource SubheaderTextButtonStyle}" Content="{Binding ActiveAssignment.CompanyName}"/>
-
-                        <Button Grid.Row="2" Grid.Column="1" Margin="5" Style="{StaticResource TextButtonStyle}" Content="{Binding ActiveAssignment.StartDateFormatted}"/>
-
-                        <Border Grid.Row="3" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
-                            <Image Source="{StaticResource PersonIcon}" Stretch="None" />
-                        </Border>
-
-                        <Button Grid.Row="3" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding ActiveAssignment.ContactName}"/>
-
-                        <Border Grid.Row="4" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
-                            <Image Source="{StaticResource PhoneIcon}" Stretch="None" />
-                        </Border>
-
-                        <Button Grid.Row="4" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding ActiveAssignment.ContactPhone}"/>
-
-                        <Border Grid.Row="5" Background="{StaticResource DarkBackgroundBrush}" Width="30" Height="30">
-                            <Image Source="{StaticResource MapIcon}" Stretch="None" />
-                        </Border>
-
-                        <Button Grid.Row="5" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" Content="{Binding ActiveAssignment.AddressFormatted}" Command="{Binding MapsCommand}"/>
-
-                        <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" BorderThickness="3" Width="30" Height="30" />
-
-                        <ComboBox 
-                            x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" SelectionChanged="Status_SelectionChanged"
-                            ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding ActiveAssignment.Status, Mode=OneWay}" />
-
-                    </Grid>
-
-                    <Grid Grid.Row="1" Background="{StaticResource DarkTextBrush}" Margin="0,4,4,0">
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="Auto" />
-                            <RowDefinition Height="*" />
-                            <RowDefinition Height="Auto"/>
-                        </Grid.RowDefinitions>
-
-                        <TextBlock Margin="8" FontSize="32" FontWeight="Medium" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" Text="{Binding HoursFormatted}" />
-
-                        <ToggleButton Grid.Row="1" IsChecked="{Binding Recording}" Style="{StaticResource RecordButtonStyle}" Command="{Binding RecordCommand}" x:Name="record"/>
-
-                        <TextBlock Grid.Row="2" Margin="0,0,7,7" VerticalAlignment="Bottom" HorizontalAlignment="Right" Text="{Binding TotalAccumulated}" FontSize="20" FontWeight="Light"/>
-                    </Grid>
-
-                </Grid>
-
                 <ListView 
-                    x:Name="historyListView" Grid.Column="1" IsItemClickEnabled="True" 
+                    x:Name="historyListView" IsItemClickEnabled="True" 
                     ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
                     ItemsSource="{Binding History}" SelectionMode="None" ItemClick="OnItemClick">
                     <ListView.ItemsPanel>
@@ -137,22 +50,36 @@
                                         <RowDefinition Height="*" />
                                     </Grid.RowDefinitions>
 
-                                    <Border Margin="20" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource HistoryTextBrush}">
-                                        <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="0,4,0,0" Text="{Binding Priority}" Style="{StaticResource SubheaderTextStyle}" TextAlignment="Center" />
+                                    <Border Margin="20" Width="45" Height="45" BorderThickness="3" CornerRadius="22" BorderBrush="{StaticResource HistoryTextBrush}" Visibility="{Binding IsCall, Converter={StaticResource InverseBooleanConverter}}">
+                                        <Image Source="{StaticResource AssignmentIconBlue}" Margin="0,4,0,0" Stretch="None"/>
                                     </Border>
 
-                                    <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" FontWeight="Medium" Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Text="{Binding JobNumberFormatted}" />
+                                    <Image Source="{StaticResource PhoneLargeIconBlue}" Margin="20" Width="45" Height="45" Stretch="None" Visibility="{Binding IsCall, Converter={StaticResource BooleanConverter}}"/>
+                                    
+
+                                    <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" FontWeight="Medium" Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" 
+                                               Text="{Binding JobNumberFormatted}" Visibility="{Binding IsCall, Converter={StaticResource InverseBooleanConverter}}"/>
+
+                                    <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" Grid.Row="1" Style="{StaticResource BasicTextStyle}" 
+                                               Text="{Binding ContactPhone}" Visibility="{Binding IsCall, Converter={StaticResource BooleanConverter}}"/>
 
                                     <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" Grid.Row="2" Style="{StaticResource BasicTextStyle}" Text="{Binding CompanyName}" />
 
-                                    <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" Grid.Row="3" Style="{StaticResource BasicTextStyle}" Text="{Binding StartDateFormatted}" />
+                                    <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" Grid.Row="3" Style="{StaticResource BasicTextStyle}" Text="{Binding DateFormatted}" />
 
-                                    <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" Grid.Row="4" Style="{StaticResource BasicTextStyle}" Text="{Binding TimesFormatted}" />
+                                    <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" Grid.Row="4" Style="{StaticResource BasicTextStyle}" 
+                                               Text="{Binding CallLengthFormatted}" Visibility="{Binding IsCall, Converter={StaticResource BooleanConverter}}"/>
+
+                                    <TextBlock Foreground="{StaticResource HistoryTextBrush}" Margin="15" TextAlignment="Center" Grid.Row="4" Style="{StaticResource BasicTextStyle}" 
+                                               Text="{Binding TimesFormatted}" Visibility="{Binding IsCall, Converter={StaticResource InverseBooleanConverter}}"/>
 
                                 </Grid>
 
                                 <Grid Grid.Row="1" Background="{StaticResource DarkTextBrush}">
-                                    <TextBlock Margin="30,20,30,20" Style="{StaticResource BasicTextStyle}" Foreground="{StaticResource HistoryLightTextBrush}" Text="{Binding Description}" />
+                                    <TextBlock Margin="30,20,30,20" Style="{StaticResource BasicTextStyle}" Foreground="{StaticResource HistoryLightTextBrush}" 
+                                               Text="{Binding CallDescription}" Visibility="{Binding IsCall, Converter={StaticResource BooleanConverter}}"/>
+                                    <TextBlock Margin="30,20,30,20" Style="{StaticResource BasicTextStyle}" Foreground="{StaticResource HistoryLightTextBrush}" 
+                                               Text="{Binding Description}" Visibility="{Binding IsCall, Converter={StaticResource InverseBooleanConverter}}"/>
                                 </Grid>
                             </Grid>
                         </DataTemplate>

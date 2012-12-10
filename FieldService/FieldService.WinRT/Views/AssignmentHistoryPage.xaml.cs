@@ -29,7 +29,7 @@ namespace FieldService.WinRT.Views {
 
             DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
-
+            
             historyListView.DataContext =
                 historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
         }
@@ -50,13 +50,8 @@ namespace FieldService.WinRT.Views {
         {
             var history = e.ClickedItem as AssignmentHistory;
             if (history != null) {
-                //TODO: implement this
+
             }
-        }
-
-        private void Status_SelectionChanged (object sender, SelectionChangedEventArgs e)
-        {
-
         }
     }
 }

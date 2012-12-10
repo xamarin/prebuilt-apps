@@ -208,7 +208,7 @@ namespace FieldService.Data {
 
             return Database.GetConnection (cancellationToken)
                 .QueryAsync<AssignmentHistory> (@"
-                    select AssignmentHistory.*, Assignment.JobNumber, Assignment.CompanyName, Assignment.ContactName, Assignment.ContactPhone, Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip
+                    select AssignmentHistory.*, Assignment.JobNumber, Assignment.CompanyName, Assignment.ContactName, Assignment.ContactPhone, Assignment.Address, Assignment.City, Assignment.State, Assignment.Zip, Assignment.Description, Assignment.StartDate, Assignment.EndDate
                     from AssignmentHistory
                     left outer join Assignment
                     on Assignment.Id = AssignmentHistory.AssignmentId

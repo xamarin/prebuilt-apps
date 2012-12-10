@@ -21,6 +21,7 @@ using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Media;
+using Windows.UI.Xaml.Media.Imaging;
 
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
@@ -298,6 +299,21 @@ namespace FieldService.WinRT.ViewModels {
                     return app.Resources ["DarkBottomTextBrush"] as SolidColorBrush;
                 }
                 return app.Resources ["DarkBlueItemsBrush"] as SolidColorBrush;
+            }
+        }
+
+        /// <summary>
+        /// valu for showing background image
+        /// </summary>
+        public BitmapImage BackgroundImage
+        {
+            get
+            {
+                var app = ServiceContainer.Resolve<App> ();
+                if (SelectedAssignment.IsHistory) {
+                    return app.Resources ["HistoryBackgroundImage"] as BitmapImage;
+                }
+                return app.Resources ["BackgroundImage"] as BitmapImage;
             }
         }
 
