@@ -52,7 +52,9 @@ namespace FieldService.WinRT.Views {
             var history = e.ClickedItem as AssignmentHistory;
             if (history != null) {
                 await historyViewModel.LoadAssignmentFromHistory (history);
-                assignmentViewModel.PreviousSelected = assignmentViewModel.SelectedAssignment;
+                if (!assignmentViewModel.SelectedAssignment.IsHistory) {
+                    assignmentViewModel.PreviousSelected = assignmentViewModel.SelectedAssignment;
+                }
                 assignmentViewModel.SelectedAssignment = historyViewModel.PastAssignment;
                 Helpers.NavigateTo<AssignmentPage> ();
             }
