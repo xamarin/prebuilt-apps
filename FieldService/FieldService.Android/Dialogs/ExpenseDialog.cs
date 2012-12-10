@@ -31,7 +31,7 @@ using Xamarin.Media;
 using Extensions = FieldService.Android.Utilities.AndroidExtensions;
 
 namespace FieldService.Android.Dialogs {
-    public class ExpenseDialog : BaseDialog {
+    public class ExpenseDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
         ExpenseCategory [] expenseTypes;
         Spinner expenseType;
         EditText expenseDescription;
@@ -65,20 +65,14 @@ namespace FieldService.Android.Dialogs {
 
             var save = (Button)FindViewById (Resource.Id.addExpenseSave);
             save.Enabled = !Assignment.IsHistory;
-            save.Click += (sender, e) => SaveExpense ();
+            save.SetOnClickListener (this);
 
             deleteExpense = (Button)FindViewById (Resource.Id.addExpenseDelete);
             deleteExpense.Enabled = !Assignment.IsHistory;
-            deleteExpense.Click += (sender, e) => {
-                if (CurrentExpense != null && CurrentExpense.Id != -1) {
-                    DeleteExpense ();
-                } else {
-                    Dismiss ();
-                }
-            };
+            deleteExpense.SetOnClickListener (this);
 
             var cancel = (Button)FindViewById (Resource.Id.addExpenseCancel);
-            cancel.Click += (sender, e) => Dismiss ();
+            cancel.SetOnClickListener (this);
 
             expenseType = (Spinner)FindViewById (Resource.Id.addExpenseType);
             expenseDescription = (EditText)FindViewById (Resource.Id.addExpenseDescription);
@@ -88,59 +82,14 @@ namespace FieldService.Android.Dialogs {
             expensePhoto = (ImageView)FindViewById (Resource.Id.addExpenseImage);
             expenseAddPhoto = (Button)FindViewById (Resource.Id.addExpenseAddPhoto);
             expenseAddPhoto.Enabled = !Assignment.IsHistory;
-            expenseAddPhoto.Click += (sender, e) => {
-                var choices = new List<string> ();
-                choices.Add (Activity.Resources.GetString (Resource.String.Gallery));
-                if (mediaPicker.IsCameraAvailable) {
-                    choices.Add (Activity.Resources.GetString (Resource.String.Camera));
-                }
-                AlertDialog.Builder takePictureDialog = new AlertDialog.Builder (Activity);
-                takePictureDialog.SetTitle ("Select:");
-                takePictureDialog.SetItems (choices.ToArray (), (innerSender, innerE) => {
-                    if (innerE.Which == 0) {
-                        //gallery
-                        mediaPicker.PickPhotoAsync ().ContinueWith (t => {
-                            if (t.IsCanceled)
-                                return;
-                            Activity.RunOnUiThread (() => {
-                                expenseAddPhoto.Visibility = ViewStates.Gone;
-                                imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
-                                imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
-                                expensePhoto.SetImageBitmap (imageBitmap);
-                                ExpenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
-                            });
-                        });
-                    } else if (innerE.Which == 1) {
-                        //camera
-                        StoreCameraMediaOptions options = new StoreCameraMediaOptions ();
-                        options.Directory = "FieldService";
-                        options.Name = "FieldService.jpg";
-                        mediaPicker.TakePhotoAsync (options).ContinueWith (t => {
-                            if (t.IsCanceled)
-                                return;
-                            Activity.RunOnUiThread (() => {
-                                expenseAddPhoto.Visibility = ViewStates.Gone;
-                                imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
-                                imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
-                                expensePhoto.SetImageBitmap (imageBitmap);
-                                ExpenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
-                            });
-                        });
-                    }
-                });
-                takePictureDialog.Show ();
-            };
+            expenseAddPhoto.SetOnClickListener (this);
 
             var adapter = new SpinnerAdapter<ExpenseCategory> (expenseTypes, Context, Resource.Layout.SimpleSpinnerItem);
             adapter.TextColor = Color.Black;
             adapter.Background = Color.White;
             expenseType.Adapter = adapter;
             expenseType.Enabled = !Assignment.IsHistory;
-            expenseType.ItemSelected += (sender, e) => {
-                var category = expenseTypes [e.Position];
-                if (CurrentExpense.Category != category)
-                    CurrentExpense.Category = category;
-            };
+            expenseType.OnItemSelectedListener = this;
         }
 
         public override void OnAttachedToWindow ()
@@ -149,8 +98,10 @@ namespace FieldService.Android.Dialogs {
             if (CurrentExpense != null && CurrentExpense.Id != 0) {
                 ExpenseViewModel.LoadPhotoAsync (CurrentExpense).ContinueOnUIThread (_ => {
                         if (ExpenseViewModel.Photo != null) {
-                            imageBitmap = BitmapFactory.DecodeByteArray (ExpenseViewModel.Photo.Image, 0, ExpenseViewModel.Photo.Image.Length);
-                            imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                            if (ExpenseViewModel.Photo.Image != null) {
+                                imageBitmap = BitmapFactory.DecodeByteArray (ExpenseViewModel.Photo.Image, 0, ExpenseViewModel.Photo.Image.Length);
+                                imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                            }
                             expensePhoto.SetImageBitmap (imageBitmap);
                             expenseAddPhoto.Visibility = ViewStates.Gone;
                         } else {
@@ -189,6 +140,9 @@ namespace FieldService.Android.Dialogs {
             //PhotoStream = null;
         }
 
+        /// <summary>
+        /// save current expense
+        /// </summary>
         private void SaveExpense ()
         {
             CurrentExpense.Description = expenseDescription.Text;
@@ -201,6 +155,7 @@ namespace FieldService.Android.Dialogs {
                     .ContinueWith (_ => {
                         ExpenseViewModel.Photo.ExpenseId = CurrentExpense.Id;
                         ExpenseViewModel.Photo.Image = imageBitmap.ToByteArray ();
+                        System.Console.WriteLine (ExpenseViewModel.Photo.Image.Length);
                     })
                     .ContinueWith (ExpenseViewModel.SavePhotoAsync ());
             }
@@ -211,6 +166,9 @@ namespace FieldService.Android.Dialogs {
             });
         }
 
+        /// <summary>
+        /// delete current expense
+        /// </summary>
         private void DeleteExpense ()
         {
             ExpenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
@@ -221,28 +179,116 @@ namespace FieldService.Android.Dialogs {
                 });
         }
 
+        /// <summary>
+        /// fragment's activity
+        /// </summary>
         public Activity Activity
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// fragment's current assignment
+        /// </summary>
         public Assignment Assignment
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// current expense that is being edited
+        /// </summary>
         public Expense CurrentExpense
         {
             get;
             set;
         }
 
+        /// <summary>
+        /// fragment's expense view model
+        /// </summary>
         public ExpenseViewModel ExpenseViewModel
         {
             get;
             set;
+        }
+
+        public void OnClick (View v)
+        {
+            switch (v.Id) {
+                case Resource.Id.addExpenseDelete:
+                    if (CurrentExpense != null && CurrentExpense.Id != -1) {
+                        DeleteExpense ();
+                    } else {
+                        Dismiss ();
+                    }
+                    break;
+                case Resource.Id.addExpenseSave:
+                    SaveExpense ();
+                    break;
+                case Resource.Id.addExpenseCancel:
+                    Dismiss ();
+                    break;
+                case Resource.Id.addExpenseAddPhoto: {
+                        var choices = new List<string> ();
+                        choices.Add (Activity.Resources.GetString (Resource.String.Gallery));
+                        if (mediaPicker.IsCameraAvailable) {
+                            choices.Add (Activity.Resources.GetString (Resource.String.Camera));
+                        }
+                        AlertDialog.Builder takePictureDialog = new AlertDialog.Builder (Activity);
+                        takePictureDialog.SetTitle ("Select:");
+                        takePictureDialog.SetItems (choices.ToArray (), (innerSender, innerE) => {
+                            if (innerE.Which == 0) {
+                                //gallery
+                                mediaPicker.PickPhotoAsync ().ContinueWith (t => {
+                                    if (t.IsCanceled)
+                                        return;
+                                    Activity.RunOnUiThread (() => {
+                                        expenseAddPhoto.Visibility = ViewStates.Gone;
+                                        imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
+                                        imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                                        expensePhoto.SetImageBitmap (imageBitmap);
+                                        ExpenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
+                                    });
+                                });
+                            } else if (innerE.Which == 1) {
+                                //camera
+                                StoreCameraMediaOptions options = new StoreCameraMediaOptions ();
+                                options.Directory = "FieldService";
+                                options.Name = "FieldService.jpg";
+                                mediaPicker.TakePhotoAsync (options).ContinueWith (t => {
+                                    if (t.IsCanceled)
+                                        return;
+                                    Activity.RunOnUiThread (() => {
+                                        expenseAddPhoto.Visibility = ViewStates.Gone;
+                                        imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
+                                        imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
+                                        expensePhoto.SetImageBitmap (imageBitmap);
+                                        ExpenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
+                                    });
+                                });
+                            }
+                        });
+                        takePictureDialog.Show ();
+                    }
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public void OnItemSelected (AdapterView parent, View view, int position, long id)
+        {
+            var category = expenseTypes [position];
+            if (CurrentExpense.Category != category)
+                CurrentExpense.Category = category;
+        }
+
+        public void OnNothingSelected (AdapterView parent)
+        {
+            //do nothing
         }
     }
 }
