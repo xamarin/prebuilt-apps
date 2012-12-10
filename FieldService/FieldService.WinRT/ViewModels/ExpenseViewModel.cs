@@ -57,7 +57,7 @@ namespace FieldService.WinRT.ViewModels {
                     SelectedExpense = new Expense ();
                     CanDelete = false;
                     AddExpenseHeader = "Add Expense";
-                    Photo = new ExpensePhoto ();
+                    Photo = new ExpensePhoto();
                 }
                 if (addExpensePopUp == null) {
                     addExpensePopUp = new Popup ();
@@ -76,8 +76,13 @@ namespace FieldService.WinRT.ViewModels {
             saveExpenseCommand = new DelegateCommand (async _ => {
                 selectedExpense.Cost = ExpenseCost.ToDecimal (CultureInfo.InvariantCulture);
                 selectedExpense.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
-                await SavePhotoAsync ();
-                await SaveExpenseAsync (assignmentViewModel.SelectedAssignment, selectedExpense);
+                var task = SaveExpenseAsync (assignmentViewModel.SelectedAssignment, SelectedExpense);
+                if (Photo.Image != null) {
+                    task = task.ContinueWith (obj => {
+                        Photo.ExpenseId = SelectedExpense.Id;
+                    });
+                    await SavePhotoAsync ();
+                }
                 await LoadExpensesAsync (assignmentViewModel.SelectedAssignment);
                 addExpensePopUp.IsOpen = false;
             });
@@ -237,9 +242,9 @@ namespace FieldService.WinRT.ViewModels {
         /// <summary>
         /// Value for not is history
         /// </summary>
-        public bool IsNotHistory
+        public bool IsNotReadonly
         {
-            get { return assignmentViewModel.IsNotHistory; }
+            get { return assignmentViewModel.IsNotReadonly; }
         }
 
         protected override void OnPropertyChanged (string propertyName)

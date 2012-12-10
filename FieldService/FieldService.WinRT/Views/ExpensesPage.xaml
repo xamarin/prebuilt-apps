@@ -28,7 +28,7 @@
                 <views:AssignmentControl x:Name="assignmentControl" />
 
                 <!--Labor section-->
-                <Grid Height="590" Width="500" Margin="25,0">
+                <Grid Height="590" Margin="25,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -43,7 +43,7 @@
                         <TextBlock Style="{StaticResource SubheaderTextStyle}">Expenses</TextBlock>
                     </Grid>
 
-                    <ListView x:Name="expensesListView" Grid.Row="1" ItemsSource="{Binding Expenses}" HorizontalContentAlignment="Stretch" SelectionMode="None" IsEnabled="{Binding IsNotHistory}"
+                    <ListView x:Name="expensesListView" Grid.Row="1" ItemsSource="{Binding Expenses}" HorizontalAlignment="Stretch" HorizontalContentAlignment="Stretch" SelectionMode="None" IsEnabled="{Binding IsNotReadonly}"
                               ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" ItemClick="OnItemClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>

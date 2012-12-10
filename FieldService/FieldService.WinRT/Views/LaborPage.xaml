@@ -28,7 +28,7 @@
                 <views:AssignmentControl x:Name="assignmentControl" />
 
                 <!--Labor section-->
-                <Grid Height="590" Width="500" Margin="25,0">
+                <Grid Height="590" Margin="25,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
@@ -45,7 +45,7 @@
 
                     <ListView x:Name="laborListView" Grid.Row="1" ItemsSource="{Binding LaborHours}" HorizontalContentAlignment="Stretch" SelectionMode="None"
                               ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsItemClickEnabled="True" 
-                              IsEnabled="{Binding IsNotHistory}" ItemClick="OnItemClick">
+                              IsEnabled="{Binding IsNotReadonly}" ItemClick="OnItemClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>
                                 <WrapGrid Orientation="Vertical" MaxHeight="450"/>
@@ -72,7 +72,7 @@
 
                     <Button 
                         Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482" x:Name="laborAddLabor"
-                        Background="{StaticResource HoursBrush}" Height="75" Padding="0" Visibility="{Binding IsNotHistory, Converter={StaticResource BooleanConverter}}"
+                        Background="{StaticResource HoursBrush}" Height="75" Padding="0" Visibility="{Binding IsNotReadonly, Converter={StaticResource BooleanConverter}}"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddLaborCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Labor" VerticalAlignment="Center" />
                     </Button>

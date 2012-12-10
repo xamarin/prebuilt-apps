@@ -26,7 +26,7 @@ using Windows.UI.Xaml.Media.Imaging;
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
         readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
-            addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand, goBackHistoryCommand;
+            addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand, goBackHistoryCommand, completeCommand;
         Assignment assignment, previousAssignment;
         Popup addSignaturePopup;
         int popUpWidth = 930;
@@ -47,7 +47,7 @@ namespace FieldService.WinRT.ViewModels {
                     addSignaturePopup.IsOpen = false;
                 }
                 Helpers.GoBack ();
-                
+
             }, _ => Helpers.CanGoBack);
 
             itemsCommand = new DelegateCommand (_ => Helpers.NavigateTo<ItemsPage> ());
@@ -101,6 +101,17 @@ namespace FieldService.WinRT.ViewModels {
                     addSignaturePopup.SetValue (Canvas.TopProperty, 0);
                 }
                 addSignaturePopup.IsOpen = true;
+            });
+
+            completeCommand = new DelegateCommand (async _ => {
+                SelectedAssignment.Status = AssignmentStatus.Complete;
+                await SaveAssignmentAsync (SelectedAssignment);
+                OnPropertyChanged ("SelectedAssignment");
+                OnPropertyChanged ("IsNew");
+                OnPropertyChanged ("IsNotNew");
+                OnPropertyChanged ("AssignmentTitle");
+                OnPropertyChanged ("BackgroundImage");
+                OnPropertyChanged ("BackgroundImage");
             });
         }
 
@@ -247,6 +258,14 @@ namespace FieldService.WinRT.ViewModels {
             get { return goBackHistoryCommand; }
         }
 
+        /// <summary>
+        /// Command for navigating back from history screen
+        /// </summary>
+        public DelegateCommand CompleteCommand
+        {
+            get { return completeCommand; }
+        }
+
         protected override void OnIsBusyChanged ()
         {
             base.OnIsBusyChanged ();
@@ -298,11 +317,19 @@ namespace FieldService.WinRT.ViewModels {
         }
 
         /// <summary>
-        /// Value for not is history
+        /// Value for not readonly 
         /// </summary>
-        public bool IsNotHistory
+        public bool IsNotReadonly
         {
-            get { return !SelectedAssignment.IsHistory; }
+            get { return !IsReadonly; }
+        }
+
+        /// <summary>
+        /// Value for readonly 
+        /// </summary>
+        public bool IsReadonly
+        {
+            get { return SelectedAssignment.IsHistory || IsComplete; }
         }
 
         /// <summary>

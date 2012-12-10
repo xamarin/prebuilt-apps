@@ -43,7 +43,7 @@
                     </Grid>
 
                     <ListView 
-                        ItemClick="OnItemClick" IsItemClickEnabled="True" IsEnabled="{Binding IsNotHistory}"
+                        ItemClick="OnItemClick" IsItemClickEnabled="True" IsEnabled="{Binding IsNotReadonly}"
                         ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled"
                         Grid.Row="1" HorizontalContentAlignment="Stretch" SelectionMode="None">
 
@@ -146,7 +146,7 @@
                     </Grid>
 
                     <ListView x:Name="photoListView" Grid.Row="1" ItemsSource="{Binding Photos}" HorizontalContentAlignment="Stretch" SelectionMode="None"
-                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsEnabled="{Binding IsNotHistory}"
+                              ScrollViewer.HorizontalScrollMode="Disabled" ScrollViewer.VerticalScrollMode="Disabled" IsEnabled="{Binding IsNotReadonly}"
                               IsItemClickEnabled="True" ItemClick="OnImageClick">
                         <ListView.ItemsPanel>
                             <ItemsPanelTemplate>

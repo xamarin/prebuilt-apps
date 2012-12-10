@@ -169,9 +169,9 @@ namespace FieldService.WinRT.ViewModels {
         /// <summary>
         /// Value for not is history
         /// </summary>
-        public bool IsNotHistory
+        public bool IsNotReadonly
         {
-            get { return assignmentViewModel.IsNotHistory; }
+            get { return assignmentViewModel.IsNotReadonly; }
         }
 
         public AssignmentItem SelectedItem
