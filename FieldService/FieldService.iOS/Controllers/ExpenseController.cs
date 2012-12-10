@@ -28,7 +28,6 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class ExpenseController : BaseController
 	{
-		readonly ExpenseViewModel expenseViewModel;
 		readonly AssignmentsController assignmentController;
 		UILabel title;
 		UIBarButtonItem titleButton, edit, addItem, space;
@@ -37,13 +36,18 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			expenseViewModel = new ExpenseViewModel();
+			ExpenseViewModel = new ExpenseViewModel();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 
 		public Expense Expense {
 			get;
 			set;
+		}
+
+		public ExpenseViewModel ExpenseViewModel {
+			get;
+			private set;
 		}
 
 		public override void ViewDidLoad ()
@@ -120,12 +124,12 @@ namespace FieldService.iOS
 				}
 				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
-				expenseViewModel.LoadExpensesAsync (assignment)
+				ExpenseViewModel.LoadExpensesAsync (assignment)
 					.ContinueOnUIThread (_ => {
-						if (expenseViewModel.Expenses == null || expenseViewModel.Expenses.Count == 0) 
+						if (ExpenseViewModel.Expenses == null || ExpenseViewModel.Expenses.Count == 0) 
 							title.Text = "Expenses";
 						else
-							title.Text = string.Format ("Expenses (${0:0.00})", expenseViewModel.Expenses.Sum (e => e.Cost));
+							title.Text = string.Format ("Expenses (${0:0.00})", ExpenseViewModel.Expenses.Sum (e => e.Cost));
 						tableView.ReloadData ();
 					});
 			}
@@ -144,7 +148,7 @@ namespace FieldService.iOS
 			public TableSource (ExpenseController expenseController)
 			{
 				this.expenseController = expenseController;
-				expenseViewModel = expenseController.expenseViewModel;
+				expenseViewModel = expenseController.ExpenseViewModel;
 				assignmentController = expenseController.assignmentController;
 			}
 

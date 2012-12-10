@@ -28,7 +28,6 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class LaborController : BaseController
 	{
-		readonly LaborViewModel laborViewModel;
 		readonly AssignmentsController assignmentController;
 		UILabel title;
 		UIBarButtonItem titleButton, edit, addItem, space;
@@ -37,7 +36,7 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			laborViewModel = new LaborViewModel();
+			LaborViewModel = new LaborViewModel();
 			assignmentController = ServiceContainer.Resolve <AssignmentsController> ();
 		}
 
@@ -47,6 +46,11 @@ namespace FieldService.iOS
 		public Labor Labor {
 			get;
 			set;
+		}
+
+		public LaborViewModel LaborViewModel {
+			get;
+			private set;
 		}
 
 		public override void ViewDidLoad ()
@@ -84,7 +88,7 @@ namespace FieldService.iOS
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			tableView.Source = new TableSource (laborViewModel);
+			tableView.Source = new TableSource (LaborViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -124,14 +128,14 @@ namespace FieldService.iOS
 				}
 				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
-				laborViewModel.LoadLaborHoursAsync (assignment)
+				LaborViewModel.LoadLaborHoursAsync (assignment)
 					.ContinueOnUIThread (_ => {
-					if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
-						title.Text = "Labor Hours";
-					else
-						title.Text = string.Format ("Labor Hours ({0:0.0})", laborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
-					tableView.ReloadData ();
-				});
+						if (LaborViewModel.LaborHours == null || LaborViewModel.LaborHours.Count == 0) 
+							title.Text = "Labor Hours";
+						else
+							title.Text = string.Format ("Labor Hours ({0:0.0})", LaborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
+						tableView.ReloadData ();
+					});
 			}
 		}
 
