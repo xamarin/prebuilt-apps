@@ -101,7 +101,7 @@ namespace FieldService.Android.Activities {
             };
             mapButton.Click += (sender, e) => {
                 var navFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);
-                var index = Constants.Navigation.IndexOf ("Map");
+                var index = Constants.HistoryNavigation.IndexOf ("Map");
                 navFragment.SetNavigation (index);
             };
 
@@ -166,7 +166,7 @@ namespace FieldService.Android.Activities {
                 navigationFragmentContainer.Visibility = ViewStates.Invisible;
             }
             navigationIndex = e.Value;
-            var screen = Constants.Navigation [e.Value];
+            var screen = Constants.HistoryNavigation [e.Value];
             ActionBar.Title = string.Format ("#{0} {1} {2}", AssignmentHistory.JobNumber, screen, historyViewModel.PastAssignment.StartDate.ToShortDateString ());
         }
 
@@ -176,7 +176,7 @@ namespace FieldService.Android.Activities {
         private void SetFrameFragment (int index)
         {
             var transaction = FragmentManager.BeginTransaction ();
-            var screen = Constants.Navigation [index];
+            var screen = Constants.HistoryNavigation [index];
             switch (screen) {
                 case "Summary": {
                         var fragment = new SummaryFragment ();
@@ -338,7 +338,7 @@ namespace FieldService.Android.Activities {
         {
             switch (item.ItemId) {
                 default:
-                    navigationFragment.SetNavigation (Constants.Navigation.IndexOf (item.TitleFormatted.ToString ()));
+                    navigationFragment.SetNavigation (Constants.HistoryNavigation.IndexOf (item.TitleFormatted.ToString ()));
                     return true;
             }
         }

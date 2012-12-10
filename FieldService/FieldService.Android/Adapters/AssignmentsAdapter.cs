@@ -32,7 +32,6 @@ namespace FieldService.Android {
     /// </summary>
     public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
 
-        AssignmentViewModel assignmentViewModel;
         IList<Assignment> assignments;
         int resourceId;
 
@@ -41,7 +40,12 @@ namespace FieldService.Android {
         {
             this.assignments = assignments;
             this.resourceId = resourceId;
-            assignmentViewModel = new AssignmentViewModel ();
+        }
+
+        public AssignmentViewModel AssignmentViewModel
+        {
+            get;
+            set;
         }
 
         public override View GetView (int position, View convertView, ViewGroup parent)
@@ -96,12 +100,12 @@ namespace FieldService.Android {
 
                 spinner.Focusable = false;
                 spinner.Tag = position;
-                var adapter = new SpinnerAdapter<AssignmentStatus> (assignmentViewModel.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> (), Resource.Layout.SimpleSpinnerItem);
+                var adapter = new SpinnerAdapter<AssignmentStatus> (AssignmentViewModel.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> (), Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Context.Resources.GetColor (Resource.Color.greyspinnertext);
                 adapter.Background = Color.White;
                 spinner.Adapter = adapter;
 
-                spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
+                spinner.SetSelection (AssignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 spinner.SetBackgroundResource (Resource.Drawable.trianglewhite);
                 spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
 
@@ -122,7 +126,7 @@ namespace FieldService.Android {
         /// </summary>
         private void SaveAssignment (Assignment assignment, int index)
         {
-            assignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
+            AssignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
                 var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
                 if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
                     activity.ReloadAssignments ();
@@ -142,7 +146,7 @@ namespace FieldService.Android {
                 case Resource.Id.assignmentAccept: {
                         var position = (int)v.Tag;
                         var activeAssignment = GetItem (position);
-                        if (assignmentViewModel.ActiveAssignment == null) {
+                        if (AssignmentViewModel.ActiveAssignment == null) {
                             activeAssignment.Status = AssignmentStatus.Active;
                         } else {
                             activeAssignment.Status = AssignmentStatus.Hold;
@@ -170,7 +174,7 @@ namespace FieldService.Android {
                         var intent = new Intent (Context, typeof (SummaryActivity));
                         var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
                         tabActivity.MapData = null;
-                        tabActivity.AssignmentViewModel = assignmentViewModel;
+                        tabActivity.AssignmentViewModel = AssignmentViewModel;
                         tabActivity.SelectedAssignment = activeAssignment;
                         intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
                         Context.StartActivity (intent);
@@ -183,7 +187,7 @@ namespace FieldService.Android {
 
         public void OnItemSelected (AdapterView parent, View view, int position, long id)
         {
-            var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (position);
+            var selected = AssignmentViewModel.AvailableStatuses.ElementAtOrDefault (position);
             var spinnerImage = ((View)parent.Parent).FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
             var index = int.Parse (parent.Tag.ToString ());
             var activeAssignment = GetItem (index);

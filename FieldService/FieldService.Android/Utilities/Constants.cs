@@ -20,6 +20,10 @@ namespace FieldService.Android.Utilities {
         /// </summary>
         public static List<string> Navigation = new List<string> () { "Summary", "Map", "Items", "Labor Hours", "Expenses", "History", "Documents", "Confirmations" };
         /// <summary>
+        /// List of navigation items
+        /// </summary>
+        public static List<string> HistoryNavigation = new List<string> () { "Summary", "Map", "Items", "Labor Hours", "Expenses", "Documents", "Confirmations" };
+        /// <summary>
         /// Constants string for getting navigation index
         /// </summary>
         public const string Confirmations = "Confirmations";
