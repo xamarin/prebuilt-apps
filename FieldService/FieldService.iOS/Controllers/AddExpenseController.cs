@@ -40,7 +40,7 @@ namespace FieldService.iOS
 
 			expenseController = ServiceContainer.Resolve<ExpenseController>();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-			expenseViewModel = new ExpenseViewModel();
+			expenseViewModel = expenseController.ExpenseViewModel;
 		}
 
 		public override void ViewDidLoad ()

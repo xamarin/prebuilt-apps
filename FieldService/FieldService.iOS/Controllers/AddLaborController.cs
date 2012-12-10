@@ -37,9 +37,9 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			laborViewModel = new LaborViewModel();
 			laborController = ServiceContainer.Resolve<LaborController>();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+			laborViewModel = laborController.LaborViewModel;
 		}
 
 		public override void ViewDidLoad ()
