@@ -83,7 +83,7 @@ namespace FieldService.Android.Fragments {
             var spinnerAdapter = new SpinnerAdapter<AssignmentStatus> (assignmentViewModel.AvailableStatuses, Activity, Resource.Layout.SimpleSpinnerItem);
             spinnerAdapter.TextColor = Color.White;
             navigationStatus.Adapter = spinnerAdapter;
-            if (!Assignment.IsHistory) {
+            if (Assignment != null && !Assignment.IsHistory) {
                 navigationStatus.ItemSelected += (sender, e) => {
                     var status = assignmentViewModel.AvailableStatuses [e.Position];
                     if (Assignment != null && Assignment.Status != status && Assignment.Status != AssignmentStatus.New) {
@@ -106,7 +106,10 @@ namespace FieldService.Android.Fragments {
             }
             timerLayout.Visibility = ViewStates.Gone;
 
-            var adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Assignment.IsHistory ? Constants.HistoryNavigation : Constants.Navigation);
+            var adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Constants.Navigation);
+            if (Assignment != null && Assignment.IsHistory) {
+                adapter = new NavigationAdapter (Activity, Resource.Layout.NavigationListItemLayout, Constants.HistoryNavigation);
+            }
             navigationListView.OnItemClickListener = navigationSelector;
             navigationListView.Adapter = adapter;
 
