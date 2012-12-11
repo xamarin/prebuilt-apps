@@ -46,13 +46,13 @@ namespace FieldService.WinRT.ViewModels {
 
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
-            addExpenseCommand = new DelegateCommand (obj => {
+            addExpenseCommand = new DelegateCommand (async obj => {
                 var expense = obj as Expense;
                 if (expense != null) {
                     SelectedExpense = expense;
                     CanDelete = true;
                     AddExpenseHeader = "Expense";
-                    LoadPhotoAsync (expense);
+                    await LoadPhotoAsync (expense);
                 } else {
                     SelectedExpense = new Expense ();
                     CanDelete = false;
@@ -78,7 +78,7 @@ namespace FieldService.WinRT.ViewModels {
                 selectedExpense.Cost = ExpenseCost.ToDecimal (CultureInfo.InvariantCulture);
                 selectedExpense.AssignmentId = assignmentViewModel.SelectedAssignment.Id;
                 var task = SaveExpenseAsync (assignmentViewModel.SelectedAssignment, SelectedExpense);
-                if (Photo.Image != null) {
+                if (Photo !=null && Photo.Image != null) {
                     task = task.ContinueWith (obj => {
                         Photo.ExpenseId = SelectedExpense.Id;
                     });

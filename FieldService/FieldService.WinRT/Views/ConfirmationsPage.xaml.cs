@@ -69,12 +69,20 @@ namespace FieldService.WinRT.Views {
                 case "addSignature":
                     assignmentViewModel.AddSignatureCommand.Invoke ();
                     break;
-                case "markComplete":
-                    //signature control does not work at the moment, just allow it to proceed w/o signature for now.
-                    //if (assignmentViewModel.Signature == null) {
-                    //    await new MessageDialog ("No signature!").ShowAsync ();
-                    //}
-                    assignmentViewModel.CompleteCommand.Invoke ();
+                case "markComplete": {
+                        //signature control does not work at the moment, just allow it to proceed w/o signature for now.
+                        //if (assignmentViewModel.Signature == null) {
+                        //    await new MessageDialog ("No signature!").ShowAsync ();
+                        //}
+                        var dialog = new MessageDialog ("Are you sure?", "Complete?");
+                        bool yesComplete = false;
+                        dialog.Commands.Add (new UICommand ("Yes", _ => yesComplete = true));
+                        dialog.Commands.Add (new UICommand ("No"));
+                        await dialog.ShowAsync ();
+                        if (yesComplete) {
+                            assignmentViewModel.CompleteCommand.Invoke ();
+                        }
+                    }
                     break;
                 case "addImage": {
                         bool cameraCommand = false, imageCommand = false;

@@ -107,11 +107,13 @@ namespace FieldService.WinRT.ViewModels {
                 SelectedAssignment.Status = AssignmentStatus.Complete;
                 await SaveAssignmentAsync (SelectedAssignment);
                 OnPropertyChanged ("SelectedAssignment");
-                OnPropertyChanged ("IsNew");
-                OnPropertyChanged ("IsNotNew");
-                OnPropertyChanged ("AssignmentTitle");
-                OnPropertyChanged ("BackgroundImage");
-                OnPropertyChanged ("BackgroundImage");
+                OnPropertyChanged ("IsCompleteColor");
+                OnPropertyChanged ("IsCompleteBottomColor");
+                OnPropertyChanged ("IsReadonly");
+                OnPropertyChanged ("IsNotReadonly");
+                OnPropertyChanged ("IsTimerVisible");
+                OnPropertyChanged ("IsComplete");
+                OnPropertyChanged ("IsCompleteText");
             });
         }
 
