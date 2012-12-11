@@ -413,8 +413,8 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f080039
 			public const int confirmationsSignature = 2131230777;
 			
-			// aapt resource value: 0x7f08008f
-			public const int contentFrame = 2131230863;
+			// aapt resource value: 0x7f080090
+			public const int contentFrame = 2131230864;
 			
 			// aapt resource value: 0x7f080010
 			public const int deleteAddLabor = 2131230736;
@@ -458,23 +458,23 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f080040
 			public const int expenseType = 2131230784;
 			
-			// aapt resource value: 0x7f08007a
-			public const int fragmentHours = 2131230842;
+			// aapt resource value: 0x7f08007b
+			public const int fragmentHours = 2131230843;
 			
 			// aapt resource value: 0x7f08006f
 			public const int fragmentMapView = 2131230831;
 			
-			// aapt resource value: 0x7f080078
-			public const int fragmentStatus = 2131230840;
-			
-			// aapt resource value: 0x7f080077
-			public const int fragmentStatusImage = 2131230839;
-			
-			// aapt resource value: 0x7f08007b
-			public const int fragmentTimer = 2131230843;
-			
 			// aapt resource value: 0x7f080079
-			public const int fragmentTimerTextLayout = 2131230841;
+			public const int fragmentStatus = 2131230841;
+			
+			// aapt resource value: 0x7f080078
+			public const int fragmentStatusImage = 2131230840;
+			
+			// aapt resource value: 0x7f08007c
+			public const int fragmentTimer = 2131230844;
+			
+			// aapt resource value: 0x7f08007a
+			public const int fragmentTimerTextLayout = 2131230842;
 			
 			// aapt resource value: 0x7f080075
 			public const int googleMapsView = 2131230837;
@@ -599,44 +599,47 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f080074
 			public const int mapViewAssignmentLayout = 2131230836;
 			
+			// aapt resource value: 0x7f0800a2
+			public const int navigationConfirmations = 2131230882;
+			
 			// aapt resource value: 0x7f0800a1
-			public const int navigationConfirmations = 2131230881;
-			
-			// aapt resource value: 0x7f0800a0
-			public const int navigationDocuments = 2131230880;
-			
-			// aapt resource value: 0x7f08009e
-			public const int navigationExpenses = 2131230878;
-			
-			// aapt resource value: 0x7f080082
-			public const int navigationFragmentContainer = 2131230850;
+			public const int navigationDocuments = 2131230881;
 			
 			// aapt resource value: 0x7f08009f
-			public const int navigationHistory = 2131230879;
+			public const int navigationExpenses = 2131230879;
 			
-			// aapt resource value: 0x7f08009c
-			public const int navigationItems = 2131230876;
+			// aapt resource value: 0x7f080083
+			public const int navigationFragmentContainer = 2131230851;
+			
+			// aapt resource value: 0x7f0800a0
+			public const int navigationHistory = 2131230880;
 			
 			// aapt resource value: 0x7f08009d
-			public const int navigationLaborHours = 2131230877;
+			public const int navigationItems = 2131230877;
+			
+			// aapt resource value: 0x7f08009e
+			public const int navigationLaborHours = 2131230878;
 			
 			// aapt resource value: 0x7f080076
 			public const int navigationListView = 2131230838;
 			
-			// aapt resource value: 0x7f08007d
-			public const int navigationListViewImage = 2131230845;
+			// aapt resource value: 0x7f08007e
+			public const int navigationListViewImage = 2131230846;
 			
-			// aapt resource value: 0x7f08007c
-			public const int navigationListViewText = 2131230844;
+			// aapt resource value: 0x7f08007d
+			public const int navigationListViewText = 2131230845;
+			
+			// aapt resource value: 0x7f08009c
+			public const int navigationMap = 2131230876;
+			
+			// aapt resource value: 0x7f0800a3
+			public const int navigationMenu = 2131230883;
+			
+			// aapt resource value: 0x7f080077
+			public const int navigationStatusLayout = 2131230839;
 			
 			// aapt resource value: 0x7f08009b
-			public const int navigationMap = 2131230875;
-			
-			// aapt resource value: 0x7f0800a2
-			public const int navigationMenu = 2131230882;
-			
-			// aapt resource value: 0x7f08009a
-			public const int navigationSummary = 2131230874;
+			public const int navigationSummary = 2131230875;
 			
 			// aapt resource value: 0x7f080070
 			public const int overlayDirectionsLayout = 2131230832;
@@ -662,14 +665,14 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f080015
 			public const int photoImageSource = 2131230741;
 			
-			// aapt resource value: 0x7f08007f
-			public const int photoListViewDateTime = 2131230847;
-			
 			// aapt resource value: 0x7f080080
-			public const int photoListViewDescription = 2131230848;
+			public const int photoListViewDateTime = 2131230848;
 			
-			// aapt resource value: 0x7f08007e
-			public const int photoListViewImage = 2131230846;
+			// aapt resource value: 0x7f080081
+			public const int photoListViewDescription = 2131230849;
+			
+			// aapt resource value: 0x7f08007f
+			public const int photoListViewImage = 2131230847;
 			
 			// aapt resource value: 0x7f080018
 			public const int photoNextButton = 2131230744;
@@ -686,35 +689,35 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f080011
 			public const int saveAddLabor = 2131230737;
 			
-			// aapt resource value: 0x7f080083
-			public const int selectedAssignment = 2131230851;
+			// aapt resource value: 0x7f080084
+			public const int selectedAssignment = 2131230852;
+			
+			// aapt resource value: 0x7f08008f
+			public const int selectedAssignmentAddExpense = 2131230863;
 			
 			// aapt resource value: 0x7f08008e
-			public const int selectedAssignmentAddExpense = 2131230862;
+			public const int selectedAssignmentAddItem = 2131230862;
 			
 			// aapt resource value: 0x7f08008d
-			public const int selectedAssignmentAddItem = 2131230861;
-			
-			// aapt resource value: 0x7f08008c
-			public const int selectedAssignmentAddLabor = 2131230860;
-			
-			// aapt resource value: 0x7f08008a
-			public const int selectedAssignmentAddress = 2131230858;
-			
-			// aapt resource value: 0x7f080090
-			public const int selectedAssignmentAnchor = 2131230864;
-			
-			// aapt resource value: 0x7f080085
-			public const int selectedAssignmentContactName = 2131230853;
-			
-			// aapt resource value: 0x7f080084
-			public const int selectedAssignmentNumber = 2131230852;
-			
-			// aapt resource value: 0x7f080088
-			public const int selectedAssignmentPhoneNumber = 2131230856;
+			public const int selectedAssignmentAddLabor = 2131230861;
 			
 			// aapt resource value: 0x7f08008b
-			public const int selectedAssignmentTotalItems = 2131230859;
+			public const int selectedAssignmentAddress = 2131230859;
+			
+			// aapt resource value: 0x7f080091
+			public const int selectedAssignmentAnchor = 2131230865;
+			
+			// aapt resource value: 0x7f080086
+			public const int selectedAssignmentContactName = 2131230854;
+			
+			// aapt resource value: 0x7f080085
+			public const int selectedAssignmentNumber = 2131230853;
+			
+			// aapt resource value: 0x7f080089
+			public const int selectedAssignmentPhoneNumber = 2131230857;
+			
+			// aapt resource value: 0x7f08008c
+			public const int selectedAssignmentTotalItems = 2131230860;
 			
 			// aapt resource value: 0x7f08001d
 			public const int signatureCancelButton = 2131230749;
@@ -725,50 +728,50 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f08001e
 			public const int signatureSaveButton = 2131230750;
 			
-			// aapt resource value: 0x7f080081
-			public const int simpleSpinnerTextView = 2131230849;
+			// aapt resource value: 0x7f080082
+			public const int simpleSpinnerTextView = 2131230850;
 			
 			// aapt resource value: 0x7f08000d
 			public const int subtractLaborHours = 2131230733;
 			
-			// aapt resource value: 0x7f080092
-			public const int summaryAssignmentDescription = 2131230866;
-			
-			// aapt resource value: 0x7f080091
-			public const int summaryAssignmentDescriptionHeader = 2131230865;
-			
-			// aapt resource value: 0x7f080099
-			public const int summaryAssignmentExpenses = 2131230873;
-			
-			// aapt resource value: 0x7f080095
-			public const int summaryAssignmentItems = 2131230869;
-			
-			// aapt resource value: 0x7f080097
-			public const int summaryAssignmentLaborHours = 2131230871;
-			
-			// aapt resource value: 0x7f080098
-			public const int summaryExpensesLayout = 2131230872;
-			
-			// aapt resource value: 0x7f080087
-			public const int summaryFragmentPhoneIcon = 2131230855;
-			
 			// aapt resource value: 0x7f080093
-			public const int summaryItemsLayout = 2131230867;
+			public const int summaryAssignmentDescription = 2131230867;
+			
+			// aapt resource value: 0x7f080092
+			public const int summaryAssignmentDescriptionHeader = 2131230866;
+			
+			// aapt resource value: 0x7f08009a
+			public const int summaryAssignmentExpenses = 2131230874;
 			
 			// aapt resource value: 0x7f080096
-			public const int summaryLaborLayout = 2131230870;
+			public const int summaryAssignmentItems = 2131230870;
 			
-			// aapt resource value: 0x7f080089
-			public const int summaryMapIconLayout = 2131230857;
+			// aapt resource value: 0x7f080098
+			public const int summaryAssignmentLaborHours = 2131230872;
 			
-			// aapt resource value: 0x7f080086
-			public const int summaryPhoneIconLayout = 2131230854;
+			// aapt resource value: 0x7f080099
+			public const int summaryExpensesLayout = 2131230873;
+			
+			// aapt resource value: 0x7f080088
+			public const int summaryFragmentPhoneIcon = 2131230856;
+			
+			// aapt resource value: 0x7f080094
+			public const int summaryItemsLayout = 2131230868;
+			
+			// aapt resource value: 0x7f080097
+			public const int summaryLaborLayout = 2131230871;
+			
+			// aapt resource value: 0x7f08008a
+			public const int summaryMapIconLayout = 2131230858;
+			
+			// aapt resource value: 0x7f080087
+			public const int summaryPhoneIconLayout = 2131230855;
 			
 			// aapt resource value: 0x7f080056
 			public const int tabsText = 2131230806;
 			
-			// aapt resource value: 0x7f080094
-			public const int textView1 = 2131230868;
+			// aapt resource value: 0x7f080095
+			public const int textView1 = 2131230869;
 			
 			// aapt resource value: 0x7f080042
 			public const int textView2 = 2131230786;
