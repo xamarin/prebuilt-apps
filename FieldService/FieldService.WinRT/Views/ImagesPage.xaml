@@ -13,21 +13,21 @@
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
 
-        <Image Grid.RowSpan="2" Source="{Binding BackgroundImage}" Stretch="None" />
+        <Image Grid.RowSpan="2" Source="{Binding BackgroundImage}" x:Name="background" Stretch="None" />
 
         <StackPanel Margin="0,50,50,20" Orientation="Horizontal">
             <Button x:Name="imagesGoBack"  Style="{StaticResource BackButtonStyle}" Command="{Binding GoBackCommand}"  VerticalAlignment="Center"/>
             <TextBlock Style="{StaticResource HeaderTextStyle}" Text="Images" Margin="0,10,0,0" Foreground="White" VerticalAlignment="Center"/>
         </StackPanel>
 
-        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Grid.Row="1">
-            <Grid Height="590" Width="360"  Margin="100,0,0,0">
+        <StackPanel Orientation="Horizontal" VerticalAlignment="Top" Grid.Row="1" Margin="50,0,10,0">
+            <Grid Height="590" Width="360">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="*" />
                 </Grid.RowDefinitions>
 
-                <TextBlock Text="Images" Style="{StaticResource SubheaderTextStyle}" Foreground="White"/>
+                <TextBlock Text="Images" Style="{StaticResource SubheaderTextStyle}" Foreground="White" Margin="0,10"/>
 
                 <ListView                         
                     x:Name="photosListView" ItemClick="OnItemClick" IsItemClickEnabled="True"
@@ -62,17 +62,19 @@
                 </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="120"/>
-                    <ColumnDefinition Width="120"/>
+                    <ColumnDefinition Width="130"/>
+                    <ColumnDefinition Width="130"/>
                 </Grid.ColumnDefinitions>
 
                 <TextBox Margin="0,0,10,10"  Text="{Binding SelectedPhoto.Description, Mode=TwoWay}" VerticalAlignment="Center" />
                 <Button BorderThickness="2" Width="120" Height="40" BorderBrush="{StaticResource DarkBlueItemsBrush}" Command="{Binding SavePhotoCommand}"
-                        Background="{StaticResource ItemsBrush}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,10">
+                        IsEnabled="{Binding CanSave}" Background="{StaticResource ItemsBrush}" VerticalAlignment="Center" Grid.Column="1" Margin="0,0,0,10"
+                        HorizontalAlignment="Center">
                     <TextBlock Text="Save" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                 </Button>
                 <Button BorderThickness="2" Height="40" Width="120" BorderBrush="{StaticResource DarkRedExpensesBrush}" Command="{Binding DeletePhotoCommand}"
-                        Background="{StaticResource ExpensesBrush}" VerticalAlignment="Center" Grid.Column="2" Margin="5,0,0,10" HorizontalAlignment="Right">
+                        IsEnabled="{Binding CanDelete}" Background="{StaticResource ExpensesBrush}" VerticalAlignment="Center" Grid.Column="2" Margin="0,0,0,10"
+                        HorizontalAlignment="Center">
                     <TextBlock Text="Delete Image" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="White"/>
                 </Button>
                 <Image Margin="0,10"  Grid.Row="1" Grid.ColumnSpan="3" Height="520" Source="{Binding SelectedPhoto.Image, Converter={StaticResource PhotoConverter}}" />

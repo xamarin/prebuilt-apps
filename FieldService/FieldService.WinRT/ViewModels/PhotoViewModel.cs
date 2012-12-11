@@ -35,7 +35,7 @@ namespace FieldService.WinRT.ViewModels {
                 if (photo != null) {
                     SelectedPhoto = photo;
                 } else
-                    SelectedPhoto = new Photo ();
+                    SelectedPhoto = null;
             });
 
             savePhotoCommand = new DelegateCommand (async _ => {
@@ -54,7 +54,7 @@ namespace FieldService.WinRT.ViewModels {
                 if (yesDelete) {
                     await DeletePhotoAsync (assignmentViewModel.SelectedAssignment, selectedPhoto);
                     await LoadPhotosAsync (assignmentViewModel.SelectedAssignment);
-                    SelectedPhoto = new Photo ();
+                    SelectedPhoto = null;
                 }
             });
         }
@@ -86,7 +86,29 @@ namespace FieldService.WinRT.ViewModels {
         public Photo SelectedPhoto
         {
             get { return selectedPhoto; }
-            set { selectedPhoto = value; OnPropertyChanged ("SelectedPhoto"); }
+            set
+            {
+                selectedPhoto = value;
+                OnPropertyChanged ("SelectedPhoto");
+                OnPropertyChanged ("CanDelete");
+                OnPropertyChanged ("CanSave");
+            }
+        }
+
+        /// <summary>
+        /// bool value for showing delete button
+        /// </summary>
+        public bool CanDelete
+        {
+            get { return SelectedPhoto != null; }
+        }
+
+        /// <summary>
+        /// bool value for showing save button
+        /// </summary>
+        public bool CanSave
+        {
+            get { return SelectedPhoto != null; }
         }
 
         /// <summary>

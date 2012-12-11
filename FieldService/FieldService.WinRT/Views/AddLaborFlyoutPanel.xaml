@@ -43,7 +43,7 @@
         </StackPanel>
         <StackPanel Grid.Row="3" Margin="30,5,0,0">
             <TextBlock Text="Enter a short description" Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16"/>
-            <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="0 5,30,30" Height="110"
+            <TextBox Foreground="{StaticResource DarkBackgroundBrush}" FontSize="16" Margin="0,5,30,30" Height="110" MaxLength="425" TextWrapping="Wrap"
                      BorderThickness="1" BorderBrush="Gray" Text="{Binding SelectedLabor.Description, Mode=TwoWay}" AcceptsReturn="True"/>
         </StackPanel>
     </Grid>

@@ -43,6 +43,7 @@ namespace FieldService.WinRT.Views {
             this.InitializeComponent ();
 
             imagesGoBack.DataContext =
+                background.DataContext =
                 assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             DataContext =

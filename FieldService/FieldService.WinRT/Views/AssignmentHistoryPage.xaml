@@ -21,7 +21,7 @@
         </StackPanel>
 
         <ScrollViewer 
-            Grid.Row="1"
+            Grid.Row="1" ZoomMode="Disabled"
             ScrollViewer.VerticalScrollMode="Disabled" ScrollViewer.VerticalScrollBarVisibility="Hidden" ScrollViewer.HorizontalScrollBarVisibility="Auto">
             <Grid Height="530" VerticalAlignment="Top" Margin="50,0,50,50">
                 <ListView 

@@ -363,7 +363,7 @@ namespace FieldService.WinRT.ViewModels {
         }
 
         /// <summary>
-        /// valu for showing background image
+        /// value for showing background image
         /// </summary>
         public BitmapImage BackgroundImage
         {

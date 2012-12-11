@@ -81,12 +81,8 @@ namespace FieldService.WinRT.Views {
                         await dialog.ShowAsync ();
 
                         if (cameraCommand) {
-                            StoreCameraMediaOptions options = new StoreCameraMediaOptions {
-                                Directory = "FieldService",
-                                Name = "FieldService.jpg",
-                            };
                             try {
-                                var mediaFile = await picker.TakePhotoAsync (options);
+                                var mediaFile = await picker.TakePhotoAsync (new StoreCameraMediaOptions());
 
                                 var photo = new Photo ();
                                 await mediaFile.GetStream ().LoadBytes ().ContinueWith (t => {
