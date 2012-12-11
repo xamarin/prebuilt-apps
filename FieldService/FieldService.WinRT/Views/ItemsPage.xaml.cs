@@ -45,6 +45,12 @@ namespace FieldService.WinRT.Views {
                 itemViewModel.SelectedItem = null;
                 applicationBar.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
             };
+
+            Window.Current.SizeChanged += (sender, e) => {
+                if (itemViewModel.ItemPopUp != null && itemViewModel.ItemPopUp.IsOpen) {
+                    itemViewModel.ItemPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
+                }
+            };
         }
 
         /// <summary>

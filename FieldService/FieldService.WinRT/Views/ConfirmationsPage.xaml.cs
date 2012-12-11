@@ -44,6 +44,12 @@ namespace FieldService.WinRT.Views {
             photoListView.DataContext =
                 photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
 
+            Window.Current.SizeChanged += (sender, e) => {
+                if (assignmentViewModel.SignaturePopUp != null && assignmentViewModel.SignaturePopUp.IsOpen) {
+                    assignmentViewModel.SignaturePopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.SignaturePopUpWidth);
+                }
+            };
+
             picker = new MediaPicker ();
         }
 

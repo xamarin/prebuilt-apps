@@ -374,6 +374,9 @@ namespace FieldService.WinRT.ViewModels {
             }
         }
 
+        /// <summary>
+        /// Value for changing assignment title based on is history
+        /// </summary>
         public string AssignmentTitle
         {
             get
@@ -383,6 +386,14 @@ namespace FieldService.WinRT.ViewModels {
                 }
                 return SelectedAssignment.JobNumberFormatted;
             }
+        }
+
+        /// <summary>
+        /// signature pop up
+        /// </summary>
+        public Popup SignaturePopUp
+        {
+            get { return addSignaturePopup; }
         }
 
         /// <summary>

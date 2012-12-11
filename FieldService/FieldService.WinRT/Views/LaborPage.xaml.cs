@@ -29,6 +29,7 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using FieldService.Data;
+using FieldService.WinRT.Utilities;
 
 namespace FieldService.WinRT.Views {
     /// <summary>
@@ -49,6 +50,12 @@ namespace FieldService.WinRT.Views {
             laborListView.DataContext =
                 laborAddLabor.DataContext =
                 laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+
+            Window.Current.SizeChanged += (sender, e) => {
+                if (laborViewModel.LaborPopUp != null && laborViewModel.LaborPopUp.IsOpen) {
+                    laborViewModel.LaborPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
+                }
+            };
         }
 
         /// <summary>
