@@ -27,7 +27,7 @@ namespace FieldService.Android {
     /// <summary>
     /// Adapter for a list of items
     /// </summary>
-    public class ItemsAdapter : ArrayAdapter<AssignmentItem> {
+    public class ItemsAdapter : ArrayAdapter<AssignmentItem>, View.IOnClickListener {
 
         IList<AssignmentItem> assignmentItems;
         int resourceId;
@@ -69,7 +69,7 @@ namespace FieldService.Android {
             name.Tag = position;
 
             var trashButton = view.FindViewById<ImageButton> (Resource.Id.itemTrashButton);
-            trashButton.Click += (sender, e) => Fragment.DeleteItem (item);
+            trashButton.SetOnClickListener (this);
 
             name.Text = string.Format ("#{0} {1}", item.Number, item.Name);
             trashButton.Tag = position;
@@ -77,6 +77,17 @@ namespace FieldService.Android {
             trashButton.Enabled = !Fragment.Assignment.IsHistory;
 
             return view;
+        }
+
+        public void OnClick (View v)
+        {
+            if (v.Id == Resource.Id.itemTrashButton) {
+                var position = (int)v.Tag;
+                var item = GetItem (position);
+                if (item != null) {
+                    Fragment.DeleteItem (item);
+                }
+            }
         }
     }
 }

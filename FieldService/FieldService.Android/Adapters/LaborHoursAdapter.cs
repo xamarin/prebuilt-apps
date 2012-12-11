@@ -29,7 +29,7 @@ namespace FieldService.Android {
     /// <summary>
     /// Adapter for a list of labor entries
     /// </summary>
-    public class LaborHoursAdapter : ArrayAdapter<Labor> {
+    public class LaborHoursAdapter : ArrayAdapter<Labor>, AdapterView.IOnItemSelectedListener {
         List<Labor> laborHours;
         LaborType [] laborTypes;
         int resourceId;
@@ -81,18 +81,8 @@ namespace FieldService.Android {
             adapter.Background = Color.White;
             laborType.Adapter = adapter;
 
-            laborType.ItemSelected += (sender, e) => {
-                var status = laborTypes [e.Position];
-                var currentLabor = laborHours [position];
-                if (status != currentLabor.Type) {
-                    currentLabor.Type = status;
-                    laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueOnUIThread (_ => {
-                        var fragment = ServiceContainer.Resolve<LaborHourFragment> ();
-                        fragment.ReloadSingleListItem (position);
-                        });
-                }
-            };
-
+            laborType.OnItemSelectedListener = this;
+            laborType.Tag = position;
             laborType.SetSelection (laborTypes.ToList ().IndexOf (labor.Type));
             hours.Text = string.Format ("{0} hrs", labor.Hours.TotalHours.ToString ("0.0"));
             description.Text = labor.Description;
@@ -103,6 +93,25 @@ namespace FieldService.Android {
             laborType.Focusable = false;
 
             return view;
+        }
+
+        public void OnItemSelected (AdapterView parent, View view, int position, long id)
+        {
+            var status = laborTypes [position];
+            var index = (int)parent.Tag;
+            var currentLabor = GetItem (index);
+            if (status != currentLabor.Type) {
+                currentLabor.Type = status;
+                laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueOnUIThread (_ => {
+                    var fragment = ServiceContainer.Resolve<LaborHourFragment> ();
+                    fragment.ReloadSingleListItem (position);
+                });
+            }
+        }
+
+        public void OnNothingSelected (AdapterView parent)
+        {
+            //do nothing
         }
     }
 }

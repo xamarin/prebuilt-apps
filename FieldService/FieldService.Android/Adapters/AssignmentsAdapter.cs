@@ -189,7 +189,7 @@ namespace FieldService.Android {
         {
             var selected = AssignmentViewModel.AvailableStatuses.ElementAtOrDefault (position);
             var spinnerImage = ((View)parent.Parent).FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
-            var index = int.Parse (parent.Tag.ToString ());
+            var index = (int)parent.Tag;
             var activeAssignment = GetItem (index);
             if (activeAssignment.Status != selected) {
                 switch (selected) {
