@@ -96,14 +96,6 @@ namespace FieldService.Android {
             phoneButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentPhoneLayout);
             mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
 
-            AssignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
-                if (AssignmentViewModel.Recording) {
-                    timer.Checked = true;
-                } else {
-                    timer.Checked = false;
-                }
-            });
-
             timer.CheckedChange += (sender, e) => {
                 if (e.IsChecked != AssignmentViewModel.Recording) {
                     if (AssignmentViewModel.Recording) {
@@ -225,6 +217,14 @@ namespace FieldService.Android {
             if (visible) {
                 assignmentActiveLayout.Visibility = ViewStates.Visible;
                 assignment = AssignmentViewModel.ActiveAssignment;
+
+                AssignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
+                    if (AssignmentViewModel.Recording) {
+                        timer.Checked = true;
+                    } else {
+                        timer.Checked = false;
+                    }
+                });
 
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
