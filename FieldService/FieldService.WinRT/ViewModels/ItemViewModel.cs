@@ -59,17 +59,15 @@ namespace FieldService.WinRT.ViewModels {
             });
 
             addItemCommand = new DelegateCommand (_ => {
-                if (addItemPopUp == null) {
-                    addItemPopUp = new Popup ();
-                    addItemPopUp.Height = Window.Current.Bounds.Height;
-                    addItemPopUp.Width = Constants.PopUpWidth;
-                    AddItemFlyoutPanel flyoutpanel = new AddItemFlyoutPanel ();
-                    flyoutpanel.Width = addItemPopUp.Width;
-                    flyoutpanel.Height = addItemPopUp.Height;
-                    addItemPopUp.Child = flyoutpanel;
-                    addItemPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
-                    addItemPopUp.SetValue (Canvas.TopProperty, 0);
-                }
+                addItemPopUp = new Popup ();
+                addItemPopUp.Height = Window.Current.Bounds.Height;
+                addItemPopUp.Width = Constants.PopUpWidth;
+                AddItemFlyoutPanel flyoutpanel = new AddItemFlyoutPanel ();
+                flyoutpanel.Width = addItemPopUp.Width;
+                flyoutpanel.Height = addItemPopUp.Height;
+                addItemPopUp.Child = flyoutpanel;
+                addItemPopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
+                addItemPopUp.SetValue (Canvas.TopProperty, 0);
                 addItemPopUp.IsOpen = true;
                 SearchText = string.Empty;
                 SearchItemsCommand.Invoke ();

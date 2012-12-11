@@ -19,6 +19,7 @@ using System.IO;
 using System.Linq;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -49,6 +50,12 @@ namespace FieldService.WinRT.Views {
             expensesListView.DataContext =
                 expensesAddExpense.DataContext =
                 expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+
+            Window.Current.SizeChanged += (sender, e) => {
+                if (expenseViewModel.ExpensePopUp != null && expenseViewModel.ExpensePopUp.IsOpen) {
+                    expenseViewModel.ExpensePopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
+                }
+            };
         }
 
         /// <summary>

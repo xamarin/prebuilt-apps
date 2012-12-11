@@ -34,5 +34,10 @@ namespace FieldService.WinRT.Utilities {
         /// Width for the flyoutpanels
         /// </summary>
         public const int PopUpWidth = 485;
+
+        /// <summary>
+        /// Width for the flyoutpanels signature
+        /// </summary>
+        public const int SignaturePopUpWidth = 930;
     }
 }

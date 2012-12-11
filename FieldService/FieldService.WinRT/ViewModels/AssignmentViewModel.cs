@@ -29,7 +29,6 @@ namespace FieldService.WinRT.ViewModels {
             addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand, goBackHistoryCommand, completeCommand;
         Assignment assignment, previousAssignment;
         Popup addSignaturePopup;
-        int popUpWidth = 930;
 
         public AssignmentViewModel ()
         {
@@ -89,17 +88,15 @@ namespace FieldService.WinRT.ViewModels {
             });
 
             addSignatureCommand = new DelegateCommand (_ => {
-                if (addSignaturePopup == null) {
-                    addSignaturePopup = new Popup ();
-                    addSignaturePopup.Height = Window.Current.Bounds.Height;
-                    addSignaturePopup.Width = popUpWidth;
-                    AddSignatureFlyoutPanel flyoutpanel = new AddSignatureFlyoutPanel ();
-                    flyoutpanel.Width = addSignaturePopup.Width;
-                    flyoutpanel.Height = addSignaturePopup.Height;
-                    addSignaturePopup.Child = flyoutpanel;
-                    addSignaturePopup.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - popUpWidth);
-                    addSignaturePopup.SetValue (Canvas.TopProperty, 0);
-                }
+                addSignaturePopup = new Popup ();
+                addSignaturePopup.Height = Window.Current.Bounds.Height;
+                addSignaturePopup.Width = Constants.SignaturePopUpWidth;
+                AddSignatureFlyoutPanel flyoutpanel = new AddSignatureFlyoutPanel ();
+                flyoutpanel.Width = addSignaturePopup.Width;
+                flyoutpanel.Height = addSignaturePopup.Height;
+                addSignaturePopup.Child = flyoutpanel;
+                addSignaturePopup.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.SignaturePopUpWidth);
+                addSignaturePopup.SetValue (Canvas.TopProperty, 0);
                 addSignaturePopup.IsOpen = true;
             });
 

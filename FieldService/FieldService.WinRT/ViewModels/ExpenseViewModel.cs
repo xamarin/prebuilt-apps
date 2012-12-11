@@ -57,19 +57,17 @@ namespace FieldService.WinRT.ViewModels {
                     SelectedExpense = new Expense ();
                     CanDelete = false;
                     AddExpenseHeader = "Add Expense";
-                    Photo = new ExpensePhoto();
+                    Photo = new ExpensePhoto ();
                 }
-                if (addExpensePopUp == null) {
-                    addExpensePopUp = new Popup ();
-                    addExpensePopUp.Height = Window.Current.Bounds.Height;
-                    addExpensePopUp.Width = Constants.PopUpWidth;
-                    AddExpenseFlyoutPanel flyoutpanel = new AddExpenseFlyoutPanel ();
-                    flyoutpanel.Width = addExpensePopUp.Width;
-                    flyoutpanel.Height = addExpensePopUp.Height;
-                    addExpensePopUp.Child = flyoutpanel;
-                    addExpensePopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
-                    addExpensePopUp.SetValue (Canvas.TopProperty, 0);
-                }
+                addExpensePopUp = new Popup ();
+                addExpensePopUp.Height = Window.Current.Bounds.Height;
+                addExpensePopUp.Width = Constants.PopUpWidth;
+                AddExpenseFlyoutPanel flyoutpanel = new AddExpenseFlyoutPanel ();
+                flyoutpanel.Width = addExpensePopUp.Width;
+                flyoutpanel.Height = addExpensePopUp.Height;
+                addExpensePopUp.Child = flyoutpanel;
+                addExpensePopUp.SetValue (Canvas.LeftProperty, Window.Current.Bounds.Width - Constants.PopUpWidth);
+                addExpensePopUp.SetValue (Canvas.TopProperty, 0);
                 addExpensePopUp.IsOpen = true;
             });
 
