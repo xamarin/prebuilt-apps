@@ -66,8 +66,7 @@ namespace FieldService.WinRT.Views {
         {
             assignmentViewModel.SelectedAssignment = e.ClickedItem as Assignment;
 
-            //Helpers.NavigateTo<AssignmentPage> ();
-            Helpers.NavigateTo<ExpensesPage> ();
+            Helpers.NavigateTo<AssignmentPage> ();
         }
 
         private void Status_SelectionChanged (object sender, SelectionChangedEventArgs e)
