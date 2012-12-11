@@ -35,6 +35,7 @@ namespace FieldService.Android.Fragments {
         ImageView navigationStatusImage;
         TextView timerHours;
         ToggleButton timer;
+        LinearLayout navigationStatusLayout;
         RelativeLayout timerLayout;
         int lastposition;
         AssignmentViewModel assignmentViewModel;
@@ -76,6 +77,7 @@ namespace FieldService.Android.Fragments {
             navigationStatus = view.FindViewById<Spinner> (Resource.Id.fragmentStatus);
             navigationStatusImage = view.FindViewById<ImageView> (Resource.Id.fragmentStatusImage);
             timerLayout = view.FindViewById<RelativeLayout> (Resource.Id.fragmentTimerTextLayout);
+            navigationStatusLayout = view.FindViewById<LinearLayout> (Resource.Id.navigationStatusLayout);
             timer = view.FindViewById<ToggleButton> (Resource.Id.fragmentTimer);
             timerHours = view.FindViewById<TextView> (Resource.Id.fragmentHours);
 
@@ -129,32 +131,44 @@ namespace FieldService.Android.Fragments {
                     navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Complete));
                     timerLayout.Visibility = ViewStates.Gone;
                 } else {
-                    if (Assignment.Status == AssignmentStatus.Active || Assignment.Status == AssignmentStatus.Complete) {
-                        timerLayout.Visibility = ViewStates.Visible;
-                        navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
-                        navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
-                        timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+                    switch (Assignment.Status) {
+                        case AssignmentStatus.New:
+                            navigationStatusLayout.Visibility =
+                                timerLayout.Visibility = ViewStates.Gone;
+                            break;
+                        case AssignmentStatus.Hold:
+                            navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
+                            navigationStatusLayout.Visibility = ViewStates.Visible;
+                            timerLayout.Visibility = ViewStates.Gone;
+                            break;
+                        case AssignmentStatus.Active:
+                        case AssignmentStatus.Complete:
+                            navigationStatusLayout.Visibility =
+                                timerLayout.Visibility = ViewStates.Visible;
+                            navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
+                            navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
+                            timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 
-                        assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
-                            if (assignmentViewModel.Recording) {
-                                timer.Checked = true;
-                            } else {
-                                timer.Checked = false;
-                            }
-                        });
-
-                        timer.CheckedChange += (sender, e) => {
-                            if (e.IsChecked != assignmentViewModel.Recording) {
+                            assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
                                 if (assignmentViewModel.Recording) {
-                                    assignmentViewModel.PauseAsync ();
+                                    timer.Checked = true;
                                 } else {
-                                    assignmentViewModel.RecordAsync ();
+                                    timer.Checked = false;
                                 }
-                            }
-                        };
-                    } else {
-                        navigationStatusImage.SetImageResource (Resource.Drawable.HoldImage);
-                        timerLayout.Visibility = ViewStates.Gone;
+                            });
+
+                            timer.CheckedChange += (sender, e) => {
+                                if (e.IsChecked != assignmentViewModel.Recording) {
+                                    if (assignmentViewModel.Recording) {
+                                        assignmentViewModel.PauseAsync ();
+                                    } else {
+                                        assignmentViewModel.RecordAsync ();
+                                    }
+                                }
+                            };
+                            break;
+                        default:
+                            break;
                     }
                 }
             }
