@@ -74,7 +74,7 @@
 
                     <Button 
                         Margin="0,5,0,0" Grid.Row="2" BorderThickness="0" Width="482" x:Name="expensesAddExpense"
-                        Background="{StaticResource ExpensesBrush}" Height="75" Padding="0" Visibility="{Binding IsNotHistory, Converter={StaticResource BooleanConverter}}"
+                        Background="{StaticResource ExpensesBrush}" Height="75" Padding="0" Visibility="{Binding IsNotReadonly, Converter={StaticResource BooleanConverter}}"
                         HorizontalAlignment="Left" VerticalAlignment="Top" Command="{Binding AddExpenseCommand}">
                         <TextBlock Style="{StaticResource SubheaderTextStyle}" Margin="0" Text="Add Expense" VerticalAlignment="Center" />
                     </Button>

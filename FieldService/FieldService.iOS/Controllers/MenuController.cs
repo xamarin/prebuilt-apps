@@ -76,8 +76,7 @@ namespace FieldService.iOS
 					tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
 					detailsController.SectionSelected (tableView, indexPath, false);
 				}
-			} else {
-				SkipSummary = false;
+				SkipSummary = true;
 			}
 
 			//Update the UI
