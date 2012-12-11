@@ -88,6 +88,9 @@ namespace FieldService.WinRT.ViewModels {
             });
 
             addSignatureCommand = new DelegateCommand (_ => {
+                if (addSignaturePopup != null && addSignaturePopup.IsOpen) {
+                    addSignaturePopup.IsOpen = false;
+                }
                 addSignaturePopup = new Popup ();
                 addSignaturePopup.Height = Window.Current.Bounds.Height;
                 addSignaturePopup.Width = Constants.SignaturePopUpWidth;

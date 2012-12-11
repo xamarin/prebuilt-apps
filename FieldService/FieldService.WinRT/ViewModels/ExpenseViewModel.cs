@@ -59,6 +59,9 @@ namespace FieldService.WinRT.ViewModels {
                     AddExpenseHeader = "Add Expense";
                     Photo = new ExpensePhoto ();
                 }
+                if (addExpensePopUp != null && addExpensePopUp.IsOpen) {
+                    addExpensePopUp.IsOpen = false;
+                }
                 addExpensePopUp = new Popup ();
                 addExpensePopUp.Height = Window.Current.Bounds.Height;
                 addExpensePopUp.Width = Constants.PopUpWidth;

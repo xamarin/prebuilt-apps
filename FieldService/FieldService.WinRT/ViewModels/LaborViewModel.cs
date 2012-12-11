@@ -69,6 +69,9 @@ namespace FieldService.WinRT.ViewModels {
                     AddLaborHeader = "Add Labor";
                     CanDelete = false;
                 }
+                if (addLaborPopUp != null && addLaborPopUp.IsOpen) {
+                    addLaborPopUp.IsOpen = false;
+                }
                 addLaborPopUp = new Popup ();
                 addLaborPopUp.Height = Window.Current.Bounds.Height;
                 addLaborPopUp.Width = Constants.PopUpWidth;

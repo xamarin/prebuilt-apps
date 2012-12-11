@@ -59,6 +59,9 @@ namespace FieldService.WinRT.ViewModels {
             });
 
             addItemCommand = new DelegateCommand (_ => {
+                if (addItemPopUp != null && addItemPopUp.IsOpen) {
+                    addItemPopUp.IsOpen = false;
+                }
                 addItemPopUp = new Popup ();
                 addItemPopUp.Height = Window.Current.Bounds.Height;
                 addItemPopUp.Width = Constants.PopUpWidth;
