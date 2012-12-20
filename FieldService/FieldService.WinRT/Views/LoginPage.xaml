@@ -40,6 +40,10 @@
 
         <Image Source="{StaticResource LogoImage}" Stretch="None" Margin="50" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
+        <Button Margin="0,23,6,0" Command="{Binding HelpCommand}" Width="86" Height="86" Style="{StaticResource ImageButtonStyle}" HorizontalAlignment="Right" VerticalAlignment="Top">
+            <Image Source="{StaticResource HelpImage}" Stretch="None"/>
+        </Button>
+
         <TextBlock Grid.Row="1" Style="{StaticResource SubheaderTextStyle}" Margin="25" HorizontalAlignment="Center">Field Service App</TextBlock>
         
         <Grid Grid.Row="2" Height="230" Background="{StaticResource BlueGradientBrush}">

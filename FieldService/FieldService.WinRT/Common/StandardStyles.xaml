@@ -49,6 +49,7 @@
     <BitmapImage x:Key="PhoneLargeIcon" UriSource="ms-appx:///Assets/phoneiconlarge.png"/>
     <BitmapImage x:Key="PhoneLargeIconBlue" UriSource="ms-appx:///Assets/phoneiconlargeblue.png"/>
     <BitmapImage x:Key="SnapLogo" UriSource="ms-appx:///Assets/snaplogo.png"/>
+    <BitmapImage x:Key="HelpImage" UriSource="ms-appx:///Assets/questionmark.png"/>
     
     <!--Brushes-->
     <LinearGradientBrush x:Key="BlueGradientBrush" StartPoint="0,0" EndPoint="0,1">
@@ -284,7 +285,45 @@
     </Style>
 
     <!-- Button styles -->
-    
+    <Style x:Key="ImageButtonStyle" TargetType="Button">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="Button">
+                    <Grid>
+                        <VisualStateManager.VisualStateGroups>
+                            <VisualStateGroup x:Name="CommonStates">
+                                <VisualState x:Name="Normal" />
+                                <VisualState x:Name="PointerOver">
+                                </VisualState>
+                                <VisualState x:Name="Pressed">
+                                    <Storyboard>
+                                        <PointerDownThemeAnimation TargetName="Border"/>
+                                    </Storyboard>
+                                </VisualState>
+                                <VisualState x:Name="Disabled">
+                                </VisualState>
+                            </VisualStateGroup>
+                            <VisualStateGroup x:Name="FocusStates">
+                                <VisualState x:Name="Focused">
+                                </VisualState>
+                                <VisualState x:Name="Unfocused" />
+                                <VisualState x:Name="PointerFocused" />
+                            </VisualStateGroup>
+                        </VisualStateManager.VisualStateGroups>
+                        <Border x:Name="Border">
+                            <ContentPresenter x:Name="ContentPresenter"
+                                              Content="{TemplateBinding Content}"
+                                              ContentTransitions="{TemplateBinding ContentTransitions}"
+                                              ContentTemplate="{TemplateBinding ContentTemplate}"
+                                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
     <!--
         TextButtonStyle is used to style a Button using subheader-styled text with no other adornment.  There
         are two styles that are based on TextButtonStyle (TextPrimaryButtonStyle and TextSecondaryButtonStyle)

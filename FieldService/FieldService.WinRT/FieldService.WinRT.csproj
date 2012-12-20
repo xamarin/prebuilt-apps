@@ -311,6 +311,7 @@
     </Content>
     <Content Include="Assets\assignmenticonblue.png" />
     <Content Include="Assets\phoneiconlargeblue.png" />
+    <Content Include="Assets\questionmark.png" />
     <Content Include="Assets\smoothbg_blue.png" />
     <Content Include="Assets\WideLogo.png" />
     <Content Include="Assets\snaplogo.png" />

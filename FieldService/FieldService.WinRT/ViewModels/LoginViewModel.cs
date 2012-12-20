@@ -23,8 +23,8 @@ namespace FieldService.WinRT.ViewModels {
     /// - We setup ICommand here
     /// </summary>
     public class LoginViewModel : FieldService.ViewModels.LoginViewModel {
-        
-        readonly DelegateCommand loginCommand;
+
+        readonly DelegateCommand loginCommand, helpCommand;
 
         public LoginViewModel ()
         {
@@ -38,6 +38,12 @@ namespace FieldService.WinRT.ViewModels {
                     await new MessageDialog (Error).ShowAsync ();
 
             }, _ => !IsBusy && IsValid);
+
+            helpCommand = new DelegateCommand(async _ =>
+                {
+                    var dialog = new MessageDialog("Enter any username or password.", "Need Help?");
+                    await dialog.ShowAsync();
+                });
         }
 
         /// <summary>
@@ -46,6 +52,14 @@ namespace FieldService.WinRT.ViewModels {
         public DelegateCommand LoginCommand
         {
             get { return loginCommand; }
+        }
+
+        /// <summary>
+        /// HelpCommand for binding to a button
+        /// </summary>
+        public DelegateCommand HelpCommand
+        {
+            get { return helpCommand; }
         }
 
         protected override void Validate ()
