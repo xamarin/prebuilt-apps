@@ -79,6 +79,21 @@
                                         <rect key="frame" x="125" y="66" width="150" height="32"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4QN-nP-SVh">
+                                        <rect key="frame" x="350" y="20" width="30" height="31"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal">
+                                            <color key="titleColor" red="0.19607843459999999" green="0.30980393290000002" blue="0.52156865600000002" alpha="1" colorSpace="calibratedRGB"/>
+                                            <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <state key="highlighted">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="Help" destination="2" eventType="touchUpInside" id="pBb-vU-a7e"/>
+                                        </connections>
+                                    </button>
                                 </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                             </view>
@@ -94,6 +109,7 @@
                         <outlet property="indicator" destination="01i-DL-uqY" id="yiU-j7-afK"/>
                         <outlet property="login" destination="bPd-Oc-3cd" id="IGQ-xQ-6sZ"/>
                         <outlet property="password" destination="fkP-Kg-hZn" id="Oyv-DC-8cG"/>
+                        <outlet property="questionMark" destination="4QN-nP-SVh" id="lxG-aJ-747"/>
                         <outlet property="username" destination="hMl-lg-20q" id="6Ov-lY-76p"/>
                     </connections>
                 </viewController>
@@ -1875,6 +1891,311 @@
         <image name="Images/iconsettings.png" width="16" height="16"/>
         <image name="Images/logo.png" width="16" height="16"/>
     </resources>
+    <classes>
+        <class className="AddExpenseController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddExpenseController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="AddItemController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddItemController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="AddLaborController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddLaborController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="AddPhotoController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AddPhotoController.h"/>
+            <relationships>
+                <relationship kind="action" name="Cancel:"/>
+                <relationship kind="action" name="Choose"/>
+                <relationship kind="action" name="DeletePhoto"/>
+                <relationship kind="outlet" name="cancel" candidateClass="UIBarButtonItem"/>
+                <relationship kind="outlet" name="date" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="deleteButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="description" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="descriptionBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="photoFrame" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="time" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="AssignmentCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentCell.h"/>
+            <relationships>
+                <relationship kind="action" name="Accept"/>
+                <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="Contact"/>
+                <relationship kind="action" name="Decline"/>
+                <relationship kind="outlet" name="accept" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="decline" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="AssignmentDetailsController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentDetailsController.h"/>
+            <relationships>
+                <relationship kind="action" name="Accept"/>
+                <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="Decline"/>
+                <relationship kind="outlet" name="accept" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="assignmentBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="container" candidateClass="UIView"/>
+                <relationship kind="outlet" name="decline" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="AssignmentItemCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentItemCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="label" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="AssignmentsController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/AssignmentsController.h"/>
+            <relationships>
+                <relationship kind="action" name="ActiveAssignmentSelected"/>
+                <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="Record"/>
+                <relationship kind="outlet" name="activeAssignment" candidateClass="UIView"/>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="assignmentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="record" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="timerBackgroundImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbarShadow" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="BaseNavigationController" superclassName="UINavigationController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/BaseNavigationController.h"/>
+        </class>
+        <class className="CompleteCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/CompleteCell.h"/>
+            <relationships>
+                <relationship kind="action" name="Complete"/>
+                <relationship kind="outlet" name="completeButton" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="ConfirmationController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ConfirmationController.h"/>
+            <relationships>
+                <relationship kind="action" name="AddPhoto"/>
+                <relationship kind="outlet" name="addPhoto" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="photoTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="signatureTableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="DocumentController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/DocumentController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="ExpenseCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExpenseCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="cost" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="icon" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="type" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="ExpenseController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ExpenseController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="HistoryCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="date" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="length" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="number" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="phone" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="phoneIcon" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="title" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="HistoryController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/HistoryController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="ItemsViewController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/ItemsViewController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="LaborCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LaborCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hours" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="type" candidateClass="UILabel"/>
+            </relationships>
+        </class>
+        <class className="LaborController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LaborController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="LoginController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/LoginController.h"/>
+            <relationships>
+                <relationship kind="action" name="Help"/>
+                <relationship kind="action" name="Login"/>
+                <relationship kind="outlet" name="box" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="companyName" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="container" candidateClass="UIView"/>
+                <relationship kind="outlet" name="indicator" candidateClass="UIActivityIndicatorView"/>
+                <relationship kind="outlet" name="login" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="password" candidateClass="UITextField"/>
+                <relationship kind="outlet" name="questionMark" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="username" candidateClass="UITextField"/>
+            </relationships>
+        </class>
+        <class className="MainMapController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MainMapController.h"/>
+            <relationships>
+                <relationship kind="action" name="ActiveAssignmentSelected"/>
+                <relationship kind="action" name="Address"/>
+                <relationship kind="action" name="Record"/>
+                <relationship kind="outlet" name="activeAssignment" candidateClass="UIView"/>
+                <relationship kind="outlet" name="address" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="assignmentButton" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="contact" candidateClass="TextButton"/>
+                <relationship kind="outlet" name="mapView" candidateClass="MKMapView"/>
+                <relationship kind="outlet" name="numberAndDate" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priority" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="priorityBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="record" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="startAndEnd" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="timerBackgroundImage" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="titleLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbarShadow" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="MenuController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/MenuController.h"/>
+            <relationships>
+                <relationship kind="action" name="Record"/>
+                <relationship kind="outlet" name="record" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="status" candidateClass="StatusButton"/>
+                <relationship kind="outlet" name="tableView" candidateClass="UITableView"/>
+                <relationship kind="outlet" name="timerBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timerLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="timerLabelBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="timerView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="PhotoCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/PhotoCell.h"/>
+            <relationships>
+                <relationship kind="outlet" name="date" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="photo" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="photoFrame" candidateClass="UIImageView"/>
+            </relationships>
+        </class>
+        <class className="SignatureCell" superclassName="UITableViewCell">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SignatureCell.h"/>
+            <relationships>
+                <relationship kind="action" name="AddSignature"/>
+                <relationship kind="outlet" name="addSignature" candidateClass="UIButton"/>
+                <relationship kind="outlet" name="signature" candidateClass="UIButton"/>
+            </relationships>
+        </class>
+        <class className="SplitController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SplitController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="detailView" candidateClass="UIView"/>
+                <relationship kind="outlet" name="masterView" candidateClass="UIView"/>
+            </relationships>
+        </class>
+        <class className="StatusButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/StatusButton.h"/>
+        </class>
+        <class className="SummaryController" superclassName="UIViewController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/SummaryController.h"/>
+            <relationships>
+                <relationship kind="outlet" name="description" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="descriptionBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="descriptionTitle" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expenses" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="expensesBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="expensesLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hours" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="hoursBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="hoursLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="items" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="itemsBackground" candidateClass="UIImageView"/>
+                <relationship kind="outlet" name="itemsLabel" candidateClass="UILabel"/>
+                <relationship kind="outlet" name="toolbar" candidateClass="UIToolbar"/>
+            </relationships>
+        </class>
+        <class className="TabController" superclassName="UITabBarController">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TabController.h"/>
+            <relationships>
+                <relationship kind="action" name="Settings:"/>
+                <relationship kind="outlet" name="settings" candidateClass="UIBarButtonItem"/>
+            </relationships>
+        </class>
+        <class className="TextButton" superclassName="UIButton">
+            <source key="sourceIdentifier" type="project" relativePath="./Classes/TextButton.h"/>
+        </class>
+    </classes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar" statusBarStyle="blackTranslucent"/>
         <simulatedOrientationMetrics key="orientation"/>

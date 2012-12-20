@@ -66,6 +66,7 @@ namespace FieldService.iOS
 			box.Image = Theme.LoginBox;
 			login.SetBackgroundImage (Theme.LoginButton, UIControlState.Normal);
 			companyName.TextColor = Theme.LabelColor;
+			questionMark.SetImage (Theme.QuestionMark, UIControlState.Normal);
 
 			//Text Fields
 			//I used LeftView as a quick way to add padding to a "plain" styled UITextField
@@ -100,6 +101,10 @@ namespace FieldService.iOS
 			//Clear out username/password
 			username.Text = string.Empty;
 			password.Text = string.Empty;
+
+			//Animate the login box
+			container.Alpha = 0;
+			UIView.Animate (.3, 0, UIViewAnimationOptions.CurveEaseInOut, () => container.Alpha = 1, null);
 		}
 
 		partial void Login ()
@@ -109,6 +114,11 @@ namespace FieldService.iOS
 			password.ResignFirstResponder ();
 			
 			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => Theme.TransitionController<TabController>());
+		}
+
+		partial void Help ()
+		{
+			new UIAlertView("Need Help?", "Enter any username or password.", null, "Ok").Show ();
 		}
 
 		protected override void OnKeyboardChanged (bool visible, float height)

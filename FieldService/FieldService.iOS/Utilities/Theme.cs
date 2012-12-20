@@ -599,6 +599,15 @@ namespace FieldService.iOS
 			get { return assignmentGrey.Value; }
 		}
 
+		static Lazy<UIImage> questionMark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/questionmark.png").CreateResizableImage (new UIEdgeInsets ()));
+		
+		/// <summary>
+		/// Question mark image on login screen
+		/// </summary>
+		public static UIImage QuestionMark {
+			get { return questionMark.Value; }
+		}
+
 		#endregion
 
 		#region Colors

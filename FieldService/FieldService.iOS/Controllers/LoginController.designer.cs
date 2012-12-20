@@ -32,8 +32,14 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIActivityIndicatorView indicator { get; set; }
 
+		[Outlet]
+		MonoTouch.UIKit.UIButton questionMark { get; set; }
+
 		[Action ("Login")]
 		partial void Login ();
+
+		[Action ("Help")]
+		partial void Help ();
 		
 		void ReleaseDesignerOutlets ()
 		{
@@ -70,6 +76,11 @@ namespace FieldService.iOS
 			if (indicator != null) {
 				indicator.Dispose ();
 				indicator = null;
+			}
+
+			if (questionMark != null) {
+				questionMark.Dispose ();
+				questionMark = null;
 			}
 		}
 	}
