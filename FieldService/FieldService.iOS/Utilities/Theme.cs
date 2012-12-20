@@ -711,7 +711,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Transitions a controller to the rootViewController, for a fullscreen transition
 		/// </summary>
-		public static void TransitionController<T> (UIViewAnimationOptions options = UIViewAnimationOptions.TransitionCrossDissolve)
+		public static void TransitionController<T> ()
 			where T : UIViewController
 		{
 			var controller = ServiceContainer.Resolve <T>();
@@ -725,6 +725,23 @@ namespace FieldService.iOS
 			window.RootViewController = controller;
 
 			//Peform an animation
+			UIViewAnimationOptions options;
+			switch (controller.InterfaceOrientation) {
+			case UIInterfaceOrientation.LandscapeLeft:
+				options = UIViewAnimationOptions.TransitionFlipFromLeft;
+				break;
+			case UIInterfaceOrientation.LandscapeRight:
+				options = UIViewAnimationOptions.TransitionFlipFromRight;
+				break;
+			case UIInterfaceOrientation.PortraitUpsideDown:
+				options = UIViewAnimationOptions.TransitionFlipFromTop;
+				break;
+			case UIInterfaceOrientation.Portrait:
+			default:
+				options = UIViewAnimationOptions.TransitionFlipFromBottom;
+				break;
+			}
+
 			UIView.Transition (window, .3, options, delegate { }, delegate { });
 		}
 
