@@ -725,24 +725,7 @@ namespace FieldService.iOS
 			window.RootViewController = controller;
 
 			//Peform an animation
-			UIViewAnimationOptions options;
-			switch (controller.InterfaceOrientation) {
-			case UIInterfaceOrientation.LandscapeLeft:
-				options = UIViewAnimationOptions.TransitionFlipFromLeft;
-				break;
-			case UIInterfaceOrientation.LandscapeRight:
-				options = UIViewAnimationOptions.TransitionFlipFromRight;
-				break;
-			case UIInterfaceOrientation.PortraitUpsideDown:
-				options = UIViewAnimationOptions.TransitionFlipFromTop;
-				break;
-			case UIInterfaceOrientation.Portrait:
-			default:
-				options = UIViewAnimationOptions.TransitionFlipFromBottom;
-				break;
-			}
-
-			UIView.Transition (window, .3, options, delegate { }, delegate { });
+			UIView.Transition (window, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate { });
 		}
 
 		/// <summary>
