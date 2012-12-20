@@ -35,8 +35,6 @@ namespace FieldService.iOS
 		{
 			ServiceContainer.Register (this);
 
-			TabBarItem.Image = Theme.ListIcon;
-
 			AssignmentViewModel = new AssignmentViewModel();
 			AssignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {
@@ -78,7 +76,8 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//Setup UI that is required from code
-			tableView.BackgroundColor = Theme.LinenPattern;
+			TabBarItem.Image = Theme.ListIcon;
+			tableView.BackgroundColor = Theme.BackgroundColor;
 			tableView.Source = new TableSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);

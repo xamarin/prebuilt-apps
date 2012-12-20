@@ -39,8 +39,6 @@ namespace FieldService.iOS
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			assignmentViewModel = assignmentController.AssignmentViewModel;
 
-			TabBarItem.Image = Theme.MapIcon;
-
 			//Hook up viewModel events
 			assignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {
@@ -62,6 +60,7 @@ namespace FieldService.iOS
 			mapView.Delegate = new MapViewDelegate(this, assignmentController);
 
 			//Setup other UI
+			TabBarItem.Image = Theme.MapIcon;
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 			contact.IconImage = Theme.IconPhone;
