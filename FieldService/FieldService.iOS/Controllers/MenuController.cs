@@ -146,12 +146,23 @@ namespace FieldService.iOS
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 
+					//Animate the timeView on screen and set its alpha to 1
 					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
-						() => timerView.Alpha = 1, 
-						delegate { });
+						() => {
+							var frame = timerView.Frame;
+							frame.Y = View.Frame.Height - frame.Height;
+							timerView.Frame = frame;
+							timerView.Alpha = 1;
+						}, null);
 				} else {
+					//Animate the timeView off screen and set its alpha to 0
 					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
-						() => timerView.Alpha = 0, 
+					        () => {
+							var frame = timerView.Frame;
+							frame.Y = View.Frame.Height;
+							timerView.Frame = frame;
+							timerView.Alpha = 0;
+						},
 						() => timerView.Hidden = true);
 				}
 			}
