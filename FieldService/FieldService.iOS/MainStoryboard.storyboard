@@ -593,7 +593,7 @@
         <!--Add Expense Controller-->
         <scene sceneID="UpS-Kc-rwq">
             <objects>
-                <viewController modalPresentationStyle="formSheet" id="fAQ-8m-0JV" customClass="AddExpenseController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="fAQ-8m-0JV" customClass="AddExpenseController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y0f-FU-veK">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1532,7 +1532,7 @@
         <!--Add Photo Controller-->
         <scene sceneID="47i-5Q-bqL">
             <objects>
-                <viewController modalPresentationStyle="formSheet" id="l06-9I-9t1" customClass="AddPhotoController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="l06-9I-9t1" customClass="AddPhotoController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8hP-5y-LfK">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1619,7 +1619,7 @@
         <!--Add Labor Controller-->
         <scene sceneID="EYo-cS-Qo6">
             <objects>
-                <viewController modalPresentationStyle="formSheet" id="K64-ym-iGF" customClass="AddLaborController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="K64-ym-iGF" customClass="AddLaborController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UQg-Ke-8Ie">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1658,7 +1658,7 @@
         <!--Add Item Controller-->
         <scene sceneID="RXg-cv-DOj">
             <objects>
-                <viewController modalPresentationStyle="formSheet" id="Nzf-s9-ww1" customClass="AddItemController" sceneMemberID="viewController">
+                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="Nzf-s9-ww1" customClass="AddItemController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NoC-U0-bC2">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>

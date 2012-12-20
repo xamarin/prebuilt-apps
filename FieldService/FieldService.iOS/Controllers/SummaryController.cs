@@ -26,7 +26,7 @@ namespace FieldService.iOS
 	public partial class SummaryController : BaseController
 	{
 		readonly AssignmentsController assignmentController;
-		UIBarButtonItem viewHistory;
+		UIBarButtonItem viewHistory, descriptionButton;
 
 		public SummaryController (IntPtr handle) : base (handle)
 		{
@@ -61,19 +61,14 @@ namespace FieldService.iOS
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (16),
 			};
-			var descriptionButton = new UIBarButtonItem(label);
+			descriptionButton = new UIBarButtonItem(label);
 
 			viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				var menuController = ServiceContainer.Resolve<MenuController>();
 				menuController.ShowHistory ();
 			});
 			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
-
-			toolbar.Items = new UIBarButtonItem[] { 
-				descriptionButton, 
-				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
-				viewHistory 
-			};
+			viewHistory.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -88,7 +83,19 @@ namespace FieldService.iOS
 			hours.Text = assignment.TotalHours.TotalHours.ToString ("0.0");
 			expenses.Text = assignment.TotalExpenses.ToString ("$0.00");
 			toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
-			viewHistory.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBarButtonItem : Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+			if (!assignment.IsHistory) {
+				toolbar.Items = new UIBarButtonItem[] { 
+					descriptionButton, 
+					new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
+					viewHistory 
+				};
+			} else {
+				toolbar.Items = new UIBarButtonItem[] { 
+					descriptionButton, 
+				};
+			}
+
 		}
 	}
 }
