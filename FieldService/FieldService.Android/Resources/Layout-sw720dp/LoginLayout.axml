@@ -81,5 +81,14 @@
             android:layout_alignTop="@+id/logIn"
             android:layout_centerHorizontal="true"
             android:visibility="invisible" />
+        <ImageButton
+            android:src="@drawable/questionmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/loginQuestion"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="10dp"
+            android:background="@null"
+            android:padding="15dp" />
     </RelativeLayout>
 </RelativeLayout>

@@ -67,6 +67,7 @@ namespace FieldService.Android {
             userName = FindViewById<EditText> (Resource.Id.userName);
             password = FindViewById<EditText> (Resource.Id.password);
             progressIndicator = FindViewById<ProgressBar> (Resource.Id.loginProgress);
+            var loginHelp = FindViewById<ImageButton>(Resource.Id.loginQuestion);
 
             //Set edit action listener to allow the next & go buttons on the input keyboard to interact with login.
             userName.SetOnEditorActionListener (this);
@@ -78,6 +79,15 @@ namespace FieldService.Android {
             password.TextChanged += (sender, e) => {
                 loginViewModel.Password = password.Text;
             };
+            loginHelp.Click += (sender, e) =>
+                {
+                    var builder = new AlertDialog.Builder(this)
+                        .SetTitle("Need Help?")
+                        .SetMessage("Enter any username or password.")
+                        .SetPositiveButton("Ok", (innerSender, innere) => { });
+                    var dialog = builder.Create();
+                    dialog.Show();                        
+                };
 
             //initially set username & login to set isvalid on the view model.
             loginViewModel.Username = userName.Text;

@@ -207,6 +207,7 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Resources\AboutResources.txt" />
+    <AndroidResource Include="Resources\Layout-sw720dp\LoginLayout.axml" />
     <AndroidResource Include="Resources\Layout\AssignmentsTabsLayout.axml" />
     <AndroidResource Include="Resources\Layout\LoginLayout.axml" />
     <AndroidResource Include="Resources\Layout\SimpleSpinnerItem.axml" />
@@ -369,7 +370,6 @@
     <AndroidResource Include="Resources\Layout-sw720dp\LaborHoursListItemLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
-    <AndroidResource Include="Resources\Layout-sw720dp\LoginLayout.axml" />
     <AndroidResource Include="Resources\Layout-sw720dp\MapFragmentLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
@@ -600,6 +600,8 @@
     <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
     <AndroidResource Include="Resources\Drawable-mdpi\Icon.png" />
     <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\questionmark.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\questionmark.png" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
