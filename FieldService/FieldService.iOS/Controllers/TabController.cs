@@ -33,13 +33,13 @@ namespace FieldService.iOS
 			//Hook up a "fade" animation between tabs
 			ShouldSelectViewController = (tabController, controller) =>
 			{
-				if (SelectedViewController == null)
+				if (SelectedViewController == null || controller == SelectedViewController)
 					return true;
 
 				UIView fromView = SelectedViewController.View;
 				UIView toView = controller.View;
 
-				UIView.Transition (fromView, toView, .3f, UIViewAnimationOptions.TransitionCrossDissolve, delegate { });
+				UIView.Transition (fromView, toView, .3f, UIViewAnimationOptions.TransitionCrossDissolve, null);
 				return true;
 			};
 		}
