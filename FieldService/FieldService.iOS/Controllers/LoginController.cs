@@ -66,7 +66,7 @@ namespace FieldService.iOS
 			box.Image = Theme.LoginBox;
 			login.SetBackgroundImage (Theme.LoginButton, UIControlState.Normal);
 			companyName.TextColor = Theme.LabelColor;
-			questionMark.SetImage (Theme.QuestionMark, UIControlState.Normal);
+			questionMark.SetBackgroundImage (Theme.QuestionMark, UIControlState.Normal);
 
 			//Text Fields
 			//I used LeftView as a quick way to add padding to a "plain" styled UITextField
