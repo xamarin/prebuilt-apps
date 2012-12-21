@@ -76,7 +76,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//Setup UI that is required from code
-			TabBarItem.Image = Theme.ListIcon;
 			tableView.BackgroundColor = Theme.BackgroundColor;
 			tableView.Source = new TableSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);

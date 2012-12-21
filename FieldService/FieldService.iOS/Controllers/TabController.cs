@@ -50,6 +50,10 @@ namespace FieldService.iOS
 
 			TabBar.TintColor = UIColor.FromRGB (0x28, 0x2b, 0x30);
 			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+			//Setup tab bar icons
+			ViewControllers[0].TabBarItem.Image = Theme.ListIcon;
+			ViewControllers[1].TabBarItem.Image = Theme.MapIcon;
 		}
 
 		/// <summary>

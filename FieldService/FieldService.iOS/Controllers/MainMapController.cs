@@ -60,7 +60,6 @@ namespace FieldService.iOS
 			mapView.Delegate = new MapViewDelegate(this, assignmentController);
 
 			//Setup other UI
-			TabBarItem.Image = Theme.MapIcon;
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 			contact.IconImage = Theme.IconPhone;
