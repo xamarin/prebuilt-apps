@@ -34,8 +34,6 @@ namespace FieldService.iOS
 
 		public ItemsViewController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			itemViewModel = new ItemViewModel();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
 		}

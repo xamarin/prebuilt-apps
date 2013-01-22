@@ -34,8 +34,6 @@ namespace FieldService.iOS
 
 		public HistoryController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			historyViewModel = new HistoryViewModel();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}

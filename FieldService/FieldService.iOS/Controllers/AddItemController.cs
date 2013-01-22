@@ -32,8 +32,6 @@ namespace FieldService.iOS
 
 		public AddItemController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			itemViewModel = new ItemViewModel();
 		}
 

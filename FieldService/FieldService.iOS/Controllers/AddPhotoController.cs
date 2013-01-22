@@ -35,8 +35,6 @@ namespace FieldService.iOS
 
 		public AddPhotoController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			photoViewModel = new PhotoViewModel();
 			confirmationController = ServiceContainer.Resolve<ConfirmationController> ();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController> ();

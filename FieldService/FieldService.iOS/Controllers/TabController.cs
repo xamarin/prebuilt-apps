@@ -82,7 +82,8 @@ namespace FieldService.iOS
 				actionSheet.AddButton ("Logout");
 				actionSheet.Dismissed += (s, e) => {
 					if (e.ButtonIndex == 0) {
-						Theme.TransitionController<LoginController>();
+						var loginController = Storyboard.InstantiateViewController<LoginController>();
+						Theme.TransitionController(loginController);
 					}
 					
 					actionSheet.Dispose ();

@@ -34,8 +34,6 @@ namespace FieldService.iOS
 
 		public MenuController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			assignmentViewModel = assignmentController.AssignmentViewModel;
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();

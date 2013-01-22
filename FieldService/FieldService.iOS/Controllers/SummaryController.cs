@@ -30,8 +30,6 @@ namespace FieldService.iOS
 
 		public SummaryController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 

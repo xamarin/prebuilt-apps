@@ -34,8 +34,6 @@ namespace FieldService.iOS
 
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
 		}
 

@@ -31,8 +31,6 @@ namespace FieldService.iOS
 		
 		public LoginController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			loginViewModel = new LoginViewModel();
 
 			//Hook up ViewModel events
@@ -57,9 +55,6 @@ namespace FieldService.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
-
-			//This sets up some controller in our ServiceContainer
-			Theme.SetupControllers (Storyboard);
 
 			//Set up any properties on views that must be done from code
 			View.BackgroundColor = Theme.LinenPattern;
@@ -113,7 +108,12 @@ namespace FieldService.iOS
 			username.ResignFirstResponder ();
 			password.ResignFirstResponder ();
 			
-			loginViewModel.LoginAsync ().ContinueWith (_ => BeginInvokeOnMainThread (Theme.TransitionController<TabController>));
+			loginViewModel
+				.LoginAsync ()
+				.ContinueWith (_ => 
+					BeginInvokeOnMainThread (() => {
+						Theme.TransitionController(Storyboard.InstantiateViewController<TabController>());
+					}));
 		}
 
 		partial void Help ()

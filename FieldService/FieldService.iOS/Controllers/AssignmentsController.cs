@@ -34,8 +34,6 @@ namespace FieldService.iOS
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			AssignmentViewModel = new AssignmentViewModel();
 			AssignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {

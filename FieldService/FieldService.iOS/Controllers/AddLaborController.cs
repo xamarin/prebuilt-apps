@@ -35,8 +35,6 @@ namespace FieldService.iOS
 
 		public AddLaborController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			laborController = ServiceContainer.Resolve<LaborController>();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			laborViewModel = laborController.LaborViewModel;

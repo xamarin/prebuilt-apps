@@ -28,19 +28,27 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddExpenseController : BaseController
 	{
-		readonly ExpenseController expenseController;
-		readonly AssignmentsController assignmentController;
-		readonly ExpenseViewModel expenseViewModel;
 		UIBarButtonItem expense, space1, space2, done;
 		TableSource tableSource;
 
 		public AddExpenseController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
 
-			expenseController = ServiceContainer.Resolve<ExpenseController>();
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-			expenseViewModel = expenseController.ExpenseViewModel;
+		}
+
+		public Assignment Assignment {
+			get;
+			set;
+		}
+
+		public ExpenseViewModel ExpenseViewModel {
+			get;
+			set;
+		}
+
+		public Expense Expense { 
+			get;
+			set;
 		}
 
 		public override void ViewDidLoad ()
@@ -60,12 +68,12 @@ namespace FieldService.iOS
 
 			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				//Save the expense
-				var task = expenseViewModel.SaveExpenseAsync (assignmentController.Assignment, expenseController.Expense);
+				var task = ExpenseViewModel.SaveExpenseAsync (Assignment, Expense);
 				//Save the photo if we need to
-				if (expenseViewModel.Photo != null) {
+				if (ExpenseViewModel.Photo != null) {
 					task = task
-						.ContinueWith(_ => expenseViewModel.Photo.ExpenseId = expenseController.Expense.Id)
-						.ContinueWith(expenseViewModel.SavePhotoAsync ());
+						.ContinueWith (_ => ExpenseViewModel.Photo.ExpenseId = Expense.Id)
+						.ContinueWith (ExpenseViewModel.SavePhotoAsync ());
 				}
 				//Dismiss the controller after the other tasks
 				task.ContinueWith (_ => BeginInvokeOnMainThread(() => DismissViewController (true, null)));
@@ -77,7 +85,7 @@ namespace FieldService.iOS
 			space2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 			
 			tableView.Source = 
-				tableSource = new TableSource(expenseViewModel);
+				tableSource = new TableSource(ExpenseViewModel);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -85,7 +93,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			bool enabled = assignmentController.Assignment.Status != AssignmentStatus.Complete && !assignmentController.Assignment.IsHistory;
+			bool enabled = Assignment.Status != AssignmentStatus.Complete && !Assignment.IsHistory;
 			if (enabled) {
 				toolbar.Items = new UIBarButtonItem[] {
 					cancel,
@@ -102,21 +110,13 @@ namespace FieldService.iOS
 				cancel.SetBackgroundImage (Theme.OrangeBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			}
 
-			if (expenseController.Expense.Id == 0) {
-				expenseViewModel.Photo = null;
-				tableSource.Load (enabled, expenseController.Expense);
+			if (Expense.Id == 0) {
+				ExpenseViewModel.Photo = null;
+				tableSource.Load (enabled, Expense);
 			} else {
-				expenseViewModel.LoadPhotoAsync (expenseController.Expense)
-					.ContinueWith (_ => BeginInvokeOnMainThread (() => tableSource.Load (enabled, expenseController.Expense)));
+				ExpenseViewModel.LoadPhotoAsync (Expense)
+					.ContinueWith (_ => BeginInvokeOnMainThread (() => tableSource.Load (enabled, Expense)));
 			}
-		}
-
-		public override void ViewWillDisappear (bool animated)
-		{
-			base.ViewWillDisappear (animated);
-
-			//Reload the labor on the other screen when dismissed
-			expenseController.ReloadExpenses ();
 		}
 
 		/// <summary>

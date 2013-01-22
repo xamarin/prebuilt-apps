@@ -34,8 +34,6 @@ namespace FieldService.iOS
 
 		public ExpenseController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			ExpenseViewModel = new ExpenseViewModel();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}

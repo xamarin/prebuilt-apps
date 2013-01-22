@@ -30,8 +30,6 @@ namespace FieldService.iOS
 
 		public DocumentController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
-
 			documentViewModel = new DocumentViewModel();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 		}

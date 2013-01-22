@@ -36,7 +36,6 @@ namespace FieldService.iOS
 
 		public MainMapController (IntPtr handle) : base (handle)
 		{
-			ServiceContainer.Register (this);
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			assignmentViewModel = assignmentController.AssignmentViewModel;
 

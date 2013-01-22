@@ -133,6 +133,15 @@ namespace FieldService.iOS
 				}
 			}
 		}
+
+		/// <summary>
+		/// Awesome helper method to instantiate a view controller and use the type name for the id
+		/// </summary>
+		public static T InstantiateViewController<T>(this UIStoryboard storyboard)
+			where T : UIViewController
+		{
+			return (T)storyboard.InstantiateViewController (typeof(T).Name);
+		}
 	}
 }
 

@@ -32,6 +32,7 @@ namespace FieldService.iOS
 	{
 		readonly LoginViewModel loginViewModel = new LoginViewModel();
 		UIWindow window;
+		UIStoryboard storyboard;
 
 		/// <summary>
 		/// This the main entry point for the app on iOS
@@ -44,14 +45,12 @@ namespace FieldService.iOS
 			//Register some services
 			ServiceContainer.Register (window);
 			ServiceContainer.Register <ISynchronizeInvoke>(() => new SynchronizeInvoke());
-			ServiceContainer.Register <MapController>();
-			ServiceContainer.Register <SignatureController>();
 
 			//Apply our UI theme
 			Theme.Apply ();
 
 			//Load our storyboard and setup our UIWindow and first view controller
-			var storyboard = UIStoryboard.FromName ("MainStoryboard", null);
+			storyboard = UIStoryboard.FromName ("MainStoryboard", null);
 			window.RootViewController = storyboard.InstantiateInitialViewController () as UIViewController;
 			window.MakeKeyAndVisible ();
 
@@ -80,7 +79,8 @@ namespace FieldService.iOS
 		public override void WillEnterForeground (UIApplication application)
 		{
 			if (loginViewModel.IsInactive) {
-				Theme.TransitionController<LoginController>();
+				var loginController = storyboard.InstantiateViewController<LoginController>();
+				Theme.TransitionController (loginController);
 			}
 
 			//Let's reset the time, just to be safe

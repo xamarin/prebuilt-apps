@@ -711,10 +711,8 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Transitions a controller to the rootViewController, for a fullscreen transition
 		/// </summary>
-		public static void TransitionController<T> ()
-			where T : UIViewController
+		public static void TransitionController (UIViewController controller)
 		{
-			var controller = ServiceContainer.Resolve <T>();
 			var window = ServiceContainer.Resolve<UIWindow>();
 
 			//Return if it's already the root controller
@@ -726,21 +724,6 @@ namespace FieldService.iOS
 
 			//Peform an animation
 			UIView.Transition (window, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate { });
-		}
-
-		/// <summary>
-		/// Registers controllers for the app in the ServiceContainer that are loading directly from the storyboard
-		/// </summary>
-		public static void SetupControllers(UIStoryboard storyboard)
-		{
-			ServiceContainer.Register<TabController> (() => (TabController)storyboard.InstantiateViewController ("TabController"));
-			ServiceContainer.Register<AssignmentsController> (() => (AssignmentsController)storyboard.InstantiateViewController ("AssignmentsController"));
-			ServiceContainer.Register<ItemsViewController> (() => (ItemsViewController)storyboard.InstantiateViewController ("ItemsViewController"));
-			ServiceContainer.Register<LaborController> (() => (LaborController)storyboard.InstantiateViewController ("LaborController"));
-			ServiceContainer.Register<ExpenseController> (() => (ExpenseController)storyboard.InstantiateViewController ("ExpenseController"));
-			ServiceContainer.Register<DocumentController> (() => (DocumentController)storyboard.InstantiateViewController ("DocumentController"));
-			ServiceContainer.Register<ConfirmationController> (() => (ConfirmationController)storyboard.InstantiateViewController ("ConfirmationController"));
-			ServiceContainer.Register<HistoryController> (() => (HistoryController)storyboard.InstantiateViewController ("HistoryController"));
 		}
 	}
 }
