@@ -80,12 +80,14 @@ namespace FieldService.iOS
 					assignmentViewModel.Signature.Image = signatureView.GetImage ().ToByteArray ();
 
 					assignmentViewModel.SaveSignatureAsync ()
-						.ContinueOnUIThread (_ => {
-							//Dismiss controller
-							var signatureController = ServiceContainer.Resolve<SignatureController>();
-							signatureController.Dismiss (true);
-							//Reload the confirmation screen
-							confirmationController.ReloadConfirmation ();
+						.ContinueWith (_ => {
+							BeginInvokeOnMainThread (() => {
+								//Dismiss controller
+								var signatureController = ServiceContainer.Resolve<SignatureController>();
+								signatureController.Dismiss (true);
+								//Reload the confirmation screen
+								confirmationController.ReloadConfirmation ();
+							});
 						});
 				});
 

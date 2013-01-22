@@ -82,10 +82,12 @@ namespace FieldService.iOS
 					assignment.Status = AssignmentStatus.Complete;
 					assignmentViewModel
 						.SaveAssignmentAsync (assignment)
-						.ContinueOnUIThread (_ => {
-							tableView.ReloadData ();
-							detailsController.UpdateAssignment ();
-							menuController.UpdateAssignment ();
+						.ContinueWith (_ => {
+							BeginInvokeOnMainThread (() => {
+								tableView.ReloadData ();
+								detailsController.UpdateAssignment ();
+								menuController.UpdateAssignment ();
+							});
 						});
 				}
 			};

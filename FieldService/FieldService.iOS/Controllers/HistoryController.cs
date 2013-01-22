@@ -77,12 +77,14 @@ namespace FieldService.iOS
 				tableSource.Enabled = !assignment.IsHistory;
 
 				historyViewModel.LoadHistoryAsync (assignment)
-					.ContinueOnUIThread (_ => {
-						if (historyViewModel.History == null || historyViewModel.History.Count == 0) 
-							title.Text = "History";
-						else
-							title.Text = string.Format ("History ({0})", historyViewModel.History.Count);
-						tableView.ReloadData ();
+					.ContinueWith (_ => {
+						BeginInvokeOnMainThread (() => {
+							if (historyViewModel.History == null || historyViewModel.History.Count == 0) 
+								title.Text = "History";
+							else
+								title.Text = string.Format ("History ({0})", historyViewModel.History.Count);
+							tableView.ReloadData ();
+						});
 					});
 			}
 		}
@@ -123,10 +125,12 @@ namespace FieldService.iOS
 					var history = historyViewModel.History [indexPath.Row];
 					if (history.Type != AssignmentHistoryType.PhoneCall) {
 						historyViewModel.LoadAssignmentFromHistory (history)
-							.ContinueOnUIThread (_ => {
-								var controller = historyController.ParentViewController.ParentViewController;
-								assignmentsController.Assignment = historyViewModel.PastAssignment;
-								controller.PerformSegue ("AssignmentHistory", controller);
+							.ContinueWith (_ => {
+								BeginInvokeOnMainThread (() => {
+									var controller = historyController.ParentViewController.ParentViewController;
+									assignmentsController.Assignment = historyViewModel.PastAssignment;
+									controller.PerformSegue ("AssignmentHistory", controller);
+								});
 							});
 
 						//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke

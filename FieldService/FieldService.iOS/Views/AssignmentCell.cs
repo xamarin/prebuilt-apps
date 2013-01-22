@@ -149,13 +149,15 @@ namespace FieldService.iOS
 		private void SaveAssignment ()
 		{
 			assignmentViewModel.SaveAssignmentAsync (assignment)
-				.ContinueOnUIThread (t => {
-					var controller = ServiceContainer.Resolve<AssignmentsController> ();
-					if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
-						controller.ReloadAssignments ();
-					} else {
-						controller.ReloadSingleRow (indexPath);
-					}
+				.ContinueWith (_ => {
+					BeginInvokeOnMainThread (() => {
+						var controller = ServiceContainer.Resolve<AssignmentsController> ();
+						if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
+							controller.ReloadAssignments ();
+						} else {
+							controller.ReloadSingleRow (indexPath);
+						}
+					});
 				});
 		}
 

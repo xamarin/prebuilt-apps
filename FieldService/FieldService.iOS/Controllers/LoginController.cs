@@ -113,7 +113,7 @@ namespace FieldService.iOS
 			username.ResignFirstResponder ();
 			password.ResignFirstResponder ();
 			
-			loginViewModel.LoginAsync ().ContinueOnUIThread (_ => Theme.TransitionController<TabController>());
+			loginViewModel.LoginAsync ().ContinueWith (_ => BeginInvokeOnMainThread (Theme.TransitionController<TabController>));
 		}
 
 		partial void Help ()

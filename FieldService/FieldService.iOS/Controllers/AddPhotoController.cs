@@ -125,9 +125,11 @@ namespace FieldService.iOS
 
 			photoViewModel
 				.SavePhotoAsync (assignmentController.Assignment, photo)
-				.ContinueOnUIThread (_ => {
-					confirmationController.ReloadConfirmation ();
-					DismissViewController (true, delegate { });
+				.ContinueWith (_ => {
+					BeginInvokeOnMainThread (() => {
+						confirmationController.ReloadConfirmation ();
+						DismissViewController (true, null);
+					});
 				});
 		}
 
@@ -142,9 +144,11 @@ namespace FieldService.iOS
 				if (e.ButtonIndex == 0) {
 					photoViewModel
 						.DeletePhotoAsync (assignmentController.Assignment, confirmationController.Photo)
-						.ContinueOnUIThread (_ => {
-							confirmationController.ReloadConfirmation ();
-							DismissViewController (true, delegate { });
+						.ContinueWith (_ => {
+							BeginInvokeOnMainThread (() => {
+								confirmationController.ReloadConfirmation ();
+								DismissViewController (true, null);
+							});
 						});
 				}
 

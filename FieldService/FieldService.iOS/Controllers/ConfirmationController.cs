@@ -107,7 +107,7 @@ namespace FieldService.iOS
 
 				photoViewModel.LoadPhotosAsync (assignmentController.Assignment)
 					.ContinueWith (assignmentController.AssignmentViewModel.LoadSignatureAsync (assignmentController.Assignment))
-					.ContinueOnUIThread (_ => photoTableView.ReloadData ());
+					.ContinueWith (_ => BeginInvokeOnMainThread (photoTableView.ReloadData));
 			}
 		}
 

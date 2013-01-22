@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
 using MonoTouch.Foundation;
@@ -96,7 +97,7 @@ namespace FieldService.iOS
 			status.StatusChanged += (sender, e) => {
 				AssignmentViewModel
 					.SaveAssignmentAsync (AssignmentViewModel.ActiveAssignment)
-					.ContinueOnUIThread (_ => ReloadAssignments ());
+					.ContinueWith (_ => BeginInvokeOnMainThread (ReloadAssignments));
 			};
 
 			//Start the active assignment out as not visible
@@ -104,13 +105,15 @@ namespace FieldService.iOS
 
 			//Load the current timer status
 			record.Enabled = false;
-			AssignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
-				record.Enabled = true;
-				if (AssignmentViewModel.Recording) {
-					record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
-				} else {
-					record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
-				}
+			AssignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
+				BeginInvokeOnMainThread (() => {
+					record.Enabled = true;
+					if (AssignmentViewModel.Recording) {
+						record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
+					} else {
+						record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
+					}
+				});
 			});
 		}
 
@@ -174,15 +177,17 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadAssignments ()
 		{
-			AssignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
-				if (AssignmentViewModel.ActiveAssignment == null) {
-					SetActiveAssignmentVisible (false);
-				} else {
-					SetActiveAssignmentVisible (true);
-					LoadActiveAssignment ();
-				}
-				
-				tableView.ReloadData ();
+			AssignmentViewModel.LoadAssignmentsAsync ().ContinueWith (_ => {
+				BeginInvokeOnMainThread (() => {
+					if (AssignmentViewModel.ActiveAssignment == null) {
+						SetActiveAssignmentVisible (false);
+					} else {
+						SetActiveAssignmentVisible (true);
+						LoadActiveAssignment ();
+					}
+					
+					tableView.ReloadData ();
+				});
 			});
 		}
 
@@ -285,11 +290,13 @@ namespace FieldService.iOS
 		partial void Record ()
 		{
 			record.Enabled = false;
+			Task task;
 			if (AssignmentViewModel.Recording) {
-				AssignmentViewModel.PauseAsync ().ContinueOnUIThread (t => record.Enabled = true);
+				task = AssignmentViewModel.PauseAsync ();
 			} else {
-				AssignmentViewModel.RecordAsync ().ContinueOnUIThread (t => record.Enabled = true);
+				task = AssignmentViewModel.RecordAsync ();
 			}
+			task.ContinueWith (_ => BeginInvokeOnMainThread (() => record.Enabled = true));
 		}
 
 		/// <summary>

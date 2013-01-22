@@ -213,15 +213,16 @@ namespace FieldService.iOS
 		{
 			assignmentsController.AssignmentViewModel
 				.SaveAssignmentAsync (assignmentsController.Assignment)
-				.ContinueOnUIThread (t => {
+				.ContinueWith (t => {
+					BeginInvokeOnMainThread (() => {
+						UpdateAssignment ();
 
-					UpdateAssignment ();
+						var menuController = ServiceContainer.Resolve<MenuController>();
+						menuController.UpdateAssignment ();
 
-					var menuController = ServiceContainer.Resolve<MenuController>();
-					menuController.UpdateAssignment ();
-
-					var confirmationController = ServiceContainer.Resolve<ConfirmationController>();
-					confirmationController.ReloadConfirmation ();
+						var confirmationController = ServiceContainer.Resolve<ConfirmationController>();
+						confirmationController.ReloadConfirmation ();
+					});
 				});
 		}
 	}

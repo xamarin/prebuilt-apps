@@ -125,12 +125,14 @@ namespace FieldService.iOS
 				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 				ExpenseViewModel.LoadExpensesAsync (assignment)
-					.ContinueOnUIThread (_ => {
-						if (ExpenseViewModel.Expenses == null || ExpenseViewModel.Expenses.Count == 0) 
-							title.Text = "Expenses";
-						else
-							title.Text = string.Format ("Expenses (${0:0.00})", ExpenseViewModel.Expenses.Sum (e => e.Cost));
-						tableView.ReloadData ();
+					.ContinueWith (_ => {
+						BeginInvokeOnMainThread (() => {
+							if (ExpenseViewModel.Expenses == null || ExpenseViewModel.Expenses.Count == 0) 
+								title.Text = "Expenses";
+							else
+								title.Text = string.Format ("Expenses (${0:0.00})", ExpenseViewModel.Expenses.Sum (e => e.Cost));
+							tableView.ReloadData ();
+						});
 					});
 			}
 		}
@@ -178,7 +180,7 @@ namespace FieldService.iOS
 			{
 				expenseViewModel
 					.DeleteExpenseAsync (assignmentController.Assignment, expenseViewModel.Expenses[indexPath.Row])
-					.ContinueOnUIThread (_ => expenseController.ReloadExpenses ());
+					.ContinueWith (_ => BeginInvokeOnMainThread (expenseController.ReloadExpenses));
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

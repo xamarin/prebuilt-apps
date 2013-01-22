@@ -129,12 +129,14 @@ namespace FieldService.iOS
 				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 				LaborViewModel.LoadLaborHoursAsync (assignment)
-					.ContinueOnUIThread (_ => {
-						if (LaborViewModel.LaborHours == null || LaborViewModel.LaborHours.Count == 0) 
-							title.Text = "Labor Hours";
-						else
-							title.Text = string.Format ("Labor Hours ({0:0.0})", LaborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
-						tableView.ReloadData ();
+					.ContinueWith (_ => {
+						BeginInvokeOnMainThread (() => {
+							if (LaborViewModel.LaborHours == null || LaborViewModel.LaborHours.Count == 0) 
+								title.Text = "Labor Hours";
+							else
+								title.Text = string.Format ("Labor Hours ({0:0.0})", LaborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
+							tableView.ReloadData ();
+						});
 					});
 			}
 		}
@@ -182,7 +184,7 @@ namespace FieldService.iOS
 			{
 				laborViewModel
 					.DeleteLaborAsync (assignmentController.Assignment, laborViewModel.LaborHours[indexPath.Row])
-					.ContinueOnUIThread (_ => laborController.ReloadLabor ());
+					.ContinueWith (_ => BeginInvokeOnMainThread(laborController.ReloadLabor));
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
