@@ -122,12 +122,14 @@ namespace FieldService.Android {
                 StartActivity (intent);
             };
 
-            assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
-                if (assignmentViewModel.Recording) {
-                    timer.Checked = true;
-                } else {
-                    timer.Checked = false;
-                }
+            assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
+                RunOnUiThread (() => {
+                    if (assignmentViewModel.Recording) {
+                        timer.Checked = true;
+                    } else {
+                        timer.Checked = false;
+                    }
+                });
             });
 
             timer.CheckedChange += (sender, e) => {
@@ -147,11 +149,13 @@ namespace FieldService.Android {
                         switch (selected) {
                             case AssignmentStatus.Hold:
                                 assignment.Status = selected;
-                                assignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
-                                    SetAssignment (false);
-                                    mapView.Overlays.Clear ();
-                                    mapView.Overlays.Add (myLocation);
-                                    UpdateLocations ();
+                                assignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => {
+                                    RunOnUiThread (() => {
+                                        SetAssignment (false);
+                                        mapView.Overlays.Clear ();
+                                        mapView.Overlays.Add (myLocation);
+                                        UpdateLocations ();
+                                    });
                                 });
                                 break;
                             case AssignmentStatus.Complete:
@@ -207,33 +211,35 @@ namespace FieldService.Android {
         /// </summary>
         private void UpdateLocations ()
         {
-            assignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
-                int i = 0;
-                foreach (var item in assignmentViewModel.Assignments) {
-                    var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
-                        item.CompanyName, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
-                    Drawable drawable = null;
-                    switch (item.Status) {
-                        case AssignmentStatus.Hold:
-                            drawable = Resources.GetDrawable (Resource.Drawable.AcceptedAssignmentIcon);
-                            break;
-                        default:
-                            drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
-                            break;
+            assignmentViewModel.LoadAssignmentsAsync ().ContinueWith (_ => {
+                RunOnUiThread (() => {
+                    int i = 0;
+                    foreach (var item in assignmentViewModel.Assignments) {
+                        var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
+                            item.CompanyName, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
+                        Drawable drawable = null;
+                        switch (item.Status) {
+                            case AssignmentStatus.Hold:
+                                drawable = Resources.GetDrawable (Resource.Drawable.AcceptedAssignmentIcon);
+                                break;
+                            default:
+                                drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
+                                break;
+                        }
+                        var mapoverlay = new MapOverlayItem (this, drawable, overlay, mapView);
+                        mapoverlay.AssignmentIndex = i;
+                        mapView.Overlays.Add (mapoverlay);
+                        i++;
                     }
-                    var mapoverlay = new MapOverlayItem (this, drawable, overlay, mapView);
-                    mapoverlay.AssignmentIndex = i;
-                    mapView.Overlays.Add (mapoverlay);
-                    i++;
-                }
-                if (assignmentViewModel.ActiveAssignment != null) {
-                    var activeOverlay = new OverlayItem (new GeoPoint (assignmentViewModel.ActiveAssignment.Latitude.ToIntE6 (), assignmentViewModel.ActiveAssignment.Longitude.ToIntE6 ()),
-                        assignmentViewModel.ActiveAssignment.CompanyName, string.Format ("{0} {1}, {2} {3}", assignmentViewModel.ActiveAssignment.Address,
-                        assignmentViewModel.ActiveAssignment.City, assignmentViewModel.ActiveAssignment.State, assignmentViewModel.ActiveAssignment.Zip));
-                    var mapoverlay = new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), activeOverlay, mapView);
-                    mapoverlay.AssignmentIndex = -1;
-                    mapView.Overlays.Add (mapoverlay);
-                }
+                    if (assignmentViewModel.ActiveAssignment != null) {
+                        var activeOverlay = new OverlayItem (new GeoPoint (assignmentViewModel.ActiveAssignment.Latitude.ToIntE6 (), assignmentViewModel.ActiveAssignment.Longitude.ToIntE6 ()),
+                            assignmentViewModel.ActiveAssignment.CompanyName, string.Format ("{0} {1}, {2} {3}", assignmentViewModel.ActiveAssignment.Address,
+                            assignmentViewModel.ActiveAssignment.City, assignmentViewModel.ActiveAssignment.State, assignmentViewModel.ActiveAssignment.Zip));
+                        var mapoverlay = new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), activeOverlay, mapView);
+                        mapoverlay.AssignmentIndex = -1;
+                        mapView.Overlays.Add (mapoverlay);
+                    }
+                });
             });
         }
         

@@ -29,13 +29,15 @@ namespace FieldService.Android.Dialogs {
     /// </summary>
     public class ItemsDialog : BaseDialog {
 
+        readonly SummaryActivity activity;
+        readonly ItemViewModel itemViewModel;
         ListView itemsListView;
-        ItemViewModel itemViewModel;
         ItemsSearchAdapter searchAdapter;
 
-        public ItemsDialog (Context context)
-            : base (context)
+        public ItemsDialog (SummaryActivity activity)
+            : base (activity)
         {
+            this.activity = activity;
             itemViewModel = new ItemViewModel ();
         }
 
@@ -55,19 +57,23 @@ namespace FieldService.Android.Dialogs {
                     ItemId = item.Id,
                     AssignmentId = Assignment.Id,
                 })
-                .ContinueOnUIThread (_ => {
-                    var fragment = Activity.FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
-                    fragment.ReloadItems ();
-                    Dismiss ();
+                .ContinueWith (_ => {
+                    activity.RunOnUiThread (() => {
+                        var fragment = activity.FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
+                        fragment.ReloadItems ();
+                        Dismiss ();
+                    });
                 });
             };
 
             var searchText = (EditText)FindViewById (Resource.Id.itemsPopupSearchText);
             var clearText = (ImageButton)FindViewById (Resource.Id.itemsPopupSeachClear);
 
-            itemViewModel.LoadItemsAsync ().ContinueOnUIThread (_ => {
-                searchAdapter = new ItemsSearchAdapter (Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
-                itemsListView.Adapter = searchAdapter;
+            itemViewModel.LoadItemsAsync ().ContinueWith (_ => {
+                activity.RunOnUiThread (() => {
+                    searchAdapter = new ItemsSearchAdapter (Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
+                    itemsListView.Adapter = searchAdapter;
+                });
             });
             searchText.TextChanged += (sender, e) => {
                 searchAdapter.FilterItems (searchText.Text);
@@ -88,15 +94,6 @@ namespace FieldService.Android.Dialogs {
             set;
         }
 
-        /// <summary>
-        /// The parent activity
-        /// </summary>
-        public SummaryActivity Activity
-        {
-            get;
-            set;
-        }
-        
         /// <summary>
         /// item view model from the fragment
         /// </summary>

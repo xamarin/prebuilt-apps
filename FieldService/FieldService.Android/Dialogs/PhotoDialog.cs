@@ -30,6 +30,7 @@ namespace FieldService.Android.Dialogs {
     /// Dialog for the photos
     /// </summary>
     public class PhotoDialog : BaseDialog {
+        readonly Activity activity;
         ImageView photo;
         EditText optionalCaption;
         TextView photoCount,
@@ -37,9 +38,10 @@ namespace FieldService.Android.Dialogs {
         Bitmap imageBitmap;
         LinearLayout deletePhoto;
 
-        public PhotoDialog (Context context)
-            : base (context)
+        public PhotoDialog (Activity activity)
+            : base (activity)
         {
+            this.activity = activity;
         }
 
         protected override void OnCreate (Bundle savedInstanceState)
@@ -170,10 +172,12 @@ namespace FieldService.Android.Dialogs {
                 .SetPositiveButton ("Yes", (sender, e) => {
                     PhotoViewModel
                    .DeletePhotoAsync (Assignment, Photo)
-                   .ContinueOnUIThread (_ => {
-                       var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
-                       fragment.ReloadConfirmation ();
-                       Dismiss ();
+                   .ContinueWith (_ => {
+                       activity.RunOnUiThread (() => {
+                           var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
+                           fragment.ReloadConfirmation ();
+                           Dismiss ();
+                       });
                    });
                 })
                 .SetNegativeButton ("No", (sender, e) => { })
@@ -194,10 +198,12 @@ namespace FieldService.Android.Dialogs {
             savePhoto.AssignmentId = Assignment.Id;
 
             PhotoViewModel.SavePhotoAsync (Assignment, savePhoto)
-                .ContinueOnUIThread (_ => {
-                    var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
-                    fragment.ReloadConfirmation ();
-                    Dismiss ();
+                .ContinueWith (_ => {
+                    activity.RunOnUiThread (() => {
+                        var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
+                        fragment.ReloadConfirmation ();
+                        Dismiss ();
+                    });
                 });
         }
     }

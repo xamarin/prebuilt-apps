@@ -113,9 +113,7 @@ namespace FieldService.Android {
                         switch (selected) {
                             case AssignmentStatus.Hold:
                                 assignment.Status = selected;
-                                AssignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
-                                    ReloadAssignments ();
-                                });
+                                AssignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => RunOnUiThread (ReloadAssignments));
                                 break;
                             case AssignmentStatus.Complete:
                                 //go to confirmations, this is getting called multiple times.
@@ -156,7 +154,7 @@ namespace FieldService.Android {
         {
             base.OnResume ();
 
-            AssignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
+            AssignmentViewModel.LoadAssignmentsAsync ().ContinueWith (_ => {
                 if (AssignmentViewModel.ActiveAssignment != null) {
                     SetActiveAssignmentVisible (true);
                 } else {
@@ -185,16 +183,17 @@ namespace FieldService.Android {
         /// </summary>
         public void ReloadAssignments ()
         {
-            AssignmentViewModel.LoadAssignmentsAsync ().ContinueOnUIThread (_ => {
-                if (AssignmentViewModel.ActiveAssignment != null) {
-                    SetActiveAssignmentVisible (true);
-                } else {
-                    SetActiveAssignmentVisible (false);
-                }
-                var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, AssignmentViewModel.Assignments);
-                adapter.Activity = this;
-                adapter.AssignmentViewModel = AssignmentViewModel;
-                assignmentsListView.Adapter = adapter;
+            AssignmentViewModel.LoadAssignmentsAsync ().ContinueWith (_ => {
+                RunOnUiThread (() => {
+                    if (AssignmentViewModel.ActiveAssignment != null) {
+                        SetActiveAssignmentVisible (true);
+                    } else {
+                        SetActiveAssignmentVisible (false);
+                    }
+                    var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, AssignmentViewModel.Assignments);
+                    adapter.AssignmentViewModel = AssignmentViewModel;
+                    assignmentsListView.Adapter = adapter;
+                });
             });
         }
 
@@ -222,12 +221,14 @@ namespace FieldService.Android {
                 assignmentActiveLayout.Visibility = ViewStates.Visible;
                 assignment = AssignmentViewModel.ActiveAssignment;
 
-                AssignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
-                    if (AssignmentViewModel.Recording) {
-                        timer.Checked = true;
-                    } else {
-                        timer.Checked = false;
-                    }
+                AssignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
+                    RunOnUiThread (() => {
+                        if (AssignmentViewModel.Recording) {
+                            timer.Checked = true;
+                        } else {
+                            timer.Checked = false;
+                        }
+                    });
                 });
 
                 buttonLayout.Visibility = ViewStates.Gone;

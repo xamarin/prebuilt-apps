@@ -60,7 +60,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetItemsAsync (CancellationToken.None)
-                .ContinueOnUIThread (t => Items = t.Result);
+                .ContinueOnCurrentThread (t => Items = t.Result);
         }
 
         /// <summary>
@@ -70,7 +70,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetItemsForAssignmentAsync (assignment, CancellationToken.None)
-                .ContinueOnUIThread (t => AssignmentItems = t.Result);
+                .ContinueOnCurrentThread (t => AssignmentItems = t.Result);
         }
 
         /// <summary>

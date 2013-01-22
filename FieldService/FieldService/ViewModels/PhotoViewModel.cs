@@ -50,7 +50,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetPhotosForAssignmentAsync (assignment, CancellationToken.None)
-                .ContinueOnUIThread (t => Photos = t.Result);
+                .ContinueOnCurrentThread (t => Photos = t.Result);
         }
 
         /// <summary>
@@ -65,7 +65,7 @@ namespace FieldService.ViewModels {
 
             return service
                 .SavePhotoAsync (photo, CancellationToken.None)
-                .ContinueOnUIThread (t => {
+                .ContinueOnCurrentThread (t => {
                     if (newPhoto) {
                         if (photos == null)
                             photos = new List<Photo> ();
@@ -82,7 +82,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .DeletePhotoAsync (photo, CancellationToken.None)
-                .ContinueOnUIThread (t => {
+                .ContinueOnCurrentThread (t => {
                     if (photos != null)
                         photos.Remove (photo);
                 });

@@ -169,7 +169,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetAssignmentsAsync (CancellationToken.None)
-                .ContinueOnUIThread (t => {
+                .ContinueOnCurrentThread (t => {
                     //Grab the active assignment
                     ActiveAssignment = t.Result.FirstOrDefault (a => a.Status == AssignmentStatus.Active);
                     //Grab everything besides the active assignment
@@ -185,7 +185,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetTimerEntryAsync (CancellationToken.None)
-                .ContinueOnUIThread (t => {
+                .ContinueOnCurrentThread (t => {
                     timerEntry = t.Result;
                     if (timerEntry != null) {
                         Recording = true;
@@ -246,7 +246,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task LoadSignatureAsync (Assignment assignment)
         {
-            return service.GetSignatureAsync (assignment, CancellationToken.None).ContinueOnUIThread (t => Signature = t.Result);
+            return service.GetSignatureAsync (assignment, CancellationToken.None).ContinueOnCurrentThread (t => Signature = t.Result);
         }
 
         /// <summary>
@@ -266,7 +266,7 @@ namespace FieldService.ViewModels {
 
             return service
                 .SaveTimerEntryAsync (timerEntry, CancellationToken.None)
-                .ContinueOnUIThread (_ => IsBusy = false);
+                .ContinueOnCurrentThread (_ => IsBusy = false);
         }
 
         /// <summary>
@@ -290,7 +290,7 @@ namespace FieldService.ViewModels {
             return service
                 .SaveLaborAsync (labor, CancellationToken.None)
                 .ContinueWith (service.DeleteTimerEntryAsync (timerEntry, CancellationToken.None))
-                .ContinueOnUIThread (_ => {
+                .ContinueOnCurrentThread (_ => {
                     CurrentHours = TimeSpan.Zero;
                     IsBusy = false;
                 });

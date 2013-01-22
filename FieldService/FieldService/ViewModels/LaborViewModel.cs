@@ -36,7 +36,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetLaborForAssignmentAsync (assignment, CancellationToken.None)
-                .ContinueOnUIThread (t => LaborHours = t.Result);
+                .ContinueOnCurrentThread (t => LaborHours = t.Result);
         }
 
         /// <summary>

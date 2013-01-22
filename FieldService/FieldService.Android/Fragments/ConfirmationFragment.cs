@@ -147,9 +147,11 @@ namespace FieldService.Android.Fragments {
                 completeSignature.Enabled = false;
                 Assignment.Status = AssignmentStatus.Complete;
                 assignmentViewModel.SaveAssignmentAsync (Assignment)
-                    .ContinueOnUIThread (_ => {
-                        completeSignature.Enabled = true;
-                        Activity.Finish ();
+                    .ContinueWith (_ => {
+                        Activity.RunOnUiThread (() => {
+                            completeSignature.Enabled = true;
+                            Activity.Finish ();
+                        });
                     });
             };
 
@@ -173,14 +175,16 @@ namespace FieldService.Android.Fragments {
         private void ReloadSignature ()
         {
             assignmentViewModel.LoadSignatureAsync (Assignment)
-                .ContinueOnUIThread (_ => {
-                    if (assignmentViewModel.Signature != null) {
-                        using (var bmp = BitmapFactory.DecodeByteArray (assignmentViewModel.Signature.Image, 0, assignmentViewModel.Signature.Image.Length)) {
-                            signatureImage.SetImageBitmap (bmp);
+                .ContinueWith (_ => {
+                    Activity.RunOnUiThread (() => {
+                        if (assignmentViewModel.Signature != null) {
+                            using (var bmp = BitmapFactory.DecodeByteArray (assignmentViewModel.Signature.Image, 0, assignmentViewModel.Signature.Image.Length)) {
+                                signatureImage.SetImageBitmap (bmp);
+                            }
+                        } else {
+                            signatureImage.SetImageBitmap (null);
                         }
-                    } else {
-                        signatureImage.SetImageBitmap (null);
-                    }
+                    });
                 });
         }
 
@@ -241,9 +245,11 @@ namespace FieldService.Android.Fragments {
         {
             PhotoViewModel
                 .LoadPhotosAsync (Assignment)
-                .ContinueOnUIThread (_ => {
-                    Photos = PhotoViewModel.Photos;
-                    ReloadListView ();
+                .ContinueWith (_ => {
+                    Activity.RunOnUiThread (() => {
+                        Photos = PhotoViewModel.Photos;
+                        ReloadListView ();
+                    });
                 });
             ReloadSignature ();
         }

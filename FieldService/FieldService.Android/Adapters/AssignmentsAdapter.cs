@@ -15,6 +15,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
+using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
@@ -23,8 +24,8 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Orientation = Android.Content.Res.Orientation;
 using Extensions = FieldService.Android.Utilities.AndroidExtensions;
+using Orientation = Android.Content.Res.Orientation;
 using Android.App;
 
 namespace FieldService.Android {
@@ -33,12 +34,14 @@ namespace FieldService.Android {
     /// </summary>
     public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
 
-        IList<Assignment> assignments;
-        int resourceId;
+        readonly AssignmentsActivity activity;
+        readonly IList<Assignment> assignments;
+        readonly int resourceId;
 
-        public AssignmentsAdapter (Context context, int resourceId, IList<Assignment> assignments)
-            : base (context, resourceId, assignments)
+        public AssignmentsAdapter (AssignmentsActivity activity, int resourceId, IList<Assignment> assignments)
+            : base (activity, resourceId, assignments)
         {
+            this.activity = activity;
             this.assignments = assignments;
             this.resourceId = resourceId;
         }
@@ -133,20 +136,17 @@ namespace FieldService.Android {
         /// </summary>
         private void SaveAssignment (Assignment assignment, int index)
         {
-            AssignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
-                var activity = Activity;// ServiceContainer.Resolve<AssignmentsActivity>();
-                if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
-                    activity.ReloadAssignments ();
-                } else {
-                    activity.ReloadSingleListItem (index);
-                }
+            AssignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => {
+                activity.RunOnUiThread (() => {
+                    if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
+                        activity.ReloadAssignments ();
+                    } else {
+                        activity.ReloadSingleListItem (index);
+                    }
+                });
             });
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="v"></param>
         public void OnClick (View v)
         {
             switch (v.Id) {

@@ -31,13 +31,16 @@ namespace FieldService.Android.Dialogs {
     /// Dialog for capturing a signature
     /// </summary>
     public class SignatureDialog : BaseDialog {
-        AssignmentViewModel assignmentViewModel;
+        readonly Activity activity;
+        readonly AssignmentViewModel assignmentViewModel;
         SignatureView signatureView;
 
-        public SignatureDialog (Context context)
-            : base (context)
+        public SignatureDialog (Activity activity)
+            : base (activity)
         {
-            assignmentViewModel = AssignmentTabActivity.AssignmentViewModel;
+            this.activity = activity;
+            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            assignmentViewModel = tabActivity.AssignmentViewModel;
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -67,10 +70,12 @@ namespace FieldService.Android.Dialogs {
 
                 assignmentViewModel.Signature.Image = signatureView.GetImage(Color.Black, Color.White).ToByteArray();
                 assignmentViewModel.SaveSignatureAsync ()
-                    .ContinueOnUIThread (_ => {
-                        var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
-                        fragment.ReloadConfirmation ();
-                        Dismiss ();
+                    .ContinueWith (_ => {
+                        activity.RunOnUiThread (() => {
+                            var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
+                            fragment.ReloadConfirmation ();
+                            Dismiss ();
+                        });
                     });
             };
 
