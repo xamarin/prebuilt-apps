@@ -46,8 +46,7 @@ namespace FieldService.Android.Fragments {
         {
             base.OnCreate (savedInstanceState);
 
-            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-            assignmentViewModel = tabActivity.AssignmentViewModel;
+            assignmentViewModel = AssignmentTabActivity.AssignmentViewModel;
             assignmentViewModel.HoursChanged += (sender, e) => {
                 if (timerHours != null && Activity != null) {
                     Activity.RunOnUiThread (() => {

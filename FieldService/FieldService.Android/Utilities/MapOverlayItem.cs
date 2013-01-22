@@ -103,8 +103,7 @@ namespace FieldService.Android.Utilities {
                 if (!getDirections) {
                     overlayLayout.Click += (sender, e) => {
                         var intent = new Intent (context, typeof (SummaryActivity));
-                        var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-                        tabActivity.SelectedAssignment = tabActivity.AssignmentViewModel.Assignments [AssignmentIndex];
+                        AssignmentTabActivity.SelectedAssignment = AssignmentTabActivity.AssignmentViewModel.Assignments[AssignmentIndex];
                         context.StartActivity (intent);
                     };
                 }

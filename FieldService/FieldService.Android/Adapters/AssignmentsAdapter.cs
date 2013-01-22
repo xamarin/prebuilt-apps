@@ -25,6 +25,7 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 using Orientation = Android.Content.Res.Orientation;
 using Extensions = FieldService.Android.Utilities.AndroidExtensions;
+using Android.App;
 
 namespace FieldService.Android {
     /// <summary>
@@ -43,6 +44,12 @@ namespace FieldService.Android {
         }
 
         public AssignmentViewModel AssignmentViewModel
+        {
+            get;
+            set;
+        }
+
+        public AssignmentsActivity Activity
         {
             get;
             set;
@@ -100,7 +107,7 @@ namespace FieldService.Android {
 
                 spinner.Focusable = false;
                 spinner.Tag = position;
-                var adapter = new SpinnerAdapter<AssignmentStatus> (AssignmentViewModel.AvailableStatuses, ServiceContainer.Resolve<AssignmentsActivity> (), Resource.Layout.SimpleSpinnerItem);
+                var adapter = new SpinnerAdapter<AssignmentStatus> (AssignmentViewModel.AvailableStatuses, Context, Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Context.Resources.GetColor (Resource.Color.greyspinnertext);
                 adapter.Background = Color.White;
                 spinner.Adapter = adapter;
@@ -127,7 +134,7 @@ namespace FieldService.Android {
         private void SaveAssignment (Assignment assignment, int index)
         {
             AssignmentViewModel.SaveAssignmentAsync (assignment).ContinueOnUIThread (_ => {
-                var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
+                var activity = Activity;// ServiceContainer.Resolve<AssignmentsActivity>();
                 if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
                     activity.ReloadAssignments ();
                 } else {
@@ -164,7 +171,7 @@ namespace FieldService.Android {
                 case Resource.Id.assignmentPhoneLayout: {
                         var view = (View)v.Parent;
                         var phone = view.FindViewById<TextView> (Resource.Id.assignmentPhone);
-                        var activity = ServiceContainer.Resolve<AssignmentsActivity> ();
+                        var activity = Activity;// ServiceContainer.Resolve<AssignmentsActivity>();
                         activity.MakePhoneCall (phone.Text);
                     }
                     break;
@@ -172,10 +179,10 @@ namespace FieldService.Android {
                         var position = (int)v.Tag;
                         var activeAssignment = GetItem (position);
                         var intent = new Intent (Context, typeof (SummaryActivity));
-                        var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                        var tabActivity = (AssignmentTabActivity)Activity.Parent; //ServiceContainer.Resolve<AssignmentTabActivity>();
                         tabActivity.MapData = null;
-                        tabActivity.AssignmentViewModel = AssignmentViewModel;
-                        tabActivity.SelectedAssignment = activeAssignment;
+                        AssignmentTabActivity.AssignmentViewModel = AssignmentViewModel;
+                        AssignmentTabActivity.SelectedAssignment = activeAssignment;
                         intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
                         Context.StartActivity (intent);
                     }
@@ -203,10 +210,10 @@ namespace FieldService.Android {
                     case AssignmentStatus.Complete: {
                             //go to confirmations
                             activeAssignment.Status = selected;
-                            var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                            var activity = (AssignmentTabActivity)Activity.Parent;// ServiceContainer.Resolve<AssignmentTabActivity>();
                             var intent = new Intent (activity, typeof (SummaryActivity));
                             intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
-                            activity.SelectedAssignment = activeAssignment;
+                            AssignmentTabActivity.SelectedAssignment = activeAssignment;
                             activity.StartActivity (intent);
                         }
                         break;

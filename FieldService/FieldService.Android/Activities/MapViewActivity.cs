@@ -58,8 +58,7 @@ namespace FieldService.Android {
 
         public MapViewActivity ()
         {
-            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-            assignmentViewModel = tabActivity.AssignmentViewModel;
+            assignmentViewModel = AssignmentTabActivity.AssignmentViewModel;
             assignmentViewModel.HoursChanged += HoursChanged;
         }
 
@@ -75,7 +74,7 @@ namespace FieldService.Android {
                 var intent = new Intent (this, typeof (SummaryActivity));
                 var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
                 tabActivity.MapData = null;
-                tabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                AssignmentTabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
                 intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
                 StartActivity (intent);
             };
@@ -116,10 +115,10 @@ namespace FieldService.Android {
 
             mapButton.Click += (sender, e) => {
                 var intent = new Intent (this, typeof (SummaryActivity));
-                var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                var tabActivity =(AssignmentTabActivity)Parent;// ServiceContainer.Resolve<AssignmentTabActivity>();
                 tabActivity.MapData = null;
-                tabActivity.AssignmentViewModel = assignmentViewModel;
-                tabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                AssignmentTabActivity.AssignmentViewModel = assignmentViewModel;
+                AssignmentTabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
                 StartActivity (intent);
             };
 
@@ -179,7 +178,7 @@ namespace FieldService.Android {
 
             UpdateLocations ();
             myLocation.EnableMyLocation ();
-            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            var tabActivity = (AssignmentTabActivity)Parent; // ServiceContainer.Resolve<AssignmentTabActivity>();
             AssignmentTabActivity.MapDataWrapper mapDataWrapper = null;
             if (tabActivity != null) {
                 mapDataWrapper = tabActivity.MapData;

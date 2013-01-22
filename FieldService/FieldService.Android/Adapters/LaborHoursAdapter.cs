@@ -24,6 +24,7 @@ using FieldService.Android.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Android.App;
 
 namespace FieldService.Android {
     /// <summary>
@@ -50,6 +51,12 @@ namespace FieldService.Android {
         }
 
         public Assignment Assignment
+        {
+            get;
+            set;
+        }
+
+        public LaborHourFragment Fragment
         {
             get;
             set;
@@ -103,7 +110,7 @@ namespace FieldService.Android {
             if (status != currentLabor.Type) {
                 currentLabor.Type = status;
                 laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueOnUIThread (_ => {
-                    var fragment = ServiceContainer.Resolve<LaborHourFragment> ();
+                    var fragment = Fragment;// ServiceContainer.Resolve<LaborHourFragment>();
                     fragment.ReloadSingleListItem (position);
                 });
             }

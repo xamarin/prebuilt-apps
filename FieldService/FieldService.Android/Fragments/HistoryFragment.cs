@@ -92,7 +92,7 @@ namespace FieldService.Android.Fragments {
             historyListView.ItemClick += (sender, e) => {
                 var intent = new Intent (Activity, typeof (SummaryHistoryActivity));
                 var activity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-                activity.SelectedHistoryAssignment = History.ElementAtOrDefault (e.Position);
+                AssignmentTabActivity.SelectedHistoryAssignment = History.ElementAtOrDefault(e.Position);
                 intent.PutExtra (Constants.FragmentIndex, 0);
                 StartActivity (intent);
             };
