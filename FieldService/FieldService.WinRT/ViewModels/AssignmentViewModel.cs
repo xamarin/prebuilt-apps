@@ -128,13 +128,12 @@ namespace FieldService.WinRT.ViewModels {
         /// <summary>
         /// Selected assignment
         /// </summary>
-        public Assignment SelectedAssignment
+        public override Assignment SelectedAssignment
         {
-            get { return assignment; }
+            get{return base.SelectedAssignment;}
             set
             {
-                assignment = value;
-                OnPropertyChanged ("SelectedAssignment");
+                base.SelectedAssignment = value;
                 OnPropertyChanged ("IsNew");
                 OnPropertyChanged ("IsNotNew");
                 OnPropertyChanged ("AssignmentTitle");

@@ -39,7 +39,7 @@ namespace FieldService.ViewModels {
         TimeSpan hours = TimeSpan.Zero;
         TimeSpan currentHours = TimeSpan.Zero;
         List<Assignment> assignments;
-        Assignment activeAssignment;
+        Assignment activeAssignment, selectedAssignment;
         Data.Signature signature;
         TimerEntry timerEntry;
 
@@ -74,6 +74,19 @@ namespace FieldService.ViewModels {
                 CurrentHours = currentHours.Add (TimeSpan.FromSeconds (1));
                 Hours = hours.Add (TimeSpan.FromSeconds (1));
             };
+        }
+
+        /// <summary>
+        /// Selected assignment
+        /// </summary>
+        public virtual Assignment SelectedAssignment
+        {
+            get { return selectedAssignment; }
+            set
+            {
+                selectedAssignment = value;
+                OnPropertyChanged ("SelectedAssignment");
+            }
         }
 
         /// <summary>

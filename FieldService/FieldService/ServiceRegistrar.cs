@@ -34,6 +34,16 @@ namespace FieldService {
         {
             ServiceContainer.Register<ILoginService> (() => new SampleLoginService ());
             ServiceContainer.Register<IAssignmentService> (() => new SampleAssignmentService ());
+#if !NETFX_CORE
+            ServiceContainer.Register<AssignmentViewModel>();
+            ServiceContainer.Register<DocumentViewModel>();
+            ServiceContainer.Register<ExpenseViewModel>();
+            ServiceContainer.Register<HistoryViewModel>();
+            ServiceContainer.Register<ItemViewModel>();
+            ServiceContainer.Register<LaborViewModel>();
+            ServiceContainer.Register<LoginViewModel>();
+            ServiceContainer.Register<PhotoViewModel>();
+#endif
         }
     }
 }
