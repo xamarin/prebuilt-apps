@@ -114,9 +114,7 @@ namespace FieldService.Android {
                 }
             } catch (Exception) {
                 tabHost.CurrentTab = 0;
-            }
-
-            //ServiceContainer.Register<AssignmentTabActivity> (this);
+            }            
         }
 
         public TabHost TabHost
