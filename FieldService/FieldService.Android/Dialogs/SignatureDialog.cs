@@ -39,8 +39,7 @@ namespace FieldService.Android.Dialogs {
             : base (activity)
         {
             this.activity = activity;
-            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-            assignmentViewModel = tabActivity.AssignmentViewModel;
+            assignmentViewModel = AssignmentTabActivity.AssignmentViewModel;
         }
 
         protected override void OnCreate (Bundle bundle)

@@ -51,13 +51,7 @@ namespace FieldService.Android {
             get;
             set;
         }
-
-        public AssignmentsActivity Activity
-        {
-            get;
-            set;
-        }
-
+        
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             Assignment assignment = null;
@@ -171,7 +165,7 @@ namespace FieldService.Android {
                 case Resource.Id.assignmentPhoneLayout: {
                         var view = (View)v.Parent;
                         var phone = view.FindViewById<TextView> (Resource.Id.assignmentPhone);
-                        var activity = Activity;// ServiceContainer.Resolve<AssignmentsActivity>();
+                        var activity = this.activity;
                         activity.MakePhoneCall (phone.Text);
                     }
                     break;
@@ -179,7 +173,7 @@ namespace FieldService.Android {
                         var position = (int)v.Tag;
                         var activeAssignment = GetItem (position);
                         var intent = new Intent (Context, typeof (SummaryActivity));
-                        var tabActivity = (AssignmentTabActivity)Activity.Parent; //ServiceContainer.Resolve<AssignmentTabActivity>();
+                        var tabActivity = (AssignmentTabActivity)this.activity.Parent; 
                         tabActivity.MapData = null;
                         AssignmentTabActivity.AssignmentViewModel = AssignmentViewModel;
                         AssignmentTabActivity.SelectedAssignment = activeAssignment;
@@ -210,7 +204,7 @@ namespace FieldService.Android {
                     case AssignmentStatus.Complete: {
                             //go to confirmations
                             activeAssignment.Status = selected;
-                            var activity = (AssignmentTabActivity)Activity.Parent;// ServiceContainer.Resolve<AssignmentTabActivity>();
+                            var activity = (AssignmentTabActivity)this.activity.Parent;
                             var intent = new Intent (activity, typeof (SummaryActivity));
                             intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
                             AssignmentTabActivity.SelectedAssignment = activeAssignment;

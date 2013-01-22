@@ -72,7 +72,7 @@ namespace FieldService.Android {
             assignmentMapViewLayout = FindViewById<LinearLayout> (Resource.Id.mapViewAssignmentLayout);
             assignmentMapViewLayout.Click += (sender, e) => {
                 var intent = new Intent (this, typeof (SummaryActivity));
-                var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+                var tabActivity = (AssignmentTabActivity)Parent;
                 tabActivity.MapData = null;
                 AssignmentTabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
                 intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
@@ -115,7 +115,7 @@ namespace FieldService.Android {
 
             mapButton.Click += (sender, e) => {
                 var intent = new Intent (this, typeof (SummaryActivity));
-                var tabActivity =(AssignmentTabActivity)Parent;// ServiceContainer.Resolve<AssignmentTabActivity>();
+                var tabActivity =(AssignmentTabActivity)Parent;
                 tabActivity.MapData = null;
                 AssignmentTabActivity.AssignmentViewModel = assignmentViewModel;
                 AssignmentTabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
@@ -182,7 +182,7 @@ namespace FieldService.Android {
 
             UpdateLocations ();
             myLocation.EnableMyLocation ();
-            var tabActivity = (AssignmentTabActivity)Parent; // ServiceContainer.Resolve<AssignmentTabActivity>();
+            var tabActivity = (AssignmentTabActivity)Parent; 
             AssignmentTabActivity.MapDataWrapper mapDataWrapper = null;
             if (tabActivity != null) {
                 mapDataWrapper = tabActivity.MapData;
@@ -245,7 +245,7 @@ namespace FieldService.Android {
         
         protected override void OnSaveInstanceState (Bundle outState)
         {
-            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            var tabActivity = (AssignmentTabActivity)Parent;
             if (mapView.ChildCount > 0) {
                 if (mapData == null) {
                     mapData = new AssignmentTabActivity.MapDataWrapper ();

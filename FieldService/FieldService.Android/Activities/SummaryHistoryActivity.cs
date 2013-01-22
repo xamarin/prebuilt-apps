@@ -52,7 +52,7 @@ namespace FieldService.Android.Activities {
 
         public SummaryHistoryActivity ()
         {
-            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
+            //var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
             AssignmentHistory = AssignmentTabActivity.SelectedHistoryAssignment;
             itemViewModel = new ItemViewModel ();
             laborViewModel = new LaborViewModel ();
@@ -135,9 +135,7 @@ namespace FieldService.Android.Activities {
             items.Visibility =
                 addItems.Visibility = ViewStates.Invisible;
             addLabor.Visibility = ViewStates.Gone;
-
-            ServiceContainer.Register<SummaryHistoryActivity> (this);
-
+            
             ActionBar.SetLogo (Resource.Drawable.XamarinTitle);
             ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));
             ActionBar.SetDisplayHomeAsUpEnabled (true);
