@@ -175,9 +175,11 @@ namespace FieldService.iOS
 		{
 			assignmentViewModel
 				.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
-				.ContinueOnUIThread (t => {
-					UpdateAssignment ();
-					detailsController.UpdateAssignment ();
+				.ContinueWith (t => {
+					BeginInvokeOnMainThread (() => {
+						UpdateAssignment ();
+						detailsController.UpdateAssignment ();
+					});
 				});
 		}
 
@@ -190,14 +192,16 @@ namespace FieldService.iOS
 			if (assignmentViewModel.Recording) {
 				assignmentViewModel
 					.PauseAsync ()
-					.ContinueOnUIThread (t => {
-						record.Enabled = true;
+					.ContinueWith (t => {
+						BeginInvokeOnMainThread (() => {
+							record.Enabled = true;
 
-						var laborController = ServiceContainer.Resolve<LaborController>();
-						laborController.ReloadLabor ();
+							var laborController = ServiceContainer.Resolve<LaborController>();
+							laborController.ReloadLabor ();
+						});
 					});
 			} else {
-				assignmentViewModel.RecordAsync ().ContinueOnUIThread (t => record.Enabled = true);
+				assignmentViewModel.RecordAsync ().ContinueWith (_ => BeginInvokeOnMainThread (() => record.Enabled = true));
 			}
 		}
 

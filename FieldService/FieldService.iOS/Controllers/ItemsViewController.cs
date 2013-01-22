@@ -111,12 +111,14 @@ namespace FieldService.iOS
 				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 				itemViewModel.LoadAssignmentItemsAsync (assignment)
-					.ContinueOnUIThread (_ => {
-						if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
-							title.Text = "Items";
-						else
-							title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
-						tableView.ReloadData ();
+					.ContinueWith (_ => {
+						BeginInvokeOnMainThread (() => {
+							if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
+								title.Text = "Items";
+							else
+								title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
+							tableView.ReloadData ();
+						});
 					});
 			}
 		}
@@ -147,7 +149,7 @@ namespace FieldService.iOS
 			{
 				itemViewModel
 					.DeleteAssignmentItemAsync (assignmentController.Assignment, itemViewModel.AssignmentItems [indexPath.Row])
-					.ContinueOnUIThread (_ => itemController.ReloadItems ());
+					.ContinueWith (_ => BeginInvokeOnMainThread (itemController.ReloadItems));
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)

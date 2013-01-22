@@ -70,12 +70,14 @@ namespace FieldService.iOS
 				toolbar.SetBackgroundImage (assignmentController.Assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 				documentViewModel.LoadDocumentsAsync ()
-					.ContinueOnUIThread (_ => {
-						if (documentViewModel.Documents == null || documentViewModel.Documents.Count == 0) 
-							title.Text = "Documents";
-						else
-							title.Text = string.Format ("Documents ({0})", documentViewModel.Documents.Count);
-						tableView.ReloadData ();
+					.ContinueWith (_ => {
+						BeginInvokeOnMainThread (() => {
+							if (documentViewModel.Documents == null || documentViewModel.Documents.Count == 0) 
+								title.Text = "Documents";
+							else
+								title.Text = string.Format ("Documents ({0})", documentViewModel.Documents.Count);
+							tableView.ReloadData ();
+						});
 					});
 			}
 		}

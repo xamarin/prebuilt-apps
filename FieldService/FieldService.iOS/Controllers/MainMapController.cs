@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Threading.Tasks;
 using System.Collections.Generic;
 using System.Drawing;
 using MonoTouch.Foundation;
@@ -78,7 +79,7 @@ namespace FieldService.iOS
 			status.StatusChanged += (sender, e) => {
 				assignmentViewModel
 					.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
-					.ContinueOnUIThread (_ => LoadActiveAssignment ());
+					.ContinueWith (_ => BeginInvokeOnMainThread (LoadActiveAssignment));
 			};
 			
 			//Start the active assignment out as not visible
@@ -236,11 +237,13 @@ namespace FieldService.iOS
 		partial void Record ()
 		{
 			record.Enabled = false;
+			Task task;
 			if (assignmentViewModel.Recording) {
-				assignmentViewModel.PauseAsync ().ContinueOnUIThread (t => record.Enabled = true);
+				task = assignmentViewModel.PauseAsync ();
 			} else {
-				assignmentViewModel.RecordAsync ().ContinueOnUIThread (t => record.Enabled = true);
+				task = assignmentViewModel.RecordAsync ();
 			}
+			task.ContinueWith (_ => BeginInvokeOnMainThread (() => record.Enabled = true));
 		}
 		
 		/// <summary>

@@ -71,7 +71,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Reload items
-			itemViewModel.LoadItemsAsync ().ContinueOnUIThread (_ => tableView.ReloadData ());
+			itemViewModel.LoadItemsAsync ().ContinueWith (_ => BeginInvokeOnMainThread (tableView.ReloadData));
 		}
 
 		/// <summary>
@@ -126,10 +126,12 @@ namespace FieldService.iOS
 					ItemId = item.Id,
 					AssignmentId = assignmentController.Assignment.Id,
 				})
-				.ContinueOnUIThread(_ => {
-					tableView.UserInteractionEnabled = true;
-					itemController.ReloadItems ();
-					addItemController.DismissViewController (true, delegate { });
+				.ContinueWith(_ => {
+					BeginInvokeOnMainThread (() => {
+						tableView.UserInteractionEnabled = true;
+						itemController.ReloadItems ();
+						addItemController.DismissViewController (true, delegate { });
+					});
 				});
 			}
 

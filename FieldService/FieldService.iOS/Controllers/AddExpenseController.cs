@@ -68,7 +68,7 @@ namespace FieldService.iOS
 						.ContinueWith(expenseViewModel.SavePhotoAsync ());
 				}
 				//Dismiss the controller after the other tasks
-				task.ContinueOnUIThread (_ => DismissViewController (true, delegate { }));
+				task.ContinueWith (_ => BeginInvokeOnMainThread(() => DismissViewController (true, null)));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			done.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
@@ -107,7 +107,7 @@ namespace FieldService.iOS
 				tableSource.Load (enabled, expenseController.Expense);
 			} else {
 				expenseViewModel.LoadPhotoAsync (expenseController.Expense)
-					.ContinueOnUIThread (_ => tableSource.Load (enabled, expenseController.Expense));
+					.ContinueWith (_ => BeginInvokeOnMainThread (() => tableSource.Load (enabled, expenseController.Expense)));
 			}
 		}
 
