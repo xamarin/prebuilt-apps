@@ -156,7 +156,7 @@ namespace FieldService.Android {
                 expenseDialog.Show ();
             };
 
-            ServiceContainer.Register<SummaryActivity> (this);
+            
 
             ActionBar.SetLogo (Resource.Drawable.XamarinTitle);
             ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));

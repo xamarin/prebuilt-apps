@@ -113,8 +113,7 @@ namespace FieldService.Android {
                 currentLabor.Type = status;
                 laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueWith (_ => {
                     activity.RunOnUiThread (() => {
-                        var fragment = ServiceContainer.Resolve<LaborHourFragment> ();
-                        fragment.ReloadSingleListItem (position);
+                        Fragment.ReloadSingleListItem (position);
                     });
                 });
             }

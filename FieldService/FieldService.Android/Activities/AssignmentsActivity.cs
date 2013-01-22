@@ -131,7 +131,7 @@ namespace FieldService.Android {
             };
 
             mapButton.Click += (sender, e) => {
-                var activity = (AssignmentTabActivity)Parent;//ServiceContainer.Resolve<AssignmentTabActivity> ();
+                var activity = (AssignmentTabActivity)Parent;
                 var intent = new Intent (activity, typeof (SummaryActivity));
                 intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
                 AssignmentTabActivity.SelectedAssignment = AssignmentViewModel.ActiveAssignment;
@@ -142,7 +142,6 @@ namespace FieldService.Android {
                 Extensions.MakePhoneCall (this, phone.Text);
             };
 
-            //ServiceContainer.Register<AssignmentsActivity> (this);
             var parentActivity = (AssignmentTabActivity)Parent;
             parentActivity.AssignmentsActivity = this;
         }
@@ -150,21 +149,26 @@ namespace FieldService.Android {
         /// <summary>
         /// Overrides resume so we can refresh the list when the activity is loaded.
         /// </summary>
-        protected override void OnResume ()
+        protected override void OnResume()
         {
-            base.OnResume ();
+            base.OnResume();
 
-            AssignmentViewModel.LoadAssignmentsAsync ().ContinueWith (_ => {
-                if (AssignmentViewModel.ActiveAssignment != null) {
-                    SetActiveAssignmentVisible (true);
-                } else {
-                    SetActiveAssignmentVisible (false);
-                }
-                var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, AssignmentViewModel.Assignments);
-                adapter.Activity = this;
-                adapter.AssignmentViewModel = AssignmentViewModel;
-                assignmentsListView.Adapter = adapter;
-                var activity = (AssignmentTabActivity)Parent;//ServiceContainer.Resolve<AssignmentTabActivity> ();
+            AssignmentViewModel.LoadAssignmentsAsync().ContinueWith(_ =>
+            {
+                RunOnUiThread(() =>
+                    {
+                        if (AssignmentViewModel.ActiveAssignment != null)
+                        {
+                            SetActiveAssignmentVisible(true);
+                        }
+                        else
+                        {
+                            SetActiveAssignmentVisible(false);
+                        }
+                        var adapter = new AssignmentsAdapter(this, Resource.Layout.AssignmentItemLayout, AssignmentViewModel.Assignments);
+                        adapter.AssignmentViewModel = AssignmentViewModel;
+                        assignmentsListView.Adapter = adapter;
+                    });
                 AssignmentTabActivity.AssignmentViewModel = AssignmentViewModel;
             });
         }
@@ -261,7 +265,7 @@ namespace FieldService.Android {
         private void AssignmentSelected (int index)
         {
             var intent = new Intent (this, typeof (SummaryActivity));
-            var activity = (AssignmentTabActivity)Parent; //ServiceContainer.Resolve<AssignmentTabActivity>();
+            var activity = (AssignmentTabActivity)Parent; 
             activity.MapData = null;
             AssignmentTabActivity.AssignmentViewModel = AssignmentViewModel;
             if (index != -1) {
