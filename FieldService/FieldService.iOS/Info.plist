@@ -24,7 +24,7 @@
 		<integer>2</integer>
 	</array>
 	<key>UIMainStoryboardFile</key>
-	<string>MainStoryboard</string>
+	<string></string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations~ipad</key>

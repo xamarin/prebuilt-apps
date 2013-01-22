@@ -31,28 +31,29 @@ namespace FieldService.iOS
 	public partial class AppDelegate : UIApplicationDelegate
 	{
 		readonly LoginViewModel loginViewModel = new LoginViewModel();
-
-		/// <summary>
-		/// Gets or sets the main window of the application
-		/// </value>
-		public override UIWindow Window {
-			get;
-			set;
-		}
+		UIWindow window;
 
 		/// <summary>
 		/// This the main entry point for the app on iOS
 		/// </summary>
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
+			//Create our window
+			window = new UIWindow(UIScreen.MainScreen.Bounds);
+
 			//Register some services
-			ServiceContainer.Register (Window);
+			ServiceContainer.Register (window);
 			ServiceContainer.Register <ISynchronizeInvoke>(() => new SynchronizeInvoke());
 			ServiceContainer.Register <MapController>();
 			ServiceContainer.Register <SignatureController>();
 
 			//Apply our UI theme
 			Theme.Apply ();
+
+			//Load our storyboard and setup our UIWindow and first view controller
+			var storyboard = UIStoryboard.FromName ("MainStoryboard", null);
+			window.RootViewController = storyboard.InstantiateInitialViewController () as UIViewController;
+			window.MakeKeyAndVisible ();
 
 			return true;
 		}
