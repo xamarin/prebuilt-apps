@@ -69,7 +69,7 @@ namespace FieldService.WinRT.Views {
             Helpers.NavigateTo<AssignmentPage> ();
         }
 
-        private void Status_SelectionChanged (object sender, SelectionChangedEventArgs e)
+        private async void Status_SelectionChanged (object sender, SelectionChangedEventArgs e)
         {
             if (activeAssignment.Visibility == Windows.UI.Xaml.Visibility.Visible) {
                 if (assignmentViewModel.ActiveAssignment != null && status.SelectedItem != null) {
@@ -78,21 +78,16 @@ namespace FieldService.WinRT.Views {
                         case AssignmentStatus.Hold:
                             activeAssignment.Visibility = Windows.UI.Xaml.Visibility.Collapsed;
                             assignmentViewModel.ActiveAssignment.Status = AssignmentStatus.Hold;
-                            assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
-                               .ContinueOnUIThread (_ => {
-                                    assignmentViewModel.LoadAssignmentsAsync ();
-                                });
+                            await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment);
+                            await assignmentViewModel.LoadAssignmentsAsync ();
                             break;
                         case AssignmentStatus.Complete:
                             assignmentViewModel.ActiveAssignment.Status = AssignmentStatus.Active;
                             assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
-                            assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
-                                .ContinueOnUIThread (_ => {
-                                    assignmentViewModel.LoadAssignmentsAsync ().ContinueWith (obj => {
-                                            Helpers.NavigateTo<AssignmentPage> ();
-                                            Helpers.NavigateTo<ConfirmationsPage> ();
-                                        });
-                                    });
+                            await assignmentViewModel.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment);
+                            await assignmentViewModel.LoadAssignmentsAsync ();
+                            Helpers.NavigateTo<AssignmentPage> ();
+                            Helpers.NavigateTo<ConfirmationsPage> ();
                             break;
                         default:
                             break;

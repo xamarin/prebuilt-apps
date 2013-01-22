@@ -90,9 +90,7 @@ namespace FieldService.Android.Fragments {
                 .SetTitle ("Delete")
                 .SetMessage ("Are you sure you want to delete this item?")
                 .SetPositiveButton ("Yes", (sender, e) => {
-                    ItemViewModel.DeleteAssignmentItemAsync (Assignment, item).ContinueOnUIThread (_ => {
-                        ReloadItems ();
-                    });
+                    ItemViewModel.DeleteAssignmentItemAsync (Assignment, item).ContinueWith (_ => Activity.RunOnUiThread(ReloadItems));
                 })
                 .SetNegativeButton ("No", (sender, e) => { });
             dialog.Show ();
@@ -100,11 +98,13 @@ namespace FieldService.Android.Fragments {
 
         public void ReloadItems ()
         {
-            ItemViewModel.LoadAssignmentItemsAsync (Assignment).ContinueOnUIThread (_ => {
-                AssignmentItems = ItemViewModel.AssignmentItems;
-                ReloadAssignmentItems ();
-                var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
-                items.Text = string.Format ("({0}) Items", Assignment.TotalItems.ToString ());
+            ItemViewModel.LoadAssignmentItemsAsync (Assignment).ContinueWith (_ => {
+                Activity.RunOnUiThread (() => {
+                    AssignmentItems = ItemViewModel.AssignmentItems;
+                    ReloadAssignmentItems ();
+                    var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
+                    items.Text = string.Format ("({0}) Items", Assignment.TotalItems.ToString ());
+                });
             });
         }
     }

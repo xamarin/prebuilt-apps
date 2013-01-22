@@ -32,15 +32,17 @@ namespace FieldService.Android.Dialogs {
     /// Dialog for adding labor entries
     /// </summary>
     public class AddLaborDialog : BaseDialog {
+        readonly Activity activity;
+        readonly LaborType [] laborTypes;
         EditText description;
         TextView hours;
-        LaborType [] laborTypes;
         Spinner type;
         Button delete;
 
-        public AddLaborDialog (Context context)
-            : base (context)
+        public AddLaborDialog (Activity activity)
+            : base (activity)
         {
+            this.activity = activity;
             laborTypes = new LaborType []
             {
                 LaborType.Hourly,
@@ -157,25 +159,18 @@ namespace FieldService.Android.Dialogs {
         }
 
         /// <summary>
-        /// The parent activity
-        /// </summary>
-        public Activity Activity
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
         /// Deletes the labor entry
         /// </summary>
         private void DeleteLabor ()
         {
             LaborViewModel
                 .DeleteLaborAsync (Assignment, CurrentLabor)
-                .ContinueOnUIThread (_ => {
-                    var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
-                    fragment.ReloadHours ();
-                    Dismiss ();
+                .ContinueWith (_ => {
+                    activity.RunOnUiThread (() => {
+                        var fragment = activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+                        fragment.ReloadHours ();
+                        Dismiss ();
+                    });
                 });
         }
 
@@ -190,10 +185,12 @@ namespace FieldService.Android.Dialogs {
 
             LaborViewModel
                 .SaveLaborAsync (Assignment, CurrentLabor)
-                .ContinueOnUIThread (_ => {
-                    var fragment = Activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
-                    fragment.ReloadHours ();
-                    Dismiss ();
+                .ContinueWith (_ => {
+                    activity.RunOnUiThread (() => {
+                        var fragment = activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+                        fragment.ReloadHours ();
+                        Dismiss ();
+                    });
                 });
         }
     }

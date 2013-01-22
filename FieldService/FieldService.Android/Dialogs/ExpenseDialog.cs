@@ -32,6 +32,7 @@ using Extensions = FieldService.Android.Utilities.AndroidExtensions;
 
 namespace FieldService.Android.Dialogs {
     public class ExpenseDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
+        readonly Activity activity;
         ExpenseCategory [] expenseTypes;
         Spinner expenseType;
         EditText expenseDescription;
@@ -42,9 +43,10 @@ namespace FieldService.Android.Dialogs {
         Bitmap imageBitmap;
         MediaPicker mediaPicker;
 
-        public ExpenseDialog (Context context)
-            : base (context)
+        public ExpenseDialog (Activity activity)
+            : base (activity)
         {
+            this.activity = activity;
             expenseTypes = new ExpenseCategory []
             {
                 ExpenseCategory.Gas,
@@ -53,7 +55,7 @@ namespace FieldService.Android.Dialogs {
                 ExpenseCategory.Other,
             };
 
-            mediaPicker = new MediaPicker (context);
+            mediaPicker = new MediaPicker (activity);
         }
 
         protected override void OnCreate (Bundle savedInstanceState)
@@ -96,7 +98,8 @@ namespace FieldService.Android.Dialogs {
         {
             base.OnAttachedToWindow ();
             if (CurrentExpense != null && CurrentExpense.Id != 0) {
-                ExpenseViewModel.LoadPhotoAsync (CurrentExpense).ContinueOnUIThread (_ => {
+                ExpenseViewModel.LoadPhotoAsync (CurrentExpense).ContinueWith (_ => {
+                    activity.RunOnUiThread (() => {
                         if (ExpenseViewModel.Photo != null) {
                             if (ExpenseViewModel.Photo.Image != null) {
                                 imageBitmap = BitmapFactory.DecodeByteArray (ExpenseViewModel.Photo.Image, 0, ExpenseViewModel.Photo.Image.Length);
@@ -109,6 +112,7 @@ namespace FieldService.Android.Dialogs {
                             expenseAddPhoto.Visibility = ViewStates.Visible;
                         }
                     });
+                });
                 expenseType.SetSelection (expenseTypes.ToList ().IndexOf (CurrentExpense.Category));
                 expenseAmount.Text = CurrentExpense.Cost.ToString ("0.00");
                 expenseDescription.Text = CurrentExpense.Description;
@@ -134,7 +138,6 @@ namespace FieldService.Android.Dialogs {
                 imageBitmap.Dispose ();
                 imageBitmap = null;
             }
-            Activity = null;
             Assignment = null;
             CurrentExpense = null;
             //PhotoStream = null;
@@ -159,10 +162,12 @@ namespace FieldService.Android.Dialogs {
                     })
                     .ContinueWith (_ => ExpenseViewModel.SavePhotoAsync ());
             }
-            task.ContinueOnUIThread (_ => {
-                var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
-                fragment.ReloadExpenseData ();
-                Dismiss ();
+            task.ContinueWith (_ => {
+                activity.RunOnUiThread (() => {
+                    var fragment = activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
+                    fragment.ReloadExpenseData ();
+                    Dismiss ();
+                });
             });
         }
 
@@ -172,20 +177,13 @@ namespace FieldService.Android.Dialogs {
         private void DeleteExpense ()
         {
             ExpenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
-                .ContinueOnUIThread (_ => {
-                    var fragment = Activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
-                    fragment.ReloadExpenseData ();
-                    Dismiss ();
+                .ContinueWith (_ => {
+                    activity.RunOnUiThread (() => {
+                        var fragment = activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
+                        fragment.ReloadExpenseData ();
+                        Dismiss ();
+                    });
                 });
-        }
-
-        /// <summary>
-        /// fragment's activity
-        /// </summary>
-        public Activity Activity
-        {
-            get;
-            set;
         }
 
         /// <summary>
@@ -233,11 +231,11 @@ namespace FieldService.Android.Dialogs {
                     break;
                 case Resource.Id.addExpenseAddPhoto: {
                         var choices = new List<string> ();
-                        choices.Add (Activity.Resources.GetString (Resource.String.Gallery));
+                        choices.Add (activity.Resources.GetString (Resource.String.Gallery));
                         if (mediaPicker.IsCameraAvailable) {
-                            choices.Add (Activity.Resources.GetString (Resource.String.Camera));
+                            choices.Add (activity.Resources.GetString (Resource.String.Camera));
                         }
-                        AlertDialog.Builder takePictureDialog = new AlertDialog.Builder (Activity);
+                        AlertDialog.Builder takePictureDialog = new AlertDialog.Builder (activity);
                         takePictureDialog.SetTitle ("Select:");
                         takePictureDialog.SetItems (choices.ToArray (), (innerSender, innerE) => {
                             if (innerE.Which == 0) {
@@ -245,7 +243,7 @@ namespace FieldService.Android.Dialogs {
                                 mediaPicker.PickPhotoAsync ().ContinueWith (t => {
                                     if (t.IsCanceled)
                                         return;
-                                    Activity.RunOnUiThread (() => {
+                                    activity.RunOnUiThread (() => {
                                         expenseAddPhoto.Visibility = ViewStates.Gone;
                                         imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
                                         imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
@@ -261,7 +259,7 @@ namespace FieldService.Android.Dialogs {
                                 mediaPicker.TakePhotoAsync (options).ContinueWith (t => {
                                     if (t.IsCanceled)
                                         return;
-                                    Activity.RunOnUiThread (() => {
+                                    activity.RunOnUiThread (() => {
                                         expenseAddPhoto.Visibility = ViewStates.Gone;
                                         imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
                                         imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);

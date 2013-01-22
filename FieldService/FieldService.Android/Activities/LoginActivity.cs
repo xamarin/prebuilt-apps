@@ -111,11 +111,15 @@ namespace FieldService.Android {
             imm.HideSoftInputFromWindow (password.WindowToken, HideSoftInputFlags.NotAlways);
             login.Visibility = ViewStates.Invisible;
             progressIndicator.Visibility = ViewStates.Visible;
-            loginViewModel.LoginAsync ().ContinueOnUIThread (_ => {
 
-                StartActivity (typeof (AssignmentTabActivity));
-                Finish ();
-            });
+            loginViewModel
+                .LoginAsync ()
+                .ContinueWith (_ => {
+                    RunOnUiThread (() => {
+                            StartActivity (typeof (AssignmentTabActivity));
+                            Finish ();
+                    });
+                });
         }
 
         /// <summary>

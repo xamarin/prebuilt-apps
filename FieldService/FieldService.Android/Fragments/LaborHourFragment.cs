@@ -47,7 +47,6 @@ namespace FieldService.Android.Fragments {
                 var labor = LaborHours.ElementAtOrDefault ((int)textView.Tag);
 
                 laborDialog = new AddLaborDialog (Activity);
-                laborDialog.Activity = Activity;
                 laborDialog.Assignment = Assignment;
                 laborDialog.CurrentLabor = labor;
                 laborDialog.LaborViewModel = LaborViewModel;
@@ -87,11 +86,13 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadHours ()
         {
-            LaborViewModel.LoadLaborHoursAsync (Assignment).ContinueOnUIThread (_ => {
-                LaborHours = LaborViewModel.LaborHours;
-                ReloadLaborHours ();
-                var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
-                items.Text = string.Format ("{0} hrs", Assignment.TotalHours.TotalHours.ToString ("0.0"));
+            LaborViewModel.LoadLaborHoursAsync (Assignment).ContinueWith (_ => {
+                Activity.RunOnUiThread (() => {
+                    LaborHours = LaborViewModel.LaborHours;
+                    ReloadLaborHours ();
+                    var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
+                    items.Text = string.Format ("{0} hrs", Assignment.TotalHours.TotalHours.ToString ("0.0"));
+                });
             });
         }
 

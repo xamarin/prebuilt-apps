@@ -46,7 +46,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetExpensesForAssignmentAsync (assignment, CancellationToken.None)
-                .ContinueOnUIThread (t => Expenses = t.Result);
+                .ContinueOnCurrentThread (t => Expenses = t.Result);
         }
 
         /// <summary>
@@ -83,7 +83,7 @@ namespace FieldService.ViewModels {
         {
             return service
                 .GetExpensePhotoAsync (expense, CancellationToken.None)
-                .ContinueOnUIThread (t => Photo = t.Result);
+                .ContinueOnCurrentThread (t => Photo = t.Result);
         }
 
         /// <summary>

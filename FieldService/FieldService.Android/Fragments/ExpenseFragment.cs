@@ -73,7 +73,6 @@ namespace FieldService.Android.Fragments {
                 var expense = Expenses.ElementAtOrDefault ((int)textView.Tag);
 
                 expenseDialog = new ExpenseDialog(Activity);
-                expenseDialog.Activity = Activity;
                 expenseDialog.Assignment = Assignment;
                 expenseDialog.CurrentExpense = expense;
                 expenseDialog.ExpenseViewModel = ExpenseViewModel;
@@ -113,11 +112,13 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadExpenseData()
         {
-            ExpenseViewModel.LoadExpensesAsync (Assignment).ContinueOnUIThread (_ => {
-                Expenses = ExpenseViewModel.Expenses;
-                ReloadExpenses ();
-                var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
-                items.Text = Assignment.TotalExpenses.ToString ("$0.00");
+            ExpenseViewModel.LoadExpensesAsync (Assignment).ContinueWith (_ => {
+                Activity.RunOnUiThread (() => {
+                    Expenses = ExpenseViewModel.Expenses;
+                    ReloadExpenses ();
+                    var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
+                    items.Text = Assignment.TotalExpenses.ToString ("$0.00");
+                });
             });
         }
     }

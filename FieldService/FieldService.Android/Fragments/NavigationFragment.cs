@@ -149,12 +149,14 @@ namespace FieldService.Android.Fragments {
                             navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
                             timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 
-                            assignmentViewModel.LoadTimerEntryAsync ().ContinueOnUIThread (_ => {
-                                if (assignmentViewModel.Recording) {
-                                    timer.Checked = true;
-                                } else {
-                                    timer.Checked = false;
-                                }
+                            assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
+                                Activity.RunOnUiThread (() => {
+                                    if (assignmentViewModel.Recording) {
+                                        timer.Checked = true;
+                                    } else {
+                                        timer.Checked = false;
+                                    }
+                                });
                             });
 
                             timer.CheckedChange += (sender, e) => {
@@ -179,9 +181,7 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         private void SaveAssignment ()
         {
-            assignmentViewModel.SaveAssignmentAsync (Assignment).ContinueOnUIThread (_ => {
-                SetActiveAssignment ();
-            });
+            assignmentViewModel.SaveAssignmentAsync (Assignment).ContinueWith (_ => Activity.RunOnUiThread (SetActiveAssignment));
         }
 
         /// <summary>

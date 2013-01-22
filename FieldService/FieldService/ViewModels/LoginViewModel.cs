@@ -80,7 +80,7 @@ namespace FieldService.ViewModels {
             IsBusy = true;
             return service
                 .LoginAsync (username, password, CancellationToken.None)
-                .ContinueOnUIThread (t => {
+                .ContinueOnCurrentThread (t => {
                     IsBusy = false; 
                     return t.Result;
                 });

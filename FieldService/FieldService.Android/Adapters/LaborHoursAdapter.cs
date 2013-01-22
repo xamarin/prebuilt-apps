@@ -24,23 +24,26 @@ using FieldService.Android.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using Android.App;
 
 namespace FieldService.Android {
     /// <summary>
     /// Adapter for a list of labor entries
     /// </summary>
     public class LaborHoursAdapter : ArrayAdapter<Labor>, AdapterView.IOnItemSelectedListener {
+        readonly Activity activity;
+        readonly LaborViewModel laborViewModel;
         List<Labor> laborHours;
         LaborType [] laborTypes;
         int resourceId;
-        LaborViewModel laborViewModel;
 
-        public LaborHoursAdapter (Context context, int resourceId, List<Labor> laborHours)
-            : base (context, resourceId, laborHours)
+        public LaborHoursAdapter (Activity activity, int resourceId, List<Labor> laborHours)
+            : base (activity, resourceId, laborHours)
         {
+            laborViewModel = new LaborViewModel ();
+            this.activity = activity;
             this.laborHours = laborHours;
             this.resourceId = resourceId;
-            laborViewModel = new LaborViewModel ();
             laborTypes = new LaborType []
             {
                 LaborType.Hourly,
@@ -102,9 +105,11 @@ namespace FieldService.Android {
             var currentLabor = GetItem (index);
             if (status != currentLabor.Type) {
                 currentLabor.Type = status;
-                laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueOnUIThread (_ => {
-                    var fragment = ServiceContainer.Resolve<LaborHourFragment> ();
-                    fragment.ReloadSingleListItem (position);
+                laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueWith (_ => {
+                    activity.RunOnUiThread (() => {
+                        var fragment = ServiceContainer.Resolve<LaborHourFragment> ();
+                        fragment.ReloadSingleListItem (position);
+                    });
                 });
             }
         }

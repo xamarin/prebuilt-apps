@@ -31,7 +31,7 @@ namespace FieldService.Utilities {
         /// <param name="task"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        public static Task ContinueOnUIThread (this Task task, Action<Task> callback)
+        public static Task ContinueOnCurrentThread (this Task task, Action<Task> callback)
         {
 #if NCRUNCH
             return task.ContinueWith (callback);
@@ -47,7 +47,7 @@ namespace FieldService.Utilities {
         /// <param name="task"></param>
         /// <param name="callback"></param>
         /// <returns></returns>
-        public static Task<T> ContinueOnUIThread<T> (this Task<T> task, Func<Task<T>, T> callback)
+        public static Task<T> ContinueOnCurrentThread<T> (this Task<T> task, Func<Task<T>, T> callback)
         {
 #if NCRUNCH
             return task.ContinueWith<T> (callback);
