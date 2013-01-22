@@ -58,6 +58,12 @@ namespace FieldService.Android {
             set;
         }
 
+        public LaborHourFragment Fragment
+        {
+            get;
+            set;
+        }
+
         public override View GetView (int position, View convertView, ViewGroup parent)
         {
             Labor labor = null;

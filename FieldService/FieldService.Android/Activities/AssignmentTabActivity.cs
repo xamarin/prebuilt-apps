@@ -40,19 +40,25 @@ namespace FieldService.Android {
             ServiceContainer.Register<ISynchronizeInvoke> (() => new SynchronizeInvoke { Activity = this });
         }
 
-        public AssignmentViewModel AssignmentViewModel
+        public static AssignmentViewModel AssignmentViewModel
         {
             get;
             set;
         }
 
-        public Assignment SelectedAssignment
+        public static Assignment SelectedAssignment
         {
             get;
             set;
         }
 
-        public AssignmentHistory SelectedHistoryAssignment
+        public static AssignmentHistory SelectedHistoryAssignment
+        {
+            get;
+            set;
+        }
+
+        public AssignmentsActivity AssignmentsActivity
         {
             get;
             set;
@@ -110,7 +116,7 @@ namespace FieldService.Android {
                 tabHost.CurrentTab = 0;
             }
 
-            ServiceContainer.Register<AssignmentTabActivity> (this);
+            //ServiceContainer.Register<AssignmentTabActivity> (this);
         }
 
         public TabHost TabHost

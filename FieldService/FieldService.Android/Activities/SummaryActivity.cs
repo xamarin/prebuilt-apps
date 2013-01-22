@@ -55,9 +55,8 @@ namespace FieldService.Android {
 
         public SummaryActivity ()
         {
-            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-            Assignment = tabActivity.SelectedAssignment;
-            assignmentViewModel = tabActivity.AssignmentViewModel;
+            Assignment = AssignmentTabActivity.SelectedAssignment;
+            assignmentViewModel = AssignmentTabActivity.AssignmentViewModel;
             itemViewModel = new ItemViewModel ();
             laborViewModel = new LaborViewModel ();
             photoViewModel = new PhotoViewModel ();
@@ -260,8 +259,7 @@ namespace FieldService.Android {
         /// </summary>
         private void SetFrameFragment (int index)
         {
-            var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-            Assignment = tabActivity.SelectedAssignment;
+            Assignment = AssignmentTabActivity.SelectedAssignment;
             var transaction = FragmentManager.BeginTransaction ();
             var screen = Constants.Navigation [index];
             switch (screen) {

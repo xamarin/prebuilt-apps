@@ -53,7 +53,7 @@ namespace FieldService.Android.Activities {
         public SummaryHistoryActivity ()
         {
             var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-            AssignmentHistory = tabActivity.SelectedHistoryAssignment;
+            AssignmentHistory = AssignmentTabActivity.SelectedHistoryAssignment;
             itemViewModel = new ItemViewModel ();
             laborViewModel = new LaborViewModel ();
             photoViewModel = new PhotoViewModel ();
