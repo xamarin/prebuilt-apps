@@ -714,16 +714,20 @@ namespace FieldService.iOS
 		public static void TransitionController (UIViewController controller)
 		{
 			var window = ServiceContainer.Resolve<UIWindow>();
+			var oldController = window.RootViewController;
 
 			//Return if it's already the root controller
-			if (window.RootViewController == controller)
+			if (oldController == controller)
 				return;
 
 			//Set the root controller
 			window.RootViewController = controller;
 
-			//Peform an animation
+			//Peform an animation, note that null is not allowed as a callback, so I use delegate { }
 			UIView.Transition (window, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate { });
+
+			//Dispose the old controller, to free up some memory
+			oldController.Dispose ();
 		}
 	}
 }

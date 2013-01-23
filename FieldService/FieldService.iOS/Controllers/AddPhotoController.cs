@@ -153,7 +153,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Cancel (NSObject sender)
 		{
-			DismissViewController (true, delegate { });
+			DismissViewController (true, null);
 		}
 	}
 }
