@@ -28,12 +28,27 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class MenuController : UIViewController
 	{
-		public event EventHandler<MenuEventArgs> MenuChanged = delegate { }; 
+		/// <summary>
+		/// Occurs when the menu is changed
+		/// </summary>
+		public event EventHandler<MenuEventArgs> MenuChanged; 
 
+		/// <summary>
+		/// Occurs when the assignment is completed via the StatusButton
+		/// </summary>
+		public event EventHandler AssignmentCompleted;
+
+		/// <summary>
+		/// Occurs when status is changed on the timer
+		/// </summary>
+		public event EventHandler StatusChanged;
+
+		readonly MenuViewModel menuViewModel;
 		readonly AssignmentViewModel assignmentViewModel;
 
 		public MenuController (IntPtr handle) : base (handle)
 		{
+			menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			assignmentViewModel.HoursChanged += (sender, e) => {
@@ -44,6 +59,11 @@ namespace FieldService.iOS
 			assignmentViewModel.RecordingChanged += (sender, e) => {
 				if (IsViewLoaded) {
 					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				}
+			};
+			menuViewModel.MenuIndexChanged += (sender, e) => {
+				if (IsViewLoaded) {
+					ChangeSelection (menuViewModel.MenuIndex);
 				}
 			};
 		}
@@ -60,42 +80,29 @@ namespace FieldService.iOS
 			timerLabelBackground.Image = Theme.TimerField;
 
 			status.StatusChanged += (sender, e) => SaveAssignment ();
+			status.Completed += (sender, e) => {
+				assignmentViewModel.SelectedAssignment = status.Assignment;
+
+				var method = AssignmentCompleted;
+				if (method != null) {
+					method(this, EventArgs.Empty);
+				}
+
+				ShowConfirmation ();
+			};
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
 
-			//Switch to the summary tab, unless we are returning from the history section
-			if (!SkipSummary) {
-				using (var indexPath = NSIndexPath.FromRowSection (0, 0)) {
-					tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-
-					OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
-				}
-				SkipSummary = true;
+			var selected = tableView.IndexPathForSelectedRow;
+			if (selected == null || selected.Row != menuViewModel.MenuIndex) {
+				ChangeSelection (menuViewModel.MenuIndex);
 			}
 
 			//Update the UI
 			UpdateAssignment ();
-		}
-
-		public override void ViewWillDisappear (bool animated)
-		{
-			base.ViewWillDisappear (animated);
-
-			var splitController = ParentViewController as SplitController;
-			if (splitController != null && splitController.IsHistory) {
-				SkipSummary = true;
-			}
-		}
-
-		/// <summary>
-		/// If set to true, skips the "auto-selection" to the summary page
-		/// </summary>
-		public bool SkipSummary {
-			get;
-			set;
 		}
 
 		/// <summary>
@@ -103,11 +110,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ShowConfirmation ()
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (6, 0)) {
-				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-
-				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
-			}
+			ChangeSelection (SectionIndex.Confirmations);
 		}
 
 		/// <summary>
@@ -115,11 +118,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ShowMaps (bool animated)
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (1, 0)) {
-				tableView.SelectRow (indexPath, animated, UITableViewScrollPosition.Top);
-
-				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
-			}
+			ChangeSelection (SectionIndex.Maps);
 		}
 
 		/// <summary>
@@ -127,9 +126,14 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ShowHistory ()
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (7, 0)) {
-				tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+			ChangeSelection (SectionIndex.History);
+		}
 
+		private void ChangeSelection (int index)
+		{
+			using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
+				tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+				
 				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 			}
 		}
@@ -178,8 +182,11 @@ namespace FieldService.iOS
 				.ContinueWith (t => {
 					BeginInvokeOnMainThread (() => {
 						UpdateAssignment ();
-						//TODO: fix this
-						//detailsController.UpdateAssignment ();
+						
+						var method = StatusChanged;
+						if (method != null) {
+							method(this, EventArgs.Empty);
+						}
 					});
 				});
 		}
@@ -194,22 +201,19 @@ namespace FieldService.iOS
 				assignmentViewModel
 					.PauseAsync ()
 					.ContinueWith (t => {
-						BeginInvokeOnMainThread (() => {
-							record.Enabled = true;
-							
-							//TODO: fix this
-							//var laborController = ServiceContainer.Resolve<LaborController>();
-							//laborController.ReloadLabor ();
-						});
+						BeginInvokeOnMainThread (() => record.Enabled = true);
 					});
 			} else {
 				assignmentViewModel.RecordAsync ().ContinueWith (_ => BeginInvokeOnMainThread (() => record.Enabled = true));
 			}
 		}
 
-		private void OnMenuChanged(MenuEventArgs args)
+		private void OnMenuChanged (MenuEventArgs args)
 		{
-			MenuChanged(this, args);
+			var method = MenuChanged;
+			if (method != null) {
+				method (this, args);
+			}
 		}
 
 		/// <summary>

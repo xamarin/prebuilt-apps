@@ -35,6 +35,7 @@ namespace FieldService.iOS
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+
 			assignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
@@ -73,6 +74,10 @@ namespace FieldService.iOS
 				assignmentViewModel
 					.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
 					.ContinueWith (_ => BeginInvokeOnMainThread (ReloadAssignments));
+			};
+			status.Completed += (sender, e) => {
+				assignmentViewModel.SelectedAssignment = status.Assignment;
+				PerformSegue ("AssignmentDetails", this);
 			};
 
 			//Start the active assignment out as not visible
@@ -269,12 +274,12 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
+			//Change to maps
+			var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+			menuViewModel.MenuIndex = SectionIndex.Maps;
+
 			assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
-
-			//TODO: fix this
-			//var menuController = ServiceContainer.Resolve<MenuController>();
-			//menuController.ShowMaps(false);
 		}
 
 		/// <summary>
@@ -300,7 +305,7 @@ namespace FieldService.iOS
 			{
 				var assignment = assignmentViewModel.Assignments [indexPath.Row];
 				var cell = tableView.DequeueReusableCell ("AssignmentCell") as AssignmentCell;
-				cell.SetAssignment (assignment, indexPath);
+				cell.SetAssignment (controller, assignment, indexPath);
 				return cell;
 			}
 

@@ -27,20 +27,14 @@ namespace FieldService.iOS
 	[Register("SplitController")]
 	public partial class SplitController : BaseController
 	{
-		readonly AssignmentViewModel assignmentViewModel;
 		MenuController menuController;
 		AssignmentDetailsController detailsController;
 		private UIBarButtonItem menu, hide;
-		private bool wasLandscape = true, masterPopoverShown = false, isHistory = false;
+		private bool wasLandscape = true, masterPopoverShown = false;
 		private const float masterWidth = 321;
 
 		public SplitController (IntPtr handle) : base(handle)
 		{
-			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
-		}
-
-		public bool IsHistory {
-			get { return isHistory; }
 		}
 
 		public override void ViewDidLoad ()
@@ -59,9 +53,19 @@ namespace FieldService.iOS
 			detailsController = ChildViewControllers[0] as AssignmentDetailsController;
 			menuController = ChildViewControllers[1] as MenuController;
 
+			detailsController.StatusChanged += (sender, e) => {
+				menuController.UpdateAssignment ();
+			};
 			menuController.MenuChanged += (sender, e) => {
 				detailsController.SectionSelected (e.TableView, e.IndexPath, e.Animated);
 			};
+			menuController.AssignmentCompleted += (sender, e) => {
+				//Only perform the Seque if the screen is not already visible
+				if (!detailsController.IsViewLoaded || detailsController.View.Window == null) {
+					PerformSegue ("AssignmentDetails", this);
+				}
+			};
+			menuController.StatusChanged += (sender, e) => detailsController.UpdateAssignment ();
 		}
 
 		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)
@@ -70,27 +74,6 @@ namespace FieldService.iOS
 
 			//Start an animation to switch orientations
 			SwitchOrientation (toInterfaceOrientation, true, duration);
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-
-			isHistory = assignmentViewModel.SelectedAssignment.IsHistory;
-		}
-
-		public override void ViewWillDisappear (bool animated)
-		{
-			base.ViewWillDisappear (animated);
-
-			if (isHistory) {
-				//TODO: fix this
-				//var assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
-				//assignmentController.RemoveHistory ();
-
-//				var menuController = ChildViewControllers[1] as MenuController;
-//				menuController.SkipSummary = true;
-			}
 		}
 
 		/// <summary>

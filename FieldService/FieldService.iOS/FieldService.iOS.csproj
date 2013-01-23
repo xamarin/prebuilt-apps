@@ -335,6 +335,10 @@
     </Compile>
     <Compile Include="Controllers\BaseNavigationController.cs" />
     <Compile Include="Utilities\MenuEventArgs.cs" />
+    <Compile Include="..\FieldService\ViewModels\MenuViewModel.cs">
+      <Link>FieldService\ViewModels\MenuViewModel.cs</Link>
+    </Compile>
+    <Compile Include="Utilities\SectionIndex.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

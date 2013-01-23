@@ -28,6 +28,7 @@ namespace FieldService.iOS
 	public partial class CompleteCell : UITableViewCell
 	{
 		readonly AssignmentViewModel assignmentViewModel;
+		ConfirmationController controller;
 		Assignment assignment;
 		UITableView tableView;
 		UIAlertView alertView;
@@ -42,8 +43,9 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets the assignment for this cell
 		/// </summary>
-		public void SetAssignment(Assignment assignment, UITableView tableView)
+		public void SetAssignment(ConfirmationController controller, Assignment assignment, UITableView tableView)
 		{
+			this.controller = controller;
 			this.assignment = assignment;
 			this.tableView = tableView;
 
@@ -80,9 +82,11 @@ namespace FieldService.iOS
 							BeginInvokeOnMainThread (() => {
 								tableView.ReloadData ();
 								
-								//TODO: fix this
-								//detailsController.UpdateAssignment ();
-								//menuController.UpdateAssignment ();
+								var detailsController = controller.ParentViewController as AssignmentDetailsController;
+								detailsController.UpdateAssignment ();
+
+								var menuController = detailsController.ParentViewController.ChildViewControllers[1] as MenuController;
+								menuController.UpdateAssignment ();
 							});
 						});
 				}

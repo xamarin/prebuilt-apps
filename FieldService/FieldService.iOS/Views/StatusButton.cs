@@ -30,7 +30,15 @@ namespace FieldService.iOS
 		Assignment assignment;
 		AssignmentStatusSheet statusSheet;
 
+		/// <summary>
+		/// Occurs when the status changes
+		/// </summary>
 		public event EventHandler StatusChanged;
+
+		/// <summary>
+		/// Occurs when the user completes an assignment, we need to move to the confirmation screen
+		/// </summary>
+		public event EventHandler Completed;
 
 		public StatusButton (IntPtr handle) : base (handle)
 		{
@@ -80,18 +88,10 @@ namespace FieldService.iOS
 						method(this, EventArgs.Empty);
 					}
 				} else {
-					//TODO: fix this
-//					var assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-//					var detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
-//					assignmentController.Assignment = assignment;
-//
-//					//Only perform the Seque if the screen is not already visible
-//					if (!detailsController.IsViewLoaded || detailsController.View.Window == null) {
-//						assignmentController.PerformSegue ("AssignmentDetails", assignmentController);
-//					}
-//
-//					var menuController = ServiceContainer.Resolve<MenuController>();
-//					menuController.ShowConfirmation ();
+					var method = Completed;
+					if (method != null) {
+						method(this, EventArgs.Empty);
+					}
 				}
 			}
 

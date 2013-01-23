@@ -71,7 +71,7 @@ namespace FieldService.iOS
 			toolbar.Items = new UIBarButtonItem[] { descriptionButton };
 
 			photoTableView.Source = new PhotoTableSource (this);
-			signatureTableView.Source = new SignatureTableSource ();
+			signatureTableView.Source = new SignatureTableSource (this);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -161,10 +161,12 @@ namespace FieldService.iOS
 		{
 			const string SignatureIdentifier = "SignatureCell";
 			const string CompleteIdentifier = "CompleteCell";
+			readonly ConfirmationController controller;
 			readonly AssignmentViewModel assignmentViewModel;
 
-			public SignatureTableSource ()
+			public SignatureTableSource (ConfirmationController controller)
 			{
+				this.controller = controller;
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
@@ -193,7 +195,7 @@ namespace FieldService.iOS
 				} else {
 					cell = tableView.DequeueReusableCell (CompleteIdentifier);
 					var completeCell = cell as CompleteCell;
-					completeCell.SetAssignment (assignmentViewModel.SelectedAssignment, tableView);
+					completeCell.SetAssignment (controller, assignmentViewModel.SelectedAssignment, tableView);
 				}
 				return cell;
 			}
