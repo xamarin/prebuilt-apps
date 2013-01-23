@@ -58,8 +58,8 @@ namespace FieldService.iOS
 				new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace),
 			};
 
-			tableView.Source = new TableSource(itemViewModel);
-			var searchDataSource = new SearchSource (itemViewModel);
+			tableView.Source = new TableSource(this);
+			var searchDataSource = new SearchSource (this);
 			SearchDisplayController.SearchResultsSource = searchDataSource;
 			SearchDisplayController.Delegate = new SearchDisplay (tableView, searchDataSource);
 		}
@@ -77,7 +77,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Cancel (NSObject sender)
 		{
-			DismissViewController (true, delegate {	});
+			DismissViewController (true, null);
 		}
 
 		/// <summary>
@@ -86,17 +86,15 @@ namespace FieldService.iOS
 		private class TableSource : UITableViewSource
 		{
 			const string Identifier = "ItemCell";
-			readonly AddItemController addItemController;
-			readonly ItemsViewController itemController;
-			readonly AssignmentsController assignmentController;
+			readonly AddItemController controller;
+			readonly AssignmentViewModel assignmentViewModel;
 			protected readonly ItemViewModel itemViewModel;
 
-			public TableSource (ItemViewModel itemViewModel)
+			public TableSource (AddItemController controller)
 			{
-				this.itemViewModel = itemViewModel;
-				addItemController = ServiceContainer.Resolve <AddItemController>();
-				itemController = ServiceContainer.Resolve <ItemsViewController>();
-				assignmentController = ServiceContainer.Resolve <AssignmentsController>();
+				this.controller = controller;
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+				itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -120,15 +118,14 @@ namespace FieldService.iOS
 			{
 				var item = GetItem (indexPath);
 				tableView.UserInteractionEnabled = false;
-				itemViewModel.SaveAssignmentItemAsync (assignmentController.Assignment, new AssignmentItem {
+				itemViewModel.SaveAssignmentItemAsync (assignmentViewModel.SelectedAssignment, new AssignmentItem {
 					ItemId = item.Id,
-					AssignmentId = assignmentController.Assignment.Id,
+					AssignmentId = assignmentViewModel.SelectedAssignment.Id,
 				})
 				.ContinueWith(_ => {
 					BeginInvokeOnMainThread (() => {
 						tableView.UserInteractionEnabled = true;
-						itemController.ReloadItems ();
-						addItemController.DismissViewController (true, delegate { });
+						controller.DismissViewController (true, null);
 					});
 				});
 			}
@@ -144,8 +141,8 @@ namespace FieldService.iOS
 		/// </summary>
 		private class SearchSource : TableSource, ISearchSource
 		{
-			public SearchSource (ItemViewModel itemViewModel)
-				: base(itemViewModel)
+			public SearchSource (AddItemController controller)
+				: base(controller)
 			{
 				
 			}

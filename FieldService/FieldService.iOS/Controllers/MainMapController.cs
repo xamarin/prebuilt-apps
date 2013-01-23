@@ -37,7 +37,7 @@ namespace FieldService.iOS
 		public MainMapController (IntPtr handle) : base (handle)
 		{
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-			assignmentViewModel = assignmentController.AssignmentViewModel;
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			//Hook up viewModel events
 			assignmentViewModel.HoursChanged += (sender, e) => {

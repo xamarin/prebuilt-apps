@@ -28,27 +28,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddExpenseController : BaseController
 	{
+		readonly AssignmentViewModel assignmentViewModel;
+		readonly ExpenseViewModel expenseViewModel;
 		UIBarButtonItem expense, space1, space2, done;
 		TableSource tableSource;
 
 		public AddExpenseController (IntPtr handle) : base (handle)
 		{
-
-		}
-
-		public Assignment Assignment {
-			get;
-			set;
-		}
-
-		public ExpenseViewModel ExpenseViewModel {
-			get;
-			set;
-		}
-
-		public Expense Expense { 
-			get;
-			set;
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -68,12 +56,12 @@ namespace FieldService.iOS
 
 			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				//Save the expense
-				var task = ExpenseViewModel.SaveExpenseAsync (Assignment, Expense);
+				var task = expenseViewModel.SaveExpenseAsync (assignmentViewModel.SelectedAssignment, expenseViewModel.SelectedExpense);
 				//Save the photo if we need to
-				if (ExpenseViewModel.Photo != null) {
+				if (expenseViewModel.Photo != null) {
 					task = task
-						.ContinueWith (_ => ExpenseViewModel.Photo.ExpenseId = Expense.Id)
-						.ContinueWith (ExpenseViewModel.SavePhotoAsync ());
+						.ContinueWith (_ => expenseViewModel.Photo.ExpenseId = expenseViewModel.SelectedExpense.Id)
+						.ContinueWith (expenseViewModel.SavePhotoAsync ());
 				}
 				//Dismiss the controller after the other tasks
 				task.ContinueWith (_ => BeginInvokeOnMainThread(() => DismissViewController (true, null)));
@@ -85,7 +73,7 @@ namespace FieldService.iOS
 			space2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 			
 			tableView.Source = 
-				tableSource = new TableSource(ExpenseViewModel);
+				tableSource = new TableSource();
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -93,7 +81,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			bool enabled = Assignment.Status != AssignmentStatus.Complete && !Assignment.IsHistory;
+			bool enabled = assignmentViewModel.SelectedAssignment.Status != AssignmentStatus.Complete && !assignmentViewModel.SelectedAssignment.IsHistory;
 			if (enabled) {
 				toolbar.Items = new UIBarButtonItem[] {
 					cancel,
@@ -110,12 +98,12 @@ namespace FieldService.iOS
 				cancel.SetBackgroundImage (Theme.OrangeBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			}
 
-			if (Expense.Id == 0) {
-				ExpenseViewModel.Photo = null;
-				tableSource.Load (enabled, Expense);
+			if (expenseViewModel.SelectedExpense.Id == 0) {
+				expenseViewModel.Photo = null;
+				tableSource.Load (enabled);
 			} else {
-				ExpenseViewModel.LoadPhotoAsync (Expense)
-					.ContinueWith (_ => BeginInvokeOnMainThread (() => tableSource.Load (enabled, Expense)));
+				expenseViewModel.LoadPhotoAsync (expenseViewModel.SelectedExpense)
+					.ContinueWith (_ => BeginInvokeOnMainThread (() => tableSource.Load (enabled)));
 			}
 		}
 
@@ -124,7 +112,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Cancel (NSObject sender)
 		{
-			DismissViewController (true, delegate {	});
+			DismissViewController (true, null);
 		}
 
 		/// <summary>
@@ -132,22 +120,20 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
-			readonly ExpenseController expenseController;
+			readonly ExpenseViewModel expenseViewModel;
 			readonly UITableViewCell categoryCell, costCell, descriptionCell, photoCell;
 			readonly UILabel category;
 			readonly UITextField cost;
 			readonly PlaceholderTextView description;
 			readonly UIButton photoButton;
 			readonly UIImageView photo;
-			readonly ExpenseViewModel expenseViewModel;
 			ExpenseCategorySheet expenseSheet;
 			PhotoAlertSheet photoSheet;
 			bool enabled;
 			
-			public TableSource (ExpenseViewModel expenseViewModel)
+			public TableSource ()
 			{
-				this.expenseViewModel = expenseViewModel;
-				expenseController = ServiceContainer.Resolve<ExpenseController>();
+				expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel>();
 
 				categoryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				categoryCell.TextLabel.Text = "Category";
@@ -171,9 +157,9 @@ namespace FieldService.iOS
 					string text = c.Text.Replace ("$", string.Empty);
 					decimal value;
 					if (decimal.TryParse (text, out value)) {
-						expenseController.Expense.Cost = value;
+						expenseViewModel.SelectedExpense.Cost = value;
 					} else {
-						expenseController.Expense.Cost = 0;
+						expenseViewModel.SelectedExpense.Cost = 0;
 					}
 				});
 
@@ -186,9 +172,9 @@ namespace FieldService.iOS
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				description.SetDidChangeNotification (d => {
 					if (description.Text != description.Placeholder) {
-						expenseController.Expense.Description = d.Text;
+						expenseViewModel.SelectedExpense.Description = d.Text;
 					} else {
-						expenseController.Expense.Description = string.Empty;
+						expenseViewModel.SelectedExpense.Description = string.Empty;
 					}
 				});
 
@@ -214,9 +200,9 @@ namespace FieldService.iOS
 						//Set the callback for when the image is selected
 						photoSheet.Callback = image => { 
 							if (expenseViewModel.Photo == null)
-								expenseViewModel.Photo = new ExpensePhoto { ExpenseId = expenseController.Expense.Id };
+							expenseViewModel.Photo = new ExpensePhoto { ExpenseId = expenseViewModel.SelectedExpense.Id };
 							expenseViewModel.Photo.Image = image.ToByteArray ();
-							Load (enabled, expenseController.Expense);
+							Load (enabled);
 						};
 					}
 					photoSheet.ShowFrom (photoButton.Frame, photoCell, true);
@@ -235,9 +221,11 @@ namespace FieldService.iOS
 				photoCell.AddSubview (photo);
 			}
 
-			public void Load (bool enabled, Expense expense)
+			public void Load (bool enabled)
 			{
 				this.enabled = enabled;
+				var expense = expenseViewModel.SelectedExpense;
+
 				cost.Enabled =
 					description.UserInteractionEnabled = enabled;
 				category.TextColor =
@@ -295,11 +283,11 @@ namespace FieldService.iOS
 							//Category changed
 							expenseSheet = new ExpenseCategorySheet ();
 							expenseSheet.Dismissed += (sender, e) => {
-								var expense = expenseController.Expense;
+								var expense = expenseViewModel.SelectedExpense;
 								if (expenseSheet.Category.HasValue && expense.Category != expenseSheet.Category) {
 									expense.Category = expenseSheet.Category.Value;
 
-									Load (enabled, expense);
+									Load (enabled);
 								}
 
 								expenseSheet.Dispose ();

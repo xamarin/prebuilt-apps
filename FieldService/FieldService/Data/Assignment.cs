@@ -222,6 +222,14 @@ namespace FieldService.Data {
             get { return TotalExpenses.ToString ("$0.00"); }
         }
 
+	/// <summary>
+	/// If true, this assignment is not editable - it is complete or a history record
+	/// </summary>
+	public bool IsReadonly
+	{
+	    get { return Status == AssignmentStatus.Complete || IsHistory; }
+	}
+
         #endregion
     }
 }

@@ -35,7 +35,7 @@ namespace FieldService.iOS
 		public MenuController (IntPtr handle) : base (handle)
 		{
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-			assignmentViewModel = assignmentController.AssignmentViewModel;
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 
 			assignmentViewModel.HoursChanged += (sender, e) => {

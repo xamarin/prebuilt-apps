@@ -27,6 +27,7 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class ConfirmationController : BaseController
 	{
+		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
 		readonly AssignmentsController assignmentController;
 		readonly SizeF photoSize = new SizeF(475, 410); //Used for desired size of photos
@@ -34,8 +35,9 @@ namespace FieldService.iOS
 
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-			photoViewModel = new PhotoViewModel();
+			photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
 
 			//Update photoSize for screen scale
 			var scale = UIScreen.MainScreen.Scale;
@@ -106,7 +108,7 @@ namespace FieldService.iOS
 				signatureTableView.ReloadData ();
 
 				photoViewModel.LoadPhotosAsync (assignmentController.Assignment)
-					.ContinueWith (assignmentController.AssignmentViewModel.LoadSignatureAsync (assignmentController.Assignment))
+					.ContinueWith (assignmentViewModel.LoadSignatureAsync (assignmentController.Assignment))
 					.ContinueWith (_ => BeginInvokeOnMainThread (photoTableView.ReloadData));
 			}
 		}
@@ -175,10 +177,12 @@ namespace FieldService.iOS
 			const string SignatureIdentifier = "SignatureCell";
 			const string CompleteIdentifier = "CompleteCell";
 			readonly AssignmentsController assignmentController;
+			readonly AssignmentViewModel assignmentViewModel;
 
 			public SignatureTableSource ()
 			{
 				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
 			public override UIView GetViewForHeader (UITableView tableView, int section)
@@ -202,7 +206,7 @@ namespace FieldService.iOS
 				if (indexPath.Section == 0) {
 					cell = tableView.DequeueReusableCell (SignatureIdentifier);
 					var signatureCell = cell as SignatureCell;
-					signatureCell.SetSignature (assignmentController.Assignment, assignmentController.AssignmentViewModel.Signature);
+					signatureCell.SetSignature (assignmentController.Assignment, assignmentViewModel.Signature);
 				} else {
 					cell = tableView.DequeueReusableCell (CompleteIdentifier);
 					var completeCell = cell as CompleteCell;

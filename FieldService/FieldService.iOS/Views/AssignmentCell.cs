@@ -38,7 +38,7 @@ namespace FieldService.iOS
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
 			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-			assignmentViewModel = assignmentController.AssignmentViewModel;
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			SelectedBackgroundView = new UIImageView { Image = Theme.AssignmentBlue };
 		}

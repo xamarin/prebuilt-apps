@@ -50,7 +50,7 @@ namespace FieldService.iOS
 			{
 				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 				confirmationController = ServiceContainer.Resolve<ConfirmationController>();
-				assignmentViewModel = assignmentController.AssignmentViewModel;
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 				Title = "Add Signature";
 			}

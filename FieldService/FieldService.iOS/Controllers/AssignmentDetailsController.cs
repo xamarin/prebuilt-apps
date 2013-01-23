@@ -29,12 +29,14 @@ namespace FieldService.iOS
 	public partial class AssignmentDetailsController : BaseController
 	{
 		readonly AssignmentsController assignmentsController;
+		readonly AssignmentViewModel assignmentViewModel;
 		UIViewController lastChildController;
 		SummaryController summaryController;
 
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
 		{
 			assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -176,7 +178,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Accept ()
 		{
-			if (assignmentsController.AssignmentViewModel.ActiveAssignment == null) {
+			if (assignmentViewModel.ActiveAssignment == null) {
 				assignmentsController.Assignment.Status = AssignmentStatus.Active;
 			} else {
 				assignmentsController.Assignment.Status = AssignmentStatus.Hold;
@@ -209,7 +211,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private void SaveAssignment ()
 		{
-			assignmentsController.AssignmentViewModel
+			assignmentViewModel
 				.SaveAssignmentAsync (assignmentsController.Assignment)
 				.ContinueWith (t => {
 					BeginInvokeOnMainThread (() => {

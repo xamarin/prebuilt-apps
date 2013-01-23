@@ -13,6 +13,7 @@ namespace FieldService.ViewModels {
     /// </summary>
     public class ExpenseViewModel : ViewModelBase {
         readonly IAssignmentService service;
+	Expense selectedExpense;
         List<Expense> expenses = new List<Expense>();
         ExpensePhoto photo;
 
@@ -38,6 +39,13 @@ namespace FieldService.ViewModels {
             get { return photo; }
             set { photo = value; OnPropertyChanged("Photo"); }
         }
+
+	public Expense SelectedExpense 
+	{
+	    get { return selectedExpense; }
+	    set { selectedExpense = value; OnPropertyChanged ("SelectedExpense"); }
+	}
+
 
         /// <summary>
         /// Loads the list of expenses

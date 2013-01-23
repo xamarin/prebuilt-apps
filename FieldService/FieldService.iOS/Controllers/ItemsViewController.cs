@@ -27,15 +27,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class ItemsViewController : BaseController
 	{
-		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
 		readonly ItemViewModel itemViewModel;
 		UILabel title;
 		UIBarButtonItem titleButton, edit, addItem, space;
 
 		public ItemsViewController (IntPtr handle) : base (handle)
 		{
-			itemViewModel = new ItemViewModel();
-			assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -63,7 +63,10 @@ namespace FieldService.iOS
 
 			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 
-			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, (sender, e) => PerformSegue ("AddItem", this));
+			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, (sender, e) => {
+				var controller = Storyboard.InstantiateViewController<AddItemController>();
+				PresentViewController (controller, true, ReloadItems);
+			});
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
@@ -95,7 +98,7 @@ namespace FieldService.iOS
 		public void ReloadItems ()
 		{
 			if (IsViewLoaded) {
-				var assignment = assignmentController.Assignment;
+				var assignment = assignmentViewModel.SelectedAssignment;
 				if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
 					toolbar.Items = new UIBarButtonItem[] { titleButton };
 				} else {
@@ -126,28 +129,28 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
+			readonly AssignmentViewModel assignmentViewModel;
 			readonly ItemViewModel itemViewModel;
-			readonly ItemsViewController itemController;
-			readonly AssignmentsController assignmentController;
+			readonly ItemsViewController controller;
 			const string Identifier = "AssignmentItemCell";
 
-			public TableSource (ItemsViewController itemController)
+			public TableSource (ItemsViewController controller)
 			{
-				this.itemController = itemController;
-				this.itemViewModel = itemController.itemViewModel;
-				assignmentController = ServiceContainer.Resolve <AssignmentsController> ();
+				this.controller = controller;
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+				itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
 			}
 
 			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return assignmentController.Assignment.Status != AssignmentStatus.Complete && !assignmentController.Assignment.IsHistory;
+				return !assignmentViewModel.SelectedAssignment.IsReadonly;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				itemViewModel
-					.DeleteAssignmentItemAsync (assignmentController.Assignment, itemViewModel.AssignmentItems [indexPath.Row])
-					.ContinueWith (_ => BeginInvokeOnMainThread (itemController.ReloadItems));
+					.DeleteAssignmentItemAsync (assignmentViewModel.SelectedAssignment, itemViewModel.AssignmentItems [indexPath.Row])
+					.ContinueWith (_ => BeginInvokeOnMainThread (controller.ReloadItems));
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)

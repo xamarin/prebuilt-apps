@@ -28,24 +28,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class ExpenseController : BaseController
 	{
-		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
+		readonly ExpenseViewModel expenseViewModel;
 		UILabel title;
 		UIBarButtonItem titleButton, edit, addItem, space;
 
 		public ExpenseController (IntPtr handle) : base (handle)
 		{
-			ExpenseViewModel = new ExpenseViewModel();
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-		}
-
-		public Expense Expense {
-			get;
-			set;
-		}
-
-		public ExpenseViewModel ExpenseViewModel {
-			get;
-			private set;
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -74,8 +65,8 @@ namespace FieldService.iOS
 			space = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 			
 			addItem = new UIBarButtonItem ("Add Expense", UIBarButtonItemStyle.Bordered, (sender, e) => {
-				Expense = new Expense {
-					AssignmentId = assignmentController.Assignment.Id,
+				expenseViewModel.SelectedExpense = new Expense {
+					AssignmentId = assignmentViewModel.SelectedAssignment.Id,
 				};
 				PerformSegue ("AddExpense", this);
 			});
@@ -109,7 +100,7 @@ namespace FieldService.iOS
 		public void ReloadExpenses ()
 		{
 			if (IsViewLoaded) {
-				var assignment = assignmentController.Assignment;
+				var assignment = assignmentViewModel.SelectedAssignment;
 				if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
 					toolbar.Items = new UIBarButtonItem[] { titleButton };
 				} else {
@@ -122,13 +113,13 @@ namespace FieldService.iOS
 				}
 				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
-				ExpenseViewModel.LoadExpensesAsync (assignment)
+				expenseViewModel.LoadExpensesAsync (assignment)
 					.ContinueWith (_ => {
 						BeginInvokeOnMainThread (() => {
-							if (ExpenseViewModel.Expenses == null || ExpenseViewModel.Expenses.Count == 0) 
+							if (expenseViewModel.Expenses == null || expenseViewModel.Expenses.Count == 0) 
 								title.Text = "Expenses";
 							else
-								title.Text = string.Format ("Expenses (${0:0.00})", ExpenseViewModel.Expenses.Sum (e => e.Cost));
+								title.Text = string.Format ("Expenses (${0:0.00})", expenseViewModel.Expenses.Sum (e => e.Cost));
 							tableView.ReloadData ();
 						});
 					});
@@ -140,16 +131,16 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
+			readonly ExpenseController controller;
 			readonly ExpenseViewModel expenseViewModel;
-			readonly ExpenseController expenseController;
-			readonly AssignmentsController assignmentController;
+			readonly AssignmentViewModel assignmentViewModel;
 			const string Identifier = "ExpenseCell";
 
-			public TableSource (ExpenseController expenseController)
+			public TableSource (ExpenseController controller)
 			{
-				this.expenseController = expenseController;
-				expenseViewModel = expenseController.ExpenseViewModel;
-				assignmentController = expenseController.assignmentController;
+				this.controller = controller;
+				expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel>();
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -159,8 +150,8 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				expenseController.Expense = expenseViewModel.Expenses[indexPath.Row];
-				expenseController.PerformSegue ("AddExpense", expenseController);
+				expenseViewModel.SelectedExpense = expenseViewModel.Expenses[indexPath.Row];
+				controller.PerformSegue ("AddExpense", controller);
 
 				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
 				BeginInvokeOnMainThread (() => {
@@ -171,14 +162,14 @@ namespace FieldService.iOS
 
 			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return assignmentController.Assignment.Status != AssignmentStatus.Complete && !assignmentController.Assignment.IsHistory;
+				return !assignmentViewModel.SelectedAssignment.IsReadonly;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				expenseViewModel
-					.DeleteExpenseAsync (assignmentController.Assignment, expenseViewModel.Expenses[indexPath.Row])
-					.ContinueWith (_ => BeginInvokeOnMainThread (expenseController.ReloadExpenses));
+					.DeleteExpenseAsync (assignmentViewModel.SelectedAssignment, expenseViewModel.Expenses[indexPath.Row])
+					.ContinueWith (_ => BeginInvokeOnMainThread (controller.ReloadExpenses));
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
