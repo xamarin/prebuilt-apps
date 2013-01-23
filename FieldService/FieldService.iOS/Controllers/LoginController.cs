@@ -31,7 +31,7 @@ namespace FieldService.iOS
 		
 		public LoginController (IntPtr handle) : base (handle)
 		{
-			loginViewModel = new LoginViewModel();
+			loginViewModel = ServiceContainer.Resolve<LoginViewModel>();
 
 			//Hook up ViewModel events
 			loginViewModel.IsBusyChanged += (sender, e) => {

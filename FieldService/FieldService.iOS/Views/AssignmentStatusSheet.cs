@@ -30,7 +30,7 @@ namespace FieldService.iOS
 
 		public AssignmentStatusSheet ()
 		{
-			assignmentViewModel = new AssignmentViewModel();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			//Loop through the list of statuses you can change an assignment to
 			foreach (AssignmentStatus status in assignmentViewModel.AvailableStatuses) {

@@ -28,14 +28,12 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AssignmentDetailsController : BaseController
 	{
-		readonly AssignmentsController assignmentsController;
 		readonly AssignmentViewModel assignmentViewModel;
 		UIViewController lastChildController;
 		SummaryController summaryController;
 
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
 		{
-			assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
@@ -51,8 +49,6 @@ namespace FieldService.iOS
 			priorityBackground.Image = Theme.NumberBox;
 			accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 			decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
-			lastChildController =
-				summaryController = ServiceContainer.Resolve <SummaryController>();
 
 			numberAndDate.TextColor =
 				titleLabel.TextColor =
@@ -60,6 +56,10 @@ namespace FieldService.iOS
 
 			//Events
 			status.StatusChanged += (sender, e) => SaveAssignment ();
+
+			//Child controller
+			lastChildController =
+				summaryController = ChildViewControllers[0] as SummaryController;
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -82,31 +82,31 @@ namespace FieldService.iOS
 				break;
 			case 1:
 				//Map
-				nextChildController = ServiceContainer.Resolve <MapController>();
+				nextChildController = new MapController();
 				break;
 			case 2:
 				//Items
-				nextChildController = ServiceContainer.Resolve<ItemsViewController>();
+				nextChildController = Storyboard.InstantiateViewController<ItemsViewController>();
 				break;
 			case 3:
 				//Labor Hours
-				nextChildController = ServiceContainer.Resolve<LaborController>();
+				nextChildController = Storyboard.InstantiateViewController<LaborController>();
 				break;
 			case 4:
 				//Expenses
-				nextChildController = ServiceContainer.Resolve<ExpenseController>();
+				nextChildController = Storyboard.InstantiateViewController<ExpenseController>();
 				break;
 			case 5:
 				//Documents
-				nextChildController = ServiceContainer.Resolve<DocumentController>();
+				nextChildController = Storyboard.InstantiateViewController<DocumentController>();
 				break;
 			case 6:
 				//Confirmations
-				nextChildController = ServiceContainer.Resolve<ConfirmationController>();
+				nextChildController = Storyboard.InstantiateViewController<ConfirmationController>();
 				break;
 			case 7:
 				//History
-				nextChildController = ServiceContainer.Resolve<HistoryController>();
+				nextChildController = Storyboard.InstantiateViewController<HistoryController>();
 				break;
 			default:
 				return; //This means this section isn't done yet
@@ -145,7 +145,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public void UpdateAssignment ()
 		{
-			var assignment = assignmentsController.Assignment;
+			var assignment = assignmentViewModel.SelectedAssignment;
 			if (assignment != null && IsViewLoaded) {
 				var splitController = ParentViewController as SplitController;
 				if (splitController != null)
@@ -179,9 +179,9 @@ namespace FieldService.iOS
 		partial void Accept ()
 		{
 			if (assignmentViewModel.ActiveAssignment == null) {
-				assignmentsController.Assignment.Status = AssignmentStatus.Active;
+				assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Active;
 			} else {
-				assignmentsController.Assignment.Status = AssignmentStatus.Hold;
+				assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Hold;
 			}
 
 			SaveAssignment ();
@@ -192,7 +192,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Decline ()
 		{
-			assignmentsController.Assignment.Status = AssignmentStatus.Declined;
+			assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Declined;
 			
 			SaveAssignment ();
 		}
@@ -202,8 +202,9 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			var menuController = ServiceContainer.Resolve<MenuController>();
-			menuController.ShowMaps(true);
+			//TODO: fix this
+			//var menuController = ServiceContainer.Resolve<MenuController>();
+			//menuController.ShowMaps(true);
 		}
 
 		/// <summary>
@@ -212,16 +213,17 @@ namespace FieldService.iOS
 		private void SaveAssignment ()
 		{
 			assignmentViewModel
-				.SaveAssignmentAsync (assignmentsController.Assignment)
+				.SaveAssignmentAsync (assignmentViewModel.SelectedAssignment)
 				.ContinueWith (t => {
 					BeginInvokeOnMainThread (() => {
 						UpdateAssignment ();
 
-						var menuController = ServiceContainer.Resolve<MenuController>();
-						menuController.UpdateAssignment ();
+						//TODO: fix this
+						//var menuController = ServiceContainer.Resolve<MenuController>();
+						//menuController.UpdateAssignment ();
 
-						var confirmationController = ServiceContainer.Resolve<ConfirmationController>();
-						confirmationController.ReloadConfirmation ();
+						//var confirmationController = ServiceContainer.Resolve<ConfirmationController>();
+						//confirmationController.ReloadConfirmation ();
 					});
 				});
 		}

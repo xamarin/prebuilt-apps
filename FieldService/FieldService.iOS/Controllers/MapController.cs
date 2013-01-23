@@ -18,9 +18,10 @@ using System.Text;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.MapKit;
+using MonoTouch.CoreLocation;
 using FieldService.Data;
 using FieldService.Utilities;
-using MonoTouch.CoreLocation;
+using FieldService.ViewModels;
 
 namespace FieldService.iOS
 {
@@ -29,12 +30,12 @@ namespace FieldService.iOS
 	/// </summary>
 	public class MapController : BaseController
 	{
-		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
 		MKMapView mapView;
 
 		public MapController ()
 		{
-			assignmentController = ServiceContainer.Resolve <AssignmentsController>();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -59,7 +60,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load the placemark and by default zoom into the placemark
-			var placemark = assignmentController.Assignment.ToPlacemark();
+			var placemark = assignmentViewModel.SelectedAssignment.ToPlacemark();
 			var span = new MKCoordinateSpan(1, 1);
 			var region = new MKCoordinateRegion(placemark.Coordinate, span);
 

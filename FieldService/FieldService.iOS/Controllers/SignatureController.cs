@@ -29,8 +29,10 @@ namespace FieldService.iOS
 	public class SignatureController : UIPopoverController
 	{
 		public SignatureController ()
-			: base(new UINavigationController(new ContentController()))
+			: base(new UINavigationController())
 		{
+			var navController = ContentViewController as UINavigationController;
+			navController.ViewControllers = new UIViewController[] { new ContentController(this) };
 			PopoverContentSize = new SizeF(665, 400);
 		}
 
@@ -39,17 +41,15 @@ namespace FieldService.iOS
 		/// </summary>
 		private class ContentController : UIViewController
 		{
+			readonly SignatureController controller;
 			readonly AssignmentViewModel assignmentViewModel;
-			readonly AssignmentsController assignmentController;
-			readonly ConfirmationController confirmationController;
 			SignatureView signatureView;
 			UIBarButtonItem cancel;
 			UIBarButtonItem save;
 
-			public ContentController ()
+			public ContentController (SignatureController controller)
 			{
-				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-				confirmationController = ServiceContainer.Resolve<ConfirmationController>();
+				this.controller = controller;
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 				Title = "Add Signature";
@@ -60,8 +60,7 @@ namespace FieldService.iOS
 				base.ViewDidLoad ();
 
 				cancel = new UIBarButtonItem("Cancel", UIBarButtonItemStyle.Bordered, (sender, e) => {
-					var signatureController = ServiceContainer.Resolve<SignatureController>();
-					signatureController.Dismiss (true);
+					controller.Dismiss (true);
 				});
 				cancel.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 				cancel.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
@@ -75,19 +74,13 @@ namespace FieldService.iOS
 					}
 
 					if (assignmentViewModel.Signature == null) {
-						assignmentViewModel.Signature = new Data.Signature { AssignmentId = assignmentController.Assignment.Id };
+						assignmentViewModel.Signature = new Data.Signature { AssignmentId = assignmentViewModel.SelectedAssignment.Id };
 					}
 					assignmentViewModel.Signature.Image = signatureView.GetImage ().ToByteArray ();
 
 					assignmentViewModel.SaveSignatureAsync ()
 						.ContinueWith (_ => {
-							BeginInvokeOnMainThread (() => {
-								//Dismiss controller
-								var signatureController = ServiceContainer.Resolve<SignatureController>();
-								signatureController.Dismiss (true);
-								//Reload the confirmation screen
-								confirmationController.ReloadConfirmation ();
-							});
+							BeginInvokeOnMainThread (() => controller.Dismiss (true));
 						});
 				});
 

@@ -28,7 +28,6 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AssignmentCell : UITableViewCell
 	{
-		readonly AssignmentsController assignmentController;
 		readonly AssignmentViewModel assignmentViewModel;
 		bool loaded = false;
 		NSIndexPath indexPath;
@@ -37,7 +36,6 @@ namespace FieldService.iOS
 
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			SelectedBackgroundView = new UIImageView { Image = Theme.AssignmentBlue };
@@ -136,11 +134,12 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			assignmentController.Assignment = assignment;
-			assignmentController.PerformSegue ("AssignmentDetails", assignmentController);
+			assignmentViewModel.SelectedAssignment = assignment;
+			//TODO: fix this
+			//assignmentController.PerformSegue ("AssignmentDetails", assignmentController);
 
-			var menuController = ServiceContainer.Resolve<MenuController>();
-			menuController.ShowMaps(false);
+			//var menuController = ServiceContainer.Resolve<MenuController>();
+			//menuController.ShowMaps(false);
 		}
 
 		/// <summary>
@@ -151,12 +150,13 @@ namespace FieldService.iOS
 			assignmentViewModel.SaveAssignmentAsync (assignment)
 				.ContinueWith (_ => {
 					BeginInvokeOnMainThread (() => {
-						var controller = ServiceContainer.Resolve<AssignmentsController> ();
-						if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
-							controller.ReloadAssignments ();
-						} else {
-							controller.ReloadSingleRow (indexPath);
-						}
+						//TODO: fix this
+//						var controller = ServiceContainer.Resolve<AssignmentsController> ();
+//						if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
+//							controller.ReloadAssignments ();
+//						} else {
+//							controller.ReloadSingleRow (indexPath);
+//						}
 					});
 				});
 		}

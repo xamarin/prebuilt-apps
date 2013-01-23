@@ -30,7 +30,6 @@ namespace FieldService.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		readonly LoginViewModel loginViewModel = new LoginViewModel();
 		UIWindow window;
 		UIStoryboard storyboard;
 
@@ -70,6 +69,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public override void DidEnterBackground (UIApplication application)
 		{
+			var loginViewModel = ServiceContainer.Resolve<LoginViewModel>();
 			loginViewModel.ResetInactiveTime ();
 		}
 
@@ -78,6 +78,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public override void WillEnterForeground (UIApplication application)
 		{
+			var loginViewModel = ServiceContainer.Resolve<LoginViewModel>();
 			if (loginViewModel.IsInactive) {
 				var loginController = storyboard.InstantiateViewController<LoginController>();
 				Theme.TransitionController (loginController);

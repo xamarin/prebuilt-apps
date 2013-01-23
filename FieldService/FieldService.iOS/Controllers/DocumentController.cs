@@ -25,13 +25,13 @@ namespace FieldService.iOS
 	public partial class DocumentController : BaseController
 	{
 		readonly DocumentViewModel documentViewModel;
-		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
 		UILabel title;
 
 		public DocumentController (IntPtr handle) : base (handle)
 		{
-			documentViewModel = new DocumentViewModel();
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+			documentViewModel = ServiceContainer.Resolve<DocumentViewModel>();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -65,7 +65,7 @@ namespace FieldService.iOS
 		public void ReloadDocuments ()
 		{
 			if (IsViewLoaded) {
-				toolbar.SetBackgroundImage (assignmentController.Assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				toolbar.SetBackgroundImage (assignmentViewModel.SelectedAssignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 				documentViewModel.LoadDocumentsAsync ()
 					.ContinueWith (_ => {
