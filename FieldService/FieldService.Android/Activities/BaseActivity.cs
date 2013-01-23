@@ -2,13 +2,13 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using FieldService.Utilities;
 using FieldService.ViewModels;
 
 namespace FieldService.Android {
@@ -16,7 +16,7 @@ namespace FieldService.Android {
     /// Base activity for all activities, handles global OnPause/OnResume
     /// </summary>
     public class BaseActivity : Activity {
-        readonly LoginViewModel loginViewModel = new LoginViewModel ();
+        readonly LoginViewModel loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
         protected override void OnPause ()
         {

@@ -44,7 +44,7 @@ namespace FieldService.Android {
             //Registers services for core library
             ServiceRegistrar.Startup ();
 
-            loginViewModel = new LoginViewModel ();
+            loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
             //sets valid changed to show the login button.
             loginViewModel.IsValidChanged += (sender, e) => {
