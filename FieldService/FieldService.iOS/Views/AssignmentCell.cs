@@ -140,12 +140,11 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
+			var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+			menuViewModel.MenuIndex = SectionIndex.Maps;
+
 			assignmentViewModel.SelectedAssignment = assignment;
 			controller.PerformSegue ("AssignmentDetails", controller);
-
-			//TODO: fix this
-			//var menuController = ServiceContainer.Resolve<MenuController>();
-			//menuController.ShowMaps(false);
 		}
 
 		/// <summary>

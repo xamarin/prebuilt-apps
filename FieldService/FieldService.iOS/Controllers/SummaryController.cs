@@ -63,10 +63,8 @@ namespace FieldService.iOS
 			descriptionButton = new UIBarButtonItem(label);
 
 			viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, (sender, e) => {
-
-				//TODO: fix this
-				//var menuController = ServiceContainer.Resolve<MenuController>();
-				//menuController.ShowHistory ();
+				var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+				menuViewModel.MenuIndex = SectionIndex.History;
 			});
 			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			viewHistory.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);

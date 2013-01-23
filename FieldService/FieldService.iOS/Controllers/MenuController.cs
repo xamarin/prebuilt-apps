@@ -43,10 +43,12 @@ namespace FieldService.iOS
 		/// </summary>
 		public event EventHandler StatusChanged;
 
+		readonly MenuViewModel menuViewModel;
 		readonly AssignmentViewModel assignmentViewModel;
 
 		public MenuController (IntPtr handle) : base (handle)
 		{
+			menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			assignmentViewModel.HoursChanged += (sender, e) => {
@@ -57,6 +59,11 @@ namespace FieldService.iOS
 			assignmentViewModel.RecordingChanged += (sender, e) => {
 				if (IsViewLoaded) {
 					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				}
+			};
+			menuViewModel.MenuIndexChanged += (sender, e) => {
+				if (IsViewLoaded) {
+					ChangeSelection (menuViewModel.MenuIndex);
 				}
 			};
 		}
@@ -89,36 +96,13 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
-			//Switch to the summary tab, unless we are returning from the history section
-			if (!SkipSummary) {
-				using (var indexPath = NSIndexPath.FromRowSection (0, 0)) {
-					tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-
-					OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
-				}
-				SkipSummary = true;
+			var selected = tableView.IndexPathForSelectedRow;
+			if (selected == null || selected.Row != menuViewModel.MenuIndex) {
+				ChangeSelection (menuViewModel.MenuIndex);
 			}
 
 			//Update the UI
 			UpdateAssignment ();
-		}
-
-		public override void ViewWillDisappear (bool animated)
-		{
-			base.ViewWillDisappear (animated);
-
-			var splitController = ParentViewController as SplitController;
-			if (splitController != null && splitController.IsHistory) {
-				SkipSummary = true;
-			}
-		}
-
-		/// <summary>
-		/// If set to true, skips the "auto-selection" to the summary page
-		/// </summary>
-		public bool SkipSummary {
-			get;
-			set;
 		}
 
 		/// <summary>
@@ -126,11 +110,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ShowConfirmation ()
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (6, 0)) {
-				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-
-				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
-			}
+			ChangeSelection (SectionIndex.Confirmations);
 		}
 
 		/// <summary>
@@ -138,11 +118,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ShowMaps (bool animated)
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (1, 0)) {
-				tableView.SelectRow (indexPath, animated, UITableViewScrollPosition.Top);
-
-				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
-			}
+			ChangeSelection (SectionIndex.Maps);
 		}
 
 		/// <summary>
@@ -150,9 +126,14 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ShowHistory ()
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (7, 0)) {
-				tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+			ChangeSelection (SectionIndex.History);
+		}
 
+		private void ChangeSelection (int index)
+		{
+			using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
+				tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+				
 				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 			}
 		}

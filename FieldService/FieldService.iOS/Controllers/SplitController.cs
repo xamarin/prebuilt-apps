@@ -27,20 +27,14 @@ namespace FieldService.iOS
 	[Register("SplitController")]
 	public partial class SplitController : BaseController
 	{
-		readonly AssignmentViewModel assignmentViewModel;
 		MenuController menuController;
 		AssignmentDetailsController detailsController;
 		private UIBarButtonItem menu, hide;
-		private bool wasLandscape = true, masterPopoverShown = false, isHistory = false;
+		private bool wasLandscape = true, masterPopoverShown = false;
 		private const float masterWidth = 321;
 
 		public SplitController (IntPtr handle) : base(handle)
 		{
-			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
-		}
-
-		public bool IsHistory {
-			get { return isHistory; }
 		}
 
 		public override void ViewDidLoad ()
@@ -80,26 +74,6 @@ namespace FieldService.iOS
 
 			//Start an animation to switch orientations
 			SwitchOrientation (toInterfaceOrientation, true, duration);
-		}
-
-		public override void ViewWillAppear (bool animated)
-		{
-			base.ViewWillAppear (animated);
-
-			isHistory = assignmentViewModel.SelectedAssignment.IsHistory;
-		}
-
-		public override void ViewWillDisappear (bool animated)
-		{
-			base.ViewWillDisappear (animated);
-
-			if (isHistory) {
-				//TODO: fix this
-				//var assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
-				//assignmentController.RemoveHistory ();
-
-				menuController.SkipSummary = true;
-			}
 		}
 
 		/// <summary>

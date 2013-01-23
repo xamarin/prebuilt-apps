@@ -81,40 +81,33 @@ namespace FieldService.iOS
 		{
 			UIViewController nextChildController;
 			switch (indexPath.Row) {
-			case 0:
-				//Summary
+			case SectionIndex.Summary:
 				nextChildController = summaryController;
 				break;
-			case 1:
-				//Map
+			case SectionIndex.Maps:
 				nextChildController = new MapController();
 				break;
-			case 2:
-				//Items
+			case SectionIndex.Items:
 				nextChildController = Storyboard.InstantiateViewController<ItemsViewController>();
 				break;
-			case 3:
-				//Labor Hours
+			case SectionIndex.Labor:
 				nextChildController = Storyboard.InstantiateViewController<LaborController>();
 				break;
-			case 4:
-				//Expenses
+			case SectionIndex.Expenses:
 				nextChildController = Storyboard.InstantiateViewController<ExpenseController>();
 				break;
-			case 5:
-				//Documents
+			case SectionIndex.Documents:
 				nextChildController = Storyboard.InstantiateViewController<DocumentController>();
 				break;
-			case 6:
-				//Confirmations
+			case SectionIndex.Confirmations:
 				nextChildController = Storyboard.InstantiateViewController<ConfirmationController>();
 				break;
-			case 7:
-				//History
+			case SectionIndex.History:
 				nextChildController = Storyboard.InstantiateViewController<HistoryController>();
 				break;
 			default:
-				return; //This means this section isn't done yet
+				//We should really never get here
+				return;
 			}
 
 			//Return if it's the same controller
@@ -212,9 +205,8 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			//TODO: fix this
-			//var menuController = ServiceContainer.Resolve<MenuController>();
-			//menuController.ShowMaps(true);
+			var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+			menuViewModel.MenuIndex = SectionIndex.Maps;
 		}
 
 		/// <summary>
