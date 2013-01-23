@@ -33,6 +33,7 @@ using Extensions = FieldService.Android.Utilities.AndroidExtensions;
 namespace FieldService.Android.Dialogs {
     public class ExpenseDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
         readonly Activity activity;
+        readonly ExpenseViewModel expenseViewModel;
         ExpenseCategory [] expenseTypes;
         Spinner expenseType;
         EditText expenseDescription;
@@ -47,6 +48,7 @@ namespace FieldService.Android.Dialogs {
             : base (activity)
         {
             this.activity = activity;
+            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
             expenseTypes = new ExpenseCategory []
             {
                 ExpenseCategory.Gas,
@@ -98,11 +100,11 @@ namespace FieldService.Android.Dialogs {
         {
             base.OnAttachedToWindow ();
             if (CurrentExpense != null && CurrentExpense.Id != 0) {
-                ExpenseViewModel.LoadPhotoAsync (CurrentExpense).ContinueWith (_ => {
+                expenseViewModel.LoadPhotoAsync (CurrentExpense).ContinueWith (_ => {
                     activity.RunOnUiThread (() => {
-                        if (ExpenseViewModel.Photo != null) {
-                            if (ExpenseViewModel.Photo.Image != null) {
-                                imageBitmap = BitmapFactory.DecodeByteArray (ExpenseViewModel.Photo.Image, 0, ExpenseViewModel.Photo.Image.Length);
+                        if (expenseViewModel.Photo != null) {
+                            if (expenseViewModel.Photo.Image != null) {
+                                imageBitmap = BitmapFactory.DecodeByteArray (expenseViewModel.Photo.Image, 0, expenseViewModel.Photo.Image.Length);
                                 imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                             }
                             expensePhoto.SetImageBitmap (imageBitmap);
@@ -118,7 +120,7 @@ namespace FieldService.Android.Dialogs {
                 expenseDescription.Text = CurrentExpense.Description;
                 deleteExpense.Visibility = CurrentExpense.Id != 0 ? ViewStates.Visible : ViewStates.Gone;
             } else {
-                ExpenseViewModel.Photo = null;
+                expenseViewModel.Photo = null;
                 expensePhoto.SetImageBitmap (null);
                 expenseAmount.Text = "0.00";
                 expenseDescription.Text = string.Empty;
@@ -152,15 +154,15 @@ namespace FieldService.Android.Dialogs {
             CurrentExpense.Cost = expenseAmount.Text.ToDecimal (CultureInfo.InvariantCulture);
             CurrentExpense.AssignmentId = Assignment.Id;
 
-            var task = ExpenseViewModel.SaveExpenseAsync (Assignment, CurrentExpense);
-            if (ExpenseViewModel.Photo != null) {
+            var task = expenseViewModel.SaveExpenseAsync (Assignment, CurrentExpense);
+            if (expenseViewModel.Photo != null) {
                 task = task
                     .ContinueWith (_ => {
-                        ExpenseViewModel.Photo.ExpenseId = CurrentExpense.Id;
-                        ExpenseViewModel.Photo.Image = imageBitmap.ToByteArray ();
-                        System.Console.WriteLine (ExpenseViewModel.Photo.Image.Length);
+                        expenseViewModel.Photo.ExpenseId = CurrentExpense.Id;
+                        expenseViewModel.Photo.Image = imageBitmap.ToByteArray ();
+                        System.Console.WriteLine (expenseViewModel.Photo.Image.Length);
                     })
-                    .ContinueWith (_ => ExpenseViewModel.SavePhotoAsync ());
+                    .ContinueWith (_ => expenseViewModel.SavePhotoAsync ());
             }
             task.ContinueWith (_ => {
                 activity.RunOnUiThread (() => {
@@ -176,7 +178,7 @@ namespace FieldService.Android.Dialogs {
         /// </summary>
         private void DeleteExpense ()
         {
-            ExpenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
+            expenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
                 .ContinueWith (_ => {
                     activity.RunOnUiThread (() => {
                         var fragment = activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
@@ -199,15 +201,6 @@ namespace FieldService.Android.Dialogs {
         /// current expense that is being edited
         /// </summary>
         public Expense CurrentExpense
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// fragment's expense view model
-        /// </summary>
-        public ExpenseViewModel ExpenseViewModel
         {
             get;
             set;
@@ -248,7 +241,7 @@ namespace FieldService.Android.Dialogs {
                                         imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
                                         imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                                         expensePhoto.SetImageBitmap (imageBitmap);
-                                        ExpenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
+                                        expenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
                                     });
                                 });
                             } else if (innerE.Which == 1) {
@@ -264,7 +257,7 @@ namespace FieldService.Android.Dialogs {
                                         imageBitmap = BitmapFactory.DecodeStream (t.Result.GetStream ());
                                         imageBitmap = Extensions.ResizeBitmap (imageBitmap, Constants.MaxWidth, Constants.MaxHeight);
                                         expensePhoto.SetImageBitmap (imageBitmap);
-                                        ExpenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
+                                        expenseViewModel.Photo = new ExpensePhoto { ExpenseId = CurrentExpense.Id };
                                     });
                                 });
                             }

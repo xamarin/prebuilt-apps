@@ -139,14 +139,12 @@ namespace FieldService.Android {
             addItems.Click += (sender, e) => {
                 itemDialog = new ItemsDialog (this);
                 itemDialog.Assignment = assignment;
-                itemDialog.ItemViewModel = itemViewModel;
                 itemDialog.Show ();
             };
             addLabor.Click += (sender, e) => {
                 laborDialog = new AddLaborDialog (this);
                 laborDialog.Assignment = assignment;
                 laborDialog.CurrentLabor = new Labor ();
-                laborDialog.LaborViewModel = laborViewModel;
                 laborDialog.Show ();
             };
             addExpense.Click += (sender, e) => {
@@ -154,11 +152,8 @@ namespace FieldService.Android {
                 expenseDialog = new ExpenseDialog (this);
                 expenseDialog.Assignment = assignment;
                 expenseDialog.CurrentExpense = new Expense ();
-                expenseDialog.ExpenseViewModel = expenseViewModel;
                 expenseDialog.Show ();
             };
-
-
 
             ActionBar.SetLogo (Resource.Drawable.XamarinTitle);
             ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));
@@ -285,7 +280,6 @@ namespace FieldService.Android {
                         itemViewModel.LoadAssignmentItemsAsync (assignment).ContinueWith (_ => {
                             RunOnUiThread (() => {
                                 fragment.AssignmentItems = itemViewModel.AssignmentItems;
-                                fragment.ItemViewModel = itemViewModel;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);
                                 transaction.Commit ();
@@ -304,7 +298,6 @@ namespace FieldService.Android {
                             RunOnUiThread (() => {
                                 fragment.LaborHours = laborViewModel.LaborHours;
                                 fragment.Assignment = assignment;
-                                fragment.LaborViewModel = laborViewModel;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);
                                 transaction.Commit ();
@@ -323,7 +316,6 @@ namespace FieldService.Android {
                             RunOnUiThread (() => {
                                 fragment.Photos = photoViewModel.Photos;
                                 fragment.Assignment = assignment;
-                                fragment.PhotoViewModel = photoViewModel;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);
                                 transaction.Commit ();
@@ -340,7 +332,6 @@ namespace FieldService.Android {
                         expenseViewModel.LoadExpensesAsync (assignment).ContinueWith (_ => {
                             RunOnUiThread (() => {
                                 fragment.Expenses = expenseViewModel.Expenses;
-                                fragment.ExpenseViewModel = expenseViewModel;
                                 fragment.Assignment = assignment;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);

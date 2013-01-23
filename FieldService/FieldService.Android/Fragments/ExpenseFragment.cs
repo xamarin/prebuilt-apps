@@ -34,6 +34,7 @@ namespace FieldService.Android.Fragments {
     public class ExpenseFragment : Fragment {
         ListView expensesListView;
         ExpenseDialog expenseDialog;
+        ExpenseViewModel expenseViewModel;
 
         public List<Expense> Expenses
         {
@@ -49,19 +50,13 @@ namespace FieldService.Android.Fragments {
             get;
             set;
         }
-
-        /// <summary>
-        /// expense view model from summary activity
-        /// </summary>
-        public ExpenseViewModel ExpenseViewModel
-        {
-            get;
-            set;
-        }
-
+        
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
+
+            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+
             var view = inflater.Inflate (Resource.Layout.ExpensesFragmentLayout, null, true);
 
             expensesListView = view.FindViewById<ListView> (Resource.Id.expenseListView);
@@ -75,13 +70,11 @@ namespace FieldService.Android.Fragments {
                 expenseDialog = new ExpenseDialog(Activity);
                 expenseDialog.Assignment = Assignment;
                 expenseDialog.CurrentExpense = expense;
-                expenseDialog.ExpenseViewModel = ExpenseViewModel;
                 expenseDialog.Show ();
             };
 
             return view;
         }
-
 
         /// <summary>
         /// Reload the view in the listview by itself without calling to reload the list.
@@ -112,9 +105,9 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadExpenseData()
         {
-            ExpenseViewModel.LoadExpensesAsync (Assignment).ContinueWith (_ => {
+            expenseViewModel.LoadExpensesAsync (Assignment).ContinueWith (_ => {
                 Activity.RunOnUiThread (() => {
-                    Expenses = ExpenseViewModel.Expenses;
+                    Expenses = expenseViewModel.Expenses;
                     ReloadExpenses ();
                     var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
                     items.Text = Assignment.TotalExpenses.ToString ("$0.00");

@@ -26,7 +26,6 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 using Extensions = FieldService.Android.Utilities.AndroidExtensions;
 using Orientation = Android.Content.Res.Orientation;
-using Android.App;
 
 namespace FieldService.Android {
     /// <summary>

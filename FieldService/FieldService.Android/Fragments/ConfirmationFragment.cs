@@ -36,6 +36,7 @@ namespace FieldService.Android.Fragments {
     /// </summary>
     public class ConfirmationFragment : Fragment {
         AssignmentViewModel assignmentViewModel;
+        PhotoViewModel photoViewModel;
         SignatureDialog signatureDialog;
         PhotoDialog photoDialog;
         ListView photoListView;
@@ -47,6 +48,7 @@ namespace FieldService.Android.Fragments {
             base.OnCreate (savedInstanceState);
 
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
             mediaPicker = new MediaPicker (Activity);
         }
 
@@ -93,7 +95,6 @@ namespace FieldService.Android.Fragments {
                                 photoDialog.Activity = Activity;
                                 photoDialog.Assignment = Assignment;
                                 photoDialog.PhotoStream = t.Result.GetStream ();
-                                photoDialog.PhotoViewModel = PhotoViewModel;
                                 photoDialog.Show ();
                             });
                         });
@@ -110,7 +111,6 @@ namespace FieldService.Android.Fragments {
                                 photoDialog.Activity = Activity;
                                 photoDialog.Assignment = Assignment;
                                 photoDialog.PhotoStream = t.Result.GetStream ();
-                                photoDialog.PhotoViewModel = PhotoViewModel;
                                 photoDialog.Show ();
                             });
                         });
@@ -205,25 +205,7 @@ namespace FieldService.Android.Fragments {
             get;
             set;
         }
-
-        /// <summary>
-        /// photo view model from summary activity
-        /// </summary>
-        public PhotoViewModel PhotoViewModel
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// assignment view model from summary activity
-        /// </summary>
-        public AssignmentViewModel AssignmentViewModel
-        {
-            get;
-            set;
-        }
-
+        
         /// <summary>
         /// Dismiss the signature dialog if shown
         /// </summary>
@@ -243,11 +225,11 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadConfirmation ()
         {
-            PhotoViewModel
+            photoViewModel
                 .LoadPhotosAsync (Assignment)
                 .ContinueWith (_ => {
                     Activity.RunOnUiThread (() => {
-                        Photos = PhotoViewModel.Photos;
+                        Photos = photoViewModel.Photos;
                         ReloadListView ();
                     });
                 });

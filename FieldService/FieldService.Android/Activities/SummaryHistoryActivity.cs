@@ -49,24 +49,20 @@ namespace FieldService.Android.Activities {
         TextView number, name, phone, address, items;
         Button addItems, addLabor, addExpense;
         LinearLayout mapButton, phoneButton, selectedAssignmentLayout;
+        AssignmentHistory assignmentHistory;
 
         public SummaryHistoryActivity ()
         {
             historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+            itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+            documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
 
-            AssignmentHistory = historyViewModel.SelectedAssignmentHistory;
-            itemViewModel = new ItemViewModel ();
-            laborViewModel = new LaborViewModel ();
-            photoViewModel = new PhotoViewModel ();
-            expenseViewModel = new ExpenseViewModel ();
-            documentViewModel = new DocumentViewModel ();
+            assignmentHistory = historyViewModel.SelectedAssignmentHistory;
         }
-
-        /// <summary>
-        /// The selected assignment
-        /// </summary>
-        public AssignmentHistory AssignmentHistory { get; set; }
-
+        
         protected override void OnCreate (Bundle bundle)
         {
             base.OnCreate (bundle);
@@ -107,7 +103,7 @@ namespace FieldService.Android.Activities {
 
             selectedAssignmentLayout.SetBackgroundColor (Resources.GetColor (Resource.Color.historycolor));
 
-            historyViewModel.LoadAssignmentFromHistory (AssignmentHistory)
+            historyViewModel.LoadAssignmentFromHistory (assignmentHistory)
                 .ContinueWith (_ => {
                     RunOnUiThread (() => {
                         //setting up default fragments
@@ -121,12 +117,12 @@ namespace FieldService.Android.Activities {
                         transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
                         transaction.Commit ();
                         if (historyViewModel.PastAssignment != null) {
-                            ActionBar.Title = string.Format ("#{0} {1} {2}", AssignmentHistory.JobNumber, "Summary", historyViewModel.PastAssignment.StartDate.ToShortDateString ());
+                            ActionBar.Title = string.Format ("#{0} {1} {2}", assignmentHistory.JobNumber, "Summary", historyViewModel.PastAssignment.StartDate.ToShortDateString ());
 
                             number.Text = historyViewModel.PastAssignment.Priority.ToString ();
-                            name.Text = AssignmentHistory.ContactName;
-                            phone.Text = AssignmentHistory.ContactPhone;
-                            address.Text = string.Format ("{0}\n{1}, {2} {3}", AssignmentHistory.Address, AssignmentHistory.City, AssignmentHistory.State, AssignmentHistory.Zip);
+                            name.Text = assignmentHistory.ContactName;
+                            phone.Text = assignmentHistory.ContactPhone;
+                            address.Text = string.Format ("{0}\n{1}, {2} {3}", assignmentHistory.Address, assignmentHistory.City, assignmentHistory.State, assignmentHistory.Zip);
                         }
                         navigationFragment.NavigationSelected += NavigationSelected;
                     });
@@ -167,7 +163,7 @@ namespace FieldService.Android.Activities {
             }
             navigationIndex = e.Value;
             var screen = Constants.HistoryNavigation [e.Value];
-            ActionBar.Title = string.Format ("#{0} {1} {2}", AssignmentHistory.JobNumber, screen, historyViewModel.PastAssignment.StartDate.ToShortDateString ());
+            ActionBar.Title = string.Format ("#{0} {1} {2}", assignmentHistory.JobNumber, screen, historyViewModel.PastAssignment.StartDate.ToShortDateString ());
         }
 
         /// <summary>
@@ -207,7 +203,6 @@ namespace FieldService.Android.Activities {
                         itemViewModel.LoadAssignmentItemsAsync (historyViewModel.PastAssignment).ContinueWith (_ => {
                             RunOnUiThread (() => {
                                 fragment.AssignmentItems = itemViewModel.AssignmentItems;
-                                fragment.ItemViewModel = itemViewModel;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);
                                 transaction.Commit ();
@@ -226,7 +221,6 @@ namespace FieldService.Android.Activities {
                             RunOnUiThread (() => {
                                 fragment.LaborHours = laborViewModel.LaborHours;
                                 fragment.Assignment = historyViewModel.PastAssignment;
-                                fragment.LaborViewModel = laborViewModel;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);
                                 transaction.Commit ();
@@ -245,7 +239,6 @@ namespace FieldService.Android.Activities {
                             RunOnUiThread (() => {
                                 fragment.Photos = photoViewModel.Photos;
                                 fragment.Assignment = historyViewModel.PastAssignment;
-                                fragment.PhotoViewModel = photoViewModel;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);
                                 transaction.Commit ();
@@ -263,7 +256,6 @@ namespace FieldService.Android.Activities {
                             RunOnUiThread (() => {
                                 fragment.Expenses = expenseViewModel.Expenses;
                                 fragment.Assignment = historyViewModel.PastAssignment;
-                                fragment.ExpenseViewModel = expenseViewModel;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);
                                 transaction.Commit ();

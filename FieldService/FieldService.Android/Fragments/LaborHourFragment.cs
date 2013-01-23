@@ -32,11 +32,14 @@ namespace FieldService.Android.Fragments {
     public class LaborHourFragment : Fragment {
         ListView laborListView;
         AddLaborDialog laborDialog;
+        LaborViewModel laborViewModel;
         
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
             var view = inflater.Inflate (Resource.Layout.LaborHoursLayout, null, true);
+
+            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
 
             laborListView = view.FindViewById<ListView> (Resource.Id.laborListViewFragment);
 
@@ -49,7 +52,6 @@ namespace FieldService.Android.Fragments {
                 laborDialog = new AddLaborDialog (Activity);
                 laborDialog.Assignment = Assignment;
                 laborDialog.CurrentLabor = labor;
-                laborDialog.LaborViewModel = LaborViewModel;
                 laborDialog.Show ();
             };
             return view;
@@ -86,9 +88,9 @@ namespace FieldService.Android.Fragments {
         /// </summary>
         public void ReloadHours ()
         {
-            LaborViewModel.LoadLaborHoursAsync (Assignment).ContinueWith (_ => {
+            laborViewModel.LoadLaborHoursAsync (Assignment).ContinueWith (_ => {
                 Activity.RunOnUiThread (() => {
-                    LaborHours = LaborViewModel.LaborHours;
+                    LaborHours = laborViewModel.LaborHours;
                     ReloadLaborHours ();
                     var items = Activity.FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
                     items.Text = string.Format ("{0} hrs", Assignment.TotalHours.TotalHours.ToString ("0.0"));
@@ -122,15 +124,6 @@ namespace FieldService.Android.Fragments {
         /// The list of labor hours
         /// </summary>
         public List<Labor> LaborHours
-        {
-            get;
-            set;
-        }
-
-        /// <summary>
-        /// the labor view model from the summary activity
-        /// </summary>
-        public LaborViewModel LaborViewModel
         {
             get;
             set;

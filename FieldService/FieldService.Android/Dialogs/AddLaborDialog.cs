@@ -34,6 +34,7 @@ namespace FieldService.Android.Dialogs {
     public class AddLaborDialog : BaseDialog {
         readonly Activity activity;
         readonly LaborType [] laborTypes;
+        readonly LaborViewModel laborViewModel;
         EditText description;
         TextView hours;
         Spinner type;
@@ -43,6 +44,7 @@ namespace FieldService.Android.Dialogs {
             : base (activity)
         {
             this.activity = activity;
+            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
             laborTypes = new LaborType []
             {
                 LaborType.Hourly,
@@ -148,22 +150,13 @@ namespace FieldService.Android.Dialogs {
             get;
             set;
         }
-
-        /// <summary>
-        /// The labor view model
-        /// </summary>
-        public LaborViewModel LaborViewModel
-        {
-            get;
-            set;
-        }
-
+        
         /// <summary>
         /// Deletes the labor entry
         /// </summary>
         private void DeleteLabor ()
         {
-            LaborViewModel
+            laborViewModel
                 .DeleteLaborAsync (Assignment, CurrentLabor)
                 .ContinueWith (_ => {
                     activity.RunOnUiThread (() => {
@@ -183,7 +176,7 @@ namespace FieldService.Android.Dialogs {
             CurrentLabor.Description = description.Text;
             CurrentLabor.AssignmentId = Assignment.Id;
 
-            LaborViewModel
+            laborViewModel
                 .SaveLaborAsync (Assignment, CurrentLabor)
                 .ContinueWith (_ => {
                     activity.RunOnUiThread (() => {

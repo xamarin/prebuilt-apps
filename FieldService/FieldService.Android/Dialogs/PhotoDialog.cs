@@ -31,6 +31,7 @@ namespace FieldService.Android.Dialogs {
     /// </summary>
     public class PhotoDialog : BaseDialog {
         readonly Activity activity;
+        readonly PhotoViewModel photoViewModel;
         ImageView photo;
         EditText optionalCaption;
         TextView photoCount,
@@ -42,6 +43,7 @@ namespace FieldService.Android.Dialogs {
             : base (activity)
         {
             this.activity = activity;
+            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
         }
 
         protected override void OnCreate (Bundle savedInstanceState)
@@ -150,16 +152,7 @@ namespace FieldService.Android.Dialogs {
             get;
             set;
         }
-
-        /// <summary>
-        /// photo view model from confirmation fragment
-        /// </summary>
-        public PhotoViewModel PhotoViewModel
-        {
-            get;
-            set;
-        }
-
+        
         /// <summary>
         /// Show a dialog to delete the photo
         /// </summary>
@@ -170,15 +163,15 @@ namespace FieldService.Android.Dialogs {
                 .SetTitle ("Delete?")
                 .SetMessage ("Are you sure?")
                 .SetPositiveButton ("Yes", (sender, e) => {
-                    PhotoViewModel
-                   .DeletePhotoAsync (Assignment, Photo)
-                   .ContinueWith (_ => {
-                       activity.RunOnUiThread (() => {
-                           var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
-                           fragment.ReloadConfirmation ();
-                           Dismiss ();
-                       });
-                   });
+                    photoViewModel
+                        .DeletePhotoAsync (Assignment, Photo)
+                        .ContinueWith (_ => {
+                            activity.RunOnUiThread (() => {
+                                var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
+                                fragment.ReloadConfirmation ();
+                                Dismiss ();
+                            });
+                        });
                 })
                 .SetNegativeButton ("No", (sender, e) => { })
                 .Show ();
@@ -197,7 +190,7 @@ namespace FieldService.Android.Dialogs {
             savePhoto.Description = optionalCaption.Text;
             savePhoto.AssignmentId = Assignment.Id;
 
-            PhotoViewModel.SavePhotoAsync (Assignment, savePhoto)
+            photoViewModel.SavePhotoAsync (Assignment, savePhoto)
                 .ContinueWith (_ => {
                     activity.RunOnUiThread (() => {
                         var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
