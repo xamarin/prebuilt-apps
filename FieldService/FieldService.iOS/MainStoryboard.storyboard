@@ -593,7 +593,7 @@
         <!--Add Expense Controller-->
         <scene sceneID="UpS-Kc-rwq">
             <objects>
-                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="fAQ-8m-0JV" customClass="AddExpenseController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddExpenseController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="fAQ-8m-0JV" customClass="AddExpenseController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="y0f-FU-veK">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -730,7 +730,6 @@
                     <connections>
                         <outlet property="tableView" destination="gvT-fL-ZZ8" id="APv-GY-VBH"/>
                         <outlet property="toolbar" destination="0kV-l3-vnO" id="zdW-Ea-z3r"/>
-                        <segue destination="fAQ-8m-0JV" kind="modal" identifier="AddExpense" id="Jtr-om-WyB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="0yR-yd-vOE" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1105,7 +1104,6 @@
                     <connections>
                         <outlet property="tableView" destination="d6A-Fm-GYg" id="hs8-bH-8N4"/>
                         <outlet property="toolbar" destination="hAz-5G-ccC" id="oie-5d-T5J"/>
-                        <segue destination="Nzf-s9-ww1" kind="modal" identifier="AddItem" id="TE8-9f-hzt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="a3g-Og-K0q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1177,7 +1175,6 @@
                     <connections>
                         <outlet property="tableView" destination="upD-6H-x5q" id="heE-zv-CLJ"/>
                         <outlet property="toolbar" destination="r7p-Ld-1YW" id="miB-ap-V67"/>
-                        <segue destination="K64-ym-iGF" kind="modal" identifier="AddLabor" id="fza-Z7-eJ2"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="NKK-iO-zUa" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1522,7 +1519,6 @@
                         <outlet property="photoTableView" destination="5DK-NN-TzP" id="Ogy-uu-oWZ"/>
                         <outlet property="signatureTableView" destination="x1g-gj-n2w" id="CNw-4p-HML"/>
                         <outlet property="toolbar" destination="Dl0-Wi-NkM" id="rGM-je-ub9"/>
-                        <segue destination="l06-9I-9t1" kind="modal" identifier="AddPhoto" id="qiO-Y6-fcC"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="ES2-QK-aLh" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1532,7 +1528,7 @@
         <!--Add Photo Controller-->
         <scene sceneID="47i-5Q-bqL">
             <objects>
-                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="l06-9I-9t1" customClass="AddPhotoController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddPhotoController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="l06-9I-9t1" customClass="AddPhotoController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8hP-5y-LfK">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1619,7 +1615,7 @@
         <!--Add Labor Controller-->
         <scene sceneID="EYo-cS-Qo6">
             <objects>
-                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="K64-ym-iGF" customClass="AddLaborController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddLaborController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="K64-ym-iGF" customClass="AddLaborController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="UQg-Ke-8Ie">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -1658,7 +1654,7 @@
         <!--Add Item Controller-->
         <scene sceneID="RXg-cv-DOj">
             <objects>
-                <viewController modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="Nzf-s9-ww1" customClass="AddItemController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="AddItemController" modalTransitionStyle="flipHorizontal" modalPresentationStyle="formSheet" id="Nzf-s9-ww1" customClass="AddItemController" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="NoC-U0-bC2">
                         <rect key="frame" x="0.0" y="0.0" width="540" height="620"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
