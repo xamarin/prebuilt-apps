@@ -8,6 +8,12 @@ namespace FieldService.ViewModels {
     /// A simple ViewModel for coordinating menu changes within the app
     /// </summary>
     public class MenuViewModel : ViewModelBase {
+
+        /// <summary>
+        /// Event when the menu index changes
+        /// </summary>
+        public event EventHandler MenuIndexChanged;
+
         int menuIndex = 0;
 
         /// <summary>
@@ -16,7 +22,16 @@ namespace FieldService.ViewModels {
         public int MenuIndex
         {
             get { return menuIndex; }
-            set { menuIndex = value; OnPropertyChanged ("MenuIndex"); }
+            set { menuIndex = value; OnMenuIndexChanged (); }
+        }
+
+        private void OnMenuIndexChanged ()
+        {
+            OnPropertyChanged ("MenuIndex");
+
+            var method = MenuIndexChanged;
+            if (method != null)
+                method (this, EventArgs.Empty);
         }
     }
 }
