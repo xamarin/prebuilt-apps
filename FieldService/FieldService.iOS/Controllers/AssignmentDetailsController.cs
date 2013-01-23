@@ -34,12 +34,21 @@ namespace FieldService.iOS
 		public event EventHandler StatusChanged;
 
 		readonly AssignmentViewModel assignmentViewModel;
+		readonly Lazy<UIViewController> mapController, itemsController,	laborController, expenseController, documentController, confirmationController,	historyController;
 		UIViewController lastChildController;
 		SummaryController summaryController;
 
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+
+			mapController = new Lazy<UIViewController>(() => new MapController());
+			itemsController = new Lazy<UIViewController>(() => Storyboard.InstantiateViewController<ItemsViewController>());
+			laborController = new Lazy<UIViewController>(() => Storyboard.InstantiateViewController<LaborController>());
+			expenseController = new Lazy<UIViewController>(() => Storyboard.InstantiateViewController<ExpenseController>());
+			documentController = new Lazy<UIViewController>(() => Storyboard.InstantiateViewController<DocumentController>());
+			confirmationController = new Lazy<UIViewController>(() => Storyboard.InstantiateViewController<ConfirmationController>());
+			historyController = new Lazy<UIViewController>(() => Storyboard.InstantiateViewController<HistoryController>());
 		}
 
 		public override void ViewDidLoad ()
@@ -85,25 +94,25 @@ namespace FieldService.iOS
 				nextChildController = summaryController;
 				break;
 			case SectionIndex.Maps:
-				nextChildController = new MapController();
+				nextChildController = mapController.Value;
 				break;
 			case SectionIndex.Items:
-				nextChildController = Storyboard.InstantiateViewController<ItemsViewController>();
+				nextChildController = itemsController.Value;
 				break;
 			case SectionIndex.Labor:
-				nextChildController = Storyboard.InstantiateViewController<LaborController>();
+				nextChildController = laborController.Value;
 				break;
 			case SectionIndex.Expenses:
-				nextChildController = Storyboard.InstantiateViewController<ExpenseController>();
+				nextChildController = expenseController.Value;
 				break;
 			case SectionIndex.Documents:
-				nextChildController = Storyboard.InstantiateViewController<DocumentController>();
+				nextChildController = documentController.Value;
 				break;
 			case SectionIndex.Confirmations:
-				nextChildController = Storyboard.InstantiateViewController<ConfirmationController>();
+				nextChildController = confirmationController.Value;
 				break;
 			case SectionIndex.History:
-				nextChildController = Storyboard.InstantiateViewController<HistoryController>();
+				nextChildController = historyController.Value;
 				break;
 			default:
 				//We should really never get here

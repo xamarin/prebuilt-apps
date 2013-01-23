@@ -38,16 +38,31 @@ namespace FieldService.iOS
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			//Hook up viewModel events
-			assignmentViewModel.HoursChanged += (sender, e) => {
-				if (IsViewLoaded) {
-					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-				}
-			};
-			assignmentViewModel.RecordingChanged += (sender, e) => {
-				if (IsViewLoaded) {
-					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
-				}
-			};
+			assignmentViewModel.HoursChanged += OnHoursChanged;
+			assignmentViewModel.RecordingChanged += OnRecordingChanged;
+		}
+
+		private void OnHoursChanged (object sender, EventArgs e)
+		{
+			if (IsViewLoaded) {
+				timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+			}
+		}
+
+		private void OnRecordingChanged (object sender, EventArgs e)
+		{
+			if (IsViewLoaded) {
+				record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+			}
+		}
+
+		protected override void Dispose (bool disposing)
+		{
+			base.Dispose (disposing);
+
+			//Do this because the ViewModel hangs around for the lifetime of the app
+			assignmentViewModel.HoursChanged -= OnHoursChanged;
+			assignmentViewModel.RecordingChanged -= OnRecordingChanged;
 		}
 
 		public override void ViewDidLoad ()
@@ -248,11 +263,10 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
+			var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+			menuViewModel.MenuIndex = SectionIndex.Maps;
 			assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
-			
-			var menuController = ServiceContainer.Resolve<MenuController>();
-			menuController.ShowMaps(false);
 		}
 
 		/// <summary>
@@ -260,6 +274,8 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void ActiveAssignmentSelected ()
 		{
+			var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+			menuViewModel.MenuIndex = SectionIndex.Maps;
 			assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
 		}
@@ -306,6 +322,8 @@ namespace FieldService.iOS
 			/// </summary>
 			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
 			{
+				var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+				menuViewModel.MenuIndex = SectionIndex.Summary;
 				assignmentViewModel.SelectedAssignment = GetAssignment (view.Annotation as MKPlacemark);
 				controller.PerformSegue ("AssignmentDetails", controller);
 			}

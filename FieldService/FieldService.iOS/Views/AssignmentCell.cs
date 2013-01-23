@@ -71,6 +71,8 @@ namespace FieldService.iOS
 				address.IconImage = Theme.Map;
 				status.StatusChanged += (sender, e) => SaveAssignment ();
 				status.Completed += (sender, e) => {
+					var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+					menuViewModel.MenuIndex = SectionIndex.Confirmations;
 					assignmentViewModel.SelectedAssignment = status.Assignment;
 					controller.PerformSegue ("AssignmentDetails", controller);
 				};
@@ -142,7 +144,6 @@ namespace FieldService.iOS
 		{
 			var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
 			menuViewModel.MenuIndex = SectionIndex.Maps;
-
 			assignmentViewModel.SelectedAssignment = assignment;
 			controller.PerformSegue ("AssignmentDetails", controller);
 		}
