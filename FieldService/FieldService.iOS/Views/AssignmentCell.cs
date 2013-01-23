@@ -141,9 +141,9 @@ namespace FieldService.iOS
 		partial void Address ()
 		{
 			assignmentViewModel.SelectedAssignment = assignment;
-			//TODO: fix this
-			//assignmentController.PerformSegue ("AssignmentDetails", assignmentController);
+			controller.PerformSegue ("AssignmentDetails", controller);
 
+			//TODO: fix this
 			//var menuController = ServiceContainer.Resolve<MenuController>();
 			//menuController.ShowMaps(false);
 		}

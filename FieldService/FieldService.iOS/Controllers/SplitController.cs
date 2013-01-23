@@ -61,10 +61,6 @@ namespace FieldService.iOS
 
 			detailsController.StatusChanged += (sender, e) => {
 				menuController.UpdateAssignment ();
-
-				//TODO: fix this
-				//var confirmationController = ServiceContainer.Resolve<ConfirmationController>();
-				//confirmationController.ReloadConfirmation ();
 			};
 			menuController.MenuChanged += (sender, e) => {
 				detailsController.SectionSelected (e.TableView, e.IndexPath, e.Animated);

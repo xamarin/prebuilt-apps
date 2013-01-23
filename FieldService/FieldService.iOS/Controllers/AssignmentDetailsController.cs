@@ -175,6 +175,11 @@ namespace FieldService.iOS
 					decline.Hidden =
 						accept.Hidden = true;
 				}
+
+				var confirmationController = ChildViewControllers[0] as ConfirmationController;
+				if (confirmationController != null) {
+					confirmationController.ReloadConfirmation ();
+				}
 			}
 		}
 
