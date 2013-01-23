@@ -27,14 +27,16 @@ namespace FieldService.iOS
 	[Register("SplitController")]
 	public partial class SplitController : BaseController
 	{
+		readonly AssignmentViewModel assignmentViewModel;
 		MenuController menuController;
 		AssignmentDetailsController detailsController;
-		private UIBarButtonItem menu, hide;
-		private bool wasLandscape = true, masterPopoverShown = false;
-		private const float masterWidth = 321;
+		UIBarButtonItem menu, hide;
+		bool wasLandscape = true, masterPopoverShown = false, isHistory = false;
+		const float masterWidth = 321;
 
 		public SplitController (IntPtr handle) : base(handle)
 		{
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -66,6 +68,26 @@ namespace FieldService.iOS
 				}
 			};
 			menuController.StatusChanged += (sender, e) => detailsController.UpdateAssignment ();
+		}
+
+		public override void ViewWillAppear (bool animated)
+		{
+			base.ViewWillAppear (animated);
+
+			isHistory = assignmentViewModel.SelectedAssignment.IsHistory;
+		}
+
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+
+			if (isHistory && assignmentViewModel.LastAssignment != null) {
+				assignmentViewModel.SelectedAssignment = assignmentViewModel.LastAssignment;
+				assignmentViewModel.LastAssignment = null;
+
+				var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+				menuViewModel.MenuIndex = SectionIndex.History;
+			}
 		}
 
 		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)

@@ -34,16 +34,31 @@ namespace FieldService.iOS
 			loginViewModel = ServiceContainer.Resolve<LoginViewModel>();
 
 			//Hook up ViewModel events
-			loginViewModel.IsBusyChanged += (sender, e) => {
-				if (IsViewLoaded) {
-					indicator.Hidden = !loginViewModel.IsBusy;
-					login.Hidden = loginViewModel.IsBusy;
-				}
-			};
-			loginViewModel.IsValidChanged += (sender, e) => {
-				if (IsViewLoaded)
-					login.Enabled = loginViewModel.IsValid;
-			};
+			loginViewModel.IsBusyChanged += OnIsBusyChanged;
+			loginViewModel.IsValidChanged += OnIsValidChanged;
+		}
+
+		private void OnIsBusyChanged (object sender, EventArgs e)
+		{
+			if (IsViewLoaded) {
+				indicator.Hidden = !loginViewModel.IsBusy;
+				login.Hidden = loginViewModel.IsBusy;
+			}
+		}
+
+		private void OnIsValidChanged (object sender, EventArgs e)
+		{
+			if (IsViewLoaded)
+				login.Enabled = loginViewModel.IsValid;
+		}
+
+		protected override void Dispose (bool disposing)
+		{
+			base.Dispose (disposing);
+
+			//Do this because the ViewModel hangs around for the lifetime of the app
+			loginViewModel.IsBusyChanged -= OnIsBusyChanged;
+			loginViewModel.IsValidChanged -= OnIsValidChanged;
 		}
 
 		public override bool HandlesKeyboardNotifications {

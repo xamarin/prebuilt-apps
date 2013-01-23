@@ -63,10 +63,7 @@ namespace FieldService.iOS
 
 			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 
-			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, (sender, e) => {
-				var addItemController = Storyboard.InstantiateViewController<AddItemController>();
-				PresentViewController (addItemController, true, ReloadItems);
-			});
+			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, OnAddItem);
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
@@ -122,6 +119,13 @@ namespace FieldService.iOS
 						});
 					});
 			}
+		}
+
+		private void OnAddItem(object sender, EventArgs e)
+		{
+			var addItemController = Storyboard.InstantiateViewController<AddItemController>();
+			addItemController.Dismissed += (a, b) => ReloadItems();
+			PresentViewController (addItemController, true, null);
 		}
 
 		/// <summary>

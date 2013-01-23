@@ -79,7 +79,10 @@ namespace FieldService.iOS
 				File.Copy (document.Path, tempPath, true);
 
 				DocumentController.Url = NSUrl.FromFilename (tempPath);
-				DocumentController.PresentOpenInMenu (Frame, Superview, true);
+				if (!DocumentController.PresentOpenInMenu (Frame, Superview, true))
+				{
+					new UIAlertView("Error", "Sorry, there is not an app installed that can view PDFs.", null, "Ok").Show ();
+				}
 			}
 
 			//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke

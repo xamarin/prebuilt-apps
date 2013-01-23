@@ -110,20 +110,6 @@ namespace FieldService.iOS
 		{
 
 		}
-
-		/// <summary>
-		/// Dispose the controller, need to unsubsribe from notifications
-		/// </summary>
-		protected override void Dispose (bool disposing)
-		{
-			//Unsubscribe from messages
-			if (HandlesKeyboardNotifications) {
-				NSNotificationCenter.DefaultCenter.RemoveObserver (this, UIKeyboard.WillHideNotification);
-				NSNotificationCenter.DefaultCenter.RemoveObserver (this, UIKeyboard.WillShowNotification);
-			}
-
-			base.Dispose (disposing);
-		}
 	}
 }
 

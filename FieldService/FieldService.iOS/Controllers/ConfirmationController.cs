@@ -55,7 +55,8 @@ namespace FieldService.iOS
 				photoViewModel.SelectedPhoto.Image = image.ToByteArray ();
 
 				var addPhotoController = Storyboard.InstantiateViewController<AddPhotoController>();
-				PresentViewController(addPhotoController, true, ReloadConfirmation);
+				addPhotoController.Dismissed += (sender, e) => ReloadConfirmation ();
+				PresentViewController(addPhotoController, true, null);
 			};
 			addPhoto.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
 			addPhoto.SetTitleColor (UIColor.White, UIControlState.Normal);
@@ -150,7 +151,8 @@ namespace FieldService.iOS
 				photoViewModel.SelectedPhoto = photoViewModel.Photos[indexPath.Section];
 
 				var addPhotoController = controller.Storyboard.InstantiateViewController<AddPhotoController>();
-				controller.PresentViewController(addPhotoController, true, controller.ReloadConfirmation);
+				addPhotoController.Dismissed += (sender, e) => controller.ReloadConfirmation ();
+				controller.PresentViewController(addPhotoController, true, null);
 			}
 		}
 
@@ -191,7 +193,7 @@ namespace FieldService.iOS
 				if (indexPath.Section == 0) {
 					cell = tableView.DequeueReusableCell (SignatureIdentifier);
 					var signatureCell = cell as SignatureCell;
-					signatureCell.SetSignature (assignmentViewModel.SelectedAssignment, assignmentViewModel.Signature);
+					signatureCell.SetSignature (controller, assignmentViewModel.SelectedAssignment, assignmentViewModel.Signature);
 				} else {
 					cell = tableView.DequeueReusableCell (CompleteIdentifier);
 					var completeCell = cell as CompleteCell;

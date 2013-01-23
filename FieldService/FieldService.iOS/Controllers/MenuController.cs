@@ -51,21 +51,41 @@ namespace FieldService.iOS
 			menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
-			assignmentViewModel.HoursChanged += (sender, e) => {
-				if (IsViewLoaded) {
-					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-				}
-			};
-			assignmentViewModel.RecordingChanged += (sender, e) => {
-				if (IsViewLoaded) {
-					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
-				}
-			};
-			menuViewModel.MenuIndexChanged += (sender, e) => {
-				if (IsViewLoaded) {
-					ChangeSelection (menuViewModel.MenuIndex);
-				}
-			};
+			//Subscribe to ViewModel events
+			assignmentViewModel.HoursChanged += OnHoursChanged;
+			assignmentViewModel.RecordingChanged += OnRecordingChanged;
+			menuViewModel.MenuIndexChanged += OnMenuIndexChanged;
+		}
+
+		private void OnMenuIndexChanged (object sender, EventArgs e)
+		{
+			if (IsViewLoaded) {
+				ChangeSelection (menuViewModel.MenuIndex);
+			}
+		}
+
+		private void OnRecordingChanged (object sender, EventArgs e)
+		{
+			if (IsViewLoaded) {
+				record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+			}
+		}
+
+		private void OnHoursChanged (object sender, EventArgs e)
+		{
+			if (IsViewLoaded) {
+				timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+			}
+		}
+
+		protected override void Dispose (bool disposing)
+		{
+			base.Dispose (disposing);
+
+			//Do this because the ViewModel hangs around for the lifetime of the app
+			assignmentViewModel.HoursChanged -= OnHoursChanged;
+			assignmentViewModel.RecordingChanged -= OnRecordingChanged;
+			menuViewModel.MenuIndexChanged -= OnMenuIndexChanged;
 		}
 
 		public override void ViewDidLoad ()
@@ -81,14 +101,14 @@ namespace FieldService.iOS
 
 			status.StatusChanged += (sender, e) => SaveAssignment ();
 			status.Completed += (sender, e) => {
+
+				menuViewModel.MenuIndex = SectionIndex.Confirmations;
 				assignmentViewModel.SelectedAssignment = status.Assignment;
 
 				var method = AssignmentCompleted;
 				if (method != null) {
 					method(this, EventArgs.Empty);
 				}
-
-				ShowConfirmation ();
 			};
 		}
 
@@ -105,36 +125,15 @@ namespace FieldService.iOS
 			UpdateAssignment ();
 		}
 
-		/// <summary>
-		/// Displays the confirmation page
-		/// </summary>
-		public void ShowConfirmation ()
-		{
-			ChangeSelection (SectionIndex.Confirmations);
-		}
-
-		/// <summary>
-		/// Displays the maps page
-		/// </summary>
-		public void ShowMaps (bool animated)
-		{
-			ChangeSelection (SectionIndex.Maps);
-		}
-
-		/// <summary>
-		/// Displays the history page
-		/// </summary>
-		public void ShowHistory ()
-		{
-			ChangeSelection (SectionIndex.History);
-		}
-
 		private void ChangeSelection (int index)
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
-				tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+			int count = tableView.NumberOfRowsInSection (0);
+			if (index < count) {
+				using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
+					tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
 				
-				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
+					OnMenuChanged (new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
+				}
 			}
 		}
 

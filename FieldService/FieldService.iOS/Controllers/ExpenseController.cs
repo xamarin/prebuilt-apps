@@ -64,14 +64,7 @@ namespace FieldService.iOS
 
 			space = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 			
-			addItem = new UIBarButtonItem ("Add Expense", UIBarButtonItemStyle.Bordered, (sender, e) => {
-				expenseViewModel.SelectedExpense = new Expense {
-					AssignmentId = assignmentViewModel.SelectedAssignment.Id,
-				};
-
-				var addExpenseController = Storyboard.InstantiateViewController<AddExpenseController>();
-				PresentViewController (addExpenseController, true, ReloadExpenses);
-			});
+			addItem = new UIBarButtonItem ("Add Expense", UIBarButtonItemStyle.Bordered, OnAddExpense);
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
@@ -128,6 +121,17 @@ namespace FieldService.iOS
 			}
 		}
 
+		private void OnAddExpense (object sender, EventArgs e)
+		{
+			expenseViewModel.SelectedExpense = new Expense {
+				AssignmentId = assignmentViewModel.SelectedAssignment.Id,
+			};
+			
+			var addExpenseController = Storyboard.InstantiateViewController<AddExpenseController>();
+			addExpenseController.Dismissed += (a, b) => ReloadExpenses ();
+			PresentViewController (addExpenseController, true, null);
+		}
+
 		/// <summary>
 		/// Table source for expenses
 		/// </summary>
@@ -155,6 +159,7 @@ namespace FieldService.iOS
 				expenseViewModel.SelectedExpense = expenseViewModel.Expenses[indexPath.Row];
 
 				var addExpenseController = controller.Storyboard.InstantiateViewController<AddExpenseController>();
+				addExpenseController.Dismissed += (sender, e) => controller.ReloadExpenses ();
 				controller.PresentViewController (addExpenseController, true, controller.ReloadExpenses);
 
 				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke

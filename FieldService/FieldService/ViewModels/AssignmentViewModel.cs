@@ -39,7 +39,7 @@ namespace FieldService.ViewModels {
         TimeSpan hours = TimeSpan.Zero;
         TimeSpan currentHours = TimeSpan.Zero;
         List<Assignment> assignments;
-        Assignment activeAssignment, selectedAssignment;
+	Assignment activeAssignment, selectedAssignment, lastAssignment;
         Data.Signature signature;
         TimerEntry timerEntry;
 
@@ -82,12 +82,17 @@ namespace FieldService.ViewModels {
         public virtual Assignment SelectedAssignment
         {
             get { return selectedAssignment; }
-            set
-            {
-                selectedAssignment = value;
-                OnPropertyChanged ("SelectedAssignment");
-            }
+            set { selectedAssignment = value; OnPropertyChanged ("SelectedAssignment"); }
         }
+
+	/// <summary>
+	/// The "last" assignment, used for when switching between history
+	/// </summary>
+	public Assignment LastAssignment
+	{
+		get { return lastAssignment; }
+		set { lastAssignment = value; OnPropertyChanged ("LastAssignment"); }
+	}
 
         /// <summary>
         /// List of available statuses an assignment can be set to

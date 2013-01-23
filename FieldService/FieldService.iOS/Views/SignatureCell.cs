@@ -26,6 +26,7 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class SignatureCell : UITableViewCell
 	{
+		ConfirmationController controller;
 		UIImage image;
 
 		public SignatureCell (IntPtr handle) : base (handle)
@@ -36,8 +37,10 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Set the signature for this cell
 		/// </summary>
-		public void SetSignature (Assignment assignment, Data.Signature signature)
+		public void SetSignature (ConfirmationController controller, Assignment assignment, Data.Signature signature)
 		{
+			this.controller = controller;
+
 			//Dispose the previous image if there was one
 			if (image != null) {
 				image.Dispose ();
@@ -78,6 +81,7 @@ namespace FieldService.iOS
 		partial void AddSignature ()
 		{
 			var signatureController = new SignatureController();
+			signatureController.Dismissed += (sender, e) => controller.ReloadConfirmation ();
 			signatureController.PresentFromRect (Frame, Superview, UIPopoverArrowDirection.Up, true);
 		}
 

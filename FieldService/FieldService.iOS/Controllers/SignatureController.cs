@@ -28,12 +28,27 @@ namespace FieldService.iOS
 	/// </summary>
 	public class SignatureController : UIPopoverController
 	{
+		/// <summary>
+		/// Occurs when dismissed.
+		/// </summary>
+		public event EventHandler Dismissed;
+
 		public SignatureController ()
 			: base(new UINavigationController())
 		{
 			var navController = ContentViewController as UINavigationController;
 			navController.ViewControllers = new UIViewController[] { new ContentController(this) };
 			PopoverContentSize = new SizeF(665, 400);
+		}
+
+		public override void Dismiss (bool animated)
+		{
+			base.Dismiss (animated);
+
+			var method = Dismissed;
+			if (method != null) {
+				method(this, EventArgs.Empty);
+			}
 		}
 
 		/// <summary>

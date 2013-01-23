@@ -64,15 +64,7 @@ namespace FieldService.iOS
 
 			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 			
-			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, (sender, e) => {
-				laborViewModel.SelectedLabor = new Labor {
-					Type = LaborType.Hourly,
-					AssignmentId = assignmentViewModel.SelectedAssignment.Id,
-				};
-
-				var addLaborController = Storyboard.InstantiateViewController<AddLaborController>();
-				PresentViewController (addLaborController, true, ReloadLabor);
-			});
+			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, OnAddLabor);
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
@@ -129,6 +121,18 @@ namespace FieldService.iOS
 			}
 		}
 
+		private void OnAddLabor(object sender, EventArgs e)
+		{
+			laborViewModel.SelectedLabor = new Labor {
+				Type = LaborType.Hourly,
+				AssignmentId = assignmentViewModel.SelectedAssignment.Id,
+			};
+
+			var addLaborController = Storyboard.InstantiateViewController<AddLaborController>();
+			addLaborController.Dismissed += (a, b) => ReloadLabor();
+			PresentViewController (addLaborController, true, null);
+		}
+
 		/// <summary>
 		/// Table source for labor hours
 		/// </summary>
@@ -156,7 +160,8 @@ namespace FieldService.iOS
 				laborViewModel.SelectedLabor = laborViewModel.LaborHours[indexPath.Row];
 
 				var addLaborController = controller.Storyboard.InstantiateViewController<AddLaborController>();
-				controller.PresentViewController (addLaborController, true, controller.ReloadLabor);
+				addLaborController.Dismissed += (sender, e) => controller.ReloadLabor();
+				controller.PresentViewController (addLaborController, true, null);
 
 				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
 				BeginInvokeOnMainThread (() => {

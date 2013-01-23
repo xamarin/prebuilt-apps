@@ -27,6 +27,11 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddPhotoController : BaseController
 	{
+		/// <summary>
+		/// Occurs when dismissed.
+		/// </summary>
+		public event EventHandler Dismissed;
+
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
 		UIImage image;
@@ -94,6 +99,16 @@ namespace FieldService.iOS
 			}
 		}
 
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+			
+			var method = Dismissed;
+			if (method != null) {
+				method(this, EventArgs.Empty);
+			}
+		}
+
 		public override void ViewDidDisappear (bool animated)
 		{
 			base.ViewDidDisappear (animated);
@@ -153,7 +168,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Cancel (NSObject sender)
 		{
-			DismissViewController (true, delegate { });
+			DismissViewController (true, null);
 		}
 	}
 }
