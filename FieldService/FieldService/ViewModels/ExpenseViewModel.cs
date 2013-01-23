@@ -40,12 +40,14 @@ namespace FieldService.ViewModels {
             set { photo = value; OnPropertyChanged("Photo"); }
         }
 
+	/// <summary>
+	/// The selected expense for use within the app
+	/// </summary>
 	public Expense SelectedExpense 
 	{
 	    get { return selectedExpense; }
 	    set { selectedExpense = value; OnPropertyChanged ("SelectedExpense"); }
 	}
-
 
         /// <summary>
         /// Loads the list of expenses

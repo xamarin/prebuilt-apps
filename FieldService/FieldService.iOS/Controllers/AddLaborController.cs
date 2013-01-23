@@ -27,17 +27,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddLaborController : BaseController
 	{
-		readonly LaborController laborController;
-		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
 		readonly LaborViewModel laborViewModel;
 		UIBarButtonItem labor, space1, space2, done;
 		TableSource tableSource;
 
 		public AddLaborController (IntPtr handle) : base (handle)
 		{
-			laborController = ServiceContainer.Resolve<LaborController>();
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-			laborViewModel = laborController.LaborViewModel;
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			laborViewModel = ServiceContainer.Resolve<LaborViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -57,7 +55,7 @@ namespace FieldService.iOS
 
 			done = new UIBarButtonItem("Done", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				laborViewModel
-					.SaveLaborAsync (assignmentController.Assignment, laborController.Labor)
+					.SaveLaborAsync (assignmentViewModel.SelectedAssignment, laborViewModel.SelectedLabor)
 					.ContinueWith (_ => BeginInvokeOnMainThread (() => DismissViewController (true, null)));
 			});
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
@@ -75,7 +73,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			bool enabled = assignmentController.Assignment.Status != AssignmentStatus.Complete && !assignmentController.Assignment.IsHistory;
+			bool enabled = !assignmentViewModel.SelectedAssignment.IsReadonly;
 			if (enabled) {
 				toolbar.Items = new UIBarButtonItem[] {
 					cancel,
@@ -91,15 +89,7 @@ namespace FieldService.iOS
 				toolbar.SetBackgroundImage (Theme.OrangeBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 				cancel.SetBackgroundImage (Theme.OrangeBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			}
-			tableSource.Load (enabled, laborController.Labor);
-		}
-
-		public override void ViewWillDisappear (bool animated)
-		{
-			base.ViewWillDisappear (animated);
-
-			//Reload the labor on the other screen when dismissed
-			laborController.ReloadLabor ();
+			tableSource.Load (enabled);
 		}
 
 		/// <summary>
@@ -124,7 +114,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
-			readonly LaborController laborController;
+			readonly LaborViewModel laborViewModel;
 			readonly UITableViewCell typeCell, hoursCell, descriptionCell;
 			readonly LaborTypeTextField type;
 			readonly PlaceholderTextView description;
@@ -133,7 +123,7 @@ namespace FieldService.iOS
 			
 			public TableSource ()
 			{
-				laborController = ServiceContainer.Resolve<LaborController>();
+				laborViewModel = ServiceContainer.Resolve<LaborViewModel>();
 
 				typeCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				typeCell.TextLabel.Text = "Type";
@@ -145,14 +135,14 @@ namespace FieldService.iOS
 				};
 				typeCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				type.EditingDidEnd += (sender, e) => {
-					laborController.Labor.Type = type.LaborType;
+					laborViewModel.SelectedLabor.Type = type.LaborType;
 				};
 
 				hoursCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				hoursCell.TextLabel.Text = "Hours";
 				hoursCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				hoursCell.AccessoryView = hours = new HoursField(new RectangleF(0, 0, 200, 44));
-				hours.ValueChanged += (sender, e) => laborController.Labor.Hours = TimeSpan.FromHours (hours.Value);
+				hours.ValueChanged += (sender, e) => laborViewModel.SelectedLabor.Hours = TimeSpan.FromHours (hours.Value);
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, 470, 400))
@@ -164,16 +154,17 @@ namespace FieldService.iOS
 				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 				description.SetDidChangeNotification (d => {
 					if (description.Text != description.Placeholder) {
-						laborController.Labor.Description = d.Text;
+						laborViewModel.SelectedLabor.Description = d.Text;
 					} else {
-						laborController.Labor.Description = string.Empty;
+						laborViewModel.SelectedLabor.Description = string.Empty;
 					}
 				});
 			}
 
-			public void Load (bool enabled, Labor labor)
+			public void Load (bool enabled)
 			{
 				this.enabled = enabled;
+				var labor = laborViewModel.SelectedLabor;
 
 				type.Enabled =
 					hours.Enabled =

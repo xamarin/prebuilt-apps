@@ -68,7 +68,9 @@ namespace FieldService.iOS
 				expenseViewModel.SelectedExpense = new Expense {
 					AssignmentId = assignmentViewModel.SelectedAssignment.Id,
 				};
-				PerformSegue ("AddExpense", this);
+
+				var addExpenseController = Storyboard.InstantiateViewController<AddExpenseController>();
+				PresentViewController (addExpenseController, true, ReloadExpenses);
 			});
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
@@ -151,7 +153,9 @@ namespace FieldService.iOS
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				expenseViewModel.SelectedExpense = expenseViewModel.Expenses[indexPath.Row];
-				controller.PerformSegue ("AddExpense", controller);
+
+				var addExpenseController = controller.Storyboard.InstantiateViewController<AddExpenseController>();
+				controller.PresentViewController (addExpenseController, true, controller.ReloadExpenses);
 
 				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
 				BeginInvokeOnMainThread (() => {

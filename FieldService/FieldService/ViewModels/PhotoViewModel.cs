@@ -28,6 +28,7 @@ namespace FieldService.ViewModels {
     public class PhotoViewModel : ViewModelBase {
         readonly IAssignmentService service;
         List<Photo> photos;
+	Photo selectedPhoto;
 
         public PhotoViewModel ()
         {
@@ -42,6 +43,15 @@ namespace FieldService.ViewModels {
             get { return photos; }
             set { photos = value; OnPropertyChanged ("AssignmentItems"); OnPropertyChanged ("Photos"); }
         }
+
+	/// <summary>
+	/// The selected photo for use within the app
+	/// </summary>
+	public Photo SelectedPhoto
+	{
+	    get { return selectedPhoto; }
+	    set { selectedPhoto = value; OnPropertyChanged ("SelectedPhoto"); }
+	}
 
         /// <summary>
         /// Loads all the photos for an assignment

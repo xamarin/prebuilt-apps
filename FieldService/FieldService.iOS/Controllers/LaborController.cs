@@ -28,27 +28,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class LaborController : BaseController
 	{
-		readonly AssignmentsController assignmentController;
+		readonly LaborViewModel laborViewModel;
+		readonly AssignmentViewModel assignmentViewModel;
 		UILabel title;
 		UIBarButtonItem titleButton, edit, addItem, space;
 
 		public LaborController (IntPtr handle) : base (handle)
 		{
-			LaborViewModel = new LaborViewModel();
-			assignmentController = ServiceContainer.Resolve <AssignmentsController> ();
-		}
-
-		/// <summary>
-		/// Gets or sets the labor entry being edited
-		/// </summary>
-		public Labor Labor {
-			get;
-			set;
-		}
-
-		public LaborViewModel LaborViewModel {
-			get;
-			private set;
+			laborViewModel = ServiceContainer.Resolve<LaborViewModel>();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -77,16 +65,18 @@ namespace FieldService.iOS
 			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 			
 			addItem = new UIBarButtonItem ("Add Labor", UIBarButtonItemStyle.Bordered, (sender, e) => {
-				Labor = new Labor {
+				laborViewModel.SelectedLabor = new Labor {
 					Type = LaborType.Hourly,
-					AssignmentId = assignmentController.Assignment.Id,
+					AssignmentId = assignmentViewModel.SelectedAssignment.Id,
 				};
-				PerformSegue ("AddLabor", this);
+
+				var addLaborController = Storyboard.InstantiateViewController<AddLaborController>();
+				PresentViewController (addLaborController, true, ReloadLabor);
 			});
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			tableView.Source = new TableSource (LaborViewModel);
+			tableView.Source = new TableSource (this);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -113,8 +103,8 @@ namespace FieldService.iOS
 		public void ReloadLabor ()
 		{
 			if (IsViewLoaded) {
-				var assignment = assignmentController.Assignment;
-				if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
+				var assignment = assignmentViewModel.SelectedAssignment;
+				if (assignment.IsReadonly) {
 					toolbar.Items = new UIBarButtonItem[] { titleButton };
 				} else {
 					toolbar.Items = new UIBarButtonItem[] {
@@ -126,13 +116,13 @@ namespace FieldService.iOS
 				}
 				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
-				LaborViewModel.LoadLaborHoursAsync (assignment)
+				laborViewModel.LoadLaborHoursAsync (assignment)
 					.ContinueWith (_ => {
 						BeginInvokeOnMainThread (() => {
-							if (LaborViewModel.LaborHours == null || LaborViewModel.LaborHours.Count == 0) 
+							if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
 								title.Text = "Labor Hours";
 							else
-								title.Text = string.Format ("Labor Hours ({0:0.0})", LaborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
+								title.Text = string.Format ("Labor Hours ({0:0.0})", laborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
 							tableView.ReloadData ();
 						});
 					});
@@ -144,16 +134,16 @@ namespace FieldService.iOS
 		/// </summary>
 		private class TableSource : UITableViewSource
 		{
+			readonly LaborController controller;
 			readonly LaborViewModel laborViewModel;
-			readonly LaborController laborController;
-			readonly AssignmentsController assignmentController;
+			readonly AssignmentViewModel assignmentViewModel;
 			const string Identifier = "LaborCell";
 
-			public TableSource (LaborViewModel laborViewModel)
+			public TableSource (LaborController controller)
 			{
-				this.laborViewModel = laborViewModel;
-				laborController = ServiceContainer.Resolve<LaborController> ();
-				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+				this.controller = controller;
+				laborViewModel = ServiceContainer.Resolve<LaborViewModel>();
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -163,8 +153,10 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				laborController.Labor = laborViewModel.LaborHours[indexPath.Row];
-				laborController.PerformSegue ("AddLabor", laborController);
+				laborViewModel.SelectedLabor = laborViewModel.LaborHours[indexPath.Row];
+
+				var addLaborController = controller.Storyboard.InstantiateViewController<AddLaborController>();
+				controller.PresentViewController (addLaborController, true, controller.ReloadLabor);
 
 				//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke
 				BeginInvokeOnMainThread (() => {
@@ -175,14 +167,14 @@ namespace FieldService.iOS
 
 			public override bool CanEditRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return assignmentController.Assignment.Status != AssignmentStatus.Complete && !assignmentController.Assignment.IsHistory;
+				return !assignmentViewModel.SelectedAssignment.IsReadonly;
 			}
 
 			public override void CommitEditingStyle (UITableView tableView, UITableViewCellEditingStyle editingStyle, NSIndexPath indexPath)
 			{
 				laborViewModel
-					.DeleteLaborAsync (assignmentController.Assignment, laborViewModel.LaborHours[indexPath.Row])
-					.ContinueWith (_ => BeginInvokeOnMainThread(laborController.ReloadLabor));
+					.DeleteLaborAsync (assignmentViewModel.SelectedAssignment, laborViewModel.LaborHours[indexPath.Row])
+					.ContinueWith (_ => BeginInvokeOnMainThread(controller.ReloadLabor));
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

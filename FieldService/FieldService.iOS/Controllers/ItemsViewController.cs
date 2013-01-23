@@ -64,8 +64,8 @@ namespace FieldService.iOS
 			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 
 			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, (sender, e) => {
-				var controller = Storyboard.InstantiateViewController<AddItemController>();
-				PresentViewController (controller, true, ReloadItems);
+				var addItemController = Storyboard.InstantiateViewController<AddItemController>();
+				PresentViewController (addItemController, true, ReloadItems);
 			});
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);

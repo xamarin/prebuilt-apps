@@ -14,6 +14,7 @@ namespace FieldService.ViewModels {
     public class LaborViewModel : ViewModelBase {
         readonly IAssignmentService service;
         List<Labor> laborHours;
+	Labor selectedLabor;
 
         public LaborViewModel ()
         {
@@ -28,6 +29,15 @@ namespace FieldService.ViewModels {
             get { return laborHours; }
             set { laborHours = value; OnPropertyChanged ("LaborHours"); }
         }
+
+	/// <summary>
+	/// The selected labor hour for use within the app
+	/// </summary>
+	public Labor SelectedLabor
+	{
+	    get { return selectedLabor; }
+	    set { selectedLabor = value; OnPropertyChanged ("SelectedLabor"); }
+	}
 
         /// <summary>
         /// Loads the list of labor hours

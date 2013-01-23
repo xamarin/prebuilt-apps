@@ -27,17 +27,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddPhotoController : BaseController
 	{
-		readonly ConfirmationController confirmationController;
-		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
 		UIImage image;
 		UIAlertView alertView;
 
 		public AddPhotoController (IntPtr handle) : base (handle)
 		{
-			photoViewModel = new PhotoViewModel();
-			confirmationController = ServiceContainer.Resolve<ConfirmationController> ();
-			assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+			photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -83,7 +81,7 @@ namespace FieldService.iOS
 
 			description.ResignFirstResponder ();
 
-			var photo = confirmationController.Photo;
+			var photo = photoViewModel.SelectedPhoto;
 			if (photo != null) {
 				if (image != null)
 					image.Dispose ();
@@ -113,21 +111,18 @@ namespace FieldService.iOS
 		/// </summary>
 		private void Save()
 		{
-			var photo = confirmationController.Photo;
+			var photo = photoViewModel.SelectedPhoto;
 
 			//only do this if it is a new photo
-			if (confirmationController.IsNew)
+			if (photo.Image == null)
 				photo.Image = image.ToByteArray ();
 
 			photo.Description = description.Text;
 
 			photoViewModel
-				.SavePhotoAsync (assignmentController.Assignment, photo)
+				.SavePhotoAsync (assignmentViewModel.SelectedAssignment, photo)
 				.ContinueWith (_ => {
-					BeginInvokeOnMainThread (() => {
-						confirmationController.ReloadConfirmation ();
-						DismissViewController (true, null);
-					});
+					BeginInvokeOnMainThread (() => DismissViewController (true, null));
 				});
 		}
 
@@ -141,12 +136,9 @@ namespace FieldService.iOS
 
 				if (e.ButtonIndex == 0) {
 					photoViewModel
-						.DeletePhotoAsync (assignmentController.Assignment, confirmationController.Photo)
+						.DeletePhotoAsync (assignmentViewModel.SelectedAssignment, photoViewModel.SelectedPhoto)
 						.ContinueWith (_ => {
-							BeginInvokeOnMainThread (() => {
-								confirmationController.ReloadConfirmation ();
-								DismissViewController (true, null);
-							});
+							BeginInvokeOnMainThread (() => DismissViewController (true, null));
 						});
 				}
 

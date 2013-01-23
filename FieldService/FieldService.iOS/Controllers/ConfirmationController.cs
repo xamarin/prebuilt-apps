@@ -29,36 +29,18 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
-		readonly AssignmentsController assignmentController;
 		readonly SizeF photoSize = new SizeF(475, 410); //Used for desired size of photos
 		PhotoAlertSheet photoSheet;
 
 		public ConfirmationController (IntPtr handle) : base (handle)
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
 
 			//Update photoSize for screen scale
 			var scale = UIScreen.MainScreen.Scale;
 			photoSize.Width *= scale;
 			photoSize.Height *= scale;
-		}
-
-		/// <summary>
-		/// The selected photo
-		/// </summary>
-		public Photo Photo {
-			get;
-			set;
-		}
-
-		/// <summary>
-		/// True if the photo is a new photo
-		/// </summary>
-		public bool IsNew {
-			get;
-			set;
 		}
 
 		public override void ViewDidLoad ()
@@ -70,8 +52,10 @@ namespace FieldService.iOS
 			photoSheet = new PhotoAlertSheet();
 			photoSheet.DesiredSize = photoSize;
 			photoSheet.Callback = image => {
-				Photo.Image = image.ToByteArray ();
-				PerformSegue ("AddPhoto", this);
+				photoViewModel.SelectedPhoto.Image = image.ToByteArray ();
+
+				var addPhotoController = Storyboard.InstantiateViewController<AddPhotoController>();
+				PresentViewController(addPhotoController, true, ReloadConfirmation);
 			};
 			addPhoto.SetBackgroundImage (Theme.ButtonDark, UIControlState.Normal);
 			addPhoto.SetTitleColor (UIColor.White, UIControlState.Normal);
@@ -86,7 +70,7 @@ namespace FieldService.iOS
 			var descriptionButton = new UIBarButtonItem (label);
 			toolbar.Items = new UIBarButtonItem[] { descriptionButton };
 
-			photoTableView.Source = new PhotoTableSource (photoViewModel);
+			photoTableView.Source = new PhotoTableSource (this);
 			signatureTableView.Source = new SignatureTableSource ();
 		}
 
@@ -103,12 +87,13 @@ namespace FieldService.iOS
 		public void ReloadConfirmation ()
 		{
 			if (IsViewLoaded) {
-				toolbar.SetBackgroundImage (assignmentController.Assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				var assignment = assignmentViewModel.SelectedAssignment;
+				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
 				signatureTableView.ReloadData ();
 
-				photoViewModel.LoadPhotosAsync (assignmentController.Assignment)
-					.ContinueWith (assignmentViewModel.LoadSignatureAsync (assignmentController.Assignment))
+				photoViewModel.LoadPhotosAsync (assignment)
+					.ContinueWith (assignmentViewModel.LoadSignatureAsync (assignment))
 					.ContinueWith (_ => BeginInvokeOnMainThread (photoTableView.ReloadData));
 			}
 		}
@@ -118,8 +103,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void AddPhoto ()
 		{
-			Photo = new Photo { AssignmentId = assignmentController.Assignment.Id, Date = DateTime.Now };
-			IsNew = true;
+			photoViewModel.SelectedPhoto = new Photo { AssignmentId = assignmentViewModel.SelectedAssignment.Id, Date = DateTime.Now };
 
 			photoSheet.ShowFrom (addPhoto.Frame, addPhoto.Superview, true);
 		}
@@ -131,12 +115,12 @@ namespace FieldService.iOS
 		{
 			const string Identifier = "PhotoCell";
 			readonly PhotoViewModel photoViewModel;
-			readonly ConfirmationController confirmationController;
+			readonly ConfirmationController controller;
 
-			public PhotoTableSource (PhotoViewModel photoViewModel)
+			public PhotoTableSource (ConfirmationController controller)
 			{
-				this.photoViewModel = photoViewModel;
-				confirmationController = ServiceContainer.Resolve<ConfirmationController> ();
+				this.controller = controller;
+				photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
 			}
 
 			public override UIView GetViewForHeader (UITableView tableView, int section)
@@ -163,9 +147,10 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				confirmationController.Photo = photoViewModel.Photos[indexPath.Section];
-				confirmationController.IsNew = false;
-				confirmationController.PerformSegue ("AddPhoto", confirmationController);
+				photoViewModel.SelectedPhoto = photoViewModel.Photos[indexPath.Section];
+
+				var addPhotoController = controller.Storyboard.InstantiateViewController<AddPhotoController>();
+				controller.PresentViewController(addPhotoController, true, controller.ReloadConfirmation);
 			}
 		}
 
@@ -176,12 +161,10 @@ namespace FieldService.iOS
 		{
 			const string SignatureIdentifier = "SignatureCell";
 			const string CompleteIdentifier = "CompleteCell";
-			readonly AssignmentsController assignmentController;
 			readonly AssignmentViewModel assignmentViewModel;
 
 			public SignatureTableSource ()
 			{
-				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
@@ -206,11 +189,11 @@ namespace FieldService.iOS
 				if (indexPath.Section == 0) {
 					cell = tableView.DequeueReusableCell (SignatureIdentifier);
 					var signatureCell = cell as SignatureCell;
-					signatureCell.SetSignature (assignmentController.Assignment, assignmentViewModel.Signature);
+					signatureCell.SetSignature (assignmentViewModel.SelectedAssignment, assignmentViewModel.Signature);
 				} else {
 					cell = tableView.DequeueReusableCell (CompleteIdentifier);
 					var completeCell = cell as CompleteCell;
-					completeCell.SetAssignment (assignmentController.Assignment, tableView);
+					completeCell.SetAssignment (assignmentViewModel.SelectedAssignment, tableView);
 				}
 				return cell;
 			}

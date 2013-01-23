@@ -81,7 +81,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load labor hours for the table
-			bool enabled = assignmentViewModel.SelectedAssignment.Status != AssignmentStatus.Complete && !assignmentViewModel.SelectedAssignment.IsHistory;
+			bool enabled = !assignmentViewModel.SelectedAssignment.IsReadonly;
 			if (enabled) {
 				toolbar.Items = new UIBarButtonItem[] {
 					cancel,
