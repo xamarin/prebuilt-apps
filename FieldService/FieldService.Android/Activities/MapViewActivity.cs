@@ -37,6 +37,7 @@ namespace FieldService.Android {
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
     public class MapViewActivity : BaseMapActivity {
         readonly AssignmentViewModel assignmentViewModel;
+        readonly MenuViewModel menuViewModel;
         MapView mapView;
         MyLocationOverlay myLocation;
         LinearLayout assignmentMapViewLayout,
@@ -60,6 +61,7 @@ namespace FieldService.Android {
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
             assignmentViewModel.HoursChanged += HoursChanged;
+            menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -75,7 +77,7 @@ namespace FieldService.Android {
                 var tabActivity = (AssignmentTabActivity)Parent;
                 tabActivity.MapData = null;
                 assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
-                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
+                menuViewModel.MenuIndex = Constants.Navigation.IndexOf ("Map");
                 StartActivity (intent);
             };
             mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
@@ -118,6 +120,7 @@ namespace FieldService.Android {
                 var tabActivity =(AssignmentTabActivity)Parent;
                 tabActivity.MapData = null;
                 assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                menuViewModel.MenuIndex = 0;
                 StartActivity (intent);
             };
 
@@ -160,8 +163,7 @@ namespace FieldService.Android {
                             case AssignmentStatus.Complete:
                                 //go to confirmations
                                 var intent = new Intent (this, typeof (SummaryActivity));
-                                intent.PutExtra (Constants.BundleIndex, -1);
-                                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
+                                menuViewModel.MenuIndex = Constants.Navigation.IndexOf (Constants.Confirmations);
                                 StartActivity (intent);
                                 break;
                             default:

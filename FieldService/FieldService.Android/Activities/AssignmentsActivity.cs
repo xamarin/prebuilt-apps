@@ -49,12 +49,14 @@ namespace FieldService.Android {
             phone,
             address,
             timerText;
-        private readonly AssignmentViewModel assignmentViewModel;
+        readonly AssignmentViewModel assignmentViewModel;
+        readonly MenuViewModel menuViewModel;
 
         public AssignmentsActivity ()
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
             assignmentViewModel.HoursChanged += HoursChanged;
+            menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -113,8 +115,7 @@ namespace FieldService.Android {
                                 //go to confirmations, this is getting called multiple times.
 
                                 var intent = new Intent (this, typeof (SummaryActivity));
-                                intent.PutExtra (Constants.BundleIndex, -1);
-                                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
+                                menuViewModel.MenuIndex = Constants.Navigation.IndexOf (Constants.Confirmations);
                                 StartActivity (intent);
                                 break;
                             default:
@@ -127,7 +128,7 @@ namespace FieldService.Android {
             mapButton.Click += (sender, e) => {
                 var activity = (AssignmentTabActivity)Parent;
                 var intent = new Intent (activity, typeof (SummaryActivity));
-                intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
+                menuViewModel.MenuIndex = Constants.Navigation.IndexOf ("Map");
                 assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
                 activity.StartActivity (intent);
             };
@@ -258,7 +259,7 @@ namespace FieldService.Android {
             } else {
                 assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
             }
-            intent.PutExtra (Constants.FragmentIndex, 0);
+            menuViewModel.MenuIndex = 0;
             StartActivity (intent);
         }
     }

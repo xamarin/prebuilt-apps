@@ -9,6 +9,7 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using FieldService.Android.Utilities;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
@@ -33,6 +34,7 @@ namespace FieldService.Android {
             if (loginViewModel.IsInactive) {
                 var intent = new Intent (this, typeof (LoginActivity));
                 intent.SetFlags (ActivityFlags.ClearTop);
+                intent.PutExtra (Constants.PreventBackPressed, true);
                 StartActivity (intent);
             }
 

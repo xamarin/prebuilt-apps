@@ -43,7 +43,7 @@ namespace FieldService.Android.Activities {
         readonly ExpenseViewModel expenseViewModel;
         readonly DocumentViewModel documentViewModel;
         readonly HistoryViewModel historyViewModel;
-        int navigationIndex;
+        readonly MenuViewModel menuViewModel;
         NavigationFragment navigationFragment;
         FrameLayout navigationFragmentContainer;
         TextView number, name, phone, address, items;
@@ -59,6 +59,7 @@ namespace FieldService.Android.Activities {
             photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
             expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
             documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
+            menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
 
             assignmentHistory = historyViewModel.SelectedAssignmentHistory;
         }
@@ -70,15 +71,7 @@ namespace FieldService.Android.Activities {
             Window.RequestFeature (WindowFeatures.ActionBar);
 
             SetContentView (Resource.Layout.SummaryFragmentLayout);
-
-            if (Intent != null) {
-                navigationIndex = Intent.GetIntExtra (Constants.FragmentIndex, 0);
-            }
-
-            if (bundle != null && bundle.ContainsKey (Constants.BundleIndex)) {
-                navigationIndex = bundle.GetInt (Constants.BundleIndex, 0);
-            }
-
+            
             number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
             name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
             phone = FindViewById<TextView> (Resource.Id.selectedAssignmentPhoneNumber);
@@ -141,9 +134,11 @@ namespace FieldService.Android.Activities {
         {
             base.OnResume ();
 
-            if (navigationIndex != 0 && navigationFragment != null) {
+            if (navigationFragment != null) {
                 navigationFragment.NavigationSelected += NavigationSelected;
-                navigationFragment.SetNavigation (navigationIndex);
+            }
+            if (menuViewModel.MenuIndex != 0) {
+                navigationFragment.SetNavigation (menuViewModel.MenuIndex);
             }
         }
 
@@ -161,7 +156,7 @@ namespace FieldService.Android.Activities {
             if (Resources.Configuration.Orientation == Orientation.Portrait) {
                 navigationFragmentContainer.Visibility = ViewStates.Invisible;
             }
-            navigationIndex = e.Value;
+            menuViewModel.MenuIndex = e.Value;
             var screen = Constants.HistoryNavigation [e.Value];
             ActionBar.Title = string.Format ("#{0} {1} {2}", assignmentHistory.JobNumber, screen, historyViewModel.PastAssignment.StartDate.ToShortDateString ());
         }
@@ -305,13 +300,7 @@ namespace FieldService.Android.Activities {
                     break;
             }
         }
-
-        protected override void OnSaveInstanceState (Bundle outState)
-        {
-            outState.PutInt (Constants.BundleIndex, navigationIndex);
-            base.OnSaveInstanceState (outState);
-        }
-
+        
         public override bool OnCreateOptionsMenu (IMenu menu)
         {
             if (Resources.Configuration.Orientation == Orientation.Portrait) {

@@ -24,12 +24,14 @@ namespace FieldService.Android.Fragments {
         EditText searchText;
         HistoryListAdapter historySearchAdapter;
         HistoryViewModel historyViewModel;
+        MenuViewModel menuViewModel;
         
         public override View OnCreateView (LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState)
         {
             base.OnCreateView (inflater, container, savedInstanceState);
 
             historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+            menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
 
             var view = inflater.Inflate (Resource.Layout.HistoryFragmentLayout, null, true);
 
@@ -83,7 +85,7 @@ namespace FieldService.Android.Fragments {
                             break;
                     }
                     historySearchAdapter.Assignment = Assignment;
-                    historyListView.Adapter = historySearchAdapter;
+                    historyListView.Adapter = historySearchAdapter; 
                 }
             };
             if (History != null) {
@@ -95,7 +97,7 @@ namespace FieldService.Android.Fragments {
             historyListView.ItemClick += (sender, e) => {
                 var intent = new Intent (Activity, typeof (SummaryHistoryActivity));
                 historyViewModel.SelectedAssignmentHistory = History.ElementAtOrDefault (e.Position);
-                intent.PutExtra (Constants.FragmentIndex, 0);
+                menuViewModel.MenuIndex = 0;
                 StartActivity (intent);
             };
 

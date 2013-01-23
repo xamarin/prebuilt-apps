@@ -35,6 +35,7 @@ namespace FieldService.Android {
 
         readonly AssignmentViewModel assignmentViewModel;
         readonly AssignmentsActivity activity;
+        readonly MenuViewModel menuViewModel;
         readonly IList<Assignment> assignments;
         readonly int resourceId;
 
@@ -42,6 +43,7 @@ namespace FieldService.Android {
             : base (activity, resourceId, assignments)
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
 
             this.activity = activity;
             this.assignments = assignments;
@@ -169,10 +171,10 @@ namespace FieldService.Android {
                         var position = (int)v.Tag;
                         var activeAssignment = GetItem (position);
                         var intent = new Intent (Context, typeof (SummaryActivity));
-                        var tabActivity = (AssignmentTabActivity)this.activity.Parent; 
+                        var tabActivity = (AssignmentTabActivity)this.activity.Parent;
                         tabActivity.MapData = null;
                         assignmentViewModel.SelectedAssignment = activeAssignment;
-                        intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
+                        menuViewModel.MenuIndex = Constants.Navigation.IndexOf ("Map");
                         Context.StartActivity (intent);
                     }
                     break;
@@ -201,7 +203,7 @@ namespace FieldService.Android {
                             activeAssignment.Status = selected;
                             var activity = (AssignmentTabActivity)this.activity.Parent;
                             var intent = new Intent (activity, typeof (SummaryActivity));
-                            intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
+                            menuViewModel.MenuIndex = Constants.Navigation.IndexOf (Constants.Confirmations);
                             assignmentViewModel.SelectedAssignment = activeAssignment;
                             activity.StartActivity (intent);
                         }

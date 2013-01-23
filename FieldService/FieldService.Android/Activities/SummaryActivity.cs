@@ -43,11 +43,11 @@ namespace FieldService.Android {
         readonly DocumentViewModel documentViewModel;
         readonly HistoryViewModel historyViewModel;
         readonly AssignmentViewModel assignmentViewModel;
+        readonly MenuViewModel menuViewModel;
         NavigationFragment navigationFragment;
         FrameLayout navigationFragmentContainer;
         TextView number, name, phone, address, items;
         Button addItems, addLabor, addExpense;
-        int navigationIndex = 0;
         ItemsDialog itemDialog;
         AddLaborDialog laborDialog;
         ExpenseDialog expenseDialog;
@@ -63,6 +63,7 @@ namespace FieldService.Android {
             expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
             documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
             historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+            menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
 
             assignment = assignmentViewModel.SelectedAssignment;
         }
@@ -74,15 +75,6 @@ namespace FieldService.Android {
             Window.RequestFeature (WindowFeatures.ActionBar);
 
             SetContentView (Resource.Layout.SummaryFragmentLayout);
-
-            if (Intent != null) {
-                navigationIndex = Intent.GetIntExtra (Constants.FragmentIndex, 0);
-            }
-
-            if (bundle != null && bundle.ContainsKey (Constants.BundleIndex)) {
-                navigationIndex = bundle.GetInt (Constants.BundleIndex, 0);
-            }
-
 
             number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
             name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
@@ -160,19 +152,13 @@ namespace FieldService.Android {
             ActionBar.SetDisplayHomeAsUpEnabled (true);
         }
 
-        protected override void OnSaveInstanceState (Bundle outState)
-        {
-            outState.PutInt (Constants.BundleIndex, navigationIndex);
-            base.OnSaveInstanceState (outState);
-        }
-
         private void NavigationSelected (object sender, EventArgs<int> e)
         {
             SetFrameFragment (e.Value);
             if (Resources.Configuration.Orientation == Orientation.Portrait) {
                 navigationFragmentContainer.Visibility = ViewStates.Invisible;
             }
-            navigationIndex = e.Value;
+            menuViewModel.MenuIndex = e.Value;
             var screen = Constants.Navigation [e.Value];
             ActionBar.Title = string.Format ("#{0} {1} {2}", assignment.JobNumber, screen, assignment.StartDate.ToShortDateString ());
         }
@@ -183,8 +169,8 @@ namespace FieldService.Android {
             if (navigationFragment != null) {
                 navigationFragment.NavigationSelected += NavigationSelected;
             }
-            if (navigationIndex != 0) {
-                navigationFragment.SetNavigation (navigationIndex);
+            if (menuViewModel.MenuIndex != 0) {
+                navigationFragment.SetNavigation (menuViewModel.MenuIndex);
             }
         }
 

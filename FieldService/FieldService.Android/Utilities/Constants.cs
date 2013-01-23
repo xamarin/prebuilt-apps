@@ -40,13 +40,13 @@ namespace FieldService.Android.Utilities {
         /// </summary>
         public const string BundleIndex = "index";
         /// <summary>
-        /// Key for PutExtra for the fragments
-        /// </summary>
-        public const string FragmentIndex = "fragment";
-        /// <summary>
         /// Key for PutInt
         /// </summary>
         public const string CurrentTab = "currentTab";
+        /// <summary>
+        /// Key for prevent on back pressed with user inactivity
+        /// </summary>
+        public const string PreventBackPressed = "preventBackPressed";
         /// <summary>
         /// Maximum width for images
         /// </summary>
