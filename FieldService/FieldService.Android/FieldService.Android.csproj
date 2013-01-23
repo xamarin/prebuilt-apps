@@ -156,6 +156,9 @@
     <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\FieldService\ViewModels\MenuViewModel.cs">
+      <Link>FieldService\ViewModels\MenuViewModel.cs</Link>
+    </Compile>
     <Compile Include="..\FieldService\ViewModels\PhotoViewModel.cs">
       <Link>FieldService\ViewModels\PhotoViewModel.cs</Link>
     </Compile>
