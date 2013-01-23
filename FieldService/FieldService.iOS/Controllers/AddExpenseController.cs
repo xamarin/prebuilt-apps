@@ -28,6 +28,11 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddExpenseController : BaseController
 	{
+		/// <summary>
+		/// Occurs when dismissed.
+		/// </summary>
+		public event EventHandler Dismissed;
+
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly ExpenseViewModel expenseViewModel;
 		UIBarButtonItem expense, space1, space2, done;
@@ -104,6 +109,16 @@ namespace FieldService.iOS
 			} else {
 				expenseViewModel.LoadPhotoAsync (expenseViewModel.SelectedExpense)
 					.ContinueWith (_ => BeginInvokeOnMainThread (() => tableSource.Load (enabled)));
+			}
+		}
+
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+			
+			var method = Dismissed;
+			if (method != null) {
+				method(this, EventArgs.Empty);
 			}
 		}
 

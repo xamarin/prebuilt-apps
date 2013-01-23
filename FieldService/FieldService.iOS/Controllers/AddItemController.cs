@@ -28,11 +28,16 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddItemController : UIViewController
 	{
+		/// <summary>
+		/// Occurs when dismissed.
+		/// </summary>
+		public event EventHandler Dismissed;
+
 		readonly ItemViewModel itemViewModel;
 
 		public AddItemController (IntPtr handle) : base (handle)
 		{
-			itemViewModel = new ItemViewModel();
+			itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -70,6 +75,16 @@ namespace FieldService.iOS
 
 			//Reload items
 			itemViewModel.LoadItemsAsync ().ContinueWith (_ => BeginInvokeOnMainThread (tableView.ReloadData));
+		}
+
+		public override void ViewWillDisappear (bool animated)
+		{
+			base.ViewWillDisappear (animated);
+			
+			var method = Dismissed;
+			if (method != null) {
+				method(this, EventArgs.Empty);
+			}
 		}
 
 		/// <summary>
