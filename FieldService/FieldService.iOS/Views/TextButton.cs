@@ -31,7 +31,6 @@ namespace FieldService.iOS
 		public TextButton (IntPtr handle) : base (handle)
 		{
 			icon = UIButton.FromType (UIButtonType.Custom);
-			icon.AdjustsImageWhenHighlighted = false;
 			icon.Frame = new RectangleF (Spacing, Spacing, IconBackgroundSize, IconBackgroundSize);
 			icon.SetBackgroundImage (Theme.SmallGreyButton, UIControlState.Normal);
 			icon.UserInteractionEnabled = false;
