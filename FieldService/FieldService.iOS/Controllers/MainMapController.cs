@@ -31,12 +31,10 @@ namespace FieldService.iOS
 	public partial class MainMapController : BaseController
 	{
 		bool activeAssignmentVisible = true;
-		readonly AssignmentsController assignmentController;
 		readonly AssignmentViewModel assignmentViewModel;
 
 		public MainMapController (IntPtr handle) : base (handle)
 		{
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			//Hook up viewModel events
@@ -57,7 +55,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//Setup mapView
-			mapView.Delegate = new MapViewDelegate(this, assignmentController);
+			mapView.Delegate = new MapViewDelegate(this);
 
 			//Setup other UI
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
@@ -250,7 +248,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
+			assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
 			
 			var menuController = ServiceContainer.Resolve<MenuController>();
@@ -262,7 +260,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void ActiveAssignmentSelected ()
 		{
-			assignmentController.Assignment = assignmentViewModel.ActiveAssignment;
+			assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
 		}
 
@@ -272,13 +270,13 @@ namespace FieldService.iOS
 		private class MapViewDelegate : MKMapViewDelegate
 		{
 			const string Identifier = "AssignmentAnnotation";
-			readonly MainMapController mapController;
-			readonly AssignmentsController assignmentController;
+			readonly MainMapController controller;
+			readonly AssignmentViewModel assignmentViewModel;
 			
-			public MapViewDelegate (MainMapController mapController, AssignmentsController assignmentController)
+			public MapViewDelegate (MainMapController controller)
 			{
-				this.mapController = mapController;
-				this.assignmentController = assignmentController;
+				this.controller = controller;
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 			
 			/// <summary>
@@ -308,8 +306,8 @@ namespace FieldService.iOS
 			/// </summary>
 			public override void CalloutAccessoryControlTapped (MKMapView mapView, MKAnnotationView view, UIControl control)
 			{
-				assignmentController.Assignment = GetAssignment (view.Annotation as MKPlacemark);
-				mapController.PerformSegue ("AssignmentDetails", mapController);
+				assignmentViewModel.SelectedAssignment = GetAssignment (view.Annotation as MKPlacemark);
+				controller.PerformSegue ("AssignmentDetails", controller);
 			}
 			
 			/// <summary>

@@ -17,6 +17,7 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using FieldService.Utilities;
+using FieldService.ViewModels;
 
 namespace FieldService.iOS
 {
@@ -25,12 +26,12 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class SummaryController : BaseController
 	{
-		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
 		UIBarButtonItem viewHistory, descriptionButton;
 
 		public SummaryController (IntPtr handle) : base (handle)
 		{
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -62,8 +63,10 @@ namespace FieldService.iOS
 			descriptionButton = new UIBarButtonItem(label);
 
 			viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, (sender, e) => {
-				var menuController = ServiceContainer.Resolve<MenuController>();
-				menuController.ShowHistory ();
+
+				//TODO: fix this
+				//var menuController = ServiceContainer.Resolve<MenuController>();
+				//menuController.ShowHistory ();
 			});
 			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			viewHistory.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
@@ -74,7 +77,7 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Update for assignment
-			var assignment = assignmentController.Assignment;
+			var assignment = assignmentViewModel.SelectedAssignment;
 			description.Text = assignment.Description;
 			descriptionTitle.Text = assignment.CompanyName;
 			items.Text = assignment.TotalItems.ToString ();

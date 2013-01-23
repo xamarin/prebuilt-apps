@@ -28,8 +28,6 @@ namespace FieldService.iOS
 	public partial class CompleteCell : UITableViewCell
 	{
 		readonly AssignmentViewModel assignmentViewModel;
-		readonly AssignmentDetailsController detailsController;
-		readonly MenuController menuController;
 		Assignment assignment;
 		UITableView tableView;
 		UIAlertView alertView;
@@ -37,8 +35,6 @@ namespace FieldService.iOS
 		public CompleteCell (IntPtr handle) : base (handle)
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
-			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
-			menuController = ServiceContainer.Resolve<MenuController>();
 
 			BackgroundView = new UIImageView { Image = Theme.Inlay };
 		}
@@ -83,8 +79,10 @@ namespace FieldService.iOS
 						.ContinueWith (_ => {
 							BeginInvokeOnMainThread (() => {
 								tableView.ReloadData ();
-								detailsController.UpdateAssignment ();
-								menuController.UpdateAssignment ();
+								
+								//TODO: fix this
+								//detailsController.UpdateAssignment ();
+								//menuController.UpdateAssignment ();
 							});
 						});
 				}

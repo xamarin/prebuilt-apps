@@ -66,7 +66,7 @@ namespace FieldService.iOS
 				this.signature.SetBackgroundImage (image, UIControlState.Normal);
 				this.signature.Layer.CornerRadius = 7;
 				this.signature.ClipsToBounds = true;
-				this.signature.Enabled = assignment.Status != AssignmentStatus.Complete && !assignment.IsHistory;
+				this.signature.Enabled = !assignment.IsReadonly;
 
 				addSignature.Hidden = true;
 			}
@@ -77,7 +77,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void AddSignature ()
 		{
-			var signatureController = ServiceContainer.Resolve<SignatureController>();
+			var signatureController = new SignatureController();
 			signatureController.PresentFromRect (Frame, Superview, UIPopoverArrowDirection.Up, true);
 		}
 

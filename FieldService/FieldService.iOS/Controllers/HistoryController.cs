@@ -28,14 +28,14 @@ namespace FieldService.iOS
 	public partial class HistoryController : BaseController
 	{
 		readonly HistoryViewModel historyViewModel;
-		readonly AssignmentsController assignmentController;
+		readonly AssignmentViewModel assignmentViewModel;
 		UILabel title;
 		TableSource tableSource;
 
 		public HistoryController (IntPtr handle) : base (handle)
 		{
-			historyViewModel = new HistoryViewModel();
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
+			historyViewModel = ServiceContainer.Resolve<HistoryViewModel>();
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 		}
 
 		public override void ViewDidLoad ()
@@ -54,7 +54,7 @@ namespace FieldService.iOS
 			toolbar.Items = new UIBarButtonItem[] { titleButton };
 
 			tableView.Source = 
-				tableSource = new TableSource (historyViewModel);
+				tableSource = new TableSource (this);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -70,7 +70,7 @@ namespace FieldService.iOS
 		public void ReloadHIstory ()
 		{
 			if (IsViewLoaded) {
-				var assignment = assignmentController.Assignment;
+				var assignment = assignmentViewModel.SelectedAssignment;
 				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 				tableSource.Enabled = !assignment.IsHistory;
 
@@ -93,8 +93,8 @@ namespace FieldService.iOS
 		private class TableSource : UITableViewSource
 		{
 			readonly HistoryViewModel historyViewModel;
-			readonly HistoryController historyController;
-			readonly AssignmentsController assignmentsController;
+			readonly AssignmentViewModel assignmentViewModel;
+			readonly HistoryController controller;
 			const string Identifier = "HistoryCell";
 
 			/// <summary>
@@ -105,11 +105,11 @@ namespace FieldService.iOS
 				set;
 			}
 
-			public TableSource (HistoryViewModel historyViewModel)
+			public TableSource (HistoryController controller)
 			{
-				this.historyViewModel = historyViewModel;
-				historyController = ServiceContainer.Resolve<HistoryController> ();
-				assignmentsController = ServiceContainer.Resolve<AssignmentsController>();
+				this.controller = controller;
+				historyViewModel = ServiceContainer.Resolve<HistoryViewModel>();
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
@@ -125,9 +125,9 @@ namespace FieldService.iOS
 						historyViewModel.LoadAssignmentFromHistory (history)
 							.ContinueWith (_ => {
 								BeginInvokeOnMainThread (() => {
-									var controller = historyController.ParentViewController.ParentViewController;
-									assignmentsController.Assignment = historyViewModel.PastAssignment;
-									controller.PerformSegue ("AssignmentHistory", controller);
+									var parentController = controller.ParentViewController.ParentViewController;
+									assignmentViewModel.SelectedAssignment = historyViewModel.PastAssignment;
+									parentController.PerformSegue ("AssignmentHistory", parentController);
 								});
 							});
 

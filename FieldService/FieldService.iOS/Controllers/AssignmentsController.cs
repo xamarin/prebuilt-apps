@@ -31,7 +31,6 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		bool activeAssignmentVisible = true;
-		Assignment assignment, lastAssignment;
 
 		public AssignmentsController (IntPtr handle) : base (handle)
 		{
@@ -46,20 +45,6 @@ namespace FieldService.iOS
 					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 				}
 			};
-		}
-
-		/// <summary>
-		/// The currently accepted assignment
-		/// </summary>
-		public Assignment Assignment {
-			get { return assignment; }
-			set {
-				if (assignment != value) {
-					if (value != null && value.IsHistory)
-						lastAssignment = assignment;
-					assignment = value;
-				}
-			}
 		}
 
 		public override void ViewDidLoad ()
@@ -182,16 +167,6 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
-		/// Removes the current history assignment
-		/// </summary>
-		public void RemoveHistory ()
-		{
-			if (lastAssignment != null) {
-				Assignment = lastAssignment;
-			}
-		}
-
-		/// <summary>
 		/// Reloads a single row
 		/// </summary>
 		public void ReloadSingleRow (NSIndexPath indexPath)
@@ -204,7 +179,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void ActiveAssignmentSelected ()
 		{
-			Assignment = assignmentViewModel.ActiveAssignment;
+			assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
 		}
 
@@ -294,11 +269,12 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Address ()
 		{
-			Assignment = assignmentViewModel.ActiveAssignment;
+			assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
 			PerformSegue ("AssignmentDetails", this);
 
-			var menuController = ServiceContainer.Resolve<MenuController>();
-			menuController.ShowMaps(false);
+			//TODO: fix this
+			//var menuController = ServiceContainer.Resolve<MenuController>();
+			//menuController.ShowMaps(false);
 		}
 
 		/// <summary>
@@ -330,7 +306,7 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				controller.Assignment = assignmentViewModel.Assignments[indexPath.Row];
+				assignmentViewModel.SelectedAssignment = assignmentViewModel.Assignments[indexPath.Row];
 				controller.PerformSegue ("AssignmentDetails", controller);
 			}
 		}

@@ -334,6 +334,7 @@
       <DependentUpon>BaseNavigationController.cs</DependentUpon>
     </Compile>
     <Compile Include="Controllers\BaseNavigationController.cs" />
+    <Compile Include="Utilities\MenuEventArgs.cs" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />

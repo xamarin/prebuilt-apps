@@ -28,15 +28,13 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class MenuController : UIViewController
 	{
+		public event EventHandler<MenuEventArgs> MenuChanged = delegate { }; 
+
 		readonly AssignmentViewModel assignmentViewModel;
-		readonly AssignmentsController assignmentController;
-		readonly AssignmentDetailsController detailsController;
 
 		public MenuController (IntPtr handle) : base (handle)
 		{
-			assignmentController = ServiceContainer.Resolve<AssignmentsController>();
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
-			detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
 
 			assignmentViewModel.HoursChanged += (sender, e) => {
 				if (IsViewLoaded) {
@@ -72,7 +70,8 @@ namespace FieldService.iOS
 			if (!SkipSummary) {
 				using (var indexPath = NSIndexPath.FromRowSection (0, 0)) {
 					tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-					detailsController.SectionSelected (tableView, indexPath, false);
+
+					OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 				}
 				SkipSummary = true;
 			}
@@ -106,7 +105,8 @@ namespace FieldService.iOS
 		{
 			using (var indexPath = NSIndexPath.FromRowSection (6, 0)) {
 				tableView.SelectRow (indexPath, false, UITableViewScrollPosition.Top);
-				detailsController.SectionSelected (tableView, indexPath, false);
+
+				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 			}
 		}
 
@@ -117,7 +117,8 @@ namespace FieldService.iOS
 		{
 			using (var indexPath = NSIndexPath.FromRowSection (1, 0)) {
 				tableView.SelectRow (indexPath, animated, UITableViewScrollPosition.Top);
-				detailsController.SectionSelected (tableView, indexPath, animated);
+
+				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 			}
 		}
 
@@ -128,7 +129,8 @@ namespace FieldService.iOS
 		{
 			using (var indexPath = NSIndexPath.FromRowSection (7, 0)) {
 				tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
-				detailsController.SectionSelected (tableView, indexPath, false);
+
+				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 			}
 		}
 
@@ -138,7 +140,7 @@ namespace FieldService.iOS
 		public void UpdateAssignment()
 		{
 			if (IsViewLoaded) {
-				if (assignmentController.Assignment.Status == AssignmentStatus.Active) {
+				if (assignmentViewModel.SelectedAssignment.Status == AssignmentStatus.Active) {
 					status.Assignment = assignmentViewModel.ActiveAssignment;
 					timerView.Hidden = false;
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
@@ -176,7 +178,8 @@ namespace FieldService.iOS
 				.ContinueWith (t => {
 					BeginInvokeOnMainThread (() => {
 						UpdateAssignment ();
-						detailsController.UpdateAssignment ();
+						//TODO: fix this
+						//detailsController.UpdateAssignment ();
 					});
 				});
 		}
@@ -193,14 +196,20 @@ namespace FieldService.iOS
 					.ContinueWith (t => {
 						BeginInvokeOnMainThread (() => {
 							record.Enabled = true;
-
-							var laborController = ServiceContainer.Resolve<LaborController>();
-							laborController.ReloadLabor ();
+							
+							//TODO: fix this
+							//var laborController = ServiceContainer.Resolve<LaborController>();
+							//laborController.ReloadLabor ();
 						});
 					});
 			} else {
 				assignmentViewModel.RecordAsync ().ContinueWith (_ => BeginInvokeOnMainThread (() => record.Enabled = true));
 			}
+		}
+
+		private void OnMenuChanged(MenuEventArgs args)
+		{
+			MenuChanged(this, args);
 		}
 
 		/// <summary>
@@ -210,15 +219,13 @@ namespace FieldService.iOS
 		{
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, documentsCell, confirmationCell, historyCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
-			readonly AssignmentsController assignmentController;
-			readonly AssignmentDetailsController detailsController;
-			readonly MenuController menuController;
+			readonly MenuController controller;
+			readonly AssignmentViewModel assignmentViewModel;
 
-			public TableSource (MenuController menuController)
+			public TableSource (MenuController controller)
 			{
-				this.menuController = menuController;
-				assignmentController = ServiceContainer.Resolve<AssignmentsController>();
-				detailsController = ServiceContainer.Resolve<AssignmentDetailsController>();
+				this.controller = controller;
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 				summaryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				summaryCell.TextLabel.Text = "Summary";
@@ -277,7 +284,7 @@ namespace FieldService.iOS
 
 			public override int RowsInSection (UITableView tableview, int section)
 			{
-				if (assignmentController.Assignment.IsHistory) {
+				if (assignmentViewModel.SelectedAssignment.IsHistory) {
 					SetupCell (confirmationCell, end: true);
 					return cells.Count - 1;
 				}
@@ -294,9 +301,9 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				detailsController.SectionSelected (tableView, indexPath);
+				controller.OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath });
 
-				var splitController = menuController.ParentViewController as SplitController;
+				var splitController = controller.ParentViewController as SplitController;
 				if (splitController != null) 
 					splitController.HidePopover ();
 			}
