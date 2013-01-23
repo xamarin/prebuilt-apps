@@ -156,7 +156,7 @@ namespace FieldService.Android {
                         {
                             SetActiveAssignmentVisible(false);
                         }
-                        assignmentsListView.Adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout);
+                        assignmentsListView.Adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, assignmentViewModel.Assignments);
                     });
             });
         }
@@ -182,7 +182,7 @@ namespace FieldService.Android {
                     } else {
                         SetActiveAssignmentVisible (false);
                     }
-                    assignmentsListView.Adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout);
+                    assignmentsListView.Adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, assignmentViewModel.Assignments);
                 });
             });
         }

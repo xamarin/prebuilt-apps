@@ -38,13 +38,13 @@ namespace FieldService.Android {
         readonly IList<Assignment> assignments;
         readonly int resourceId;
 
-        public AssignmentsAdapter (AssignmentsActivity activity, int resourceId)
-            : base (activity, resourceId)
+        public AssignmentsAdapter (AssignmentsActivity activity, int resourceId, List<Assignment> assignments)
+            : base (activity, resourceId, assignments)
         {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
             this.activity = activity;
-            this.assignments = assignmentViewModel.Assignments;
+            this.assignments = assignments;
             this.resourceId = resourceId;
         }
         
