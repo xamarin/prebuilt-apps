@@ -59,9 +59,23 @@ namespace FieldService.iOS
 			detailsController = ChildViewControllers[0] as AssignmentDetailsController;
 			menuController = ChildViewControllers[1] as MenuController;
 
+			detailsController.StatusChanged += (sender, e) => {
+				menuController.UpdateAssignment ();
+
+				//TODO: fix this
+				//var confirmationController = ServiceContainer.Resolve<ConfirmationController>();
+				//confirmationController.ReloadConfirmation ();
+			};
 			menuController.MenuChanged += (sender, e) => {
 				detailsController.SectionSelected (e.TableView, e.IndexPath, e.Animated);
 			};
+			menuController.AssignmentCompleted += (sender, e) => {
+				//Only perform the Seque if the screen is not already visible
+				if (!detailsController.IsViewLoaded || detailsController.View.Window == null) {
+					PerformSegue ("AssignmentDetails", this);
+				}
+			};
+			menuController.StatusChanged += (sender, e) => detailsController.UpdateAssignment ();
 		}
 
 		public override void WillRotate (UIInterfaceOrientation toInterfaceOrientation, double duration)
@@ -88,8 +102,7 @@ namespace FieldService.iOS
 				//var assignmentController = ServiceContainer.Resolve<AssignmentsController> ();
 				//assignmentController.RemoveHistory ();
 
-//				var menuController = ChildViewControllers[1] as MenuController;
-//				menuController.SkipSummary = true;
+				menuController.SkipSummary = true;
 			}
 		}
 

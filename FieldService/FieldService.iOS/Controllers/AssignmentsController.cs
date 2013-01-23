@@ -74,6 +74,10 @@ namespace FieldService.iOS
 					.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
 					.ContinueWith (_ => BeginInvokeOnMainThread (ReloadAssignments));
 			};
+			status.Completed += (sender, e) => {
+				assignmentViewModel.SelectedAssignment = status.Assignment;
+				PerformSegue ("AssignmentDetails", this);
+			};
 
 			//Start the active assignment out as not visible
 			SetActiveAssignmentVisible (false, false);
@@ -300,7 +304,7 @@ namespace FieldService.iOS
 			{
 				var assignment = assignmentViewModel.Assignments [indexPath.Row];
 				var cell = tableView.DequeueReusableCell ("AssignmentCell") as AssignmentCell;
-				cell.SetAssignment (assignment, indexPath);
+				cell.SetAssignment (controller, assignment, indexPath);
 				return cell;
 			}
 

@@ -28,6 +28,11 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AssignmentDetailsController : BaseController
 	{
+		/// <summary>
+		/// Occurs when status is changed on the timer
+		/// </summary>
+		public event EventHandler StatusChanged;
+
 		readonly AssignmentViewModel assignmentViewModel;
 		UIViewController lastChildController;
 		SummaryController summaryController;
@@ -218,12 +223,10 @@ namespace FieldService.iOS
 					BeginInvokeOnMainThread (() => {
 						UpdateAssignment ();
 
-						//TODO: fix this
-						//var menuController = ServiceContainer.Resolve<MenuController>();
-						//menuController.UpdateAssignment ();
-
-						//var confirmationController = ServiceContainer.Resolve<ConfirmationController>();
-						//confirmationController.ReloadConfirmation ();
+						var method = StatusChanged;
+						if (method != null) {
+							method(this, EventArgs.Empty);
+						}
 					});
 				});
 		}

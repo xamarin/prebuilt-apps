@@ -30,6 +30,7 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		bool loaded = false;
+		AssignmentsController controller;
 		NSIndexPath indexPath;
 		Assignment assignment;
 		UIAlertView alertView;
@@ -44,8 +45,9 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets up the assignment for the cell
 		/// </summary>
-		public void SetAssignment (Assignment assignment, NSIndexPath indexPath)
+		public void SetAssignment (AssignmentsController controller, Assignment assignment, NSIndexPath indexPath)
 		{
+			this.controller = controller;
 			this.assignment = assignment;
 			this.indexPath = indexPath;
 
@@ -68,6 +70,10 @@ namespace FieldService.iOS
 				contact.IconImage = Theme.IconPhone;
 				address.IconImage = Theme.Map;
 				status.StatusChanged += (sender, e) => SaveAssignment ();
+				status.Completed += (sender, e) => {
+					assignmentViewModel.SelectedAssignment = status.Assignment;
+					controller.PerformSegue ("AssignmentDetails", controller);
+				};
 
 				loaded = true;
 			}
@@ -150,13 +156,11 @@ namespace FieldService.iOS
 			assignmentViewModel.SaveAssignmentAsync (assignment)
 				.ContinueWith (_ => {
 					BeginInvokeOnMainThread (() => {
-						//TODO: fix this
-//						var controller = ServiceContainer.Resolve<AssignmentsController> ();
-//						if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
-//							controller.ReloadAssignments ();
-//						} else {
-//							controller.ReloadSingleRow (indexPath);
-//						}
+						if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
+							controller.ReloadAssignments ();
+						} else {
+							controller.ReloadSingleRow (indexPath);
+						}
 					});
 				});
 		}

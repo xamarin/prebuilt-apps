@@ -28,7 +28,20 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class MenuController : UIViewController
 	{
-		public event EventHandler<MenuEventArgs> MenuChanged = delegate { }; 
+		/// <summary>
+		/// Occurs when the menu is changed
+		/// </summary>
+		public event EventHandler<MenuEventArgs> MenuChanged; 
+
+		/// <summary>
+		/// Occurs when the assignment is completed via the StatusButton
+		/// </summary>
+		public event EventHandler AssignmentCompleted;
+
+		/// <summary>
+		/// Occurs when status is changed on the timer
+		/// </summary>
+		public event EventHandler StatusChanged;
 
 		readonly AssignmentViewModel assignmentViewModel;
 
@@ -60,6 +73,16 @@ namespace FieldService.iOS
 			timerLabelBackground.Image = Theme.TimerField;
 
 			status.StatusChanged += (sender, e) => SaveAssignment ();
+			status.Completed += (sender, e) => {
+				assignmentViewModel.SelectedAssignment = status.Assignment;
+
+				var method = AssignmentCompleted;
+				if (method != null) {
+					method(this, EventArgs.Empty);
+				}
+
+				ShowConfirmation ();
+			};
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -178,8 +201,11 @@ namespace FieldService.iOS
 				.ContinueWith (t => {
 					BeginInvokeOnMainThread (() => {
 						UpdateAssignment ();
-						//TODO: fix this
-						//detailsController.UpdateAssignment ();
+						
+						var method = StatusChanged;
+						if (method != null) {
+							method(this, EventArgs.Empty);
+						}
 					});
 				});
 		}
@@ -194,22 +220,19 @@ namespace FieldService.iOS
 				assignmentViewModel
 					.PauseAsync ()
 					.ContinueWith (t => {
-						BeginInvokeOnMainThread (() => {
-							record.Enabled = true;
-							
-							//TODO: fix this
-							//var laborController = ServiceContainer.Resolve<LaborController>();
-							//laborController.ReloadLabor ();
-						});
+						BeginInvokeOnMainThread (() => record.Enabled = true);
 					});
 			} else {
 				assignmentViewModel.RecordAsync ().ContinueWith (_ => BeginInvokeOnMainThread (() => record.Enabled = true));
 			}
 		}
 
-		private void OnMenuChanged(MenuEventArgs args)
+		private void OnMenuChanged (MenuEventArgs args)
 		{
-			MenuChanged(this, args);
+			var method = MenuChanged;
+			if (method != null) {
+				method (this, args);
+			}
 		}
 
 		/// <summary>
