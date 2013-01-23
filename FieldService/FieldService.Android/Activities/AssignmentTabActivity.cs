@@ -39,31 +39,7 @@ namespace FieldService.Android {
         {
             ServiceContainer.Register<ISynchronizeInvoke> (() => new SynchronizeInvoke { Activity = this });
         }
-
-        public static AssignmentViewModel AssignmentViewModel
-        {
-            get;
-            set;
-        }
-
-        public static Assignment SelectedAssignment
-        {
-            get;
-            set;
-        }
-
-        public static AssignmentHistory SelectedHistoryAssignment
-        {
-            get;
-            set;
-        }
-
-        public AssignmentsActivity AssignmentsActivity
-        {
-            get;
-            set;
-        }
-
+        
         protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);

@@ -27,6 +27,7 @@ namespace FieldService.Android.Utilities {
     /// Class for creating pins in the Google Maps control, also creates a popup bubble when clicked
     /// </summary>
     public class MapOverlayItem : ItemizedOverlay {
+        readonly AssignmentViewModel assignmentViewModel;
         OverlayItem item;
         Context context;
         MapView mapView;
@@ -43,6 +44,8 @@ namespace FieldService.Android.Utilities {
 
             BoundCenterBottom (overlayDrawable);
             Populate ();
+
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
         }
 
         protected override Java.Lang.Object CreateItem (int i)
@@ -103,7 +106,7 @@ namespace FieldService.Android.Utilities {
                 if (!getDirections) {
                     overlayLayout.Click += (sender, e) => {
                         var intent = new Intent (context, typeof (SummaryActivity));
-                        AssignmentTabActivity.SelectedAssignment = AssignmentTabActivity.AssignmentViewModel.Assignments[AssignmentIndex];
+                        assignmentViewModel.SelectedAssignment = assignmentViewModel.Assignments [AssignmentIndex];
                         context.StartActivity (intent);
                     };
                 }

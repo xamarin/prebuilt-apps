@@ -36,7 +36,7 @@ namespace FieldService.Android {
     /// </summary>
     [Activity (Label = "Map View", Theme = "@style/CustomHoloTheme")]
     public class MapViewActivity : BaseMapActivity {
-        AssignmentViewModel assignmentViewModel;
+        readonly AssignmentViewModel assignmentViewModel;
         MapView mapView;
         MyLocationOverlay myLocation;
         LinearLayout assignmentMapViewLayout,
@@ -58,7 +58,7 @@ namespace FieldService.Android {
 
         public MapViewActivity ()
         {
-            assignmentViewModel = AssignmentTabActivity.AssignmentViewModel;
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
             assignmentViewModel.HoursChanged += HoursChanged;
         }
 
@@ -74,7 +74,7 @@ namespace FieldService.Android {
                 var intent = new Intent (this, typeof (SummaryActivity));
                 var tabActivity = (AssignmentTabActivity)Parent;
                 tabActivity.MapData = null;
-                AssignmentTabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
                 intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
                 StartActivity (intent);
             };
@@ -117,8 +117,7 @@ namespace FieldService.Android {
                 var intent = new Intent (this, typeof (SummaryActivity));
                 var tabActivity =(AssignmentTabActivity)Parent;
                 tabActivity.MapData = null;
-                AssignmentTabActivity.AssignmentViewModel = assignmentViewModel;
-                AssignmentTabActivity.SelectedAssignment = assignmentViewModel.ActiveAssignment;
+                assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
                 StartActivity (intent);
             };
 
