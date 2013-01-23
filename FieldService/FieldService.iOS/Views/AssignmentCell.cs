@@ -55,8 +55,11 @@ namespace FieldService.iOS
 			if (!loaded) {
 				BackgroundView = new UIImageView ();
 
+				accept.AdjustsImageWhenHighlighted = false;
 				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 				accept.SetTitleColor (UIColor.White, UIControlState.Normal);
+
+				decline.AdjustsImageWhenHighlighted = false;
 				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
 				decline.SetTitleColor (UIColor.White, UIControlState.Normal);
 				priority.TextColor = 
@@ -65,7 +68,10 @@ namespace FieldService.iOS
 
 				numberAndDate.TextColor =
 					title.TextColor =
-					startAndEnd.TextColor = Theme.LabelColor;
+					startAndEnd.TextColor = 
+					numberAndDate.HighlightedTextColor = 
+					title.HighlightedTextColor =
+					startAndEnd.HighlightedTextColor = Theme.LabelColor;
 
 				contact.IconImage = Theme.IconPhone;
 				address.IconImage = Theme.Map;
