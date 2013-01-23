@@ -37,15 +37,15 @@ namespace FieldService.Android {
     [Activity (Label = "Map View Fragment", Theme = "@style/CustomHoloTheme")]
     public class MapFragmentActivity : BaseMapActivity {
 
-        AssignmentViewModel assignmentViewModel;
+        readonly AssignmentViewModel assignmentViewModel;
         MapView mapView;
         MyLocationOverlay myLocation;
         Assignment assignment;
 
         public MapFragmentActivity ()
         {
-            assignmentViewModel = AssignmentTabActivity.AssignmentViewModel;
-            assignment = AssignmentTabActivity.SelectedAssignment;
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+            assignment = assignmentViewModel.SelectedAssignment;
         }
 
         protected override void OnCreate (Bundle bundle)

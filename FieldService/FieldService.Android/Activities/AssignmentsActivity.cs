@@ -49,18 +49,12 @@ namespace FieldService.Android {
             phone,
             address,
             timerText;
-
+        private readonly AssignmentViewModel assignmentViewModel;
 
         public AssignmentsActivity ()
         {
-            AssignmentViewModel = new AssignmentViewModel ();
-            AssignmentViewModel.HoursChanged += HoursChanged;
-        }
-
-        public AssignmentViewModel AssignmentViewModel
-        {
-            get;
-            set;
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+            assignmentViewModel.HoursChanged += HoursChanged;
         }
 
         protected override void OnCreate (Bundle bundle)
@@ -97,23 +91,23 @@ namespace FieldService.Android {
             mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
 
             timer.CheckedChange += (sender, e) => {
-                if (e.IsChecked != AssignmentViewModel.Recording) {
-                    if (AssignmentViewModel.Recording) {
-                        AssignmentViewModel.PauseAsync ();
+                if (e.IsChecked != assignmentViewModel.Recording) {
+                    if (assignmentViewModel.Recording) {
+                        assignmentViewModel.PauseAsync ();
                     } else {
-                        AssignmentViewModel.RecordAsync ();
+                        assignmentViewModel.RecordAsync ();
                     }
                 }
             };
 
             activeSpinner.ItemSelected += (sender, e) => {
                 if (assignment != null) {
-                    var selected = AssignmentViewModel.AvailableStatuses.ElementAtOrDefault (e.Position);
+                    var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (e.Position);
                     if (selected != assignment.Status) {
                         switch (selected) {
                             case AssignmentStatus.Hold:
                                 assignment.Status = selected;
-                                AssignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => RunOnUiThread (ReloadAssignments));
+                                assignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => RunOnUiThread (ReloadAssignments));
                                 break;
                             case AssignmentStatus.Complete:
                                 //go to confirmations, this is getting called multiple times.
@@ -134,16 +128,13 @@ namespace FieldService.Android {
                 var activity = (AssignmentTabActivity)Parent;
                 var intent = new Intent (activity, typeof (SummaryActivity));
                 intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
-                AssignmentTabActivity.SelectedAssignment = AssignmentViewModel.ActiveAssignment;
+                assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
                 activity.StartActivity (intent);
             };
 
             phoneButton.Click += (sender, e) => {
                 Extensions.MakePhoneCall (this, phone.Text);
             };
-
-            var parentActivity = (AssignmentTabActivity)Parent;
-            parentActivity.AssignmentsActivity = this;
         }
 
         /// <summary>
@@ -153,11 +144,11 @@ namespace FieldService.Android {
         {
             base.OnResume();
 
-            AssignmentViewModel.LoadAssignmentsAsync().ContinueWith(_ =>
+            assignmentViewModel.LoadAssignmentsAsync ().ContinueWith (_ =>
             {
                 RunOnUiThread(() =>
                     {
-                        if (AssignmentViewModel.ActiveAssignment != null)
+                        if (assignmentViewModel.ActiveAssignment != null)
                         {
                             SetActiveAssignmentVisible(true);
                         }
@@ -165,11 +156,8 @@ namespace FieldService.Android {
                         {
                             SetActiveAssignmentVisible(false);
                         }
-                        var adapter = new AssignmentsAdapter(this, Resource.Layout.AssignmentItemLayout, AssignmentViewModel.Assignments);
-                        adapter.AssignmentViewModel = AssignmentViewModel;
-                        assignmentsListView.Adapter = adapter;
+                        assignmentsListView.Adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout);
                     });
-                AssignmentTabActivity.AssignmentViewModel = AssignmentViewModel;
             });
         }
 
@@ -177,7 +165,7 @@ namespace FieldService.Android {
         {
             if (timerText != null) {
                 RunOnUiThread (() => {
-                    timerText.Text = AssignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+                    timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
                 });
             }
         }
@@ -187,16 +175,14 @@ namespace FieldService.Android {
         /// </summary>
         public void ReloadAssignments ()
         {
-            AssignmentViewModel.LoadAssignmentsAsync ().ContinueWith (_ => {
+            assignmentViewModel.LoadAssignmentsAsync ().ContinueWith (_ => {
                 RunOnUiThread (() => {
-                    if (AssignmentViewModel.ActiveAssignment != null) {
+                    if (assignmentViewModel.ActiveAssignment != null) {
                         SetActiveAssignmentVisible (true);
                     } else {
                         SetActiveAssignmentVisible (false);
                     }
-                    var adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout, AssignmentViewModel.Assignments);
-                    adapter.AssignmentViewModel = AssignmentViewModel;
-                    assignmentsListView.Adapter = adapter;
+                    assignmentsListView.Adapter = new AssignmentsAdapter (this, Resource.Layout.AssignmentItemLayout);
                 });
             });
         }
@@ -223,11 +209,11 @@ namespace FieldService.Android {
         {
             if (visible) {
                 assignmentActiveLayout.Visibility = ViewStates.Visible;
-                assignment = AssignmentViewModel.ActiveAssignment;
+                assignment = assignmentViewModel.ActiveAssignment;
 
-                AssignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
+                assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
                     RunOnUiThread (() => {
-                        if (AssignmentViewModel.Recording) {
+                        if (assignmentViewModel.Recording) {
                             timer.Checked = true;
                         } else {
                             timer.Checked = false;
@@ -238,11 +224,11 @@ namespace FieldService.Android {
                 buttonLayout.Visibility = ViewStates.Gone;
                 timerLayout.Visibility = ViewStates.Visible;
 
-                var adapter = new SpinnerAdapter<AssignmentStatus> (AssignmentViewModel.AvailableStatuses, this, Resource.Layout.SimpleSpinnerItem);
+                var adapter = new SpinnerAdapter<AssignmentStatus> (assignmentViewModel.AvailableStatuses, this, Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Resources.GetColor (Resource.Color.greyspinnertext);
                 adapter.Background = Resources.GetColor (Resource.Color.assignmentblue);
                 activeSpinner.Adapter = adapter;
-                activeSpinner.SetSelection (AssignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
+                activeSpinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 activeSpinner.SetBackgroundResource (Resource.Drawable.triangleblue);
                 spinnerImage.SetImageResource (Resource.Drawable.EnrouteImage);
 
@@ -251,7 +237,7 @@ namespace FieldService.Android {
                 name.Text = assignment.ContactName;
                 phone.Text = assignment.ContactPhone;
                 address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
-                timerText.Text = AssignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+                timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 
             } else {
                 assignmentActiveLayout.Visibility = ViewStates.Gone;
@@ -267,11 +253,10 @@ namespace FieldService.Android {
             var intent = new Intent (this, typeof (SummaryActivity));
             var activity = (AssignmentTabActivity)Parent; 
             activity.MapData = null;
-            AssignmentTabActivity.AssignmentViewModel = AssignmentViewModel;
             if (index != -1) {
-                AssignmentTabActivity.SelectedAssignment = AssignmentViewModel.Assignments[index];
+                assignmentViewModel.SelectedAssignment = assignmentViewModel.Assignments [index];
             } else {
-                AssignmentTabActivity.SelectedAssignment = AssignmentViewModel.ActiveAssignment;
+                assignmentViewModel.SelectedAssignment = assignmentViewModel.ActiveAssignment;
             }
             intent.PutExtra (Constants.FragmentIndex, 0);
             StartActivity (intent);

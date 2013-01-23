@@ -15,6 +15,7 @@ namespace FieldService.ViewModels {
         readonly IAssignmentService service;
         List<AssignmentHistory> history;
         Assignment assignment;
+        AssignmentHistory selectedAssignmentHistory;
 
         public HistoryViewModel ()
         {
@@ -34,6 +35,12 @@ namespace FieldService.ViewModels {
         {
             get { return assignment; }
             set { assignment = value; OnPropertyChanged ("PastAssignment"); }
+        }
+
+        public AssignmentHistory SelectedAssignmentHistory
+        {
+            get { return selectedAssignmentHistory; }
+            set { selectedAssignmentHistory = value; OnPropertyChanged ("SelectedAssignmentHistory"); }
         }
 
         /// <summary>

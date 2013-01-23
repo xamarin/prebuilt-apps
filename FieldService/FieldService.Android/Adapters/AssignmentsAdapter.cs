@@ -34,22 +34,19 @@ namespace FieldService.Android {
     /// </summary>
     public class AssignmentsAdapter : ArrayAdapter<Assignment>, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
 
+        readonly AssignmentViewModel assignmentViewModel;
         readonly AssignmentsActivity activity;
         readonly IList<Assignment> assignments;
         readonly int resourceId;
 
-        public AssignmentsAdapter (AssignmentsActivity activity, int resourceId, IList<Assignment> assignments)
-            : base (activity, resourceId, assignments)
+        public AssignmentsAdapter (AssignmentsActivity activity, int resourceId)
+            : base (activity, resourceId)
         {
-            this.activity = activity;
-            this.assignments = assignments;
-            this.resourceId = resourceId;
-        }
+            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
-        public AssignmentViewModel AssignmentViewModel
-        {
-            get;
-            set;
+            this.activity = activity;
+            this.assignments = assignmentViewModel.Assignments;
+            this.resourceId = resourceId;
         }
         
         public override View GetView (int position, View convertView, ViewGroup parent)
@@ -104,12 +101,12 @@ namespace FieldService.Android {
 
                 spinner.Focusable = false;
                 spinner.Tag = position;
-                var adapter = new SpinnerAdapter<AssignmentStatus> (AssignmentViewModel.AvailableStatuses, Context, Resource.Layout.SimpleSpinnerItem);
+                var adapter = new SpinnerAdapter<AssignmentStatus> (assignmentViewModel.AvailableStatuses, Context, Resource.Layout.SimpleSpinnerItem);
                 adapter.TextColor = Context.Resources.GetColor (Resource.Color.greyspinnertext);
                 adapter.Background = Color.White;
                 spinner.Adapter = adapter;
 
-                spinner.SetSelection (AssignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
+                spinner.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (assignment.Status));
                 spinner.SetBackgroundResource (Resource.Drawable.trianglewhite);
                 spinnerImage.SetImageResource (Resource.Drawable.HoldImage);
 
@@ -130,7 +127,7 @@ namespace FieldService.Android {
         /// </summary>
         private void SaveAssignment (Assignment assignment, int index)
         {
-            AssignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => {
+            assignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => {
                 activity.RunOnUiThread (() => {
                     if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
                         activity.ReloadAssignments ();
@@ -147,7 +144,7 @@ namespace FieldService.Android {
                 case Resource.Id.assignmentAccept: {
                         var position = (int)v.Tag;
                         var activeAssignment = GetItem (position);
-                        if (AssignmentViewModel.ActiveAssignment == null) {
+                        if (assignmentViewModel.ActiveAssignment == null) {
                             activeAssignment.Status = AssignmentStatus.Active;
                         } else {
                             activeAssignment.Status = AssignmentStatus.Hold;
@@ -175,8 +172,7 @@ namespace FieldService.Android {
                         var intent = new Intent (Context, typeof (SummaryActivity));
                         var tabActivity = (AssignmentTabActivity)this.activity.Parent; 
                         tabActivity.MapData = null;
-                        AssignmentTabActivity.AssignmentViewModel = AssignmentViewModel;
-                        AssignmentTabActivity.SelectedAssignment = activeAssignment;
+                        assignmentViewModel.SelectedAssignment = activeAssignment;
                         intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf ("Map"));
                         Context.StartActivity (intent);
                     }
@@ -188,7 +184,7 @@ namespace FieldService.Android {
 
         public void OnItemSelected (AdapterView parent, View view, int position, long id)
         {
-            var selected = AssignmentViewModel.AvailableStatuses.ElementAtOrDefault (position);
+            var selected = assignmentViewModel.AvailableStatuses.ElementAtOrDefault (position);
             var spinnerImage = ((View)parent.Parent).FindViewById<ImageView> (Resource.Id.assignmentStatusImage);
             var index = (int)parent.Tag;
             var activeAssignment = GetItem (index);
@@ -207,7 +203,7 @@ namespace FieldService.Android {
                             var activity = (AssignmentTabActivity)this.activity.Parent;
                             var intent = new Intent (activity, typeof (SummaryActivity));
                             intent.PutExtra (Constants.FragmentIndex, Constants.Navigation.IndexOf (Constants.Confirmations));
-                            AssignmentTabActivity.SelectedAssignment = activeAssignment;
+                            assignmentViewModel.SelectedAssignment = activeAssignment;
                             activity.StartActivity (intent);
                         }
                         break;

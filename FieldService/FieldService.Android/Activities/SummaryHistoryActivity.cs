@@ -52,14 +52,14 @@ namespace FieldService.Android.Activities {
 
         public SummaryHistoryActivity ()
         {
-            //var tabActivity = ServiceContainer.Resolve<AssignmentTabActivity> ();
-            AssignmentHistory = AssignmentTabActivity.SelectedHistoryAssignment;
+            historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+
+            AssignmentHistory = historyViewModel.SelectedAssignmentHistory;
             itemViewModel = new ItemViewModel ();
             laborViewModel = new LaborViewModel ();
             photoViewModel = new PhotoViewModel ();
             expenseViewModel = new ExpenseViewModel ();
             documentViewModel = new DocumentViewModel ();
-            historyViewModel = new HistoryViewModel ();
         }
 
         /// <summary>
@@ -297,7 +297,6 @@ namespace FieldService.Android.Activities {
                         historyViewModel.LoadHistoryAsync (historyViewModel.PastAssignment).ContinueWith (_ => {
                             RunOnUiThread (() => {
                                 fragment.History = historyViewModel.History;
-                                fragment.HistoryViewModel = historyViewModel;
                                 fragment.Assignment = historyViewModel.PastAssignment;
                                 transaction.SetTransition (FragmentTransit.FragmentOpen);
                                 transaction.Replace (Resource.Id.contentFrame, fragment);
