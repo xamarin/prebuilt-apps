@@ -127,10 +127,13 @@ namespace FieldService.iOS
 
 		private void ChangeSelection (int index)
 		{
-			using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
-				tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+			int count = tableView.NumberOfRowsInSection (0);
+			if (index < count) {
+				using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
+					tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
 				
-				OnMenuChanged(new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
+					OnMenuChanged (new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
+				}
 			}
 		}
 

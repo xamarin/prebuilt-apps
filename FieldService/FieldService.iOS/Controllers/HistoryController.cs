@@ -126,6 +126,7 @@ namespace FieldService.iOS
 							.ContinueWith (_ => {
 								BeginInvokeOnMainThread (() => {
 									var parentController = controller.ParentViewController.ParentViewController;
+									assignmentViewModel.LastAssignment = assignmentViewModel.SelectedAssignment;
 									assignmentViewModel.SelectedAssignment = historyViewModel.PastAssignment;
 									parentController.PerformSegue ("AssignmentHistory", parentController);
 								});
