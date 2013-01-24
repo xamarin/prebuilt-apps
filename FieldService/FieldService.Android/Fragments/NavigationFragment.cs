@@ -113,6 +113,16 @@ namespace FieldService.Android.Fragments {
             navigationListView.OnItemClickListener = navigationSelector;
             navigationListView.Adapter = adapter;
 
+            timer.CheckedChange += (sender, e) => {
+                if (e.IsChecked != assignmentViewModel.Recording) {
+                    if (assignmentViewModel.Recording) {
+                        assignmentViewModel.PauseAsync ();
+                    } else {
+                        assignmentViewModel.RecordAsync ();
+                    }
+                }
+            };
+
             SetActiveAssignment ();
 
             return view;
@@ -147,25 +157,13 @@ namespace FieldService.Android.Fragments {
                             navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Active));
                             timerHours.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 
-                            assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
-                                Activity.RunOnUiThread (() => {
-                                    if (assignmentViewModel.Recording) {
-                                        timer.Checked = true;
-                                    } else {
-                                        timer.Checked = false;
-                                    }
-                                });
-                            });
-
-                            timer.CheckedChange += (sender, e) => {
-                                if (e.IsChecked != assignmentViewModel.Recording) {
-                                    if (assignmentViewModel.Recording) {
-                                        assignmentViewModel.PauseAsync ();
-                                    } else {
-                                        assignmentViewModel.RecordAsync ();
-                                    }
+                            Activity.RunOnUiThread (() => {
+                                if (assignmentViewModel.Recording) {
+                                    timer.Checked = true;
+                                } else {
+                                    timer.Checked = false;
                                 }
-                            };
+                            });
                             break;
                         default:
                             break;
