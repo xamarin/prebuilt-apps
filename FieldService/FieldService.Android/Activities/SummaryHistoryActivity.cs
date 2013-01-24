@@ -101,12 +101,9 @@ namespace FieldService.Android.Activities {
                     RunOnUiThread (() => {
                         //setting up default fragments
                         var transaction = FragmentManager.BeginTransaction ();
-                        var summaryFragment = new SummaryFragment ();
-                        summaryFragment.Assignment = historyViewModel.PastAssignment;
                         navigationFragment = new NavigationFragment ();
                         navigationFragment.Assignment = historyViewModel.PastAssignment;
                         transaction.SetTransition (FragmentTransit.FragmentOpen);
-                        transaction.Replace (Resource.Id.contentFrame, summaryFragment);
                         transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
                         transaction.Commit ();
                         if (historyViewModel.PastAssignment != null) {
@@ -137,9 +134,7 @@ namespace FieldService.Android.Activities {
             if (navigationFragment != null) {
                 navigationFragment.NavigationSelected += NavigationSelected;
             }
-            if (menuViewModel.MenuIndex != 0) {
-                navigationFragment.SetNavigation (menuViewModel.MenuIndex);
-            }
+            SetFrameFragment (menuViewModel.MenuIndex);
         }
 
         protected override void OnPause ()
