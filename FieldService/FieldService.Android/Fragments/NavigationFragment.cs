@@ -37,14 +37,17 @@ namespace FieldService.Android.Fragments {
         ToggleButton timer;
         LinearLayout navigationStatusLayout;
         RelativeLayout timerLayout;
-        int lastposition;
+        int lastposition = -1;
         AssignmentViewModel assignmentViewModel;
+        MenuViewModel menuViewModel;
         public event EventHandler<EventArgs<int>> NavigationSelected;
         NavigationItemSelectorListener navigationSelector;
 
         public override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
+
+            menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
 
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
             assignmentViewModel.HoursChanged += (sender, e) => {
@@ -54,10 +57,6 @@ namespace FieldService.Android.Fragments {
                     });
                 }
             };
-
-            if (savedInstanceState != null && savedInstanceState.ContainsKey (Constants.BundleIndex)) {
-                savedInstanceState.GetInt (Constants.BundleIndex);
-            }
 
             navigationSelector = new NavigationItemSelectorListener (this);
         }
@@ -203,17 +202,7 @@ namespace FieldService.Android.Fragments {
             if (method != null)
                 method (this, new EventArgs<int> { Value = index });
         }
-
-        /// <summary>
-        /// Save the selected index
-        /// </summary>
-        /// <param name="outState"></param>
-        public override void OnSaveInstanceState (Bundle outState)
-        {
-            base.OnSaveInstanceState (outState);
-            outState.PutInt (Constants.BundleIndex, lastposition);
-        }
-
+        
         /// <summary>
         /// Clear out the assignment
         /// </summary>
@@ -221,6 +210,18 @@ namespace FieldService.Android.Fragments {
         {
             Assignment = null;
             base.OnPause ();
+        }
+
+        public override void OnResume ()
+        {
+            base.OnResume ();
+            var index = menuViewModel.MenuIndex;
+            //RunOnUIThread doesn't allow the listview to be inflated with the views when it is called.  So when we try to get the view from the listview to display
+            //the arrow indicating which position we are at in the list the view returned is null. Post from the listview allows the views inside the listview to be inflated
+            //and we are able to then access all views inside the listview.  the caveat here is some people have stated that post does not work on all android devices.
+            navigationListView.Post (() => {
+                navigationSelector.OnItemClick (navigationListView, navigationListView.GetChildAt (index), index, 0);
+            });
         }
 
         private class NavigationItemSelectorListener : Java.Lang.Object, AdapterView.IOnItemClickListener {
@@ -245,9 +246,11 @@ namespace FieldService.Android.Fragments {
                         var image = view.FindViewById<ImageView> (Resource.Id.navigationListViewImage);
                         image.Visibility = ViewStates.Visible;
                     }
+                    //need to switch fragments here unless the fragment is being created for instance on a device rotation.
+                    if (fragment.lastposition != -1) {
+                        fragment.OnNavigationSelected (position);
+                    }
                     fragment.lastposition = position;
-                    //need to switch fragments here
-                    fragment.OnNavigationSelected (position);
                 }
             }
         }

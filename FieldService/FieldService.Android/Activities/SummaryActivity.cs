@@ -14,6 +14,7 @@
 //    limitations under the License.
 
 using System;
+using System.Threading;
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -115,12 +116,9 @@ namespace FieldService.Android {
 
             //setting up default fragments
             var transaction = FragmentManager.BeginTransaction ();
-            var summaryFragment = new SummaryFragment ();
-            summaryFragment.Assignment = assignment;
             navigationFragment = new NavigationFragment ();
             navigationFragment.Assignment = assignment;
             transaction.SetTransition (FragmentTransit.FragmentOpen);
-            transaction.Replace (Resource.Id.contentFrame, summaryFragment);
             transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
             transaction.Commit ();
 
@@ -169,9 +167,7 @@ namespace FieldService.Android {
             if (navigationFragment != null) {
                 navigationFragment.NavigationSelected += NavigationSelected;
             }
-            if (menuViewModel.MenuIndex != 0) {
-                navigationFragment.SetNavigation (menuViewModel.MenuIndex);
-            }
+            SetFrameFragment (menuViewModel.MenuIndex);
         }
 
         protected override void OnPause ()
