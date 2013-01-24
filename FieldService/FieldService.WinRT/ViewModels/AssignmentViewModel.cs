@@ -130,7 +130,7 @@ namespace FieldService.WinRT.ViewModels {
         /// </summary>
         public override Assignment SelectedAssignment
         {
-            get{return base.SelectedAssignment;}
+            get { return base.SelectedAssignment; }
             set
             {
                 base.SelectedAssignment = value;
@@ -314,7 +314,7 @@ namespace FieldService.WinRT.ViewModels {
         /// </summary>
         public string IsCompleteText
         {
-            get { return IsComplete ? "Complete" : "Mark Complete";}
+            get { return IsComplete ? "Complete" : "Mark Complete"; }
         }
 
         /// <summary>
@@ -344,7 +344,7 @@ namespace FieldService.WinRT.ViewModels {
                 if (IsComplete) {
                     return app.Resources ["DarkTextBrush"] as SolidColorBrush;
                 }
-                return app.Resources ["LightItemsBrush"] as SolidColorBrush;                
+                return app.Resources ["LightItemsBrush"] as SolidColorBrush;
             }
         }
 
@@ -405,7 +405,7 @@ namespace FieldService.WinRT.ViewModels {
         /// </summary>
         public string TotalAccumulated
         {
-            get { return string.Format ("Total {0}:{1}", Hours.Hours.ToString("#0"), Hours.Minutes.ToString("00")); }
+            get { return string.Format ("Total {0}:{1}", Hours.Hours.ToString ("#0"), Hours.Minutes.ToString ("00")); }
         }
 
         protected override void OnHoursChanged ()
