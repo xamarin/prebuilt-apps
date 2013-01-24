@@ -168,7 +168,7 @@ namespace FieldService.WinRT.ViewModels {
         /// <summary>
         /// selected labor item
         /// </summary>
-        public Labor SelectedLabor
+        public override Labor SelectedLabor
         {
             get { return selectedLabor; }
             set

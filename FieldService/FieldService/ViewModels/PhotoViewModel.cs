@@ -47,7 +47,7 @@ namespace FieldService.ViewModels {
 	/// <summary>
 	/// The selected photo for use within the app
 	/// </summary>
-	public Photo SelectedPhoto
+	public virtual Photo SelectedPhoto
 	{
 	    get { return selectedPhoto; }
 	    set { selectedPhoto = value; OnPropertyChanged ("SelectedPhoto"); }

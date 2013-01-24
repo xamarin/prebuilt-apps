@@ -215,7 +215,7 @@ namespace FieldService.WinRT.ViewModels {
             }
         }
 
-        public Expense SelectedExpense
+        public override Expense SelectedExpense
         {
             get { return selectedExpense; }
             set

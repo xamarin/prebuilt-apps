@@ -33,7 +33,7 @@ namespace FieldService.ViewModels {
 	/// <summary>
 	/// The selected labor hour for use within the app
 	/// </summary>
-	public Labor SelectedLabor
+        public virtual Labor SelectedLabor
 	{
 	    get { return selectedLabor; }
 	    set { selectedLabor = value; OnPropertyChanged ("SelectedLabor"); }

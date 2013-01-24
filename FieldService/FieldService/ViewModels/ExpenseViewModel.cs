@@ -43,7 +43,7 @@ namespace FieldService.ViewModels {
 	/// <summary>
 	/// The selected expense for use within the app
 	/// </summary>
-	public Expense SelectedExpense 
+	public virtual Expense SelectedExpense 
 	{
 	    get { return selectedExpense; }
 	    set { selectedExpense = value; OnPropertyChanged ("SelectedExpense"); }

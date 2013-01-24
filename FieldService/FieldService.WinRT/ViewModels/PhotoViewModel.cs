@@ -83,7 +83,7 @@ namespace FieldService.WinRT.ViewModels {
             get { return deletePhotoCommand; }
         }
 
-        public Photo SelectedPhoto
+        public override Photo SelectedPhoto
         {
             get { return selectedPhoto; }
             set
