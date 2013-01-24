@@ -33,7 +33,6 @@ namespace FieldService.Android {
             if (loginViewModel.IsInactive) {
                 var intent = new Intent (this, typeof (LoginActivity));
                 intent.SetFlags (ActivityFlags.ClearTop);
-                intent.PutExtra (Constants.PreventBackPressed, true);
                 StartActivity (intent);
             }
 

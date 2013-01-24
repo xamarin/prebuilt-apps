@@ -44,10 +44,6 @@ namespace FieldService.Android.Utilities {
         /// </summary>
         public const string CurrentTab = "currentTab";
         /// <summary>
-        /// Key for prevent on back pressed with user inactivity
-        /// </summary>
-        public const string PreventBackPressed = "preventBackPressed";
-        /// <summary>
         /// Maximum width for images
         /// </summary>
         public const int MaxWidth = 400;

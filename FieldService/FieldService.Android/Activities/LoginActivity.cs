@@ -37,7 +37,6 @@ namespace FieldService.Android {
         EditText password, userName;
         Button login;
         ProgressBar progressIndicator;
-        bool preventOnBackPressed = false;
 
         /// <summary>
         /// Class constructor
@@ -100,10 +99,6 @@ namespace FieldService.Android {
 
             //request focus to the edit text to start on username.
             userName.RequestFocus ();
-
-            if (Intent != null && Intent.HasExtra (Constants.PreventBackPressed)) {
-                preventOnBackPressed = Intent.GetBooleanExtra (Constants.PreventBackPressed, false);
-            }
         }
 
         /// <summary>
@@ -111,7 +106,7 @@ namespace FieldService.Android {
         /// </summary>
         public override void OnBackPressed ()
         {
-            if(!preventOnBackPressed)
+            //if(!preventOnBackPressed)
                 base.OnBackPressed ();
         }
 
@@ -131,9 +126,16 @@ namespace FieldService.Android {
                 .ContinueWith (_ => {
                     RunOnUiThread (() => {
                         StartActivity (typeof (AssignmentTabActivity));
-                        Finish ();
                     });
                 });
+        }
+
+        protected override void OnResume ()
+        {
+            base.OnResume ();
+
+            login.Visibility = ViewStates.Visible;
+            progressIndicator.Visibility = ViewStates.Invisible;
         }
 
         /// <summary>
