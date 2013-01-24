@@ -28,6 +28,7 @@ namespace FieldService.iOS
 	public partial class LoginController : BaseController
 	{
 		readonly LoginViewModel loginViewModel;
+		TabController tabController;
 		
 		public LoginController (IntPtr handle) : base (handle)
 		{
@@ -127,7 +128,10 @@ namespace FieldService.iOS
 				.LoginAsync ()
 				.ContinueWith (_ => 
 					BeginInvokeOnMainThread (() => {
-						Theme.TransitionController(Storyboard.InstantiateViewController<TabController>());
+						if (tabController == null)
+							tabController = Storyboard.InstantiateViewController<TabController>();
+
+						Theme.TransitionController(tabController);
 					}));
 		}
 
