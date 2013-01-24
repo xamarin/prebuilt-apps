@@ -32,6 +32,7 @@ namespace FieldService.iOS
 	{
 		UIWindow window;
 		UIStoryboard storyboard;
+		LoginController loginController;
 
 		/// <summary>
 		/// This the main entry point for the app on iOS
@@ -50,7 +51,8 @@ namespace FieldService.iOS
 
 			//Load our storyboard and setup our UIWindow and first view controller
 			storyboard = UIStoryboard.FromName ("MainStoryboard", null);
-			window.RootViewController = storyboard.InstantiateInitialViewController () as UIViewController;
+			window.RootViewController = 
+				loginController = storyboard.InstantiateInitialViewController () as LoginController;
 			window.MakeKeyAndVisible ();
 
 			return true;
@@ -70,6 +72,7 @@ namespace FieldService.iOS
 		public override void DidEnterBackground (UIApplication application)
 		{
 			var loginViewModel = ServiceContainer.Resolve<LoginViewModel>();
+
 			loginViewModel.ResetInactiveTime ();
 		}
 
@@ -80,8 +83,7 @@ namespace FieldService.iOS
 		{
 			var loginViewModel = ServiceContainer.Resolve<LoginViewModel>();
 			if (loginViewModel.IsInactive) {
-				var loginController = storyboard.InstantiateViewController<LoginController>();
-				Theme.TransitionController (loginController);
+				Theme.TransitionController (loginController, false);
 			}
 
 			//Let's reset the time, just to be safe

@@ -711,23 +711,20 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Transitions a controller to the rootViewController, for a fullscreen transition
 		/// </summary>
-		public static void TransitionController (UIViewController controller)
+		public static void TransitionController (UIViewController controller, bool animated = true)
 		{
 			var window = ServiceContainer.Resolve<UIWindow>();
-			var oldController = window.RootViewController;
 
 			//Return if it's already the root controller
-			if (oldController == controller)
+			if (window.RootViewController == controller)
 				return;
 
 			//Set the root controller
 			window.RootViewController = controller;
 
 			//Peform an animation, note that null is not allowed as a callback, so I use delegate { }
-			UIView.Transition (window, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate { });
-
-			//Dispose the old controller, to free up some memory
-			oldController.Dispose ();
+			if (animated)
+				UIView.Transition (window, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate { });
 		}
 	}
 }
