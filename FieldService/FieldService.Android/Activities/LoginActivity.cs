@@ -43,9 +43,6 @@ namespace FieldService.Android {
         /// </summary>
         public LoginActivity ()
         {
-            //Registers services for core library
-            ServiceRegistrar.Startup ();
-
             loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
             //sets valid changed to show the login button.
@@ -133,6 +130,9 @@ namespace FieldService.Android {
         protected override void OnResume ()
         {
             base.OnResume ();
+
+            password.Text =
+                userName.Text = string.Empty;
 
             login.Visibility = ViewStates.Visible;
             progressIndicator.Visibility = ViewStates.Invisible;

@@ -184,6 +184,7 @@
     <Compile Include="Adapters\LaborTypeSpinnerAdapter.cs" />
     <Compile Include="Adapters\NavigationAdapter.cs" />
     <Compile Include="Adapters\PhotosAdapter.cs" />
+    <Compile Include="Application.cs" />
     <Compile Include="Dialogs\AddLaborDialog.cs" />
     <Compile Include="Dialogs\BaseDialog.cs" />
     <Compile Include="Dialogs\ExpenseDialog.cs" />
