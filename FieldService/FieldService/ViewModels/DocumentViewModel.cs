@@ -34,7 +34,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task LoadDocumentsAsync ()
         {
-            return service.GetDocumentsAsync (CancellationToken.None)
+            return service.GetDocumentsAsync ()
                 .ContinueOnCurrentThread (t => Documents = t.Result);
         }
     }

@@ -45,7 +45,6 @@ namespace FieldService.iOS
 			ContentEdgeInsets = new UIEdgeInsets(0, 38, 0, 0);
 			AddSubview (statusImage = new UIImageView (new RectangleF (12, (Frame.Height - 16) / 2, 16, 16)));
 
-			AdjustsImageWhenHighlighted = false;
 			SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 			SetBackgroundImage (Theme.DropDown, UIControlState.Normal);
 

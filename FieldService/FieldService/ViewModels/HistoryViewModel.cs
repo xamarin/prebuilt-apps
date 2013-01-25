@@ -49,14 +49,14 @@ namespace FieldService.ViewModels {
         public Task LoadHistoryAsync (Assignment assignment)
         {
             return service
-                .GetAssignmentHistoryAsync (assignment, CancellationToken.None)
+                .GetAssignmentHistoryAsync (assignment)
                 .ContinueOnCurrentThread (t => History = t.Result);
         }
 
         public Task LoadAssignmentFromHistory (AssignmentHistory assignmentHistory)
         {
             return service
-                .GetAssignmentFromHistory (assignmentHistory, CancellationToken.None)
+                .GetAssignmentFromHistory (assignmentHistory)
                 .ContinueOnCurrentThread (t => {
                     PastAssignment = t.Result.FirstOrDefault ();
                     PastAssignment.IsHistory = true;

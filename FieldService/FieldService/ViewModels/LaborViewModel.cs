@@ -45,7 +45,7 @@ namespace FieldService.ViewModels {
         public Task LoadLaborHoursAsync (Assignment assignment)
         {
             return service
-                .GetLaborForAssignmentAsync (assignment, CancellationToken.None)
+                .GetLaborForAssignmentAsync (assignment)
                 .ContinueOnCurrentThread (t => LaborHours = t.Result);
         }
 
@@ -56,7 +56,7 @@ namespace FieldService.ViewModels {
         {
             bool newItem = labor.Id == 0;
 
-            return service.SaveLaborAsync (labor, CancellationToken.None)
+            return service.SaveLaborAsync (labor)
                 .ContinueWith (t => {
                     if (newItem)
                         laborHours.Add (labor);
@@ -69,7 +69,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task DeleteLaborAsync (Assignment assignment, Labor labor)
         {
-            return service.DeleteLaborAsync (labor, CancellationToken.None)
+            return service.DeleteLaborAsync (labor)
                 .ContinueWith (t => {
                     laborHours.Remove (labor);
                     CalculateHours (assignment);

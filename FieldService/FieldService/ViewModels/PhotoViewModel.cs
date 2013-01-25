@@ -59,7 +59,7 @@ namespace FieldService.ViewModels {
         public Task LoadPhotosAsync (Assignment assignment)
         {
             return service
-                .GetPhotosForAssignmentAsync (assignment, CancellationToken.None)
+                .GetPhotosForAssignmentAsync (assignment)
                 .ContinueOnCurrentThread (t => Photos = t.Result);
         }
 
@@ -74,7 +74,7 @@ namespace FieldService.ViewModels {
             photo.Date = DateTime.Now;
 
             return service
-                .SavePhotoAsync (photo, CancellationToken.None)
+                .SavePhotoAsync (photo)
                 .ContinueOnCurrentThread (t => {
                     if (newPhoto) {
                         if (photos == null)
@@ -91,7 +91,7 @@ namespace FieldService.ViewModels {
         public Task DeletePhotoAsync (Assignment assignment, Photo photo)
         {
             return service
-                .DeletePhotoAsync (photo, CancellationToken.None)
+                .DeletePhotoAsync (photo)
                 .ContinueOnCurrentThread (t => {
                     if (photos != null)
                         photos.Remove (photo);

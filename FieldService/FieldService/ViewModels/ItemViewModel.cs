@@ -59,7 +59,7 @@ namespace FieldService.ViewModels {
         public Task LoadItemsAsync ()
         {
             return service
-                .GetItemsAsync (CancellationToken.None)
+                .GetItemsAsync ()
                 .ContinueOnCurrentThread (t => Items = t.Result);
         }
 
@@ -69,7 +69,7 @@ namespace FieldService.ViewModels {
         public Task LoadAssignmentItemsAsync (Assignment assignment)
         {
             return service
-                .GetItemsForAssignmentAsync (assignment, CancellationToken.None)
+                .GetItemsForAssignmentAsync (assignment)
                 .ContinueOnCurrentThread (t => AssignmentItems = t.Result);
         }
 
@@ -81,7 +81,7 @@ namespace FieldService.ViewModels {
             bool newItem = item.Id == 0;
 
             return service
-                .SaveAssignmentItemAsync (item, CancellationToken.None)
+                .SaveAssignmentItemAsync (item)
                 .ContinueWith (t => {
                     if (newItem)
                         assignment.TotalItems++;
@@ -94,7 +94,7 @@ namespace FieldService.ViewModels {
         public Task DeleteAssignmentItemAsync (Assignment assignment, AssignmentItem item)
         {
             return service
-                .DeleteAssignmentItemAsync (item, CancellationToken.None)
+                .DeleteAssignmentItemAsync (item)
                 .ContinueWith (t => assignment.TotalItems--);
         }
     }
