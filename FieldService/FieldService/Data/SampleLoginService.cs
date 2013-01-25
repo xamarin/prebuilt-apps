@@ -28,14 +28,9 @@ namespace FieldService.Data {
     /// </summary>
     public class SampleLoginService : ILoginService {
 
-        //We are using NCrunch during development, we can remove this later to prevent confusion
-#if NCRUNCH
-        private const int Sleep = 1;
-#else
         private const int Sleep = 1000;
-#endif
 
-        public Task<bool> LoginAsync (string username, string password, CancellationToken cancellationToken)
+        public Task<bool> LoginAsync (string username, string password, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Task.Factory.StartNew (() => {
 #if NETFX_CORE

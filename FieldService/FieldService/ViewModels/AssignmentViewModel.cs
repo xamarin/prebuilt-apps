@@ -186,7 +186,7 @@ namespace FieldService.ViewModels {
         public Task LoadAssignmentsAsync ()
         {
             return service
-                .GetAssignmentsAsync (CancellationToken.None)
+                .GetAssignmentsAsync ()
                 .ContinueOnCurrentThread (t => {
                     //Grab the active assignment
                     ActiveAssignment = t.Result.FirstOrDefault (a => a.Status == AssignmentStatus.Active);
@@ -202,7 +202,7 @@ namespace FieldService.ViewModels {
         public Task LoadTimerEntryAsync ()
         {
             return service
-                .GetTimerEntryAsync (CancellationToken.None)
+                .GetTimerEntryAsync ()
                 .ContinueOnCurrentThread (t => {
                     timerEntry = t.Result;
                     if (timerEntry != null) {
@@ -221,7 +221,7 @@ namespace FieldService.ViewModels {
         public Task SaveAssignmentAsync (Assignment assignment)
         {
             //Save the assignment
-            Task task = service.SaveAssignmentAsync (assignment, CancellationToken.None);
+            Task task = service.SaveAssignmentAsync (assignment);
 
             //If the active assignment should be put on hold
             if (activeAssignment != null &&
@@ -233,7 +233,7 @@ namespace FieldService.ViewModels {
                 if (Recording) {
                     task = task.ContinueWith (PauseAsync ());
                 }
-                task = task.ContinueWith (service.SaveAssignmentAsync (activeAssignment, CancellationToken.None));
+                task = task.ContinueWith (service.SaveAssignmentAsync (activeAssignment));
             }
 
             //If we are saving the active assignment, we need to pause it
@@ -256,7 +256,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task SaveSignatureAsync ()
         {
-            return service.SaveSignatureAsync (Signature, CancellationToken.None);
+            return service.SaveSignatureAsync (Signature);
         }
 
         /// <summary>
@@ -264,7 +264,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task LoadSignatureAsync (Assignment assignment)
         {
-            return service.GetSignatureAsync (assignment, CancellationToken.None).ContinueOnCurrentThread (t => Signature = t.Result);
+            return service.GetSignatureAsync (assignment).ContinueOnCurrentThread (t => Signature = t.Result);
         }
 
         /// <summary>
@@ -283,7 +283,7 @@ namespace FieldService.ViewModels {
             timerEntry.Date = DateTime.Now;
 
             return service
-                .SaveTimerEntryAsync (timerEntry, CancellationToken.None)
+                .SaveTimerEntryAsync (timerEntry)
                 .ContinueOnCurrentThread (_ => IsBusy = false);
         }
 
@@ -306,8 +306,8 @@ namespace FieldService.ViewModels {
             };
 
             return service
-                .SaveLaborAsync (labor, CancellationToken.None)
-                .ContinueWith (service.DeleteTimerEntryAsync (timerEntry, CancellationToken.None))
+                .SaveLaborAsync (labor)
+                .ContinueWith (service.DeleteTimerEntryAsync (timerEntry))
                 .ContinueOnCurrentThread (_ => {
                     CurrentHours = TimeSpan.Zero;
                     IsBusy = false;

@@ -55,7 +55,7 @@ namespace FieldService.ViewModels {
         public Task LoadExpensesAsync (Assignment assignment)
         {
             return service
-                .GetExpensesForAssignmentAsync (assignment, CancellationToken.None)
+                .GetExpensesForAssignmentAsync (assignment)
                 .ContinueOnCurrentThread (t => Expenses = t.Result);
         }
 
@@ -66,7 +66,7 @@ namespace FieldService.ViewModels {
         {
             bool newItem = expense.Id == 0;
 
-            return service.SaveExpenseAsync (expense, CancellationToken.None)
+            return service.SaveExpenseAsync (expense)
                 .ContinueWith (t => {
                     if (newItem)
                         expenses.Add (expense);
@@ -79,7 +79,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task DeleteExpenseAsync (Assignment assignment, Expense expense)
         {
-            return service.DeleteExpenseAsync (expense, CancellationToken.None)
+            return service.DeleteExpenseAsync (expense)
                 .ContinueWith (t => {
                     expenses.Remove (expense);
                     CalculateExpenses (assignment);
@@ -92,7 +92,7 @@ namespace FieldService.ViewModels {
         public Task LoadPhotoAsync (Expense expense)
         {
             return service
-                .GetExpensePhotoAsync (expense, CancellationToken.None)
+                .GetExpensePhotoAsync (expense)
                 .ContinueOnCurrentThread (t => Photo = t.Result);
         }
 
@@ -101,7 +101,7 @@ namespace FieldService.ViewModels {
         /// </summary>
         public Task SavePhotoAsync ()
         {
-            return service.SaveExpensePhotoAsync (Photo, CancellationToken.None);
+            return service.SaveExpensePhotoAsync (Photo);
         }
 
         /// <summary>

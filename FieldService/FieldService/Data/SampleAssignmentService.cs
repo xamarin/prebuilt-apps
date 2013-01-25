@@ -24,7 +24,7 @@ namespace FieldService.Data {
     public class SampleAssignmentService : IAssignmentService {
         private List<Document> _documents;
 
-        public Task<List<Assignment>> GetAssignmentsAsync (CancellationToken cancellationToken)
+        public Task<List<Assignment>> GetAssignmentsAsync (CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken)
                 .QueryAsync<Assignment> (@"
@@ -38,7 +38,7 @@ namespace FieldService.Data {
                 ", AssignmentStatus.Declined, AssignmentStatus.Complete);
         }
 
-        public Task<List<Item>> GetItemsAsync (CancellationToken cancellationToken)
+        public Task<List<Item>> GetItemsAsync (CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken)
                 .Table<Item> ()
@@ -46,7 +46,7 @@ namespace FieldService.Data {
                 .ToListAsync ();
         }
 
-        public Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
+        public Task<List<AssignmentItem>> GetItemsForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken)
                 .QueryAsync<AssignmentItem> (@"
@@ -59,7 +59,7 @@ namespace FieldService.Data {
                     assignment.Id);
         }
 
-        public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
+        public Task<List<Labor>> GetLaborForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken)
                 .Table<Labor> ()
@@ -67,7 +67,7 @@ namespace FieldService.Data {
                 .ToListAsync ();
         }
 
-        public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
+        public Task<List<Expense>> GetExpensesForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken)
                 .QueryAsync<Expense> (@"
@@ -79,7 +79,7 @@ namespace FieldService.Data {
                     assignment.Id);
         }
 
-        public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
+        public Task<List<Photo>> GetPhotosForAssignmentAsync (Assignment assignment, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken)
                 .Table<Photo> ()
@@ -87,13 +87,13 @@ namespace FieldService.Data {
                 .ToListAsync ();
         }
 
-        public Task<int> SaveAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
+        public Task<int> SaveAssignmentAsync (Assignment assignment, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken)
                 .UpdateAsync (assignment);
         }
 
-        public Task<int> SaveSignatureAsync (Signature signature, CancellationToken cancellationToken)
+        public Task<int> SaveSignatureAsync (Signature signature, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (signature.Id == 0)
                 return Database.GetConnection (cancellationToken).InsertAsync (signature);
@@ -101,12 +101,12 @@ namespace FieldService.Data {
                 return Database.GetConnection (cancellationToken).UpdateAsync (signature);
         }
 
-        public Task<Signature> GetSignatureAsync (Assignment assignment, CancellationToken cancellationToken)
+        public Task<Signature> GetSignatureAsync (Assignment assignment, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken).Table<Signature> ().Where (s => s.AssignmentId == assignment.Id).FirstOrDefaultAsync ();
         }
 
-        public Task<int> SaveAssignmentItemAsync (AssignmentItem assignmentItem, CancellationToken cancellationToken)
+        public Task<int> SaveAssignmentItemAsync (AssignmentItem assignmentItem, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (assignmentItem.Id == 0)
                 return Database.GetConnection (cancellationToken).InsertAsync (assignmentItem);
@@ -114,7 +114,7 @@ namespace FieldService.Data {
                 return Database.GetConnection (cancellationToken).UpdateAsync (assignmentItem);
         }
 
-        public Task<int> SaveLaborAsync (Labor labor, CancellationToken cancellationToken)
+        public Task<int> SaveLaborAsync (Labor labor, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (labor.Id == 0)
                 return Database.GetConnection (cancellationToken).InsertAsync (labor);
@@ -122,7 +122,7 @@ namespace FieldService.Data {
                 return Database.GetConnection (cancellationToken).UpdateAsync (labor);
         }
 
-        public Task<int> SaveExpenseAsync (Expense expense, CancellationToken cancellationToken)
+        public Task<int> SaveExpenseAsync (Expense expense, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (expense.Id == 0)
                 return Database.GetConnection (cancellationToken).InsertAsync (expense);
@@ -138,12 +138,12 @@ namespace FieldService.Data {
                 return Database.GetConnection (cancellationToken).UpdateAsync (photo);
         }
 
-        public Task<int> DeleteAssignmentAsync (Assignment assignment, CancellationToken cancellationToken)
+        public Task<int> DeleteAssignmentAsync (Assignment assignment, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken).DeleteAsync (assignment);
         }
 
-        public Task<int> DeleteAssignmentItemAsync (AssignmentItem assignmentItem, CancellationToken cancellationToken)
+        public Task<int> DeleteAssignmentItemAsync (AssignmentItem assignmentItem, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken).DeleteAsync (assignmentItem);
         }
@@ -153,17 +153,17 @@ namespace FieldService.Data {
             return Database.GetConnection (cancellationToken).DeleteAsync (labor);
         }
 
-        public Task<int> DeleteExpenseAsync (Expense expense, CancellationToken cancellationToken)
+        public Task<int> DeleteExpenseAsync (Expense expense, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken).DeleteAsync (expense);
         }
 
-        public Task<int> DeletePhotoAsync (Photo photo, CancellationToken cancellationToken)
+        public Task<int> DeletePhotoAsync (Photo photo, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken).DeleteAsync (photo);
         }
 
-        public Task<int> SaveTimerEntryAsync (TimerEntry entry, CancellationToken cancellationToken)
+        public Task<int> SaveTimerEntryAsync (TimerEntry entry, CancellationToken cancellationToken = default(CancellationToken))
         {
             //If the Id is zero, it's an insert, also set the Id to 1
             if (entry.Id == 0) {
@@ -174,7 +174,7 @@ namespace FieldService.Data {
             }
         }
 
-        public Task<int> DeleteTimerEntryAsync (TimerEntry entry, CancellationToken cancellationToken)
+        public Task<int> DeleteTimerEntryAsync (TimerEntry entry, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken).DeleteAsync (entry);
         }
@@ -185,7 +185,7 @@ namespace FieldService.Data {
             return Database.GetConnection (cancellationToken).FindAsync<TimerEntry> (_ => true);
         }
 
-        public Task<List<Document>> GetDocumentsAsync (CancellationToken cancellationToken)
+        public Task<List<Document>> GetDocumentsAsync (CancellationToken cancellationToken = default(CancellationToken))
         {
             return Task.Factory.StartNew (() => {
                 if (_documents == null) {
@@ -202,7 +202,7 @@ namespace FieldService.Data {
             }, cancellationToken);
         }
 
-        public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment, CancellationToken cancellationToken)
+        public Task<List<AssignmentHistory>> GetAssignmentHistoryAsync (Assignment assignment, CancellationToken cancellationToken = default(CancellationToken))
         {
             //We are returning history with matching company names - in the real world there would be a company or customer table here
 
@@ -217,7 +217,7 @@ namespace FieldService.Data {
                 ", assignment.CompanyName, AssignmentStatus.Complete);
         }
 
-        public Task<List<Assignment>> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken)
+        public Task<List<Assignment>> GetAssignmentFromHistory (AssignmentHistory assignmentHistory, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken)
                 .QueryAsync<Assignment> (@"
@@ -230,7 +230,7 @@ namespace FieldService.Data {
                 ", assignmentHistory.AssignmentId);
         }
 
-        public Task<int> SaveExpensePhotoAsync (ExpensePhoto photo, CancellationToken cancellationToken)
+        public Task<int> SaveExpensePhotoAsync (ExpensePhoto photo, CancellationToken cancellationToken = default(CancellationToken))
         {
             if (photo.Id == 0)
                 return Database.GetConnection (cancellationToken).InsertAsync (photo);
@@ -238,7 +238,7 @@ namespace FieldService.Data {
                 return Database.GetConnection (cancellationToken).UpdateAsync (photo);
         }
 
-        public Task<ExpensePhoto> GetExpensePhotoAsync (Expense expense, CancellationToken cancellationToken)
+        public Task<ExpensePhoto> GetExpensePhotoAsync (Expense expense, CancellationToken cancellationToken = default(CancellationToken))
         {
             return Database.GetConnection (cancellationToken).Table<ExpensePhoto> ().Where (p => p.ExpenseId == expense.Id).FirstOrDefaultAsync ();
         }

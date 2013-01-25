@@ -30,6 +30,6 @@ namespace FieldService {
         /// <summary>
         /// Asynchronous login
         /// </summary>
-        Task<bool> LoginAsync (string username, string password, CancellationToken cancellationToken);
+        Task<bool> LoginAsync (string username, string password, CancellationToken cancellationToken = default(CancellationToken));
     }
 }
