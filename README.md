@@ -1,4 +1,10 @@
-# Prebuilt Apps
+# Xamarin Prebuilt Apps
+
+To build all apps:
+
+```shell
+rake build
+```
 
 ## Employee Directory
 
