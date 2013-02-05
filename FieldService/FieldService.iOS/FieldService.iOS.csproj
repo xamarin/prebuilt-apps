@@ -87,8 +87,8 @@
     <Reference Include="Xamarin.Mobile">
       <HintPath>..\Dependencies\Xamarin.Mobile\iOS\Xamarin.Mobile.dll</HintPath>
     </Reference>
-    <Reference Include="SignatureView.iPhone">
-      <HintPath>..\Dependencies\SignatureView\iOS\SignatureView.iPhone.dll</HintPath>
+    <Reference Include="SignaturePad.iOS">
+      <HintPath>..\Components\signature-pad-1.2\lib\ios\SignaturePad.iOS.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -514,5 +514,12 @@
     <BundleResource Include="Resources\50.png" />
     <BundleResource Include="Resources\58.png" />
     <BundleResource Include="Resources\72.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="signature-pad">
+      <InstallationInProgress>True</InstallationInProgress>
+      <Version>1.2</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
 </Project>
