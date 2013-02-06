@@ -24,7 +24,7 @@ using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Xamarin.Controls;
+using SignaturePad;
 
 namespace FieldService.Android.Dialogs {
     /// <summary>
@@ -33,7 +33,7 @@ namespace FieldService.Android.Dialogs {
     public class SignatureDialog : BaseDialog {
         readonly Activity activity;
         readonly AssignmentViewModel assignmentViewModel;
-        SignatureView signatureView;
+        SignaturePadView signatureView;
 
         public SignatureDialog (Activity activity)
             : base (activity)
@@ -83,7 +83,7 @@ namespace FieldService.Android.Dialogs {
                 Dismiss ();
             };
 
-            signatureView = (SignatureView)FindViewById (Resource.Id.signatureImage);
+            signatureView = (SignaturePadView)FindViewById (Resource.Id.signatureImage);
             signatureView.BackgroundColor = Color.White;
             signatureView.StrokeColor = Color.Black;
         }
