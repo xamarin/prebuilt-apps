@@ -42,13 +42,13 @@ namespace EmployeeDirectory.iOS
 			//
 
 			// Local CSV file
-//			service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
+			service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
 
 			// LDAP service
-			service = new LdapDirectoryService {
-				Host = "ldap.mit.edu",
-				SearchBase = "dc=mit,dc=edu",
-			};
+//			service = new LdapDirectoryService {
+//				Host = "ldap.mit.edu",
+//				SearchBase = "dc=mit,dc=edu",
+//			};
 
 			//
 			// Load the favorites
