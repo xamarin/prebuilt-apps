@@ -181,7 +181,7 @@ namespace EmployeeDirectory.Android
 			if (imageDownloadsInProgress.Contains (person.Id))
 				return;
 
-			var url = Gravatar.GetUrl (person.Email, 100);
+			var url = Gravatar.GetImageUrl (person.Email, 100);
 
 			if (imageDownloader.HasLocallyCachedCopy (url)) {
 

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -57,14 +57,5 @@
     <Compile Include="ViewModels\LoginViewModel.cs" />
     <Compile Include="ViewModels\ViewModelBase.cs" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">
-      <Project>{7D5FA77D-740A-461F-96D0-E1B41C901BED}</Project>
-      <Name>Novell.Directory.Ldap</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Utilities\" />
-    <Folder Include="ViewModels\" />
-  </ItemGroup>
+  <ItemGroup />
 </Project>
