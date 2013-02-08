@@ -36,7 +36,7 @@
   <!--This is the google maps key generated, you will need to obatain your own key if the maps doesn't show up
   in the app. Directions for doing so can be found here. 
   http://docs.xamarin.com/Android/Guides/Platform_Features/Maps_and_Location/Obtaining_a_Google_Maps_API_Key-->
-  <string name="GoogleMapsAPIKey">0Z6S_l7uiuX_zAuh76fsJA37zCiyXr7e5BK5okQ</string>
+  <string name="GoogleMapsAPIKey">0iXP7W4w9iuUFeRvM3tTerGQOtHxiQJLv5nnlrA</string>
   <string name="EnterDescription">Please enter description here.</string>
   <string name="OptionalCaption">Optional caption...</string>
   <string name="Summary">Summary</string>
