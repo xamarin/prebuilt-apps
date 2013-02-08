@@ -762,6 +762,9 @@
     <Compile Include="PersonAdapter.cs" />
   </ItemGroup>
   <ItemGroup>
+    <AndroidAsset Include="..\Data\XamarinDirectory.csv">
+      <Link>Assets\XamarinDirectory.csv</Link>
+    </AndroidAsset>
     <None Include="Resources\AboutResources.txt" />
     <None Include="Assets\AboutAssets.txt" />
     <None Include="Properties\AndroidManifest.xml" />

@@ -44,10 +44,15 @@ namespace EmployeeDirectory.Android
 			//
 			// Initialize the service
 			//
-			var service = new LdapDirectoryService {
-				Host = "ldap.mit.edu",
-				SearchBase = "dc=mit,dc=edu",
-			};
+                        //var service = new LdapDirectoryService {
+                        //        Host = "ldap.mit.edu",
+                        //        SearchBase = "dc=mit,dc=edu",
+                        //};
+
+                        MemoryDirectoryService service;
+                        using (var reader = new System.IO.StreamReader (Assets.Open("XamarinDirectory.csv"))) {
+                            service = new MemoryDirectoryService (new CsvReader<Person> (reader).ReadAll ());
+                        }
 
 			searchViewModel = new SearchViewModel (service, new Search ("Default")) {
 				GroupByLastName = false,
