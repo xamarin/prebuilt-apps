@@ -53,9 +53,12 @@ namespace EmployeeDirectory.Data
 
 		public static XmlFavoritesRepository OpenFile (string path)
 		{
-			var serializer = new XmlSerializer (typeof(XmlFavoritesRepository));
-
+			var serializer = new XmlSerializer (typeof(XmlFavoritesRepository));            
+#if WINDOWS_PHONE
+            using(var f = System.Windows.Application.GetResourceStream(new Uri(path, UriKind.RelativeOrAbsolute)).Stream){
+#else
 			using (var f = File.Open (path, FileMode.Open)) {
+#endif
 				var repo = (XmlFavoritesRepository)serializer.Deserialize (f);
 				repo.IsolatedStorageName = Path.GetFileName (path);
 				return repo;

@@ -161,7 +161,7 @@ namespace EmployeeDirectory.WinPhone
 					CreateTile (person, null);
 				};
 				image.CreateOptions = System.Windows.Media.Imaging.BitmapCreateOptions.None;
-				image.UriSource = Gravatar.GetUrl (person.Email, 173);
+				image.UriSource = Gravatar.GetImageUrl (person.Email, 173);
 			}
 			else {
 				CreateTile (person, null);

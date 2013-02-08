@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>System.Threading.Tasks</id>
+    <version>3.0.1</version>
+    <title>Task Parallel Library for Silverlight, Windows Phone, and .NET 3.5</title>
+    <authors>Robert McLaws, Jrmie "Garuma" Laval</authors>
+    <owners>Robert McLaws, Jrmie "Garuma" Laval</owners>
+    <licenseUrl>http://www.mono-project.com/Licensing</licenseUrl>
+    <projectUrl>http://robertmclaws.com/nuget-packages/system-threading-tasks-for-silverlight</projectUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>This package is a port of the Mono version of the *complete* Task Parallel Library (not a subset) to .NET 3.5, as well as all Silverlight platforms, including Windows Phone 7.X. This version contains more classes (and is namespace compatible with the BCL) compared to the PortableTPL project. This project supercedes the TaskParallelLibrary.WP7 package, and is licensed under the same licenses as the rest of the Mono framework.</description>
+    <summary>This package is a port of the Mono version of the *complete* Task Parallel Library (not a subset) to .NET 3.5, SL3, SL4, SL5, WP7, and WP7.1.</summary>
+    <releaseNotes>Version 3.0.1 - Removes the Func&lt;&gt; definitions from SL5, as they are already in the core runtime.
+Version 3.0 - Updates the package to Mono 2.12. Excludes the Task.Unwrap() function from SL5. Adds support for .NET 3.5. See Project Site for more details.
+
+Version 2.1.2 - Fixes a bug in Task.FromAsync() that does not return the TaskState in certain situations.
+
+Version 2.1 - This version adds support for Silverlight 5, removing the classes (Primarily in System.Threading.Tasks) now included in the core runtime.</releaseNotes>
+    <tags>TPL</tags>
+  </metadata>
+</package>

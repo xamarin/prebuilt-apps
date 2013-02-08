@@ -108,7 +108,7 @@ namespace EmployeeDirectory.WinPhone
 			}
 
 			// Load the favorites
-			FavoritesRepository = XmlFavoritesRepository.Open ("Favorites.xml");
+			FavoritesRepository = XmlFavoritesRepository.OpenFile ("EmployeeDirectory.WinPhone;component/Data/XamarinFavorites.xml");
 
 			// Load the search
 			try {

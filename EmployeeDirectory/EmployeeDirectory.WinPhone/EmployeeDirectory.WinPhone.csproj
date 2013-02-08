@@ -48,14 +48,14 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="AsyncCtpLibrary_Phone">
-      <HintPath>..\Dependencies\AsyncCtpLibrary_Phone.dll</HintPath>
-    </Reference>
     <Reference Include="Microsoft.Phone" />
     <Reference Include="Microsoft.Phone.Controls.Toolkit">
-      <HintPath>..\Dependencies\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
+      <HintPath>..\packages\WPtoolkit.4.2012.10.30\lib\sl4-windowsphone71\Microsoft.Phone.Controls.Toolkit.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Phone.Interop" />
+    <Reference Include="System.Threading.Tasks.WP71">
+      <HintPath>..\packages\System.Threading.Tasks.3.0.1\lib\sl4-wp71\System.Threading.Tasks.WP71.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows" />
     <Reference Include="system" />
     <Reference Include="System.Core" />
@@ -119,8 +119,8 @@
     <Compile Include="..\EmployeeDirectory\ViewModels\SearchViewModel.cs">
       <Link>EmployeeDirectory\ViewModels\SearchViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\ViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\ViewModel.cs</Link>
+    <Compile Include="..\EmployeeDirectory\ViewModels\ViewModelBase.cs">
+      <Link>EmployeeDirectory\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
@@ -161,10 +161,14 @@
     <Resource Include="..\Data\XamarinDirectory.csv">
       <Link>Data\XamarinDirectory.csv</Link>
     </Resource>
+    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="..\Data\XamarinFavorites.xml">
+      <Link>Data\XamarinFavorites.xml</Link>
+    </Resource>
     <Content Include="ApplicationIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
@@ -176,7 +180,12 @@
     <Content Include="Images\appbar.favs.rest.png" />
     <Content Include="Images\appbar.feature.search.rest.png" />
     <Content Include="Images\appbar.pin.rest.png" />
+    <Resource Include="Toolkit.Content\ApplicationBar.Cancel.png" />
+    <Resource Include="Toolkit.Content\ApplicationBar.Check.png" />
+    <Resource Include="Toolkit.Content\ApplicationBar.Delete.png" />
+    <Resource Include="Toolkit.Content\ApplicationBar.Select.png" />
     <Resource Include="Resources\search.rest.png" />
+    <Content Include="README_FIRST.txt" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
   <ItemGroup />
