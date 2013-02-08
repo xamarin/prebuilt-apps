@@ -32,8 +32,8 @@
         android:background="@color/confirmationborder"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp">
-        <xamarin.controls.SignatureView
-            android:layout_width="450dp"
+      <signaturepad.SignaturePadView
+          android:layout_width="450dp"
             android:layout_height="180dp"
             android:id="@+id/signatureImage"
             android:maxHeight="150dp"
