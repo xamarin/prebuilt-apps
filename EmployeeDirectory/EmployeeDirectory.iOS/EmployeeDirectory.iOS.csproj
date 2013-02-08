@@ -159,6 +159,651 @@
       <Link>EmployeeDirectory\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\Connection.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\Connection.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\InterThreadException.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\InterThreadException.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAbandonRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAbandonRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAddRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAddRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAttribute.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAttribute.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAttributeSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAttributeSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAttributeSet.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAttributeSet.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAuthHandler.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAuthHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAuthProvider.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapAuthProvider.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapBindHandler.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapBindHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapBindRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapBindRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapCompareAttrNames.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapCompareAttrNames.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapCompareRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapCompareRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapConnection.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapConnection.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapConstraints.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapConstraints.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapControl.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapControl.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDITContentRuleSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDITContentRuleSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDITStructureRuleSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDITStructureRuleSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDN.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDN.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDSConstants.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDSConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDeleteRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapDeleteRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapEntry.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapException.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapException.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapExtendedOperation.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapExtendedOperation.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapExtendedRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapExtendedRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapExtendedResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapExtendedResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapIntermediateResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapIntermediateResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapLocalException.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapLocalException.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapMatchingRuleSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapMatchingRuleSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapMatchingRuleUseSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapMatchingRuleUseSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapMessage.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapMessageQueue.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapMessageQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapModification.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapModification.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapModifyDNRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapModifyDNRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapModifyRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapModifyRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapNameFormSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapNameFormSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapObjectClassSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapObjectClassSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapReferralException.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapReferralException.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapReferralHandler.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapReferralHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapResponseQueue.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapResponseQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSchemaElement.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSchemaElement.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchConstraints.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchConstraints.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchQueue.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchQueue.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchResult.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchResultReference.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchResultReference.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchResults.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSearchResults.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSyntaxSchema.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapSyntaxSchema.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapUnbindRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapUnbindRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapUnsolicitedNotificationListener.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapUnsolicitedNotificationListener.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\LdapUrl.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\LdapUrl.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\Message.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\Message.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\MessageAgent.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\MessageAgent.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\MessageVector.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\MessageVector.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap\SupportClass.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap\SupportClass.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Boolean.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Boolean.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Choice.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Choice.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Decoder.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Decoder.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Encoder.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Encoder.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Enumerated.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Enumerated.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Identifier.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Identifier.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Integer.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Integer.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Length.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Length.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Null.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Null.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Numeric.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Numeric.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Object.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Object.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1OctetString.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1OctetString.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Sequence.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Sequence.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1SequenceOf.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1SequenceOf.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Set.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Set.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1SetOf.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1SetOf.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Structured.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Structured.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Tagged.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\Asn1Tagged.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\LBERDecoder.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\LBERDecoder.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\LBEREncoder.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Asn1\LBEREncoder.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapEntryChangeControl.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapEntryChangeControl.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapPersistSearchControl.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapPersistSearchControl.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapSortControl.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapSortControl.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapSortKey.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapSortKey.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapSortResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapSortResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapVirtualListControl.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapVirtualListControl.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapVirtualListResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Controls\LdapVirtualListResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\BaseEventArgs.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\BaseEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\DirectoryEventArgs.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\DirectoryEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\DirectoryExceptionEventArgs.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\DirectoryExceptionEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\LdapEventArgs.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\LdapEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\LdapEventConstants.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\LdapEventConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\LdapEventSource.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\LdapEventSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\PSearchEventSource.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\PSearchEventSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\SearchReferralEventArgs.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\SearchReferralEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\SearchResultEventArgs.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\SearchResultEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventArgs.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventArgs.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventConstants.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventIntermediateResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventIntermediateResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventSource.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventSource.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventSpecifier.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\EdirEventSpecifier.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\MonitorEventRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\MonitorEventRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\MonitorEventResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\MonitorEventResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\BaseEdirEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\BaseEdirEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\BinderyObjectEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\BinderyObjectEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ChangeAddressEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ChangeAddressEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ConnectionStateEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ConnectionStateEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\DSETimeStamp.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\DSETimeStamp.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\DebugEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\DebugEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\DebugParameter.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\DebugParameter.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\EntryEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\EntryEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\GeneralDSEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\GeneralDSEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ModuleStateEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ModuleStateEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\NetworkAddressEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\NetworkAddressEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ReferralAddress.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ReferralAddress.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\SecurityEquivalenceEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\SecurityEquivalenceEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ValueEventData.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Events\Novell.Directory.Ldap.Events.Edir\Novell.Directory.Ldap.Events.Edir.EventData\ValueEventData.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\AbortPartitionOperationRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\AbortPartitionOperationRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\AddReplicaRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\AddReplicaRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\BackupRestoreConstants.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\BackupRestoreConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ChangeReplicaTypeRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ChangeReplicaTypeRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetBindDNRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetBindDNRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetBindDNResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetBindDNResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetEffectivePrivilegesListRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetEffectivePrivilegesListRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetEffectivePrivilegesListResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetEffectivePrivilegesListResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetEffectivePrivilegesRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetEffectivePrivilegesRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetEffectivePrivilegesResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetEffectivePrivilegesResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetReplicaInfoRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetReplicaInfoRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetReplicaInfoResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetReplicaInfoResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetReplicationFilterRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetReplicationFilterRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetReplicationFilterResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\GetReplicationFilterResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\LdapBackupRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\LdapBackupRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\LdapBackupResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\LdapBackupResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\LdapRestoreRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\LdapRestoreRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ListReplicasRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ListReplicasRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ListReplicasResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ListReplicasResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\MergePartitionsRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\MergePartitionsRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\NamingContextConstants.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\NamingContextConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\PartitionEntryCountRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\PartitionEntryCountRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\PartitionEntryCountResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\PartitionEntryCountResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\PartitionSyncRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\PartitionSyncRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ReceiveAllUpdatesRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ReceiveAllUpdatesRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\RefreshLdapServerRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\RefreshLdapServerRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\RemoveOrphanPartitionRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\RemoveOrphanPartitionRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\RemoveReplicaRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\RemoveReplicaRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ReplicationConstants.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\ReplicationConstants.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SchemaSyncRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SchemaSyncRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SendAllUpdatesRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SendAllUpdatesRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SetReplicationFilterRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SetReplicationFilterRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SplitOrphanPartitionRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SplitOrphanPartitionRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SplitPartitionRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\SplitPartitionRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\TriggerBackgroundProcessRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Extensions\TriggerBackgroundProcessRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAbandonRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAbandonRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAddRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAddRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAddResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAddResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAssertionValue.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAssertionValue.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeDescription.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeDescription.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeDescriptionList.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeDescriptionList.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeList.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeList.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeTypeAndValues.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeTypeAndValues.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeValue.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeValue.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeValueAssertion.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAttributeValueAssertion.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAuthenticationChoice.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcAuthenticationChoice.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcBindRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcBindRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcBindResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcBindResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcCompareRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcCompareRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcCompareResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcCompareResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcControl.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcControl.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcControls.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcControls.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcDelRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcDelRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcDelResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcDelResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcExtendedRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcExtendedRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcExtendedResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcExtendedResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcFilter.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcIntermediateResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcIntermediateResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapDN.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapDN.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapMessage.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapMessage.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapOID.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapOID.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapResult.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapResult.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapString.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapString.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapURL.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcLdapURL.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcMatchingRuleAssertion.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcMatchingRuleAssertion.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcMatchingRuleId.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcMatchingRuleId.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcMessageID.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcMessageID.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcModifyDNRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcModifyDNRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcModifyDNResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcModifyDNResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcModifyRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcModifyRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcModifyResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcModifyResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcReferral.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcReferral.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcRelativeLdapDN.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcRelativeLdapDN.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcResponse.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcResponse.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSaslCredentials.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSaslCredentials.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSearchRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSearchRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSearchResultDone.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSearchResultDone.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSearchResultEntry.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSearchResultEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSearchResultReference.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSearchResultReference.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSubstringFilter.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcSubstringFilter.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcUnbindRequest.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Rfc2251\RfcUnbindRequest.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ArrayEnumeration.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ArrayEnumeration.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\AttributeQualifier.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\AttributeQualifier.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\Base64.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\Base64.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\BindProperties.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\BindProperties.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\CharacterTypes.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\CharacterTypes.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\DN.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\DN.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\EnumeratedIterator.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\EnumeratedIterator.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ExceptionMessages.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ExceptionMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ExtResponseFactory.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ExtResponseFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\IntermediateResponseFactory.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\IntermediateResponseFactory.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\RDN.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\RDN.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ReferralInfo.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ReferralInfo.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ResourcesHandler.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ResourcesHandler.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\RespControlVector.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\RespControlVector.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\RespExtensionSet.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\RespExtensionSet.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ResultCodeMessages.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\ResultCodeMessages.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\SchemaParser.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\SchemaParser.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\SchemaTokenCreator.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\SchemaTokenCreator.cs</Link>
+    </Compile>
+    <Compile Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\TokenTypes.cs">
+      <Link>Novell.Directory.Ldap\Novell.Directory.Ldap.Utilclass\TokenTypes.cs</Link>
+    </Compile>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -167,12 +812,10 @@
     <Folder Include="Images\" />
     <Folder Include="EmployeeDirectory\ViewModels\" />
     <Folder Include="Data\" />
+    <Folder Include="Novell.Directory.Ldap2\" />
+    <Folder Include="Novell.Directory.Ldap\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj">
-      <Project>{7D5FA77D-740A-461F-96D0-E1B41C901BED}</Project>
-      <Name>Novell.Directory.Ldap</Name>
-    </ProjectReference>
     <ProjectReference Include="..\..\PrebuiltAppTheme\PrebuiltAppTheme.iOS\PrebuiltAppTheme.iOS.csproj">
       <Project>{78EC813C-4567-4ECC-A627-5B45C3761F81}</Project>
       <Name>PrebuiltAppTheme.iOS</Name>

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDirectory.iOS", "EmployeeDirectory.iOS\EmployeeDirectory.iOS.csproj", "{8735A806-2338-4494-944F-5439944AFFB4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Novell.Directory.Ldap", "Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.csproj", "{7D5FA77D-740A-461F-96D0-E1B41C901BED}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PrebuiltAppTheme.iOS", "..\PrebuiltAppTheme\PrebuiltAppTheme.iOS\PrebuiltAppTheme.iOS.csproj", "{78EC813C-4567-4ECC-A627-5B45C3761F81}"
 EndProject
 Global
@@ -35,22 +33,6 @@ Global
 		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|iPhone.Build.0 = Release|Any CPU
 		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{78EC813C-4567-4ECC-A627-5B45C3761F81}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.AppStore|iPhone.Build.0 = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Release|iPhone.Build.0 = Release|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{7D5FA77D-740A-461F-96D0-E1B41C901BED}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{8735A806-2338-4494-944F-5439944AFFB4}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
 		{8735A806-2338-4494-944F-5439944AFFB4}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
 		{8735A806-2338-4494-944F-5439944AFFB4}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
