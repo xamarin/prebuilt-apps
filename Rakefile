@@ -1,9 +1,15 @@
 require 'rake/clean'
 
-MDTOOL = "/Applications/Xamarin Studio.app/Contents/MacOS/mdtool"
+XAMARIN_STUDIO = "/Applications/Xamarin Studio.app/Contents/MacOS/mdtool"
+
+if File.exists? XAMARIN_STUDIO
+	MDTOOL = XAMARIN_STUDIO
+else
+	MDTOOL = "/Applications/MonoDevelop.app/Contents/MacOS/mdtool"
+end
 
 APPS = %w{
-	FieldService/FieldService.sln
+	FieldService/FieldService.iOS.sln
 	PrebuiltAppTheme/PrebuiltAppTheme.sln
 	EmployeeDirectory/EmployeeDirectory.sln
 }
