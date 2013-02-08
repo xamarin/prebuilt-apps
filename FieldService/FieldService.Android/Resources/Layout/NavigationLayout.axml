@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="220dp"
     android:layout_height="fill_parent"
     android:orientation="vertical">
@@ -14,7 +14,6 @@
         android:orientation="horizontal"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:id="@+id/linearLayout1"
         android:layout_weight="1" />
     <LinearLayout
         android:orientation="vertical"
@@ -67,4 +66,4 @@
                 android:layout_marginRight="10dp" />
         </RelativeLayout>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>
