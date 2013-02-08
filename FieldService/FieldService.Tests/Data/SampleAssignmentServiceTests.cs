@@ -316,7 +316,15 @@ namespace FieldService.Tests.Data {
         [Test]
         public void SaveTimerEntry ()
         {
-            var entry = new TimerEntry { Date = DateTime.Now.AddHours (-1) };
+            TimerEntry entry;
+
+            var getTask = service.GetTimerEntryAsync();
+            getTask.Wait();
+            entry = getTask.Result;
+
+            if (entry == null) {
+                entry = new TimerEntry { Date = DateTime.Now.AddHours(-1) };
+            }
 
             try {
                 var task = service.SaveTimerEntryAsync (entry, CancellationToken.None);
