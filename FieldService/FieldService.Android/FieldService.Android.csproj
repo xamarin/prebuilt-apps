@@ -384,7 +384,7 @@
       <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout-sw720dp\NavigationLayout.axml">
-      <SubType>AndroidResource</SubType>
+      <SubType>Designer</SubType>
     </AndroidResource>
     <AndroidResource Include="Resources\Layout-sw720dp\PhotoItemLayout.axml">
       <SubType>AndroidResource</SubType>
