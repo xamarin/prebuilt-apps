@@ -1,17 +1,11 @@
 require 'rake/clean'
 
-XAMARIN_STUDIO = "/Applications/Xamarin Studio.app/Contents/MacOS/mdtool"
-
-if File.exists? XAMARIN_STUDIO
-	MDTOOL = XAMARIN_STUDIO
-else
-	MDTOOL = "/Applications/MonoDevelop.app/Contents/MacOS/mdtool"
-end
+MDTOOL = "/Applications/Xamarin Studio.app/Contents/MacOS/mdtool"
 
 APPS = %w{
-	FieldService/FieldService.iOS.sln
+	FieldService/FieldService.Xamarin.sln
 	PrebuiltAppTheme/PrebuiltAppTheme.sln
-	EmployeeDirectory/EmployeeDirectory.sln
+	EmployeeDirectory/EmployeeDirectory.Xamarin.sln
 }
 
 task :default => :build
