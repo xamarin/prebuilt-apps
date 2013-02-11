@@ -27,48 +27,46 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using EmployeeDirectory.ViewModels;
 
-namespace EmployeeDirectory.WinPhone
-{
-	public partial class SearchPage : PhoneApplicationPage
-	{
-		public SearchPage ()
-		{
-			InitializeComponent ();
+namespace EmployeeDirectory.WinPhone {
+    public partial class SearchPage : PhoneApplicationPage {
+        public SearchPage ()
+        {
+            InitializeComponent ();
 
-			DataContext = new SearchViewModel (App.Current.DirectoryService, App.Current.SavedSearch);
+            DataContext = new SearchViewModel (App.Current.DirectoryService, App.Current.SavedSearch);
 
-			Loaded += HandleLoaded;
-		}
+            Loaded += HandleLoaded;
+        }
 
-		SearchViewModel ViewModel { get { return (SearchViewModel)DataContext; } }
+        SearchViewModel ViewModel { get { return (SearchViewModel)DataContext; } }
 
-		bool IsValidSearchText
-		{
-			get
-			{
-				return !string.IsNullOrWhiteSpace (SearchText.Text);
-			}
-		}
-		
-		void HandleLoaded (object sender, RoutedEventArgs e)
-		{			
-			SearchText.Focus ();
-			SearchText.Select (SearchText.Text.Length, 0);
-		}
-		
-		void HandleSearchTextKeyDown (object sender, KeyEventArgs e)
-		{
-			if (e.Key == Key.Enter) {
-				HandleSearch (sender, new RoutedEventArgs ());
-				SearchResults.Focus ();
-			}
-		}
+        bool IsValidSearchText
+        {
+            get
+            {
+                return !string.IsNullOrWhiteSpace (SearchText.Text);
+            }
+        }
 
-		void HandleSearch (object sender, RoutedEventArgs e)
-		{
-			if (IsValidSearchText) {
-				ViewModel.Search ();
-			}
-		}
-	}
+        void HandleLoaded (object sender, RoutedEventArgs e)
+        {
+            SearchText.Focus ();
+            SearchText.Select (SearchText.Text.Length, 0);
+        }
+
+        void HandleSearchTextKeyDown (object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter) {
+                HandleSearch (sender, new RoutedEventArgs ());
+                SearchResults.Focus ();
+            }
+        }
+
+        void HandleSearch (object sender, RoutedEventArgs e)
+        {
+            if (IsValidSearchText) {
+                ViewModel.Search ();
+            }
+        }
+    }
 }

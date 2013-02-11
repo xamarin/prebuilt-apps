@@ -29,29 +29,27 @@ using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using EmployeeDirectory.Data;
 
-namespace EmployeeDirectory.WinPhone
-{
-    public partial class App : Application
-    {
-		/// <summary>
-		/// Gets the App object for the current application.
-		/// </summary>
-		public new static App Current { get { return (App)Application.Current; } }
+namespace EmployeeDirectory.WinPhone {
+    public partial class App : Application {
+        /// <summary>
+        /// Gets the App object for the current application.
+        /// </summary>
+        public new static App Current { get { return (App)Application.Current; } }
 
-		/// <summary>
-		/// Gets the <see cref="IFavoritesRepository" /> for the application.
-		/// </summary>
-		public IFavoritesRepository FavoritesRepository { get; private set; }
+        /// <summary>
+        /// Gets the <see cref="IFavoritesRepository" /> for the application.
+        /// </summary>
+        public IFavoritesRepository FavoritesRepository { get; private set; }
 
-		/// <summary>
-		/// Gets the <see cref="IDirectoryService" /> for the application.
-		/// </summary>
-		public IDirectoryService DirectoryService { get; private set; }
+        /// <summary>
+        /// Gets the <see cref="IDirectoryService" /> for the application.
+        /// </summary>
+        public IDirectoryService DirectoryService { get; private set; }
 
-		/// <summary>
-		/// Gets the last <see cref="Search" /> performed.
-		/// </summary>
-		public Search SavedSearch { get; private set; }
+        /// <summary>
+        /// Gets the last <see cref="Search" /> performed.
+        /// </summary>
+        public Search SavedSearch { get; private set; }
 
         /// <summary>
         /// Provides easy access to the root frame of the Phone Application.
@@ -62,20 +60,19 @@ namespace EmployeeDirectory.WinPhone
         /// <summary>
         /// Constructor for the Application object.
         /// </summary>
-        public App()
+        public App ()
         {
             // Global handler for uncaught exceptions. 
             UnhandledException += Application_UnhandledException;
 
             // Standard Silverlight initialization
-            InitializeComponent();
+            InitializeComponent ();
 
             // Phone-specific initialization
-            InitializePhoneApplication();
+            InitializePhoneApplication ();
 
             // Show graphics profiling information while debugging.
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
+            if (System.Diagnostics.Debugger.IsAttached) {
                 // Disable the application idle detection by setting the UserIdleDetectionMode property of the
                 // application's PhoneApplicationService object to Disabled.
                 // Caution:- Use this under debug mode only. Application that disables user idle detection will continue to run
@@ -84,76 +81,73 @@ namespace EmployeeDirectory.WinPhone
             }
         }
 
-		void OnPersonListItemTap (object sender, System.Windows.Input.GestureEventArgs e)
-		{
-			var person = ((FrameworkElement)sender).DataContext as Person;
-			if (person == null) return;
+        void OnPersonListItemTap (object sender, System.Windows.Input.GestureEventArgs e)
+        {
+            var person = ((FrameworkElement)sender).DataContext as Person;
+            if (person == null) return;
 
-			var url = string.Format (
-				"/PersonPage.xaml?id={0}",
-				Uri.EscapeDataString (person.Id));
+            var url = string.Format (
+                    "/PersonPage.xaml?id={0}",
+                    Uri.EscapeDataString (person.Id));
 
-			((Page)RootFrame.Content).NavigationService.Navigate (new Uri (url, UriKind.Relative));
-		}
+            ((Page)RootFrame.Content).NavigationService.Navigate (new Uri (url, UriKind.Relative));
+        }
 
         // Code to execute when the application is launching (eg, from Start)
         // This code will not execute when the application is reactivated
-        private void Application_Launching(object sender, LaunchingEventArgs e)
+        private void Application_Launching (object sender, LaunchingEventArgs e)
         {
-			// Load the directory
-			var dataUri = new Uri("EmployeeDirectory.WinPhone;component/Data/XamarinDirectory.csv", UriKind.Relative);
-			var dataInfo = GetResourceStream (dataUri);
-			using (var reader = new System.IO.StreamReader (dataInfo.Stream)) {
-				DirectoryService = new MemoryDirectoryService (new CsvReader<Person> (reader).ReadAll ());
-			}
+            // Load the directory
+            var dataUri = new Uri ("EmployeeDirectory.WinPhone;component/Data/XamarinDirectory.csv", UriKind.Relative);
+            var dataInfo = GetResourceStream (dataUri);
+            using (var reader = new System.IO.StreamReader (dataInfo.Stream)) {
+                DirectoryService = new MemoryDirectoryService (new CsvReader<Person> (reader).ReadAll ());
+            }
 
-			// Load the favorites
-			FavoritesRepository = XmlFavoritesRepository.OpenFile ("EmployeeDirectory.WinPhone;component/Data/XamarinFavorites.xml");
+            // Load the favorites
+            FavoritesRepository = XmlFavoritesRepository.OpenFile ("EmployeeDirectory.WinPhone;component/Data/XamarinFavorites.xml");
 
-			// Load the search
-			try {
-				SavedSearch = Search.Open ("SavedSearch.xml");
-			}
-			catch (Exception) {
-				SavedSearch = new Search ("SavedSearch.xml");
-			}
+            // Load the search
+            try {
+                SavedSearch = Search.Open ("SavedSearch.xml");
+            } catch (Exception) {
+                SavedSearch = new Search ("SavedSearch.xml");
+            }
         }
 
         // Code to execute when the application is activated (brought to foreground)
         // This code will not execute when the application is first launched
-        private void Application_Activated(object sender, ActivatedEventArgs e)
+        private void Application_Activated (object sender, ActivatedEventArgs e)
         {
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
-        private void Application_Deactivated(object sender, DeactivatedEventArgs e)
+        private void Application_Deactivated (object sender, DeactivatedEventArgs e)
         {
         }
 
         // Code to execute when the application is closing (eg, user hit Back)
         // This code will not execute when the application is deactivated
-        private void Application_Closing(object sender, ClosingEventArgs e)
+        private void Application_Closing (object sender, ClosingEventArgs e)
         {
         }
 
         // Code to execute if a navigation fails
-        private void RootFrame_NavigationFailed(object sender, NavigationFailedEventArgs e)
+        private void RootFrame_NavigationFailed (object sender, NavigationFailedEventArgs e)
         {
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
+            if (System.Diagnostics.Debugger.IsAttached) {
                 // A navigation has failed; break into the debugger
-                System.Diagnostics.Debugger.Break();
+                System.Diagnostics.Debugger.Break ();
             }
         }
 
         // Code to execute on Unhandled Exceptions
-        private void Application_UnhandledException(object sender, ApplicationUnhandledExceptionEventArgs e)
+        private void Application_UnhandledException (object sender, ApplicationUnhandledExceptionEventArgs e)
         {
-            if (System.Diagnostics.Debugger.IsAttached)
-            {
+            if (System.Diagnostics.Debugger.IsAttached) {
                 // An unhandled exception has occurred; break into the debugger
-                System.Diagnostics.Debugger.Break();
+                System.Diagnostics.Debugger.Break ();
             }
         }
 
@@ -163,14 +157,14 @@ namespace EmployeeDirectory.WinPhone
         private bool phoneApplicationInitialized = false;
 
         // Do not add any additional code to this method
-        private void InitializePhoneApplication()
+        private void InitializePhoneApplication ()
         {
             if (phoneApplicationInitialized)
                 return;
 
             // Create the frame but don't set it as RootVisual yet; this allows the splash
             // screen to remain active until the application is ready to render.
-            RootFrame = new PhoneApplicationFrame();
+            RootFrame = new PhoneApplicationFrame ();
             RootFrame.Navigated += CompleteInitializePhoneApplication;
 
             // Handle navigation failures
@@ -181,7 +175,7 @@ namespace EmployeeDirectory.WinPhone
         }
 
         // Do not add any additional code to this method
-        private void CompleteInitializePhoneApplication(object sender, NavigationEventArgs e)
+        private void CompleteInitializePhoneApplication (object sender, NavigationEventArgs e)
         {
             // Set the root visual to allow the application to render
             if (RootVisual != RootFrame)
