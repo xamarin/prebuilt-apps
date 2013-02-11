@@ -27,6 +27,7 @@ using Android.Widget;
 
 using EmployeeDirectory.ViewModels;
 using EmployeeDirectory.Data;
+using Java.Lang;
 
 namespace EmployeeDirectory.Android {
     [Activity (Label = "Search")]
@@ -41,6 +42,8 @@ namespace EmployeeDirectory.Android {
         {
             base.OnCreate (bundle);
 
+            SetContentView (Resource.Layout.SearchActivity);
+
             //
             // Initialize the service
             //
@@ -54,11 +57,13 @@ namespace EmployeeDirectory.Android {
             };
             searchViewModel.SearchCompleted += HandleSearchCompleted;
 
+            progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar1);
+            searchingText = FindViewById<TextView> (Resource.Id.emptyTextView);
+
             //
             // Construct the UI
             //
 
-            SetContentView (Resource.Layout.SearchActivity);
 
             ListAdapter = new PeopleGroupsAdapter () {
                 ItemsSource = searchViewModel.Groups,
@@ -76,15 +81,15 @@ namespace EmployeeDirectory.Android {
 
                 searchViewModel.Search ();
             }
-            progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar1);
-            searchingText = FindViewById<TextView> (Resource.Id.emptyTextView);
         }
 
         void HandleSearchCompleted (object sender, EventArgs e)
         {
             ((PeopleGroupsAdapter)ListAdapter).ItemsSource = searchViewModel.Groups;
-            progressBar.Visibility = ViewStates.Invisible;
-            searchingText.Visibility = ViewStates.Invisible;
+            RunOnUiThread (() => {
+                progressBar.Visibility = ViewStates.Gone;
+                searchingText.Text = "No results found...";
+            });
         }
 
         protected override void OnListItemClick (ListView l, View v, int position, long id)
