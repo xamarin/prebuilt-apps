@@ -83,7 +83,7 @@ namespace EmployeeDirectory.iOS
 			return true;
 		}
 
-		public override void OnActivated (UIApplication application)
+		public override void WillEnterForeground (UIApplication application)
 		{
 			if (LoginViewModel.ShouldShowLogin (Settings.LastLoginTime, Settings.LastUseTime)) {
 				var login = new LoginViewController (service);
@@ -91,7 +91,7 @@ namespace EmployeeDirectory.iOS
 			}
 		}
 
-		public override void OnResignActivation (UIApplication application)
+		public override void DidEnterBackground (UIApplication application)
 		{
 			Settings.LastUseTime = DateTime.UtcNow;
 		}

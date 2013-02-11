@@ -26,7 +26,7 @@ namespace EmployeeDirectory.ViewModels
 
 		IDirectoryService service;
 
-		static readonly TimeSpan ForceLoginTimespan = TimeSpan.FromSeconds (5);
+		static readonly TimeSpan ForceLoginTimespan = TimeSpan.FromMinutes (5);
 
 		public LoginViewModel (IDirectoryService service)
 		{
