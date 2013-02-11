@@ -30,29 +30,12 @@ namespace EmployeeDirectory.Android {
     [Activity (Label = "@string/app_name")]
     [MetaData ("android.app.default_searchable", Value = "employeedirectory.android.SearchActivity")]
     public class MainActivity : ListActivity {
-        static IFavoritesRepository repo;
-
-        public static IFavoritesRepository SharedFavoritesRepository
-        {
-            get { return repo; }
-        }
 
         FavoritesViewModel viewModel;
 
         protected override void OnCreate (Bundle bundle)
         {
             base.OnCreate (bundle);
-            var filePath = Path.Combine(System.Environment.GetFolderPath(System.Environment.SpecialFolder.Personal), "XamarinFavorites.xml");
-            using (var stream = Assets.Open ("XamarinFavorites.xml")) {
-                using (var filestream = File.Open (filePath, FileMode.Create)) {
-                    stream.CopyTo (filestream);
-                }
-            }
-
-            //
-            // Load the favorites
-            //
-            repo = XmlFavoritesRepository.OpenFile (filePath);
             //
             // Load the UI
             //
@@ -63,7 +46,7 @@ namespace EmployeeDirectory.Android {
         {
             base.OnStart ();
 
-            viewModel = new FavoritesViewModel (repo, groupByLastName: false);
+            viewModel = new FavoritesViewModel (Android.Application.SharedFavoritesRepository, groupByLastName: false);
 
             ListAdapter = new PeopleGroupsAdapter () {
                 ItemsSource = viewModel.Groups,

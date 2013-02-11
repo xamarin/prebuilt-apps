@@ -55,7 +55,7 @@ namespace EmployeeDirectory.Android {
             //
             // Load the View Model
             //
-            viewModel = new PersonViewModel (person, MainActivity.SharedFavoritesRepository);
+            viewModel = new PersonViewModel (person, Android.Application.SharedFavoritesRepository);
             viewModel.PropertyChanged += HandleViewModelPropertyChanged;
 
             //
