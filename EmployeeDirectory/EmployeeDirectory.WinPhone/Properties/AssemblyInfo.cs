@@ -24,9 +24,9 @@ using System.Resources;
 [assembly: AssemblyTitle("EmployeeDirectory.WinPhone")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Xamarin")]
 [assembly: AssemblyProduct("EmployeeDirectory.WinPhone")]
-[assembly: AssemblyCopyright("Copyright ©  2012")]
+[assembly: AssemblyCopyright("Copyright © Xamarin 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

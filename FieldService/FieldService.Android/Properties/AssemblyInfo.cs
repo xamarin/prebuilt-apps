@@ -9,9 +9,9 @@ using Android.App;
 [assembly: AssemblyTitle ("FieldService.Android")]
 [assembly: AssemblyDescription ("")]
 [assembly: AssemblyConfiguration ("")]
-[assembly: AssemblyCompany ("")]
+[assembly: AssemblyCompany ("Xamarin")]
 [assembly: AssemblyProduct ("FieldService.Android")]
-[assembly: AssemblyCopyright ("Copyright ©  2012")]
+[assembly: AssemblyCopyright ("Copyright © Xamarin 2012")]
 [assembly: AssemblyTrademark ("")]
 [assembly: AssemblyCulture ("")]
 
