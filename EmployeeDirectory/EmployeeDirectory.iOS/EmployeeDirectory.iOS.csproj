@@ -169,7 +169,6 @@
   <ItemGroup>
     <Folder Include="EmployeeDirectory\" />
     <Folder Include="EmployeeDirectory\Utilities\" />
-    <Folder Include="Images\" />
     <Folder Include="EmployeeDirectory\ViewModels\" />
     <Folder Include="Data\" />
     <Folder Include="Resources\" />
@@ -208,5 +207,7 @@
     <BundleResource Include="Resources\logo%402x.png" />
     <BundleResource Include="Resources\Placeholder.jpg" />
     <BundleResource Include="Resources\Placeholder%402x.jpg" />
+    <BundleResource Include="Resources\questionmark.png" />
+    <BundleResource Include="Resources\questionmark%402x.png" />
   </ItemGroup>
 </Project>

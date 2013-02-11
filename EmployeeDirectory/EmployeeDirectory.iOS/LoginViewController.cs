@@ -32,6 +32,7 @@ namespace EmployeeDirectory.iOS
 		UITextField password;
 		UIActivityIndicatorView indicator;
 		UIButton login;
+		UIButton help;
 
 		static readonly UIImage TextFieldBackground = UIImage.FromBundle ("login_textfield.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8));
 
@@ -104,6 +105,18 @@ namespace EmployeeDirectory.iOS
 				Login ();
 			};
 			AddCentered (login, 184, 100, 51);
+
+			help = UIButton.FromType (UIButtonType.Custom);
+			help.SetImage (UIImage.FromBundle ("questionmark.png"), UIControlState.Normal);
+			help.TouchUpInside += (sender, e) => {
+				new UIAlertView("Need Help?", "Enter any username or password to login.", null, "Ok").Show ();
+			};
+			AddCentered (help, 194, 30, 31);
+			
+			//Adjust frame of help button
+			var frame = help.Frame;
+			frame.X = login.Frame.Right + 8;
+			help.Frame = frame;
 
 			indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge) {
 				HidesWhenStopped = true,
