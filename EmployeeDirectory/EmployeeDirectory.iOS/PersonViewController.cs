@@ -155,7 +155,7 @@ namespace EmployeeDirectory.iOS
 		{
 			static readonly UIColor ValueColor = UIColor.FromRGB (50, 79, 133);
 
-			const string PlaceholderImagePath = "Images/DetailsPlaceholder.jpg";
+			const string PlaceholderImagePath = "DetailsPlaceholder.jpg";
 
 			static Lazy<UIImage> PlaceholderImage = new Lazy<UIImage> (
 				() => UIImage.FromBundle (PlaceholderImagePath));

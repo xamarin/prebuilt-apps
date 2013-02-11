@@ -176,24 +176,12 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default-568h%402x.png" />
-    <Content Include="Images\Placeholder.jpg" />
-    <Content Include="Images\Placeholder%402x.jpg" />
     <Content Include="..\Data\XamarinDirectory.csv">
       <Link>Data\XamarinDirectory.csv</Link>
     </Content>
     <Content Include="..\Data\XamarinFavorites.xml">
       <Link>Data\XamarinFavorites.xml</Link>
     </Content>
-    <Content Include="Images\DetailsPlaceholder.jpg" />
-    <Content Include="Images\DetailsPlaceholder%402x.jpg" />
-    <Content Include="Images\logo.png" />
-    <Content Include="Images\logo%402x.png" />
-    <Content Include="Images\login_box.png" />
-    <Content Include="Images\login_box%402x.png" />
-    <Content Include="Images\login_btn.png" />
-    <Content Include="Images\login_btn%402x.png" />
-    <Content Include="Images\login_textfield.png" />
-    <Content Include="Images\login_textfield%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\backbutton.png" />
@@ -208,5 +196,17 @@
     <BundleResource Include="Resources\topnav%402x.png" />
     <BundleResource Include="Resources\topnavbtn.png" />
     <BundleResource Include="Resources\topnavbtn%402x.png" />
+    <BundleResource Include="Resources\DetailsPlaceholder.jpg" />
+    <BundleResource Include="Resources\DetailsPlaceholder%402x.jpg" />
+    <BundleResource Include="Resources\login_box.png" />
+    <BundleResource Include="Resources\login_box%402x.png" />
+    <BundleResource Include="Resources\login_btn.png" />
+    <BundleResource Include="Resources\login_btn%402x.png" />
+    <BundleResource Include="Resources\login_textfield.png" />
+    <BundleResource Include="Resources\login_textfield%402x.png" />
+    <BundleResource Include="Resources\logo.png" />
+    <BundleResource Include="Resources\logo%402x.png" />
+    <BundleResource Include="Resources\Placeholder.jpg" />
+    <BundleResource Include="Resources\Placeholder%402x.jpg" />
   </ItemGroup>
 </Project>

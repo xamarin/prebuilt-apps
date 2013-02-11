@@ -30,7 +30,7 @@ namespace EmployeeDirectory.iOS
 {
 	public class PeopleGroupsDataSource : UITableViewDataSource
 	{
-		const string PlaceholderImagePath = "Images/Placeholder.jpg";
+		const string PlaceholderImagePath = "Placeholder.jpg";
 
 		public ObservableCollection<PeopleGroup> Groups { get; set; }
 
