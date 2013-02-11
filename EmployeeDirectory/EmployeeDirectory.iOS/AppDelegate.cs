@@ -80,6 +80,12 @@ namespace EmployeeDirectory.iOS
 			window.RootViewController = new UINavigationController (favoritesViewController);
 			window.MakeKeyAndVisible ();
 
+			//
+			// Show the login screen at startup
+			//
+			var login = new LoginViewController (service);
+			favoritesViewController.PresentViewController (login, false, null);
+
 			return true;
 		}
 

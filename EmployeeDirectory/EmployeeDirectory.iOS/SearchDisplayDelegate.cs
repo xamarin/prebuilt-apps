@@ -37,6 +37,12 @@ namespace EmployeeDirectory.iOS
 			this.searchViewModel = searchViewModel;
 
 			searchViewModel.SearchCompleted += HandleSearchCompleted;
+			searchViewModel.Error += HandleError;
+		}
+
+		void HandleError (object sender, ErrorEventArgs e)
+		{
+			activity.Value.Stop ();
 		}
 
 		void HandleSearchCompleted (object sender, SearchCompletedEventArgs e)
