@@ -33,11 +33,11 @@ namespace EmployeeDirectory.iOS
 		UIActivityIndicatorView indicator;
 		UIButton login;
 
-		static readonly UIImage TextFieldBackground = UIImage.FromBundle ("Images/login_textfield.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8));
+		static readonly UIImage TextFieldBackground = UIImage.FromBundle ("login_textfield.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8));
 
 		public LoginViewController (IDirectoryService service)
 		{
-			View.BackgroundColor = UIColor.FromPatternImage (UIImage.FromBundle ("Images/login_box.png"));
+			View.BackgroundColor = UIColor.FromPatternImage (UIImage.FromBundle ("login_box.png"));
 
 			loginViewModel = new LoginViewModel (service);
 
@@ -57,7 +57,7 @@ namespace EmployeeDirectory.iOS
 			//
 			// Create the UI
 			//
-			var logo = new UIImageView (UIImage.FromBundle ("Images/logo.png"));
+			var logo = new UIImageView (UIImage.FromBundle ("logo.png"));
 			AddCentered (logo, 33, logo.Image.Size.Width, logo.Image.Size.Height);
 
 			username = new UITextField {
@@ -76,7 +76,7 @@ namespace EmployeeDirectory.iOS
 					return true;
 				},
 			};
-			AddCentered (username, 96, 200, 44);
+			AddCentered (username, 80, 200, 44);
 
 			password = new UITextField {
 				Placeholder = "Password",
@@ -95,15 +95,15 @@ namespace EmployeeDirectory.iOS
 					return true;
 				},
 			};
-			AddCentered (password, 148, 200, 44);
+			AddCentered (password, 132, 200, 44);
 
 			login = UIButton.FromType (UIButtonType.Custom);
 			login.SetTitle ("Login", UIControlState.Normal);
-			login.SetBackgroundImage (UIImage.FromBundle ("Images/login_btn.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8)), UIControlState.Normal);
+			login.SetBackgroundImage (UIImage.FromBundle ("login_btn.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8)), UIControlState.Normal);
 			login.TouchUpInside += delegate {
 				Login ();
 			};
-			AddCentered (login, 200, 100, 44);
+			AddCentered (login, 184, 100, 51);
 
 			indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge) {
 				HidesWhenStopped = true,

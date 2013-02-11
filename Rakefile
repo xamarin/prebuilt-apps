@@ -4,7 +4,6 @@ MDTOOL = "/Applications/Xamarin Studio.app/Contents/MacOS/mdtool"
 
 APPS = %w{
 	FieldService/FieldService.Xamarin.sln
-	PrebuiltAppTheme/PrebuiltAppTheme.sln
 	EmployeeDirectory/EmployeeDirectory.Xamarin.sln
 }
 

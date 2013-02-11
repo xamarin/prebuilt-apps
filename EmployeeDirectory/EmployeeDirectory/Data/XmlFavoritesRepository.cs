@@ -57,7 +57,7 @@ namespace EmployeeDirectory.Data
 #if WINDOWS_PHONE
             using(var f = System.Windows.Application.GetResourceStream(new Uri(path, UriKind.RelativeOrAbsolute)).Stream){
 #else
-			using (var f = File.Open (path, FileMode.Open)) {
+			using (var f = File.OpenRead (path)) {
 #endif
 				var repo = (XmlFavoritesRepository)serializer.Deserialize (f);
 				repo.IsolatedStorageName = Path.GetFileName (path);

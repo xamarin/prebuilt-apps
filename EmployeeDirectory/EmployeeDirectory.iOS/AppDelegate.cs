@@ -35,7 +35,7 @@ namespace EmployeeDirectory.iOS
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			Xamarin.Themes.PrebuiltAppTheme.Apply ();
+			Theme.Apply ();
 
 			//
 			// Create the service
@@ -44,11 +44,11 @@ namespace EmployeeDirectory.iOS
 			// Local CSV file
 			service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
 
-			// LDAP service
-//			service = new LdapDirectoryService {
-//				Host = "ldap.mit.edu",
-//				SearchBase = "dc=mit,dc=edu",
-//			};
+			// LDAP service - uncomment to try it out.
+			//service = new LdapDirectoryService {
+			//	Host = "ldap.mit.edu",
+			//	SearchBase = "dc=mit,dc=edu",
+			//};
 
 			//
 			// Load the favorites
