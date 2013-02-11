@@ -124,7 +124,7 @@ namespace EmployeeDirectory.WinPhone {
         // This code will not execute when the application is first launched
         private void Application_Activated (object sender, ActivatedEventArgs e)
         {
-            if (LoginViewModel.ShouldShowLogin (LastLoginTime, lastUseTime)) {
+            if (LoginViewModel.ShouldShowLogin (lastUseTime)) {
                 ((Page)RootFrame.Content).NavigationService.Navigate (new Uri ("/LoginPage.xaml", UriKind.Relative));
             }
         }
