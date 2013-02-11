@@ -48,14 +48,13 @@ namespace EmployeeDirectory.ViewModels
 				}, cancellationToken, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext ());
 		}
 
-		public static bool ShouldShowLogin (DateTime? lastLoginTime, DateTime? lastUseTime)
+		public static bool ShouldShowLogin (DateTime? lastUseTime)
 		{
-			if (!lastLoginTime.HasValue || !lastUseTime.HasValue) {
+			if (!lastUseTime.HasValue) {
 				return true;
 			}
 
-			var now = DateTime.UtcNow;
-			return (now - lastLoginTime) > ForceLoginTimespan || (now - lastUseTime) > ForceLoginTimespan;
+			return (DateTime.UtcNow - lastUseTime) > ForceLoginTimespan;
 		}
 	}
 }

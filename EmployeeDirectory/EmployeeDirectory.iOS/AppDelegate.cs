@@ -91,7 +91,7 @@ namespace EmployeeDirectory.iOS
 
 		public override void WillEnterForeground (UIApplication application)
 		{
-			if (LoginViewModel.ShouldShowLogin (Settings.LastLoginTime, Settings.LastUseTime)) {
+			if (LoginViewModel.ShouldShowLogin (Settings.LastUseTime)) {
 				var login = new LoginViewController (service);
 				favoritesViewController.PresentViewController (login, false, null);
 			}
