@@ -154,9 +154,6 @@ namespace EmployeeDirectory.iOS
 			loginViewModel.LoginAsync (CancellationToken.None).ContinueWith (t => {
 
 				if (t.IsCompleted && !t.IsFaulted) {
-
-					Settings.LastLoginTime = DateTime.UtcNow;
-
 					DismissViewController (true, null);
 				}
 

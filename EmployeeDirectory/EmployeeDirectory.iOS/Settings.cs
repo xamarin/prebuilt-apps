@@ -31,15 +31,6 @@ namespace EmployeeDirectory.iOS
 			}
 		}
 
-		public static DateTime? LastLoginTime {
-			get {
-				return GetDateTime ("LastLoginTime");
-			}
-			set {
-				SetDateTime ("LastLoginTime", value);
-			}
-		}
-
 		static DateTime? GetDateTime (string key)
 		{
 			var s = NSUserDefaults.StandardUserDefaults.StringForKey (key);
