@@ -19,27 +19,25 @@ using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
 using Microsoft.Phone.Controls;
 
-namespace EmployeeDirectory.WinPhone
-{
-    public partial class MainPage : PhoneApplicationPage
-    {
-        public MainPage()
+namespace EmployeeDirectory.WinPhone {
+    public partial class MainPage : PhoneApplicationPage {
+        public MainPage ()
         {
-            InitializeComponent();			
+            InitializeComponent ();
         }
 
-		protected override void OnNavigatedTo (System.Windows.Navigation.NavigationEventArgs e)
-		{
-			base.OnNavigatedTo (e);
+        protected override void OnNavigatedTo (System.Windows.Navigation.NavigationEventArgs e)
+        {
+            base.OnNavigatedTo (e);
 
-			var viewModel = new FavoritesViewModel (App.Current.FavoritesRepository, true);
-			DataContext = viewModel;
-			InstructionsText.Visibility = viewModel.IsEmpty ? Visibility.Visible : Visibility.Collapsed;
-		}
+            var viewModel = new FavoritesViewModel (App.Current.FavoritesRepository, true);
+            DataContext = viewModel;
+            InstructionsText.Visibility = viewModel.IsEmpty ? Visibility.Visible : Visibility.Collapsed;
+        }
 
-		void HandleSearchClicked (object sender, EventArgs e)
-		{
-			NavigationService.Navigate (new Uri ("/SearchPage.xaml", UriKind.Relative));
-		}
+        void HandleSearchClicked (object sender, EventArgs e)
+        {
+            NavigationService.Navigate (new Uri ("/SearchPage.xaml", UriKind.Relative));
+        }
     }
 }

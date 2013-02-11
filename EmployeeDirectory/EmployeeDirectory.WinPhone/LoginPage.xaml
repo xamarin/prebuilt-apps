@@ -32,6 +32,8 @@
 
         <!--ContentPanel - place additional content here-->
         <Grid x:Name="ContentPanel" Grid.Row="1" Margin="12,0,12,0" Height="300" Background="{StaticResource PhoneAccentBrush}">
+            <Button Content="?" Width="60" Height="60" HorizontalAlignment="Right" VerticalAlignment="Top" FontSize="20"
+                    x:Name="helpLogin"/>
             <StackPanel VerticalAlignment="Center">
                 <TextBlock Width="280" FontSize="20" Foreground="White" VerticalAlignment="Center">Username</TextBlock>
                 <TextBox Width="280" BorderThickness="2" BorderBrush="{StaticResource DarkBackgroundBrush}" Background="{StaticResource LightBackgroundBrush}" x:Name="username" VerticalAlignment="Center" />

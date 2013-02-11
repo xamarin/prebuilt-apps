@@ -28,7 +28,7 @@
         <Grid
             x:Name="SearchPanel"
             Grid.Row="1"
-            Margin="12,17,0,28">
+            Margin="12,10,0,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -37,10 +37,11 @@
                 x:Name="SearchText"
                 Grid.Column="0"
                 KeyDown="HandleSearchTextKeyDown"
-                Text="{Binding Path=SearchText, Mode=TwoWay}"/>
+                TextChanged="OnSearchTextChanged"
+                Text="{Binding Path=SearchText, Mode=TwoWay, UpdateSourceTrigger=Explicit}"/>
             <Button               
                 Grid.Column="1"
-                Click="HandleSearch">
+                Click="HandleSearch" Padding="0">
                 <Button.Content>
                     <Image Source="Resources/search.rest.png"/>
                 </Button.Content>

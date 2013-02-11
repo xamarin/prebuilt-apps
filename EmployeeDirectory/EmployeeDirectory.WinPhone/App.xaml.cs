@@ -28,6 +28,7 @@ using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using Microsoft.Phone.Shell;
 using EmployeeDirectory.Data;
+using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.WinPhone {
     public partial class App : Application {
@@ -56,6 +57,10 @@ namespace EmployeeDirectory.WinPhone {
         /// </summary>
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
+
+        public LoginViewModel LoginViewModel { get; set; }
+
+        private DateTime lastUseTime;
 
         /// <summary>
         /// Constructor for the Application object.
@@ -119,12 +124,16 @@ namespace EmployeeDirectory.WinPhone {
         // This code will not execute when the application is first launched
         private void Application_Activated (object sender, ActivatedEventArgs e)
         {
+            if (LoginViewModel.ShouldShowLogin (LastLoginTime, lastUseTime)) {
+                ((Page)RootFrame.Content).NavigationService.Navigate (new Uri ("/LoginPage.xaml", UriKind.Relative));
+            }
         }
 
         // Code to execute when the application is deactivated (sent to background)
         // This code will not execute when the application is closing
         private void Application_Deactivated (object sender, DeactivatedEventArgs e)
         {
+            lastUseTime = DateTime.UtcNow;
         }
 
         // Code to execute when the application is closing (eg, user hit Back)

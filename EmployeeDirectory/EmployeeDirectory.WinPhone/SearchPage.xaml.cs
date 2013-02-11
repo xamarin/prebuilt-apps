@@ -26,6 +26,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Shapes;
 using Microsoft.Phone.Controls;
 using EmployeeDirectory.ViewModels;
+using System.Windows.Data;
 
 namespace EmployeeDirectory.WinPhone {
     public partial class SearchPage : PhoneApplicationPage {
@@ -67,6 +68,14 @@ namespace EmployeeDirectory.WinPhone {
             if (IsValidSearchText) {
                 ViewModel.Search ();
             }
+        }
+
+        void OnSearchTextChanged (object sender, TextChangedEventArgs e)
+        {
+            TextBox textBox = sender as TextBox;
+            // Update the binding source
+            BindingExpression bindingExpr = textBox.GetBindingExpression (TextBox.TextProperty);
+            bindingExpr.UpdateSource ();
         }
     }
 }

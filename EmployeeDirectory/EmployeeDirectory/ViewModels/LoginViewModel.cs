@@ -17,46 +17,43 @@ using System;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace EmployeeDirectory.ViewModels
-{
-	public class LoginViewModel : ViewModelBase
-	{
-		public string Username { get; set; }
-		public string Password { get; set; }
+namespace EmployeeDirectory.ViewModels {
+    public class LoginViewModel : ViewModelBase {
+        public string Username { get; set; }
+        public string Password { get; set; }
 
-		IDirectoryService service;
+        IDirectoryService service;
 
-		static readonly TimeSpan ForceLoginTimespan = TimeSpan.FromMinutes (5);
+        static readonly TimeSpan ForceLoginTimespan = TimeSpan.FromMinutes (5);
 
-		public LoginViewModel (IDirectoryService service)
-		{
-			this.service = service;
+        public LoginViewModel (IDirectoryService service)
+        {
+            this.service = service;
 
-			Username = "";
-			Password = "";
-		}
+            Username = "";
+            Password = "";
+        }
 
-		public Task LoginAsync (CancellationToken cancellationToken)
-		{
-			IsBusy = true;
-			return service
-				.LoginAsync (Username, Password, cancellationToken)
-				.ContinueWith (t => {
-                                    Thread.Sleep (2000);
-					IsBusy = false;
-					if (t.IsFaulted) throw new AggregateException (t.Exception);					
-				}, cancellationToken, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext ());
-		}
+        public Task LoginAsync (CancellationToken cancellationToken)
+        {
+            IsBusy = true;
+            return service
+                    .LoginAsync (Username, Password, cancellationToken)
+                    .ContinueWith (t => {
+                        Thread.Sleep (2000);
+                        IsBusy = false;
+                        if (t.IsFaulted) throw new AggregateException (t.Exception);
+                    }, cancellationToken, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext ());
+        }
 
-		public static bool ShouldShowLogin (DateTime? lastLoginTime, DateTime? lastUseTime)
-		{
-			if (!lastLoginTime.HasValue || !lastUseTime.HasValue) {
-				return true;
-			}
+        public static bool ShouldShowLogin (DateTime? lastLoginTime, DateTime? lastUseTime)
+        {
+            if (!lastLoginTime.HasValue || !lastUseTime.HasValue) {
+                return true;
+            }
 
-			var now = DateTime.UtcNow;
-			return (now - lastLoginTime) > ForceLoginTimespan || (now - lastUseTime) > ForceLoginTimespan;
-		}
-	}
+            var now = DateTime.UtcNow;
+            return (now - lastLoginTime) > ForceLoginTimespan || (now - lastUseTime) > ForceLoginTimespan;
+        }
+    }
 }
-

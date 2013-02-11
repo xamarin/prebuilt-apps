@@ -8,10 +8,12 @@
 
     <!--Application Resources-->
     <Application.Resources>
+        <!--Brushes-->
         <SolidColorBrush x:Key="BlackBackgroundBrush" Opacity=".5">#000000</SolidColorBrush>
         <SolidColorBrush x:Key="DarkBlackBackgroundBrush" Opacity=".25">#000000</SolidColorBrush>
         <SolidColorBrush x:Key="DarkBackgroundBrush" Opacity=".25">#FFFFFF</SolidColorBrush>
         <SolidColorBrush x:Key="LightBackgroundBrush" Opacity=".75">#FFFFFF</SolidColorBrush>
+        <!--Styles-->
         <DataTemplate x:Key="PersonListItem">
             <Grid 
                 toolkit:TiltEffect.IsTiltEnabled="True"

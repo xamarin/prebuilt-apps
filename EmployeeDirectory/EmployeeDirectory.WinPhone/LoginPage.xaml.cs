@@ -25,6 +25,9 @@ namespace EmployeeDirectory.WinPhone {
             username.TextChanged += (sender, e) => loginViewModel.Username = username.Text;
             password.PasswordChanged += (sender, e) => loginViewModel.Password = password.Password;
             loginButton.Click += (sender, e) => Login ();
+            helpLogin.Click += (sender, e) => {
+                MessageBox.Show ("Enter any username or password.", "Need Help?", MessageBoxButton.OK);
+                };
         }
 
         protected override void OnNavigatedTo (NavigationEventArgs e)
@@ -56,6 +59,7 @@ namespace EmployeeDirectory.WinPhone {
                     password.Focus ();
                     e.Handled = true;
                 } else {
+                    this.Focus ();
                     Login ();
                 }
             }
