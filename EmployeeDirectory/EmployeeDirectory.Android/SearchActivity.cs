@@ -28,73 +28,72 @@ using Android.Widget;
 using EmployeeDirectory.ViewModels;
 using EmployeeDirectory.Data;
 
-namespace EmployeeDirectory.Android
-{
-	[Activity (Label = "Search", Theme = "@android:style/Theme.Holo.Light")]
-	[IntentFilter (new[] { "android.intent.action.SEARCH" })]
-	[MetaData ("android.app.searchable", Resource = "@xml/searchable")]
-	public class SearchActivity : ListActivity
-	{
-		SearchViewModel searchViewModel;
+namespace EmployeeDirectory.Android {
+    [Activity (Label = "Search")]
+    [IntentFilter (new [] { "android.intent.action.SEARCH" })]
+    [MetaData ("android.app.searchable", Resource = "@xml/searchable")]
+    public class SearchActivity : ListActivity {
+        SearchViewModel searchViewModel;
+        ProgressBar progressBar;
+        TextView searchingText;
 
-		protected override void OnCreate (Bundle bundle)
-		{
-			base.OnCreate (bundle);
+        protected override void OnCreate (Bundle bundle)
+        {
+            base.OnCreate (bundle);
 
-			//
-			// Initialize the service
-			//
-                        //var service = new LdapDirectoryService {
-                        //        Host = "ldap.mit.edu",
-                        //        SearchBase = "dc=mit,dc=edu",
-                        //};
+            //
+            // Initialize the service
+            //
+            //var service = new LdapDirectoryService {
+            //        Host = "ldap.mit.edu",
+            //        SearchBase = "dc=mit,dc=edu",
+            //};
 
-                        MemoryDirectoryService service;
-                        using (var reader = new System.IO.StreamReader (Assets.Open("XamarinDirectory.csv"))) {
-                            service = new MemoryDirectoryService (new CsvReader<Person> (reader).ReadAll ());
-                        }
+            searchViewModel = new SearchViewModel (Android.Application.Service, new Search ("Default")) {
+                GroupByLastName = false,
+            };
+            searchViewModel.SearchCompleted += HandleSearchCompleted;
 
-			searchViewModel = new SearchViewModel (service, new Search ("Default")) {
-				GroupByLastName = false,
-			};
-			searchViewModel.SearchCompleted += HandleSearchCompleted;
+            //
+            // Construct the UI
+            //
 
-			//
-			// Construct the UI
-			//
+            SetContentView (Resource.Layout.SearchActivity);
 
-			SetContentView (Resource.Layout.SearchActivity);
+            ListAdapter = new PeopleGroupsAdapter () {
+                ItemsSource = searchViewModel.Groups,
+            };
 
-			ListAdapter = new PeopleGroupsAdapter () {
-				ItemsSource = searchViewModel.Groups,
-			};
+            //
+            // Start the search
+            //
+            var intent = Intent;
+            if (Intent.ActionSearch.Equals (intent.Action)) {
+                var query = intent.GetStringExtra (SearchManager.Query);
 
-			//
-			// Start the search
-			//
-			var intent = Intent;
-			if (Intent.ActionSearch.Equals (intent.Action)) {
-				var query = intent.GetStringExtra (SearchManager.Query);
+                searchViewModel.SearchText = query;
+                searchViewModel.SearchProperty = SearchProperty.Name;
 
-				searchViewModel.SearchText = query;
-				searchViewModel.SearchProperty = SearchProperty.Name;
+                searchViewModel.Search ();
+            }
+            progressBar = FindViewById<ProgressBar>(Resource.Id.progressBar1);
+            searchingText = FindViewById<TextView> (Resource.Id.emptyTextView);
+        }
 
-				searchViewModel.Search ();
-			}
-		}
+        void HandleSearchCompleted (object sender, EventArgs e)
+        {
+            ((PeopleGroupsAdapter)ListAdapter).ItemsSource = searchViewModel.Groups;
+            progressBar.Visibility = ViewStates.Invisible;
+            searchingText.Visibility = ViewStates.Invisible;
+        }
 
-		void HandleSearchCompleted (object sender, EventArgs e)
-		{
-			((PeopleGroupsAdapter)ListAdapter).ItemsSource = searchViewModel.Groups;
-		}
-
-		protected override void OnListItemClick (ListView l, View v, int position, long id)
-		{
-			var person = ((PeopleGroupsAdapter)ListAdapter).GetPerson (position);
-			if (person != null) {
-				StartActivity (PersonActivity.CreateIntent (this, person));
-			}
-		}
-	}
+        protected override void OnListItemClick (ListView l, View v, int position, long id)
+        {
+            var person = ((PeopleGroupsAdapter)ListAdapter).GetPerson (position);
+            if (person != null) {
+                StartActivity (PersonActivity.CreateIntent (this, person));
+            }
+        }
+    }
 }
 

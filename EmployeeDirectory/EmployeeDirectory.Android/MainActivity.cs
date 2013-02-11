@@ -27,7 +27,7 @@ using EmployeeDirectory.Data;
 using System.IO;
 
 namespace EmployeeDirectory.Android {
-    [Activity (Label = "@string/app_name", MainLauncher = true, Theme = "@android:style/Theme.Holo.Light")]
+    [Activity (Label = "@string/app_name")]
     [MetaData ("android.app.default_searchable", Value = "employeedirectory.android.SearchActivity")]
     public class MainActivity : ListActivity {
         static IFavoritesRepository repo;

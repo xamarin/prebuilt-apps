@@ -37,50 +37,82 @@ namespace EmployeeDirectory.Android
 			}
 		}
 		
+		public partial class Color
+		{
+			
+			// aapt resource value: 0x7f060000
+			public const int blueclick = 2131099648;
+			
+			// aapt resource value: 0x7f060002
+			public const int disabledText = 2131099650;
+			
+			// aapt resource value: 0x7f060001
+			public const int greyheadertext = 2131099649;
+			
+			private Color()
+			{
+			}
+		}
+		
 		public partial class Drawable
 		{
 			
 			// aapt resource value: 0x7f020000
-			public const int btn_rating_star_off_normal_holo_light = 2130837504;
+			public const int actionbar = 2130837504;
 			
 			// aapt resource value: 0x7f020001
-			public const int btn_rating_star_on_normal_holo_light = 2130837505;
+			public const int btn_rating_star_off_normal_holo_light = 2130837505;
 			
 			// aapt resource value: 0x7f020002
-			public const int btn_star_off_normal_holo_dark = 2130837506;
+			public const int btn_rating_star_on_normal_holo_light = 2130837506;
 			
 			// aapt resource value: 0x7f020003
-			public const int btn_star_off_normal_holo_light = 2130837507;
+			public const int btn_star_off_normal_holo_dark = 2130837507;
 			
 			// aapt resource value: 0x7f020004
-			public const int btn_star_on_normal_holo_light = 2130837508;
+			public const int btn_star_off_normal_holo_light = 2130837508;
 			
 			// aapt resource value: 0x7f020005
-			public const int ic_btn_search = 2130837509;
+			public const int btn_star_on_normal_holo_light = 2130837509;
 			
 			// aapt resource value: 0x7f020006
-			public const int ic_menu_search = 2130837510;
+			public const int ic_btn_search = 2130837510;
 			
 			// aapt resource value: 0x7f020007
-			public const int ic_menu_search_holo_dark = 2130837511;
+			public const int ic_menu_search = 2130837511;
 			
 			// aapt resource value: 0x7f020008
-			public const int ic_menu_search_holo_light = 2130837512;
+			public const int ic_menu_search_holo_dark = 2130837512;
 			
 			// aapt resource value: 0x7f020009
-			public const int ic_menu_star = 2130837513;
+			public const int ic_menu_search_holo_light = 2130837513;
 			
 			// aapt resource value: 0x7f02000a
-			public const int ic_search = 2130837514;
+			public const int ic_menu_star = 2130837514;
 			
 			// aapt resource value: 0x7f02000b
-			public const int ic_search_api_holo_light = 2130837515;
+			public const int ic_search = 2130837515;
 			
 			// aapt resource value: 0x7f02000c
-			public const int Icon = 2130837516;
+			public const int ic_search_api_holo_light = 2130837516;
 			
 			// aapt resource value: 0x7f02000d
-			public const int Placeholder = 2130837517;
+			public const int Icon = 2130837517;
+			
+			// aapt resource value: 0x7f02000e
+			public const int login_button = 2130837518;
+			
+			// aapt resource value: 0x7f02000f
+			public const int loginbox = 2130837519;
+			
+			// aapt resource value: 0x7f020010
+			public const int Placeholder = 2130837520;
+			
+			// aapt resource value: 0x7f020011
+			public const int questionmark = 2130837521;
+			
+			// aapt resource value: 0x7f020012
+			public const int XamarinTitle = 2130837522;
 			
 			private Drawable()
 			{
@@ -90,53 +122,77 @@ namespace EmployeeDirectory.Android
 		public partial class Id
 		{
 			
-			// aapt resource value: 0x7f070008
-			public const int DetailsTextView = 2131165192;
+			// aapt resource value: 0x7f090010
+			public const int DetailsTextView = 2131296272;
 			
-			// aapt resource value: 0x7f07000a
-			public const int Divider = 2131165194;
+			// aapt resource value: 0x7f090012
+			public const int Divider = 2131296274;
 			
-			// aapt resource value: 0x7f070004
-			public const int EmailButton = 2131165188;
+			// aapt resource value: 0x7f090004
+			public const int EmailButton = 2131296260;
 			
-			// aapt resource value: 0x7f070005
-			public const int HeaderTextView = 2131165189;
+			// aapt resource value: 0x7f090005
+			public const int HeaderTextView = 2131296261;
 			
-			// aapt resource value: 0x7f070009
-			public const int ImageButton = 2131165193;
+			// aapt resource value: 0x7f090011
+			public const int ImageButton = 2131296273;
 			
-			// aapt resource value: 0x7f07000f
-			public const int MenuFavorite = 2131165199;
+			// aapt resource value: 0x7f090017
+			public const int MenuFavorite = 2131296279;
 			
-			// aapt resource value: 0x7f07000e
-			public const int MenuSearch = 2131165198;
+			// aapt resource value: 0x7f090016
+			public const int MenuSearch = 2131296278;
 			
-			// aapt resource value: 0x7f070003
-			public const int NameTextView = 2131165187;
+			// aapt resource value: 0x7f090003
+			public const int NameTextView = 2131296259;
 			
-			// aapt resource value: 0x7f07000b
-			public const int PhoneButton = 2131165195;
+			// aapt resource value: 0x7f090013
+			public const int PhoneButton = 2131296275;
 			
-			// aapt resource value: 0x7f070002
-			public const int ValueTextView = 2131165186;
+			// aapt resource value: 0x7f090002
+			public const int ValueTextView = 2131296258;
 			
-			// aapt resource value: 0x7f07000d
-			public const int emptyTextView = 2131165197;
+			// aapt resource value: 0x7f090008
+			public const int dialogImage = 2131296264;
 			
-			// aapt resource value: 0x7f070000
-			public const int linearLayout1 = 2131165184;
+			// aapt resource value: 0x7f090007
+			public const int dialogLayout = 2131296263;
 			
-			// aapt resource value: 0x7f070001
-			public const int linearLayout2 = 2131165185;
+			// aapt resource value: 0x7f090009
+			public const int dialogTitle = 2131296265;
 			
-			// aapt resource value: 0x7f07000c
-			public const int progressBar1 = 2131165196;
+			// aapt resource value: 0x7f090015
+			public const int emptyTextView = 2131296277;
 			
-			// aapt resource value: 0x7f070007
-			public const int textView1 = 2131165191;
+			// aapt resource value: 0x7f090000
+			public const int linearLayout1 = 2131296256;
 			
-			// aapt resource value: 0x7f070006
-			public const int view1 = 2131165190;
+			// aapt resource value: 0x7f090001
+			public const int linearLayout2 = 2131296257;
+			
+			// aapt resource value: 0x7f09000c
+			public const int logIn = 2131296268;
+			
+			// aapt resource value: 0x7f09000d
+			public const int loginProgress = 2131296269;
+			
+			// aapt resource value: 0x7f09000e
+			public const int loginQuestion = 2131296270;
+			
+			// aapt resource value: 0x7f09000b
+			public const int password = 2131296267;
+			
+			// aapt resource value: 0x7f090014
+			public const int progressBar1 = 2131296276;
+			
+			// aapt resource value: 0x7f09000f
+			public const int textView1 = 2131296271;
+			
+			// aapt resource value: 0x7f09000a
+			public const int userName = 2131296266;
+			
+			// aapt resource value: 0x7f090006
+			public const int view1 = 2131296262;
 			
 			private Id()
 			{
@@ -153,25 +209,28 @@ namespace EmployeeDirectory.Android
 			public const int GroupHeaderListItem = 2130903041;
 			
 			// aapt resource value: 0x7f030002
-			public const int MainActivity = 2130903042;
+			public const int Login = 2130903042;
 			
 			// aapt resource value: 0x7f030003
-			public const int PersonActivity = 2130903043;
+			public const int MainActivity = 2130903043;
 			
 			// aapt resource value: 0x7f030004
-			public const int PersonListItem = 2130903044;
+			public const int PersonActivity = 2130903044;
 			
 			// aapt resource value: 0x7f030005
-			public const int PhonePropertyListItem = 2130903045;
+			public const int PersonListItem = 2130903045;
 			
 			// aapt resource value: 0x7f030006
-			public const int PropertyListItem = 2130903046;
+			public const int PhonePropertyListItem = 2130903046;
 			
 			// aapt resource value: 0x7f030007
-			public const int SearchActivity = 2130903047;
+			public const int PropertyListItem = 2130903047;
 			
 			// aapt resource value: 0x7f030008
-			public const int UrlPropertyListItem = 2130903048;
+			public const int SearchActivity = 2130903048;
+			
+			// aapt resource value: 0x7f030009
+			public const int UrlPropertyListItem = 2130903049;
 			
 			private Layout()
 			{
@@ -181,11 +240,11 @@ namespace EmployeeDirectory.Android
 		public partial class Menu
 		{
 			
-			// aapt resource value: 0x7f060000
-			public const int AppActivityOptionsMenu = 2131099648;
+			// aapt resource value: 0x7f080000
+			public const int AppActivityOptionsMenu = 2131230720;
 			
-			// aapt resource value: 0x7f060001
-			public const int PersonActivityOptionsMenu = 2131099649;
+			// aapt resource value: 0x7f080001
+			public const int PersonActivityOptionsMenu = 2131230721;
 			
 			private Menu()
 			{
@@ -226,6 +285,17 @@ namespace EmployeeDirectory.Android
 			public const int library_name = 2131034112;
 			
 			private String()
+			{
+			}
+		}
+		
+		public partial class Style
+		{
+			
+			// aapt resource value: 0x7f070000
+			public const int CustomHoloTheme = 2131165184;
+			
+			private Style()
 			{
 			}
 		}
