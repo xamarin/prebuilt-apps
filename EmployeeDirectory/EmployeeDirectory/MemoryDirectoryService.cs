@@ -36,11 +36,6 @@ namespace EmployeeDirectory
 		{
 			this.people = people.ToList ();
 			this.properties = typeof (Person).GetProperties ().ToDictionary (p => p.Name);
-
-			//Let's setup the Ids using just a quick for-loop
-			for (int i = 0; i < this.people.Count; i++) {
-				this.people[i].Id = (i + 1).ToString ();
-			}
 		}
 
 		#region IDirectoryService implementation
