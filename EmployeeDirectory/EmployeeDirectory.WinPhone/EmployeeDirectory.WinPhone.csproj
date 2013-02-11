@@ -108,6 +108,9 @@
     <Compile Include="..\EmployeeDirectory\ViewModels\FavoritesViewModel.cs">
       <Link>EmployeeDirectory\ViewModels\FavoritesViewModel.cs</Link>
     </Compile>
+    <Compile Include="..\EmployeeDirectory\ViewModels\LoginViewModel.cs">
+      <Link>EmployeeDirectory\ViewModels\LoginViewModel.cs</Link>
+    </Compile>
     <Compile Include="..\EmployeeDirectory\ViewModels\PeopleGroup.cs">
       <Link>EmployeeDirectory\ViewModels\PeopleGroup.cs</Link>
     </Compile>
@@ -128,6 +131,9 @@
     <Compile Include="MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="LoginPage.xaml.cs">
+      <DependentUpon>LoginPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="PersonPage.xaml.cs">
       <DependentUpon>PersonPage.xaml</DependentUpon>
     </Compile>
@@ -146,6 +152,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="LoginPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="PersonPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -159,7 +169,6 @@
     <Resource Include="..\Data\XamarinDirectory.csv">
       <Link>Data\XamarinDirectory.csv</Link>
     </Resource>
-    <None Include="packages.config" />
     <None Include="Properties\AppManifest.xml" />
     <None Include="Properties\WMAppManifest.xml" />
   </ItemGroup>
@@ -178,15 +187,9 @@
     <Content Include="Images\appbar.favs.rest.png" />
     <Content Include="Images\appbar.feature.search.rest.png" />
     <Content Include="Images\appbar.pin.rest.png" />
-    <Resource Include="Toolkit.Content\ApplicationBar.Cancel.png" />
-    <Resource Include="Toolkit.Content\ApplicationBar.Check.png" />
-    <Resource Include="Toolkit.Content\ApplicationBar.Delete.png" />
-    <Resource Include="Toolkit.Content\ApplicationBar.Select.png" />
     <Resource Include="Resources\search.rest.png" />
-    <Content Include="README_FIRST.txt" />
     <Content Include="SplashScreenImage.jpg" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.$(TargetFrameworkProfile).Overrides.targets" />
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\Silverlight for Phone\$(TargetFrameworkVersion)\Microsoft.Silverlight.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
