@@ -23,9 +23,9 @@ using Android.App;
 [assembly: AssemblyTitle("EmployeeDirectory.Android")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Xamarin")]
 [assembly: AssemblyProduct("")]
-[assembly: AssemblyCopyright("fak")]
+[assembly: AssemblyCopyright("Copyright Xamarin 2012")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
