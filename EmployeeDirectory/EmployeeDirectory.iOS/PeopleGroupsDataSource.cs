@@ -44,8 +44,18 @@ namespace EmployeeDirectory.iOS
 
 		public Person GetPerson (NSIndexPath indexPath)
 		{
-			var personGroup = Groups [indexPath.Section];
-			return personGroup.People[indexPath.Row];
+			try
+			{
+				var personGroup = Groups [indexPath.Section];
+				return personGroup.People[indexPath.Row];
+			}
+			catch (Exception exc)
+			{
+				Console.WriteLine ("Error in GetPerson: " + exc.Message);
+
+				//Occasionally we get an index out of range here
+				return null;
+			}
 		}
 
 		public override string TitleForHeader (UITableView tableView, int section)
@@ -76,17 +86,18 @@ namespace EmployeeDirectory.iOS
 			}
 
 			var person = GetPerson (indexPath);
-			cell.Person = person;
+			if (person != null) {
+				cell.Person = person;
 
-			UIImage image;
-			if (images.TryGetValue (person.Id, out image)) {
-				cell.ImageView.Image = image;
-			}
-			else {
-				if (!tableView.Dragging && !tableView.Decelerating && person.HasEmail) {
-					StartImageDownload (tableView, indexPath, person);
+				UIImage image;
+				if (images.TryGetValue (person.Id, out image)) {
+					cell.ImageView.Image = image;
+				} else {
+					if (!tableView.Dragging && !tableView.Decelerating && person.HasEmail) {
+						StartImageDownload (tableView, indexPath, person);
+					}
+					cell.ImageView.Image = UIImage.FromBundle (PlaceholderImagePath);
 				}
-				cell.ImageView.Image = UIImage.FromBundle (PlaceholderImagePath);
 			}
 
 			return cell;
@@ -106,14 +117,15 @@ namespace EmployeeDirectory.iOS
 
 				foreach (var indexPath in visiblePaths) {
 					var person = ((PeopleGroupsDataSource)tableView.DataSource).GetPerson (indexPath);
-
-					if (person.HasEmail) {
-						if (!images.ContainsKey (person.Id)) {
-							StartImageDownload (tableView, indexPath, person);
+					if (person != null) {
+						if (person.HasEmail) {
+							if (!images.ContainsKey (person.Id)) {
+								StartImageDownload (tableView, indexPath, person);
+							}
 						}
-					}
-					else {
-						FinishImageDownload (tableView, indexPath, person, UIImage.FromBundle (PlaceholderImagePath));
+						else {
+							FinishImageDownload (tableView, indexPath, person, UIImage.FromBundle (PlaceholderImagePath));
+						}
 					}
 				}
 			}

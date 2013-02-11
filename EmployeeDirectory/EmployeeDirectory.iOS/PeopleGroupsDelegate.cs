@@ -36,10 +36,11 @@ namespace EmployeeDirectory.iOS
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
 			var person = ((PeopleGroupsDataSource)tableView.DataSource).GetPerson (indexPath);
-
-			var ev = PersonSelected;
-			if (ev != null) {
-				ev (this, new PersonSelectedEventArgs { Person = person });
+			if (person != null) {
+				var ev = PersonSelected;
+				if (ev != null) {
+					ev (this, new PersonSelectedEventArgs { Person = person });
+				}
 			}
 		}
 
