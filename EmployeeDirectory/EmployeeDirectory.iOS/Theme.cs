@@ -3,9 +3,9 @@ using MonoTouch.UIKit;
 using System.Drawing;
 using System.Collections.Generic;
 
-namespace Xamarin.Themes
+namespace EmployeeDirectory.iOS
 {
-	public class PrebuiltAppTheme
+	public class Theme
 	{
 		/// <summary>
 		/// Apply this theme to everything that it can.
@@ -50,9 +50,9 @@ namespace Xamarin.Themes
 		#region UINavigationBar
 
 		static Lazy<UIImage> navigationBarBackground = new Lazy<UIImage> (
-			() => UIImage.FromBundle ("PrebuiltAppImages/topnav.png"));
+			() => UIImage.FromBundle ("topnav.png"));
 		static Lazy<UIImage> blueNavigationBarBackground = new Lazy<UIImage> (
-			() => UIImage.FromBundle ("PrebuiltAppImages/bluebar.png"));
+			() => UIImage.FromBundle ("bluebar.png"));
 
 		/// <summary>
 		/// Apply this theme to a specific view.
@@ -150,10 +150,10 @@ namespace Xamarin.Themes
 
 		#region UIBarButtonItem
 
-		static Lazy<UIImage> barButtonBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("PrebuiltAppImages/topnavbtn.png").CreateResizableImage (new UIEdgeInsets (0, 4, 0, 4)));
-		static Lazy<UIImage> backButtonBackBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("PrebuiltAppImages/backbutton.png").CreateResizableImage (new UIEdgeInsets (0, 14, 0, 4)));
-		static Lazy<UIImage> blueBarButtonBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("PrebuiltAppImages/bluenavbtn.png").CreateResizableImage (new UIEdgeInsets (0, 4, 0, 4)));
-		static Lazy<UIImage> blueBackButtonBackBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("PrebuiltAppImages/backbutton.png").CreateResizableImage (new UIEdgeInsets (0, 14, 0, 4)));
+		static Lazy<UIImage> barButtonBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("topnavbtn.png").CreateResizableImage (new UIEdgeInsets (0, 4, 0, 4)));
+		static Lazy<UIImage> backButtonBackBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("backbutton.png").CreateResizableImage (new UIEdgeInsets (0, 14, 0, 4)));
+		static Lazy<UIImage> blueBarButtonBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("bluenavbtn.png").CreateResizableImage (new UIEdgeInsets (0, 4, 0, 4)));
+		static Lazy<UIImage> blueBackButtonBackBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("backbutton.png").CreateResizableImage (new UIEdgeInsets (0, 14, 0, 4)));
 
 		/// <summary>
 		/// Apply this theme to a specific view.

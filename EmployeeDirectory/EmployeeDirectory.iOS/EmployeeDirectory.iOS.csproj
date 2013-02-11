@@ -162,6 +162,7 @@
       <Link>EmployeeDirectory\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="Settings.cs" />
+    <Compile Include="Theme.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -170,12 +171,7 @@
     <Folder Include="Images\" />
     <Folder Include="EmployeeDirectory\ViewModels\" />
     <Folder Include="Data\" />
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\..\PrebuiltAppTheme\PrebuiltAppTheme.iOS\PrebuiltAppTheme.iOS.csproj">
-      <Project>{78EC813C-4567-4ECC-A627-5B45C3761F81}</Project>
-      <Name>PrebuiltAppTheme.iOS</Name>
-    </ProjectReference>
+    <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Default-568h%402x.png" />
@@ -197,5 +193,19 @@
     <Content Include="Images\login_btn%402x.png" />
     <Content Include="Images\login_textfield.png" />
     <Content Include="Images\login_textfield%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\backbutton.png" />
+    <BundleResource Include="Resources\backbutton%402x.png" />
+    <BundleResource Include="Resources\bluebar.png" />
+    <BundleResource Include="Resources\bluebar%402x.png" />
+    <BundleResource Include="Resources\bluenavbutton.png" />
+    <BundleResource Include="Resources\bluenavbutton%402x.png" />
+    <BundleResource Include="Resources\buttondark.png" />
+    <BundleResource Include="Resources\buttondark%402x.png" />
+    <BundleResource Include="Resources\topnav.png" />
+    <BundleResource Include="Resources\topnav%402x.png" />
+    <BundleResource Include="Resources\topnavbtn.png" />
+    <BundleResource Include="Resources\topnavbtn%402x.png" />
   </ItemGroup>
 </Project>
