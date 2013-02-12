@@ -114,25 +114,6 @@ namespace EmployeeDirectory.Android {
             }
         }
 
-        class ImageItem : Item {
-            Uri url;
-
-            public ImageItem (Uri url)
-                : base (0)
-            {
-                this.url = url;
-            }
-
-            public override View GetView (View convertView, ViewGroup parent)
-            {
-                var v = convertView as ImageView;
-                if (v == null) {
-                    v = new ImageView (parent.Context);
-                }
-                return v;
-            }
-        }
-
         class MainHeaderItem : Item {
             string text;
 
