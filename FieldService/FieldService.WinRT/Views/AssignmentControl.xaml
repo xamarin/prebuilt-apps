@@ -100,8 +100,8 @@
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <Button  Background="{StaticResource ItemsBrush}" Command="{Binding AcceptAssignmentCommand}" BorderBrush="{StaticResource ItemsBrush}"
-                     HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,5">
+            <Button Background="{StaticResource ItemsBrush}" Command="{Binding AcceptAssignmentCommand}" BorderBrush="{StaticResource ItemsBrush}"
+                    HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="0,0,0,5">
                 <TextBlock Text="Accept" Style="{StaticResource SubheaderTextStyle}"/>
             </Button>
             <Button Background="{StaticResource GreyBackgroundBrush}" Command="{Binding DeclineAssignmentCommand}" Grid.Row="1"
