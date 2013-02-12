@@ -16,5 +16,16 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
+	<key>UIPrerenderedIcon</key>
+	<true/>
+	<key>CFBundleIconFiles</key>
+	<array>
+		<string>57</string>
+		<string>114</string>
+		<string>72</string>
+		<string>29</string>
+		<string>58</string>
+		<string>50</string>
+	</array>
 </dict>
 </plist>
