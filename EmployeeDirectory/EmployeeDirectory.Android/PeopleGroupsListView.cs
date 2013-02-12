@@ -13,20 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 
-using Android.App;
 using Android.Content;
-using Android.OS;
-using Android.Runtime;
 using Android.Util;
-using Android.Views;
 using Android.Widget;
-using EmployeeDirectory.Utilities;
-using Android.Graphics;
 
 namespace EmployeeDirectory.Android
 {

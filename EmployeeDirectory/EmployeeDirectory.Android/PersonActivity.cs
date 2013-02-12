@@ -13,25 +13,19 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
+using System.ComponentModel;
+using System.IO;
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
-using System.IO;
-using System.ComponentModel;
 
 namespace EmployeeDirectory.Android {
     [Activity (Label = "Person")]
-    public class PersonActivity : ListActivity {
+    public class PersonActivity : BaseActivity {
         PersonViewModel viewModel;
 
         IMenuItem favoriteItem;
