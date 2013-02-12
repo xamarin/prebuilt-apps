@@ -29,6 +29,9 @@
     <ConsolePause>False</ConsolePause>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Novell.Directory.Ldap">
+      <HintPath>..\Dependencies\Novell.Directory.Ldap\Novell.Directory.Ldap.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
