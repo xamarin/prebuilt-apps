@@ -84,7 +84,10 @@ namespace FieldService.WinRT.ViewModels {
                     SelectedAssignment.Status = AssignmentStatus.Hold;
                 }
                 await SaveAssignmentAsync (SelectedAssignment);
-                SelectedAssignment = SelectedAssignment;
+
+                //Do this to reload the screen
+                Helpers.GoBack();
+                Helpers.NavigateTo<AssignmentPage>();
             });
 
             addSignatureCommand = new DelegateCommand (_ => {
