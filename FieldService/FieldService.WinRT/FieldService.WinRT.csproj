@@ -291,30 +291,24 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="..\Data\Building_Cross_Platform_Apps.pdf">
-      <Link>Data\Building_Cross_Platform_Apps.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Hello_iPhone.pdf">
-      <Link>Data\Hello_iPhone.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Hello_Mono_for_Android.pdf">
-      <Link>Data\Hello_Mono_for_Android.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Hello_MVC.pdf">
-      <Link>Data\Hello_MVC.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Introduction_to_Mobile_Development.pdf">
-      <Link>Data\Introduction_to_Mobile_Development.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Intro_to_Web_Services.pdf">
-      <Link>Data\Intro_to_Web_Services.pdf</Link>
-    </Content>
     <Content Include="Assets\assignmenticonblue.png" />
     <Content Include="Assets\phoneiconlargeblue.png" />
     <Content Include="Assets\questionmark.png" />
     <Content Include="Assets\smoothbg_blue.png" />
     <Content Include="Assets\WideLogo.png" />
     <Content Include="Assets\snaplogo.png" />
+    <Content Include="..\Data\contract.pdf">
+      <Link>Data\contract.pdf</Link>
+    </Content>
+    <Content Include="..\Data\sla.pdf">
+      <Link>Data\sla.pdf</Link>
+    </Content>
+    <Content Include="..\Data\techspecs.pdf">
+      <Link>Data\techspecs.pdf</Link>
+    </Content>
+    <Content Include="..\Data\valuableinformation.pdf">
+      <Link>Data\valuableinformation.pdf</Link>
+    </Content>
     <None Include="FieldService.WinRT_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>

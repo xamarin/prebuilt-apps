@@ -87,8 +87,8 @@
     <Reference Include="Xamarin.Mobile">
       <HintPath>..\Dependencies\Xamarin.Mobile\iOS\Xamarin.Mobile.dll</HintPath>
     </Reference>
-    <Reference Include="SignaturePad.iOS">
-      <HintPath>..\Components\signature-pad-1.2\lib\ios\SignaturePad.iOS.dll</HintPath>
+    <Reference Include="SignatureView.iPhone">
+      <HintPath>..\Dependencies\SignatureView\iOS\SignatureView.iPhone.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -468,24 +468,6 @@
     <Content Include="Images\assignmentactiveblue%402x.png" />
     <Content Include="Images\deletebutton.png" />
     <Content Include="Images\deletebutton%402x.png" />
-    <Content Include="..\Data\Building_Cross_Platform_Apps.pdf">
-      <Link>Data\Building_Cross_Platform_Apps.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Hello_iPhone.pdf">
-      <Link>Data\Hello_iPhone.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Hello_Mono_for_Android.pdf">
-      <Link>Data\Hello_Mono_for_Android.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Hello_MVC.pdf">
-      <Link>Data\Hello_MVC.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Intro_to_Web_Services.pdf">
-      <Link>Data\Intro_to_Web_Services.pdf</Link>
-    </Content>
-    <Content Include="..\Data\Introduction_to_Mobile_Development.pdf">
-      <Link>Data\Introduction_to_Mobile_Development.pdf</Link>
-    </Content>
     <Content Include="Images\complete_inactive.png" />
     <Content Include="Images\complete_inactive%402x.png" />
     <Content Include="Images\bg_left.png" />
@@ -502,6 +484,18 @@
     <Content Include="Images\shortrowpress%402x.png" />
     <Content Include="Images\questionmark.png" />
     <Content Include="Images\questionmark%402x.png" />
+    <Content Include="..\Data\contract.pdf">
+      <Link>Data\contract.pdf</Link>
+    </Content>
+    <Content Include="..\Data\sla.pdf">
+      <Link>Data\sla.pdf</Link>
+    </Content>
+    <Content Include="..\Data\techspecs.pdf">
+      <Link>Data\techspecs.pdf</Link>
+    </Content>
+    <Content Include="..\Data\valuableinformation.pdf">
+      <Link>Data\valuableinformation.pdf</Link>
+    </Content>
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-Portrait%402x.png" />

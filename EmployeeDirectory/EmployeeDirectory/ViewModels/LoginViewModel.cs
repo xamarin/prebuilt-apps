@@ -42,7 +42,6 @@ namespace EmployeeDirectory.ViewModels
 			return service
 				.LoginAsync (Username, Password, cancellationToken)
 				.ContinueWith (t => {
-                                    Thread.Sleep (2000);
 					IsBusy = false;
 					if (t.IsFaulted) throw new AggregateException (t.Exception);					
 				}, cancellationToken, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext ());
