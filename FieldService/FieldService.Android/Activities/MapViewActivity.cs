@@ -205,6 +205,12 @@ namespace FieldService.Android {
             } else {
                 SetAssignment (false);
             }
+
+            var dialog = new AlertDialog.Builder (this)
+                .SetTitle ("Google Maps")
+                .SetMessage (Resources.GetString (Resource.String.GoogleMapsKeyIssue))
+                .SetPositiveButton ("Ok", (sender, e) => { })
+                .Show ();
         }
 
         /// <summary>

@@ -89,6 +89,12 @@ namespace FieldService.Android {
                 MapOverlayItem overlay = new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), overlayItem, mapView, true);
                 mapView.Overlays.Add (overlay);
             }
+
+            var dialog = new AlertDialog.Builder (this)
+                .SetTitle ("Google Maps")
+                .SetMessage (Resources.GetString (Resource.String.GoogleMapsKeyIssue))
+                .SetPositiveButton ("Ok", (sender, e) => { })
+                .Show ();
         }
 
         /// <summary>

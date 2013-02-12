@@ -985,6 +985,9 @@ namespace FieldService.Android
 			// aapt resource value: 0x7f050021
 			public const int GoogleMapsAPIKey = 2131034145;
 			
+			// aapt resource value: 0x7f050029
+			public const int GoogleMapsKeyIssue = 2131034153;
+			
 			// aapt resource value: 0x7f050000
 			public const int Hello = 2131034112;
 			
