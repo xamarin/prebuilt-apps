@@ -46,7 +46,10 @@ namespace EmployeeDirectory
 
 		public Task LoginAsync (string username, string password, CancellationToken cancellationToken)
 		{
-			return Task.Factory.StartNew (() => { });
+			return Task.Factory.StartNew (() => { 
+				//Just for testing
+				Thread.Sleep (2000);
+			});
 		}
 
 		public Task<IList<Person>> SearchAsync (Filter filter, int sizeLimit, CancellationToken cancellationToken)

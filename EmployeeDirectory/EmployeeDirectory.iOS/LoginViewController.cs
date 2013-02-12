@@ -122,10 +122,10 @@ namespace EmployeeDirectory.iOS
 				HidesWhenStopped = true,
 				Hidden = true,
 			};
-			var f = indicator.Frame;
-			f.X = login.Frame.X - indicator.Frame.Width - 8;
-			f.Y = login.Frame.Y;
-			indicator.Frame = f;
+			frame = indicator.Frame;
+			frame.X = login.Frame.X - indicator.Frame.Width - 8;
+			frame.Y = login.Frame.Y + 6;
+			indicator.Frame = frame;
 			View.AddSubview (indicator);
 		}
 
