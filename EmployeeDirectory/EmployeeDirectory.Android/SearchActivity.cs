@@ -14,26 +14,19 @@
 //    limitations under the License.
 //
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-
 using Android.App;
 using Android.Content;
 using Android.OS;
-using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-
-using EmployeeDirectory.ViewModels;
 using EmployeeDirectory.Data;
-using Java.Lang;
+using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.Android {
     [Activity (Label = "Search")]
     [IntentFilter (new [] { "android.intent.action.SEARCH" })]
     [MetaData ("android.app.searchable", Resource = "@xml/searchable")]
-    public class SearchActivity : ListActivity {
+    public class SearchActivity : BaseActivity {
         SearchViewModel searchViewModel;
         ProgressBar progressBar;
         TextView searchingText;

@@ -209,5 +209,11 @@
     <BundleResource Include="Resources\Placeholder%402x.jpg" />
     <BundleResource Include="Resources\questionmark.png" />
     <BundleResource Include="Resources\questionmark%402x.png" />
+    <BundleResource Include="Resources\29.png" />
+    <BundleResource Include="Resources\50.png" />
+    <BundleResource Include="Resources\57.png" />
+    <BundleResource Include="Resources\58.png" />
+    <BundleResource Include="Resources\72.png" />
+    <BundleResource Include="Resources\114.png" />
   </ItemGroup>
 </Project>

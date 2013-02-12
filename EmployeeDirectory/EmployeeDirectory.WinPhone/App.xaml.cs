@@ -58,8 +58,9 @@ namespace EmployeeDirectory.WinPhone {
         /// <returns>The root frame of the Phone Application.</returns>
         public PhoneApplicationFrame RootFrame { get; private set; }
 
-        public LoginViewModel LoginViewModel { get; set; }
-
+        /// <summary>
+        /// last time the device was used.
+        /// </summary>
         private DateTime lastUseTime;
 
         /// <summary>

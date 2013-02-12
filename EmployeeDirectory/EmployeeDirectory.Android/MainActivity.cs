@@ -13,23 +13,18 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 //
-using System;
-using System.Collections.Generic;
 
 using Android.App;
 using Android.Content;
-using Android.Runtime;
+using Android.OS;
 using Android.Views;
 using Android.Widget;
-using Android.OS;
 using EmployeeDirectory.ViewModels;
-using EmployeeDirectory.Data;
-using System.IO;
 
 namespace EmployeeDirectory.Android {
     [Activity (Label = "@string/app_name")]
     [MetaData ("android.app.default_searchable", Value = "employeedirectory.android.SearchActivity")]
-    public class MainActivity : ListActivity {
+    public class MainActivity : BaseActivity {
 
         FavoritesViewModel viewModel;
 
