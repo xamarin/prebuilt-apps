@@ -20,7 +20,7 @@ using Android.Runtime;
 using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory.Android {
-    [Application (Label = "Employees", Theme = "@style/CustomHoloTheme")]
+    [Application (Label = "Employees", Theme = "@style/CustomHoloTheme", Icon="@drawable/Icon")]
     public class Application : global::Android.App.Application {
         private static IFavoritesRepository repo;
 

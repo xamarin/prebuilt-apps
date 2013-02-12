@@ -20,7 +20,7 @@ using Android.Content;
 using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.Android {
-    public class BaseActivity : ListActivity {
+    public class BaseListActivity : ListActivity {
 
         protected override void OnPause ()
         {

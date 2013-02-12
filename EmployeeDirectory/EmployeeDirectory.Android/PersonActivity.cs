@@ -25,7 +25,7 @@ using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.Android {
     [Activity (Label = "Person")]
-    public class PersonActivity : BaseActivity {
+    public class PersonActivity : BaseListActivity {
         PersonViewModel viewModel;
 
         IMenuItem favoriteItem;
