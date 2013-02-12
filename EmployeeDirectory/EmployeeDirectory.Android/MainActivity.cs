@@ -24,7 +24,7 @@ using EmployeeDirectory.ViewModels;
 namespace EmployeeDirectory.Android {
     [Activity (Label = "@string/app_name")]
     [MetaData ("android.app.default_searchable", Value = "employeedirectory.android.SearchActivity")]
-    public class MainActivity : BaseActivity {
+    public class MainActivity : BaseListActivity {
 
         FavoritesViewModel viewModel;
 

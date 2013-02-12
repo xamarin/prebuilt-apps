@@ -26,7 +26,7 @@ namespace EmployeeDirectory.Android {
     [Activity (Label = "Search")]
     [IntentFilter (new [] { "android.intent.action.SEARCH" })]
     [MetaData ("android.app.searchable", Resource = "@xml/searchable")]
-    public class SearchActivity : BaseActivity {
+    public class SearchActivity : BaseListActivity {
         SearchViewModel searchViewModel;
         ProgressBar progressBar;
         TextView searchingText;

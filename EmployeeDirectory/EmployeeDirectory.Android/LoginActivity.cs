@@ -24,7 +24,7 @@ using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.Android {
     [Activity (Label = "@string/app_name", LaunchMode = LaunchMode.SingleTop, MainLauncher = true)]
-    public class LoginActivity : BaseActivity, TextView.IOnEditorActionListener {
+    public class LoginActivity : Activity, TextView.IOnEditorActionListener {
         private readonly LoginViewModel loginViewModel;
         EditText password, userName;
         Button login;
@@ -96,6 +96,7 @@ namespace EmployeeDirectory.Android {
                 loginViewModel
                     .LoginAsync (System.Threading.CancellationToken.None)
                     .ContinueWith (_ => {
+                        Android.Application.LastUseTime = System.DateTime.UtcNow;
                         RunOnUiThread (() => {
                             StartActivity (typeof (MainActivity));
                         });
@@ -113,7 +114,7 @@ namespace EmployeeDirectory.Android {
             login.Visibility = ViewStates.Visible;
             progressIndicator.Visibility = ViewStates.Invisible;
         }
-
+        
         /// <summary>
         /// Observes the TextView's ImeAction so an action can be taken on keypress.
         /// </summary>
