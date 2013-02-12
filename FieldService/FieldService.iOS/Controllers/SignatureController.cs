@@ -16,7 +16,7 @@ using System;
 using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
-using SignaturePad;
+using Signature.iPhone;
 using FieldService.Data;
 using FieldService.ViewModels;
 using FieldService.Utilities;
@@ -58,7 +58,7 @@ namespace FieldService.iOS
 		{
 			readonly SignatureController controller;
 			readonly AssignmentViewModel assignmentViewModel;
-			SignaturePadView signatureView;
+			SignatureView signatureView;
 			UIBarButtonItem cancel;
 			UIBarButtonItem save;
 
@@ -106,7 +106,7 @@ namespace FieldService.iOS
 				NavigationItem.RightBarButtonItem = save;
 				NavigationController.NavigationBar.SetBackgroundImage (null, UIBarMetrics.Default);
 
-				signatureView = new SignaturePadView(View.Frame)
+				signatureView = new SignatureView(View.Frame)
 				{
 					AutoresizingMask = UIViewAutoresizing.All,
 				};
