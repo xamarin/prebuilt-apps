@@ -28,7 +28,7 @@ namespace FieldService.WinRT.Utilities {
         /// A working key for Bing Maps
         /// NOTE: Change this key to a valid one http://msdn.microsoft.com/en-us/library/ff428642.aspx
         /// </summary>
-        public const string BingMapsKey = "AiA4VR_FDabthunLTLiUn6GpBU-CSBZMhtcR_tRDQ5G1YU_v1IUOv82eQHU6Zi1Q";
+        public const string BingMapsKey = "AkYxOiGClaK4Y1LhPhtgFD173aE7EJj3eF1nDtOnAvGBpgM3bE9ZHHUAk3JlZmj9";
 
         /// <summary>
         /// Width for the flyoutpanels
