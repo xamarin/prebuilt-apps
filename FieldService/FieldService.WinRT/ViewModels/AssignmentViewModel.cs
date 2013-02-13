@@ -27,7 +27,7 @@ namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
         readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
             addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand, goBackHistoryCommand, completeCommand;
-        Assignment assignment, previousAssignment;
+        Assignment previousAssignment;
         Popup addSignaturePopup;
 
         public AssignmentViewModel ()
