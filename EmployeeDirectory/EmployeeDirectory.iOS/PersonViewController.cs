@@ -65,13 +65,14 @@ namespace EmployeeDirectory.iOS
 
 		void OnEmailSelected (string emailAddress)
 		{
-			if (MFMessageComposeViewController.CanSendText) {
-				var composer = new MFMessageComposeViewController () {
-					Recipients = new[] { emailAddress },
-				};
+			if (MFMailComposeViewController.CanSendMail) {
+                var composer = new MFMailComposeViewController ();
+                composer.SetToRecipients(new string[] { emailAddress });
 				composer.Finished += (sender, e) => DismissViewController (true, null);
 				PresentViewController (composer, true, null);
-			}
+			} else {
+                new UIAlertView("Oops", "Email is not available", null, "Ok").Show();
+            }
 		}
 
 		void OnTwitterSelected (string twitterName)
