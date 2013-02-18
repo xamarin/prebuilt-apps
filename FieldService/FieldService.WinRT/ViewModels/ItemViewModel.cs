@@ -51,7 +51,7 @@ namespace FieldService.WinRT.ViewModels {
                 await LoadItemsAsync ();
                 var items = new List<Item> ();
                 foreach (var item in Items) {
-                    if (item.Name.ToLower ().StartsWith (SearchText.ToLower ()) || item.Number.ToLower ().StartsWith (SearchText.ToLower ())) {
+                    if (item.Name.ToLower ().Contains (SearchText.ToLower ()) || item.Number.ToLower ().Contains (SearchText.ToLower ())) {
                         items.Add (item);
                     }
                 }
