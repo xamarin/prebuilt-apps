@@ -172,7 +172,7 @@ namespace FieldService.iOS
 					string text = c.Text.Replace ("$", string.Empty);
 					decimal value;
 					if (decimal.TryParse (text, out value)) {
-						expenseViewModel.SelectedExpense.Cost = value;
+						expenseViewModel.SelectedExpense.Cost = Math.Abs (value);
 					} else {
 						expenseViewModel.SelectedExpense.Cost = 0;
 					}

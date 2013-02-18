@@ -95,30 +95,47 @@ namespace FieldService.iOS
 		public void ReloadItems ()
 		{
 			if (IsViewLoaded) {
-				var assignment = assignmentViewModel.SelectedAssignment;
-				if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
-					toolbar.Items = new UIBarButtonItem[] { titleButton };
-				} else {
-					toolbar.Items = new UIBarButtonItem[] {
-						titleButton,
-						space,
-						edit,
-						addItem
-					};
-				}
-				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				UpdateToolbar ();
 
-				itemViewModel.LoadAssignmentItemsAsync (assignment)
+				itemViewModel.LoadAssignmentItemsAsync (assignmentViewModel.SelectedAssignment)
 					.ContinueWith (_ => {
 						BeginInvokeOnMainThread (() => {
-							if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
-								title.Text = "Items";
-							else
-								title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
+							UpdateToolbar ();
 							tableView.ReloadData ();
 						});
 					});
 			}
+		}
+
+		/// <summary>
+		/// Refreshes toolbar items and updates text
+		/// </summary>
+		private void UpdateToolbar()
+		{
+			var assignment = assignmentViewModel.SelectedAssignment;
+			if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
+				toolbar.Items = new UIBarButtonItem[] { titleButton };
+			} else if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) {
+				toolbar.Items = new UIBarButtonItem[] {
+					titleButton,
+					space,
+					addItem
+				};
+			} else {
+				toolbar.Items = new UIBarButtonItem[] {
+					titleButton,
+					space,
+					edit,
+					addItem
+				};
+			}
+			toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+
+			//Update text
+			if (itemViewModel.AssignmentItems == null || itemViewModel.AssignmentItems.Count == 0) 
+				title.Text = "Items";
+			else
+				title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
 		}
 
 		private void OnAddItem(object sender, EventArgs e)

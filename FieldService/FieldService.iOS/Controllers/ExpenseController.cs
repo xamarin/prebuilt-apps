@@ -95,30 +95,41 @@ namespace FieldService.iOS
 		public void ReloadExpenses ()
 		{
 			if (IsViewLoaded) {
-				var assignment = assignmentViewModel.SelectedAssignment;
-				if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
-					toolbar.Items = new UIBarButtonItem[] { titleButton };
-				} else {
-					toolbar.Items = new UIBarButtonItem[] {
-						titleButton,
-						space,
-						edit,
-						addItem
-					};
-				}
-				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				UpdateToolbar ();
 
-				expenseViewModel.LoadExpensesAsync (assignment)
+				expenseViewModel.LoadExpensesAsync (assignmentViewModel.SelectedAssignment)
 					.ContinueWith (_ => {
 						BeginInvokeOnMainThread (() => {
-							if (expenseViewModel.Expenses == null || expenseViewModel.Expenses.Count == 0) 
-								title.Text = "Expenses";
-							else
-								title.Text = string.Format ("Expenses (${0:0.00})", expenseViewModel.Expenses.Sum (e => e.Cost));
+							UpdateToolbar ();
 							tableView.ReloadData ();
 						});
 					});
 			}
+		}
+
+		/// <summary>
+		/// Refreshes toolbar items and updates text
+		/// </summary>
+		private void UpdateToolbar()
+		{
+			var assignment = assignmentViewModel.SelectedAssignment;
+			if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
+				toolbar.Items = new UIBarButtonItem[] { titleButton };
+			} else {
+				toolbar.Items = new UIBarButtonItem[] {
+					titleButton,
+					space,
+					edit,
+					addItem
+				};
+			}
+			toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+
+			//Update text
+			if (expenseViewModel.Expenses == null || expenseViewModel.Expenses.Count == 0) 
+				title.Text = "Expenses";
+			else
+				title.Text = string.Format ("Expenses (${0:0.00})", expenseViewModel.Expenses.Sum (e => e.Cost));
 		}
 
 		private void OnAddExpense (object sender, EventArgs e)

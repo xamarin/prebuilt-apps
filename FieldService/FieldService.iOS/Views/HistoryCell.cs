@@ -48,6 +48,7 @@ namespace FieldService.iOS
 				phone.IconImage = Theme.IconPhone;
 				phoneIcon.Image = Theme.IconPhoneDark;
 				address.IconImage = Theme.Map;	
+				address.UserInteractionEnabled = false;
 
 				loaded = true;
 			}

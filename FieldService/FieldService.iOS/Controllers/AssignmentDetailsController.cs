@@ -33,6 +33,12 @@ namespace FieldService.iOS
 		/// </summary>
 		public event EventHandler StatusChanged;
 
+		/// <summary>
+		/// Occurs when status changes to completed
+		/// </summary>
+		public event EventHandler Completed;
+
+		readonly MenuViewModel menuViewModel;
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly Lazy<UIViewController> mapController, itemsController,	laborController, expenseController, documentController, confirmationController,	historyController;
 		UIViewController lastChildController;
@@ -40,6 +46,7 @@ namespace FieldService.iOS
 
 		public AssignmentDetailsController (IntPtr handle) : base (handle)
 		{
+			menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
 			mapController = new Lazy<UIViewController>(() => new MapController());
@@ -70,6 +77,16 @@ namespace FieldService.iOS
 
 			//Events
 			status.StatusChanged += (sender, e) => SaveAssignment ();
+
+			status.Completed += (sender, e) => 
+			{
+				menuViewModel.MenuIndex = SectionIndex.Confirmations;
+				assignmentViewModel.SelectedAssignment = status.Assignment;
+
+				var method = Completed;
+				if (method != null)
+					Completed(this, EventArgs.Empty);
+			};
 
 			//Child controller
 			lastChildController =
