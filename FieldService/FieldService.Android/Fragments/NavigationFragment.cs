@@ -87,7 +87,6 @@ namespace FieldService.Android.Fragments {
                 navigationStatus.ItemSelected += (sender, e) => {
                     var status = assignmentViewModel.AvailableStatuses [e.Position];
                     if (Assignment != null && Assignment.Status != status && Assignment.Status != AssignmentStatus.New) {
-                        Assignment.Status = status;
                         switch (status) {
                             case AssignmentStatus.Complete:
                                 //go to confirmations screen
@@ -96,8 +95,10 @@ namespace FieldService.Android.Fragments {
                                 if (currentPosition != confirmationPosition) {
                                     navigationSelector.OnItemClick (navigationListView, navigationListView.GetChildAt (confirmationPosition), confirmationPosition, 0);
                                 }
+                                navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (Assignment.Status));
                                 break;
                             default:
+                                Assignment.Status = status;
                                 SaveAssignment ();
                                 break;
                         }
@@ -137,6 +138,7 @@ namespace FieldService.Android.Fragments {
                 if (Assignment.IsHistory) {
                     navigationStatusImage.SetImageResource (Resource.Drawable.EnrouteImage);
                     navigationStatus.SetSelection (assignmentViewModel.AvailableStatuses.ToList ().IndexOf (AssignmentStatus.Complete));
+                    navigationStatus.Enabled =false;
                     timerLayout.Visibility = ViewStates.Gone;
                 } else {
                     switch (Assignment.Status) {

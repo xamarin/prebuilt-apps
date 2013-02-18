@@ -43,6 +43,7 @@ namespace FieldService.Android.Fragments {
             var view = inflater.Inflate (Resource.Layout.ItemsFragmentLayout, null, true);
             itemsListView = view.FindViewById<ListView> (Resource.Id.itemsListViewFragment);
             ReloadAssignmentItems ();
+            itemsListView.Enabled = !Assignment.IsHistory;
             return view;
         }
 

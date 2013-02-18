@@ -132,7 +132,7 @@ namespace FieldService.Android.Fragments {
 
             var completeSignature = view.FindViewById<Button> (Resource.Id.confirmationsComplete);
             if (Assignment != null) {
-                completeSignature.Enabled = !Assignment.IsHistory;
+                completeSignature.Enabled = Assignment.CanComplete;
             }
             completeSignature.Click += (sender, e) => {
                 if (assignmentViewModel.Signature == null) {

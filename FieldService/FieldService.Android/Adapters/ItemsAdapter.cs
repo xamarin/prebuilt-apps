@@ -74,7 +74,7 @@ namespace FieldService.Android {
             name.Text = string.Format ("#{0} {1}", item.Number, item.Name);
             trashButton.Tag = position;
             trashButton.Focusable = Fragment.Assignment.IsHistory;
-            trashButton.Enabled = !Fragment.Assignment.IsHistory;
+            trashButton.Visibility = Fragment.Assignment.IsHistory ? ViewStates.Invisible : ViewStates.Visible;
 
             return view;
         }

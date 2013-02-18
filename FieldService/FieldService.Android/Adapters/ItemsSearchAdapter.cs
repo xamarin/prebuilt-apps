@@ -70,7 +70,7 @@ namespace FieldService.Android {
             var filtered = new List<Item> ();
 
             foreach (var item in non_filtered) {
-                if (item.Name.ToLower().StartsWith (filter) || item.Number.ToLower().StartsWith (filter)) {
+                if (item.Name.ToLower().Contains (filter) || item.Number.ToLower().Contains (filter)) {
                     filtered.Add (item);
                 }
             }
