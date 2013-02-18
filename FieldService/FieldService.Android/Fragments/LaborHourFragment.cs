@@ -78,6 +78,7 @@ namespace FieldService.Android.Fragments {
         {
             if (LaborHours != null) {
                 var adapter = new LaborHoursAdapter (Activity, Resource.Layout.LaborHoursListItemLayout, LaborHours);
+                adapter.Fragment = this;
                 adapter.Assignment = Assignment;
                 laborListView.Adapter = adapter;
             }
