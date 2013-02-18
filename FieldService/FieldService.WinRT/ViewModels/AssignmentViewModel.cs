@@ -25,7 +25,7 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
-        readonly DelegateCommand recordCommand, mapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
+        readonly DelegateCommand recordCommand, mapsCommand, assignmentMapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
             addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand, goBackHistoryCommand, completeCommand;
         Assignment previousAssignment;
         Popup addSignaturePopup;
@@ -40,6 +40,8 @@ namespace FieldService.WinRT.ViewModels {
             }, _ => !IsBusy);
 
             mapsCommand = new DelegateCommand (_ => Helpers.NavigateTo<MapPage> ());
+
+            assignmentMapsCommand = new DelegateCommand (_ => Helpers.NavigateTo<AssignmentMapPage> ());
 
             goBackCommand = new DelegateCommand (_ => {
                 if (addSignaturePopup != null && addSignaturePopup.IsOpen) {
@@ -160,6 +162,14 @@ namespace FieldService.WinRT.ViewModels {
         public DelegateCommand MapsCommand
         {
             get { return mapsCommand; }
+        }
+
+        /// <summary>
+        /// Command for navigating to the maps page for a specific assignment
+        /// </summary>
+        public DelegateCommand AssignmentMapsCommand
+        {
+            get { return assignmentMapsCommand; }
         }
 
         /// <summary>

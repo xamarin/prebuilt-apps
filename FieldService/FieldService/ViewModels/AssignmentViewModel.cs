@@ -241,6 +241,7 @@ namespace FieldService.ViewModels {
                 assignment.Status != AssignmentStatus.Active &&
                 Recording) {
                 task = task.ContinueWith (PauseAsync ());
+                Hours = TimeSpan.Zero;
             }
 
             //Set the active assignment

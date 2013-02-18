@@ -90,8 +90,8 @@
                         <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" BorderThickness="3" Width="30" Height="30" />
 
                         <ComboBox 
-                        x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" SelectionChanged="Status_SelectionChanged"
-                        ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding ActiveAssignment.Status, Mode=OneWay}" />
+                            x:Name="status" Grid.Row="6" Grid.Column="1" Width="170" Height="30" Margin="0,10,10,10" SelectionChanged="Status_SelectionChanged"
+                            ItemsSource="{Binding AvailableStatuses}" SelectedItem="{Binding ActiveAssignment.Status, Mode=OneWay}" />
 
                     </Grid>
 

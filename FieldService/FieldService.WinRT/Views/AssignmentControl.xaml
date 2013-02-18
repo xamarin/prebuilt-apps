@@ -68,7 +68,7 @@
             </Border>
 
             <Button Grid.Row="5" Grid.Column="1" Margin="10" FontWeight="Light" Style="{StaticResource TextButtonStyle}" 
-                    Content="{Binding SelectedAssignment.AddressFormatted}" IsEnabled="{Binding IsNotReadonly}"/>
+                    Content="{Binding SelectedAssignment.AddressFormatted}" IsEnabled="{Binding IsNotReadonly}" Command="{Binding AssignmentMapsCommand}"/>
 
             <Border Grid.Row="6" BorderBrush="{Binding SelectedItem, ElementName=status, Converter={StaticResource StatusConverter}}" 
                     BorderThickness="3" Width="30" Height="30" Visibility="{Binding IsNotNew, Converter={StaticResource BooleanConverter}}"/>
