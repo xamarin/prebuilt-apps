@@ -181,7 +181,7 @@ namespace FieldService.iOS
 			private bool Filter(Item item)
 			{
 				return !string.IsNullOrEmpty (SearchText) && 
-					(item.Name.ToLower ().StartsWith (SearchText) || item.Number.ToLower().StartsWith(SearchText));
+					(item.Name.ToLower ().Contains (SearchText) || item.Number.ToLower().Contains (SearchText));
 			}
 		}
 	}
