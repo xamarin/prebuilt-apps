@@ -416,6 +416,7 @@ namespace FieldService.WinRT.ViewModels {
             base.OnHoursChanged ();
 
             OnPropertyChanged ("HoursFormatted");
+            OnPropertyChanged ("TotalAccumulated");
         }
     }
 }

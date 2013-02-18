@@ -230,6 +230,14 @@ namespace FieldService.Data {
 	    get { return Status == AssignmentStatus.Complete || IsHistory; }
 	}
 
+        /// <summary>
+        /// If true, it's ok to complete this assignment
+        /// </summary>
+        public bool CanComplete
+        {
+            get { return Status != AssignmentStatus.New && !IsReadonly; }
+        }
+
         #endregion
     }
 }

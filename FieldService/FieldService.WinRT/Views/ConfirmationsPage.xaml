@@ -86,7 +86,7 @@
                         </ListViewItem>
 
                         <!--Mark Complete section-->
-                        <ListViewItem  Margin="5" Grid.Row="1">
+                        <ListViewItem  Margin="5" Grid.Row="1" IsEnabled="{Binding SelectedAssignment.CanComplete}">
                             <Border x:Name="markComplete" Width="340" Height="162" BorderThickness="0" Background="{Binding IsCompleteColor}">
                                 <Grid >
                                     <Grid.RowDefinitions>
@@ -98,7 +98,7 @@
                                         <ColumnDefinition Width="*" />
                                     </Grid.ColumnDefinitions>
 
-                                    <Image Source="{StaticResource CompleteIcon}" Stretch="None" HorizontalAlignment="Right" Margin="30,0,0,0" Visibility="{Binding IsComplete, Converter={StaticResource BooleanConverter}}"/>
+                                    <Image Source="{StaticResource CompleteIcon}" Stretch="None" HorizontalAlignment="Right" Margin="30,0,0,0" />
 
                                     <TextBlock Margin="20,5,0,0" Grid.Column="1" VerticalAlignment="Center" Text="{Binding IsCompleteText}" x:Name="markCompleteText"
                                                Style="{StaticResource SubheaderTextStyle}" FontWeight="Medium" HorizontalAlignment="Left" />
