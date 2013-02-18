@@ -34,7 +34,9 @@ namespace EmployeeDirectory.WinPhone {
         {
             InitializeComponent ();
 
-            DataContext = new SearchViewModel (App.Current.DirectoryService, App.Current.SavedSearch);
+            DataContext = new SearchViewModel (App.Current.DirectoryService, App.Current.SavedSearch) {
+                SearchProperty = SearchProperty.All,
+            };
 
             Loaded += HandleLoaded;
         }
