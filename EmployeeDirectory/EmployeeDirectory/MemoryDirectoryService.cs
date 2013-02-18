@@ -89,7 +89,7 @@ namespace EmployeeDirectory
 			}
 			else if (filter is ContainsFilter) {
 				var f = (ContainsFilter)filter;
-				var re = new Regex (f.Value, RegexOptions.IgnoreCase);
+				var re = new Regex (Regex.Escape(f.Value).Replace("\\ ", "|"), RegexOptions.IgnoreCase);
 				var prop = properties[f.PropertyName];
 				var q = from p in people
 						let v = prop.GetValue (p, null)
