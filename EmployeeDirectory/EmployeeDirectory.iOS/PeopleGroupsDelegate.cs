@@ -42,6 +42,12 @@ namespace EmployeeDirectory.iOS
 					ev (this, new PersonSelectedEventArgs { Person = person });
 				}
 			}
+
+            //Deselect, we use BeginInvoke, otherwise it doesn't deselect properly
+            BeginInvokeOnMainThread(() => {
+                var cell = tableView.CellAt(indexPath);
+                cell.SetSelected(false, true);
+            });
 		}
 
 		[Export ("scrollViewDidEndDragging:willDecelerate:")]

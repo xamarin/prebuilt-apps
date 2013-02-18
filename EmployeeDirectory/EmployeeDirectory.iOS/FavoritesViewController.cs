@@ -89,8 +89,6 @@ namespace EmployeeDirectory.iOS
 
 		void HandleSearchPersonSelected (object sender, PersonSelectedEventArgs e)
 		{
-			searchController.SetActive (false, true);
-
 			var personViewController = new PersonViewController (e.Person, favoritesRepository);
 
 			personViewController.NavigationItem.RightBarButtonItem =
