@@ -59,8 +59,12 @@ namespace EmployeeDirectory.iOS
 
 		void OnPhoneSelected (string phoneNumber)
 		{
-			UIApplication.SharedApplication.OpenUrl (
-				NSUrl.FromString ("tel:" + Uri.EscapeDataString (phoneNumber)));
+            var url = NSUrl.FromString("tel:" + Uri.EscapeDataString(phoneNumber));
+
+            if (UIApplication.SharedApplication.CanOpenUrl(url))
+                UIApplication.SharedApplication.OpenUrl(url);
+            else
+                new UIAlertView("Oops", "Phone is not available", null, "Ok").Show();
 		}
 
 		void OnEmailSelected (string emailAddress)
