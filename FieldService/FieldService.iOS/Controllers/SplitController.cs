@@ -58,6 +58,12 @@ namespace FieldService.iOS
 			detailsController.StatusChanged += (sender, e) => {
 				menuController.UpdateAssignment ();
 			};
+			detailsController.Completed += (sender, e) => {
+				//Only perform the Seque if the screen is not already visible
+				if (!detailsController.IsViewLoaded || detailsController.View.Window == null) {
+					PerformSegue ("AssignmentDetails", this);
+				}
+			};
 			menuController.MenuChanged += (sender, e) => {
 				detailsController.SectionSelected (e.TableView, e.IndexPath, e.Animated);
 			};

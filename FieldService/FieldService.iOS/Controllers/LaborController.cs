@@ -95,30 +95,47 @@ namespace FieldService.iOS
 		public void ReloadLabor ()
 		{
 			if (IsViewLoaded) {
-				var assignment = assignmentViewModel.SelectedAssignment;
-				if (assignment.IsReadonly) {
-					toolbar.Items = new UIBarButtonItem[] { titleButton };
-				} else {
-					toolbar.Items = new UIBarButtonItem[] {
-						titleButton,
-						space,
-						edit,
-						addItem
-					};
-				}
-				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+				UpdateToolbar ();
 
-				laborViewModel.LoadLaborHoursAsync (assignment)
+				laborViewModel.LoadLaborHoursAsync (assignmentViewModel.SelectedAssignment)
 					.ContinueWith (_ => {
 						BeginInvokeOnMainThread (() => {
-							if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
-								title.Text = "Labor Hours";
-							else
-								title.Text = string.Format ("Labor Hours ({0:0.0})", laborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
+							UpdateToolbar ();
 							tableView.ReloadData ();
 						});
 					});
 			}
+		}
+
+		/// <summary>
+		/// Refreshes toolbar items and updates text
+		/// </summary>
+		private void UpdateToolbar()
+		{
+			var assignment = assignmentViewModel.SelectedAssignment;
+			if (assignment.IsReadonly) {
+				toolbar.Items = new UIBarButtonItem[] { titleButton };
+			} else if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) {
+				toolbar.Items = new UIBarButtonItem[] {
+					titleButton,
+					space,
+					addItem
+				};
+			} else {
+				toolbar.Items = new UIBarButtonItem[] {
+					titleButton,
+					space,
+					edit,
+					addItem
+				};
+			}
+			toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+
+			//Update text
+			if (laborViewModel.LaborHours == null || laborViewModel.LaborHours.Count == 0) 
+				title.Text = "Labor Hours";
+			else
+				title.Text = string.Format ("Labor Hours ({0:0.0})", laborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
 		}
 
 		private void OnAddLabor(object sender, EventArgs e)
