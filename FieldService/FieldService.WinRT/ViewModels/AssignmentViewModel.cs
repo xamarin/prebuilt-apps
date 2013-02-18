@@ -85,7 +85,7 @@ namespace FieldService.WinRT.ViewModels {
                 }
                 await SaveAssignmentAsync (SelectedAssignment);
 
-                //Do this to reload the screen
+                //Reload the entire page
                 Helpers.GoBack();
                 Helpers.NavigateTo<AssignmentPage>();
             });
@@ -109,14 +109,10 @@ namespace FieldService.WinRT.ViewModels {
             completeCommand = new DelegateCommand (async _ => {
                 SelectedAssignment.Status = AssignmentStatus.Complete;
                 await SaveAssignmentAsync (SelectedAssignment);
-                OnPropertyChanged ("SelectedAssignment");
-                OnPropertyChanged ("IsCompleteColor");
-                OnPropertyChanged ("IsCompleteBottomColor");
-                OnPropertyChanged ("IsReadonly");
-                OnPropertyChanged ("IsNotReadonly");
-                OnPropertyChanged ("IsTimerVisible");
-                OnPropertyChanged ("IsComplete");
-                OnPropertyChanged ("IsCompleteText");
+
+                //Reload the entire page
+                Helpers.GoBack ();
+                Helpers.NavigateTo<ConfirmationsPage> ();
             });
         }
 

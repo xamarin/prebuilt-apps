@@ -53,6 +53,8 @@ namespace FieldService.WinRT.Views {
                         await assignmentViewModel.LoadAssignmentsAsync ();
                         break;
                     case AssignmentStatus.Complete:
+                        //Set back to old status and navigate
+                        assignmentViewModel.SelectedAssignment.Status = (AssignmentStatus)e.RemovedItems.First ();
                         Helpers.NavigateTo<ConfirmationsPage> ();
                         break;
                     default:
