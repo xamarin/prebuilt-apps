@@ -18,39 +18,37 @@ using Android.Content;
 using Android.Util;
 using Android.Widget;
 
-namespace EmployeeDirectory.Android
-{
-	public class PeopleGroupsListView : ListView
-	{
-		public ScrollState ScrollState { get; private set; }
+namespace EmployeeDirectory.Android {
+    public class PeopleGroupsListView : ListView {
+        public ScrollState ScrollState { get; private set; }
 
-		public PeopleGroupsListView (Context context, IAttributeSet attrs) :
-			base (context, attrs)
-		{
-			Initialize ();
-		}
+        public PeopleGroupsListView (Context context, IAttributeSet attrs) :
+            base (context, attrs)
+        {
+            Initialize ();
+        }
 
-		public PeopleGroupsListView (Context context, IAttributeSet attrs, int defStyle) :
-			base (context, attrs, defStyle)
-		{
-			Initialize ();
-		}
+        public PeopleGroupsListView (Context context, IAttributeSet attrs, int defStyle) :
+            base (context, attrs, defStyle)
+        {
+            Initialize ();
+        }
 
-		void Initialize ()
-		{
-			ScrollState = ScrollState.Idle;
-			ScrollStateChanged += HandleScrollStateChanged;
+        void Initialize ()
+        {
+            ScrollState = ScrollState.Idle;
+            ScrollStateChanged += HandleScrollStateChanged;
             FastScrollEnabled = true;
-		}
+        }
 
-		void HandleScrollStateChanged (object sender, ScrollStateChangedEventArgs e)
-		{
-			ScrollState = e.ScrollState;
+        void HandleScrollStateChanged (object sender, ScrollStateChangedEventArgs e)
+        {
+            ScrollState = e.ScrollState;
 
-			if (e.ScrollState == ScrollState.Idle) {
-				((PeopleGroupsAdapter)Adapter).LoadImagesForOnscreenRows (this);
-			}
-		}
-	}
+            if (e.ScrollState == ScrollState.Idle) {
+                ((PeopleGroupsAdapter)Adapter).LoadImagesForOnscreenRows (this);
+            }
+        }
+    }
 }
 
