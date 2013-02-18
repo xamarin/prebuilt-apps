@@ -260,6 +260,14 @@ namespace EmployeeDirectory.Android {
             {
             }
 
+            protected override int LayoutId
+            {
+                get
+                {
+                    return Resource.Layout.TwitterPropertyListItem;
+                }
+            }
+
             protected override Uri Url
             {
                 get

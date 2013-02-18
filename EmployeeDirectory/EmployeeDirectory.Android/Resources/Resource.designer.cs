@@ -112,7 +112,10 @@ namespace EmployeeDirectory.Android
 			public const int questionmark = 2130837521;
 			
 			// aapt resource value: 0x7f020012
-			public const int XamarinTitle = 2130837522;
+			public const int twitter = 2130837522;
+			
+			// aapt resource value: 0x7f020013
+			public const int XamarinTitle = 2130837523;
 			
 			private Drawable()
 			{
@@ -230,7 +233,10 @@ namespace EmployeeDirectory.Android
 			public const int SearchActivity = 2130903048;
 			
 			// aapt resource value: 0x7f030009
-			public const int UrlPropertyListItem = 2130903049;
+			public const int TwitterPropertyListItem = 2130903049;
+			
+			// aapt resource value: 0x7f03000a
+			public const int UrlPropertyListItem = 2130903050;
 			
 			private Layout()
 			{
