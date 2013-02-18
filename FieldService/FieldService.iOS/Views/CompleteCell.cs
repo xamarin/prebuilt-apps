@@ -49,7 +49,7 @@ namespace FieldService.iOS
 			this.assignment = assignment;
 			this.tableView = tableView;
 
-			completeButton.Enabled = assignment.Status != AssignmentStatus.Complete && !assignment.IsHistory;
+			completeButton.Enabled = assignment.CanComplete;
 			completeButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
 			completeButton.SetBackgroundImage (Theme.CompleteInactive, UIControlState.Disabled);
 			completeButton.SetTitleColor (UIColor.White, UIControlState.Normal);
