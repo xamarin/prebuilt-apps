@@ -70,7 +70,7 @@ namespace EmployeeDirectory.Android {
                 var query = intent.GetStringExtra (SearchManager.Query);
 
                 searchViewModel.SearchText = query;
-                searchViewModel.SearchProperty = SearchProperty.Name;
+                searchViewModel.SearchProperty = SearchProperty.All;
 
                 searchViewModel.Search ();
             }
