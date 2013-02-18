@@ -24,16 +24,19 @@ using Android.Widget;
 using EmployeeDirectory.Data;
 using EmployeeDirectory.Utilities;
 using EmployeeDirectory.ViewModels;
+using Android.Runtime;
 
 namespace EmployeeDirectory.Android
 {
-	public class PeopleGroupsAdapter : BaseAdapter
+	public class PeopleGroupsAdapter : BaseAdapter, ISectionIndexer
 	{
 		readonly ImageDownloader imageDownloader = new AndroidImageDownloader ();
 
 		ICollection<PeopleGroup> itemsSource = new ObservableCollection<PeopleGroup> ();
 
 		List<Java.Lang.Object> items = new List<Java.Lang.Object> ();
+        List<string> sections = new List<string>();
+        Dictionary<int, string> alphaIndexer = new Dictionary<int, string>();
 
 		public ICollection<PeopleGroup> ItemsSource
 		{
@@ -43,14 +46,17 @@ namespace EmployeeDirectory.Android
 			set {
 				if (itemsSource != value && value != null) {
 					itemsSource = value;
-
+                    int i =0;
 					items.Clear ();
 					foreach (var g in itemsSource) {
 						items.Add (new GroupHeaderItem (g));
+                        sections.Add(g.Title);
+                        alphaIndexer[i] = g.Title;
 						var lastPerson = g.People.LastOrDefault ();
 						foreach (var p in g.People) {
 							items.Add (new PersonItem (p, p == lastPerson));
 						}
+                        i++;
 					}
 
 					this.NotifyDataSetChanged ();
@@ -152,6 +158,25 @@ namespace EmployeeDirectory.Android
 			}
 		}
 
+        public int GetPositionForSection(int section)
+        {
+            var character = sections[section];
+            var position = alphaIndexer.FirstOrDefault(f => f.Value == character);
+            return position.Key;
+        }
+
+        public int GetSectionForPosition(int position)
+        {
+            return 1;
+        }
+
+        public Java.Lang.Object[] GetSections()
+        {
+            var intPtr = JNIEnv.NewArray(sections.ToArray());
+            var array = new JavaArray<Java.Lang.Object>(intPtr, JniHandleOwnership.TransferLocalRef);
+            return (Java.Lang.Object[])array;
+        }
+
 		#region Image Support
 
 		readonly Dictionary<string, Bitmap> images = new Dictionary<string, Bitmap> ();
@@ -248,6 +273,6 @@ namespace EmployeeDirectory.Android
 				return Person.SafeDisplayName;
 			}
 		}
-	}
+    }
 }
 

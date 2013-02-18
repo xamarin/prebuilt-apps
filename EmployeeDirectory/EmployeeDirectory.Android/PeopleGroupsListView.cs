@@ -40,6 +40,7 @@ namespace EmployeeDirectory.Android
 		{
 			ScrollState = ScrollState.Idle;
 			ScrollStateChanged += HandleScrollStateChanged;
+            FastScrollEnabled = true;
 		}
 
 		void HandleScrollStateChanged (object sender, ScrollStateChangedEventArgs e)
