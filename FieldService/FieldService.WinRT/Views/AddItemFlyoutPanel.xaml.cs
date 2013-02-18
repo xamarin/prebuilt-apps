@@ -49,7 +49,7 @@ namespace FieldService.WinRT.Views {
 
             itemSearchText.TextChanged += (sender, e) => {
                 itemViewModel.SearchText = itemSearchText.Text;
-                };
+            };
         }
 
         /// <summary>
