@@ -115,6 +115,12 @@ namespace FieldService.iOS
 			var assignment = assignmentViewModel.SelectedAssignment;
 			if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
 				toolbar.Items = new UIBarButtonItem[] { titleButton };
+			} else if (expenseViewModel.Expenses == null || expenseViewModel.Expenses.Count == 0) {
+				toolbar.Items = new UIBarButtonItem[] {
+					titleButton,
+					space,
+					addItem
+				};
 			} else {
 				toolbar.Items = new UIBarButtonItem[] {
 					titleButton,
