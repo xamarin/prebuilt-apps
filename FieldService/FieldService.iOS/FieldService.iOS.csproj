@@ -509,11 +509,4 @@
     <BundleResource Include="Resources\58.png" />
     <BundleResource Include="Resources\72.png" />
   </ItemGroup>
-  <ItemGroup>
-    <XamarinComponentReference Include="signature-pad">
-      <InstallationInProgress>False</InstallationInProgress>
-      <Version>1.2</Version>
-      <Visible>False</Visible>
-    </XamarinComponentReference>
-  </ItemGroup>
 </Project>
