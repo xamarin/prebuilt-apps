@@ -112,5 +112,19 @@
       <Company>Xamarin</Company>
       <Department>Developers</Department>
     </Person>
+    <Person>
+      <Id>david@xamarin.com</Id>
+      <Name>David Siegel</Name>
+      <TelephoneNumbers>
+        <string>1-855-926-2746</string>
+      </TelephoneNumbers>
+      <HomeNumbers />
+      <MobileNumbers />
+      <Email>david@xamarin.com</Email>
+      <Twitter>@dvdsgl</Twitter>
+      <Title>Head of Design</Title>
+      <Company>Xamarin</Company>
+      <Department>Design</Department>
+    </Person>
   </People>
 </Favorites>
