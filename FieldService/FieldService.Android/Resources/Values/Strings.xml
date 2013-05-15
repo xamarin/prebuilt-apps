@@ -44,6 +44,6 @@
   <string name="History">History</string>
   <string name="Documents">Documents</string>
   <string name="Confirmations">Confirmations</string>
-  <string name="GoogleMapsKeyIssue">This is the google maps key generated from the debug.keystore, you will need to obatain 
-  your own key if the map tiles are not visible or if you are planning to deploy to the google play store. Directions can be found in the readme file.</string>
+  <string name="GoogleMapsKeyIssue">This is the Google Maps key generated from the debug.keystore, you will need to obtain 
+  your own key if the map tiles are not visible or if you are planning to deploy to the Google Play store. Directions can be found in the README file.</string>
 </resources>
