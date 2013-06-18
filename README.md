@@ -32,3 +32,5 @@ There are two solutions for each application: **Xamarin.sln** and **VisualStudio
 * The **VisualStudio** solution contains Android and Windows projects, and is primarily targetted at developers on Windows using Visual Studio (since it can handle the Windows project types).
 
 Alternatively you can open any of the individual platform project files, or you can choose to add the existing iOS project to your Visual Studio solution.
+
+* To get the WinRT version working you need to install the Bing Maps VS extension: http://visualstudiogallery.msdn.microsoft.com/bb764f67-6b2c-4e14-b2d3-17477ae1eaca
