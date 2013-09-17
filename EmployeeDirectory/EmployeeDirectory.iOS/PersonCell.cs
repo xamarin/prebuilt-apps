@@ -72,6 +72,9 @@ namespace EmployeeDirectory.iOS
 		{
 			var x = 44 + 6;
 
+			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0)) 
+				x += 15; // okay, we need a more thorough iOS 7 update than this, but for now this'll have to do
+
 			var fn = person.FirstNameAndInitials;
 			firstNameLabel.Text = fn;
 			var fnw = string.IsNullOrEmpty (fn) ? 
