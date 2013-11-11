@@ -50,7 +50,7 @@ namespace FieldService.iOS
 		private void OnRecordingChanged (object sender, EventArgs e)
 		{
 			if (IsViewLoaded) {
-				record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 			}
 		}
 
@@ -75,7 +75,8 @@ namespace FieldService.iOS
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
-			record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+			record.ContentMode = UIViewContentMode.Center;
+			record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 			timerBackgroundImage.Image = Theme.TimerField;
 			toolbarShadow.Image = Theme.ToolbarShadow;
 
@@ -105,9 +106,9 @@ namespace FieldService.iOS
 				BeginInvokeOnMainThread (() => {
 					record.Enabled = true;
 					if (assignmentViewModel.Recording) {
-						record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
+						record.SetImage (Theme.RecordActive, UIControlState.Normal);
 					} else {
-						record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
+						record.SetImage (Theme.Record, UIControlState.Normal);
 					}
 				});
 			});
