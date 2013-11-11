@@ -32,16 +32,15 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
-			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0)) {
-				NavigationBar.BarStyle = UIBarStyle.Black;
-			} else {
-				//Setup a few things on our navigation bar
-				NavigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
-			}
-
+			//Setting for our navigation bar
+			NavigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
 			NavigationBar.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White, TextShadowColor = Theme.LabelColor });
 		}
 
+		public override UIStatusBarStyle PreferredStatusBarStyle ()
+		{
+			return UIStatusBarStyle.LightContent;
+		}
 
 		/// <summary>
 		/// This is how orientation is setup on iOS 6
