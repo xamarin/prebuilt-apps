@@ -677,6 +677,19 @@ namespace FieldService.iOS
 
 		#endregion
 
+		#region Boolean values
+
+		static Lazy<bool> isiOS7 = new Lazy<bool> (() => UIDevice.CurrentDevice.CheckSystemVersion (7, 0));
+
+		/// <summary>
+		/// Gets a value indicating if this is iOS 7
+		/// </summary>
+		public static bool IsiOS7 {
+			get { return isiOS7.Value; }
+		}
+
+		#endregion
+
 		/// <summary>
 		/// Apply UIAppearance to this application, this is iOS's version of "styling"
 		/// </summary>
@@ -686,7 +699,14 @@ namespace FieldService.iOS
 
 			UIToolbar.Appearance.SetBackgroundImage (BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
-			UIBarButtonItem.Appearance.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
+			var barButtonItem = UIBarButtonItem.Appearance;
+			if (IsiOS7) {
+				//iOS 7 specific
+				//TODO: put stuff here
+			} else {
+				//iOS 6 specific
+				barButtonItem.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
+			}
 		}
 
 		const string FontName = "HelveticaNeue-Medium";
