@@ -39,7 +39,8 @@ namespace FieldService.iOS
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
-			SelectedBackgroundView = new UIImageView { Image = Theme.AssignmentBlue };
+			if (!Theme.IsiOS7)
+				SelectedBackgroundView = new UIImageView { Image = Theme.AssignmentBlue };
 		}
 
 		/// <summary>

@@ -71,7 +71,6 @@ namespace FieldService.iOS
 			tableView.BackgroundColor = Theme.BackgroundColor;
 			tableView.Source = new TableSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
-			assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
@@ -112,6 +111,12 @@ namespace FieldService.iOS
 					}
 				});
 			});
+
+			if (Theme.IsiOS7) {
+				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+			} else {
+				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)

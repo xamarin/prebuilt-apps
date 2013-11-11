@@ -62,6 +62,11 @@ namespace FieldService.iOS
 			loginViewModel.IsValidChanged -= OnIsValidChanged;
 		}
 
+		public override UIStatusBarStyle PreferredStatusBarStyle ()
+		{
+			return UIStatusBarStyle.LightContent;
+		}
+
 		public override bool HandlesKeyboardNotifications {
 			get {
 				return true;
