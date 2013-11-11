@@ -52,6 +52,7 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				ContentEdgeInsets = new UIEdgeInsets ();
 				HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+				Font = Theme.FontOfSize (16);
 			} else {
 				ContentEdgeInsets = new UIEdgeInsets (0, 38, 0, 0);
 			}

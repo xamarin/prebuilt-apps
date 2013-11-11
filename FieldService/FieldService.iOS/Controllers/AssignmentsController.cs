@@ -78,7 +78,6 @@ namespace FieldService.iOS
 			priorityBackground.Image = Theme.NumberBox;
 			record.ContentMode = UIViewContentMode.Center;
 			record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
-			timerBackgroundImage.Image = Theme.TimerField;
 
 			timerLabel.TextColor =
 				numberAndDate.TextColor =
@@ -115,6 +114,7 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+				timerLabel.Font = Theme.FontOfSize (16);
 
 				var frame = toolbarShadow.Frame;
 				frame.Height = 1;
@@ -128,12 +128,8 @@ namespace FieldService.iOS
 
 				const float offset = 100;
 
-				frame = timerBackgroundImage.Frame;
-				frame.X += offset;
-				timerBackgroundImage.Frame = frame;
-
 				frame = timerLabel.Frame;
-				frame.X += offset;
+				frame.X += offset + 35;
 				timerLabel.Frame = frame;
 
 				frame = record.Frame;
@@ -150,6 +146,7 @@ namespace FieldService.iOS
 			} else {
 				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 				toolbarShadow.Image = Theme.ToolbarShadow;
+				timerBackgroundImage.Image = Theme.TimerField;
 			}
 		}
 
