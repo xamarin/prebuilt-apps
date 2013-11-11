@@ -475,7 +475,7 @@ namespace FieldService.iOS
 			get { return photoframe.Value; }
 		}
 
-		static Lazy<UIImage> record = new Lazy<UIImage> (() => UIImage.FromFile ("Images/record.png"));
+		static Lazy<UIImage> record = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/record.png")));
 		
 		/// <summary>
 		/// Image for the record button
@@ -484,7 +484,7 @@ namespace FieldService.iOS
 			get { return record.Value; }
 		}
 
-		static Lazy<UIImage> recordActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/record_active.png"));
+		static Lazy<UIImage> recordActive = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/record_active.png")));
 		
 		/// <summary>
 		/// Image for the record button when toggled on
