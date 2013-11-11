@@ -51,9 +51,6 @@ namespace FieldService.iOS
 
 			accept.SetTitleColor (UIColor.White, UIControlState.Normal);
 			decline.SetTitleColor (UIColor.White, UIControlState.Normal);
-			priority.TextColor = 
-				priority.HighlightedTextColor = UIColor.White;
-			priorityBackground.Image = Theme.NumberBox;
 
 			numberAndDate.TextColor =
 				title.TextColor =
@@ -74,15 +71,30 @@ namespace FieldService.iOS
 			};
 
 			if (Theme.IsiOS7) {
+				priorityBackground.Image = Theme.NumberBoxHollow;
 				accept.SetTitleColor (Theme.GreenColor, UIControlState.Normal);
 				decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
 				accept.Font =
 					decline.Font = Theme.FontOfSize (16);
+				priority.Font = Theme.FontOfSize (14);
 
+				priority.TextColor = 
+					priority.HighlightedTextColor = Theme.LighGrayColor;
+
+				//Status frame
 				var frame = status.Frame;
 				frame.Width /= 2;
 				frame.X += frame.Width;
 				status.Frame = frame;
+
+				//Priority frame
+				frame = priority.Frame;
+				frame.X -= 4;
+				priority.Frame = frame;
+
+				frame = priorityBackground.Frame;
+				frame.Width -= 8;
+				priorityBackground.Frame = frame;
 
 				//Additional green rectangle on the right
 				statusView = new UIView (new RectangleF (Frame.Width - 8, 0, 8, Frame.Height)) {
@@ -92,8 +104,12 @@ namespace FieldService.iOS
 				AddSubview (statusView);
 
 			} else {
+				priorityBackground.Image = Theme.NumberBox;
 				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
+
+				priority.TextColor = 
+					priority.HighlightedTextColor = UIColor.White;
 			}
 		}
 
@@ -122,11 +138,34 @@ namespace FieldService.iOS
 					status.Hidden = true;
 				accept.Hidden =
 					decline.Hidden = false;
+
+				//Alpha on disabled rows
+				if (Theme.IsiOS7) {
+					priority.Alpha =
+						priorityBackground.Alpha =
+						numberAndDate.Alpha =
+						title.Alpha =
+						startAndEnd.Alpha =
+						contact.Alpha = 
+						address.Alpha = 0.5f;
+				}
+
 			} else {
 				statusView.Hidden = 
 					status.Hidden = false;
 				accept.Hidden =
 					decline.Hidden = true;
+
+				//Alpha on disabled rows
+				if (Theme.IsiOS7) {
+					priority.Alpha =
+						priorityBackground.Alpha =
+						numberAndDate.Alpha =
+						title.Alpha =
+						startAndEnd.Alpha =
+						contact.Alpha = 
+						address.Alpha = 1;
+				}
 
 				status.Assignment = assignment;
 			}
