@@ -33,6 +33,7 @@ namespace FieldService.iOS
 		NSIndexPath indexPath;
 		Assignment assignment;
 		UIAlertView alertView;
+		UIView statusView;
 
 		public AssignmentCell (IntPtr handle) : base (handle)
 		{
@@ -83,6 +84,13 @@ namespace FieldService.iOS
 				frame.X += frame.Width;
 				status.Frame = frame;
 
+				//Additional green rectangle on the right
+				statusView = new UIView (new RectangleF (Frame.Width - 8, 0, 8, Frame.Height)) {
+					BackgroundColor = Theme.YellowColor,
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
+				};
+				AddSubview (statusView);
+
 			} else {
 				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
@@ -110,11 +118,13 @@ namespace FieldService.iOS
 			address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
 
 			if (assignment.Status == AssignmentStatus.New) {
-				status.Hidden = true;
+				statusView.Hidden = 
+					status.Hidden = true;
 				accept.Hidden =
 					decline.Hidden = false;
 			} else {
-				status.Hidden = false;
+				statusView.Hidden = 
+					status.Hidden = false;
 				accept.Hidden =
 					decline.Hidden = true;
 

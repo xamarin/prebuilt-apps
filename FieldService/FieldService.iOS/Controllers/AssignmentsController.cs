@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -139,6 +140,12 @@ namespace FieldService.iOS
 				frame.X += offset;
 				record.Frame = frame;
 
+				//Additional green rectangle on the right
+				var statusView = new UIView (new RectangleF (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {
+					BackgroundColor = Theme.GreenColor,
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
+				};
+				activeAssignment.AddSubview (statusView);
 
 			} else {
 				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
