@@ -6,15 +6,15 @@
 	<string>Field Service</string>
 	<key>CFBundleIconFiles</key>
 	<array>
-		<string>Resources/72.png</string>
-		<string>Resources/144.png</string>
-		<string>Resources/50.png</string>
-		<string>Resources/100.png</string>
-		<string>Resources/29.png</string>
-		<string>Resources/58.png</string>
+		<string>72.png</string>
+		<string>144.png</string>
+		<string>50.png</string>
+		<string>100.png</string>
+		<string>29.png</string>
+		<string>58.png</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>6.0</string>
+	<string>7.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>2</integer>
@@ -32,5 +32,7 @@
 	</array>
 	<key>CFBundleVersion</key>
 	<string>1.0.0</string>
+	<key>UIMainStoryboardFile~ipad</key>
+	<string>MainStoryboard</string>
 </dict>
 </plist>

@@ -31,6 +31,15 @@ namespace FieldService.iOS
 			
 		}
 
+		public override void ViewDidLoad ()
+		{
+			base.ViewDidLoad ();
+
+			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0)) {
+				EdgesForExtendedLayout = UIRectEdge.None;
+			}
+		} 
+
 		/// <summary>
 		/// Required constructor for Storyboard to work
 		/// </summary>

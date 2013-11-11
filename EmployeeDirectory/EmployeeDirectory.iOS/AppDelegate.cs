@@ -35,7 +35,8 @@ namespace EmployeeDirectory.iOS
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			Theme.Apply ();
+			if(!UIDevice.CurrentDevice.CheckSystemVersion(7,0))
+				Theme.Apply ();
 
 			//
 			// Create the service

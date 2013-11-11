@@ -1,6 +1,6 @@
 # Field Service - WinRT
 
-We are using a Beta of the Bing Maps SDK, install here: http://visualstudiogallery.msdn.microsoft.com/bb764f67-6b2c-4e14-b2d3-17477ae1eaca?SRC=Featured
+We are using a Beta of the Bing Maps SDK, install here: http://visualstudiogallery.msdn.microsoft.com/ebc98390-5320-4088-a2b5-8f276e4530f9
 
 Instructions here: http://msdn.microsoft.com/en-us/library/hh855146.aspx
 

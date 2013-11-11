@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -15,7 +15,7 @@
     <AndroidApplication>True</AndroidApplication>
     <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
     <AssemblyName>EmployeeDirectory.Android</AssemblyName>
-    <TargetFrameworkVersion>v4.0.3</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -192,42 +192,42 @@
     <AndroidResource Include="Resources\drawable\login_button.xml" />
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-hdpi\loginbox.9.png">
+    <AndroidResource Include="Resources\Drawable-hdpi\loginbox.9.png">
       <Link>Resources\drawable-hdpi\loginbox.9.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-mdpi\loginbox.9.png">
+    <AndroidResource Include="Resources\Drawable-mdpi\loginbox.9.png">
       <Link>Resources\drawable-mdpi\loginbox.9.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-xhdpi\loginbox.9.png">
+    <AndroidResource Include="Resources\Drawable-xhdpi\loginbox.9.png">
       <Link>Resources\drawable-xhdpi\loginbox.9.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-xhdpi\XamarinTitle.png">
+    <AndroidResource Include="Resources\Drawable-xhdpi\XamarinTitle.png">
       <Link>Resources\drawable-xhdpi\XamarinTitle.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-mdpi\XamarinTitle.png">
+    <AndroidResource Include="Resources\Drawable-mdpi\XamarinTitle.png">
       <Link>Resources\drawable-mdpi\XamarinTitle.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-hdpi\XamarinTitle.png">
+    <AndroidResource Include="Resources\Drawable-hdpi\XamarinTitle.png">
       <Link>Resources\drawable-hdpi\XamarinTitle.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-hdpi\questionmark.png">
+    <AndroidResource Include="Resources\Drawable-hdpi\questionmark.png">
       <Link>Resources\drawable-hdpi\questionmark.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-mdpi\questionmark.png">
+    <AndroidResource Include="Resources\Drawable-mdpi\questionmark.png">
       <Link>Resources\drawable-mdpi\questionmark.png</Link>
     </AndroidResource>
   </ItemGroup>
@@ -240,17 +240,17 @@
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-hdpi\actionbar.png">
+    <AndroidResource Include="Resources\Drawable-hdpi\actionbar.png">
       <Link>Resources\drawable-hdpi\actionbar.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-mdpi\actionbar.png">
+    <AndroidResource Include="Resources\Drawable-mdpi\actionbar.png">
       <Link>Resources\drawable-mdpi\actionbar.png</Link>
     </AndroidResource>
   </ItemGroup>
   <ItemGroup>
-    <AndroidResource Include="..\..\FieldService\FieldService.Android\Resources\Drawable-xhdpi\actionbar.png">
+    <AndroidResource Include="Resources\Drawable-xhdpi\actionbar.png">
       <Link>Resources\drawable-xhdpi\actionbar.png</Link>
     </AndroidResource>
   </ItemGroup>
