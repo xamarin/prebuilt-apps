@@ -32,7 +32,6 @@ namespace FieldService.iOS
 		{
 			icon = UIButton.FromType (UIButtonType.Custom);
 			icon.Frame = new RectangleF (Spacing, Spacing, IconBackgroundSize, IconBackgroundSize);
-			icon.SetBackgroundImage (Theme.SmallGreyButton, UIControlState.Normal);
 			icon.UserInteractionEnabled = false;
 			AddSubview (icon);
 
@@ -51,6 +50,9 @@ namespace FieldService.iOS
 				HighlightedTextColor = UIColor.Black,
 			};
 			AddSubview (BottomLabel);
+
+			if (!Theme.IsiOS7)
+				icon.SetBackgroundImage (Theme.SmallGreyButton, UIControlState.Normal);
 		}
 
 		/// <summary>
