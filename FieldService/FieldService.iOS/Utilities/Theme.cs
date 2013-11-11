@@ -101,21 +101,7 @@ namespace FieldService.iOS
 			get { return dot.Value; }
 		}
 
-		static Lazy<UIImage> transparentDot = new Lazy<UIImage> (() => {
-			//This is some quick code to create a transparent image the same size as Theme.Dot
-			UIGraphics.BeginImageContext (Dot.Size);
-			try
-			{
-				using (var context = UIGraphics.GetCurrentContext ())
-				{
-					return UIGraphics.GetImageFromCurrentImageContext ();
-				}
-			}
-			finally
-			{
-				UIGraphics.EndImageContext ();
-			}
-		});
+		static Lazy<UIImage> transparentDot = new Lazy<UIImage> (() => UIColor.Clear.ToImage ());
 		
 		/// <summary>
 		/// Dot image for unselected state of menu
@@ -259,7 +245,7 @@ namespace FieldService.iOS
 			get { return iconhold.Value; }
 		}
 
-		static Lazy<UIImage> iconPhone = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconphone.png"));
+		static Lazy<UIImage> iconPhone = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/iconphone.png")));
 		
 		/// <summary>
 		/// 
@@ -699,6 +685,33 @@ namespace FieldService.iOS
 			get { return backgroundColor.Value; }
 		}
 
+		static Lazy<UIColor> greenColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x21, 0xd9, 0x1d));
+
+		/// <summary>
+		/// Green color used for active things on iOS 7
+		/// </summary>
+		public static UIColor GreenColor {
+			get { return greenColor.Value; }
+		}
+
+		static Lazy<UIColor> yellowColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xff, 0xe1, 0x3d));
+
+		/// <summary>
+		/// Yellow color used for things on hold in iOS 7
+		/// </summary>
+		public static UIColor YellowColor {
+			get { return yellowColor.Value; }
+		}
+
+		static Lazy<UIColor> redColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xff, 0x00, 0x02));
+
+		/// <summary>
+		/// Green color used for decline button on iOS 7
+		/// </summary>
+		public static UIColor RedColor {
+			get { return redColor.Value; }
+		}
+
 		#endregion
 
 		#region Boolean values
@@ -726,7 +739,8 @@ namespace FieldService.iOS
 			var barButtonItem = UIBarButtonItem.Appearance;
 			if (IsiOS7) {
 				//iOS 7 specific
-				//TODO: put stuff here
+
+
 			} else {
 				//iOS 6 specific
 				barButtonItem.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
@@ -734,14 +748,16 @@ namespace FieldService.iOS
 		}
 
 		const string FontName = "HelveticaNeue-Medium";
+		const string FontNameiOS7 = "HelveticaNeue-Light";
 		const string BoldFontName = "HelveticaNeue-Bold";
+		const string BoldFontNameiOS7 = "HelveticaNeue-Medium";
 
 		/// <summary>
 		/// Returns the default font with a certain size
 		/// </summary>
 		public static UIFont FontOfSize (float size)
 		{
-			return UIFont.FromName (FontName, size);
+			return UIFont.FromName (Theme.IsiOS7 ? FontNameiOS7 : FontName, size);
 		}
 
 		/// <summary>
@@ -749,7 +765,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIFont BoldFontOfSize (float size)
 		{
-			return UIFont.FromName (BoldFontName, size);
+			return UIFont.FromName (Theme.IsiOS7 ? BoldFontNameiOS7 : BoldFontName, size);
 		}
 
 		/// <summary>
