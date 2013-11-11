@@ -115,12 +115,15 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
 				timerLabel.Font = Theme.FontOfSize (16);
+				priority.Font = Theme.FontOfSize (14);
 
+				//Shadow frame
 				var frame = toolbarShadow.Frame;
 				frame.Height = 1;
 				toolbarShadow.Frame = frame;
 				toolbarShadow.Image = UIColor.LightGray.ToImage ();
 
+				//Status dropdown frame
 				frame = status.Frame;
 				frame.Width /= 2;
 				frame.X += frame.Width + 9;
@@ -128,13 +131,48 @@ namespace FieldService.iOS
 
 				const float offset = 100;
 
+				//Timer frame
 				frame = timerLabel.Frame;
 				frame.X += offset + 35;
 				timerLabel.Frame = frame;
 
+				//Record (play/pause) button frame
 				frame = record.Frame;
 				frame.X += offset;
 				record.Frame = frame;
+
+				//Priority frames
+				frame = priority.Frame;
+				frame.X -= 14;
+				priority.Frame = frame;
+
+				frame = priorityBackground.Frame;
+				frame.X -= 10;
+				frame.Width -= 8;
+				priorityBackground.Frame = frame;
+
+				//Info frames
+				frame = numberAndDate.Frame;
+				frame.X -= 10;
+				numberAndDate.Frame = frame;
+
+				frame = titleLabel.Frame;
+				frame.X -= 10;
+				titleLabel.Frame = frame;
+
+				frame = startAndEnd.Frame;
+				frame.X -= 10;
+				startAndEnd.Frame = frame;
+
+				//Address frame
+				frame = address.Frame;
+				frame.X -= 10;
+				address.Frame = frame;
+
+				//Contact frame
+				frame = contact.Frame;
+				frame.X -= 10;
+				contact.Frame = frame;
 
 				//Additional green rectangle on the right
 				var statusView = new UIView (new RectangleF (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {

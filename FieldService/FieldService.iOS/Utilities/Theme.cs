@@ -434,13 +434,22 @@ namespace FieldService.iOS
 			get { return modalInlay.Value; }
 		}
 
-		static Lazy<UIImage> numberbox = new Lazy<UIImage> (() => UIImage.FromFile ("Images/numberbox.png").CreateResizableImage (new UIEdgeInsets (11, 11, 11, 11)));
+		static Lazy<UIImage> numberbox = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/numberbox.png")).CreateResizableImage (new UIEdgeInsets (11, 11, 11, 11)));
 		
 		/// <summary>
 		/// Background image for numbers on assignments
 		/// </summary>
 		public static UIImage NumberBox {
 			get { return numberbox.Value; }
+		}
+
+		static Lazy<UIImage> numberboxHollow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/numberbox_hollow.png").CreateResizableImage (new UIEdgeInsets (11, 11, 11, 11)));
+
+		/// <summary>
+		/// Background image for numbers on assignments - for iOS not the header
+		/// </summary>
+		public static UIImage NumberBoxHollow {
+			get { return numberboxHollow.Value; }
 		}
 
 		static Lazy<UIImage> orangebar = new Lazy<UIImage> (() => UIImage.FromFile ("Images/orangebar.png"));
@@ -710,6 +719,15 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIColor RedColor {
 			get { return redColor.Value; }
+		}
+
+		static Lazy<UIColor> lightGrayColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xc0, 0xc0, 0xc0));
+
+		/// <summary>
+		/// Light gray color used on iOS 7
+		/// </summary>
+		public static UIColor LighGrayColor {
+			get { return lightGrayColor.Value; }
 		}
 
 		#endregion
