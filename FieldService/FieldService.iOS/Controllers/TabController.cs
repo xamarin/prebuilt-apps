@@ -52,8 +52,16 @@ namespace FieldService.iOS
 			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			//Setup tab bar icons
-			ViewControllers[0].TabBarItem.Image = Theme.ListIcon;
-			ViewControllers[1].TabBarItem.Image = Theme.MapIcon;
+			var listController = ViewControllers [0];
+			var mapController = ViewControllers [1];
+
+			listController.TabBarItem.Image = Theme.ListIcon;
+			mapController.TabBarItem.Image = Theme.MapIcon;
+
+			if (Theme.IsiOS7) {
+				listController.TabBarItem.SelectedImage = Theme.ListIconSelected;
+				mapController.TabBarItem.SelectedImage = Theme.MapIconSelected;
+			}
 		}
 
 		/// <summary>

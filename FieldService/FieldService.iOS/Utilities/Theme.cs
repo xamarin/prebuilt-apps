@@ -383,7 +383,7 @@ namespace FieldService.iOS
 			get { return logo.Value; }
 		}
 
-		static Lazy<UIImage> map = new Lazy<UIImage> (() => UIImage.FromFile ("Images/map.png"));
+		static Lazy<UIImage> map = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/map.png")));
 		
 		/// <summary>
 		/// Map image
@@ -392,7 +392,7 @@ namespace FieldService.iOS
 			get { return map.Value; }
 		}
 
-		static Lazy<UIImage> mapIcon = new Lazy<UIImage> (() => UIImage.FromFile ("Images/mapicon.png"));
+		static Lazy<UIImage> mapIcon = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/mapicon.png")));
 		
 		/// <summary>
 		/// Map icon for tab bar
@@ -401,13 +401,31 @@ namespace FieldService.iOS
 			get { return mapIcon.Value; }
 		}
 
-		static Lazy<UIImage> listIcon = new Lazy<UIImage> (() => UIImage.FromFile ("Images/listicon.png"));
+		static Lazy<UIImage> mapIconSelected = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/mapicon_selected.png"));
+
+		/// <summary>
+		/// Map icon for tab bar (selected)
+		/// </summary>
+		public static UIImage MapIconSelected {
+			get { return mapIconSelected.Value; }
+		}
+
+		static Lazy<UIImage> listIcon = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/listicon.png")));
 		
 		/// <summary>
 		/// Assignment list icon for tab bar
 		/// </summary>
 		public static UIImage ListIcon {
 			get { return listIcon.Value; }
+		}
+
+		static Lazy<UIImage> listIconSelected = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/listicon_selected.png"));
+
+		/// <summary>
+		/// Assignment list icon for tab bar (selected)
+		/// </summary>
+		public static UIImage ListIconSelected {
+			get { return listIconSelected.Value; }
 		}
 
 		static Lazy<UIImage> modal = new Lazy<UIImage> (() => UIImage.FromFile ("Images/modal.png").CreateResizableImage (new UIEdgeInsets (65, 43, 38, 43)));
@@ -745,6 +763,14 @@ namespace FieldService.iOS
 			//Peform an animation, note that null is not allowed as a callback, so I use delegate { }
 			if (animated)
 				UIView.Transition (window, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate { });
+		}
+
+		/// <summary>
+		/// Converts a path to Images/mypng.png to Images/iOS7/mypng.png on iOS 7
+		/// </summary>
+		public static string ToiOS7Path(string path)
+		{
+			return IsiOS7 ? path.Replace ("Images/", "Images/iOS7/") : path;
 		}
 	}
 }

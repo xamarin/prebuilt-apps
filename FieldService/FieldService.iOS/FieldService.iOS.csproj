@@ -25,7 +25,8 @@
     <MtouchProfiling>True</MtouchProfiling>
     <MtouchLink>None</MtouchLink>
     <MtouchArch>ARMv7</MtouchArch>
-    <MtouchI18n />
+    <MtouchI18n>
+    </MtouchI18n>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -48,8 +49,10 @@
     <CodesignKey>iPhone Developer</CodesignKey>
     <MtouchDebug>True</MtouchDebug>
     <MtouchArch>ARMv7</MtouchArch>
-    <MtouchI18n />
-    <IpaPackageName />
+    <MtouchI18n>
+    </MtouchI18n>
+    <IpaPackageName>
+    </IpaPackageName>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -355,6 +358,7 @@
     <Folder Include="Views\" />
     <Folder Include="Data\" />
     <Folder Include="Resources\" />
+    <Folder Include="Images\iOS7\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Images\accept.png" />
@@ -497,6 +501,32 @@
     <Content Include="..\Data\valuableinformation.pdf">
       <Link>Data\valuableinformation.pdf</Link>
     </Content>
+    <Content Include="Images\iOS7\dropdown.png" />
+    <Content Include="Images\iOS7\dropdown%402x.png" />
+    <Content Include="Images\iOS7\iconphone.png" />
+    <Content Include="Images\iOS7\iconphone%402x.png" />
+    <Content Include="Images\iOS7\iconsettings.png" />
+    <Content Include="Images\iOS7\iconsettings%402x.png" />
+    <Content Include="Images\iOS7\listicon.png" />
+    <Content Include="Images\iOS7\listicon%402x.png" />
+    <Content Include="Images\iOS7\listicon_selected.png" />
+    <Content Include="Images\iOS7\listicon_selected%402x.png" />
+    <Content Include="Images\iOS7\map.png" />
+    <Content Include="Images\iOS7\map%402x.png" />
+    <Content Include="Images\iOS7\mapicon.png" />
+    <Content Include="Images\iOS7\mapicon%402x.png" />
+    <Content Include="Images\iOS7\mapicon_selected.png" />
+    <Content Include="Images\iOS7\mapicon_selected%402x.png" />
+    <Content Include="Images\iOS7\numberbox.png" />
+    <Content Include="Images\iOS7\numberbox%402x.png" />
+    <Content Include="Images\iOS7\numberbox_hollow.png" />
+    <Content Include="Images\iOS7\numberbox_hollow%402x.png" />
+    <Content Include="Images\iOS7\record.png" />
+    <Content Include="Images\iOS7\record%402x.png" />
+    <Content Include="Images\iOS7\record_active.png" />
+    <Content Include="Images\iOS7\record_active%402x.png" />
+    <Content Include="Images\iOS7\timebox.png" />
+    <Content Include="Images\iOS7\timebox%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
@@ -512,7 +542,6 @@
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="signature-pad">
-      <InstallationInProgress>False</InstallationInProgress>
       <Version>1.2</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
