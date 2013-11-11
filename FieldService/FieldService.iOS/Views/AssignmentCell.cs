@@ -78,6 +78,11 @@ namespace FieldService.iOS
 				accept.Font =
 					decline.Font = Theme.FontOfSize (16);
 
+				var frame = status.Frame;
+				frame.Width /= 2;
+				frame.X += frame.Width;
+				status.Frame = frame;
+
 			} else {
 				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);

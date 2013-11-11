@@ -42,13 +42,19 @@ namespace FieldService.iOS
 
 		public StatusButton (IntPtr handle) : base (handle)
 		{
-			ContentEdgeInsets = new UIEdgeInsets(0, 38, 0, 0);
 			AddSubview (statusImage = new UIImageView (new RectangleF (12, (Frame.Height - 16) / 2, 16, 16)));
 
 			SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 			SetBackgroundImage (Theme.DropDown, UIControlState.Normal);
 
 			TouchUpInside += OnTouchUpInside;
+
+			if (Theme.IsiOS7) {
+				ContentEdgeInsets = new UIEdgeInsets ();
+				HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
+			} else {
+				ContentEdgeInsets = new UIEdgeInsets (0, 38, 0, 0);
+			}
 		}
 
 		/// <summary>
@@ -105,6 +111,9 @@ namespace FieldService.iOS
 		/// </summary>
 		private UIImage ImageForStatus (AssignmentStatus status)
 		{
+			if (Theme.IsiOS7)
+				return null;
+
 			switch (status) {
 			case AssignmentStatus.Active:
 			case AssignmentStatus.Complete:
