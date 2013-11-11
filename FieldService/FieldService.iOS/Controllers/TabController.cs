@@ -48,7 +48,7 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
-			TabBar.TintColor = UIColor.FromRGB (0x28, 0x2b, 0x30);
+			settings.Image = Theme.IconSettings;
 			settings.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			//Setup tab bar icons
@@ -61,6 +61,9 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				listController.TabBarItem.SelectedImage = Theme.ListIconSelected;
 				mapController.TabBarItem.SelectedImage = Theme.MapIconSelected;
+				TabBar.BackgroundImage = UIColor.White.ToImage ();
+			} else {
+				TabBar.TintColor = UIColor.FromRGB (0x28, 0x2b, 0x30);
 			}
 		}
 

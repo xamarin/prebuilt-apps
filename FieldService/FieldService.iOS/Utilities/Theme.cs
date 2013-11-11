@@ -72,7 +72,9 @@ namespace FieldService.iOS
 			get { return arrowwhite.Value; }
 		}
 
-		static Lazy<UIImage> assignmentActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentactive.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> assignmentActive = new Lazy<UIImage> (() => 
+			IsiOS7 ? UIColor.FromRGB(0xee, 0xff, 0xee).ToImage() : 
+			UIImage.FromFile ("Images/assignmentactive.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// Active assignment background
@@ -275,7 +277,7 @@ namespace FieldService.iOS
 			get { return iconPhoneDark.Value; }
 		}
 
-		static Lazy<UIImage> iconsettings = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconsettings.png"));
+		static Lazy<UIImage> iconsettings = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/iconsettings.png")));
 		
 		/// <summary>
 		/// Settings icon image
@@ -581,7 +583,9 @@ namespace FieldService.iOS
 			get { return timerfield.Value; }
 		}
 
-		static Lazy<UIImage> topnav = new Lazy<UIImage> (() => UIImage.FromFile ("Images/topnav.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
+		static Lazy<UIImage> topnav = new Lazy<UIImage> (() => 
+			IsiOS7 ? UIColor.FromRGB(0x2d, 0x9f, 0xdd).ToImage () :
+			UIImage.FromFile ("Images/topnav.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Image for the top navigation bar
@@ -608,7 +612,9 @@ namespace FieldService.iOS
 			get { return assignmentBlue.Value; }
 		}
 		
-		static Lazy<UIImage> assignmentGrey = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> assignmentGrey = new Lazy<UIImage> (() => 
+			IsiOS7 ? UIColor.White.ToImage() : 
+			UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// Cell background for assignment
