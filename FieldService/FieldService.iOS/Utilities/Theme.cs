@@ -200,7 +200,7 @@ namespace FieldService.iOS
 			get { return decline.Value; }
 		}
 
-		static Lazy<UIImage> dropdown = new Lazy<UIImage> (() => UIImage.FromFile ("Images/dropdown.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
+		static Lazy<UIImage> dropdown = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/dropdown.png")).CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Drop down button image

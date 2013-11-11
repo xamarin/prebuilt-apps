@@ -119,6 +119,27 @@ namespace FieldService.iOS
 				frame.Height = 1;
 				toolbarShadow.Frame = frame;
 				toolbarShadow.Image = UIColor.LightGray.ToImage ();
+
+				frame = status.Frame;
+				frame.Width /= 2;
+				frame.X += frame.Width + 9;
+				status.Frame = frame;
+
+				const float offset = 100;
+
+				frame = timerBackgroundImage.Frame;
+				frame.X += offset;
+				timerBackgroundImage.Frame = frame;
+
+				frame = timerLabel.Frame;
+				frame.X += offset;
+				timerLabel.Frame = frame;
+
+				frame = record.Frame;
+				frame.X += offset;
+				record.Frame = frame;
+
+
 			} else {
 				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 				toolbarShadow.Image = Theme.ToolbarShadow;
