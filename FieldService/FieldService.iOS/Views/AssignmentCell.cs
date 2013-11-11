@@ -29,7 +29,6 @@ namespace FieldService.iOS
 	public partial class AssignmentCell : UITableViewCell
 	{
 		readonly AssignmentViewModel assignmentViewModel;
-		bool loaded = false;
 		AssignmentsController controller;
 		NSIndexPath indexPath;
 		Assignment assignment;
@@ -43,6 +42,48 @@ namespace FieldService.iOS
 				SelectedBackgroundView = new UIImageView { Image = Theme.AssignmentBlue };
 		}
 
+		public override void AwakeFromNib ()
+		{
+			base.AwakeFromNib ();
+
+			BackgroundView = new UIImageView ();
+
+			accept.SetTitleColor (UIColor.White, UIControlState.Normal);
+			decline.SetTitleColor (UIColor.White, UIControlState.Normal);
+			priority.TextColor = 
+				priority.HighlightedTextColor = UIColor.White;
+			priorityBackground.Image = Theme.NumberBox;
+
+			numberAndDate.TextColor =
+				title.TextColor =
+				startAndEnd.TextColor = 
+				numberAndDate.HighlightedTextColor = 
+				title.HighlightedTextColor =
+				startAndEnd.HighlightedTextColor = Theme.LabelColor;
+
+			contact.IconImage = Theme.IconPhone;
+			address.IconImage = Theme.Map;
+
+			status.StatusChanged += (sender, e) => SaveAssignment ();
+			status.Completed += (sender, e) => {
+				var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
+				menuViewModel.MenuIndex = SectionIndex.Confirmations;
+				assignmentViewModel.SelectedAssignment = status.Assignment;
+				controller.PerformSegue ("AssignmentDetails", controller);
+			};
+
+			if (Theme.IsiOS7) {
+				accept.SetTitleColor (Theme.GreenColor, UIControlState.Normal);
+				decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
+				accept.Font =
+					decline.Font = Theme.FontOfSize (16);
+
+			} else {
+				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
+				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
+			}
+		}
+
 		/// <summary>
 		/// Sets up the assignment for the cell
 		/// </summary>
@@ -51,39 +92,6 @@ namespace FieldService.iOS
 			this.controller = controller;
 			this.assignment = assignment;
 			this.indexPath = indexPath;
-
-			//First check things that need to be setup the first time around
-			if (!loaded) {
-				BackgroundView = new UIImageView ();
-
-				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
-				accept.SetTitleColor (UIColor.White, UIControlState.Normal);
-
-				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
-				decline.SetTitleColor (UIColor.White, UIControlState.Normal);
-				priority.TextColor = 
-					priority.HighlightedTextColor = UIColor.White;
-				priorityBackground.Image = Theme.NumberBox;
-
-				numberAndDate.TextColor =
-					title.TextColor =
-					startAndEnd.TextColor = 
-					numberAndDate.HighlightedTextColor = 
-					title.HighlightedTextColor =
-					startAndEnd.HighlightedTextColor = Theme.LabelColor;
-
-				contact.IconImage = Theme.IconPhone;
-				address.IconImage = Theme.Map;
-				status.StatusChanged += (sender, e) => SaveAssignment ();
-				status.Completed += (sender, e) => {
-					var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
-					menuViewModel.MenuIndex = SectionIndex.Confirmations;
-					assignmentViewModel.SelectedAssignment = status.Assignment;
-					controller.PerformSegue ("AssignmentDetails", controller);
-				};
-
-				loaded = true;
-			}
 
 			//Now make any changes dependant on the assignment passed in
 			((UIImageView)BackgroundView).Image = Theme.AssignmentGrey;
