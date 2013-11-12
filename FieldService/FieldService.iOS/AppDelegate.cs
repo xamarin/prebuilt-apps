@@ -30,9 +30,13 @@ namespace FieldService.iOS
 	[Register ("AppDelegate")]
 	public partial class AppDelegate : UIApplicationDelegate
 	{
-		UIWindow window;
 		UIStoryboard storyboard;
 		LoginController loginController;
+
+		public override UIWindow Window {
+			get;
+			set;
+		}
 
 		/// <summary>
 		/// This the main entry point for the app on iOS
@@ -40,10 +44,10 @@ namespace FieldService.iOS
 		public override bool FinishedLaunching (UIApplication application, NSDictionary launchOptions)
 		{
 			//Create our window
-			window = new UIWindow(UIScreen.MainScreen.Bounds);
+			Window = new UIWindow(UIScreen.MainScreen.Bounds);
 
 			//Register some services
-			ServiceContainer.Register (window);
+			ServiceContainer.Register (Window);
 			ServiceContainer.Register <ISynchronizeInvoke>(() => new SynchronizeInvoke());
 
 			//Apply our UI theme
@@ -51,9 +55,9 @@ namespace FieldService.iOS
 
 			//Load our storyboard and setup our UIWindow and first view controller
 			storyboard = UIStoryboard.FromName ("MainStoryboard", null);
-			window.RootViewController = 
+			Window.RootViewController = 
 				loginController = storyboard.InstantiateInitialViewController () as LoginController;
-			window.MakeKeyAndVisible ();
+			Window.MakeKeyAndVisible ();
 
 			return true;
 		}
