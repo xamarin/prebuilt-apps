@@ -70,7 +70,10 @@ namespace FieldService.iOS
 				
 				//Update the button
 				statusImage.Image = ImageForStatus (assignment.Status);
-				SetTitle (assignment.Status.ToString (), UIControlState.Normal);
+				if (assignment.Status == AssignmentStatus.Hold)
+					SetTitle ("On Hold", UIControlState.Normal);
+				else
+					SetTitle (assignment.Status.ToString (), UIControlState.Normal);
 			}
 		}
 
