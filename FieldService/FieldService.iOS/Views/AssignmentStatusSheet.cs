@@ -34,7 +34,10 @@ namespace FieldService.iOS
 
 			//Loop through the list of statuses you can change an assignment to
 			foreach (AssignmentStatus status in assignmentViewModel.AvailableStatuses) {
-				AddButton (status.ToString ());
+				if (status == AssignmentStatus.Hold)
+					AddButton ("On Hold");
+				else 
+					AddButton (status.ToString ());
 			}
 
 			Dismissed += (sender, e) => {
