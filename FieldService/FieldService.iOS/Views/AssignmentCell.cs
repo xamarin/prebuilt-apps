@@ -192,7 +192,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Decline ()
 		{
-			alertView = new UIAlertView("Decline?", "Are you sure?", null, "Yes", "No");
+			alertView = new UIAlertView("Decline Assignment", "Are you sure?", null, "Yes", "No");
 			alertView.Dismissed += (sender, e) => {
 				if (e.ButtonIndex == 0) {
 					assignment.Status = AssignmentStatus.Declined;
