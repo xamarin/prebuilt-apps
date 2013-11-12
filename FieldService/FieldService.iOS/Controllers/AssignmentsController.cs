@@ -69,7 +69,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//Setup UI that is required from code
-			tableView.BackgroundColor = Theme.BackgroundColor;
 			tableView.Source = new TableSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
 			contact.IconImage = Theme.IconPhone;
@@ -182,6 +181,7 @@ namespace FieldService.iOS
 				activeAssignment.AddSubview (statusView);
 
 			} else {
+				tableView.BackgroundColor = Theme.BackgroundColor;
 				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 				toolbarShadow.Image = Theme.ToolbarShadow;
 				timerBackgroundImage.Image = Theme.TimerField;
