@@ -134,8 +134,9 @@ namespace FieldService.iOS
 			address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
 
 			if (assignment.Status == AssignmentStatus.New) {
-				statusView.Hidden = 
-					status.Hidden = true;
+				if (statusView != null)
+					statusView.Hidden = true;
+				status.Hidden = true;
 				accept.Hidden =
 					decline.Hidden = false;
 
@@ -151,8 +152,9 @@ namespace FieldService.iOS
 				}
 
 			} else {
-				statusView.Hidden = 
-					status.Hidden = false;
+				if (statusView != null)
+					statusView.Hidden = false;
+				status.Hidden = false;
 				accept.Hidden =
 					decline.Hidden = true;
 
