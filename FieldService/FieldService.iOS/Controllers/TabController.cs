@@ -62,6 +62,7 @@ namespace FieldService.iOS
 				listController.TabBarItem.SelectedImage = Theme.ListIconSelected;
 				mapController.TabBarItem.SelectedImage = Theme.MapIconSelected;
 				TabBar.BackgroundImage = UIColor.White.ToImage ();
+				TabBar.Translucent = false;
 			} else {
 				TabBar.TintColor = UIColor.FromRGB (0x28, 0x2b, 0x30);
 			}
