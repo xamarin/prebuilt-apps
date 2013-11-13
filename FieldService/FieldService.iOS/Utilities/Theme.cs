@@ -555,7 +555,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> smallGreyButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/smallgreybtn.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8)));
 		
 		/// <summary>
-		/// 
+		/// Button image used for address & phone number buttons (TextButton class)
 		/// </summary>
 		public static UIImage SmallGreyButton {
 			get { return smallGreyButton.Value; }
@@ -590,7 +590,8 @@ namespace FieldService.iOS
 			get { return topnav.Value; }
 		}
 
-		static Lazy<UIImage> darkBarButtonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/topnavbtn.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
+		static Lazy<UIImage> darkBarButtonItem = new Lazy<UIImage> (() => 
+			Theme.IsiOS7 ? null : UIImage.FromFile ("Images/topnavbtn.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
 		/// Background image for UIBarButtonItem
