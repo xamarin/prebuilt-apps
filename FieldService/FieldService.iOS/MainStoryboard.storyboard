@@ -77,7 +77,7 @@
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </activityIndicatorView>
                                     <imageView userInteractionEnabled="NO" contentMode="center" id="WUj-a2-Cru">
-                                        <rect key="frame" x="114" y="49" width="173" height="49"/>
+                                        <rect key="frame" x="114" y="51" width="173" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4QN-nP-SVh">
