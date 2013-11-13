@@ -40,7 +40,6 @@ namespace FieldService.iOS
 
 			//UI that has to be setup from code
 			View.BackgroundColor = Theme.BackgroundColor;
-			descriptionBackground.Image = Theme.RowEnd;
 			itemsBackground.Image = 
 				hoursBackground.Image = 
 				expensesBackground.Image = Theme.Inlay;
@@ -68,6 +67,12 @@ namespace FieldService.iOS
 			});
 			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			viewHistory.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+			if (Theme.IsiOS7) {
+				descriptionBackground.BackgroundColor = UIColor.White;
+			} else {
+				descriptionBackground.Image = Theme.RowEnd;
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)
