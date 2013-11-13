@@ -535,6 +535,8 @@
     <Content Include="Images\iOS7\logo%402x.png" />
     <Content Include="Images\iOS7\questionmark.png" />
     <Content Include="Images\iOS7\questionmark%402x.png" />
+    <Content Include="Images\iOS7\hexagons.png" />
+    <Content Include="Images\iOS7\hexagons%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
