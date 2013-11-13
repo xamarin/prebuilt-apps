@@ -93,7 +93,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI we have to setup from code
-			View.BackgroundColor = Theme.LeftMenuColor;
 			tableView.Source = new TableSource (this);
 			timerLabel.TextColor = Theme.LabelColor;
 			timerBackground.Image = Theme.TimerBackground;
@@ -110,6 +109,21 @@ namespace FieldService.iOS
 					method(this, EventArgs.Empty);
 				}
 			};
+
+			if (Theme.IsiOS7) {
+				//NOTE: tableView.Style is readonly, so we have to do a little work to make our iOS 7 tableView not look like a grouped tableView
+				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+
+				var frame = View.Frame;
+				frame.X = 0;
+				frame.Y = -1;
+				frame.Height += 1;
+				tableView.Frame = frame;
+
+			} else {
+				View.BackgroundColor = Theme.LeftMenuColor;
+
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -265,26 +279,34 @@ namespace FieldService.iOS
 
 			private void SetupCell (UITableViewCell cell, bool start = false, bool end = false)
 			{
-				cell.TextLabel.TextColor = Theme.LabelColor;
-				cell.TextLabel.HighlightedTextColor = UIColor.White;
-				cell.BackgroundColor = UIColor.Clear;	
-				if (start) {
-					cell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
-					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
-				} else if (end) {
-					cell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
-					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
-				} else {
-					cell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
-				}
 				if (!Theme.IsiOS7) {
+					cell.TextLabel.TextColor = Theme.LabelColor;
+					cell.TextLabel.HighlightedTextColor = UIColor.White;
+					cell.BackgroundColor = UIColor.Clear;
+
+					if (start) {
+						cell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
+						cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
+					} else if (end) {
+						cell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
+						cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
+					} else {
+						cell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+						cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+					}
+
 					cell.ImageView.Image = Theme.TransparentDot;
 					cell.ImageView.HighlightedImage = Theme.Dot;
 				}
 
 				if (!cells.Contains (cell))
 					cells.Add (cell);
+			}
+
+			public override float GetHeightForHeader (UITableView tableView, int section)
+			{
+				//NOTE: 1 is the minimum height for a header
+				return Theme.IsiOS7 ? 1 : 20;
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)
