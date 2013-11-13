@@ -335,7 +335,7 @@ namespace FieldService.iOS
 			get { return leftListTopActive.Value; }
 		}
 
-		static Lazy<UIImage> loginBox = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_box.png").CreateResizableImage (new UIEdgeInsets (21, 21, 21, 21)));
+		static Lazy<UIImage> loginBox = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/login_box.png")).CreateResizableImage (new UIEdgeInsets (21, 21, 21, 21)));
 
 		/// <summary>
 		/// Login box on first screen
@@ -344,7 +344,7 @@ namespace FieldService.iOS
 			get { return loginBox.Value; }
 		}
 
-		static Lazy<UIImage> loginButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_btn.png").CreateResizableImage (new UIEdgeInsets (11, 8, 11, 8)));
+		static Lazy<UIImage> loginButton = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/login_btn.png")).CreateResizableImage (new UIEdgeInsets (11, 8, 11, 8)));
 
 		/// <summary>
 		/// Login button on first screen
@@ -362,10 +362,10 @@ namespace FieldService.iOS
 			get { return loginTextField.Value; }
 		}
 
-		static Lazy<UIImage> logo = new Lazy<UIImage> (() => UIImage.FromFile ("Images/logo.png"));
+		static Lazy<UIImage> logo = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/logo.png")));
 		
 		/// <summary>
-		/// 
+		/// Main logo on the login screen
 		/// </summary>
 		public static UIImage Logo {
 			get { return logo.Value; }
@@ -618,7 +618,7 @@ namespace FieldService.iOS
 			get { return assignmentGrey.Value; }
 		}
 
-		static Lazy<UIImage> questionMark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/questionmark.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> questionMark = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/questionmark.png")));
 		
 		/// <summary>
 		/// Question mark image on login screen
@@ -726,8 +726,26 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Light gray color used on iOS 7
 		/// </summary>
-		public static UIColor LighGrayColor {
+		public static UIColor LightGrayColor {
 			get { return lightGrayColor.Value; }
+		}
+
+		static Lazy<UIColor> darkGrayColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x73, 0x81, 0x82));
+
+		/// <summary>
+		/// Dark gray color used on iOS 7
+		/// </summary>
+		public static UIColor DarkGrayColor {
+			get { return darkGrayColor.Value; }
+		}
+
+		static Lazy<UIColor> separatorColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xe5, 0xe5, 0xe5));
+
+		/// <summary>
+		/// Line separator color used on iOS 7
+		/// </summary>
+		public static UIColor SeparatorColor {
+			get { return separatorColor.Value; }
 		}
 
 		#endregion
