@@ -42,8 +42,14 @@ namespace FieldService.iOS
 		private void OnIsBusyChanged (object sender, EventArgs e)
 		{
 			if (IsViewLoaded) {
-				indicator.Hidden = !loginViewModel.IsBusy;
+				View.UserInteractionEnabled =
+					indicator.Hidden = !loginViewModel.IsBusy;
 				login.Hidden = loginViewModel.IsBusy;
+
+				if (Theme.IsiOS7) {
+					username.Hidden =
+						password.Hidden = loginViewModel.IsBusy;
+				}
 			}
 		}
 
@@ -80,27 +86,25 @@ namespace FieldService.iOS
 			//Set up any properties on views that must be done from code
 			View.BackgroundColor = Theme.LinenPattern;
 			box.Image = Theme.LoginBox;
-			login.SetBackgroundImage (Theme.LoginButton, UIControlState.Normal);
 			companyName.TextColor = Theme.LabelColor;
-			questionMark.SetBackgroundImage (Theme.QuestionMark, UIControlState.Normal);
+			questionMark.SetImage (Theme.QuestionMark, UIControlState.Normal);
+			logo.Image = Theme.Logo;
+			login.SetBackgroundImage (Theme.LoginButton, UIControlState.Normal);
 
 			//Text Fields
 			//I used LeftView as a quick way to add padding to a "plain" styled UITextField
 
-			username.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
 			username.LeftViewMode = UITextFieldViewMode.Always;
 			username.TextColor = Theme.LabelColor;
-			username.Background = Theme.LoginTextField;
 			username.SetDidChangeNotification (text => loginViewModel.Username = text.Text);
 			username.ShouldReturn = _ => {
 				password.BecomeFirstResponder ();
 				return false;
 			};
 
-			password.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
+
 			password.LeftViewMode = UITextFieldViewMode.Always;
 			password.TextColor = Theme.LabelColor;
-			password.Background = Theme.LoginTextField;
 			password.SetDidChangeNotification (text => loginViewModel.Password = text.Text);
 			password.ShouldReturn = _ => {
 				if (loginViewModel.IsValid) {
@@ -108,6 +112,72 @@ namespace FieldService.iOS
 				}
 				return false;
 			};
+
+			if (Theme.IsiOS7) {
+				companyName.Hidden = true;
+				indicator.Color = Theme.DarkGrayColor;
+				username.LeftView = new UIView (new RectangleF (0, 0, 20, 20));
+				password.LeftView = new UIView (new RectangleF (0, 0, 20, 20));
+				login.Font = 
+					username.Font =
+					password.Font = Theme.FontOfSize (18);
+
+				//Add light gray lines
+				var view = new UIView (new RectangleF (0, 0, container.Frame.Width, 1)) {
+					BackgroundColor = Theme.LightGrayColor,
+				};
+				username.AddSubview (view);
+
+				view = new UIView (new RectangleF (0, 0, container.Frame.Width, 1)) {
+					BackgroundColor = Theme.LightGrayColor,
+				};
+				password.AddSubview (view);
+
+				//Resize the container
+				var frame = container.Frame;
+				frame.Width = 400;
+				frame.Height = 300;
+				frame.X = (View.Frame.Width - frame.Width) / 2;
+				frame.Y = (View.Frame.Height - frame.Height) / 2;
+				container.Frame = frame;
+
+				//Move up the logo
+				frame = logo.Frame;
+				frame.Y -= 10;
+				logo.Frame = frame;
+
+				//Move the login button
+				frame = login.Frame;
+				frame.X = 0;
+				frame.Y = container.Frame.Height - frame.Height;
+				frame.Width = container.Frame.Width;
+				login.Frame = frame;
+
+				//Move the indicator
+				frame = indicator.Frame;
+				frame.Y = (container.Frame.Height - frame.Height) / 2;
+				indicator.Frame = frame;
+
+				//Move the username and password
+				frame = username.Frame;
+				frame.X = 0;
+				frame.Y -= 60;
+				frame.Width = container.Frame.Width;
+				username.Frame = frame;
+
+				frame = password.Frame;
+				frame.X = 0;
+				frame.Y -= 80;
+				frame.Width = container.Frame.Width;
+				password.Frame = frame;
+
+
+			} else {
+				username.Background =
+					password.Background = Theme.LoginTextField;
+				username.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
+				password.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)

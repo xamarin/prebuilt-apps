@@ -2,7 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="4514" systemVersion="13A603" targetRuntime="iOS.CocoaTouch.iPad" propertyAccessControl="none" initialViewController="2">
     <dependencies>
         <deployment version="1536" identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3746"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="3747"/>
     </dependencies>
     <scenes>
         <!--Base Navigation Controller - Map-->
@@ -35,7 +35,7 @@
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="1qh-og-QUy">
                                         <rect key="frame" x="0.0" y="0.0" width="400" height="444"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     </imageView>
                                     <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Field Service App" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="BzU-Gu-Q24">
                                         <rect key="frame" x="118" y="120" width="164" height="55"/>
@@ -74,10 +74,10 @@
                                     </button>
                                     <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" animating="YES" style="whiteLarge" id="01i-DL-uqY">
                                         <rect key="frame" x="182" y="365" width="37" height="37"/>
-                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES"/>
                                     </activityIndicatorView>
-                                    <imageView userInteractionEnabled="NO" contentMode="center" image="Images/logo.png" id="WUj-a2-Cru">
-                                        <rect key="frame" x="125" y="66" width="150" height="32"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="center" id="WUj-a2-Cru">
+                                        <rect key="frame" x="114" y="49" width="173" height="49"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     </imageView>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="4QN-nP-SVh">
@@ -109,6 +109,7 @@
                         <outlet property="container" destination="gBG-KT-4A3" id="Rvi-NA-fZm"/>
                         <outlet property="indicator" destination="01i-DL-uqY" id="yiU-j7-afK"/>
                         <outlet property="login" destination="bPd-Oc-3cd" id="IGQ-xQ-6sZ"/>
+                        <outlet property="logo" destination="WUj-a2-Cru" id="Vk9-fK-KSA"/>
                         <outlet property="password" destination="fkP-Kg-hZn" id="Oyv-DC-8cG"/>
                         <outlet property="questionMark" destination="4QN-nP-SVh" id="lxG-aJ-747"/>
                         <outlet property="username" destination="hMl-lg-20q" id="6Ov-lY-76p"/>
@@ -1399,7 +1400,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Required to complete assignment)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OtL-aX-d8s">
-                                            <rect key="frame" x="116" y="0.0" width="205" height="44"/>
+                                            <rect key="frame" x="115.99999991917031" y="0.0" width="205" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="11"/>
@@ -1876,9 +1877,6 @@
             <point key="canvasLocation" x="1849" y="-584"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="Images/logo.png" width="16" height="16"/>
-    </resources>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
         <simulatedStatusBarMetrics key="statusBar"/>
         <simulatedOrientationMetrics key="orientation"/>
