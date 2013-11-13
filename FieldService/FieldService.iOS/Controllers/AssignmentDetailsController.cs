@@ -93,6 +93,23 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				assignmentBackground.Image = Theme.AssignmentGrey;
+				priority.Font = Theme.FontOfSize (14);
+
+				//Status dropdown frame
+				var frame = status.Frame;
+				frame.Width /= 2;
+				frame.X += frame.Width + 9;
+				status.Frame = frame;
+
+				//Priority frames
+				frame = priority.Frame;
+				frame.X -= 4;
+				priority.Frame = frame;
+
+				frame = priorityBackground.Frame;
+				frame.Width -= 8;
+				priorityBackground.Frame = frame;
+
 			} else {
 				assignmentBackground.Image = Theme.AssignmentActive;
 			}

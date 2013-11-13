@@ -278,8 +278,10 @@ namespace FieldService.iOS
 					cell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
 					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
 				}
-				cell.ImageView.Image = Theme.TransparentDot;
-				cell.ImageView.HighlightedImage = Theme.Dot;
+				if (!Theme.IsiOS7) {
+					cell.ImageView.Image = Theme.TransparentDot;
+					cell.ImageView.HighlightedImage = Theme.Dot;
+				}
 
 				if (!cells.Contains (cell))
 					cells.Add (cell);
