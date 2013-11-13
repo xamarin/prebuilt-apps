@@ -119,7 +119,8 @@ namespace FieldService.iOS
 			get { return backbutton.Value; }
 		}
 
-		static Lazy<UIImage> bluebar = new Lazy<UIImage> (() => UIImage.FromFile ("Images/bluebar.png"));
+		static Lazy<UIImage> bluebar = new Lazy<UIImage> (() => 
+			IsiOS7 ? UIColor.FromRGB(0x2d, 0x9f, 0xdd).ToImage() : UIImage.FromFile ("Images/bluebar.png"));
 		
 		/// <summary>
 		/// Image for default UIToolbar
@@ -128,7 +129,7 @@ namespace FieldService.iOS
 			get { return bluebar.Value; }
 		}
 
-		static Lazy<UIImage> blueBarButtonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
+		static Lazy<UIImage> blueBarButtonItem = new Lazy<UIImage> (() => IsiOS7 ? null : UIImage.FromFile ("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
 		/// Button image for blue toolbar buttons
@@ -649,7 +650,7 @@ namespace FieldService.iOS
 			get { return blueTextColor.Value; }
 		}
 
-		static Lazy<UIColor> indicatorColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x77, 0x77, 0x77));
+		static Lazy<UIColor> indicatorColor = new Lazy<UIColor> (() => IsiOS7 ? DarkGrayColor : UIColor.FromRGB (0x77, 0x77, 0x77));
 
 		/// <summary>
 		/// General indicator color for the entire app
@@ -776,7 +777,7 @@ namespace FieldService.iOS
 			var barButtonItem = UIBarButtonItem.Appearance;
 			if (IsiOS7) {
 				//iOS 7 specific
-
+				UINavigationBar.Appearance.TintColor = UIColor.White;
 
 			} else {
 				//iOS 6 specific

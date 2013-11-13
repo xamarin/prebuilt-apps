@@ -102,7 +102,6 @@ namespace FieldService.iOS
 				return false;
 			};
 
-
 			password.LeftViewMode = UITextFieldViewMode.Always;
 			password.TextColor = Theme.LabelColor;
 			password.SetDidChangeNotification (text => loginViewModel.Password = text.Text);
@@ -115,7 +114,6 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				companyName.Hidden = true;
-				indicator.Color = Theme.DarkGrayColor;
 				username.LeftView = new UIView (new RectangleF (0, 0, 20, 20));
 				password.LeftView = new UIView (new RectangleF (0, 0, 20, 20));
 				login.Font = 
