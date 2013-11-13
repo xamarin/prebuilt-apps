@@ -63,7 +63,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI that is required to be setup from code
-			assignmentBackground.Image = Theme.AssignmentActive;
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
@@ -91,6 +90,12 @@ namespace FieldService.iOS
 			//Child controller
 			lastChildController =
 				summaryController = ChildViewControllers[0] as SummaryController;
+
+			if (Theme.IsiOS7) {
+				assignmentBackground.Image = Theme.AssignmentGrey;
+			} else {
+				assignmentBackground.Image = Theme.AssignmentActive;
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)
