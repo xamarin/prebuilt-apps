@@ -210,10 +210,10 @@ namespace FieldService.iOS
 			get { return dropdown.Value; }
 		}
 
-		static Lazy<UIImage> iconPdf = new Lazy<UIImage> (() => UIImage.FromFile ("Images/icon_pdf.png"));
+		static Lazy<UIImage> iconPdf = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/icon_pdf.png")));
 		
 		/// <summary>
-		/// 
+		/// Image for document icon
 		/// </summary>
 		public static UIImage IconPdf {
 			get { return iconPdf.Value; }
