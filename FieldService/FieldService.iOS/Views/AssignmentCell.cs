@@ -79,7 +79,7 @@ namespace FieldService.iOS
 				priority.Font = Theme.FontOfSize (14);
 
 				priority.TextColor = 
-					priority.HighlightedTextColor = Theme.LighGrayColor;
+					priority.HighlightedTextColor = Theme.LightGrayColor;
 
 				//Status frame
 				var frame = status.Frame;
