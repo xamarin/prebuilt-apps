@@ -40,8 +40,11 @@ namespace FieldService.iOS
 		public DocumentCell (string identifier)
 			: base(UITableViewCellStyle.Default, identifier)
 		{
-			BackgroundView = new UIImageView { Image = Theme.Row };
-			SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
+			if (!Theme.IsiOS7) {
+				BackgroundView = new UIImageView { Image = Theme.Row };
+				SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
+			}
+
 			TextLabel.TextColor = Theme.LabelColor;
 			ImageView.Image = Theme.IconPdf;
 			Accessory = UITableViewCellAccessory.DisclosureIndicator;
