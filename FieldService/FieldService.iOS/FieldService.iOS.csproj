@@ -527,6 +527,14 @@
     <Content Include="Images\iOS7\record_active%402x.png" />
     <Content Include="Images\iOS7\timebox.png" />
     <Content Include="Images\iOS7\timebox%402x.png" />
+    <Content Include="Images\iOS7\login_box.png" />
+    <Content Include="Images\iOS7\login_box%402x.png" />
+    <Content Include="Images\iOS7\login_btn.png" />
+    <Content Include="Images\iOS7\login_btn%402x.png" />
+    <Content Include="Images\iOS7\logo.png" />
+    <Content Include="Images\iOS7\logo%402x.png" />
+    <Content Include="Images\iOS7\questionmark.png" />
+    <Content Include="Images\iOS7\questionmark%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
