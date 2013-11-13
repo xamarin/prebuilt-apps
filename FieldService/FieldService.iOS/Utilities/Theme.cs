@@ -453,7 +453,7 @@ namespace FieldService.iOS
 			get { return numberboxHollow.Value; }
 		}
 
-		static Lazy<UIImage> orangebar = new Lazy<UIImage> (() => UIImage.FromFile ("Images/orangebar.png"));
+		static Lazy<UIImage> orangebar = new Lazy<UIImage> (() => IsiOS7 ? UIColor.FromRGB(0xff, 0x86, 0x02).ToImage() : UIImage.FromFile ("Images/orangebar.png"));
 		
 		/// <summary>
 		/// Background image for history-theme toolbars
