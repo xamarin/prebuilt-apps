@@ -22,6 +22,9 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UIView container { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UIImageView hexagons { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UIActivityIndicatorView indicator { get; set; }
 
 		[Outlet]
@@ -47,34 +50,14 @@ namespace FieldService.iOS
 		
 		void ReleaseDesignerOutlets ()
 		{
-			if (username != null) {
-				username.Dispose ();
-				username = null;
-			}
-
-			if (password != null) {
-				password.Dispose ();
-				password = null;
+			if (box != null) {
+				box.Dispose ();
+				box = null;
 			}
 
 			if (companyName != null) {
 				companyName.Dispose ();
 				companyName = null;
-			}
-
-			if (login != null) {
-				login.Dispose ();
-				login = null;
-			}
-
-			if (logo != null) {
-				logo.Dispose ();
-				logo = null;
-			}
-
-			if (box != null) {
-				box.Dispose ();
-				box = null;
 			}
 
 			if (container != null) {
@@ -87,9 +70,34 @@ namespace FieldService.iOS
 				indicator = null;
 			}
 
+			if (login != null) {
+				login.Dispose ();
+				login = null;
+			}
+
+			if (logo != null) {
+				logo.Dispose ();
+				logo = null;
+			}
+
+			if (password != null) {
+				password.Dispose ();
+				password = null;
+			}
+
 			if (questionMark != null) {
 				questionMark.Dispose ();
 				questionMark = null;
+			}
+
+			if (username != null) {
+				username.Dispose ();
+				username = null;
+			}
+
+			if (hexagons != null) {
+				hexagons.Dispose ();
+				hexagons = null;
 			}
 		}
 	}

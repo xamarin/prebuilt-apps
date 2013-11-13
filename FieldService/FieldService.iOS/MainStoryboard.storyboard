@@ -29,6 +29,10 @@
                         <rect key="frame" x="0.0" y="0.0" width="768" height="1024"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" id="ROh-Cw-xFa">
+                                <rect key="frame" x="161" y="465" width="607" height="559"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                            </imageView>
                             <view contentMode="scaleToFill" id="gBG-KT-4A3">
                                 <rect key="frame" x="192" y="290" width="400" height="444"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
@@ -107,6 +111,7 @@
                         <outlet property="box" destination="1qh-og-QUy" id="uGy-Y7-1Hl"/>
                         <outlet property="companyName" destination="BzU-Gu-Q24" id="0im-4U-hGX"/>
                         <outlet property="container" destination="gBG-KT-4A3" id="Rvi-NA-fZm"/>
+                        <outlet property="hexagons" destination="ROh-Cw-xFa" id="BG4-fM-bvp"/>
                         <outlet property="indicator" destination="01i-DL-uqY" id="yiU-j7-afK"/>
                         <outlet property="login" destination="bPd-Oc-3cd" id="IGQ-xQ-6sZ"/>
                         <outlet property="logo" destination="WUj-a2-Cru" id="Vk9-fK-KSA"/>
@@ -1078,11 +1083,11 @@
                                         <rect key="frame" x="0.0" y="22" width="703" height="60"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="gub-lv-LpY" id="9JR-Hf-X4R">
-                                            <rect key="frame" x="0.0" y="0.0" width="703" height="59"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="703" height="60"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Sheet Metal Screws #4567" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YCh-0d-1Fl">
-                                                    <rect key="frame" x="40" y="19" width="483" height="21"/>
+                                                    <rect key="frame" x="39" y="19" width="483" height="21"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1131,18 +1136,18 @@
                                         <rect key="frame" x="0.0" y="22" width="703" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Lc7-Rz-34Y" id="SVN-eW-ThO">
-                                            <rect key="frame" x="0.0" y="0.0" width="703" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="703" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Holiday Time" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="6yM-xz-cGE">
-                                                    <rect key="frame" x="20" y="29" width="130" height="30"/>
+                                                    <rect key="frame" x="20" y="29" width="130" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="ZIc-FU-5cx">
-                                                    <rect key="frame" x="158" y="5" width="387" height="79"/>
+                                                    <rect key="frame" x="155" y="5" width="388" height="76"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <string key="text">This is a really long description. This is a really long description. This is a really long description. This is a really long description. This is a really long description. </string>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="15"/>
@@ -1150,7 +1155,7 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="1.5 hrs" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="QLW-ec-dqf">
-                                                    <rect key="frame" x="553" y="29" width="130" height="30"/>
+                                                    <rect key="frame" x="551" y="29" width="132" height="28"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                     <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
@@ -1347,7 +1352,7 @@
                                         <rect key="frame" x="0.0" y="59" width="323" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="udi-4k-xNA" id="nIE-i5-GDP">
-                                            <rect key="frame" x="0.0" y="0.0" width="323" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="323" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <imageView userInteractionEnabled="NO" contentMode="scaleToFill" id="113-ol-hne">
@@ -1400,7 +1405,7 @@
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="(Required to complete assignment)" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="OtL-aX-d8s">
-                                            <rect key="frame" x="115.99999991917031" y="0.0" width="205" height="44"/>
+                                            <rect key="frame" x="115.99999983783698" y="0.0" width="205" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" heightSizable="YES"/>
                                             <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
                                             <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="11"/>

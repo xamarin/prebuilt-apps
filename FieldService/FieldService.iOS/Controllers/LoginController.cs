@@ -68,11 +68,6 @@ namespace FieldService.iOS
 			loginViewModel.IsValidChanged -= OnIsValidChanged;
 		}
 
-		public override UIStatusBarStyle PreferredStatusBarStyle ()
-		{
-			return UIStatusBarStyle.LightContent;
-		}
-
 		public override bool HandlesKeyboardNotifications {
 			get {
 				return true;
@@ -119,6 +114,7 @@ namespace FieldService.iOS
 				login.Font = 
 					username.Font =
 					password.Font = Theme.FontOfSize (18);
+				hexagons.Image = UIImage.FromFile ("Images/iOS7/hexagons.png");
 
 				//Add light gray lines
 				var view = new UIView (new RectangleF (0, 0, container.Frame.Width, 1)) {

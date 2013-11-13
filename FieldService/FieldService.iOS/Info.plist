@@ -32,7 +32,5 @@
 	</array>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>MainStoryboard</string>
-	<key>UIStatusBarStyle</key>
-	<string>UIStatusBarStyleLightContent</string>
 </dict>
 </plist>
