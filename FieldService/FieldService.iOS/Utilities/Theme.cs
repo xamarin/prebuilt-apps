@@ -658,7 +658,8 @@ namespace FieldService.iOS
 			get { return indicatorColor.Value; }
 		}
 
-		static Lazy<UIColor> linenPattern = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/linenpattern.png")));
+		static Lazy<UIColor> linenPattern = new Lazy<UIColor> (() => 
+			IsiOS7 ? UIColor.FromRGB (0xde, 0xde, 0xde) : UIColor.FromPatternImage (UIImage.FromFile ("Images/linenpattern.png")));
 		
 		/// <summary>
 		/// Linen pattern background for use throughout the app
