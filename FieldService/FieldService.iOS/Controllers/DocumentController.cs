@@ -52,6 +52,7 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+				tableView.SeparatorInset = new UIEdgeInsets (0, 40, 0, 0);
 			} else {
 				View.BackgroundColor = Theme.BackgroundColor;
 			}
