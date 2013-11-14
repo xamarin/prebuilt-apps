@@ -97,6 +97,8 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				timerLabel.Font = Theme.FontOfSize (16);
 				priority.Font = Theme.FontOfSize (14);
+				startAndEnd.Font = Theme.FontOfSize (10);
+				startAndEnd.TextColor = UIColor.White;
 
 				//Shadow frame
 				var frame = toolbarShadow.Frame;
@@ -142,7 +144,7 @@ namespace FieldService.iOS
 				titleLabel.Frame = frame;
 
 				frame = startAndEnd.Frame;
-				frame.X -= 10;
+				frame.X -= 6;
 				startAndEnd.Frame = frame;
 
 				//Address frame
@@ -166,6 +168,17 @@ namespace FieldService.iOS
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
 				};
 				activeAssignment.AddSubview (statusView);
+
+				//Additional box for the start/end date
+				frame = startAndEnd.Frame;
+				frame.X -= 4;
+				frame.Y += 1;
+				var timeBox = new UIImageView (frame) {
+					Image = Theme.TimeBox,
+					ContentMode = UIViewContentMode.Left,
+				};
+				activeAssignment.AddSubview (timeBox);
+				activeAssignment.BringSubviewToFront (startAndEnd);
 
 			} else {
 				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
@@ -271,7 +284,7 @@ namespace FieldService.iOS
 				priority.Text = assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
 				titleLabel.Text = assignment.CompanyName;
-				startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+				startAndEnd.Text = assignment.FormatStartEndDates ();
 				contact.TopLabel.Text = assignment.ContactName;
 				contact.BottomLabel.Text = assignment.ContactPhone;
 				address.TopLabel.Text = assignment.Address;
