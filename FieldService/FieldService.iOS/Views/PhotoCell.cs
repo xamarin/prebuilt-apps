@@ -27,9 +27,35 @@ namespace FieldService.iOS
 	{
 		UIImage image;
 
-		public PhotoCell (IntPtr handle) : base (handle)
+		public PhotoCell (IntPtr handle) : base (handle) { }
+
+		public override void AwakeFromNib ()
 		{
-			BackgroundView = new UIImageView { Image = Theme.Inlay };
+			base.AwakeFromNib ();
+
+			if (Theme.IsiOS7) {
+				BackgroundColor = UIColor.Clear;
+				date.TextColor =
+					description.TextColor = Theme.LabelColor;
+				date.Font = Theme.FontOfSize (18);
+				description.Font = Theme.FontOfSize (14);
+				photo.Frame = photoFrame.Frame;
+
+				//Move the text over slightly
+				var frame = date.Frame;
+				frame.X += 5;
+				frame.Width -= 15;
+				date.Frame = frame;
+
+				frame = description.Frame;
+				frame.X += 5;
+				frame.Width -= 15;
+				description.Frame = frame;
+
+			} else {
+				BackgroundView = new UIImageView { Image = Theme.Inlay };
+				photoFrame.Image = Theme.PhotoFrame;
+			}
 		}
 
 		/// <summary>
@@ -43,7 +69,6 @@ namespace FieldService.iOS
 
 			date.Text = photo.Date.ToShortTimeString () + " " + photo.Date.ToShortDateString ();
 			description.Text = photo.Description;
-			photoFrame.Image = Theme.PhotoFrame;
 			this.photo.Image = 
 				image = photo.Image.ToUIImage ();
 		}

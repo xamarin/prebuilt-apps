@@ -147,7 +147,7 @@ namespace FieldService.iOS
 			get { return orangeBarButtonItem.Value; }
 		}
 
-		static Lazy<UIImage> buttondark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/buttondark.png").CreateResizableImage (new UIEdgeInsets (16, 17, 17, 17)));
+		static Lazy<UIImage> buttondark = new Lazy<UIImage> (() => Theme.IsiOS7 ? null : UIImage.FromFile ("Images/buttondark.png").CreateResizableImage (new UIEdgeInsets (16, 17, 17, 17)));
 		
 		/// <summary>
 		/// Button image used for buttons like "Add Photo" or "Add Signature"
@@ -165,7 +165,7 @@ namespace FieldService.iOS
 			get { return camera.Value; }
 		}
 
-		static Lazy<UIImage> complete = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
+		static Lazy<UIImage> complete = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/complete.png")).CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
 		
 		/// <summary>
 		/// Image for the complete button
@@ -174,7 +174,7 @@ namespace FieldService.iOS
 			get { return complete.Value; }
 		}
 
-		static Lazy<UIImage> completeInactive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete_inactive.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
+		static Lazy<UIImage> completeInactive = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/complete_inactive.png")).CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
 		
 		/// <summary>
 		/// Image for the complete button when disabled

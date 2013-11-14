@@ -73,6 +73,20 @@ namespace FieldService.iOS
 
 			photoTableView.Source = new PhotoTableSource (this);
 			signatureTableView.Source = new SignatureTableSource (this);
+
+			if (Theme.IsiOS7) {
+				addPhoto.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
+				signature.TextColor =
+					photos.TextColor =
+					requirement.TextColor =
+					note.TextColor = Theme.LabelColor;
+
+				addPhoto.Font =
+					signature.Font =
+					photos.Font = Theme.FontOfSize (18);
+				requirement.Font =
+					note.Font = Theme.FontOfSize (12);
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)
