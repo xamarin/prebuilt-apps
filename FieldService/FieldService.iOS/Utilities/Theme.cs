@@ -36,7 +36,7 @@ namespace FieldService.iOS
 			get { return accept.Value; }
 		}
 
-		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (18, 19, 21, 19)));
+		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => IsiOS7 ? null : UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (18, 19, 21, 19)));
 		
 		/// <summary>
 		/// Image for add photo button on expenses
@@ -642,7 +642,7 @@ namespace FieldService.iOS
 			get { return labelColor.Value; }
 		}
 
-		static Lazy<UIColor> blueTextColor = new Lazy<UIColor> (() => UIColor.FromRGB (0.22f, 0.33f, 0.53f));
+		static Lazy<UIColor> blueTextColor = new Lazy<UIColor> (() => IsiOS7 ? LabelColor : UIColor.FromRGB (0.22f, 0.33f, 0.53f));
 		
 		/// <summary>
 		/// Default blue text color for editable text - same as seen in Settings app

@@ -68,6 +68,10 @@ namespace FieldService.iOS
 			InputView = picker;
 			InputAccessoryView = toolbar;
 			TextAlignment = UITextAlignment.Left;
+
+			if (Theme.IsiOS7) {
+				done.TintColor = UIColor.White;
+			}
 		}
 
 		/// <summary>

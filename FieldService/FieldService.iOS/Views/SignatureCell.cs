@@ -36,12 +36,15 @@ namespace FieldService.iOS
 			base.AwakeFromNib ();
 
 			if (Theme.IsiOS7) {
+				BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
+
 				addSignature.SetImage (UIImage.FromFile ("Images/iOS7/iconsignature.png"), UIControlState.Normal);
 				addSignature.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
+				addSignature.BackgroundColor = UIColor.White;
 				addSignature.Font = Theme.FontOfSize (18);
 				addSignature.ImageEdgeInsets = new UIEdgeInsets (0, -10, 0, 0);
 
-				addSignature.Frame = signature.Frame;
+				addSignature.Frame = new RectangleF (PointF.Empty, Frame.Size);
 			} else {
 				BackgroundView = new UIImageView { Image = Theme.Inlay };
 
@@ -81,9 +84,9 @@ namespace FieldService.iOS
 				image = signature.Image.ToUIImage ();
 				this.signature.Hidden = false;
 				this.signature.SetBackgroundImage (image, UIControlState.Normal);
+				this.signature.Enabled = !assignment.IsReadonly;
 				this.signature.Layer.CornerRadius = 7;
 				this.signature.ClipsToBounds = true;
-				this.signature.Enabled = !assignment.IsReadonly;
 
 				addSignature.Hidden = true;
 			}
