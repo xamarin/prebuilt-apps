@@ -179,7 +179,7 @@ namespace FieldService.iOS
 				});
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, 470, 90))
+				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, Theme.IsiOS7 ? 515 : 470, 90))
 				{
 					BackgroundColor = UIColor.Clear,
 					Placeholder = "Please enter notes here",
