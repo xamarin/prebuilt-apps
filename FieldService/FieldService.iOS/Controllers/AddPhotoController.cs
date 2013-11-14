@@ -48,7 +48,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI setup from code
-			descriptionBackground.Image = Theme.ModalInlay;
 			description.ShouldReturn = t => {
 				Save ();
 				return false;
@@ -85,6 +84,7 @@ namespace FieldService.iOS
 
 				deleteButton.SetTitleColor (Theme.RedColor, UIControlState.Normal);
 			} else {
+				descriptionBackground.Image = Theme.ModalInlay;
 				photoFrame.Image = Theme.PhotoFrame;
 
 				deleteButton.SetBackgroundImage (Theme.DeleteButton, UIControlState.Normal);
