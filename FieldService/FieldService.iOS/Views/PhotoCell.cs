@@ -34,7 +34,8 @@ namespace FieldService.iOS
 			base.AwakeFromNib ();
 
 			if (Theme.IsiOS7) {
-				BackgroundColor = UIColor.Clear;
+				BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
+
 				date.TextColor =
 					description.TextColor = Theme.LabelColor;
 				date.Font = Theme.FontOfSize (18);

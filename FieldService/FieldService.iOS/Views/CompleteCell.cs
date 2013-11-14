@@ -49,7 +49,7 @@ namespace FieldService.iOS
 			completeButton.SetTitle ("Completed", UIControlState.Disabled);
 
 			if (Theme.IsiOS7) {
-				BackgroundColor = UIColor.Clear;
+				BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
 				completeButton.Font = Theme.FontOfSize (18);
 			} else {
 				BackgroundView = new UIImageView { Image = Theme.Inlay };
