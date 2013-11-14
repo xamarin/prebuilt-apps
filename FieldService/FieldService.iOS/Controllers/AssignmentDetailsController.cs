@@ -67,8 +67,6 @@ namespace FieldService.iOS
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
-			accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
-			decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
 
 			numberAndDate.TextColor =
 				titleLabel.TextColor =
@@ -96,6 +94,10 @@ namespace FieldService.iOS
 				priority.Font = Theme.FontOfSize (14);
 				startAndEnd.Font = Theme.FontOfSize (10);
 				startAndEnd.TextColor = UIColor.White;
+				accept.SetTitleColor (Theme.GreenColor, UIControlState.Normal);
+				decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
+				accept.Font =
+					decline.Font = Theme.FontOfSize (16);
 
 				//Status dropdown frame
 				var frame = status.Frame;
@@ -130,6 +132,8 @@ namespace FieldService.iOS
 
 			} else {
 				assignmentBackground.Image = Theme.AssignmentActive;
+				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
+				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
 			}
 		}
 
