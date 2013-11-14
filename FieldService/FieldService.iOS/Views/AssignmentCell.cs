@@ -77,6 +77,8 @@ namespace FieldService.iOS
 				accept.Font =
 					decline.Font = Theme.FontOfSize (16);
 				priority.Font = Theme.FontOfSize (14);
+				startAndEnd.Font = Theme.FontOfSize (10);
+				startAndEnd.TextColor = UIColor.White;
 
 				priority.TextColor = 
 					priority.HighlightedTextColor = Theme.LightGrayColor;
@@ -96,12 +98,28 @@ namespace FieldService.iOS
 				frame.Width -= 8;
 				priorityBackground.Frame = frame;
 
+				//Start/end date
+				frame = startAndEnd.Frame;
+				frame.X += 4;
+				startAndEnd.Frame = frame;
+
 				//Additional green rectangle on the right
 				statusView = new UIView (new RectangleF (Frame.Width - 8, 0, 8, Frame.Height)) {
 					BackgroundColor = Theme.YellowColor,
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
 				};
 				AddSubview (statusView);
+
+				//Additional box for the start/end date
+				frame = startAndEnd.Frame;
+				frame.X -= 4;
+				frame.Y += 1;
+				var timeBox = new UIImageView (frame) {
+					Image = Theme.TimeBox,
+					ContentMode = UIViewContentMode.Left,
+				};
+				ContentView.AddSubview (timeBox);
+				ContentView.BringSubviewToFront (startAndEnd);
 
 			} else {
 				priorityBackground.Image = Theme.NumberBox;
@@ -127,7 +145,7 @@ namespace FieldService.iOS
 			priority.Text = assignment.Priority.ToString ();
 			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
 			title.Text = assignment.CompanyName;
-			startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+			startAndEnd.Text = assignment.FormatStartEndDates ();
 			contact.TopLabel.Text = assignment.ContactName;
 			contact.BottomLabel.Text = assignment.ContactPhone;
 			address.TopLabel.Text = assignment.Address;

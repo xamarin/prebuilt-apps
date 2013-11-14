@@ -94,6 +94,8 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				assignmentBackground.Image = Theme.AssignmentGrey;
 				priority.Font = Theme.FontOfSize (14);
+				startAndEnd.Font = Theme.FontOfSize (10);
+				startAndEnd.TextColor = UIColor.White;
 
 				//Status dropdown frame
 				var frame = status.Frame;
@@ -109,6 +111,22 @@ namespace FieldService.iOS
 				frame = priorityBackground.Frame;
 				frame.Width -= 8;
 				priorityBackground.Frame = frame;
+
+				//Start and end dates
+				frame = startAndEnd.Frame;
+				frame.X += 4;
+				startAndEnd.Frame = frame;
+
+				//Additional box for the start/end date
+				frame = startAndEnd.Frame;
+				frame.X -= 4;
+				frame.Y += 1;
+				var timeBox = new UIImageView (frame) {
+					Image = Theme.TimeBox,
+					ContentMode = UIViewContentMode.Left,
+				};
+				assignmentBackground.AddSubview (timeBox);
+				assignmentBackground.BringSubviewToFront (startAndEnd);
 
 			} else {
 				assignmentBackground.Image = Theme.AssignmentActive;
@@ -199,7 +217,7 @@ namespace FieldService.iOS
 				priority.Text = assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("{0} {1}", assignment.JobNumberFormatted, assignment.StartDate.Date.ToShortDateString ());
 				titleLabel.Text = assignment.CompanyName;
-				startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+				startAndEnd.Text = assignment.FormatStartEndDates ();
 				contact.TopLabel.Text = assignment.ContactName;
 				contact.BottomLabel.Text = assignment.ContactPhone;
 				address.TopLabel.Text = assignment.Address;

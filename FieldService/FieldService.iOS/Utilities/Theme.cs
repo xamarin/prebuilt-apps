@@ -570,6 +570,15 @@ namespace FieldService.iOS
 			get { return timerBackground.Value; }
 		}
 
+		static Lazy<UIImage> timeBox = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/timebox.png"));
+
+		/// <summary>
+		/// Image for start/end date background on iOS 7
+		/// </summary>
+		public static UIImage TimeBox {
+			get { return timeBox.Value; }
+		}
+
 		static Lazy<UIImage> timerfield = new Lazy<UIImage> (() => UIImage.FromFile ("Images/timerfield.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
