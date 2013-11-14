@@ -1370,7 +1370,7 @@
                                                     <color key="highlightedColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 </label>
                                                 <label opaque="NO" clipsSubviews="YES" userInteractionEnabled="NO" contentMode="left" text="Short caption for the photo, to make sure it looks right." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="V8F-cA-hr3">
-                                                    <rect key="frame" x="92" y="45" width="242" height="29"/>
+                                                    <rect key="frame" x="92" y="45" width="242" height="37"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Medium" family="Helvetica Neue" pointSize="12"/>
                                                     <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
@@ -1434,11 +1434,11 @@
                                         <rect key="frame" x="0.0" y="59" width="323" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Gfk-lW-8LA" id="pxu-Ws-pex">
-                                            <rect key="frame" x="0.0" y="0.0" width="323" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="323" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="fPr-bu-Ofj">
-                                                    <rect key="frame" x="101" y="27" width="120" height="35"/>
+                                                    <rect key="frame" x="101" y="28" width="120" height="35"/>
                                                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMaxX="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="13"/>
                                                     <state key="normal" title="Add Signature">
@@ -1453,7 +1453,7 @@
                                                     </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="75G-VY-ZNf">
-                                                    <rect key="frame" x="7" y="6" width="309" height="78"/>
+                                                    <rect key="frame" x="7" y="7" width="309" height="78"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="0.0" minY="1" maxX="0.0" maxY="0.0"/>
@@ -1480,11 +1480,11 @@
                                         <rect key="frame" x="0.0" y="149" width="323" height="90"/>
                                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="Yjt-bD-PyC" id="p7L-wF-QVY">
-                                            <rect key="frame" x="0.0" y="0.0" width="323" height="89"/>
+                                            <rect key="frame" x="0.0" y="0.0" width="323" height="90"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" id="Tb7-Rx-MtN">
-                                                    <rect key="frame" x="7" y="7" width="309" height="79"/>
+                                                    <rect key="frame" x="7" y="8" width="309" height="79"/>
                                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES" flexibleMaxY="YES"/>
                                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="17"/>
                                                     <inset key="contentEdgeInsets" minX="0.0" minY="0.0" maxX="0.0" maxY="2"/>
@@ -1514,7 +1514,11 @@
                     <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
                     <connections>
                         <outlet property="addPhoto" destination="EgZ-xi-sfu" id="BBK-Sr-MOM"/>
+                        <outlet property="note" destination="2Ke-Oa-bvv" id="aqb-nZ-70j"/>
                         <outlet property="photoTableView" destination="5DK-NN-TzP" id="Ogy-uu-oWZ"/>
+                        <outlet property="photos" destination="x2A-Ym-9yQ" id="El4-xU-pbP"/>
+                        <outlet property="requirement" destination="OtL-aX-d8s" id="2xh-On-DA6"/>
+                        <outlet property="signature" destination="H0d-pe-csv" id="Gjf-3k-hhd"/>
                         <outlet property="signatureTableView" destination="x1g-gj-n2w" id="CNw-4p-HML"/>
                         <outlet property="toolbar" destination="Dl0-Wi-NkM" id="rGM-je-ub9"/>
                     </connections>

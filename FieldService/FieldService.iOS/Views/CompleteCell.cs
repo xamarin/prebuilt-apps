@@ -36,8 +36,24 @@ namespace FieldService.iOS
 		public CompleteCell (IntPtr handle) : base (handle)
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+		}
 
-			BackgroundView = new UIImageView { Image = Theme.Inlay };
+		public override void AwakeFromNib ()
+		{
+			base.AwakeFromNib ();
+
+			completeButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
+			completeButton.SetBackgroundImage (Theme.CompleteInactive, UIControlState.Disabled);
+			completeButton.SetTitleColor (UIColor.White, UIControlState.Normal);
+			completeButton.SetTitle ("Complete", UIControlState.Normal);
+			completeButton.SetTitle ("Completed", UIControlState.Disabled);
+
+			if (Theme.IsiOS7) {
+				BackgroundColor = UIColor.Clear;
+				completeButton.Font = Theme.FontOfSize (18);
+			} else {
+				BackgroundView = new UIImageView { Image = Theme.Inlay };
+			}
 		}
 
 		/// <summary>
@@ -50,11 +66,6 @@ namespace FieldService.iOS
 			this.tableView = tableView;
 
 			completeButton.Enabled = assignment.CanComplete;
-			completeButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
-			completeButton.SetBackgroundImage (Theme.CompleteInactive, UIControlState.Disabled);
-			completeButton.SetTitleColor (UIColor.White, UIControlState.Normal);
-			completeButton.SetTitle ("Complete", UIControlState.Normal);
-			completeButton.SetTitle ("Completed", UIControlState.Disabled);
 		}
 
 		/// <summary>

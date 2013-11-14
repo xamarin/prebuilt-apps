@@ -29,9 +29,24 @@ namespace FieldService.iOS
 		ConfirmationController controller;
 		UIImage image;
 
-		public SignatureCell (IntPtr handle) : base (handle)
+		public SignatureCell (IntPtr handle) : base (handle) { }
+
+		public override void AwakeFromNib ()
 		{
-			BackgroundView = new UIImageView { Image = Theme.Inlay };
+			base.AwakeFromNib ();
+
+			if (Theme.IsiOS7) {
+				addSignature.SetImage (UIImage.FromFile ("Images/iOS7/iconsignature.png"), UIControlState.Normal);
+				addSignature.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
+				addSignature.Font = Theme.FontOfSize (18);
+				addSignature.ImageEdgeInsets = new UIEdgeInsets (0, -10, 0, 0);
+
+				addSignature.Frame = signature.Frame;
+			} else {
+				BackgroundView = new UIImageView { Image = Theme.Inlay };
+
+				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
+			}
 		}
 
 		/// <summary>
@@ -52,7 +67,6 @@ namespace FieldService.iOS
 				this.signature.SetBackgroundImage (null, UIControlState.Normal);
 
 				addSignature.Hidden = false;
-				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
 
 				if (assignment.Status != AssignmentStatus.Complete && !assignment.IsHistory) {
 					addSignature.Enabled = true;
