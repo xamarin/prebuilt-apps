@@ -688,7 +688,7 @@ namespace FieldService.iOS
 			get { return leftMenuColor.Value; }
 		}
 
-		static Lazy<UIColor> backgroundColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x55, 0x55, 0x55));
+		static Lazy<UIColor> backgroundColor = new Lazy<UIColor> (() => IsiOS7 ? UIColor.FromRGB(0xef, 0xef, 0xef) : UIColor.FromRGB (0x55, 0x55, 0x55));
 		
 		/// <summary>
 		/// General background color for the app
