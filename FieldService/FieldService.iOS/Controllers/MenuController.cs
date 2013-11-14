@@ -67,7 +67,7 @@ namespace FieldService.iOS
 		private void OnRecordingChanged (object sender, EventArgs e)
 		{
 			if (IsViewLoaded) {
-				record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 			}
 		}
 
@@ -95,8 +95,6 @@ namespace FieldService.iOS
 			//UI we have to setup from code
 			tableView.Source = new TableSource (this);
 			timerLabel.TextColor = Theme.LabelColor;
-			timerBackground.Image = Theme.TimerBackground;
-			timerLabelBackground.Image = Theme.TimerField;
 
 			status.StatusChanged += (sender, e) => SaveAssignment ();
 			status.Completed += (sender, e) => {
@@ -116,14 +114,50 @@ namespace FieldService.iOS
 				tableView.BackgroundColor = Theme.LinenPattern;
 				tableView.RowHeight = 50;
 
+				timerBackground.BackgroundColor = UIColor.White;
+				timerLabel.Font = Theme.FontOfSize (24);
+
+				//Move the table around
 				var frame = View.Frame;
 				frame.X = 0;
 				frame.Y = -2;
 				frame.Height += 2;
 				tableView.Frame = frame;
 
+				//Move the timer
+				frame = timerBackground.Frame;
+				frame.Y += frame.Height - 80;
+				frame.Height = 80;
+				timerBackground.Frame = frame;
+
+				//Move the status dropdown
+				frame = status.Frame;
+				frame.X += 185;
+				frame.Y += 55;
+				frame.Width = 90;
+				status.Frame = frame;
+
+				//Move the timer label
+				frame = timerLabel.Frame;
+				frame.X -= 60;
+				timerLabel.Frame = frame;
+
+				//Move the record button
+				frame = record.Frame;
+				frame.X = (float)Math.Floor((timerBackground.Frame.Width - frame.Width) / 2);
+				record.Frame = frame;
+
+				//Additional green rectangle on the right
+				var statusView = new UIView (new RectangleF (timerBackground.Frame.Width - 8, 0, 8, timerBackground.Frame.Height)) {
+					BackgroundColor = Theme.GreenColor,
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
+				};
+				timerBackground.AddSubview (statusView);
+
 			} else {
+				timerBackground.Image = Theme.TimerBackground;
 				View.BackgroundColor = Theme.LeftMenuColor;
+				timerLabelBackground.Image = Theme.TimerField;
 			}
 		}
 
@@ -162,7 +196,7 @@ namespace FieldService.iOS
 					status.Assignment = assignmentViewModel.ActiveAssignment;
 					timerView.Hidden = false;
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+					record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 
 					//Animate the timeView on screen and set its alpha to 1
 					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
