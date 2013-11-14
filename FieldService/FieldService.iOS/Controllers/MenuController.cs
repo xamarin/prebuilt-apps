@@ -113,16 +113,17 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				//NOTE: tableView.Style is readonly, so we have to do a little work to make our iOS 7 tableView not look like a grouped tableView
 				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+				tableView.BackgroundColor = Theme.LinenPattern;
+				tableView.RowHeight = 50;
 
 				var frame = View.Frame;
 				frame.X = 0;
-				frame.Y = -1;
-				frame.Height += 1;
+				frame.Y = -2;
+				frame.Height += 2;
 				tableView.Frame = frame;
 
 			} else {
 				View.BackgroundColor = Theme.LeftMenuColor;
-
 			}
 		}
 
@@ -297,6 +298,12 @@ namespace FieldService.iOS
 
 					cell.ImageView.Image = Theme.TransparentDot;
 					cell.ImageView.HighlightedImage = Theme.Dot;
+				} else {
+					cell.IndentationLevel = 1;
+					cell.TextLabel.Font = Theme.FontOfSize (18);
+					cell.BackgroundColor = Theme.LinenPattern;
+					cell.BackgroundView = new UIView { BackgroundColor = Theme.LinenPattern };
+					cell.SelectedBackgroundView = new UIView { BackgroundColor = Theme.DarkGrayColor };
 				}
 
 				if (!cells.Contains (cell))
