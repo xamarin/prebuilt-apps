@@ -63,7 +63,9 @@ namespace FieldService.iOS
 
 			space = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
 			
-			addItem = new UIBarButtonItem ("Add Expense", UIBarButtonItemStyle.Bordered, OnAddExpense);
+			addItem = Theme.IsiOS7 ? 
+			          new UIBarButtonItem(UIBarButtonSystemItem.Add, OnAddExpense) : 
+			          new UIBarButtonItem ("Add Expense", UIBarButtonItemStyle.Bordered, OnAddExpense);
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
@@ -71,6 +73,7 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+				addItem.TintColor = UIColor.White;
 			} else {
 				View.BackgroundColor = Theme.BackgroundColor;
 			}
