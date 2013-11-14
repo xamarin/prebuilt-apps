@@ -34,12 +34,22 @@ namespace FieldService.iOS
 			SelectionStyle = UITableViewCellSelectionStyle.None; //Shouldn't be clickable
 		}
 
+		public override void AwakeFromNib ()
+		{
+			base.AwakeFromNib ();
+
+			label.TextColor = Theme.LabelColor;
+
+			if (Theme.IsiOS7) {
+				label.Font = Theme.FontOfSize (18);
+			}
+		}
+
 		/// <summary>
 		/// Sets the current assignment item
 		/// </summary>
 		public void SetItem(AssignmentItem item)
 		{
-			label.TextColor = Theme.LabelColor;
 			label.Text = item.Name + " " + item.Number;
 		}
 
