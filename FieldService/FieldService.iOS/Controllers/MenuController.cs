@@ -165,21 +165,26 @@ namespace FieldService.iOS
 		{
 			base.ViewWillAppear (animated);
 
-			var selected = tableView.IndexPathForSelectedRow;
-			if (selected == null || selected.Row != menuViewModel.MenuIndex) {
-				ChangeSelection (menuViewModel.MenuIndex);
-			}
-
 			//Update the UI
 			UpdateAssignment ();
 		}
 
-		private void ChangeSelection (int index)
+		public override void ViewDidAppear (bool animated)
+		{
+			base.ViewDidAppear (animated);
+
+			var selected = tableView.IndexPathForSelectedRow;
+			if (selected == null || selected.Row != menuViewModel.MenuIndex) {
+				ChangeSelection (menuViewModel.MenuIndex, false);
+			}
+		}
+
+		private void ChangeSelection (int index, bool animated = true)
 		{
 			int count = tableView.NumberOfRowsInSection (0);
 			if (index < count) {
 				using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
-					tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+					tableView.SelectRow (indexPath, animated, UITableViewScrollPosition.Top);
 				
 					OnMenuChanged (new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 				}
