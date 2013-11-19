@@ -335,6 +335,7 @@ namespace FieldService.iOS
 				} else {
 					cell.IndentationLevel = 1;
 					cell.TextLabel.Font = Theme.FontOfSize (18);
+					cell.TextLabel.HighlightedTextColor = UIColor.White;
 					cell.BackgroundColor = Theme.LinenPattern;
 					cell.BackgroundView = new UIView { BackgroundColor = Theme.LinenPattern };
 					cell.SelectedBackgroundView = new UIView { BackgroundColor = Theme.DarkGrayColor };
