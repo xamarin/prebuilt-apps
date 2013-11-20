@@ -96,7 +96,7 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				timerLabel.Font = Theme.FontOfSize (16);
-				priority.Font = Theme.FontOfSize (14);
+				priority.Font = Theme.FontOfSize (18);
 				startAndEnd.Font = Theme.FontOfSize (10);
 				startAndEnd.TextColor = UIColor.White;
 
@@ -125,14 +125,11 @@ namespace FieldService.iOS
 				record.Frame = frame;
 
 				//Priority frames
-				frame = priority.Frame;
-				frame.X -= 14.5f;
-				priority.Frame = frame;
-
 				frame = priorityBackground.Frame;
 				frame.X -= 10;
 				frame.Width = frame.Height;
-				priorityBackground.Frame = frame;
+				priorityBackground.Frame =
+					priority.Frame = frame;
 
 				//Info frames
 				frame = numberAndDate.Frame;
@@ -281,6 +278,14 @@ namespace FieldService.iOS
 			} else {
 				SetActiveAssignmentVisible (true);
 				var assignment = assignmentViewModel.ActiveAssignment;
+
+				//Update font size on priority
+				if (assignment.Priority >= 10) {
+					priority.Font = Theme.FontOfSize (14);
+				} else {
+					priority.Font = Theme.FontOfSize (18);
+				}
+
 				priority.Text = assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
 				titleLabel.Text = assignment.CompanyName;

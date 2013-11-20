@@ -91,7 +91,7 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				assignmentBackground.Image = Theme.AssignmentGrey;
-				priority.Font = Theme.FontOfSize (14);
+				priority.Font = Theme.FontOfSize (18);
 				startAndEnd.Font = Theme.FontOfSize (10);
 				startAndEnd.TextColor = UIColor.White;
 				accept.SetTitleColor (Theme.GreenColor, UIControlState.Normal);
@@ -106,13 +106,10 @@ namespace FieldService.iOS
 				status.Frame = frame;
 
 				//Priority frames
-				frame = priority.Frame;
-				frame.X -= 4.5f;
-				priority.Frame = frame;
-
 				frame = priorityBackground.Frame;
 				frame.Width = frame.Height;
-				priorityBackground.Frame = frame;
+				priorityBackground.Frame =
+					priority.Frame = frame;
 
 				//Start and end dates
 				frame = startAndEnd.Frame;
@@ -215,6 +212,14 @@ namespace FieldService.iOS
 		{
 			var assignment = assignmentViewModel.SelectedAssignment;
 			if (assignment != null && IsViewLoaded) {
+
+				//Update font size on priority
+				if (assignment.Priority >= 10) {
+					priority.Font = Theme.FontOfSize (14);
+				} else {
+					priority.Font = Theme.FontOfSize (18);
+				}
+
 				var splitController = ParentViewController as SplitController;
 				if (splitController != null)
 					splitController.NavigationItem.Title = assignment.JobNumberFormatted + " " + assignment.CompanyName;
