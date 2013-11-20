@@ -138,6 +138,8 @@ namespace FieldService.iOS
 				//Move up the logo
 				frame = logo.Frame;
 				frame.Y -= 10;
+				frame.Width = 172;
+				frame.Height = 48;
 				logo.Frame = frame;
 
 				//Move the login button
