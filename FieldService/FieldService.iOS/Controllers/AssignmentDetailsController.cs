@@ -92,7 +92,7 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				assignmentBackground.Image = Theme.AssignmentGrey;
 				priority.Font = Theme.FontOfSize (18);
-				startAndEnd.Font = Theme.FontOfSize (10);
+				startAndEnd.Font = Theme.BoldFontOfSize (10);
 				startAndEnd.TextColor = UIColor.White;
 				accept.SetTitleColor (Theme.GreenColor, UIControlState.Normal);
 				decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
@@ -119,7 +119,9 @@ namespace FieldService.iOS
 				//Additional box for the start/end date
 				frame = startAndEnd.Frame;
 				frame.X -= 4;
-				frame.Y += 1;
+				frame.Y += 4;
+				frame.Width = 102;
+				frame.Height = 16;
 				var timeBox = new UIImageView (frame) {
 					Image = Theme.TimeBox,
 					ContentMode = UIViewContentMode.Left,
