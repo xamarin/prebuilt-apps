@@ -545,6 +545,8 @@
     <Content Include="Images\iOS7\complete%402x.png" />
     <Content Include="Images\iOS7\iconsignature.png" />
     <Content Include="Images\iOS7\iconsignature%402x.png" />
+    <Content Include="Images\iOS7\image_placeholder.png" />
+    <Content Include="Images\iOS7\image_placeholder%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
