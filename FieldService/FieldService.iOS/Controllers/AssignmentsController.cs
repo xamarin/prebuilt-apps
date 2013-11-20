@@ -144,12 +144,12 @@ namespace FieldService.iOS
 
 				//Priority frames
 				frame = priority.Frame;
-				frame.X -= 14;
+				frame.X -= 14.5f;
 				priority.Frame = frame;
 
 				frame = priorityBackground.Frame;
 				frame.X -= 10;
-				frame.Width -= 8;
+				frame.Width = frame.Height;
 				priorityBackground.Frame = frame;
 
 				//Info frames

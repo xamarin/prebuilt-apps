@@ -107,11 +107,11 @@ namespace FieldService.iOS
 
 				//Priority frames
 				frame = priority.Frame;
-				frame.X -= 4;
+				frame.X -= 4.5f;
 				priority.Frame = frame;
 
 				frame = priorityBackground.Frame;
-				frame.Width -= 8;
+				frame.Width = frame.Height;
 				priorityBackground.Frame = frame;
 
 				//Start and end dates
