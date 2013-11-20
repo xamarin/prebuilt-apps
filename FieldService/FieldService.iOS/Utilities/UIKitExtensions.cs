@@ -168,7 +168,7 @@ namespace FieldService.iOS
 				string start = assignment.StartDate.ToShortTimeString ();
 				string end = assignment.EndDate.ToShortTimeString ();
 
-				return start + string.Empty.PadLeft (20 - start.Length - end.Length) + end;
+				return start + string.Empty.PadLeft (19 - start.Length - end.Length) + end;
 			} else {
 				return string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
 			}

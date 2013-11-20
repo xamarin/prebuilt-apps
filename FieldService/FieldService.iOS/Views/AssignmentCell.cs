@@ -76,7 +76,7 @@ namespace FieldService.iOS
 				decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
 				accept.Font =
 					decline.Font = Theme.FontOfSize (16);
-				startAndEnd.Font = Theme.FontOfSize (10);
+				startAndEnd.Font = Theme.BoldFontOfSize (10);
 				startAndEnd.TextColor = UIColor.White;
 
 				priority.TextColor = 
@@ -109,7 +109,9 @@ namespace FieldService.iOS
 				//Additional box for the start/end date
 				frame = startAndEnd.Frame;
 				frame.X -= 4;
-				frame.Y += 1;
+				frame.Y += 4;
+				frame.Width = 102;
+				frame.Height = 16;
 				var timeBox = new UIImageView (frame) {
 					Image = Theme.TimeBox,
 					ContentMode = UIViewContentMode.Left,
@@ -167,7 +169,6 @@ namespace FieldService.iOS
 						priorityBackground.Alpha =
 						numberAndDate.Alpha =
 						title.Alpha =
-						startAndEnd.Alpha =
 						contact.Alpha = 
 						address.Alpha = 0.5f;
 				}
@@ -185,7 +186,6 @@ namespace FieldService.iOS
 						priorityBackground.Alpha =
 						numberAndDate.Alpha =
 						title.Alpha =
-						startAndEnd.Alpha =
 						contact.Alpha = 
 						address.Alpha = 1;
 				}
