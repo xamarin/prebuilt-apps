@@ -638,6 +638,15 @@ namespace FieldService.iOS
 			get { return questionMark.Value; }
 		}
 
+		static Lazy<UIImage> imagePlaceholder = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/image_placeholder.png"));
+
+		/// <summary>
+		/// Used for "add image" button on the confirm screen
+		/// </summary>
+		public static UIImage ImagePlaceholder {
+			get { return imagePlaceholder.Value; }
+		}
+
 		#endregion
 
 		#region Colors

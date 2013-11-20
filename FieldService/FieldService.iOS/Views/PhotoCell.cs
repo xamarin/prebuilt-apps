@@ -34,22 +34,28 @@ namespace FieldService.iOS
 			base.AwakeFromNib ();
 
 			if (Theme.IsiOS7) {
+				SelectionStyle = UITableViewCellSelectionStyle.Blue;
+				SelectedBackgroundView = new UIView { BackgroundColor = UIColor.Clear };
 				BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
 
 				date.TextColor =
 					description.TextColor = Theme.LabelColor;
 				date.Font = Theme.FontOfSize (18);
 				description.Font = Theme.FontOfSize (14);
-				photo.Frame = photoFrame.Frame;
 
-				//Move the text over slightly
-				var frame = date.Frame;
-				frame.X += 5;
+				//Change the image frame
+				var frame = photoFrame.Frame;
+				frame.Y = 0;
+				frame.Height = Frame.Height;
+				frame.Width -= 12;
+				photo.Frame = frame;
+
+				//Changes to widths on text
+				frame = date.Frame;
 				frame.Width -= 15;
 				date.Frame = frame;
 
 				frame = description.Frame;
-				frame.X += 5;
 				frame.Width -= 15;
 				description.Frame = frame;
 
