@@ -60,7 +60,7 @@ namespace FieldService.iOS
 			base.WillTransitionToState (mask);
 
 			//If the "delete" button is appearing, set the alpha to 0 so it is invisible
-			if ((mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
+			if (!Theme.IsiOS7 && (mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
 				var deleteButton = Subviews.Last();
 				deleteButton.Alpha = 
 					icon.Alpha = 0;
@@ -71,28 +71,30 @@ namespace FieldService.iOS
 		{
 			base.DidTransitionToState (mask);
 
-			//If the "delete" button is appearing, let's reposition it and use a different animation
-			if ((mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
-				var deleteButton = Subviews.Last ();
+			if (!Theme.IsiOS7) {
+				//If the "delete" button is appearing, let's reposition it and use a different animation
+				if ((mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
+					var deleteButton = Subviews.Last ();
 
-				//Position the button
-				var frame = deleteButton.Frame;
-				frame.X -= 45;
-				deleteButton.Frame = frame;
+					//Position the button
+					var frame = deleteButton.Frame;
+					frame.X -= 45;
+					deleteButton.Frame = frame;
 
-				//Animate the button "fading" in
-				UIView.BeginAnimations ("ShowDeleteButton");
-				UIView.SetAnimationDuration (.3);
-				UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
-				deleteButton.Alpha = 1;
-				UIView.CommitAnimations ();
-			} else {
-				//Animate the icon "fading" in
-				UIView.BeginAnimations ("ShowIcon");
-				UIView.SetAnimationDuration (.3);
-				UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
-				icon.Alpha = 1;
-				UIView.CommitAnimations ();
+					//Animate the button "fading" in
+					UIView.BeginAnimations ("ShowDeleteButton");
+					UIView.SetAnimationDuration (.3);
+					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+					deleteButton.Alpha = 1;
+					UIView.CommitAnimations ();
+				} else {
+					//Animate the icon "fading" in
+					UIView.BeginAnimations ("ShowIcon");
+					UIView.SetAnimationDuration (.3);
+					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
+					icon.Alpha = 1;
+					UIView.CommitAnimations ();
+				}
 			}
 		}
 
