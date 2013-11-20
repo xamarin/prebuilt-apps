@@ -76,7 +76,6 @@ namespace FieldService.iOS
 				decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
 				accept.Font =
 					decline.Font = Theme.FontOfSize (16);
-				priority.Font = Theme.FontOfSize (14);
 				startAndEnd.Font = Theme.FontOfSize (10);
 				startAndEnd.TextColor = UIColor.White;
 
@@ -90,13 +89,10 @@ namespace FieldService.iOS
 				status.Frame = frame;
 
 				//Priority frame
-				frame = priority.Frame;
-				frame.X -= 4.5f;
-				priority.Frame = frame;
-
 				frame = priorityBackground.Frame;
 				frame.Width = frame.Height;
-				priorityBackground.Frame = frame;
+				priorityBackground.Frame =
+					priority.Frame = frame;
 
 				//Start/end date
 				frame = startAndEnd.Frame;
@@ -139,6 +135,13 @@ namespace FieldService.iOS
 			this.controller = controller;
 			this.assignment = assignment;
 			this.indexPath = indexPath;
+
+			//Update font size on priority
+			if (assignment.Priority >= 10) {
+				priority.Font = Theme.FontOfSize (14);
+			} else {
+				priority.Font = Theme.FontOfSize (18);
+			}
 
 			//Now make any changes dependant on the assignment passed in
 			((UIImageView)BackgroundView).Image = Theme.AssignmentGrey;
