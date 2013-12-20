@@ -1,0 +1,15 @@
+#!/bin/bash
+
+MONO=mono
+
+if [ "x$OS" = "xWindows_NT" ] ; then
+	MONO=""
+fi
+
+# getting latest FAKE via NuGet
+if [ ! -f tools/FAKE/tools/FAKE.exe ]; then
+	echo "Getting latest FAKE... This may take a minute."
+	$MONO .nuget/nuget.exe install FAKE -OutputDirectory tools -ExcludeVersion
+fi
+
+$MONO tools/FAKE/tools/FAKE.exe build.fsx $@
