@@ -14,8 +14,6 @@
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
 	</array>
-	<key>CFBundleVersion</key>
-	<string>1.0.0</string>
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>CFBundleIconFiles</key>
@@ -29,5 +27,7 @@
 		<string>60</string>
 		<string>120</string>
 	</array>
+	<key>CFBundleIdentifier</key>
+	<string>com.xamarin.EmployeeDirectory</string>
 </dict>
 </plist>
