@@ -29,8 +29,7 @@ let RestoreComponents (solution: string) =
         with Exited 1 -> ()
 
         rm "xpkg.zip"
-        sh "tools/xpkg/xamarin-component.exe" (sprintf "restore %s" solution)
-    ()
+    sh "tools/xpkg/xamarin-component.exe" (sprintf "restore %s" solution)
 
 let BuildiOSPackage (project: string) =
     project
