@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,6 +53,11 @@
     </MtouchI18n>
     <IpaPackageName>
     </IpaPackageName>
+    <CodesignProvision>
+    </CodesignProvision>
+    <CodesignEntitlements />
+    <CodesignResourceRules />
+    <CodesignExtraArgs />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -96,6 +101,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\contract.pdf" />
+    <Content Include="Data\sla.pdf" />
+    <Content Include="Data\techspecs.pdf" />
+    <Content Include="Data\valuableinformation.pdf" />
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
@@ -348,18 +357,7 @@
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="FieldService\" />
-    <Folder Include="Images\" />
-    <Folder Include="Utilities\" />
-    <Folder Include="FieldService\Data\" />
-    <Folder Include="FieldService\Utilities\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Views\" />
-    <Folder Include="Data\" />
-    <Folder Include="Resources\" />
-    <Folder Include="Images\iOS7\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Images\accept.png" />
     <Content Include="Images\accept%402x.png" />
@@ -489,18 +487,6 @@
     <Content Include="Images\shortrowpress%402x.png" />
     <Content Include="Images\questionmark.png" />
     <Content Include="Images\questionmark%402x.png" />
-    <Content Include="..\Data\contract.pdf">
-      <Link>Data\contract.pdf</Link>
-    </Content>
-    <Content Include="..\Data\sla.pdf">
-      <Link>Data\sla.pdf</Link>
-    </Content>
-    <Content Include="..\Data\techspecs.pdf">
-      <Link>Data\techspecs.pdf</Link>
-    </Content>
-    <Content Include="..\Data\valuableinformation.pdf">
-      <Link>Data\valuableinformation.pdf</Link>
-    </Content>
     <Content Include="Images\iOS7\dropdown.png" />
     <Content Include="Images\iOS7\dropdown%402x.png" />
     <Content Include="Images\iOS7\iconphone.png" />
