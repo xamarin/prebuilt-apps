@@ -171,12 +171,11 @@ namespace EmployeeDirectory.Android {
             return 1;
         }
 
-        public Java.Lang.Object [] GetSections ()
-        {
-            var intPtr = JNIEnv.NewArray (sections.ToArray ());
-            var array = new JavaArray<Java.Lang.Object> (intPtr, JniHandleOwnership.TransferLocalRef);
-            return (Java.Lang.Object [])array;
-        }
+		public Java.Lang.Object [] GetSections ()
+		{
+			var array = sections.Select(s => new Java.Lang.String(s)).ToArray();
+			return (Java.Lang.Object [])array;
+		}
 
         #region Image Support
 
