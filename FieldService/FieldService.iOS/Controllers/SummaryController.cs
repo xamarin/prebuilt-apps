@@ -40,16 +40,6 @@ namespace FieldService.iOS
 
 			//UI that has to be setup from code
 			View.BackgroundColor = Theme.BackgroundColor;
-			descriptionBackground.Image = Theme.RowEnd;
-			itemsBackground.Image = 
-				hoursBackground.Image = 
-				expensesBackground.Image = Theme.Inlay;
-			itemsLabel.TextColor =
-				items.TextColor =
-				hoursLabel.TextColor = 
-				hours.TextColor =
-				expensesLabel.TextColor =
-				expenses.TextColor = UIColor.White;
 			description.TextColor =
 				descriptionTitle.TextColor = Theme.LabelColor;
 
@@ -68,6 +58,64 @@ namespace FieldService.iOS
 			});
 			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			viewHistory.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+			if (Theme.IsiOS7) {
+				descriptionBackground.BackgroundColor = UIColor.White;
+
+				itemsLabel.Font =
+					items.Font =
+					hoursLabel.Font = 
+					hours.Font =
+					expensesLabel.Font =
+					expenses.Font = Theme.FontOfSize (18);
+
+				itemsLabel.TextColor =
+					items.TextColor =
+					hoursLabel.TextColor = 
+					hours.TextColor =
+					expensesLabel.TextColor =
+					expenses.TextColor = Theme.LabelColor;
+
+				itemsBackground.BackgroundColor = 
+					hoursBackground.BackgroundColor = 
+					expensesBackground.BackgroundColor = Theme.LightGrayColor;
+
+				//Move backgrounds around to appear as lines
+				var frame = itemsBackground.Frame;
+				frame.X = 0;
+				frame.Y += frame.Height - 1;
+				frame.Height = 1;
+				frame.Width = View.Frame.Width;
+				itemsBackground.Frame = frame;
+
+				frame = hoursBackground.Frame;
+				frame.X = 0;
+				frame.Y += frame.Height - 1;
+				frame.Height = 1;
+				frame.Width = View.Frame.Width;
+				hoursBackground.Frame = frame;
+
+				frame = expensesBackground.Frame;
+				frame.X = 0;
+				frame.Y += frame.Height - 1;
+				frame.Height = 1;
+				frame.Width = View.Frame.Width;
+				expensesBackground.Frame = frame;
+
+			} else {
+				descriptionBackground.Image = Theme.RowEnd;
+
+				itemsBackground.Image = 
+					hoursBackground.Image = 
+					expensesBackground.Image = Theme.Inlay;
+
+				itemsLabel.TextColor =
+					items.TextColor =
+					hoursLabel.TextColor = 
+					hours.TextColor =
+					expensesLabel.TextColor =
+					expenses.TextColor = UIColor.White;
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)

@@ -35,10 +35,10 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
-			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0)) {
+			if (Theme.IsiOS7) {
 				EdgesForExtendedLayout = UIRectEdge.None;
 			}
-		} 
+		}
 
 		/// <summary>
 		/// Required constructor for Storyboard to work

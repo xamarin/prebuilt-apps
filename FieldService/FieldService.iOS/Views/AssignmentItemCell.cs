@@ -28,8 +28,21 @@ namespace FieldService.iOS
 	{
 		public AssignmentItemCell (IntPtr handle) : base (handle)
 		{
-			BackgroundView = new UIImageView { Image = Theme.Row };
+			if (!Theme.IsiOS7) {
+				BackgroundView = new UIImageView { Image = Theme.Row };
+			}
 			SelectionStyle = UITableViewCellSelectionStyle.None; //Shouldn't be clickable
+		}
+
+		public override void AwakeFromNib ()
+		{
+			base.AwakeFromNib ();
+
+			label.TextColor = Theme.LabelColor;
+
+			if (Theme.IsiOS7) {
+				label.Font = Theme.FontOfSize (18);
+			}
 		}
 
 		/// <summary>
@@ -37,7 +50,6 @@ namespace FieldService.iOS
 		/// </summary>
 		public void SetItem(AssignmentItem item)
 		{
-			label.TextColor = Theme.LabelColor;
 			label.Text = item.Name + " " + item.Number;
 		}
 

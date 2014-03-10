@@ -28,8 +28,10 @@ namespace FieldService.iOS
 	{
 		public LaborCell (IntPtr handle) : base (handle)
 		{
-			BackgroundView = new UIImageView { Image = Theme.Row };
-			SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
+			if (!Theme.IsiOS7) {
+				BackgroundView = new UIImageView { Image = Theme.Row };
+				SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
+			}
 		}
 
 		/// <summary>
@@ -55,7 +57,7 @@ namespace FieldService.iOS
 			base.WillTransitionToState (mask);
 
 			//If the "delete" button is appearing, set the alpha to 0 so it is invisible
-			if ((mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
+			if (!Theme.IsiOS7 && (mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
 				var deleteButton = Subviews.Last();
 				deleteButton.Alpha = 0;
 			}
@@ -66,7 +68,7 @@ namespace FieldService.iOS
 			base.DidTransitionToState (mask);
 
 			//If the "delete" button is appearing, let's reposition it and use a different animation
-			if ((mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
+			if (!Theme.IsiOS7 && (mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
 				var deleteButton = Subviews.Last();
 
 				//Position the button

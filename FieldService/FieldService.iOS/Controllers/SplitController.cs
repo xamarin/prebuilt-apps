@@ -111,7 +111,11 @@ namespace FieldService.iOS
 		{
 			if (!masterPopoverShown)
 			{
-				NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { hide }, true);
+				if (Theme.IsiOS7) {
+					NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { hide }, true);
+				} else {
+					NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { hide }, true);
+				}
 				AnimateMasterView (true);
 			}
 		}
@@ -123,7 +127,11 @@ namespace FieldService.iOS
 		{
 			if (masterPopoverShown)
 			{
-				NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { menu }, true);
+				if (Theme.IsiOS7) {
+					NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { menu }, true);
+				} else {
+					NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { menu }, true);
+				}
 				AnimateMasterView (false);
 			}
 		}
@@ -155,7 +163,11 @@ namespace FieldService.iOS
 				if (!wasLandscape)
 				{
 					//Set the navbar to have only the back button
-					NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[0], true);
+					if (Theme.IsiOS7) {
+						NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[0], true);
+					} else {
+						NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[0], true);
+					}
 
 					//Hide the master view if needed
 					if (masterPopoverShown) {
@@ -192,7 +204,11 @@ namespace FieldService.iOS
 				if (wasLandscape)
 				{
 					//Set the nav bar to include the menu button
-					NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { menu }, true);
+					if (Theme.IsiOS7) {
+						NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { menu }, true);
+					} else {
+						NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { menu }, true);
+					}
 
 					if (animated)
 					{

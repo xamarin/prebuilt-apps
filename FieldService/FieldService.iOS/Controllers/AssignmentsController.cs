@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Drawing;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
@@ -50,7 +51,7 @@ namespace FieldService.iOS
 		private void OnRecordingChanged (object sender, EventArgs e)
 		{
 			if (IsViewLoaded) {
-				record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 			}
 		}
 
@@ -68,17 +69,14 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//Setup UI that is required from code
-			tableView.BackgroundColor = Theme.BackgroundColor;
 			tableView.Source = new TableSource (this);
 			assignmentButton.SetBackgroundImage (Theme.AssignmentActive, UIControlState.Normal);
-			assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
-			record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
-			timerBackgroundImage.Image = Theme.TimerField;
-			toolbarShadow.Image = Theme.ToolbarShadow;
+			record.ContentMode = UIViewContentMode.Center;
+			record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 
 			timerLabel.TextColor =
 				numberAndDate.TextColor =
@@ -106,12 +104,99 @@ namespace FieldService.iOS
 				BeginInvokeOnMainThread (() => {
 					record.Enabled = true;
 					if (assignmentViewModel.Recording) {
-						record.SetBackgroundImage (Theme.RecordActive, UIControlState.Normal);
+						record.SetImage (Theme.RecordActive, UIControlState.Normal);
 					} else {
-						record.SetBackgroundImage (Theme.Record, UIControlState.Normal);
+						record.SetImage (Theme.Record, UIControlState.Normal);
 					}
 				});
 			});
+
+			if (Theme.IsiOS7) {
+				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+				timerLabel.Font = Theme.FontOfSize (16);
+				startAndEnd.Font = Theme.BoldFontOfSize (10);
+				startAndEnd.TextColor = UIColor.White;
+
+				//Shadow frame
+				var frame = toolbarShadow.Frame;
+				frame.Height = 1;
+				toolbarShadow.Frame = frame;
+				toolbarShadow.Image = UIColor.LightGray.ToImage ();
+
+				//Status dropdown frame
+				frame = status.Frame;
+				frame.Width /= 2;
+				frame.X += frame.Width + 9;
+				status.Frame = frame;
+
+				const float offset = 100;
+
+				//Timer frame
+				frame = timerLabel.Frame;
+				frame.X += offset + 35;
+				timerLabel.Frame = frame;
+
+				//Record (play/pause) button frame
+				frame = record.Frame;
+				frame.X += offset;
+				record.Frame = frame;
+
+				//Priority frames
+				frame = priorityBackground.Frame;
+				frame.X -= 10;
+				frame.Width = frame.Height;
+				priorityBackground.Frame =
+					priority.Frame = frame;
+
+				//Info frames
+				frame = numberAndDate.Frame;
+				frame.X -= 10;
+				numberAndDate.Frame = frame;
+
+				frame = titleLabel.Frame;
+				frame.X -= 10;
+				titleLabel.Frame = frame;
+
+				frame = startAndEnd.Frame;
+				frame.X -= 6;
+				startAndEnd.Frame = frame;
+
+				//Address frame
+				frame = address.Frame;
+				frame.X -= 10;
+				address.Frame = frame;
+
+				//Contact frame
+				frame = contact.Frame;
+				frame.X -= 10;
+				contact.Frame = frame;
+
+				//Additional green rectangle on the right
+				var statusView = new UIView (new RectangleF (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {
+					BackgroundColor = Theme.GreenColor,
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
+				};
+				activeAssignment.AddSubview (statusView);
+
+				//Additional box for the start/end date
+				frame = startAndEnd.Frame;
+				frame.X -= 4;
+				frame.Y += 4;
+				frame.Width = 102;
+				frame.Height = 16;
+				var timeBox = new UIImageView (frame) {
+					Image = Theme.TimeBox,
+					ContentMode = UIViewContentMode.Left,
+				};
+				activeAssignment.AddSubview (timeBox);
+				activeAssignment.BringSubviewToFront (startAndEnd);
+
+			} else {
+				tableView.BackgroundColor = Theme.BackgroundColor;
+				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
+				toolbarShadow.Image = Theme.ToolbarShadow;
+				timerBackgroundImage.Image = Theme.TimerField;
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -262,10 +347,18 @@ namespace FieldService.iOS
 		private void LoadActiveAssignment ()
 		{
 			var assignment = assignmentViewModel.ActiveAssignment;
+
+			//Update font size on priority
+			if (assignment.Priority >= 10) {
+				priority.Font = Theme.FontOfSize (14);
+			} else {
+				priority.Font = Theme.FontOfSize (18);
+			}
+
 			priority.Text = assignment.Priority.ToString ();
 			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
 			titleLabel.Text = assignment.CompanyName;
-			startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+			startAndEnd.Text = assignment.FormatStartEndDates ();
 			contact.TopLabel.Text = assignment.ContactName;
 			contact.BottomLabel.Text = assignment.ContactPhone;
 			address.TopLabel.Text = assignment.Address;

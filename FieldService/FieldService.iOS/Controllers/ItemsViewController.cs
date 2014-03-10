@@ -43,7 +43,6 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI that must be setup from code
-			View.BackgroundColor = Theme.BackgroundColor;
 			title = new UILabel (new RectangleF (0, 0, 100, 36)) { 
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
@@ -63,11 +62,20 @@ namespace FieldService.iOS
 
 			space = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 
-			addItem = new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, OnAddItem);
+			addItem = Theme.IsiOS7 ? 
+			          new UIBarButtonItem(UIBarButtonSystemItem.Add, OnAddItem) : 
+			          new UIBarButtonItem ("Add Item", UIBarButtonItemStyle.Bordered, OnAddItem);
 			addItem.SetTitleTextAttributes (textAttributes, UIControlState.Normal);
 			addItem.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			tableView.Source = new TableSource (this);
+
+			if (Theme.IsiOS7) {
+				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+				addItem.TintColor = UIColor.White;
+			} else {
+				View.BackgroundColor = Theme.BackgroundColor;
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)

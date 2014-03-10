@@ -48,16 +48,12 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI setup from code
-			photoFrame.Image = Theme.PhotoFrame;
-			descriptionBackground.Image = Theme.ModalInlay;
 			description.ShouldReturn = t => {
 				Save ();
 				return false;
 			};
 			cancel.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
 			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-			deleteButton.SetBackgroundImage (Theme.DeleteButton, UIControlState.Normal);
-			deleteButton.SetTitleColor (UIColor.White, UIControlState.Normal);
 			
 			var label = new UILabel (new RectangleF (0, 0, 80, 36)) { 
 				Text = "Photo",
@@ -78,6 +74,22 @@ namespace FieldService.iOS
 				new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace),
 				done,
 			};
+
+			if (Theme.IsiOS7) {
+				photo.Frame = photoFrame.Frame;
+
+				date.Font = Theme.BoldFontOfSize (18);
+				time.Font =
+					deleteButton.Font = Theme.FontOfSize (18);
+
+				deleteButton.SetTitleColor (Theme.RedColor, UIControlState.Normal);
+			} else {
+				descriptionBackground.Image = Theme.ModalInlay;
+				photoFrame.Image = Theme.PhotoFrame;
+
+				deleteButton.SetBackgroundImage (Theme.DeleteButton, UIControlState.Normal);
+				deleteButton.SetTitleColor (UIColor.White, UIControlState.Normal);
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)

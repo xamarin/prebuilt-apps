@@ -36,7 +36,7 @@ namespace FieldService.iOS
 			get { return accept.Value; }
 		}
 
-		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (18, 19, 21, 19)));
+		static Lazy<UIImage> addphoto = new Lazy<UIImage> (() => IsiOS7 ? null : UIImage.FromFile ("Images/addphoto.png").CreateResizableImage (new UIEdgeInsets (18, 19, 21, 19)));
 		
 		/// <summary>
 		/// Image for add photo button on expenses
@@ -72,7 +72,9 @@ namespace FieldService.iOS
 			get { return arrowwhite.Value; }
 		}
 
-		static Lazy<UIImage> assignmentActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentactive.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> assignmentActive = new Lazy<UIImage> (() => 
+			IsiOS7 ? UIColor.FromRGB(0xee, 0xff, 0xee).ToImage() : 
+			UIImage.FromFile ("Images/assignmentactive.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// Active assignment background
@@ -99,21 +101,7 @@ namespace FieldService.iOS
 			get { return dot.Value; }
 		}
 
-		static Lazy<UIImage> transparentDot = new Lazy<UIImage> (() => {
-			//This is some quick code to create a transparent image the same size as Theme.Dot
-			UIGraphics.BeginImageContext (Dot.Size);
-			try
-			{
-				using (var context = UIGraphics.GetCurrentContext ())
-				{
-					return UIGraphics.GetImageFromCurrentImageContext ();
-				}
-			}
-			finally
-			{
-				UIGraphics.EndImageContext ();
-			}
-		});
+		static Lazy<UIImage> transparentDot = new Lazy<UIImage> (() => UIColor.Clear.ToImage ());
 		
 		/// <summary>
 		/// Dot image for unselected state of menu
@@ -131,7 +119,8 @@ namespace FieldService.iOS
 			get { return backbutton.Value; }
 		}
 
-		static Lazy<UIImage> bluebar = new Lazy<UIImage> (() => UIImage.FromFile ("Images/bluebar.png"));
+		static Lazy<UIImage> bluebar = new Lazy<UIImage> (() => 
+			IsiOS7 ? UIColor.FromRGB(0x2d, 0x9f, 0xdd).ToImage() : UIImage.FromFile ("Images/bluebar.png"));
 		
 		/// <summary>
 		/// Image for default UIToolbar
@@ -140,7 +129,7 @@ namespace FieldService.iOS
 			get { return bluebar.Value; }
 		}
 
-		static Lazy<UIImage> blueBarButtonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
+		static Lazy<UIImage> blueBarButtonItem = new Lazy<UIImage> (() => IsiOS7 ? null : UIImage.FromFile ("Images/bluenavbutton.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
 		/// Button image for blue toolbar buttons
@@ -158,7 +147,7 @@ namespace FieldService.iOS
 			get { return orangeBarButtonItem.Value; }
 		}
 
-		static Lazy<UIImage> buttondark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/buttondark.png").CreateResizableImage (new UIEdgeInsets (16, 17, 17, 17)));
+		static Lazy<UIImage> buttondark = new Lazy<UIImage> (() => Theme.IsiOS7 ? null : UIImage.FromFile ("Images/buttondark.png").CreateResizableImage (new UIEdgeInsets (16, 17, 17, 17)));
 		
 		/// <summary>
 		/// Button image used for buttons like "Add Photo" or "Add Signature"
@@ -176,7 +165,7 @@ namespace FieldService.iOS
 			get { return camera.Value; }
 		}
 
-		static Lazy<UIImage> complete = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
+		static Lazy<UIImage> complete = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/complete.png")).CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
 		
 		/// <summary>
 		/// Image for the complete button
@@ -185,7 +174,7 @@ namespace FieldService.iOS
 			get { return complete.Value; }
 		}
 
-		static Lazy<UIImage> completeInactive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/complete_inactive.png").CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
+		static Lazy<UIImage> completeInactive = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/complete_inactive.png")).CreateResizableImage (new UIEdgeInsets (16, 16, 16, 16)));
 		
 		/// <summary>
 		/// Image for the complete button when disabled
@@ -212,7 +201,7 @@ namespace FieldService.iOS
 			get { return decline.Value; }
 		}
 
-		static Lazy<UIImage> dropdown = new Lazy<UIImage> (() => UIImage.FromFile ("Images/dropdown.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
+		static Lazy<UIImage> dropdown = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/dropdown.png")).CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Drop down button image
@@ -221,10 +210,10 @@ namespace FieldService.iOS
 			get { return dropdown.Value; }
 		}
 
-		static Lazy<UIImage> iconPdf = new Lazy<UIImage> (() => UIImage.FromFile ("Images/icon_pdf.png"));
+		static Lazy<UIImage> iconPdf = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/icon_pdf.png")));
 		
 		/// <summary>
-		/// 
+		/// Image for document icon
 		/// </summary>
 		public static UIImage IconPdf {
 			get { return iconPdf.Value; }
@@ -257,7 +246,7 @@ namespace FieldService.iOS
 			get { return iconhold.Value; }
 		}
 
-		static Lazy<UIImage> iconPhone = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconphone.png"));
+		static Lazy<UIImage> iconPhone = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/iconphone.png")));
 		
 		/// <summary>
 		/// 
@@ -275,7 +264,7 @@ namespace FieldService.iOS
 			get { return iconPhoneDark.Value; }
 		}
 
-		static Lazy<UIImage> iconsettings = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iconsettings.png"));
+		static Lazy<UIImage> iconsettings = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/iconsettings.png")));
 		
 		/// <summary>
 		/// Settings icon image
@@ -347,7 +336,7 @@ namespace FieldService.iOS
 			get { return leftListTopActive.Value; }
 		}
 
-		static Lazy<UIImage> loginBox = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_box.png").CreateResizableImage (new UIEdgeInsets (21, 21, 21, 21)));
+		static Lazy<UIImage> loginBox = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/login_box.png")).CreateResizableImage (new UIEdgeInsets (21, 21, 21, 21)));
 
 		/// <summary>
 		/// Login box on first screen
@@ -356,7 +345,7 @@ namespace FieldService.iOS
 			get { return loginBox.Value; }
 		}
 
-		static Lazy<UIImage> loginButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/login_btn.png").CreateResizableImage (new UIEdgeInsets (11, 8, 11, 8)));
+		static Lazy<UIImage> loginButton = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/login_btn.png")).CreateResizableImage (new UIEdgeInsets (11, 8, 11, 8)));
 
 		/// <summary>
 		/// Login button on first screen
@@ -374,16 +363,16 @@ namespace FieldService.iOS
 			get { return loginTextField.Value; }
 		}
 
-		static Lazy<UIImage> logo = new Lazy<UIImage> (() => UIImage.FromFile ("Images/logo.png"));
+		static Lazy<UIImage> logo = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/logo.png")));
 		
 		/// <summary>
-		/// 
+		/// Main logo on the login screen
 		/// </summary>
 		public static UIImage Logo {
 			get { return logo.Value; }
 		}
 
-		static Lazy<UIImage> map = new Lazy<UIImage> (() => UIImage.FromFile ("Images/map.png"));
+		static Lazy<UIImage> map = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/map.png")));
 		
 		/// <summary>
 		/// Map image
@@ -392,7 +381,7 @@ namespace FieldService.iOS
 			get { return map.Value; }
 		}
 
-		static Lazy<UIImage> mapIcon = new Lazy<UIImage> (() => UIImage.FromFile ("Images/mapicon.png"));
+		static Lazy<UIImage> mapIcon = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/mapicon.png")));
 		
 		/// <summary>
 		/// Map icon for tab bar
@@ -401,13 +390,31 @@ namespace FieldService.iOS
 			get { return mapIcon.Value; }
 		}
 
-		static Lazy<UIImage> listIcon = new Lazy<UIImage> (() => UIImage.FromFile ("Images/listicon.png"));
+		static Lazy<UIImage> mapIconSelected = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/mapicon_selected.png"));
+
+		/// <summary>
+		/// Map icon for tab bar (selected)
+		/// </summary>
+		public static UIImage MapIconSelected {
+			get { return mapIconSelected.Value; }
+		}
+
+		static Lazy<UIImage> listIcon = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/listicon.png")));
 		
 		/// <summary>
 		/// Assignment list icon for tab bar
 		/// </summary>
 		public static UIImage ListIcon {
 			get { return listIcon.Value; }
+		}
+
+		static Lazy<UIImage> listIconSelected = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/listicon_selected.png"));
+
+		/// <summary>
+		/// Assignment list icon for tab bar (selected)
+		/// </summary>
+		public static UIImage ListIconSelected {
+			get { return listIconSelected.Value; }
 		}
 
 		static Lazy<UIImage> modal = new Lazy<UIImage> (() => UIImage.FromFile ("Images/modal.png").CreateResizableImage (new UIEdgeInsets (65, 43, 38, 43)));
@@ -428,7 +435,7 @@ namespace FieldService.iOS
 			get { return modalInlay.Value; }
 		}
 
-		static Lazy<UIImage> numberbox = new Lazy<UIImage> (() => UIImage.FromFile ("Images/numberbox.png").CreateResizableImage (new UIEdgeInsets (11, 11, 11, 11)));
+		static Lazy<UIImage> numberbox = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/numberbox.png")).CreateResizableImage (new UIEdgeInsets (11, 11, 11, 11)));
 		
 		/// <summary>
 		/// Background image for numbers on assignments
@@ -437,7 +444,16 @@ namespace FieldService.iOS
 			get { return numberbox.Value; }
 		}
 
-		static Lazy<UIImage> orangebar = new Lazy<UIImage> (() => UIImage.FromFile ("Images/orangebar.png"));
+		static Lazy<UIImage> numberboxHollow = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/numberbox_hollow.png").CreateResizableImage (new UIEdgeInsets (11, 11, 11, 11)));
+
+		/// <summary>
+		/// Background image for numbers on assignments - for iOS not the header
+		/// </summary>
+		public static UIImage NumberBoxHollow {
+			get { return numberboxHollow.Value; }
+		}
+
+		static Lazy<UIImage> orangebar = new Lazy<UIImage> (() => IsiOS7 ? UIColor.FromRGB(0xff, 0x86, 0x02).ToImage() : UIImage.FromFile ("Images/orangebar.png"));
 		
 		/// <summary>
 		/// Background image for history-theme toolbars
@@ -455,7 +471,7 @@ namespace FieldService.iOS
 			get { return photoframe.Value; }
 		}
 
-		static Lazy<UIImage> record = new Lazy<UIImage> (() => UIImage.FromFile ("Images/record.png"));
+		static Lazy<UIImage> record = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/record.png")));
 		
 		/// <summary>
 		/// Image for the record button
@@ -464,7 +480,7 @@ namespace FieldService.iOS
 			get { return record.Value; }
 		}
 
-		static Lazy<UIImage> recordActive = new Lazy<UIImage> (() => UIImage.FromFile ("Images/record_active.png"));
+		static Lazy<UIImage> recordActive = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/record_active.png")));
 		
 		/// <summary>
 		/// Image for the record button when toggled on
@@ -539,7 +555,7 @@ namespace FieldService.iOS
 		static Lazy<UIImage> smallGreyButton = new Lazy<UIImage> (() => UIImage.FromFile ("Images/smallgreybtn.png").CreateResizableImage (new UIEdgeInsets (8, 8, 8, 8)));
 		
 		/// <summary>
-		/// 
+		/// Button image used for address & phone number buttons (TextButton class)
 		/// </summary>
 		public static UIImage SmallGreyButton {
 			get { return smallGreyButton.Value; }
@@ -554,6 +570,15 @@ namespace FieldService.iOS
 			get { return timerBackground.Value; }
 		}
 
+		static Lazy<UIImage> timeBox = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/timebox.png"));
+
+		/// <summary>
+		/// Image for start/end date background on iOS 7
+		/// </summary>
+		public static UIImage TimeBox {
+			get { return timeBox.Value; }
+		}
+
 		static Lazy<UIImage> timerfield = new Lazy<UIImage> (() => UIImage.FromFile ("Images/timerfield.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
@@ -563,7 +588,9 @@ namespace FieldService.iOS
 			get { return timerfield.Value; }
 		}
 
-		static Lazy<UIImage> topnav = new Lazy<UIImage> (() => UIImage.FromFile ("Images/topnav.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
+		static Lazy<UIImage> topnav = new Lazy<UIImage> (() => 
+			IsiOS7 ? UIColor.FromRGB(0x2d, 0x9f, 0xdd).ToImage () :
+			UIImage.FromFile ("Images/topnav.png").CreateResizableImage (new UIEdgeInsets (9, 9, 9, 9)));
 		
 		/// <summary>
 		/// Image for the top navigation bar
@@ -572,7 +599,8 @@ namespace FieldService.iOS
 			get { return topnav.Value; }
 		}
 
-		static Lazy<UIImage> darkBarButtonItem = new Lazy<UIImage> (() => UIImage.FromFile ("Images/topnavbtn.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
+		static Lazy<UIImage> darkBarButtonItem = new Lazy<UIImage> (() => 
+			Theme.IsiOS7 ? null : UIImage.FromFile ("Images/topnavbtn.png").CreateResizableImage (new UIEdgeInsets (6, 6, 6, 6)));
 		
 		/// <summary>
 		/// Background image for UIBarButtonItem
@@ -590,7 +618,9 @@ namespace FieldService.iOS
 			get { return assignmentBlue.Value; }
 		}
 		
-		static Lazy<UIImage> assignmentGrey = new Lazy<UIImage> (() => UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> assignmentGrey = new Lazy<UIImage> (() => 
+			IsiOS7 ? UIColor.White.ToImage() : 
+			UIImage.FromFile ("Images/assignmentgrey.png").CreateResizableImage (new UIEdgeInsets ()));
 		
 		/// <summary>
 		/// Cell background for assignment
@@ -599,13 +629,22 @@ namespace FieldService.iOS
 			get { return assignmentGrey.Value; }
 		}
 
-		static Lazy<UIImage> questionMark = new Lazy<UIImage> (() => UIImage.FromFile ("Images/questionmark.png").CreateResizableImage (new UIEdgeInsets ()));
+		static Lazy<UIImage> questionMark = new Lazy<UIImage> (() => UIImage.FromFile (ToiOS7Path ("Images/questionmark.png")));
 		
 		/// <summary>
 		/// Question mark image on login screen
 		/// </summary>
 		public static UIImage QuestionMark {
 			get { return questionMark.Value; }
+		}
+
+		static Lazy<UIImage> imagePlaceholder = new Lazy<UIImage> (() => UIImage.FromFile ("Images/iOS7/image_placeholder.png"));
+
+		/// <summary>
+		/// Used for "add image" button on the confirm screen
+		/// </summary>
+		public static UIImage ImagePlaceholder {
+			get { return imagePlaceholder.Value; }
 		}
 
 		#endregion
@@ -621,7 +660,7 @@ namespace FieldService.iOS
 			get { return labelColor.Value; }
 		}
 
-		static Lazy<UIColor> blueTextColor = new Lazy<UIColor> (() => UIColor.FromRGB (0.22f, 0.33f, 0.53f));
+		static Lazy<UIColor> blueTextColor = new Lazy<UIColor> (() => IsiOS7 ? LabelColor : UIColor.FromRGB (0.22f, 0.33f, 0.53f));
 		
 		/// <summary>
 		/// Default blue text color for editable text - same as seen in Settings app
@@ -630,7 +669,7 @@ namespace FieldService.iOS
 			get { return blueTextColor.Value; }
 		}
 
-		static Lazy<UIColor> indicatorColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x77, 0x77, 0x77));
+		static Lazy<UIColor> indicatorColor = new Lazy<UIColor> (() => IsiOS7 ? DarkGrayColor : UIColor.FromRGB (0x77, 0x77, 0x77));
 
 		/// <summary>
 		/// General indicator color for the entire app
@@ -639,7 +678,8 @@ namespace FieldService.iOS
 			get { return indicatorColor.Value; }
 		}
 
-		static Lazy<UIColor> linenPattern = new Lazy<UIColor> (() => UIColor.FromPatternImage (UIImage.FromFile ("Images/linenpattern.png")));
+		static Lazy<UIColor> linenPattern = new Lazy<UIColor> (() => 
+			IsiOS7 ? UIColor.FromRGB (0xde, 0xde, 0xde) : UIColor.FromPatternImage (UIImage.FromFile ("Images/linenpattern.png")));
 		
 		/// <summary>
 		/// Linen pattern background for use throughout the app
@@ -666,13 +706,80 @@ namespace FieldService.iOS
 			get { return leftMenuColor.Value; }
 		}
 
-		static Lazy<UIColor> backgroundColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x55, 0x55, 0x55));
+		static Lazy<UIColor> backgroundColor = new Lazy<UIColor> (() => IsiOS7 ? UIColor.FromRGB(0xef, 0xef, 0xef) : UIColor.FromRGB (0x55, 0x55, 0x55));
 		
 		/// <summary>
 		/// General background color for the app
 		/// </summary>
 		public static UIColor BackgroundColor {
 			get { return backgroundColor.Value; }
+		}
+
+		static Lazy<UIColor> greenColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x21, 0xd9, 0x1d));
+
+		/// <summary>
+		/// Green color used for active things on iOS 7
+		/// </summary>
+		public static UIColor GreenColor {
+			get { return greenColor.Value; }
+		}
+
+		static Lazy<UIColor> yellowColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xff, 0xe1, 0x3d));
+
+		/// <summary>
+		/// Yellow color used for things on hold in iOS 7
+		/// </summary>
+		public static UIColor YellowColor {
+			get { return yellowColor.Value; }
+		}
+
+		static Lazy<UIColor> redColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xff, 0x00, 0x02));
+
+		/// <summary>
+		/// Green color used for decline button on iOS 7
+		/// </summary>
+		public static UIColor RedColor {
+			get { return redColor.Value; }
+		}
+
+		static Lazy<UIColor> lightGrayColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xc0, 0xc0, 0xc0));
+
+		/// <summary>
+		/// Light gray color used on iOS 7
+		/// </summary>
+		public static UIColor LightGrayColor {
+			get { return lightGrayColor.Value; }
+		}
+
+		static Lazy<UIColor> darkGrayColor = new Lazy<UIColor> (() => UIColor.FromRGB (0x73, 0x81, 0x82));
+
+		/// <summary>
+		/// Dark gray color used on iOS 7
+		/// </summary>
+		public static UIColor DarkGrayColor {
+			get { return darkGrayColor.Value; }
+		}
+
+		static Lazy<UIColor> separatorColor = new Lazy<UIColor> (() => UIColor.FromRGB (0xe5, 0xe5, 0xe5));
+
+		/// <summary>
+		/// Line separator color used on iOS 7
+		/// </summary>
+		public static UIColor SeparatorColor {
+			get { return separatorColor.Value; }
+		}
+
+		#endregion
+
+		#region Boolean values
+
+		static Lazy<bool> isiOS7 = new Lazy<bool> (() => UIDevice.CurrentDevice.CheckSystemVersion (7, 0));
+
+		/// <summary>
+		/// Gets a value indicating if this is iOS 7
+		/// </summary>
+		public static bool IsiOS7 {
+			get { return isiOS7.Value; }
 		}
 
 		#endregion
@@ -686,18 +793,28 @@ namespace FieldService.iOS
 
 			UIToolbar.Appearance.SetBackgroundImage (BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
-			UIBarButtonItem.Appearance.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
+			var barButtonItem = UIBarButtonItem.Appearance;
+			if (IsiOS7) {
+				//iOS 7 specific
+				UINavigationBar.Appearance.TintColor = UIColor.White;
+
+			} else {
+				//iOS 6 specific
+				barButtonItem.SetBackButtonBackgroundImage (BackButton, UIControlState.Normal, UIBarMetrics.Default);
+			}
 		}
 
 		const string FontName = "HelveticaNeue-Medium";
+		const string FontNameiOS7 = "HelveticaNeue-Light";
 		const string BoldFontName = "HelveticaNeue-Bold";
+		const string BoldFontNameiOS7 = "HelveticaNeue-Medium";
 
 		/// <summary>
 		/// Returns the default font with a certain size
 		/// </summary>
 		public static UIFont FontOfSize (float size)
 		{
-			return UIFont.FromName (FontName, size);
+			return UIFont.FromName (Theme.IsiOS7 ? FontNameiOS7 : FontName, size);
 		}
 
 		/// <summary>
@@ -705,7 +822,7 @@ namespace FieldService.iOS
 		/// </summary>
 		public static UIFont BoldFontOfSize (float size)
 		{
-			return UIFont.FromName (BoldFontName, size);
+			return UIFont.FromName (Theme.IsiOS7 ? BoldFontNameiOS7 : BoldFontName, size);
 		}
 
 		/// <summary>
@@ -725,6 +842,14 @@ namespace FieldService.iOS
 			//Peform an animation, note that null is not allowed as a callback, so I use delegate { }
 			if (animated)
 				UIView.Transition (window, .3, UIViewAnimationOptions.TransitionCrossDissolve, delegate { }, delegate { });
+		}
+
+		/// <summary>
+		/// Converts a path to Images/mypng.png to Images/iOS7/mypng.png on iOS 7
+		/// </summary>
+		public static string ToiOS7Path(string path)
+		{
+			return IsiOS7 ? path.Replace ("Images/", "Images/iOS7/") : path;
 		}
 	}
 }

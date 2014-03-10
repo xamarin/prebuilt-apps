@@ -73,6 +73,37 @@ namespace FieldService.iOS
 
 			photoTableView.Source = new PhotoTableSource (this);
 			signatureTableView.Source = new SignatureTableSource (this);
+
+			if (Theme.IsiOS7) {
+				photoTableView.RowHeight = 64;
+				addPhoto.AutoresizingMask = UIViewAutoresizing.None;
+				addPhoto.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
+				addPhoto.SetImage (Theme.ImagePlaceholder, UIControlState.Normal);
+				addPhoto.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+				addPhoto.TitleEdgeInsets = new UIEdgeInsets (0, 18, 0, 0);
+
+				var frame = addPhoto.Frame;
+				frame.X = 9;
+				frame.Y += 10;
+				frame.Height = 64;
+				frame.Width = addPhoto.Superview.Frame.Width - 20;
+				addPhoto.Frame = frame;
+
+				frame = addPhoto.Superview.Frame;
+				frame.Height = addPhoto.Frame.Bottom;
+				addPhoto.Superview.Frame = frame;
+
+				signature.TextColor =
+					photos.TextColor =
+					requirement.TextColor =
+					note.TextColor = Theme.LabelColor;
+
+				addPhoto.Font =
+					signature.Font =
+					photos.Font = Theme.FontOfSize (18);
+				requirement.Font =
+					note.Font = Theme.FontOfSize (12);
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)

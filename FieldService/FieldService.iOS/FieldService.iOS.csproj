@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -53,6 +53,11 @@
     </MtouchI18n>
     <IpaPackageName>
     </IpaPackageName>
+    <CodesignProvision>
+    </CodesignProvision>
+    <CodesignEntitlements />
+    <CodesignResourceRules />
+    <CodesignExtraArgs />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
     <DebugType>none</DebugType>
@@ -103,6 +108,10 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\contract.pdf" />
+    <Content Include="Data\sla.pdf" />
+    <Content Include="Data\techspecs.pdf" />
+    <Content Include="Data\valuableinformation.pdf" />
     <None Include="Info.plist" />
   </ItemGroup>
   <ItemGroup>
@@ -355,17 +364,7 @@
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.MonoTouch.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="FieldService\" />
-    <Folder Include="Images\" />
-    <Folder Include="Utilities\" />
-    <Folder Include="FieldService\Data\" />
-    <Folder Include="FieldService\Utilities\" />
-    <Folder Include="Controllers\" />
-    <Folder Include="Views\" />
-    <Folder Include="Data\" />
-    <Folder Include="Resources\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Images\accept.png" />
     <Content Include="Images\accept%402x.png" />
@@ -495,18 +494,52 @@
     <Content Include="Images\shortrowpress%402x.png" />
     <Content Include="Images\questionmark.png" />
     <Content Include="Images\questionmark%402x.png" />
-    <Content Include="..\Data\contract.pdf">
-      <Link>Data\contract.pdf</Link>
-    </Content>
-    <Content Include="..\Data\sla.pdf">
-      <Link>Data\sla.pdf</Link>
-    </Content>
-    <Content Include="..\Data\techspecs.pdf">
-      <Link>Data\techspecs.pdf</Link>
-    </Content>
-    <Content Include="..\Data\valuableinformation.pdf">
-      <Link>Data\valuableinformation.pdf</Link>
-    </Content>
+    <Content Include="Images\iOS7\dropdown.png" />
+    <Content Include="Images\iOS7\dropdown%402x.png" />
+    <Content Include="Images\iOS7\iconphone.png" />
+    <Content Include="Images\iOS7\iconphone%402x.png" />
+    <Content Include="Images\iOS7\iconsettings.png" />
+    <Content Include="Images\iOS7\iconsettings%402x.png" />
+    <Content Include="Images\iOS7\listicon.png" />
+    <Content Include="Images\iOS7\listicon%402x.png" />
+    <Content Include="Images\iOS7\listicon_selected.png" />
+    <Content Include="Images\iOS7\listicon_selected%402x.png" />
+    <Content Include="Images\iOS7\map.png" />
+    <Content Include="Images\iOS7\map%402x.png" />
+    <Content Include="Images\iOS7\mapicon.png" />
+    <Content Include="Images\iOS7\mapicon%402x.png" />
+    <Content Include="Images\iOS7\mapicon_selected.png" />
+    <Content Include="Images\iOS7\mapicon_selected%402x.png" />
+    <Content Include="Images\iOS7\numberbox.png" />
+    <Content Include="Images\iOS7\numberbox%402x.png" />
+    <Content Include="Images\iOS7\numberbox_hollow.png" />
+    <Content Include="Images\iOS7\numberbox_hollow%402x.png" />
+    <Content Include="Images\iOS7\record.png" />
+    <Content Include="Images\iOS7\record%402x.png" />
+    <Content Include="Images\iOS7\record_active.png" />
+    <Content Include="Images\iOS7\record_active%402x.png" />
+    <Content Include="Images\iOS7\timebox.png" />
+    <Content Include="Images\iOS7\timebox%402x.png" />
+    <Content Include="Images\iOS7\login_box.png" />
+    <Content Include="Images\iOS7\login_box%402x.png" />
+    <Content Include="Images\iOS7\login_btn.png" />
+    <Content Include="Images\iOS7\login_btn%402x.png" />
+    <Content Include="Images\iOS7\logo.png" />
+    <Content Include="Images\iOS7\logo%402x.png" />
+    <Content Include="Images\iOS7\questionmark.png" />
+    <Content Include="Images\iOS7\questionmark%402x.png" />
+    <Content Include="Images\iOS7\hexagons.png" />
+    <Content Include="Images\iOS7\hexagons%402x.png" />
+    <Content Include="Images\iOS7\icon_pdf.png" />
+    <Content Include="Images\iOS7\icon_pdf%402x.png" />
+    <Content Include="Images\iOS7\complete_inactive.png" />
+    <Content Include="Images\iOS7\complete_inactive%402x.png" />
+    <Content Include="Images\iOS7\complete.png" />
+    <Content Include="Images\iOS7\complete%402x.png" />
+    <Content Include="Images\iOS7\iconsignature.png" />
+    <Content Include="Images\iOS7\iconsignature%402x.png" />
+    <Content Include="Images\iOS7\image_placeholder.png" />
+    <Content Include="Images\iOS7\image_placeholder%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Default-Portrait%402x.png" />
