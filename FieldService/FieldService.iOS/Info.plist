@@ -24,13 +24,14 @@
 	<key>UIPrerenderedIcon</key>
 	<true/>
 	<key>UISupportedInterfaceOrientations~ipad</key>
-	<array>
-		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationPortraitUpsideDown</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
+	<array/>
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>MainStoryboard</string>
+	<key>CFBundleIdentifier</key>
+	<string>com.xamarin.sample.fieldservice</string>
+	<key>CFBundleVersion</key>
+	<string></string>
+	<key>NSMainNibFile~ipad</key>
+	<string></string>
 </dict>
 </plist>
