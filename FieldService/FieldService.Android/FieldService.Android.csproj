@@ -59,12 +59,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Dependencies\sqlite-net\src\SQLite.cs">
-      <Link>FieldService\Data\SQLite.cs</Link>
-    </Compile>
-    <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
-      <Link>FieldService\Data\SQLiteAsync.cs</Link>
-    </Compile>
     <Compile Include="..\FieldService\Data\ExpensePhoto.cs">
       <Link>FieldService\Data\ExpensePhoto.cs</Link>
     </Compile>
