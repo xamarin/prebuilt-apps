@@ -1,0 +1,365 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectTypeGuids>{EFBA0AD7-5A72-4C68-AF49-83D382785DCF};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{4801E94F-2404-4F8F-8CC4-FAF6435EF724}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <RootNamespace>FieldService.AndroidGingerbread</RootNamespace>
+    <MonoAndroidAssetsPrefix>Assets</MonoAndroidAssetsPrefix>
+    <MonoAndroidResourcePrefix>Resources</MonoAndroidResourcePrefix>
+    <AndroidResgenClass>Resource</AndroidResgenClass>
+    <AndroidResgenFile>Resources\Resource.designer.cs</AndroidResgenFile>
+    <AndroidApplication>True</AndroidApplication>
+    <AndroidUseLatestPlatformSdk>False</AndroidUseLatestPlatformSdk>
+    <AssemblyName>FieldService.AndroidGingerbread</AssemblyName>
+    <TargetFrameworkVersion>v2.3</TargetFrameworkVersion>
+    <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug</OutputPath>
+    <DefineConstants>DEBUG;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidLinkMode>None</AndroidLinkMode>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release</OutputPath>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
+    <ConsolePause>false</ConsolePause>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Mono.Android" />
+    <Reference Include="Mono.Android.Support.v4" />
+    <Reference Include="Xamarin.Mobile">
+      <HintPath>..\Components\xamarin.mobile-0.7.1\lib\android\Xamarin.Mobile.dll</HintPath>
+    </Reference>
+    <Reference Include="SignaturePad.Android">
+      <HintPath>..\Components\signature-pad-1.3.3\lib\android\SignaturePad.Android.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="MainActivity.cs" />
+    <Compile Include="Resources\Resource.designer.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Adapters\AssignmentsAdapter.cs" />
+    <Compile Include="Adapters\DocumentsAdapter.cs" />
+    <Compile Include="Adapters\ExpensesAdapter.cs" />
+    <Compile Include="Adapters\HistoryListAdapter.cs" />
+    <Compile Include="Adapters\ItemsAdapter.cs" />
+    <Compile Include="Adapters\ItemsSearchAdapter.cs" />
+    <Compile Include="Adapters\LaborHoursAdapter.cs" />
+    <Compile Include="Adapters\LaborTypeSpinnerAdapter.cs" />
+    <Compile Include="Adapters\NavigationAdapter.cs" />
+    <Compile Include="Adapters\PhotosAdapter.cs" />
+    <Compile Include="Adapters\SpinnerAdapter.cs" />
+    <Compile Include="Dialogs\AddLaborDialog.cs" />
+    <Compile Include="Dialogs\BaseDialog.cs" />
+    <Compile Include="Dialogs\ExpenseDialog.cs" />
+    <Compile Include="Dialogs\ItemsDialog.cs" />
+    <Compile Include="Dialogs\PhotoDialog.cs" />
+    <Compile Include="Dialogs\SignatureDialog.cs" />
+    <Compile Include="Fragments\ConfirmationFragment.cs" />
+    <Compile Include="Fragments\DocumentFragment.cs" />
+    <Compile Include="Fragments\ExpenseFragment.cs" />
+    <Compile Include="Fragments\HistoryFragment.cs" />
+    <Compile Include="Fragments\ItemFragment.cs" />
+    <Compile Include="Fragments\LaborHourFragment.cs" />
+    <Compile Include="Fragments\MapFragment.cs" />
+    <Compile Include="Fragments\NavigationFragment.cs" />
+    <Compile Include="Fragments\SummaryFragment.cs" />
+    <Compile Include="Activities\AssignmentTabActivity.cs" />
+    <Compile Include="Activities\AssignmentsActivity.cs" />
+    <Compile Include="Activities\BaseActivity.cs" />
+    <Compile Include="Activities\BaseMapActivity.cs" />
+    <Compile Include="Activities\LoginActivity.cs" />
+    <Compile Include="Activities\MapFragmentActivity.cs" />
+    <Compile Include="Activities\MapViewActivity.cs" />
+    <Compile Include="Activities\SummaryActivity.cs" />
+    <Compile Include="Activities\SummaryHistoryActivity.cs" />
+    <Compile Include="Utilities\AndroidExtensions.cs" />
+    <Compile Include="Utilities\Constants.cs" />
+    <Compile Include="Utilities\EventArgs%28T%29.cs" />
+    <Compile Include="Utilities\MapOverlayItem.cs" />
+    <Compile Include="Utilities\SynchronizeInvoke.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\AboutResources.txt" />
+    <None Include="Assets\AboutAssets.txt" />
+    <None Include="Properties\AndroidManifest.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\Menu\FragmentNavigationMenu.xml" />
+    <AndroidResource Include="Resources\Menu\SummaryMenu.xml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-port\AssignmentItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-port\AssignmentsLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-port\ConfirmationsLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-port\HistoryItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-port\SummaryFragmentLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-land\AssignmentItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-land\AssignmentsLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-land\ConfirmationsLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-land\HistoryItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp-land\SummaryFragmentLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\AddExpensePopUpLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\AddLaborPopUpLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\AddPhotoPopUpLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\AddSignatureLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\AssignmentHistoryLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\AssignmentsTabsLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\DocumentFragmentLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\DocumentListItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\ExpenseListItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\ExpensesFragmentLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\HistoryFragmentLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\HistoryTabs.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\ItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\ItemSearchListItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\ItemsFragmentLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\ItemsPopUpLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\LaborHoursLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\LaborHoursListItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\LoginLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\MapFragmentLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\MapOverlayLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\MapViewLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\NavigationLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\PhotoItemLayout.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\SimpleSpinnerItem.axml" />
+    <AndroidResource Include="Resources\Layout-sw720dp\SummaryLayout.axml" />
+    <AndroidResource Include="Resources\Color\disabledText.xml" />
+    <AndroidResource Include="Resources\Color\radio_selector_color.xml" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\AcceptedAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ActiveAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\EnrouteImage.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\HoldImage.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\ItemPopupDivider.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\LaborHoursDivider.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\MapIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayDirections.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayDirectionsDown.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayDivider.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\MapOverlayIconDown.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\NewAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\NextButton.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\PhoneIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\PreviousButton.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\SearchIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\SelectedItem.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\SummaryPause.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\SummaryRecord.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\TimerPause.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\TimerRecord.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\TrashCanIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\UpLaborHours.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\XamarinTitle.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\accept.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\actionbar.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\back_button.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\bottomSearchBar.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\cameraIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\clearIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\clearIconDown.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\darkPhoneIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\decline.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\documentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\downlaborhours.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\laborHoursBottom.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\labordescriptionbottom.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\loginbox.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\navigationIcon.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\roundedblack.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\triangleblue.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\triangledark.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\trianglegrey.9.png" />
+    <AndroidResource Include="Resources\Drawable-xhdpi\trianglewhite.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\AcceptedAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ActiveAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\EnrouteImage.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\HoldImage.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\ItemPopupDivider.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\LaborHoursDivider.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\MapIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\MapOverlayDirections.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\MapOverlayDirectionsDown.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\MapOverlayDivider.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\MapOverlayIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\MapOverlayIconDown.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\NewAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\NextButton.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\PhoneIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\PreviousButton.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\SearchIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\SelectedItem.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\SummaryPause.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\SummaryRecord.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\TimerPause.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\TimerRecord.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\TrashCanIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\UpLaborHours.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\XamarinTitle.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\accept.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\actionbar.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\back_button.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\bottomSearchBar.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\cameraIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\clearIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\clearIconDown.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\darkPhoneIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\decline.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\documentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\downlaborhours.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\laborHoursBottom.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\labordescriptionbottom.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\loginbox.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\navigationIcon.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\questionmark.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\roundedblack.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\triangleblue.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\triangledark.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trianglegrey.9.png" />
+    <AndroidResource Include="Resources\Drawable-mdpi\trianglewhite.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\AcceptedAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ActiveAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\EnrouteImage.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\HoldImage.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\Icon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\ItemPopupDivider.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\LaborHoursDivider.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\MapIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\MapOverlayDirections.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\MapOverlayDirectionsDown.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\MapOverlayDivider.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\MapOverlayIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\MapOverlayIconDown.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\NewAssignmentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\NextButton.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\PhoneIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\PreviousButton.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\SearchIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\SelectedItem.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\SummaryPause.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\SummaryRecord.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\TimerPause.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\TimerRecord.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\TrashCanIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\UpLaborHours.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\XamarinTitle.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\accept.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\actionbar.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\back_button.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\bottomSearchBar.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\cameraIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\clearIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\clearIconDown.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\darkPhoneIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\decline.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\documentIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\downlaborhours.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\laborHoursBottom.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\labordescriptionbottom.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\loginbox.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\navigationIcon.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\questionmark.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\roundedblack.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\triangleblue.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\triangledark.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\trianglegrey.9.png" />
+    <AndroidResource Include="Resources\Drawable-hdpi\trianglewhite.9.png" />
+    <AndroidResource Include="Resources\drawable\Icon.png" />
+    <AndroidResource Include="Resources\drawable\accept_assignment.xml" />
+    <AndroidResource Include="Resources\drawable\action_bar_back.xml" />
+    <AndroidResource Include="Resources\drawable\active_assignment_selector.xml" />
+    <AndroidResource Include="Resources\drawable\assignment_list_selector.xml" />
+    <AndroidResource Include="Resources\drawable\border.xml" />
+    <AndroidResource Include="Resources\drawable\cancel_button.xml" />
+    <AndroidResource Include="Resources\drawable\clear_search_button.xml" />
+    <AndroidResource Include="Resources\drawable\decline_assignment.xml" />
+    <AndroidResource Include="Resources\drawable\get_directions_button.xml" />
+    <AndroidResource Include="Resources\drawable\items_selector.xml" />
+    <AndroidResource Include="Resources\drawable\login_button.xml" />
+    <AndroidResource Include="Resources\drawable\mapOverlay.xml" />
+    <AndroidResource Include="Resources\drawable\navigation_selector.xml" />
+    <AndroidResource Include="Resources\drawable\smallBlueRectangle.xml" />
+    <AndroidResource Include="Resources\drawable\summary_timer.xml" />
+    <AndroidResource Include="Resources\drawable\tab_selected.xml" />
+    <AndroidResource Include="Resources\drawable\tab_selector.xml" />
+    <AndroidResource Include="Resources\drawable\tab_unselected.xml" />
+    <AndroidResource Include="Resources\drawable\timer_selector.xml" />
+    <AndroidResource Include="Resources\layout\AddExpensePopUpLayout.axml" />
+    <AndroidResource Include="Resources\layout\AddLaborPopUpLayout.axml" />
+    <AndroidResource Include="Resources\layout\AddPhotoPopUpLayout.axml" />
+    <AndroidResource Include="Resources\layout\AddSignatureLayout.axml" />
+    <AndroidResource Include="Resources\layout\AssignmentHistoryLayout.axml" />
+    <AndroidResource Include="Resources\layout\AssignmentsTabsLayout.axml" />
+    <AndroidResource Include="Resources\layout\DocumentFragmentLayout.axml" />
+    <AndroidResource Include="Resources\layout\DocumentListItemLayout.axml" />
+    <AndroidResource Include="Resources\layout\ExpenseListItemLayout.axml" />
+    <AndroidResource Include="Resources\layout\ExpensesFragmentLayout.axml" />
+    <AndroidResource Include="Resources\layout\HistoryTabs.axml" />
+    <AndroidResource Include="Resources\layout\ItemLayout.axml" />
+    <AndroidResource Include="Resources\layout\ItemSearchListItemLayout.axml" />
+    <AndroidResource Include="Resources\layout\ItemsFragmentLayout.axml" />
+    <AndroidResource Include="Resources\layout\ItemsPopUpLayout.axml" />
+    <AndroidResource Include="Resources\layout\LaborHoursLayout.axml" />
+    <AndroidResource Include="Resources\layout\LaborHoursListItemLayout.axml" />
+    <AndroidResource Include="Resources\layout\LoginLayout.axml" />
+    <AndroidResource Include="Resources\layout\Main.axml" />
+    <AndroidResource Include="Resources\layout\MapFragmentLayout.axml" />
+    <AndroidResource Include="Resources\layout\MapOverlayLayout.axml" />
+    <AndroidResource Include="Resources\layout\MapViewLayout.axml" />
+    <AndroidResource Include="Resources\layout\NavigationLayout.axml" />
+    <AndroidResource Include="Resources\layout\NavigationListItemLayout.axml" />
+    <AndroidResource Include="Resources\layout\PhotoItemLayout.axml" />
+    <AndroidResource Include="Resources\layout\SimpleSpinnerItem.axml" />
+    <AndroidResource Include="Resources\layout\SummaryLayout.axml" />
+    <AndroidResource Include="Resources\values\Colors.xml" />
+    <AndroidResource Include="Resources\values\Strings.xml" />
+    <AndroidResource Include="Resources\values\Styles.xml" />
+  </ItemGroup>
+  <Import Project="..\FieldService.Core\FieldService.Core.projitems" Label="Shared" Condition="Exists('..\FieldService.Core\FieldService.Core.projitems')" />
+  <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Adapters\" />
+    <Folder Include="Dialogs\" />
+    <Folder Include="Fragments\" />
+    <Folder Include="Activities\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="Resources\Menu\" />
+    <Folder Include="Resources\Layout-sw720dp-port\" />
+    <Folder Include="Resources\Layout-sw720dp-land\" />
+    <Folder Include="Resources\Layout-sw720dp\" />
+    <Folder Include="Resources\Color\" />
+    <Folder Include="Resources\Drawable-xhdpi\" />
+    <Folder Include="Resources\Drawable-mdpi\" />
+    <Folder Include="Resources\Drawable-hdpi\" />
+    <Folder Include="Resources\drawable\" />
+    <Folder Include="Resources\layout\" />
+    <Folder Include="Resources\values\" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="xamarin.mobile">
+      <Version>0.7.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="signature-pad">
+      <Version>1.3.3</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+  </ItemGroup>
+</Project>

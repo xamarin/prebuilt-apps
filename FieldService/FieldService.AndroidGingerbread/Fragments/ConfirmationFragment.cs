@@ -23,14 +23,16 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Dialogs;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Dialogs;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using Xamarin.Media;
+using FieldService.AndroidGingerbread;
+using Android.Support.V4.App;
 
-namespace FieldService.Android.Fragments {
+namespace FieldService.AndroidGingerbread.Fragments {
     /// <summary>
     /// Fragment for the confirmation section
     /// </summary>
@@ -68,7 +70,7 @@ namespace FieldService.Android.Fragments {
                     photoDialog.Activity = Activity;
                     photoDialog.Assignment = Assignment;
                     photoDialog.Photo = photo;
-                    photoDialog.Show ();
+//                    photoDialog.Show ();
                 }
             };
 
@@ -95,7 +97,7 @@ namespace FieldService.Android.Fragments {
                                 photoDialog.Activity = Activity;
                                 photoDialog.Assignment = Assignment;
                                 photoDialog.PhotoStream = t.Result.GetStream ();
-                                photoDialog.Show ();
+//                                photoDialog.Show ();
                             });
                         });
                     } else if (innerE.Which == 1) {
@@ -111,7 +113,7 @@ namespace FieldService.Android.Fragments {
                                 photoDialog.Activity = Activity;
                                 photoDialog.Assignment = Assignment;
                                 photoDialog.PhotoStream = t.Result.GetStream ();
-                                photoDialog.Show ();
+//                                photoDialog.Show ();
                             });
                         });
                     }
@@ -127,7 +129,7 @@ namespace FieldService.Android.Fragments {
                 signatureDialog = new SignatureDialog (Activity);
                 signatureDialog.Activity = Activity;
                 signatureDialog.Assignment = Assignment;
-                signatureDialog.Show ();
+//                signatureDialog.Show ();
             };
 
             var completeSignature = view.FindViewById<Button> (Resource.Id.confirmationsComplete);
@@ -214,9 +216,9 @@ namespace FieldService.Android.Fragments {
             base.OnPause ();
 
             if (signatureDialog != null) {
-                if (signatureDialog.IsShowing) {
-                    signatureDialog.Dismiss ();
-                }
+//                if (signatureDialog.IsShowing) {
+//                    signatureDialog.Dismiss ();
+//                }
             }
         }
 

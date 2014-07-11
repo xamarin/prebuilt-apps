@@ -4,20 +4,20 @@ using System.Linq;
 using System.Text;
 using Android.App;
 using Android.Content;
-using Android.GoogleMaps;
+//using Android.GoogleMaps;
 using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Base activity for all "map" activities, handles global OnPause/OnResume
     /// </summary>
-    public class BaseMapActivity : MapActivity {
+	public class BaseMapActivity :Activity{//: MapActivity {
         readonly LoginViewModel loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
         protected override void OnPause ()
@@ -44,7 +44,8 @@ namespace FieldService.Android {
         /// <summary>
         /// Required abstract member, we don't need to display routes
         /// </summary>
-        protected override bool IsRouteDisplayed
+//        protected override bool IsRouteDisplayed
+	protected bool IsRouteDisplayed
         {
             get { return false; }
         }

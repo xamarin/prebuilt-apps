@@ -63,13 +63,10 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI that is required to be setup from code
-			assignmentBackground.Image = Theme.AssignmentActive;
 			contact.IconImage = Theme.IconPhone;
 			address.IconImage = Theme.Map;
 			priority.TextColor = UIColor.White;
 			priorityBackground.Image = Theme.NumberBox;
-			accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
-			decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
 
 			numberAndDate.TextColor =
 				titleLabel.TextColor =
@@ -91,6 +88,52 @@ namespace FieldService.iOS
 			//Child controller
 			lastChildController =
 				summaryController = ChildViewControllers[0] as SummaryController;
+
+			if (Theme.IsiOS7) {
+				assignmentBackground.Image = Theme.AssignmentGrey;
+				priority.Font = Theme.FontOfSize (18);
+				startAndEnd.Font = Theme.BoldFontOfSize (10);
+				startAndEnd.TextColor = UIColor.White;
+				accept.SetTitleColor (Theme.GreenColor, UIControlState.Normal);
+				decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
+				accept.Font =
+					decline.Font = Theme.FontOfSize (16);
+
+				//Status dropdown frame
+				var frame = status.Frame;
+				frame.Width /= 2;
+				frame.X += frame.Width + 9;
+				status.Frame = frame;
+
+				//Priority frames
+				frame = priorityBackground.Frame;
+				frame.Width = frame.Height;
+				priorityBackground.Frame =
+					priority.Frame = frame;
+
+				//Start and end dates
+				frame = startAndEnd.Frame;
+				frame.X += 4;
+				startAndEnd.Frame = frame;
+
+				//Additional box for the start/end date
+				frame = startAndEnd.Frame;
+				frame.X -= 4;
+				frame.Y += 4;
+				frame.Width = 102;
+				frame.Height = 16;
+				var timeBox = new UIImageView (frame) {
+					Image = Theme.TimeBox,
+					ContentMode = UIViewContentMode.Left,
+				};
+				assignmentBackground.AddSubview (timeBox);
+				assignmentBackground.BringSubviewToFront (startAndEnd);
+
+			} else {
+				assignmentBackground.Image = Theme.AssignmentActive;
+				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
+				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -171,13 +214,21 @@ namespace FieldService.iOS
 		{
 			var assignment = assignmentViewModel.SelectedAssignment;
 			if (assignment != null && IsViewLoaded) {
+
+				//Update font size on priority
+				if (assignment.Priority >= 10) {
+					priority.Font = Theme.FontOfSize (14);
+				} else {
+					priority.Font = Theme.FontOfSize (18);
+				}
+
 				var splitController = ParentViewController as SplitController;
 				if (splitController != null)
 					splitController.NavigationItem.Title = assignment.JobNumberFormatted + " " + assignment.CompanyName;
 				priority.Text = assignment.Priority.ToString ();
 				numberAndDate.Text = string.Format ("{0} {1}", assignment.JobNumberFormatted, assignment.StartDate.Date.ToShortDateString ());
 				titleLabel.Text = assignment.CompanyName;
-				startAndEnd.Text = string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+				startAndEnd.Text = assignment.FormatStartEndDates ();
 				contact.TopLabel.Text = assignment.ContactName;
 				contact.BottomLabel.Text = assignment.ContactPhone;
 				address.TopLabel.Text = assignment.Address;
@@ -205,7 +256,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Event when accept button is clicked
 		/// </summary>
-		partial void Accept ()
+		partial void Accept (MonoTouch.UIKit.UIButton sender)
 		{
 			if (assignmentViewModel.ActiveAssignment == null) {
 				assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Active;
@@ -219,7 +270,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Event when decline button is clicked
 		/// </summary>
-		partial void Decline ()
+		partial void Decline (MonoTouch.UIKit.UIButton sender)
 		{
 			assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Declined;
 			
@@ -229,7 +280,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Event when address is clicked
 		/// </summary>
-		partial void Address ()
+		partial void Address (FieldService.iOS.TextButton sender)
 		{
 			var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
 			menuViewModel.MenuIndex = SectionIndex.Maps;

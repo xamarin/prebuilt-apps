@@ -22,12 +22,13 @@ using Android.OS;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Activity for the login screen
     /// </summary>
@@ -43,6 +44,7 @@ namespace FieldService.Android {
         /// </summary>
         public LoginActivity ()
         {
+	    ServiceRegistrar.Startup ();
             loginViewModel = ServiceContainer.Resolve<LoginViewModel> ();
 
             //sets valid changed to show the login button.

@@ -21,8 +21,9 @@ using Android.Views;
 using Android.Widget;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Adapter for a spinner for selecting LaborType
     /// </summary>

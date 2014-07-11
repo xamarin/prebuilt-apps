@@ -10,7 +10,7 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 
-namespace FieldService.Android.Utilities {
+namespace FieldService.AndroidGingerbread.Utilities {
     /// <summary>
     /// Contains a few constants used throughout the app
     /// </summary>

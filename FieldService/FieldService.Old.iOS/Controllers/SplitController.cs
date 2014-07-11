@@ -24,7 +24,6 @@ namespace FieldService.iOS
 	/// The main split controller in the app, we couldn't use UISplitViewController because it must be the very root controller of the app
 	/// NOTE: there are 2 instances of this controller throughout the application, while the other controllers only have 1 instance
 	/// </summary>
-	[Register("SplitController")]
 	public partial class SplitController : BaseController
 	{
 		readonly AssignmentViewModel assignmentViewModel;
@@ -111,7 +110,11 @@ namespace FieldService.iOS
 		{
 			if (!masterPopoverShown)
 			{
-				NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { hide }, true);
+				if (Theme.IsiOS7) {
+					NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { hide }, true);
+				} else {
+					NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { hide }, true);
+				}
 				AnimateMasterView (true);
 			}
 		}
@@ -123,7 +126,11 @@ namespace FieldService.iOS
 		{
 			if (masterPopoverShown)
 			{
-				NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { menu }, true);
+				if (Theme.IsiOS7) {
+					NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { menu }, true);
+				} else {
+					NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { menu }, true);
+				}
 				AnimateMasterView (false);
 			}
 		}
@@ -155,7 +162,11 @@ namespace FieldService.iOS
 				if (!wasLandscape)
 				{
 					//Set the navbar to have only the back button
-					NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[0], true);
+					if (Theme.IsiOS7) {
+						NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[0], true);
+					} else {
+						NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[0], true);
+					}
 
 					//Hide the master view if needed
 					if (masterPopoverShown) {
@@ -192,7 +203,11 @@ namespace FieldService.iOS
 				if (wasLandscape)
 				{
 					//Set the nav bar to include the menu button
-					NavigationItem.SetLeftBarButtonItems(new UIBarButtonItem[] { menu }, true);
+					if (Theme.IsiOS7) {
+						NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { menu }, true);
+					} else {
+						NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { menu }, true);
+					}
 
 					if (animated)
 					{

@@ -1,10 +1,13 @@
 // WARNING
 //
-// This file has been generated automatically by MonoDevelop to store outlets and
-// actions made in the Xcode designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Xamarin Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
+using System;
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using System.CodeDom.Compiler;
 
 namespace FieldService.iOS
 {
@@ -41,69 +44,23 @@ namespace FieldService.iOS
 		[Outlet]
 		FieldService.iOS.StatusButton status { get; set; }
 
-		[Action ("Accept")]
-		partial void Accept ();
-
-		[Action ("Decline")]
-		partial void Decline ();
-
 		[Action ("Contact")]
 		partial void Contact ();
 
+		[Action ("Accept")]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void Accept (MonoTouch.UIKit.UIButton sender);
+
 		[Action ("Address")]
-		partial void Address ();
-		
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void Address (FieldService.iOS.TextButton sender);
+
+		[Action ("Decline")]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void Decline (MonoTouch.UIKit.UIButton sender);
+
 		void ReleaseDesignerOutlets ()
 		{
-			if (accept != null) {
-				accept.Dispose ();
-				accept = null;
-			}
-
-			if (decline != null) {
-				decline.Dispose ();
-				decline = null;
-			}
-
-			if (priorityBackground != null) {
-				priorityBackground.Dispose ();
-				priorityBackground = null;
-			}
-
-			if (priority != null) {
-				priority.Dispose ();
-				priority = null;
-			}
-
-			if (numberAndDate != null) {
-				numberAndDate.Dispose ();
-				numberAndDate = null;
-			}
-
-			if (title != null) {
-				title.Dispose ();
-				title = null;
-			}
-
-			if (startAndEnd != null) {
-				startAndEnd.Dispose ();
-				startAndEnd = null;
-			}
-
-			if (contact != null) {
-				contact.Dispose ();
-				contact = null;
-			}
-
-			if (address != null) {
-				address.Dispose ();
-				address = null;
-			}
-
-			if (status != null) {
-				status.Dispose ();
-				status = null;
-			}
 		}
 	}
 }

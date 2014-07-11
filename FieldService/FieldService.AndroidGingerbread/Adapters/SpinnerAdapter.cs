@@ -20,8 +20,9 @@ using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Generic adapter for Spinners throughout the app
     /// </summary>

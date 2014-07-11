@@ -9,14 +9,16 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Activities;
-using FieldService.Android.Adapters;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Activities;
+using FieldService.AndroidGingerbread.Adapters;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
+using Android.Support.V4.App;
 
-namespace FieldService.Android.Fragments {
+namespace FieldService.AndroidGingerbread.Fragments {
     public class HistoryFragment : Fragment {
         ListView historyListView;
         TabHost tabHost;

@@ -20,14 +20,17 @@ using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Utilities;
+//using FieldService.Androide.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Extensions = FieldService.Android.Utilities.AndroidExtensions;
+//using Extensions = FieldService.Androide.Utilities.AndroidExtensions;
 using Orientation = Android.Content.Res.Orientation;
+using FieldService.AndroidGingerbread;
+using FieldService.AndroidGingerbread.Utilities;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Adapter for a list of assignments
     /// </summary>

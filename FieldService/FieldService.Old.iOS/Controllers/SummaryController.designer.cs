@@ -1,10 +1,13 @@
 // WARNING
 //
-// This file has been generated automatically by MonoDevelop to store outlets and
-// actions made in the Xcode designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Xamarin Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
+using System;
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using System.CodeDom.Compiler;
 
 namespace FieldService.iOS
 {
@@ -49,73 +52,9 @@ namespace FieldService.iOS
 
 		[Outlet]
 		MonoTouch.UIKit.UIToolbar toolbar { get; set; }
-		
+
 		void ReleaseDesignerOutlets ()
 		{
-			if (itemsLabel != null) {
-				itemsLabel.Dispose ();
-				itemsLabel = null;
-			}
-
-			if (hoursLabel != null) {
-				hoursLabel.Dispose ();
-				hoursLabel = null;
-			}
-
-			if (expensesLabel != null) {
-				expensesLabel.Dispose ();
-				expensesLabel = null;
-			}
-
-			if (itemsBackground != null) {
-				itemsBackground.Dispose ();
-				itemsBackground = null;
-			}
-
-			if (hoursBackground != null) {
-				hoursBackground.Dispose ();
-				hoursBackground = null;
-			}
-
-			if (expensesBackground != null) {
-				expensesBackground.Dispose ();
-				expensesBackground = null;
-			}
-
-			if (items != null) {
-				items.Dispose ();
-				items = null;
-			}
-
-			if (hours != null) {
-				hours.Dispose ();
-				hours = null;
-			}
-
-			if (expenses != null) {
-				expenses.Dispose ();
-				expenses = null;
-			}
-
-			if (description != null) {
-				description.Dispose ();
-				description = null;
-			}
-
-			if (descriptionTitle != null) {
-				descriptionTitle.Dispose ();
-				descriptionTitle = null;
-			}
-
-			if (descriptionBackground != null) {
-				descriptionBackground.Dispose ();
-				descriptionBackground = null;
-			}
-
-			if (toolbar != null) {
-				toolbar.Dispose ();
-				toolbar = null;
-			}
 		}
 	}
 }

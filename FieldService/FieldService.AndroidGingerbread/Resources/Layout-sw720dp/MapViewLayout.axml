@@ -7,9 +7,9 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:id="@+id/mapViewAssignmentLayout" />
-    <com.google.android.maps.MapView
+<!--com.google.android.maps.MapView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:apiKey="@string/GoogleMapsAPIKey"
-        android:id="@+id/googleMapsView" />
+        android:id="@+id/googleMapsView" /-->
 </LinearLayout>

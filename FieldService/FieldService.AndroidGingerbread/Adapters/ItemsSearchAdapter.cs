@@ -20,8 +20,9 @@ using Android.Content;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Adapter for searching through a list of items
     /// </summary>

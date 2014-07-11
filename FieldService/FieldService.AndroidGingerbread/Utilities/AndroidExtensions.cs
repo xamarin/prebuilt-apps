@@ -21,7 +21,7 @@ using Android.Util;
 using Android.App;
 using Android.Content;
 
-namespace FieldService.Android.Utilities {
+namespace FieldService.AndroidGingerbread.Utilities {
     /// <summary>
     /// Set of extension methods for working with Android
     /// </summary>

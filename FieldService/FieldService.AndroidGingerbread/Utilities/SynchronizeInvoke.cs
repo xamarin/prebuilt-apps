@@ -19,7 +19,7 @@ using System.Threading;
 using Android.App;
 using Android.OS;
 
-namespace FieldService.Android.Utilities {
+namespace FieldService.AndroidGingerbread.Utilities {
     /// <summary>
     /// Android implementation of ISynchronizeInvoke
     /// </summary>

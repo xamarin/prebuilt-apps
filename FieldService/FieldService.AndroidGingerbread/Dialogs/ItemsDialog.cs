@@ -18,12 +18,13 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
+using FieldService.AndroidGingerbread.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android.Dialogs {
+namespace FieldService.AndroidGingerbread.Dialogs {
     /// <summary>
     /// Dialog for searching through items
     /// </summary>
@@ -41,29 +42,29 @@ namespace FieldService.Android.Dialogs {
             itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
         }
 
-        protected override void OnCreate (Bundle savedInstanceState)
+	protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
             SetContentView (Resource.Layout.ItemsPopUpLayout);
-            SetCancelable (true);
+//            SetCancelable (true);
 
             var cancel = (Button)FindViewById (Resource.Id.itemsPopupCancelButton);
-            cancel.Click += (sender, e) => Dismiss ();
+//            cancel.Click += (sender, e) => Dismiss ();
 
             itemsListView = (ListView)FindViewById (Resource.Id.itemPopupItemsList);
             itemsListView.ItemClick += (sender, e) => {
                 var item = ((ItemsSearchAdapter)itemsListView.Adapter).GetAssignmentItem (e.Position);
-                itemViewModel.SaveAssignmentItemAsync (Assignment, new AssignmentItem {
-                    ItemId = item.Id,
-                    AssignmentId = Assignment.Id,
-                })
-                .ContinueWith (_ => {
-                    activity.RunOnUiThread (() => {
-                        var fragment = activity.FragmentManager.FindFragmentById<ItemFragment> (Resource.Id.contentFrame);
-                        fragment.ReloadItems ();
-                        Dismiss ();
-                    });
-                });
+//                itemViewModel.SaveAssignmentItemAsync (Assignment, new AssignmentItem {
+//                    ItemId = item.Id,
+//                    AssignmentId = Assignment.Id,
+//                })
+//                .ContinueWith (_ => {
+//                    activity.RunOnUiThread (() => {
+//			ItemFragment fragment = (ItemFragment)this.FragmentManager.FindFragmentById (Resource.Id.contentFrame);
+//                        fragment.ReloadItems ();
+////                        Dismiss ();
+//                    });
+//                });
             };
 
             var searchText = (EditText)FindViewById (Resource.Id.itemsPopupSearchText);
@@ -71,7 +72,7 @@ namespace FieldService.Android.Dialogs {
 
             itemViewModel.LoadItemsAsync ().ContinueWith (_ => {
                 activity.RunOnUiThread (() => {
-                    searchAdapter = new ItemsSearchAdapter (Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
+					searchAdapter = new ItemsSearchAdapter (Application.Context, Resource.Layout.ItemSearchListItemLayout, itemViewModel.Items);
                     itemsListView.Adapter = searchAdapter;
                 });
             });
@@ -97,7 +98,7 @@ namespace FieldService.Android.Dialogs {
         public void OnClick (View v)
         {
             if (v.Id == Resource.Id.itemsPopupCancelButton) {
-                Dismiss ();
+//                Dismiss ();
             }
         }
     }

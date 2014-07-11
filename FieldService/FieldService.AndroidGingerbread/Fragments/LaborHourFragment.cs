@@ -19,13 +19,15 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Dialogs;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Dialogs;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
+using Android.Support.V4.App;
 
-namespace FieldService.Android.Fragments {
+namespace FieldService.AndroidGingerbread.Fragments {
     /// <summary>
     /// Fragment for the labor hours section
     /// </summary>
@@ -52,7 +54,7 @@ namespace FieldService.Android.Fragments {
                 laborDialog = new AddLaborDialog (Activity);
                 laborDialog.Assignment = Assignment;
                 laborDialog.CurrentLabor = labor;
-                laborDialog.Show ();
+//                laborDialog.Show ();
             };
             return view;
         }
@@ -106,9 +108,9 @@ namespace FieldService.Android.Fragments {
         {
             base.OnPause ();
             if (laborDialog != null) {
-                if (laborDialog.IsShowing) {
-                    laborDialog.Dismiss ();
-                }
+//                if (laborDialog.IsShowing) {
+//                    laborDialog.Dismiss ();
+//                }
             }
         }
 

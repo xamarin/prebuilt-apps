@@ -18,19 +18,20 @@ using System.Linq;
 using Android.App;
 using Android.Content;
 using Android.Content.PM;
-using Android.GoogleMaps;
+//using Android.GoogleMaps;
 using Android.Graphics;
 using Android.Graphics.Drawables;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Extensions = FieldService.Android.Utilities.AndroidExtensions;
+using Extensions = FieldService.AndroidGingerbread.Utilities.AndroidExtensions;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Activity for the map overview
     /// </summary>
@@ -38,8 +39,8 @@ namespace FieldService.Android {
     public class MapViewActivity : BaseMapActivity {
         readonly AssignmentViewModel assignmentViewModel;
         readonly MenuViewModel menuViewModel;
-        MapView mapView;
-        MyLocationOverlay myLocation;
+//        MapView mapView;
+//        MyLocationOverlay myLocation;
         LinearLayout assignmentMapViewLayout,
             buttonLayout,
             timerLayout;
@@ -80,14 +81,14 @@ namespace FieldService.Android {
                 menuViewModel.MenuIndex = Constants.Navigation.IndexOf ("Map");
                 StartActivity (intent);
             };
-            mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
-
-            myLocation = new MyLocationOverlay (this, mapView);
-
-            mapView.Overlays.Add (myLocation);
-            mapView.Clickable = true;
-            mapView.Enabled = true;
-            mapView.SetBuiltInZoomControls (true);
+//            mapView = FindViewById<MapView> (Resource.Id.googleMapsView);
+//
+//            myLocation = new MyLocationOverlay (this, mapView);
+//
+//            mapView.Overlays.Add (myLocation);
+//            mapView.Clickable = true;
+//            mapView.Enabled = true;
+//            mapView.SetBuiltInZoomControls (true);
 
 
             //View containing the active assignment
@@ -154,8 +155,8 @@ namespace FieldService.Android {
                                 assignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => {
                                     RunOnUiThread (() => {
                                         SetAssignment (false);
-                                        mapView.Overlays.Clear ();
-                                        mapView.Overlays.Add (myLocation);
+//                                        mapView.Overlays.Clear ();
+//                                        mapView.Overlays.Add (myLocation);
                                         UpdateLocations ();
                                     });
                                 });
@@ -182,7 +183,7 @@ namespace FieldService.Android {
             base.OnResume ();
 
             UpdateLocations ();
-            myLocation.EnableMyLocation ();
+//            myLocation.EnableMyLocation ();
             var tabActivity = (AssignmentTabActivity)Parent; 
             AssignmentTabActivity.MapDataWrapper mapDataWrapper = null;
             if (tabActivity != null) {
@@ -190,14 +191,14 @@ namespace FieldService.Android {
             }
 
             if (mapDataWrapper != null) {
-                mapView.Controller.SetZoom (mapDataWrapper.Zoom);
-                mapView.Controller.AnimateTo (mapDataWrapper.OverlayPoint);
-                mapView.AddView (mapDataWrapper.OverlayBubble);
+//                mapView.Controller.SetZoom (mapDataWrapper.Zoom);
+//                mapView.Controller.AnimateTo (mapDataWrapper.OverlayPoint);
+//                mapView.AddView (mapDataWrapper.OverlayBubble);
             } else {
-                myLocation.RunOnFirstFix (() => {
-                    mapView.Controller.AnimateTo (myLocation.MyLocation);
-                });
-                mapView.Controller.SetZoom (5);
+//                myLocation.RunOnFirstFix (() => {
+//                    mapView.Controller.AnimateTo (myLocation.MyLocation);
+//                });
+//                mapView.Controller.SetZoom (5);
             }
 
             if (assignmentViewModel.ActiveAssignment != null) {
@@ -222,8 +223,8 @@ namespace FieldService.Android {
                 RunOnUiThread (() => {
                     int i = 0;
                     foreach (var item in assignmentViewModel.Assignments) {
-                        var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
-                            item.CompanyName, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
+//                        var overlay = new OverlayItem (new GeoPoint (item.Latitude.ToIntE6 (), item.Longitude.ToIntE6 ()),
+//                            item.CompanyName, string.Format ("{0} {1}, {2} {3}", item.Address, item.City, item.State, item.Zip));
                         Drawable drawable = null;
                         switch (item.Status) {
                             case AssignmentStatus.Hold:
@@ -233,18 +234,18 @@ namespace FieldService.Android {
                                 drawable = Resources.GetDrawable (Resource.Drawable.NewAssignmentIcon);
                                 break;
                         }
-                        var mapoverlay = new MapOverlayItem (this, drawable, overlay, mapView);
-                        mapoverlay.AssignmentIndex = i;
-                        mapView.Overlays.Add (mapoverlay);
+//                        var mapoverlay = new MapOverlayItem (this, drawable, overlay, mapView);
+//                        mapoverlay.AssignmentIndex = i;
+//                        mapView.Overlays.Add (mapoverlay);
                         i++;
                     }
                     if (assignmentViewModel.ActiveAssignment != null) {
-                        var activeOverlay = new OverlayItem (new GeoPoint (assignmentViewModel.ActiveAssignment.Latitude.ToIntE6 (), assignmentViewModel.ActiveAssignment.Longitude.ToIntE6 ()),
-                            assignmentViewModel.ActiveAssignment.CompanyName, string.Format ("{0} {1}, {2} {3}", assignmentViewModel.ActiveAssignment.Address,
-                            assignmentViewModel.ActiveAssignment.City, assignmentViewModel.ActiveAssignment.State, assignmentViewModel.ActiveAssignment.Zip));
-                        var mapoverlay = new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), activeOverlay, mapView);
-                        mapoverlay.AssignmentIndex = -1;
-                        mapView.Overlays.Add (mapoverlay);
+//                        var activeOverlay = new OverlayItem (new GeoPoint (assignmentViewModel.ActiveAssignment.Latitude.ToIntE6 (), assignmentViewModel.ActiveAssignment.Longitude.ToIntE6 ()),
+//                            assignmentViewModel.ActiveAssignment.CompanyName, string.Format ("{0} {1}, {2} {3}", assignmentViewModel.ActiveAssignment.Address,
+//                            assignmentViewModel.ActiveAssignment.City, assignmentViewModel.ActiveAssignment.State, assignmentViewModel.ActiveAssignment.Zip));
+//                        var mapoverlay = new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), activeOverlay, mapView);
+//                        mapoverlay.AssignmentIndex = -1;
+//                        mapView.Overlays.Add (mapoverlay);
                     }
                 });
             });
@@ -253,14 +254,14 @@ namespace FieldService.Android {
         protected override void OnSaveInstanceState (Bundle outState)
         {
             var tabActivity = (AssignmentTabActivity)Parent;
-            if (mapView.ChildCount > 0) {
-                if (mapData == null) {
-                    mapData = new AssignmentTabActivity.MapDataWrapper ();
-                }
-                mapData.OverlayBubble = mapView.GetChildAt (0);
-                mapData.Zoom = 10;
-                mapData.OverlayPoint = ((MapView.LayoutParams)mapData.OverlayBubble.LayoutParameters).Point;
-            }
+//            if (mapView.ChildCount > 0) {
+//                if (mapData == null) {
+//                    mapData = new AssignmentTabActivity.MapDataWrapper ();
+//                }
+//                mapData.OverlayBubble = mapView.GetChildAt (0);
+//                mapData.Zoom = 10;
+//                mapData.OverlayPoint = ((MapView.LayoutParams)mapData.OverlayBubble.LayoutParameters).Point;
+//            }
             if (tabActivity != null) {
                 tabActivity.MapData = mapData;
             }
@@ -272,8 +273,8 @@ namespace FieldService.Android {
         /// </summary>
         protected override void OnStop ()
         {
-            myLocation.DisableMyLocation ();
-            mapView.Overlays.Clear ();
+//            myLocation.DisableMyLocation ();
+//            mapView.Overlays.Clear ();
             base.OnStop ();
         }
 
@@ -282,9 +283,9 @@ namespace FieldService.Android {
         /// </summary>
         protected override void OnPause ()
         {
-            if (mapView.ChildCount > 0) {
-                mapView.RemoveViewAt (0);
-            }
+//            if (mapView.ChildCount > 0) {
+//                mapView.RemoveViewAt (0);
+//            }
             base.OnPause ();
         }
 

@@ -22,12 +22,13 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
+using FieldService.AndroidGingerbread.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android.Dialogs {
+namespace FieldService.AndroidGingerbread.Dialogs {
     /// <summary>
     /// Dialog for adding labor entries
     /// </summary>
@@ -53,15 +54,15 @@ namespace FieldService.Android.Dialogs {
             };
         }
 
-        protected override void OnCreate (Bundle savedInstanceState)
+	protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
 
             SetContentView (Resource.Layout.AddLaborPopUpLayout);
-            SetCancelable (true);
+//            SetCancelable (true);
 
             var cancel = (Button)FindViewById (Resource.Id.cancelAddLabor);
-            cancel.Click += (sender, e) => Dismiss ();
+//            cancel.Click += (sender, e) => Dismiss ();
 
             delete = (Button)FindViewById (Resource.Id.deleteAddLabor);
             delete.Enabled = !Assignment.IsHistory;
@@ -70,7 +71,7 @@ namespace FieldService.Android.Dialogs {
                 if (CurrentLabor != null && CurrentLabor.Id != -1) {
                     DeleteLabor ();
                 } else {
-                    Dismiss ();
+//                    Dismiss ();
                 }
             };
 
@@ -106,7 +107,7 @@ namespace FieldService.Android.Dialogs {
             hours = (TextView)FindViewById (Resource.Id.addLaborHoursText);
             hours.Enabled = !Assignment.IsHistory;
 
-            var adapter = new LaborTypeSpinnerAdapter (laborTypes, Context, Resource.Layout.SimpleSpinnerItem);
+			var adapter = new LaborTypeSpinnerAdapter (laborTypes, Application.Context, Resource.Layout.SimpleSpinnerItem);
             adapter.TextColor = Color.Black;
             type.Adapter = adapter;
 
@@ -156,15 +157,16 @@ namespace FieldService.Android.Dialogs {
         /// </summary>
         private void DeleteLabor ()
         {
-            laborViewModel
-                .DeleteLaborAsync (Assignment, CurrentLabor)
-                .ContinueWith (_ => {
-                    activity.RunOnUiThread (() => {
-                        var fragment = activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
-                        fragment.ReloadHours ();
-                        Dismiss ();
-                    });
-                });
+//			AddLaborDialog addLaborDialog = this;
+//            laborViewModel
+//                .DeleteLaborAsync (Assignment, CurrentLabor)
+//                .ContinueWith (_ => {
+//                    activity.RunOnUiThread (() => {
+//						LaborHourFragment fragment = (LaborHourFragment)this.FragmentManager.FindFragmentById (Resource.Id.contentFrame);
+//                        fragment.ReloadHours ();
+//						//Dismiss ();
+//                    });
+//                });
         }
 
         /// <summary>
@@ -176,15 +178,15 @@ namespace FieldService.Android.Dialogs {
             CurrentLabor.Description = description.Text;
             CurrentLabor.AssignmentId = Assignment.Id;
 
-            laborViewModel
-                .SaveLaborAsync (Assignment, CurrentLabor)
-                .ContinueWith (_ => {
-                    activity.RunOnUiThread (() => {
-                        var fragment = activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
-                        fragment.ReloadHours ();
-                        Dismiss ();
-                    });
-                });
+//            laborViewModel
+//                .SaveLaborAsync (Assignment, CurrentLabor)
+//                .ContinueWith (_ => {
+//                    activity.RunOnUiThread (() => {
+//			LaborHourFragment fragment = (LaborHourFragment)this.FragmentManager.FindFragmentById (Resource.Id.contentFrame);
+//                        fragment.ReloadHours ();
+////                        Dismiss ();
+//                    });
+//                });
         }
     }
 }

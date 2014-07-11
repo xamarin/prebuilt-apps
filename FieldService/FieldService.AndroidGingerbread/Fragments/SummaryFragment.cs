@@ -17,11 +17,13 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
+using FieldService.AndroidGingerbread;
+using Android.Support.V4.App;
 
-namespace FieldService.Android.Fragments {
+namespace FieldService.AndroidGingerbread.Fragments {
     /// <summary>
     /// Fragment for the summary screen
     /// </summary>
@@ -81,8 +83,8 @@ namespace FieldService.Android.Fragments {
         /// <param name="index"></param>
         private void SelectNavigation (int index)
         {
-            var fragment = Activity.FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);
-            fragment.SetNavigation (index);
+			NavigationFragment fragment = (NavigationFragment)this.FragmentManager.FindFragmentById (Resource.Id.navigationFragmentContainer);
+			fragment.SetNavigation (index);
         }
 
         /// <summary>

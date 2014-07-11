@@ -1,10 +1,13 @@
 // WARNING
 //
-// This file has been generated automatically by MonoDevelop to store outlets and
-// actions made in the Xcode designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Xamarin Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
+using System;
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using System.CodeDom.Compiler;
 
 namespace FieldService.iOS
 {
@@ -38,61 +41,19 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UIBarButtonItem cancel { get; set; }
 
-		[Action ("DeletePhoto")]
-		partial void DeletePhoto ();
-
-		[Action ("Cancel:")]
-		partial void Cancel (MonoTouch.Foundation.NSObject sender);
-
 		[Action ("Choose")]
 		partial void Choose ();
-		
+
+		[Action ("Cancel:")]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void Cancel (MonoTouch.UIKit.UIBarButtonItem sender);
+
+		[Action ("DeletePhoto")]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void DeletePhoto (MonoTouch.UIKit.UIButton sender);
+
 		void ReleaseDesignerOutlets ()
 		{
-			if (description != null) {
-				description.Dispose ();
-				description = null;
-			}
-
-			if (toolbar != null) {
-				toolbar.Dispose ();
-				toolbar = null;
-			}
-
-			if (deleteButton != null) {
-				deleteButton.Dispose ();
-				deleteButton = null;
-			}
-
-			if (time != null) {
-				time.Dispose ();
-				time = null;
-			}
-
-			if (date != null) {
-				date.Dispose ();
-				date = null;
-			}
-
-			if (photo != null) {
-				photo.Dispose ();
-				photo = null;
-			}
-
-			if (photoFrame != null) {
-				photoFrame.Dispose ();
-				photoFrame = null;
-			}
-
-			if (descriptionBackground != null) {
-				descriptionBackground.Dispose ();
-				descriptionBackground = null;
-			}
-
-			if (cancel != null) {
-				cancel.Dispose ();
-				cancel = null;
-			}
 		}
 	}
 }

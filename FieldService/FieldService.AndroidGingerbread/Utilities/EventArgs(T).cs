@@ -15,7 +15,7 @@
 
 using System;
 
-namespace FieldService.Android.Utilities {
+namespace FieldService.AndroidGingerbread.Utilities {
     /// <summary>
     /// Helper class for making strongly typed EventArgs
     /// </summary>

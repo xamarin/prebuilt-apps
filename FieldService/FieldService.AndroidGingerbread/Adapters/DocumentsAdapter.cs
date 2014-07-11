@@ -26,8 +26,9 @@ using Android.Widget;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android.Adapters {
+namespace FieldService.AndroidGingerbread.Adapters {
     public class DocumentsAdapter : ArrayAdapter<Document> {
         List<Document> documents;
         int resourceId;

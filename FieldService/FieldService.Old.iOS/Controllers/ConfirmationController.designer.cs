@@ -1,10 +1,13 @@
 // WARNING
 //
-// This file has been generated automatically by MonoDevelop to store outlets and
-// actions made in the Xcode designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Xamarin Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
+using System;
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using System.CodeDom.Compiler;
 
 namespace FieldService.iOS
 {
@@ -12,41 +15,35 @@ namespace FieldService.iOS
 	partial class ConfirmationController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIToolbar toolbar { get; set; }
+		MonoTouch.UIKit.UIButton addPhoto { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel note { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel photos { get; set; }
 
 		[Outlet]
 		MonoTouch.UIKit.UITableView photoTableView { get; set; }
 
 		[Outlet]
+		MonoTouch.UIKit.UILabel requirement { get; set; }
+
+		[Outlet]
+		MonoTouch.UIKit.UILabel signature { get; set; }
+
+		[Outlet]
 		MonoTouch.UIKit.UITableView signatureTableView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton addPhoto { get; set; }
+		MonoTouch.UIKit.UIToolbar toolbar { get; set; }
 
 		[Action ("AddPhoto")]
-		partial void AddPhoto ();
-		
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void AddPhoto (MonoTouch.UIKit.UIButton sender);
+
 		void ReleaseDesignerOutlets ()
 		{
-			if (toolbar != null) {
-				toolbar.Dispose ();
-				toolbar = null;
-			}
-
-			if (photoTableView != null) {
-				photoTableView.Dispose ();
-				photoTableView = null;
-			}
-
-			if (signatureTableView != null) {
-				signatureTableView.Dispose ();
-				signatureTableView = null;
-			}
-
-			if (addPhoto != null) {
-				addPhoto.Dispose ();
-				addPhoto = null;
-			}
 		}
 	}
 }

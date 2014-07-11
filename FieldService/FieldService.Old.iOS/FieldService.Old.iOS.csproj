@@ -1,0 +1,397 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProjectTypeGuids>{6BC8ED88-2882-458C-8E55-DFD12B67127B};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{07C234DE-70EC-41F1-9EC8-BC085303680C}</ProjectGuid>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>FieldService.iOS</RootNamespace>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+    <AssemblyName>FieldServiceOldiOS</AssemblyName>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <MtouchLink>None</MtouchLink>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <MtouchLink>None</MtouchLink>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchDebug>true</MtouchDebug>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <ConsolePause>false</ConsolePause>
+    <CodesignKey>iPhone Developer</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Ad-Hoc|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Ad-Hoc</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <BuildIpa>true</BuildIpa>
+    <CodesignProvision>Automatic:AdHoc</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'AppStore|iPhone' ">
+    <DebugType>full</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\AppStore</OutputPath>
+    <DefineConstants>__MOBILE__;__IOS__;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <ConsolePause>false</ConsolePause>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <CodesignProvision>Automatic:AppStore</CodesignProvision>
+    <CodesignKey>iPhone Distribution</CodesignKey>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="monotouch" />
+    <Reference Include="SignaturePad.iOS">
+      <HintPath>..\Components\signature-pad-1.3.3\lib\ios\SignaturePad.iOS.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Mobile">
+      <HintPath>..\Components\xamarin.mobile-0.7.1\lib\ios\Xamarin.Mobile.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Controllers\" />
+    <Folder Include="Data\" />
+    <Folder Include="Images\" />
+    <Folder Include="Utilities\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="Controllers\AddExpenseController.cs" />
+    <Compile Include="Controllers\AddExpenseController.designer.cs" />
+    <Compile Include="Controllers\AddItemController.cs" />
+    <Compile Include="Controllers\AddItemController.designer.cs" />
+    <Compile Include="Controllers\AddLaborController.cs" />
+    <Compile Include="Controllers\AddLaborController.designer.cs" />
+    <Compile Include="Controllers\AddPhotoController.cs" />
+    <Compile Include="Controllers\AddPhotoController.designer.cs" />
+    <Compile Include="Controllers\AssignmentDetailsController.cs" />
+    <Compile Include="Controllers\AssignmentDetailsController.designer.cs" />
+    <Compile Include="Controllers\AssignmentsController.cs" />
+    <Compile Include="Controllers\AssignmentsController.designer.cs" />
+    <Compile Include="Controllers\BaseController.cs" />
+    <Compile Include="Controllers\BaseNavigationController.cs" />
+    <Compile Include="Controllers\BaseNavigationController.designer.cs" />
+    <Compile Include="Controllers\ConfirmationController.cs" />
+    <Compile Include="Controllers\ConfirmationController.designer.cs" />
+    <Compile Include="Controllers\DocumentController.cs" />
+    <Compile Include="Controllers\DocumentController.designer.cs" />
+    <Compile Include="Controllers\ExpenseController.cs" />
+    <Compile Include="Controllers\ExpenseController.designer.cs" />
+    <Compile Include="Controllers\HistoryController.cs" />
+    <Compile Include="Controllers\HistoryController.designer.cs" />
+    <Compile Include="Controllers\ItemsViewController.cs" />
+    <Compile Include="Controllers\ItemsViewController.designer.cs" />
+    <Compile Include="Controllers\LaborController.cs" />
+    <Compile Include="Controllers\LaborController.designer.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
+    <Compile Include="Controllers\LoginController.designer.cs" />
+    <Compile Include="Controllers\MainMapController.cs" />
+    <Compile Include="Controllers\MainMapController.designer.cs" />
+    <Compile Include="Controllers\MapController.cs" />
+    <Compile Include="Controllers\MenuController.cs" />
+    <Compile Include="Controllers\MenuController.designer.cs" />
+    <Compile Include="Controllers\SignatureController.cs" />
+    <Compile Include="Controllers\SplitController.cs" />
+    <Compile Include="Controllers\SplitController.designer.cs" />
+    <Compile Include="Controllers\SummaryController.cs" />
+    <Compile Include="Controllers\SummaryController.designer.cs" />
+    <Compile Include="Controllers\TabController.cs" />
+    <Compile Include="Controllers\TabController.designer.cs" />
+    <Compile Include="Utilities\ClrWrapper.cs" />
+    <Compile Include="Utilities\ISearchSource.cs" />
+    <Compile Include="Utilities\MenuEventArgs.cs" />
+    <Compile Include="Utilities\SearchDisplay.cs" />
+    <Compile Include="Utilities\SectionIndex.cs" />
+    <Compile Include="Utilities\SynchronizeInvoke.cs" />
+    <Compile Include="Utilities\Theme.cs" />
+    <Compile Include="Utilities\UIKitExtensions.cs" />
+    <Compile Include="Views\AssignmentCell.cs" />
+    <Compile Include="Views\AssignmentCell.designer.cs" />
+    <Compile Include="Views\AssignmentItemCell.cs" />
+    <Compile Include="Views\AssignmentItemCell.designer.cs" />
+    <Compile Include="Views\AssignmentStatusSheet.cs" />
+    <Compile Include="Views\CompleteCell.cs" />
+    <Compile Include="Views\CompleteCell.designer.cs" />
+    <Compile Include="Views\DocumentCell.cs" />
+    <Compile Include="Views\ExpenseCategorySheet.cs" />
+    <Compile Include="Views\ExpenseCell.cs" />
+    <Compile Include="Views\ExpenseCell.designer.cs" />
+    <Compile Include="Views\HistoryCell.cs" />
+    <Compile Include="Views\HistoryCell.designer.cs" />
+    <Compile Include="Views\HoursField.cs" />
+    <Compile Include="Views\LaborCell.cs" />
+    <Compile Include="Views\LaborCell.designer.cs" />
+    <Compile Include="Views\LaborTypeTextField.cs" />
+    <Compile Include="Views\PhotoAlertSheet.cs" />
+    <Compile Include="Views\PhotoCell.cs" />
+    <Compile Include="Views\PhotoCell.designer.cs" />
+    <Compile Include="Views\PlaceholderTextView.cs" />
+    <Compile Include="Views\SignatureCell.cs" />
+    <Compile Include="Views\SignatureCell.designer.cs" />
+    <Compile Include="Views\StatusButton.cs" />
+    <Compile Include="Views\StatusButton.designer.cs" />
+    <Compile Include="Views\TextButton.cs" />
+    <Compile Include="Views\TextButton.designer.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="MainStoryboard.storyboard" />
+  </ItemGroup>
+  <Import Project="..\FieldService.Core\FieldService.Core.projitems" Label="Shared" Condition="Exists('..\FieldService.Core\FieldService.Core.projitems')" />
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <ItemGroup>
+    <BundleResource Include="Resources\29.png" />
+    <BundleResource Include="Resources\50.png" />
+    <BundleResource Include="Resources\58.png" />
+    <BundleResource Include="Resources\72.png" />
+    <BundleResource Include="Resources\100.png" />
+    <BundleResource Include="Resources\144.png" />
+    <BundleResource Include="Resources\Default-Landscape.png" />
+    <BundleResource Include="Resources\Default-Landscape%402x.png" />
+    <BundleResource Include="Resources\Default-Portrait.png" />
+    <BundleResource Include="Resources\Default-Portrait%402x.png" />
+    <BundleResource Include="Images\accept.png" />
+    <BundleResource Include="Images\accept%402x.png" />
+    <BundleResource Include="Images\addphoto.png" />
+    <BundleResource Include="Images\addphoto%402x.png" />
+    <BundleResource Include="Images\arrow_down.png" />
+    <BundleResource Include="Images\arrow_down%402x.png" />
+    <BundleResource Include="Images\arrow_up.png" />
+    <BundleResource Include="Images\arrow_up%402x.png" />
+    <BundleResource Include="Images\arrowwhite.png" />
+    <BundleResource Include="Images\arrowwhite%402x.png" />
+    <BundleResource Include="Images\assignmentactive.png" />
+    <BundleResource Include="Images\assignmentactive%402x.png" />
+    <BundleResource Include="Images\assignmentactiveblue.png" />
+    <BundleResource Include="Images\assignmentactiveblue%402x.png" />
+    <BundleResource Include="Images\assignmentblue.png" />
+    <BundleResource Include="Images\assignmentblue%402x.png" />
+    <BundleResource Include="Images\assignmentgrey.png" />
+    <BundleResource Include="Images\assignmentgrey%402x.png" />
+    <BundleResource Include="Images\backbutton.png" />
+    <BundleResource Include="Images\backbutton%402x.png" />
+    <BundleResource Include="Images\bg_left.png" />
+    <BundleResource Include="Images\bg_left%402x.png" />
+    <BundleResource Include="Images\bluebar.png" />
+    <BundleResource Include="Images\bluebar%402x.png" />
+    <BundleResource Include="Images\bluenavbutton.png" />
+    <BundleResource Include="Images\bluenavbutton%402x.png" />
+    <BundleResource Include="Images\buttondark.png" />
+    <BundleResource Include="Images\buttondark%402x.png" />
+    <BundleResource Include="Images\camera.png" />
+    <BundleResource Include="Images\camera%402x.png" />
+    <BundleResource Include="Images\complete.png" />
+    <BundleResource Include="Images\complete%402x.png" />
+    <BundleResource Include="Images\complete_inactive.png" />
+    <BundleResource Include="Images\complete_inactive%402x.png" />
+    <BundleResource Include="Images\decline.png" />
+    <BundleResource Include="Images\decline%402x.png" />
+    <BundleResource Include="Images\deletebutton.png" />
+    <BundleResource Include="Images\deletebutton%402x.png" />
+    <BundleResource Include="Images\dot.png" />
+    <BundleResource Include="Images\dot%402x.png" />
+    <BundleResource Include="Images\dropdown.png" />
+    <BundleResource Include="Images\dropdown%402x.png" />
+    <BundleResource Include="Images\icon_pdf.png" />
+    <BundleResource Include="Images\icon_pdf%402x.png" />
+    <BundleResource Include="Images\iconactive.png" />
+    <BundleResource Include="Images\iconactive%402x.png" />
+    <BundleResource Include="Images\iconcomplete.png" />
+    <BundleResource Include="Images\iconcomplete%402x.png" />
+    <BundleResource Include="Images\iconhold.png" />
+    <BundleResource Include="Images\iconhold%402x.png" />
+    <BundleResource Include="Images\iconphone.png" />
+    <BundleResource Include="Images\iconphone%402x.png" />
+    <BundleResource Include="Images\iconphone_dark.png" />
+    <BundleResource Include="Images\iconphone_dark%402x.png" />
+    <BundleResource Include="Images\iconsettings.png" />
+    <BundleResource Include="Images\iconsettings%402x.png" />
+    <BundleResource Include="Images\inlay.png" />
+    <BundleResource Include="Images\inlay%402x.png" />
+    <BundleResource Include="Images\leftlist_end.png" />
+    <BundleResource Include="Images\leftlist_end%402x.png" />
+    <BundleResource Include="Images\leftlist_end_active.png" />
+    <BundleResource Include="Images\leftlist_end_active%402x.png" />
+    <BundleResource Include="Images\leftlist_mid.png" />
+    <BundleResource Include="Images\leftlist_mid%402x.png" />
+    <BundleResource Include="Images\leftlist_mid_active.png" />
+    <BundleResource Include="Images\leftlist_mid_active%402x.png" />
+    <BundleResource Include="Images\leftlist_top.png" />
+    <BundleResource Include="Images\leftlist_top%402x.png" />
+    <BundleResource Include="Images\leftlist_top_active.png" />
+    <BundleResource Include="Images\leftlist_top_active%402x.png" />
+    <BundleResource Include="Images\linenpattern.png" />
+    <BundleResource Include="Images\linenpattern%402x.png" />
+    <BundleResource Include="Images\listicon.png" />
+    <BundleResource Include="Images\listicon%402x.png" />
+    <BundleResource Include="Images\login_box.png" />
+    <BundleResource Include="Images\login_box%402x.png" />
+    <BundleResource Include="Images\login_btn.png" />
+    <BundleResource Include="Images\login_btn%402x.png" />
+    <BundleResource Include="Images\login_textfield.png" />
+    <BundleResource Include="Images\login_textfield%402x.png" />
+    <BundleResource Include="Images\logo.png" />
+    <BundleResource Include="Images\logo%402x.png" />
+    <BundleResource Include="Images\map.png" />
+    <BundleResource Include="Images\map%402x.png" />
+    <BundleResource Include="Images\mapicon.png" />
+    <BundleResource Include="Images\mapicon%402x.png" />
+    <BundleResource Include="Images\modal.png" />
+    <BundleResource Include="Images\modal%402x.png" />
+    <BundleResource Include="Images\modal_inlay.png" />
+    <BundleResource Include="Images\modal_inlay%402x.png" />
+    <BundleResource Include="Images\numberbox.png" />
+    <BundleResource Include="Images\numberbox%402x.png" />
+    <BundleResource Include="Images\orangebar.png" />
+    <BundleResource Include="Images\orangebar%402x.png" />
+    <BundleResource Include="Images\orangenavbutton.png" />
+    <BundleResource Include="Images\orangenavbutton%402x.png" />
+    <BundleResource Include="Images\photoframe.png" />
+    <BundleResource Include="Images\photoframe%402x.png" />
+    <BundleResource Include="Images\questionmark.png" />
+    <BundleResource Include="Images\questionmark%402x.png" />
+    <BundleResource Include="Images\record.png" />
+    <BundleResource Include="Images\record%402x.png" />
+    <BundleResource Include="Images\record_active.png" />
+    <BundleResource Include="Images\record_active%402x.png" />
+    <BundleResource Include="Images\rightboxshadow.png" />
+    <BundleResource Include="Images\rightboxshadow%402x.png" />
+    <BundleResource Include="Images\row.png" />
+    <BundleResource Include="Images\row%402x.png" />
+    <BundleResource Include="Images\rowend.png" />
+    <BundleResource Include="Images\rowend%402x.png" />
+    <BundleResource Include="Images\rowpress.png" />
+    <BundleResource Include="Images\rowpress%402x.png" />
+    <BundleResource Include="Images\rowshadow.png" />
+    <BundleResource Include="Images\rowshadow%402x.png" />
+    <BundleResource Include="Images\shortrowpress.png" />
+    <BundleResource Include="Images\shortrowpress%402x.png" />
+    <BundleResource Include="Images\smallgreybtn.png" />
+    <BundleResource Include="Images\smallgreybtn%402x.png" />
+    <BundleResource Include="Images\timerbg.png" />
+    <BundleResource Include="Images\timerbg%402x.png" />
+    <BundleResource Include="Images\timerfield.png" />
+    <BundleResource Include="Images\timerfield%402x.png" />
+    <BundleResource Include="Images\toolbarshadow.png" />
+    <BundleResource Include="Images\toolbarshadow%402x.png" />
+    <BundleResource Include="Images\topnav.png" />
+    <BundleResource Include="Images\topnav%402x.png" />
+    <BundleResource Include="Images\topnavbtn.png" />
+    <BundleResource Include="Images\topnavbtn%402x.png" />
+    <BundleResource Include="Images\iOS7\complete.png" />
+    <BundleResource Include="Images\iOS7\complete%402x.png" />
+    <BundleResource Include="Images\iOS7\complete_inactive.png" />
+    <BundleResource Include="Images\iOS7\complete_inactive%402x.png" />
+    <BundleResource Include="Images\iOS7\dropdown.png" />
+    <BundleResource Include="Images\iOS7\dropdown%402x.png" />
+    <BundleResource Include="Images\iOS7\hexagons.png" />
+    <BundleResource Include="Images\iOS7\hexagons%402x.png" />
+    <BundleResource Include="Images\iOS7\icon_pdf.png" />
+    <BundleResource Include="Images\iOS7\icon_pdf%402x.png" />
+    <BundleResource Include="Images\iOS7\iconphone.png" />
+    <BundleResource Include="Images\iOS7\iconphone%402x.png" />
+    <BundleResource Include="Images\iOS7\iconsettings.png" />
+    <BundleResource Include="Images\iOS7\iconsettings%402x.png" />
+    <BundleResource Include="Images\iOS7\iconsignature.png" />
+    <BundleResource Include="Images\iOS7\iconsignature%402x.png" />
+    <BundleResource Include="Images\iOS7\image_placeholder.png" />
+    <BundleResource Include="Images\iOS7\image_placeholder%402x.png" />
+    <BundleResource Include="Images\iOS7\listicon.png" />
+    <BundleResource Include="Images\iOS7\listicon%402x.png" />
+    <BundleResource Include="Images\iOS7\listicon_selected.png" />
+    <BundleResource Include="Images\iOS7\listicon_selected%402x.png" />
+    <BundleResource Include="Images\iOS7\login_box.png" />
+    <BundleResource Include="Images\iOS7\login_box%402x.png" />
+    <BundleResource Include="Images\iOS7\login_btn.png" />
+    <BundleResource Include="Images\iOS7\login_btn%402x.png" />
+    <BundleResource Include="Images\iOS7\logo.png" />
+    <BundleResource Include="Images\iOS7\logo%402x.png" />
+    <BundleResource Include="Images\iOS7\map.png" />
+    <BundleResource Include="Images\iOS7\map%402x.png" />
+    <BundleResource Include="Images\iOS7\mapicon.png" />
+    <BundleResource Include="Images\iOS7\mapicon%402x.png" />
+    <BundleResource Include="Images\iOS7\mapicon_selected.png" />
+    <BundleResource Include="Images\iOS7\mapicon_selected%402x.png" />
+    <BundleResource Include="Images\iOS7\numberbox.png" />
+    <BundleResource Include="Images\iOS7\numberbox%402x.png" />
+    <BundleResource Include="Images\iOS7\numberbox_hollow.png" />
+    <BundleResource Include="Images\iOS7\numberbox_hollow%402x.png" />
+    <BundleResource Include="Images\iOS7\questionmark.png" />
+    <BundleResource Include="Images\iOS7\questionmark%402x.png" />
+    <BundleResource Include="Images\iOS7\record.png" />
+    <BundleResource Include="Images\iOS7\record%402x.png" />
+    <BundleResource Include="Images\iOS7\record_active.png" />
+    <BundleResource Include="Images\iOS7\record_active%402x.png" />
+    <BundleResource Include="Images\iOS7\timebox.png" />
+    <BundleResource Include="Images\iOS7\timebox%402x.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Data\contract.pdf" />
+    <Content Include="Data\sla.pdf" />
+    <Content Include="Data\techspecs.pdf" />
+    <Content Include="Data\valuableinformation.pdf" />
+  </ItemGroup>
+  <ItemGroup>
+    <XamarinComponentReference Include="signature-pad">
+      <Version>1.3.3</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+    <XamarinComponentReference Include="xamarin.mobile">
+      <Version>0.7.1</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
+  </ItemGroup>
+</Project>

@@ -21,13 +21,14 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Extensions = FieldService.Android.Utilities.AndroidExtensions;
+using Extensions = FieldService.AndroidGingerbread.Utilities.AndroidExtensions;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Activity for the list of assignments
     /// </summary>

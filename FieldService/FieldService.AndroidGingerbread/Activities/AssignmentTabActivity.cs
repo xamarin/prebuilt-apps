@@ -17,17 +17,19 @@ using System;
 using System.ComponentModel;
 using Android.App;
 using Android.Content;
-using Android.GoogleMaps;
+//using Android.GoogleMaps;
 using Android.OS;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
+using FieldService.AndroidGingerbread.Utilities;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Activity for the tab bar between "Assignments" and "Map Overview"
     /// </summary>
@@ -136,7 +138,7 @@ namespace FieldService.Android {
         public class MapDataWrapper : Java.Lang.Object, Java.IO.ISerializable {
             public int Zoom { get; set; }
             public View OverlayBubble { get; set; }
-            public GeoPoint OverlayPoint { get; set; }
+//            public GeoPoint OverlayPoint { get; set; }
         }
     }
 }

@@ -17,13 +17,14 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Fragments;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Adapter for a list of items
     /// </summary>

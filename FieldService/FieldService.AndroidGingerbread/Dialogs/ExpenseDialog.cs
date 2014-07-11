@@ -22,15 +22,16 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Fragments;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using Xamarin.Media;
-using Extensions = FieldService.Android.Utilities.AndroidExtensions;
+using Extensions = FieldService.AndroidGingerbread.Utilities.AndroidExtensions;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android.Dialogs {
+namespace FieldService.AndroidGingerbread.Dialogs {
     public class ExpenseDialog : BaseDialog, View.IOnClickListener, AdapterView.IOnItemSelectedListener {
         readonly Activity activity;
         readonly ExpenseViewModel expenseViewModel;
@@ -60,12 +61,12 @@ namespace FieldService.Android.Dialogs {
             mediaPicker = new MediaPicker (activity);
         }
 
-        protected override void OnCreate (Bundle savedInstanceState)
+	protected override void OnCreate (Bundle savedInstanceState)
         {
             base.OnCreate (savedInstanceState);
 
             SetContentView (Resource.Layout.AddExpensePopUpLayout);
-            SetCancelable (true);
+//            SetCancelable (true);
 
             var save = (Button)FindViewById (Resource.Id.addExpenseSave);
             save.Enabled = !Assignment.IsHistory;
@@ -88,7 +89,7 @@ namespace FieldService.Android.Dialogs {
             expenseAddPhoto.Enabled = !Assignment.IsHistory;
             expenseAddPhoto.SetOnClickListener (this);
 
-            var adapter = new SpinnerAdapter<ExpenseCategory> (expenseTypes, Context, Resource.Layout.SimpleSpinnerItem);
+			var adapter = new SpinnerAdapter<ExpenseCategory> (expenseTypes,  Application.Context, Resource.Layout.SimpleSpinnerItem);
             adapter.TextColor = Color.Black;
             adapter.Background = Color.White;
             expenseType.Adapter = adapter;
@@ -164,13 +165,13 @@ namespace FieldService.Android.Dialogs {
                     })
                     .ContinueWith (_ => expenseViewModel.SavePhotoAsync ());
             }
-            task.ContinueWith (_ => {
-                activity.RunOnUiThread (() => {
-                    var fragment = activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
-                    fragment.ReloadExpenseData ();
-                    Dismiss ();
-                });
-            });
+//            task.ContinueWith (_ => {
+//                activity.RunOnUiThread (() => {
+//			ExpenseFragment fragment = (ExpenseFragment)this.FragmentManager.FindFragmentById (Resource.Id.contentFrame);
+//                    fragment.ReloadExpenseData ();
+////                    Dismiss ();
+//                });
+//            });
         }
 
         /// <summary>
@@ -178,14 +179,14 @@ namespace FieldService.Android.Dialogs {
         /// </summary>
         private void DeleteExpense ()
         {
-            expenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
-                .ContinueWith (_ => {
-                    activity.RunOnUiThread (() => {
-                        var fragment = activity.FragmentManager.FindFragmentById<ExpenseFragment> (Resource.Id.contentFrame);
-                        fragment.ReloadExpenseData ();
-                        Dismiss ();
-                    });
-                });
+//            expenseViewModel.DeleteExpenseAsync (Assignment, CurrentExpense)
+//                .ContinueWith (_ => {
+//                    activity.RunOnUiThread (() => {
+//			ExpenseFragment fragment = (ExpenseFragment)this.FragmentManager.FindFragmentById (Resource.Id.contentFrame);
+//                        fragment.ReloadExpenseData ();
+////                        Dismiss ();
+//                    });
+//                });
         }
 
         /// <summary>
@@ -213,14 +214,14 @@ namespace FieldService.Android.Dialogs {
                     if (CurrentExpense != null && CurrentExpense.Id != -1) {
                         DeleteExpense ();
                     } else {
-                        Dismiss ();
+//                        Dismiss ();
                     }
                     break;
                 case Resource.Id.addExpenseSave:
                     SaveExpense ();
                     break;
                 case Resource.Id.addExpenseCancel:
-                    Dismiss ();
+//                    Dismiss ();
                     break;
                 case Resource.Id.addExpenseAddPhoto: {
                         var choices = new List<string> ();

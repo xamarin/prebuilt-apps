@@ -1,11 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8" ?>
 <resources>
-  <style name="CustomHoloTheme" parent="@android:style/Theme.Holo">
+  <!--style name="CustomHoloTheme" parent="@android:style/Theme.Holo">
     <item name="android:windowNoTitle">true</item>
     <item name="android:windowFullscreen">true</item>
   </style>
   <style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
     <item name="android:windowBackground">@android:color/transparent</item>
     <item name="android:windowNoTitle">true</item>
-  </style>
+  </style-->
+<style name="CustomHoloTheme" parent="@android:style/Theme.Dialog">
+<item name="android:windowNoTitle">true</item>
+<item name="android:windowFullscreen">true</item>
+</style>
+<style name="CustomDialogTheme" parent="@android:style/Theme.Dialog">
+<item name="android:windowBackground">@android:color/transparent</item>
+<item name="android:windowNoTitle">true</item>
+</style>
 </resources>

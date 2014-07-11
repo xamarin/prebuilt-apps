@@ -110,7 +110,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Event when cancel button is clicked
 		/// </summary>
-		partial void Cancel (NSObject sender)
+		partial void Cancel (MonoTouch.UIKit.UIBarButtonItem sender)
 		{
 			DismissViewController (true, null);
 		}
@@ -160,7 +160,7 @@ namespace FieldService.iOS
 				hours.ValueChanged += (sender, e) => laborViewModel.SelectedLabor.Hours = TimeSpan.FromHours (hours.Value);
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, 470, 400))
+				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, Theme.IsiOS7 ? 515 : 470, 400))
 				{
 					BackgroundColor = UIColor.Clear,
 					TextColor = Theme.BlueTextColor,

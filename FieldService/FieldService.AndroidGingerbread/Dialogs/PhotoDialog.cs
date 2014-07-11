@@ -19,13 +19,14 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Fragments;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android.Dialogs {
+namespace FieldService.AndroidGingerbread.Dialogs {
     /// <summary>
     /// Dialog for the photos
     /// </summary>
@@ -64,7 +65,7 @@ namespace FieldService.Android.Dialogs {
             var previousPhoto = (ImageButton)FindViewById (Resource.Id.photoPreviousButton);
 
             var cancel = (Button)FindViewById (Resource.Id.photoCancelImage);
-            cancel.Click += (sender, e) => Dismiss ();
+//            cancel.Click += (sender, e) => Dismiss ();
 
             var done = (Button)FindViewById (Resource.Id.photoDoneImage);
             done.Click += (sender, e) => SavePhoto ();
@@ -158,23 +159,23 @@ namespace FieldService.Android.Dialogs {
         /// </summary>
         private void DeletePhoto ()
         {
-            AlertDialog.Builder deleteDialog = new AlertDialog.Builder (Context);
-            deleteDialog
-                .SetTitle ("Delete?")
-                .SetMessage ("Are you sure?")
-                .SetPositiveButton ("Yes", (sender, e) => {
-                    photoViewModel
-                        .DeletePhotoAsync (Assignment, Photo)
-                        .ContinueWith (_ => {
-                            activity.RunOnUiThread (() => {
-                                var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
-                                fragment.ReloadConfirmation ();
-                                Dismiss ();
-                            });
-                        });
-                })
-                .SetNegativeButton ("No", (sender, e) => { })
-                .Show ();
+			AlertDialog.Builder deleteDialog = new AlertDialog.Builder (Application.Context);
+//            deleteDialog
+//                .SetTitle ("Delete?")
+//                .SetMessage ("Are you sure?")
+//                .SetPositiveButton ("Yes", (sender, e) => {
+//                    photoViewModel
+//                        .DeletePhotoAsync (Assignment, Photo)
+//                        .ContinueWith (_ => {
+//                            activity.RunOnUiThread (() => {
+//				ConfirmationFragment fragment = (ConfirmationFragment)this.FragmentManager.FindFragmentById (Resource.Id.contentFrame);
+//                                fragment.ReloadConfirmation ();
+////                                Dismiss ();
+//                            });
+//                        });
+//                })
+//                .SetNegativeButton ("No", (sender, e) => { })
+//                .Show ();
         }
 
         /// <summary>
@@ -190,14 +191,14 @@ namespace FieldService.Android.Dialogs {
             savePhoto.Description = optionalCaption.Text;
             savePhoto.AssignmentId = Assignment.Id;
 
-            photoViewModel.SavePhotoAsync (Assignment, savePhoto)
-                .ContinueWith (_ => {
-                    activity.RunOnUiThread (() => {
-                        var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
-                        fragment.ReloadConfirmation ();
-                        Dismiss ();
-                    });
-                });
+//            photoViewModel.SavePhotoAsync (Assignment, savePhoto)
+//                .ContinueWith (_ => {
+//                    activity.RunOnUiThread (() => {
+//			var fragment = (ConfirmationFragment)this.FragmentManager.FindFragmentById (Resource.Id.contentFrame);
+//                        fragment.ReloadConfirmation ();
+////                        Dismiss ();
+//                    });
+//                });
         }
     }
 }

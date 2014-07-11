@@ -19,14 +19,15 @@ using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Fragments;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using SignaturePad;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android.Dialogs {
+namespace FieldService.AndroidGingerbread.Dialogs {
     /// <summary>
     /// Dialog for capturing a signature
     /// </summary>
@@ -42,7 +43,7 @@ namespace FieldService.Android.Dialogs {
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
         }
 
-        protected override void OnCreate (Bundle bundle)
+	protected override void OnCreate (Bundle bundle)
         {
             base.OnCreate (bundle);
 
@@ -68,19 +69,19 @@ namespace FieldService.Android.Dialogs {
                 }
 
                 assignmentViewModel.Signature.Image = signatureView.GetImage(Color.Black, Color.White).ToByteArray();
-                assignmentViewModel.SaveSignatureAsync ()
-                    .ContinueWith (_ => {
-                        activity.RunOnUiThread (() => {
-                            var fragment = Activity.FragmentManager.FindFragmentById<ConfirmationFragment> (Resource.Id.contentFrame);
-                            fragment.ReloadConfirmation ();
-                            Dismiss ();
-                        });
-                    });
+//                assignmentViewModel.SaveSignatureAsync ()
+//                    .ContinueWith (_ => {
+//                        activity.RunOnUiThread (() => {
+//				ConfirmationFragment fragment = (ConfirmationFragment)this.FragmentManager.FindFragmentById (Resource.Id.contentFrame);
+//                            fragment.ReloadConfirmation ();
+////                            Dismiss ();
+//                        });
+//                    });
             };
 
             var cancel = (Button)FindViewById (Resource.Id.signatureCancelButton);
             cancel.Click += (sender, e) => {
-                Dismiss ();
+//                Dismiss ();
             };
 
             signatureView = (SignaturePadView)FindViewById (Resource.Id.signatureImage);

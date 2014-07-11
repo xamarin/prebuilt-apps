@@ -90,7 +90,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Event when cancel button is clicked
 		/// </summary>
-		partial void Cancel (NSObject sender)
+		partial void Cancel (MonoTouch.UIKit.UIBarButtonItem sender)
 		{
 			DismissViewController (true, null);
 		}

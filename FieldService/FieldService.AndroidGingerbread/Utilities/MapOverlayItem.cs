@@ -14,46 +14,53 @@
 //    limitations under the License.
 
 using Android.Content;
-using Android.GoogleMaps;
+//using Android.GoogleMaps;
 using Android.Graphics.Drawables;
 using Android.Net;
 using Android.Views;
 using Android.Widget;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
+using Android.Runtime;
+using System;
+using Android.Graphics;
 
-namespace FieldService.Android.Utilities {
+namespace FieldService.AndroidGingerbread.Utilities {
     /// <summary>
     /// Class for creating pins in the Google Maps control, also creates a popup bubble when clicked
     /// </summary>
-    public class MapOverlayItem : ItemizedOverlay {
+	public class MapOverlayItem :  Java.Lang.Object{//: ItemizedOverlay {
         readonly AssignmentViewModel assignmentViewModel;
-        OverlayItem item;
+//        OverlayItem item;
         Context context;
-        MapView mapView;
+//        MapView mapView;
         bool getDirections;
         string intentURI = "http://maps.google.com/maps?saddr={0}&daddr={1}";
 
-        public MapOverlayItem (Context context, Drawable overlayDrawable, OverlayItem overlay, MapView mapView, bool canGetDirection = false)
-            : base (overlayDrawable)
+//        public MapOverlayItem (Context context, Drawable overlayDrawable, OverlayItem overlay, MapView mapView, bool canGetDirection = false)
+		public MapOverlayItem (Context context, Drawable overlayDrawable, Object overlay, Object mapView, bool canGetDirection = false)
+			: base()//base (overlayDrawable)
         {
-            item = overlay;
+//            item = overlay;
             this.context = context;
-            this.mapView = mapView;
+//            this.mapView = mapView;
             getDirections = canGetDirection;
 
-            BoundCenterBottom (overlayDrawable);
-            Populate ();
+//            BoundCenterBottom (overlayDrawable);
+//            Populate ();
 
             assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
         }
 
-        protected override Java.Lang.Object CreateItem (int i)
+//        protected override Java.Lang.Object CreateItem (int i)
+	protected  Java.Lang.Object CreateItem (int i)
         {
-            return item;
+			return null;
         }
 
-        public override int Size ()
+//        public override int Size ()
+	public int Size ()
         {
             return 1;
         }
@@ -63,9 +70,9 @@ namespace FieldService.Android.Utilities {
             OnTap (0);
         }
 
-        public GeoPoint Point
+		public Object Point
         {
-            get { return item.Point; }
+			get { return null; }
         }
 
         public int AssignmentIndex
@@ -77,45 +84,50 @@ namespace FieldService.Android.Utilities {
         /// <summary>
         /// When tapped, show a popup bubble
         /// </summary>
-        protected override bool OnTap (int index)
+//        protected override bool OnTap (int index)
+	protected bool OnTap (int index)
         {
-            if (mapView != null) {
-                if (mapView.ChildCount > 0) {
-                    mapView.RemoveViewAt (0);
-                }
-                View bubbleView = null;
-                LayoutInflater inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
-                bubbleView = inflator.Inflate (Resource.Layout.MapOverlayLayout, null);
-                bubbleView.LayoutParameters = new MapView.LayoutParams (MapView.LayoutParams.WrapContent, MapView.LayoutParams.WrapContent, item.Point, -2, -25, MapView.LayoutParams.BottomCenter);
-                var button = bubbleView.FindViewById<ImageButton> (Resource.Id.mapOverlayGetDirections);
-                var address = bubbleView.FindViewById<TextView> (Resource.Id.mapOverlayAddress);
-                var image = bubbleView.FindViewById<ImageView> (Resource.Id.mapOverlayDivider);
-                var overlayLayout = bubbleView.FindViewById<LinearLayout> (Resource.Id.overlayDirectionsLayout);
-                address.Text = item.Snippet;
-
-                image.Visibility = getDirections ? ViewStates.Visible : ViewStates.Gone;
-                button.Visibility = getDirections ? ViewStates.Visible : ViewStates.Gone;
-                if (getDirections) {
-                    button.Click += (sender, e) => {
-                        var intent = new Intent(Intent.ActionView, 
-                            Uri.Parse(string.Format(intentURI, string.Empty, item.Snippet)));
-                        context.StartActivity(intent);
-                    };
-                }
-
-                if (!getDirections) {
-                    overlayLayout.Click += (sender, e) => {
-                        var intent = new Intent (context, typeof (SummaryActivity));
-                        assignmentViewModel.SelectedAssignment = assignmentViewModel.Assignments [AssignmentIndex];
-                        context.StartActivity (intent);
-                    };
-                }
-
-                mapView.AddView (bubbleView);
-                mapView.Controller.AnimateTo (item.Point);
-                mapView.Controller.SetZoom (10);
-            }
+//            if (mapView != null) {
+//                if (mapView.ChildCount > 0) {
+//                    mapView.RemoveViewAt (0);
+//                }
+//                View bubbleView = null;
+//                LayoutInflater inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
+//                bubbleView = inflator.Inflate (Resource.Layout.MapOverlayLayout, null);
+//                bubbleView.LayoutParameters = new MapView.LayoutParams (MapView.LayoutParams.WrapContent, MapView.LayoutParams.WrapContent, item.Point, -2, -25, MapView.LayoutParams.BottomCenter);
+//                var button = bubbleView.FindViewById<ImageButton> (Resource.Id.mapOverlayGetDirections);
+//                var address = bubbleView.FindViewById<TextView> (Resource.Id.mapOverlayAddress);
+//                var image = bubbleView.FindViewById<ImageView> (Resource.Id.mapOverlayDivider);
+//                var overlayLayout = bubbleView.FindViewById<LinearLayout> (Resource.Id.overlayDirectionsLayout);
+//                address.Text = item.Snippet;
+//
+//                image.Visibility = getDirections ? ViewStates.Visible : ViewStates.Gone;
+//                button.Visibility = getDirections ? ViewStates.Visible : ViewStates.Gone;
+//                if (getDirections) {
+//                    button.Click += (sender, e) => {
+//                        var intent = new Intent(Intent.ActionView, 
+//                            Android.Net.Uri.Parse(string.Format(intentURI, string.Empty, item.Snippet)));
+//                        context.StartActivity(intent);
+//                    };
+//                }
+//
+//                if (!getDirections) {
+//                    overlayLayout.Click += (sender, e) => {
+//                        var intent = new Intent (context, typeof (SummaryActivity));
+//                        assignmentViewModel.SelectedAssignment = assignmentViewModel.Assignments [AssignmentIndex];
+//                        context.StartActivity (intent);
+//                    };
+//                }
+//
+////                mapView.AddView (bubbleView);
+////                mapView.Controller.AnimateTo (item.Point);
+////                mapView.Controller.SetZoom (10);
+//            }
             return true;
         }
+		public virtual bool OnSnapToItem (int x, int y, Point snapPoint, Object mapView)
+	{
+		return true;
+	}
     }
 }

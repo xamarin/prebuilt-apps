@@ -3,9 +3,9 @@
     android:orientation="vertical"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent">
-    <com.google.android.maps.MapView
+    <!--com.google.android.maps.MapView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:apiKey="@string/GoogleMapsAPIKey"
-        android:id="@+id/fragmentMapView" />
+        android:id="@+id/fragmentMapView" /-->
 </LinearLayout>

@@ -19,9 +19,10 @@ using Android.Graphics;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Adapter for a list of photos
     /// </summary>

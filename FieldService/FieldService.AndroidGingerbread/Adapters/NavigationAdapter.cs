@@ -17,8 +17,9 @@ using System.Collections.Generic;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Adapter for the navigation options in the menu
     /// </summary>

@@ -29,9 +29,27 @@ namespace FieldService.iOS
 		ConfirmationController controller;
 		UIImage image;
 
-		public SignatureCell (IntPtr handle) : base (handle)
+		public SignatureCell (IntPtr handle) : base (handle) { }
+
+		public override void AwakeFromNib ()
 		{
-			BackgroundView = new UIImageView { Image = Theme.Inlay };
+			base.AwakeFromNib ();
+
+			if (Theme.IsiOS7) {
+				BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
+
+				addSignature.SetImage (UIImage.FromFile ("Images/iOS7/iconsignature.png"), UIControlState.Normal);
+				addSignature.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
+				addSignature.BackgroundColor = UIColor.White;
+				addSignature.Font = Theme.FontOfSize (18);
+				addSignature.ImageEdgeInsets = new UIEdgeInsets (0, -10, 0, 0);
+
+				addSignature.Frame = new RectangleF (PointF.Empty, Frame.Size);
+			} else {
+				BackgroundView = new UIImageView { Image = Theme.Inlay };
+
+				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
+			}
 		}
 
 		/// <summary>
@@ -52,7 +70,6 @@ namespace FieldService.iOS
 				this.signature.SetBackgroundImage (null, UIControlState.Normal);
 
 				addSignature.Hidden = false;
-				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
 
 				if (assignment.Status != AssignmentStatus.Complete && !assignment.IsHistory) {
 					addSignature.Enabled = true;
@@ -67,9 +84,9 @@ namespace FieldService.iOS
 				image = signature.Image.ToUIImage ();
 				this.signature.Hidden = false;
 				this.signature.SetBackgroundImage (image, UIControlState.Normal);
+				this.signature.Enabled = !assignment.IsReadonly;
 				this.signature.Layer.CornerRadius = 7;
 				this.signature.ClipsToBounds = true;
-				this.signature.Enabled = !assignment.IsReadonly;
 
 				addSignature.Hidden = true;
 			}
@@ -78,7 +95,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Event for adding a signature
 		/// </summary>
-		partial void AddSignature ()
+		partial void AddSignature (MonoTouch.UIKit.UIButton sender2)
 		{
 			var signatureController = new SignatureController();
 			signatureController.Dismissed += (sender, e) => controller.ReloadConfirmation ();

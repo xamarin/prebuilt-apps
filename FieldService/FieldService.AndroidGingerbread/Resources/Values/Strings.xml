@@ -1,9 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="Hello">Login</string>
-	<string name="ApplicationName">FieldService.Android</string>
+	<string name="ApplicationName">FieldService.Androide</string>
 	<string name="Username">Username</string>
 	<string name="Password">Password</string>
+	<string name="hello">Hello</string>
   <string name="PriorityTab">Priority</string>
   <string name="MapTab">Map View</string>
   <string name="Accept">Accept</string>
@@ -36,7 +37,7 @@
   <!--This is the google maps key generated, you will need to obatain your own key if the maps doesn't show up
   in the app. Directions for doing so can be found here. 
   http://docs.xamarin.com/Android/Guides/Platform_Features/Maps_and_Location/Obtaining_a_Google_Maps_API_Key-->
-  <string name="GoogleMapsAPIKey">0-G53BLdgFiBV6eBm1Z-uS57w8aPtE1JKl1WmNA</string>
+  <!--string name="GoogleMapsAPIKey">0-G53BLdgFiBV6eBm1Z-uS57w8aPtE1JKl1WmNA</string-->
   <string name="EnterDescription">Please enter description here.</string>
   <string name="OptionalCaption">Optional caption...</string>
   <string name="Summary">Summary</string>
@@ -44,6 +45,6 @@
   <string name="History">History</string>
   <string name="Documents">Documents</string>
   <string name="Confirmations">Confirmations</string>
-  <string name="GoogleMapsKeyIssue">This is the google maps key generated from the debug.keystore, you will need to obatain 
-  your own key if the map tiles are not visible or if you are planning to deploy to the google play store. Directions can be found in the readme file.</string>
+  <string name="GoogleMapsKeyIssue">This is the Google Maps key generated from the debug.keystore, you will need to obtain 
+  your own key if the map tiles are not visible or if you are planning to deploy to the Google Play store. Directions can be found in the README file.</string>
 </resources>

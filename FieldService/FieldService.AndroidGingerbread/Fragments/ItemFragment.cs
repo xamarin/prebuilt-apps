@@ -20,12 +20,14 @@ using Android.App;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
+using FieldService.AndroidGingerbread;
+using Android.Support.V4.App;
 
-namespace FieldService.Android.Fragments {
+namespace FieldService.AndroidGingerbread.Fragments {
     /// <summary>
     /// Fragment for the items section
     /// </summary>

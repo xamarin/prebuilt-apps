@@ -67,7 +67,7 @@ namespace FieldService.iOS
 		private void OnRecordingChanged (object sender, EventArgs e)
 		{
 			if (IsViewLoaded) {
-				record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+				record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 			}
 		}
 
@@ -93,11 +93,8 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI we have to setup from code
-			View.BackgroundColor = Theme.LeftMenuColor;
 			tableView.Source = new TableSource (this);
 			timerLabel.TextColor = Theme.LabelColor;
-			timerBackground.Image = Theme.TimerBackground;
-			timerLabelBackground.Image = Theme.TimerField;
 
 			status.StatusChanged += (sender, e) => SaveAssignment ();
 			status.Completed += (sender, e) => {
@@ -110,27 +107,84 @@ namespace FieldService.iOS
 					method(this, EventArgs.Empty);
 				}
 			};
+
+			if (Theme.IsiOS7) {
+				//NOTE: tableView.Style is readonly, so we have to do a little work to make our iOS 7 tableView not look like a grouped tableView
+				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+				tableView.BackgroundColor = Theme.LinenPattern;
+				tableView.RowHeight = 50;
+
+				timerBackground.BackgroundColor = UIColor.White;
+				timerLabel.Font = Theme.FontOfSize (24);
+
+				//Move the table around
+				var frame = View.Frame;
+				frame.X = 0;
+				frame.Y = -2;
+				frame.Height += 2;
+				tableView.Frame = frame;
+
+				//Move the timer
+				frame = timerBackground.Frame;
+				frame.Y += frame.Height - 80;
+				frame.Height = 80;
+				timerBackground.Frame = frame;
+
+				//Move the status dropdown
+				frame = status.Frame;
+				frame.X += 185;
+				frame.Y += 55;
+				frame.Width = 90;
+				status.Frame = frame;
+
+				//Move the timer label
+				frame = timerLabel.Frame;
+				frame.X -= 60;
+				timerLabel.Frame = frame;
+
+				//Move the record button
+				frame = record.Frame;
+				frame.X = (float)Math.Floor((timerBackground.Frame.Width - frame.Width) / 2);
+				record.Frame = frame;
+
+				//Additional green rectangle on the right
+				var statusView = new UIView (new RectangleF (timerBackground.Frame.Width - 8, 0, 8, timerBackground.Frame.Height)) {
+					BackgroundColor = Theme.GreenColor,
+					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
+				};
+				timerBackground.AddSubview (statusView);
+
+			} else {
+				timerBackground.Image = Theme.TimerBackground;
+				View.BackgroundColor = Theme.LeftMenuColor;
+				timerLabelBackground.Image = Theme.TimerField;
+			}
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
 
-			var selected = tableView.IndexPathForSelectedRow;
-			if (selected == null || selected.Row != menuViewModel.MenuIndex) {
-				ChangeSelection (menuViewModel.MenuIndex);
-			}
-
 			//Update the UI
 			UpdateAssignment ();
 		}
 
-		private void ChangeSelection (int index)
+		public override void ViewDidAppear (bool animated)
+		{
+			base.ViewDidAppear (animated);
+
+			var selected = tableView.IndexPathForSelectedRow;
+			if (selected == null || selected.Row != menuViewModel.MenuIndex) {
+				ChangeSelection (menuViewModel.MenuIndex, false);
+			}
+		}
+
+		private void ChangeSelection (int index, bool animated = true)
 		{
 			int count = tableView.NumberOfRowsInSection (0);
 			if (index < count) {
 				using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
-					tableView.SelectRow (indexPath, true, UITableViewScrollPosition.Top);
+					tableView.SelectRow (indexPath, animated, UITableViewScrollPosition.Top);
 				
 					OnMenuChanged (new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 				}
@@ -147,7 +201,7 @@ namespace FieldService.iOS
 					status.Assignment = assignmentViewModel.ActiveAssignment;
 					timerView.Hidden = false;
 					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-					record.SetBackgroundImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+					record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
 
 					//Animate the timeView on screen and set its alpha to 1
 					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
@@ -193,7 +247,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Event for when the record button is clicked
 		/// </summary>
-		partial void Record ()
+		partial void Record (MonoTouch.UIKit.UIButton sender)
 		{
 			record.Enabled = false;
 			if (assignmentViewModel.Recording) {
@@ -265,24 +319,41 @@ namespace FieldService.iOS
 
 			private void SetupCell (UITableViewCell cell, bool start = false, bool end = false)
 			{
-				cell.TextLabel.TextColor = Theme.LabelColor;
-				cell.TextLabel.HighlightedTextColor = UIColor.White;
-				cell.BackgroundColor = UIColor.Clear;	
-				if (start) {
-					cell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
-					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
-				} else if (end) {
-					cell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
-					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
+				if (!Theme.IsiOS7) {
+					cell.TextLabel.TextColor = Theme.LabelColor;
+					cell.TextLabel.HighlightedTextColor = UIColor.White;
+					cell.BackgroundColor = UIColor.Clear;
+
+					if (start) {
+						cell.BackgroundView = new UIImageView { Image = Theme.LeftListTop };
+						cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListTopActive };
+					} else if (end) {
+						cell.BackgroundView = new UIImageView { Image = Theme.LeftListEnd };
+						cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListEndActive };
+					} else {
+						cell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
+						cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+					}
+
+					cell.ImageView.Image = Theme.TransparentDot;
+					cell.ImageView.HighlightedImage = Theme.Dot;
 				} else {
-					cell.BackgroundView = new UIImageView { Image = Theme.LeftListMid };
-					cell.SelectedBackgroundView = new UIImageView { Image = Theme.LeftListMidActive };
+					cell.IndentationLevel = 1;
+					cell.TextLabel.Font = Theme.FontOfSize (18);
+					cell.TextLabel.HighlightedTextColor = UIColor.White;
+					cell.BackgroundColor = Theme.LinenPattern;
+					cell.BackgroundView = new UIView { BackgroundColor = Theme.LinenPattern };
+					cell.SelectedBackgroundView = new UIView { BackgroundColor = Theme.DarkGrayColor };
 				}
-				cell.ImageView.Image = Theme.TransparentDot;
-				cell.ImageView.HighlightedImage = Theme.Dot;
 
 				if (!cells.Contains (cell))
 					cells.Add (cell);
+			}
+
+			public override float GetHeightForHeader (UITableView tableView, int section)
+			{
+				//NOTE: 1 is the minimum height for a header
+				return Theme.IsiOS7 ? 1 : 20;
 			}
 
 			public override int RowsInSection (UITableView tableview, int section)

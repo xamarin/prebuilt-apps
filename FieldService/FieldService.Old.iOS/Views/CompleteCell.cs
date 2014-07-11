@@ -36,8 +36,24 @@ namespace FieldService.iOS
 		public CompleteCell (IntPtr handle) : base (handle)
 		{
 			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+		}
 
-			BackgroundView = new UIImageView { Image = Theme.Inlay };
+		public override void AwakeFromNib ()
+		{
+			base.AwakeFromNib ();
+
+			completeButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
+			completeButton.SetBackgroundImage (Theme.CompleteInactive, UIControlState.Disabled);
+			completeButton.SetTitleColor (UIColor.White, UIControlState.Normal);
+			completeButton.SetTitle ("Complete", UIControlState.Normal);
+			completeButton.SetTitle ("Completed", UIControlState.Disabled);
+
+			if (Theme.IsiOS7) {
+				BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
+				completeButton.Font = Theme.FontOfSize (18);
+			} else {
+				BackgroundView = new UIImageView { Image = Theme.Inlay };
+			}
 		}
 
 		/// <summary>
@@ -50,17 +66,12 @@ namespace FieldService.iOS
 			this.tableView = tableView;
 
 			completeButton.Enabled = assignment.CanComplete;
-			completeButton.SetBackgroundImage (Theme.Complete, UIControlState.Normal);
-			completeButton.SetBackgroundImage (Theme.CompleteInactive, UIControlState.Disabled);
-			completeButton.SetTitleColor (UIColor.White, UIControlState.Normal);
-			completeButton.SetTitle ("Complete", UIControlState.Normal);
-			completeButton.SetTitle ("Completed", UIControlState.Disabled);
 		}
 
 		/// <summary>
 		/// Event when complete is pressed
 		/// </summary>
-		partial void Complete ()
+		partial void Complete (MonoTouch.UIKit.UIButton sender2)
 		{
 			//Check if they signed
 			if (assignmentViewModel.Signature == null) {

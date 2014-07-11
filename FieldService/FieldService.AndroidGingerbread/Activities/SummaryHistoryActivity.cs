@@ -23,19 +23,20 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Fragments;
+using FieldService.AndroidGingerbread.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using Orientation = Android.Content.Res.Orientation;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android.Activities {
+namespace FieldService.AndroidGingerbread.Activities {
     /// <summary>
     /// History Activity
     /// </summary>
-    [Activity (Label = "Summary History", Theme = "@android:style/Theme.Holo")]
-    public class SummaryHistoryActivity : Activity, PopupMenu.IOnMenuItemClickListener {
+	[Activity (Label = "Summary History", Theme = "@android:style/Theme.Dialog")]
+	public class SummaryHistoryActivity : Activity{//, PopupMenu.IOnMenuItemClickListener {
         
         readonly ItemViewModel itemViewModel;
         readonly LaborViewModel laborViewModel;
@@ -68,7 +69,7 @@ namespace FieldService.Android.Activities {
         {
             base.OnCreate (bundle);
 
-            Window.RequestFeature (WindowFeatures.ActionBar);
+			//Window.RequestFeature (WindowFeatures.ActionBar);
 
             SetContentView (Resource.Layout.SummaryFragmentLayout);
             
@@ -89,9 +90,9 @@ namespace FieldService.Android.Activities {
                 AndroidExtensions.MakePhoneCall (this, phone.Text);
             };
             mapButton.Click += (sender, e) => {
-                var navFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);
-                var index = Constants.HistoryNavigation.IndexOf ("Map");
-                navFragment.SetNavigation (index);
+//                var navFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);
+//                var index = Constants.HistoryNavigation.IndexOf ("Map");
+//                navFragment.SetNavigation (index);
             };
 
             selectedAssignmentLayout.SetBackgroundColor (Resources.GetColor (Resource.Color.historycolor));
@@ -100,14 +101,14 @@ namespace FieldService.Android.Activities {
                 .ContinueWith (_ => {
                     RunOnUiThread (() => {
                         //setting up default fragments
-                        var transaction = FragmentManager.BeginTransaction ();
+			//var transaction = FragmentManager.BeginTransaction ();
                         navigationFragment = new NavigationFragment ();
                         navigationFragment.Assignment = historyViewModel.PastAssignment;
-                        transaction.SetTransition (FragmentTransit.FragmentOpen);
-                        transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
-                        transaction.Commit ();
+//                        transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                        transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
+//                        transaction.Commit ();
                         if (historyViewModel.PastAssignment != null) {
-                            ActionBar.Title = string.Format ("#{0} {1} {2}", assignmentHistory.JobNumber, "Summary", historyViewModel.PastAssignment.StartDate.ToShortDateString ());
+//                            ActionBar.Title = string.Format ("#{0} {1} {2}", assignmentHistory.JobNumber, "Summary", historyViewModel.PastAssignment.StartDate.ToShortDateString ());
 
                             number.Text = historyViewModel.PastAssignment.Priority.ToString ();
                             name.Text = assignmentHistory.ContactName;
@@ -122,9 +123,9 @@ namespace FieldService.Android.Activities {
                 addItems.Visibility = ViewStates.Invisible;
             addLabor.Visibility = ViewStates.Gone;
             
-            ActionBar.SetLogo (Resource.Drawable.XamarinTitle);
-            ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));
-            ActionBar.SetDisplayHomeAsUpEnabled (true);
+//            ActionBar.SetLogo (Resource.Drawable.XamarinTitle);
+//            ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));
+//            ActionBar.SetDisplayHomeAsUpEnabled (true);
         }
 
         protected override void OnResume ()
@@ -153,7 +154,7 @@ namespace FieldService.Android.Activities {
             }
             menuViewModel.MenuIndex = e.Value;
             var screen = Constants.HistoryNavigation [e.Value];
-            ActionBar.Title = string.Format ("#{0} {1} {2}", assignmentHistory.JobNumber, screen, historyViewModel.PastAssignment.StartDate.ToShortDateString ());
+//            ActionBar.Title = string.Format ("#{0} {1} {2}", assignmentHistory.JobNumber, screen, historyViewModel.PastAssignment.StartDate.ToShortDateString ());
         }
 
         /// <summary>
@@ -161,15 +162,15 @@ namespace FieldService.Android.Activities {
         /// </summary>
         private void SetFrameFragment (int index)
         {
-            var transaction = FragmentManager.BeginTransaction ();
+			//var transaction = FragmentManager.BeginTransaction ();
             var screen = Constants.HistoryNavigation [index];
             switch (screen) {
                 case "Summary": {
                         var fragment = new SummaryFragment ();
                         fragment.Assignment = historyViewModel.PastAssignment;
-                        transaction.SetTransition (FragmentTransit.FragmentOpen);
-                        transaction.Replace (Resource.Id.contentFrame, fragment);
-                        transaction.Commit ();
+//                        transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                        transaction.Replace (Resource.Id.contentFrame, fragment);
+//                        transaction.Commit ();
                         items.Visibility =
                             addItems.Visibility = ViewStates.Invisible;
                         addExpense.Visibility =
@@ -178,9 +179,9 @@ namespace FieldService.Android.Activities {
                     break;
                 case "Map": {
                         var fragment = new MapFragment ();
-                        transaction.SetTransition (FragmentTransit.FragmentOpen);
-                        transaction.Replace (Resource.Id.contentFrame, fragment);
-                        transaction.Commit ();
+//                        transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                        transaction.Replace (Resource.Id.contentFrame, fragment);
+//                        transaction.Commit ();
                         items.Visibility =
                             addItems.Visibility = ViewStates.Invisible;
                         addExpense.Visibility =
@@ -193,9 +194,9 @@ namespace FieldService.Android.Activities {
                         itemViewModel.LoadAssignmentItemsAsync (historyViewModel.PastAssignment).ContinueWith (_ => {
                             RunOnUiThread (() => {
                                 fragment.AssignmentItems = itemViewModel.AssignmentItems;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
+//                                transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                                transaction.Replace (Resource.Id.contentFrame, fragment);
+//                                transaction.Commit ();
                                 items.Visibility = ViewStates.Visible;
                                 addItems.Visibility = ViewStates.Invisible;
                                 addExpense.Visibility =
@@ -211,9 +212,9 @@ namespace FieldService.Android.Activities {
                             RunOnUiThread (() => {
                                 fragment.LaborHours = laborViewModel.LaborHours;
                                 fragment.Assignment = historyViewModel.PastAssignment;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
+//                                transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                                transaction.Replace (Resource.Id.contentFrame, fragment);
+//                                transaction.Commit ();
                                 items.Visibility = ViewStates.Visible;
                                 addItems.Visibility = ViewStates.Invisible;
                                 addExpense.Visibility =
@@ -229,9 +230,9 @@ namespace FieldService.Android.Activities {
                             RunOnUiThread (() => {
                                 fragment.Photos = photoViewModel.Photos;
                                 fragment.Assignment = historyViewModel.PastAssignment;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
+//                                transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                                transaction.Replace (Resource.Id.contentFrame, fragment);
+//                                transaction.Commit ();
                                 addLabor.Visibility =
                                     items.Visibility = ViewStates.Invisible;
                                 addExpense.Visibility =
@@ -246,9 +247,9 @@ namespace FieldService.Android.Activities {
                             RunOnUiThread (() => {
                                 fragment.Expenses = expenseViewModel.Expenses;
                                 fragment.Assignment = historyViewModel.PastAssignment;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
+//                                transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                                transaction.Replace (Resource.Id.contentFrame, fragment);
+//                                transaction.Commit ();
                                 items.Visibility = ViewStates.Visible;
                                 addItems.Visibility = ViewStates.Invisible;
                                 addExpense.Visibility =
@@ -263,9 +264,9 @@ namespace FieldService.Android.Activities {
                         documentViewModel.LoadDocumentsAsync ().ContinueWith (_ => {
                             RunOnUiThread (() => {
                                 fragment.Documents = documentViewModel.Documents;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
+//                                transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                                transaction.Replace (Resource.Id.contentFrame, fragment);
+//                                transaction.Commit ();
                                 items.Visibility =
                                     addItems.Visibility = ViewStates.Invisible;
                                 addExpense.Visibility =
@@ -280,9 +281,9 @@ namespace FieldService.Android.Activities {
                             RunOnUiThread (() => {
                                 fragment.History = historyViewModel.History;
                                 fragment.Assignment = historyViewModel.PastAssignment;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
+//                                transaction.SetTransition (FragmentTransit.FragmentOpen);
+//                                transaction.Replace (Resource.Id.contentFrame, fragment);
+//                                transaction.Commit ();
                                 items.Visibility =
                                     addItems.Visibility = ViewStates.Invisible;
                                 addExpense.Visibility =
@@ -310,10 +311,10 @@ namespace FieldService.Android.Activities {
         {
             switch (item.ItemId) {
                 case Resource.Id.navigationMenu:
-                    var popup = new PopupMenu (this, FindViewById<TextView> (Resource.Id.selectedAssignmentAnchor));
-                    MenuInflater.Inflate (Resource.Menu.FragmentNavigationMenu, popup.Menu);
-                    popup.SetOnMenuItemClickListener (this);
-                    popup.Show ();
+//                    var popup = new PopupMenu (this, FindViewById<TextView> (Resource.Id.selectedAssignmentAnchor));
+//                    MenuInflater.Inflate (Resource.Menu.FragmentNavigationMenu, popup.Menu);
+//                    popup.SetOnMenuItemClickListener (this);
+//                    popup.Show ();
                     return true;
                 default:
                     OnBackPressed ();

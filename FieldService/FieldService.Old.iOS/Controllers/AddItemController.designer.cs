@@ -1,10 +1,13 @@
 // WARNING
 //
-// This file has been generated automatically by MonoDevelop to store outlets and
-// actions made in the Xcode designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Xamarin Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
+using System;
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using System.CodeDom.Compiler;
 
 namespace FieldService.iOS
 {
@@ -20,24 +23,19 @@ namespace FieldService.iOS
 		[Outlet]
 		MonoTouch.UIKit.UITableView tableView { get; set; }
 
+		[Outlet]
+		[GeneratedCode ("iOS Designer", "1.0")]
+		MonoTouch.UIKit.UISearchDisplayController searchDisplayController { get; set; }
+
 		[Action ("Cancel:")]
-		partial void Cancel (MonoTouch.Foundation.NSObject sender);
-		
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void Cancel (MonoTouch.UIKit.UIBarButtonItem sender);
+
 		void ReleaseDesignerOutlets ()
 		{
-			if (cancel != null) {
-				cancel.Dispose ();
-				cancel = null;
-			}
-
-			if (toolbar != null) {
-				toolbar.Dispose ();
-				toolbar = null;
-			}
-
-			if (tableView != null) {
-				tableView.Dispose ();
-				tableView = null;
+			if (searchDisplayController != null) {
+				searchDisplayController.Dispose ();
+				searchDisplayController = null;
 			}
 		}
 	}

@@ -23,14 +23,18 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using FieldService.AndroidGingerbread;
+using Android.Support.V4.App;
 
-namespace FieldService.Android.Dialogs {
+namespace FieldService.AndroidGingerbread.Dialogs {
     /// <summary>
     /// Base dialog class, mainly for setting the CustomDialogTheme
     /// </summary>
-    public class BaseDialog : Dialog {
+	//public class BaseDialog :Dialog  {
+	//public class BaseDialog :DialogFragment  {
+	public class BaseDialog :FragmentActivity  {
         public BaseDialog (Context context)
-            : base (context, Resource.Style.CustomDialogTheme)
+			: base()//base (context, Resource.Style.CustomDialogTheme)
         {
 
         }

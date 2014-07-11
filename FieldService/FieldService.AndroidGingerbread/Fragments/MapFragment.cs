@@ -17,9 +17,10 @@ using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
+using Android.Support.V4.App;
 
-namespace FieldService.Android.Fragments {
+namespace FieldService.AndroidGingerbread.Fragments {
     /// <summary>
     /// Fragment for the maps section
     /// </summary>

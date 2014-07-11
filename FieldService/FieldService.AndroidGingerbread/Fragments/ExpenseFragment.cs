@@ -24,13 +24,15 @@ using Android.Runtime;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Dialogs;
+using FieldService.AndroidGingerbread.Dialogs;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using FieldService.Android.Utilities;
+using FieldService.AndroidGingerbread.Utilities;
+using FieldService.AndroidGingerbread;
+using Android.Support.V4.App;
 
-namespace FieldService.Android.Fragments {
+namespace FieldService.AndroidGingerbread.Fragments {
     public class ExpenseFragment : Fragment {
         ListView expensesListView;
         ExpenseDialog expenseDialog;
@@ -70,7 +72,7 @@ namespace FieldService.Android.Fragments {
                 expenseDialog = new ExpenseDialog(Activity);
                 expenseDialog.Assignment = Assignment;
                 expenseDialog.CurrentExpense = expense;
-                expenseDialog.Show ();
+//                expenseDialog.Show ();
             };
 
             return view;

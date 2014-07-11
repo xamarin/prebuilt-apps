@@ -20,13 +20,14 @@ using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
-using FieldService.Android.Fragments;
+using FieldService.AndroidGingerbread.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using Android.App;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android {
+namespace FieldService.AndroidGingerbread {
     /// <summary>
     /// Adapter for a list of labor entries
     /// </summary>

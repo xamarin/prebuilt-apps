@@ -1,10 +1,13 @@
 // WARNING
 //
-// This file has been generated automatically by MonoDevelop to store outlets and
-// actions made in the Xcode designer. If it is removed, they will be lost.
-// Manual changes to this file may not be handled correctly.
+// This file has been generated automatically by Xamarin Studio from the outlets and
+// actions declared in your storyboard file.
+// Manual changes to this file will not be maintained.
 //
+using System;
 using MonoTouch.Foundation;
+using MonoTouch.UIKit;
+using System.CodeDom.Compiler;
 
 namespace FieldService.iOS
 {
@@ -15,14 +18,11 @@ namespace FieldService.iOS
 		MonoTouch.UIKit.UIButton completeButton { get; set; }
 
 		[Action ("Complete")]
-		partial void Complete ();
-		
+		[GeneratedCode ("iOS Designer", "1.0")]
+		partial void Complete (MonoTouch.UIKit.UIButton sender);
+
 		void ReleaseDesignerOutlets ()
 		{
-			if (completeButton != null) {
-				completeButton.Dispose ();
-				completeButton = null;
-			}
 		}
 	}
 }

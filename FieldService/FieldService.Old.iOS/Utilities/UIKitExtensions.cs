@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.Drawing;
 using System.Linq;
 using System.Runtime.InteropServices;
 using MonoTouch.AddressBook;
@@ -88,7 +89,6 @@ namespace FieldService.iOS
 		public static void ClearPlacemarks (this MKMapView mapView)
 		{
 			mapView.RemoveAnnotations (mapView.Annotations.OfType<MKPlacemark> ().ToArray ());
-			;
 		}
 
 		/// <summary>
@@ -135,12 +135,43 @@ namespace FieldService.iOS
 		}
 
 		/// <summary>
+		/// Creates a 1x1 image that is a certain color
+		/// </summary>
+		public static UIImage ToImage(this UIColor color)
+		{
+			try {
+				UIGraphics.BeginImageContext (new SizeF (1, 1));
+
+				using (var context = UIGraphics.GetCurrentContext()) {
+					context.SetFillColor (color.CGColor);
+					context.FillRect (new Rectangle (0, 0, 1, 1));
+
+					return UIGraphics.GetImageFromCurrentImageContext ();
+				}
+			} finally {
+				UIGraphics.EndImageContext ();
+			}
+		}
+
+		/// <summary>
 		/// Awesome helper method to instantiate a view controller and use the type name for the id
 		/// </summary>
 		public static T InstantiateViewController<T>(this UIStoryboard storyboard)
 			where T : UIViewController
 		{
 			return (T)storyboard.InstantiateViewController (typeof(T).Name);
+		}
+
+		public static string FormatStartEndDates(this Assignment assignment)
+		{
+			if (Theme.IsiOS7) {
+				string start = assignment.StartDate.ToShortTimeString ();
+				string end = assignment.EndDate.ToShortTimeString ();
+
+				return start + string.Empty.PadLeft (19 - start.Length - end.Length) + end;
+			} else {
+				return string.Format ("Start: {0} End: {1}", assignment.StartDate.ToShortTimeString (), assignment.EndDate.ToShortTimeString ());
+			}
 		}
 	}
 }

@@ -10,8 +10,9 @@ using Android.Runtime;
 using Android.Views;
 using Android.Widget;
 using FieldService.Data;
+using FieldService.AndroidGingerbread;
 
-namespace FieldService.Android.Adapters {
+namespace FieldService.AndroidGingerbread.Adapters {
     public class HistoryListAdapter : ArrayAdapter<AssignmentHistory> {
         IList<AssignmentHistory> assignments;
         IList<AssignmentHistory> non_filtered;
