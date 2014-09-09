@@ -78,8 +78,8 @@ namespace FieldService.Android {
         {
             var view = convertView;
             if (view == null) {
-                LayoutInflater inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
-                view = inflator.Inflate (resourceId, null);
+		var inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
+		view = inflator.Inflate (resourceId, parent, false);
             }
 
             var item = items.ElementAtOrDefault (position);
