@@ -204,8 +204,8 @@ namespace FieldService.Android {
         /// <param name="index">index of the list view item to reload</param>
         public void ReloadSingleListItem (int index)
         {
-            if (assignmentsListView.FirstVisiblePosition < index && index < assignmentsListView.LastVisiblePosition) {
-                var view = assignmentsListView.GetChildAt (index);
+            if (assignmentsListView.FirstVisiblePosition <= index && index <= assignmentsListView.LastVisiblePosition) {
+		var view = assignmentsListView.GetChildAt (index - assignmentsListView.FirstVisiblePosition);
                 if (view != null) {
                     assignmentsListView.Adapter.GetView (index, view, assignmentsListView);
                 }
