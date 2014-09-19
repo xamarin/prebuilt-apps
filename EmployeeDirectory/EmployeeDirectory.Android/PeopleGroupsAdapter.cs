@@ -161,6 +161,9 @@ namespace EmployeeDirectory.Android {
 
         public int GetPositionForSection (int section)
         {
+			if (section >= sections.Count)
+				return Count - 1;
+
             var character = sections [section];
             var position = alphaIndexer.FirstOrDefault (f => f.Value == character);
             return position.Key;
