@@ -59,7 +59,7 @@ namespace EmployeeDirectory.iOS
 				ShowsScopeBar = true,
 			};
 			searchBar.ScopeButtonTitles = new[] { "Name", "Title", "Dept", "All" };
-
+			searchBar.SelectedScopeButtonIndex = (int)savedSearch.Property;
 			searchController = new UISearchDisplayController (searchBar, this) {
 				SearchResultsDataSource = new PeopleGroupsDataSource (searchViewModel.Groups),
 				Delegate = new SearchDisplayDelegate (searchViewModel),
