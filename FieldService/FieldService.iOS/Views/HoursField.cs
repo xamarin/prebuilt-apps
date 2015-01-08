@@ -13,10 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
+using CoreGraphics;
 using System.Globalization;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using FieldService.Utilities;
 
 namespace FieldService.iOS
@@ -49,7 +49,7 @@ namespace FieldService.iOS
 			Initialize ();
 		}
 
-		public HoursField (RectangleF frame)
+		public HoursField (CGRect frame)
 			: base(frame)
 		{
 			Initialize ();

@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,28 +12,28 @@ namespace FieldService.iOS
 	partial class AssignmentsController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UITableView tableView { get; set; }
+		UIKit.UITableView tableView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView activeAssignment { get; set; }
+		UIKit.UIView activeAssignment { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton assignmentButton { get; set; }
+		UIKit.UIButton assignmentButton { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView priorityBackground { get; set; }
+		UIKit.UIImageView priorityBackground { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel priority { get; set; }
+		UIKit.UILabel priority { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel numberAndDate { get; set; }
+		UIKit.UILabel numberAndDate { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel titleLabel { get; set; }
+		UIKit.UILabel titleLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel startAndEnd { get; set; }
+		UIKit.UILabel startAndEnd { get; set; }
 
 		[Outlet]
 		FieldService.iOS.TextButton contact { get; set; }
@@ -45,16 +45,16 @@ namespace FieldService.iOS
 		FieldService.iOS.StatusButton status { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView timerBackgroundImage { get; set; }
+		UIKit.UIImageView timerBackgroundImage { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel timerLabel { get; set; }
+		UIKit.UILabel timerLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton record { get; set; }
+		UIKit.UIButton record { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView toolbarShadow { get; set; }
+		UIKit.UIImageView toolbarShadow { get; set; }
 
 		[Action ("ActiveAssignmentSelected")]
 		partial void ActiveAssignmentSelected ();

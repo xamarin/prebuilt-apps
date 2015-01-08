@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 
 namespace FieldService.iOS
 {
@@ -30,7 +30,7 @@ namespace FieldService.iOS
 			Initialize ();
 		}
 
-		public PlaceholderTextView (RectangleF frame)
+		public PlaceholderTextView (CGRect frame)
 			: base(frame)
 		{
 			Initialize ();

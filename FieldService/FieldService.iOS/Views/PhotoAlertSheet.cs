@@ -13,11 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
+using CoreGraphics;
 using System.IO;
 using System.Threading.Tasks;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using FieldService.Utilities;
 using Xamarin.Media;
 
@@ -71,7 +71,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Gets or sets the size to scale the image to, SizeF.Zero turns off sizing
 		/// </summary>
-		public SizeF DesiredSize {
+		public CGSize DesiredSize {
 			get;
 			set;
 		}
@@ -97,7 +97,7 @@ namespace FieldService.iOS
 						BeginInvokeOnMainThread (() => Callback(image));
 					} else {
 						//Some math to scale the image to the DesiredSize
-						float scale = 1;
+						nfloat scale = 1;
 						if (image.Size.Width / image.Size.Height < DesiredSize.Width / DesiredSize.Height)
 						{
 							scale = DesiredSize.Height / image.Size.Height;

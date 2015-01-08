@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
@@ -44,7 +44,7 @@ namespace FieldService.iOS
 				descriptionTitle.TextColor = Theme.LabelColor;
 
 			//Setup our toolbar
-			var label = new UILabel (new RectangleF(0, 0, 100, 36)) { 
+			var label = new UILabel (new CGRect(0, 0, 100, 36)) {
 				Text = "Description",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,

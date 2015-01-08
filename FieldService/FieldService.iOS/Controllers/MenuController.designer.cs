@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,22 +12,22 @@ namespace FieldService.iOS
 	partial class MenuController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UITableView tableView { get; set; }
+		UIKit.UITableView tableView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView timerView { get; set; }
+		UIKit.UIView timerView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView timerBackground { get; set; }
+		UIKit.UIImageView timerBackground { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel timerLabel { get; set; }
+		UIKit.UILabel timerLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView timerLabelBackground { get; set; }
+		UIKit.UIImageView timerLabelBackground { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton record { get; set; }
+		UIKit.UIButton record { get; set; }
 
 		[Outlet]
 		FieldService.iOS.StatusButton status { get; set; }

@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,7 +12,7 @@ namespace FieldService.iOS
 	partial class CompleteCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIButton completeButton { get; set; }
+		UIKit.UIButton completeButton { get; set; }
 
 		[Action ("Complete")]
 		partial void Complete ();

@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Utilities;
 using FieldService.Data;
 using FieldService.ViewModels;
@@ -50,7 +50,7 @@ namespace FieldService.iOS
 			//UI setup from code
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			
-			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
+			var label = new UILabel (new CGRect(0, 0, 80, 36)) { 
 				Text = "Labor",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
@@ -142,7 +142,7 @@ namespace FieldService.iOS
 
 				typeCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				typeCell.TextLabel.Text = "Type";
-				typeCell.AccessoryView = type = new LaborTypeTextField (new RectangleF(0, 0, 200, 36))
+				typeCell.AccessoryView = type = new LaborTypeTextField (new CGRect(0, 0, 200, 36))
 				{
 					TextAlignment = UITextAlignment.Right,
 					VerticalAlignment = UIControlContentVerticalAlignment.Center,
@@ -156,11 +156,11 @@ namespace FieldService.iOS
 				hoursCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				hoursCell.TextLabel.Text = "Hours";
 				hoursCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				hoursCell.AccessoryView = hours = new HoursField(new RectangleF(0, 0, 200, 44));
+				hoursCell.AccessoryView = hours = new HoursField(new CGRect(0, 0, 200, 44));
 				hours.ValueChanged += (sender, e) => laborViewModel.SelectedLabor.Hours = TimeSpan.FromHours (hours.Value);
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, Theme.IsiOS7 ? 515 : 470, 400))
+				descriptionCell.AccessoryView = description = new PlaceholderTextView(new CGRect(0, 0, Theme.IsiOS7 ? 515 : 470, 400))
 				{
 					BackgroundColor = UIColor.Clear,
 					TextColor = Theme.BlueTextColor,
@@ -193,17 +193,17 @@ namespace FieldService.iOS
 				description.Text = string.IsNullOrEmpty (labor.Description) ? description.Placeholder : labor.Description;
 			}
 
-			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
 				return indexPath.Section == 1 ? 410 : 44;
 			}
 
-			public override int NumberOfSections (UITableView tableView)
+			public override nint NumberOfSections (UITableView tableView)
 			{
 				return 2;
 			}
 			
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return section == 0 ? 2 : 1;
 			}

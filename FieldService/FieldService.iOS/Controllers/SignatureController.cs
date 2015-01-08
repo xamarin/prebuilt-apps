@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using SignaturePad;
 using FieldService.Data;
 using FieldService.ViewModels;
@@ -38,7 +38,7 @@ namespace FieldService.iOS
 		{
 			var navController = ContentViewController as UINavigationController;
 			navController.ViewControllers = new UIViewController[] { new ContentController(this) };
-			PopoverContentSize = new SizeF(665, 400);
+			PopoverContentSize = new CGSize(665, 400);
 		}
 
 		public override void Dismiss (bool animated)

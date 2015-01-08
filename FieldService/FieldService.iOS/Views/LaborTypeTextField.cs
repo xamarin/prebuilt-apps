@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Data;
 using FieldService.Utilities;
 
@@ -38,7 +38,7 @@ namespace FieldService.iOS
 			Initialize ();
 		}
 
-		public LaborTypeTextField (RectangleF frame)
+		public LaborTypeTextField (CGRect frame)
 			: base (frame)
 		{
 			Initialize ();
@@ -54,7 +54,7 @@ namespace FieldService.iOS
 		/// </summary>
 		private void Initialize ()
 		{
-			toolbar = new UIToolbar (new RectangleF (0, 0, UIScreen.MainScreen.Bounds.Width, 44));
+			toolbar = new UIToolbar (new CGRect (0, 0, UIScreen.MainScreen.Bounds.Width, 44));
 			done = new UIBarButtonItem (UIBarButtonSystemItem.Done, (sender, e) => ResignFirstResponder ());
 			toolbar.Items = new UIBarButtonItem[] {
 				new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace),
@@ -114,22 +114,22 @@ namespace FieldService.iOS
 				types = (LaborType[])Enum.GetValues (typeof(LaborType));
 			}
 
-			public override int GetComponentCount (UIPickerView picker)
+			public override nint GetComponentCount (UIPickerView picker)
 			{
 				return 1;
 			}
 
-			public override int GetRowsInComponent (UIPickerView picker, int component)
+			public override nint GetRowsInComponent (UIPickerView picker, nint component)
 			{
 				return types.Length;
 			}
 
-			public override string GetTitle (UIPickerView picker, int row, int component)
+			public override string GetTitle (UIPickerView picker, nint row, nint component)
 			{
 				return types[row].ToUserString ();
 			}
 
-			public override void Selected (UIPickerView picker, int row, int component)
+			public override void Selected (UIPickerView picker, nint row, nint component)
 			{
 				textField.LaborType = types[row];
 			}

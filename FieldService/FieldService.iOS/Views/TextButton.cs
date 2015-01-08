@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 
 namespace FieldService.iOS
 {
@@ -31,7 +31,7 @@ namespace FieldService.iOS
 		public TextButton (IntPtr handle) : base (handle)
 		{
 			icon = UIButton.FromType (UIButtonType.Custom);
-			icon.Frame = new RectangleF (Spacing, Spacing, IconBackgroundSize, IconBackgroundSize);
+			icon.Frame = new CGRect (Spacing, Spacing, IconBackgroundSize, IconBackgroundSize);
 			icon.UserInteractionEnabled = false;
 			AddSubview (icon);
 
@@ -102,11 +102,11 @@ namespace FieldService.iOS
 			base.LayoutSubviews ();
 
 			var frame = Frame;
-			float x = IconBackgroundSize + Spacing * 2,
+			nfloat x = IconBackgroundSize + Spacing * 2,
 				width = frame.Width - x - Spacing,
 				height = frame.Height / 2 - Spacing;
-			TopLabel.Frame = new RectangleF(x, Spacing, width, height);
-			BottomLabel.Frame = new RectangleF(x, frame.Height - height - Spacing / 2, width, height);
+			TopLabel.Frame = new CGRect(x, Spacing, width, height);
+			BottomLabel.Frame = new CGRect(x, frame.Height - height - Spacing / 2, width, height);
 		}
 
 		protected override void Dispose (bool disposing)

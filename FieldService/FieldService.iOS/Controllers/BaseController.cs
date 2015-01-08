@@ -13,8 +13,8 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 
 namespace FieldService.iOS
 {
@@ -93,7 +93,7 @@ namespace FieldService.iOS
 				bool landscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight;
 				if (visible) {
 					var keyboardFrame = UIKeyboard.FrameEndFromNotification (notification);
-					
+
 					OnKeyboardChanged (visible, landscape ? keyboardFrame.Width : keyboardFrame.Height);
 				} else {
 					var keyboardFrame = UIKeyboard.FrameBeginFromNotification (notification);
@@ -115,7 +115,7 @@ namespace FieldService.iOS
 		/// <param name='height'>
 		/// Calculated height of the keyboard (width not generally needed here)
 		/// </param>
-		protected virtual void OnKeyboardChanged (bool visible, float height)
+		protected virtual void OnKeyboardChanged (bool visible, nfloat height)
 		{
 
 		}

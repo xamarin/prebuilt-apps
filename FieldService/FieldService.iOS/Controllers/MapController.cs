@@ -15,10 +15,10 @@
 using System;
 using System.Linq;
 using System.Text;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.MapKit;
-using MonoTouch.CoreLocation;
+using Foundation;
+using UIKit;
+using MapKit;
+using CoreLocation;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -60,12 +60,12 @@ namespace FieldService.iOS
 			base.ViewWillAppear (animated);
 
 			//Load the placemark and by default zoom into the placemark
-			var placemark = assignmentViewModel.SelectedAssignment.ToPlacemark();
+			MKPlacemark placemark = assignmentViewModel.SelectedAssignment.ToPlacemark();
 			var span = new MKCoordinateSpan(1, 1);
 			var region = new MKCoordinateRegion(placemark.Coordinate, span);
 
 			mapView.ClearPlacemarks ();
-			mapView.AddPlacemark (placemark);
+			mapView.AddAnnotation (placemark);
 			mapView.SetRegion (region, false);
 		}
 
@@ -80,13 +80,13 @@ namespace FieldService.iOS
 			public MapViewDelegate ()
 			{
 				popoverController = new UIPopoverController(new UIViewController());
-				popoverController.PopoverContentSize = new System.Drawing.SizeF(100, 100);
+				popoverController.PopoverContentSize = new CoreGraphics.CGSize(100, 100);
 			}
 
 			/// <summary>
 			/// Returns our custom MKAnnotationView
 			/// </summary>
-			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, NSObject annotation)
+			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, IMKAnnotation annotation)
 			{
 				if (annotation is MKUserLocation) {
 					return null;

@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,13 +12,13 @@ namespace FieldService.iOS
 	partial class LaborCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel type { get; set; }
+		UIKit.UILabel type { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel description { get; set; }
+		UIKit.UILabel description { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel hours { get; set; }
+		UIKit.UILabel hours { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

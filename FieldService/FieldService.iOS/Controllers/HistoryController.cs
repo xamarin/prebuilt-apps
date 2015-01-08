@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -43,7 +43,7 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI to setup from code
-			title = new UILabel (new RectangleF (0, 0, 160, 36)) { 
+			title = new UILabel (new CGRect (0, 0, 160, 36)) {
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (16),
@@ -117,7 +117,7 @@ namespace FieldService.iOS
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return historyViewModel.History == null ? 0 : historyViewModel.History.Count;
 			}

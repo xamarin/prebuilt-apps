@@ -13,10 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.MapKit;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using MapKit;
+using UIKit;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;

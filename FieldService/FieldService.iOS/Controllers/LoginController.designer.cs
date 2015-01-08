@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 using System.CodeDom.Compiler;
 
 namespace FieldService.iOS
@@ -13,34 +13,34 @@ namespace FieldService.iOS
 	partial class LoginController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIImageView box { get; set; }
+		UIKit.UIImageView box { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel companyName { get; set; }
+		UIKit.UILabel companyName { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView container { get; set; }
+		UIKit.UIView container { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView hexagons { get; set; }
+		UIKit.UIImageView hexagons { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIActivityIndicatorView indicator { get; set; }
+		UIKit.UIActivityIndicatorView indicator { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton login { get; set; }
+		UIKit.UIButton login { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView logo { get; set; }
+		UIKit.UIImageView logo { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITextField password { get; set; }
+		UIKit.UITextField password { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton questionMark { get; set; }
+		UIKit.UIButton questionMark { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITextField username { get; set; }
+		UIKit.UITextField username { get; set; }
 
 		[Action ("Help")]
 		partial void Help ();

@@ -13,10 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
+using CoreGraphics;
 using System.Linq;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using FieldService.Data;
 using FieldService.ViewModels;
 using FieldService.Utilities;
@@ -100,7 +100,7 @@ namespace FieldService.iOS
 				startAndEnd.Frame = frame;
 
 				//Additional green rectangle on the right
-				statusView = new UIView (new RectangleF (Frame.Width - 8, 0, 8, Frame.Height)) {
+				statusView = new UIView (new CGRect (Frame.Width - 8, 0, 8, Frame.Height)) {
 					BackgroundColor = Theme.YellowColor,
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
 				};

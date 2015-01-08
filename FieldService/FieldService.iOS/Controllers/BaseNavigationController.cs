@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 
 namespace FieldService.iOS
 {
@@ -34,7 +34,10 @@ namespace FieldService.iOS
 
 			//Setting for our navigation bar
 			NavigationBar.SetBackgroundImage (Theme.TopNav, UIBarMetrics.Default);
-			NavigationBar.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White, TextShadowColor = Theme.LabelColor });
+			NavigationBar.TitleTextAttributes = new UIStringAttributes {
+				ForegroundColor = UIColor.White,
+				Shadow = new NSShadow { ShadowColor = Theme.LabelColor }
+			};
 		}
 
 		public override UIStatusBarStyle PreferredStatusBarStyle ()

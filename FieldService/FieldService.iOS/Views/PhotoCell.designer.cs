@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,16 +12,16 @@ namespace FieldService.iOS
 	partial class PhotoCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIImageView photoFrame { get; set; }
+		UIKit.UIImageView photoFrame { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView photo { get; set; }
+		UIKit.UIImageView photo { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel date { get; set; }
+		UIKit.UILabel date { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel description { get; set; }
+		UIKit.UILabel description { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

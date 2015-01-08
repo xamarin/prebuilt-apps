@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,37 +12,37 @@ namespace FieldService.iOS
 	partial class AddPhotoController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UITextField description { get; set; }
+		UIKit.UITextField description { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIToolbar toolbar { get; set; }
+		UIKit.UIToolbar toolbar { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton deleteButton { get; set; }
+		UIKit.UIButton deleteButton { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel time { get; set; }
+		UIKit.UILabel time { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel date { get; set; }
+		UIKit.UILabel date { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView photo { get; set; }
+		UIKit.UIImageView photo { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView photoFrame { get; set; }
+		UIKit.UIImageView photoFrame { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView descriptionBackground { get; set; }
+		UIKit.UIImageView descriptionBackground { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIBarButtonItem cancel { get; set; }
+		UIKit.UIBarButtonItem cancel { get; set; }
 
 		[Action ("DeletePhoto")]
 		partial void DeletePhoto ();
 
 		[Action ("Cancel:")]
-		partial void Cancel (MonoTouch.Foundation.NSObject sender);
+		partial void Cancel (Foundation.NSObject sender);
 
 		[Action ("Choose")]
 		partial void Choose ();

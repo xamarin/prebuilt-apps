@@ -13,10 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.CoreGraphics;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.ViewModels;
 using FieldService.Utilities;
 using FieldService.Data;
@@ -50,8 +49,8 @@ namespace FieldService.iOS
 
 			//UI setup from code
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
-			
-			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
+
+			var label = new UILabel (new CGRect(0, 0, 80, 36)) {
 				Text = "Expense",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
@@ -152,7 +151,7 @@ namespace FieldService.iOS
 
 				categoryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				categoryCell.TextLabel.Text = "Category";
-				categoryCell.AccessoryView = category = new UILabel (new RectangleF(0, 0, 200, 36))
+				categoryCell.AccessoryView = category = new UILabel (new CGRect(0, 0, 200, 36))
 				{
 					TextAlignment = UITextAlignment.Right,
 					BackgroundColor = UIColor.Clear,
@@ -162,7 +161,7 @@ namespace FieldService.iOS
 				costCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				costCell.TextLabel.Text = "Cost";
 				costCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				costCell.AccessoryView = cost = new UITextField(new RectangleF(0, 0, 200, 36))
+				costCell.AccessoryView = cost = new UITextField(new CGRect(0, 0, 200, 36))
 				{
 					VerticalAlignment = UIControlContentVerticalAlignment.Center,
 					TextAlignment = UITextAlignment.Right,
@@ -179,7 +178,7 @@ namespace FieldService.iOS
 				});
 
 				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new PlaceholderTextView(new RectangleF(0, 0, Theme.IsiOS7 ? 515 : 470, 90))
+				descriptionCell.AccessoryView = description = new PlaceholderTextView(new CGRect(0, 0, Theme.IsiOS7 ? 515 : 470, 90))
 				{
 					BackgroundColor = UIColor.Clear,
 					Placeholder = "Please enter notes here",
@@ -200,7 +199,7 @@ namespace FieldService.iOS
 				photoButton.SetTitle ("Add Photo", UIControlState.Normal);
 				photoButton.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 				photoButton.ContentEdgeInsets = new UIEdgeInsets(0, 0, 2, 0);
-				photoButton.Frame = new RectangleF(210, 130, 115, 40);
+				photoButton.Frame = new CGRect(210, 130, 115, 40);
 				photoButton.TouchUpInside += (sender, e) => {
 					if (photoSheet == null) {
 						photoSheet = new PhotoAlertSheet();
@@ -268,7 +267,7 @@ namespace FieldService.iOS
 				}
 			}
 
-			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
 				switch (indexPath.Section) {
 				case 1:
@@ -280,12 +279,12 @@ namespace FieldService.iOS
 				}
 			}
 
-			public override int NumberOfSections (UITableView tableView)
+			public override nint NumberOfSections (UITableView tableView)
 			{
 				return 3;
 			}
 			
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return section == 0 ? 2 : 1;
 			}

@@ -4,7 +4,7 @@
 // actions made in the UI designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 using System.CodeDom.Compiler;
 
 namespace FieldService.iOS
@@ -13,28 +13,28 @@ namespace FieldService.iOS
 	partial class ConfirmationController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIButton addPhoto { get; set; }
+		UIKit.UIButton addPhoto { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel note { get; set; }
+		UIKit.UILabel note { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel photos { get; set; }
+		UIKit.UILabel photos { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITableView photoTableView { get; set; }
+		UIKit.UITableView photoTableView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel requirement { get; set; }
+		UIKit.UILabel requirement { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel signature { get; set; }
+		UIKit.UILabel signature { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UITableView signatureTableView { get; set; }
+		UIKit.UITableView signatureTableView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIToolbar toolbar { get; set; }
+		UIKit.UIToolbar toolbar { get; set; }
 
 		[Action ("AddPhoto")]
 		partial void AddPhoto ();

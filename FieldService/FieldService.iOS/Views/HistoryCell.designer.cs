@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,16 +12,16 @@ namespace FieldService.iOS
 	partial class HistoryCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel number { get; set; }
+		UIKit.UILabel number { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel date { get; set; }
+		UIKit.UILabel date { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel title { get; set; }
+		UIKit.UILabel title { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView phoneIcon { get; set; }
+		UIKit.UIImageView phoneIcon { get; set; }
 
 		[Outlet]
 		FieldService.iOS.TextButton phone { get; set; }
@@ -30,10 +30,10 @@ namespace FieldService.iOS
 		FieldService.iOS.TextButton address { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel length { get; set; }
+		UIKit.UILabel length { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel description { get; set; }
+		UIKit.UILabel description { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

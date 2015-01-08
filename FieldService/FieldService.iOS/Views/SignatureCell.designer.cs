@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,10 +12,10 @@ namespace FieldService.iOS
 	partial class SignatureCell
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIButton addSignature { get; set; }
+		UIKit.UIButton addSignature { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIButton signature { get; set; }
+		UIKit.UIButton signature { get; set; }
 
 		[Action ("AddSignature")]
 		partial void AddSignature ();

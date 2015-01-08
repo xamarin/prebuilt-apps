@@ -14,9 +14,9 @@
 //    limitations under the License.
 using System;
 using System.IO;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Data;
 
 namespace FieldService.iOS

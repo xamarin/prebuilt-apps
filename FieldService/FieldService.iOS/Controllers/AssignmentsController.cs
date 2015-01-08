@@ -13,12 +13,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
+using CoreGraphics;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 using FieldService.ViewModels;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -172,7 +172,7 @@ namespace FieldService.iOS
 				contact.Frame = frame;
 
 				//Additional green rectangle on the right
-				var statusView = new UIView (new RectangleF (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {
+				var statusView = new UIView (new CGRect (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {
 					BackgroundColor = Theme.GreenColor,
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
 				};
@@ -407,7 +407,7 @@ namespace FieldService.iOS
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
-			public override int RowsInSection (UITableView tableView, int section)
+			public override nint RowsInSection (UITableView tableView, nint section)
 			{
 				return assignmentViewModel.Assignments == null ? 0 : assignmentViewModel.Assignments.Count;
 			}

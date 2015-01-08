@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,43 +12,43 @@ namespace FieldService.iOS
 	partial class SummaryController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UILabel itemsLabel { get; set; }
+		UIKit.UILabel itemsLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel hoursLabel { get; set; }
+		UIKit.UILabel hoursLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel expensesLabel { get; set; }
+		UIKit.UILabel expensesLabel { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView itemsBackground { get; set; }
+		UIKit.UIImageView itemsBackground { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView hoursBackground { get; set; }
+		UIKit.UIImageView hoursBackground { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView expensesBackground { get; set; }
+		UIKit.UIImageView expensesBackground { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel items { get; set; }
+		UIKit.UILabel items { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel hours { get; set; }
+		UIKit.UILabel hours { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel expenses { get; set; }
+		UIKit.UILabel expenses { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel description { get; set; }
+		UIKit.UILabel description { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UILabel descriptionTitle { get; set; }
+		UIKit.UILabel descriptionTitle { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIImageView descriptionBackground { get; set; }
+		UIKit.UIImageView descriptionBackground { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIToolbar toolbar { get; set; }
+		UIKit.UIToolbar toolbar { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

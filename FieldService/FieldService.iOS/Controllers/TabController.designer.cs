@@ -4,7 +4,7 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
@@ -12,10 +12,10 @@ namespace FieldService.iOS
 	partial class TabController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIBarButtonItem settings { get; set; }
+		UIKit.UIBarButtonItem settings { get; set; }
 
 		[Action ("Settings:")]
-		partial void Settings (MonoTouch.Foundation.NSObject sender);
+		partial void Settings (Foundation.NSObject sender);
 		
 		void ReleaseDesignerOutlets ()
 		{

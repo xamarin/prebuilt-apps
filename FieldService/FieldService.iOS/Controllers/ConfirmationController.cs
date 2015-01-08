@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using FieldService.Data;
@@ -29,7 +29,7 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
-		readonly SizeF photoSize = new SizeF(475, 410); //Used for desired size of photos
+		readonly CGSize photoSize = new CGSize(475, 410); //Used for desired size of photos
 		PhotoAlertSheet photoSheet;
 
 		public ConfirmationController (IntPtr handle) : base (handle)
@@ -62,7 +62,7 @@ namespace FieldService.iOS
 			addPhoto.SetTitleColor (UIColor.White, UIControlState.Normal);
 
 			//Setup our toolbar
-			var label = new UILabel (new RectangleF (0, 0, 120, 36)) { 
+			var label = new UILabel (new CGRect (0, 0, 120, 36)) {
 				Text = "Confirmations",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
@@ -155,17 +155,17 @@ namespace FieldService.iOS
 				photoViewModel = ServiceContainer.Resolve<PhotoViewModel>();
 			}
 
-			public override UIView GetViewForHeader (UITableView tableView, int section)
+			public override UIView GetViewForHeader (UITableView tableView, nint section)
 			{
 				return new UIView { BackgroundColor = UIColor.Clear };
 			}
 
-			public override int NumberOfSections (UITableView tableView)
+			public override nint NumberOfSections (UITableView tableView)
 			{
 				return photoViewModel.Photos == null ? 0 : photoViewModel.Photos.Count;
 			}
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return 1;
 			}
@@ -203,17 +203,17 @@ namespace FieldService.iOS
 				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 			}
 
-			public override UIView GetViewForHeader (UITableView tableView, int section)
+			public override UIView GetViewForHeader (UITableView tableView, nint section)
 			{
 				return new UIView { BackgroundColor = UIColor.Clear };
 			}
 
-			public override int NumberOfSections (UITableView tableView)
+			public override nint NumberOfSections (UITableView tableView)
 			{
 				return 2;
 			}
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return 1;
 			}

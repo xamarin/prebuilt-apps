@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Data;
 using FieldService.Utilities;
 
@@ -44,7 +44,7 @@ namespace FieldService.iOS
 				addSignature.Font = Theme.FontOfSize (18);
 				addSignature.ImageEdgeInsets = new UIEdgeInsets (0, -10, 0, 0);
 
-				addSignature.Frame = new RectangleF (PointF.Empty, Frame.Size);
+				addSignature.Frame = new CGRect (CGPoint.Empty, Frame.Size);
 			} else {
 				BackgroundView = new UIImageView { Image = Theme.Inlay };
 

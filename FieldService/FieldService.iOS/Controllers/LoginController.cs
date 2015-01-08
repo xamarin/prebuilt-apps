@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.ViewModels;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -109,20 +109,20 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				companyName.Hidden = true;
-				username.LeftView = new UIView (new RectangleF (0, 0, 20, 20));
-				password.LeftView = new UIView (new RectangleF (0, 0, 20, 20));
+				username.LeftView = new UIView (new CGRect (0, 0, 20, 20));
+				password.LeftView = new UIView (new CGRect (0, 0, 20, 20));
 				login.Font = 
 					username.Font =
 					password.Font = Theme.FontOfSize (18);
 				hexagons.Image = UIImage.FromFile ("Images/iOS7/hexagons.png");
 
 				//Add light gray lines
-				var view = new UIView (new RectangleF (0, 0, container.Frame.Width, 1)) {
+				var view = new UIView (new CGRect (0, 0, container.Frame.Width, 1)) {
 					BackgroundColor = Theme.LightGrayColor,
 				};
 				username.AddSubview (view);
 
-				view = new UIView (new RectangleF (0, 0, container.Frame.Width, 1)) {
+				view = new UIView (new CGRect (0, 0, container.Frame.Width, 1)) {
 					BackgroundColor = Theme.LightGrayColor,
 				};
 				password.AddSubview (view);
@@ -171,8 +171,8 @@ namespace FieldService.iOS
 			} else {
 				username.Background =
 					password.Background = Theme.LoginTextField;
-				username.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
-				password.LeftView = new UIView (new RectangleF (0, 0, 10, 10));
+				username.LeftView = new UIView (new CGRect (0, 0, 10, 10));
+				password.LeftView = new UIView (new CGRect (0, 0, 10, 10));
 			}
 		}
 
@@ -211,7 +211,7 @@ namespace FieldService.iOS
 			new UIAlertView("Need Help?", "Enter any username or password.", null, "Ok").Show ();
 		}
 
-		protected override void OnKeyboardChanged (bool visible, float height)
+		protected override void OnKeyboardChanged (bool visible, nfloat height)
 		{
 			//We "center" the popup when the keyboard appears/disappears
 			var frame = container.Frame;

@@ -4,17 +4,17 @@
 // actions made in the Xcode designer. If it is removed, they will be lost.
 // Manual changes to this file may not be handled correctly.
 //
-using MonoTouch.Foundation;
+using Foundation;
 
 namespace FieldService.iOS
 {
 	partial class SplitController
 	{
 		[Outlet]
-		MonoTouch.UIKit.UIView masterView { get; set; }
+		UIKit.UIView masterView { get; set; }
 
 		[Outlet]
-		MonoTouch.UIKit.UIView detailView { get; set; }
+		UIKit.UIView detailView { get; set; }
 		
 		void ReleaseDesignerOutlets ()
 		{

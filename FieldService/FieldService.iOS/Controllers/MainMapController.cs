@@ -15,10 +15,10 @@
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
-using MonoTouch.MapKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
+using MapKit;
 using FieldService.Utilities;
 using FieldService.Data;
 using FieldService.ViewModels;
@@ -160,7 +160,7 @@ namespace FieldService.iOS
 				activeAssignment.Frame = frame;
 
 				//Additional green rectangle on the right
-				var statusView = new UIView (new RectangleF (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {
+				var statusView = new UIView (new CGRect (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {
 					BackgroundColor = Theme.GreenColor,
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
 				};
@@ -206,7 +206,7 @@ namespace FieldService.iOS
 			}
 			
 			if (placemarks.Count > 0)
-				mapView.AddPlacemarks (placemarks.ToArray ());
+				mapView.AddAnnotations (placemarks.ToArray ());
 
 			//Show/hide the active assignment
 			LoadActiveAssignment ();
@@ -394,7 +394,7 @@ namespace FieldService.iOS
 			/// <summary>
 			/// Returns our custom MKAnnotationView
 			/// </summary>
-			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, NSObject annotation)
+			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, IMKAnnotation annotation)
 			{
 				if (annotation is MKUserLocation) {
 					return null;

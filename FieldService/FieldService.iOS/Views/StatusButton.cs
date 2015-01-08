@@ -13,9 +13,9 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Data;
 using FieldService.Utilities;
 
@@ -42,7 +42,7 @@ namespace FieldService.iOS
 
 		public StatusButton (IntPtr handle) : base (handle)
 		{
-			AddSubview (statusImage = new UIImageView (new RectangleF (12, (Frame.Height - 16) / 2, 16, 16)));
+			AddSubview (statusImage = new UIImageView (new CGRect (12, (Frame.Height - 16) / 2, 16, 16)));
 
 			SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 			SetBackgroundImage (Theme.DropDown, UIControlState.Normal);

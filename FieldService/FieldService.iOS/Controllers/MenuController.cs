@@ -14,9 +14,9 @@
 //    limitations under the License.
 using System;
 using System.Collections.Generic;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using FieldService.Data;
@@ -148,7 +148,7 @@ namespace FieldService.iOS
 				record.Frame = frame;
 
 				//Additional green rectangle on the right
-				var statusView = new UIView (new RectangleF (timerBackground.Frame.Width - 8, 0, 8, timerBackground.Frame.Height)) {
+				var statusView = new UIView (new CGRect (timerBackground.Frame.Width - 8, 0, 8, timerBackground.Frame.Height)) {
 					BackgroundColor = Theme.GreenColor,
 					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
 				};
@@ -181,7 +181,7 @@ namespace FieldService.iOS
 
 		private void ChangeSelection (int index, bool animated = true)
 		{
-			int count = tableView.NumberOfRowsInSection (0);
+			nint count = tableView.NumberOfRowsInSection (0);
 			if (index < count) {
 				using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
 					tableView.SelectRow (indexPath, animated, UITableViewScrollPosition.Top);
@@ -350,13 +350,13 @@ namespace FieldService.iOS
 					cells.Add (cell);
 			}
 
-			public override float GetHeightForHeader (UITableView tableView, int section)
+			public override nfloat GetHeightForHeader (UITableView tableView, nint section)
 			{
 				//NOTE: 1 is the minimum height for a header
 				return Theme.IsiOS7 ? 1 : 20;
 			}
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				if (assignmentViewModel.SelectedAssignment.IsHistory) {
 					SetupCell (confirmationCell, end: true);

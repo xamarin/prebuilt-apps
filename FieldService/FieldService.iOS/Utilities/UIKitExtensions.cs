@@ -13,14 +13,14 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using System.Drawing;
+using CoreGraphics;
 using System.Linq;
 using System.Runtime.InteropServices;
-using MonoTouch.AddressBook;
-using MonoTouch.CoreLocation;
-using MonoTouch.Foundation;
-using MonoTouch.MapKit;
-using MonoTouch.UIKit;
+using AddressBook;
+using CoreLocation;
+using Foundation;
+using MapKit;
+using UIKit;
 using FieldService.Data;
 
 namespace FieldService.iOS
@@ -140,11 +140,11 @@ namespace FieldService.iOS
 		public static UIImage ToImage(this UIColor color)
 		{
 			try {
-				UIGraphics.BeginImageContext (new SizeF (1, 1));
+				UIGraphics.BeginImageContext (new CGSize (1, 1));
 
 				using (var context = UIGraphics.GetCurrentContext()) {
 					context.SetFillColor (color.CGColor);
-					context.FillRect (new Rectangle (0, 0, 1, 1));
+					context.FillRect (new CGRect (0, 0, 1, 1));
 
 					return UIGraphics.GetImageFromCurrentImageContext ();
 				}

@@ -14,9 +14,9 @@
 //    limitations under the License.
 using System;
 using System.Linq;
-using System.Drawing;
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using CoreGraphics;
+using Foundation;
+using UIKit;
 using FieldService.Data;
 using FieldService.ViewModels;
 using FieldService.Utilities;
@@ -48,7 +48,7 @@ namespace FieldService.iOS
 			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			var label = new UILabel (new RectangleF(0, 0, 80, 36)) { 
+			var label = new UILabel (new CGRect(0, 0, 80, 36)) {
 				Text = "Items",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
@@ -112,7 +112,7 @@ namespace FieldService.iOS
 				itemViewModel = ServiceContainer.Resolve<ItemViewModel>();
 			}
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return itemViewModel.Items == null ? 0 : itemViewModel.Items.Count;
 			}
@@ -168,7 +168,7 @@ namespace FieldService.iOS
 				set;
 			}
 
-			public override int RowsInSection (UITableView tableview, int section)
+			public override nint RowsInSection (UITableView tableview, nint section)
 			{
 				return itemViewModel.Items == null ? 0 : itemViewModel.Items.Count (Filter);
 			}
