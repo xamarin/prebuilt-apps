@@ -30,10 +30,12 @@ namespace EmployeeDirectory.ViewModels
 
 		public SearchViewModel (IDirectoryService service, Search search)
 		{
-			if (service == null) throw new ArgumentNullException ("service");
+			if (service == null)
+				throw new ArgumentNullException ("service");
 			this.service = service;
 
-			if (search == null) throw new ArgumentNullException ("search");
+			if (search == null)
+				throw new ArgumentNullException ("search");
 			this.search = search;
 
 			SetGroupedPeople ();
@@ -43,12 +45,10 @@ namespace EmployeeDirectory.ViewModels
 
 		public string Title {
 			get {
-				if (string.IsNullOrEmpty (search.Name)) {
+				if (string.IsNullOrEmpty (search.Name))
 					return "Search";
-				}
-				else {
+				else
 					return System.IO.Path.GetFileName (search.Name);
-				}
 			}
 		}
 
@@ -61,10 +61,11 @@ namespace EmployeeDirectory.ViewModels
 
 		public string SearchText {
 			get { return search.Text; }
-			set { search.Text = value ?? ""; }
+			set { search.Text = value ?? string.Empty; }
 		}
 
 		bool groupByLastName = true;
+
 		public bool GroupByLastName {
 			get { return groupByLastName; }
 			set {
@@ -86,9 +87,8 @@ namespace EmployeeDirectory.ViewModels
 			//
 			// Stop previous search
 			//
-			if (lastCancelSource != null) {
+			if (lastCancelSource != null)
 				lastCancelSource.Cancel ();
-			}
 
 			//
 			// Perform the search
@@ -106,22 +106,19 @@ namespace EmployeeDirectory.ViewModels
 		{
 			if (searchTask.IsFaulted) {
 				var ev = Error;
-				if (ev != null) {
+				if (ev != null)
 					ev (this, new ErrorEventArgs (searchTask.Exception));
-				}
-			}
-			else {
+			} else {
 				search.Results = new Collection<Person> (searchTask.Result);
 				search.Save ();
 				SetGroupedPeople ();				
 
 				var ev = SearchCompleted;
-				if (ev != null) {
+				if (ev != null)
 					ev (this, new SearchCompletedEventArgs { 
 						SearchText = searchText,
 						SearchProperty = searchProperty
 					});
-				}
 			}
 		}
 
@@ -148,6 +145,7 @@ namespace EmployeeDirectory.ViewModels
 	public class SearchCompletedEventArgs : EventArgs
 	{
 		public string SearchText { get; set; }
+
 		public SearchProperty SearchProperty { get; set; }
 	}
 }

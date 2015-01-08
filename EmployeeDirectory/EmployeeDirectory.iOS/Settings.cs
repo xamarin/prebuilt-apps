@@ -36,28 +36,25 @@ namespace EmployeeDirectory.iOS
 			var s = NSUserDefaults.StandardUserDefaults.StringForKey (key);
 			if (string.IsNullOrEmpty (s)) {
 				return null;
-			}
-			else {
+			} else {
 				DateTime dt;
-				if (DateTime.TryParse (s, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dt)) {
+
+				if (DateTime.TryParse (s, CultureInfo.InvariantCulture, DateTimeStyles.RoundtripKind, out dt))
 					return dt;
-				}
-				else {
+				else
 					return null;
-				}
 			}
 		}
 
 		static void SetDateTime (string key, DateTime? value)
 		{
-			if (value.HasValue) {
+			if (value.HasValue)
 				NSUserDefaults.StandardUserDefaults.SetString (
 					value.Value.ToString ("o", CultureInfo.InvariantCulture),
 					key);
-			}
-			else {
+			else
 				NSUserDefaults.StandardUserDefaults.RemoveObject (key);
-			}
+
 			NSUserDefaults.StandardUserDefaults.Synchronize ();
 		}
 	}

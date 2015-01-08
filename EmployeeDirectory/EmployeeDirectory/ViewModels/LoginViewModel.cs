@@ -22,6 +22,7 @@ namespace EmployeeDirectory.ViewModels
 	public class LoginViewModel : ViewModelBase
 	{
 		public string Username { get; set; }
+
 		public string Password { get; set; }
 
 		IDirectoryService service;
@@ -32,8 +33,8 @@ namespace EmployeeDirectory.ViewModels
 		{
 			this.service = service;
 
-			Username = "";
-			Password = "";
+			Username = string.Empty;
+			Password = string.Empty;
 		}
 
 		public Task LoginAsync (CancellationToken cancellationToken)
@@ -42,16 +43,16 @@ namespace EmployeeDirectory.ViewModels
 			return service
 				.LoginAsync (Username, Password, cancellationToken)
 				.ContinueWith (t => {
-					IsBusy = false;
-					if (t.IsFaulted) throw new AggregateException (t.Exception);					
-				}, cancellationToken, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext ());
+				IsBusy = false;
+				if (t.IsFaulted)
+					throw new AggregateException (t.Exception);
+			}, cancellationToken, TaskContinuationOptions.None, TaskScheduler.FromCurrentSynchronizationContext ());
 		}
 
 		public static bool ShouldShowLogin (DateTime? lastUseTime)
 		{
-			if (!lastUseTime.HasValue) {
+			if (!lastUseTime.HasValue)
 				return true;
-			}
 
 			return (DateTime.UtcNow - lastUseTime) > ForceLoginTimespan;
 		}

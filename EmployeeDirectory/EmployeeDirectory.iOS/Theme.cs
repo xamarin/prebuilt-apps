@@ -50,9 +50,9 @@ namespace EmployeeDirectory.iOS
 		#region UINavigationBar
 
 		static Lazy<UIImage> navigationBarBackground = new Lazy<UIImage> (
-			() => UIImage.FromBundle ("topnav.png"));
+			                                               () => UIImage.FromBundle ("topnav.png"));
 		static Lazy<UIImage> blueNavigationBarBackground = new Lazy<UIImage> (
-			() => UIImage.FromBundle ("bluebar.png"));
+			                                                   () => UIImage.FromBundle ("bluebar.png"));
 
 		/// <summary>
 		/// Apply this theme to a specific view.
@@ -62,11 +62,10 @@ namespace EmployeeDirectory.iOS
 		/// </para>
 		public static void Apply (UINavigationBar view, string options = null)
 		{
-			if (options == "blue") {
+			if (options == "blue")
 				view.SetBackgroundImage (blueNavigationBarBackground.Value, UIBarMetrics.Default);
-			} else {
+			else
 				view.SetBackgroundImage (navigationBarBackground.Value, UIBarMetrics.Default);
-			}
 		}
 
 		/// <summary>
@@ -77,15 +76,15 @@ namespace EmployeeDirectory.iOS
 		/// </para>
 		public static void Apply (UINavigationBar.UINavigationBarAppearance appearance, string options = null)
 		{
-			if (options == "blue") {
+			if (options == "blue")
 				appearance.SetBackgroundImage (blueNavigationBarBackground.Value, UIBarMetrics.Default);
-			} else {
+			else
 				appearance.SetBackgroundImage (navigationBarBackground.Value, UIBarMetrics.Default);
-			}
+
 			appearance.SetTitleTextAttributes (new UITextAttributes {
 				TextColor = UIColor.FromRGBA (255, 255, 255, 255),
 				TextShadowColor = UIColor.FromRGBA (0, 0, 0, 0.8f),
-				TextShadowOffset = new UIOffset (0, -1),
+				TextShadowOffset = new UIOffset (0, -1)
 			});
 		}
 
@@ -119,11 +118,10 @@ namespace EmployeeDirectory.iOS
 		/// </para>
 		public static void Apply (UIToolbar view, string options = null)
 		{
-			if (options == "blue") {
+			if (options == "blue")
 				view.SetBackgroundImage (blueNavigationBarBackground.Value, UIToolbarPosition.Any, UIBarMetrics.Default);
-			} else {
+			else
 				view.SetBackgroundImage (navigationBarBackground.Value, UIToolbarPosition.Any, UIBarMetrics.Default);
-			}
 		}
 
 		/// <summary>
@@ -134,11 +132,10 @@ namespace EmployeeDirectory.iOS
 		/// </para>
 		public static void Apply (UIToolbar.UIToolbarAppearance appearance, string options = null)
 		{
-			if (options == "blue") {
+			if (options == "blue")
 				appearance.SetBackgroundImage (blueNavigationBarBackground.Value, UIToolbarPosition.Any, UIBarMetrics.Default);
-			} else {
+			else
 				appearance.SetBackgroundImage (navigationBarBackground.Value, UIToolbarPosition.Any, UIBarMetrics.Default);
-			}
 		}
 
 		#endregion

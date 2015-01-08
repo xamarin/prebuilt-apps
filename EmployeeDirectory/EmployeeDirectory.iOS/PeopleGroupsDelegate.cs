@@ -38,24 +38,22 @@ namespace EmployeeDirectory.iOS
 			var person = ((PeopleGroupsDataSource)tableView.DataSource).GetPerson (indexPath);
 			if (person != null) {
 				var ev = PersonSelected;
-				if (ev != null) {
+				if (ev != null)
 					ev (this, new PersonSelectedEventArgs { Person = person });
-				}
 			}
 
-            //Deselect, we use BeginInvoke, otherwise it doesn't deselect properly
-            BeginInvokeOnMainThread(() => {
-                var cell = tableView.CellAt(indexPath);
-                cell.SetSelected(false, true);
-            });
+			//Deselect, we use BeginInvoke, otherwise it doesn't deselect properly
+			BeginInvokeOnMainThread (() => {
+				var cell = tableView.CellAt (indexPath);
+				cell.SetSelected (false, true);
+			});
 		}
 
 		[Export ("scrollViewDidEndDragging:willDecelerate:")]
 		public void DidEndDragging (UIScrollView scrollView, bool willDecelerate)
 		{
-			if (!willDecelerate) {
+			if (!willDecelerate)
 				((PeopleGroupsDataSource)tableView.DataSource).LoadImagesForOnscreenRows (tableView);
-			}
 		}
 
 		[Export ("scrollViewDidEndDecelerating:")]

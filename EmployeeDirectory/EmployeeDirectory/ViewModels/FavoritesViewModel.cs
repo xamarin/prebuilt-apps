@@ -28,9 +28,8 @@ namespace EmployeeDirectory.ViewModels
 
 		public FavoritesViewModel (IFavoritesRepository favoritesRepository, bool groupByLastName)
 		{
-			if (favoritesRepository == null) {
+			if (favoritesRepository == null)
 				throw new ArgumentNullException ("favoritesRepository");
-			}
 
 			this.favoritesRepository = favoritesRepository;
 			this.groupByLastName = groupByLastName;
@@ -44,16 +43,13 @@ namespace EmployeeDirectory.ViewModels
 
 		void CreateGroups ()
 		{
-			Groups = PeopleGroup.CreateGroups (
-				favoritesRepository.GetAll (),
-				groupByLastName);
+			Groups = PeopleGroup.CreateGroups (favoritesRepository.GetAll (), groupByLastName);
 			OnPropertyChanged ("Groups");
 		}
 
 		public bool IsEmpty
 		{
-			get
-			{
+			get {
 				return Groups.Count == 0;
 			}
 		}

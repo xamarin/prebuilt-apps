@@ -36,21 +36,18 @@ namespace EmployeeDirectory.iOS
 
 		public PeopleGroupsDataSource (ObservableCollection<PeopleGroup> groups)
 		{
-			if (groups == null) {
+			if (groups == null)
 				throw new ArgumentNullException ("groups");
-			}
+
 			Groups = groups;
 		}
 
 		public Person GetPerson (NSIndexPath indexPath)
 		{
-			try
-			{
+			try {
 				var personGroup = Groups [indexPath.Section];
-				return personGroup.People[indexPath.Row];
-			}
-			catch (Exception exc)
-			{
+				return personGroup.People [indexPath.Row];
+			} catch (Exception exc) {
 				Console.WriteLine ("Error in GetPerson: " + exc.Message);
 
 				//Occasionally we get an index out of range here
@@ -81,9 +78,9 @@ namespace EmployeeDirectory.iOS
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 		{
 			var cell = tableView.DequeueReusableCell ("P") as PersonCell;
-			if (cell == null) {
+
+			if (cell == null)
 				cell = new PersonCell ("P");
-			}
 
 			var person = GetPerson (indexPath);
 			if (person != null) {
@@ -93,9 +90,9 @@ namespace EmployeeDirectory.iOS
 				if (images.TryGetValue (person.Id, out image)) {
 					cell.ImageView.Image = image;
 				} else {
-					if (!tableView.Dragging && !tableView.Decelerating && person.HasEmail) {
+					if (!tableView.Dragging && !tableView.Decelerating && person.HasEmail)
 						StartImageDownload (tableView, indexPath, person);
-					}
+
 					cell.ImageView.Image = UIImage.FromBundle (PlaceholderImagePath);
 				}
 			}
@@ -133,13 +130,14 @@ namespace EmployeeDirectory.iOS
 
 		void StartImageDownload (UITableView tableView, NSIndexPath indexPath, Person person)
 		{
-			if (imageDownloadsInProgress.Contains (person.Id)) return;
+			if (imageDownloadsInProgress.Contains (person.Id))
+				return;
+
 			imageDownloadsInProgress.Add (person.Id);
 
 			imageDownloader.GetImageAsync (Gravatar.GetImageUrl (person.Email, 88)).ContinueWith (t => {
-				if (!t.IsFaulted) {
+				if (!t.IsFaulted)
 					FinishImageDownload (tableView, indexPath, person, (UIImage)t.Result);
-				}
 			}, TaskScheduler.FromCurrentSynchronizationContext ());
 		}
 
@@ -152,9 +150,8 @@ namespace EmployeeDirectory.iOS
 			    indexPath.Row < Groups [indexPath.Section].People.Count) {
 
 				var cell = tableView.CellAt (indexPath);
-				if (cell != null) {
+				if (cell != null)
 					cell.ImageView.Image = image;
-				}
 			}
 		}
 

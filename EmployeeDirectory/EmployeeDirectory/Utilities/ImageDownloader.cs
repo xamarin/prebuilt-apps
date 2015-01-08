@@ -39,9 +39,8 @@ namespace EmployeeDirectory.Utilities
 		{
 			this.cacheDuration = cacheDuration;
 
-			if (!store.DirectoryExists ("ImageCache")) {
+			if (!store.DirectoryExists ("ImageCache"))
 				store.CreateDirectory ("ImageCache");
-			}
 		}
 
 		public bool HasLocallyCachedCopy (Uri uri)
@@ -53,7 +52,7 @@ namespace EmployeeDirectory.Utilities
 			var lastWriteTime = GetLastWriteTimeUtc (filename);
 
 			return lastWriteTime.HasValue &&
-				(now - lastWriteTime.Value) < cacheDuration;
+			(now - lastWriteTime.Value) < cacheDuration;
 		}
 
 		public Task<object> GetImageAsync (Uri uri)
@@ -68,30 +67,27 @@ namespace EmployeeDirectory.Utilities
 			var filename = Uri.EscapeDataString (uri.AbsoluteUri);
 
 			if (HasLocallyCachedCopy (uri)) {
-				using (var o = OpenStorage (filename, FileMode.Open)) {
+				using (var o = OpenStorage (filename, FileMode.Open))
 					return LoadImage (o);
-				}
-			}
-			else {
+			} else {
 				using (var d = http.Get (uri)) {
 					using (var o = OpenStorage (filename, FileMode.Create)) {
 						d.CopyTo (o);
 					}
 				}
-				using (var o = OpenStorage (filename, FileMode.Open)) {
+
+				using (var o = OpenStorage (filename, FileMode.Open))
 					return LoadImage (o);
-				}
 			}
 		}
 
 		protected virtual DateTime? GetLastWriteTimeUtc (string fileName)
 		{
 			var path = Path.Combine ("ImageCache", fileName);
-			if (store.FileExists (path)) {
+			if (store.FileExists (path))
 				return store.GetLastWriteTime (path).UtcDateTime;
-			} else {
+			else
 				return null;
-			}
 		}
 
 		protected virtual Stream OpenStorage (string fileName, FileMode mode)

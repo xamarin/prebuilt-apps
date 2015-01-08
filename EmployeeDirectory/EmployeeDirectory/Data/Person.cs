@@ -30,15 +30,14 @@ namespace EmployeeDirectory.Data
 	public class Person
 	{
 		string id;
+
 		public string Id {
 			get {
 				if (!string.IsNullOrEmpty (id)) {
 					return id;
-				}
-				else if (!string.IsNullOrEmpty (Email)) {
+				} else if (!string.IsNullOrEmpty (Email)) {
 					return Email;
-				}
-				else {
+				} else {
 					return Name;
 				}
 			}
@@ -142,15 +141,12 @@ namespace EmployeeDirectory.Data
 				var hasDepartment = !string.IsNullOrEmpty (Department);
 				if (hasTitle && hasDepartment) {
 					return (Title + " - " + Department).Trim ();
-				}
-				else if (hasTitle && !hasDepartment) {
+				} else if (hasTitle && !hasDepartment) {
 					return Title.Trim ();
-				}
-				else if (!hasTitle && hasDepartment) {
+				} else if (!hasTitle && hasDepartment) {
 					return Department.Trim ();
-				}
-				else {
-					return "";
+				} else {
+					return string.Empty;
 				}
 			}
 		}
@@ -160,13 +156,11 @@ namespace EmployeeDirectory.Data
 				if (!string.IsNullOrWhiteSpace (FirstName)) {
 					if (!string.IsNullOrWhiteSpace (Initials)) {
 						return FirstName + " " + Initials;
-					}
-					else {
+					} else {
 						return FirstName;
 					}
-				}
-				else {
-					return SplitFirstAndLastName ()[0];
+				} else {
+					return SplitFirstAndLastName () [0];
 				}
 			}
 		}
@@ -175,9 +169,8 @@ namespace EmployeeDirectory.Data
 			get {
 				if (!string.IsNullOrWhiteSpace (FirstName)) {
 					return FirstName;
-				}
-				else {
-					return SplitFirstAndLastName ()[0];
+				} else {
+					return SplitFirstAndLastName () [0];
 				}
 			}
 		}
@@ -186,9 +179,8 @@ namespace EmployeeDirectory.Data
 			get {
 				if (!string.IsNullOrWhiteSpace (LastName)) {
 					return LastName;
-				}
-				else {
-					return SplitFirstAndLastName ()[1];
+				} else {
+					return SplitFirstAndLastName () [1];
 				}
 			}
 		}
@@ -197,14 +189,11 @@ namespace EmployeeDirectory.Data
 			get {
 				if (!string.IsNullOrWhiteSpace (DisplayName)) {
 					return DisplayName;
-				}
-				else if (!string.IsNullOrWhiteSpace (Name)) {
+				} else if (!string.IsNullOrWhiteSpace (Name)) {
 					return Name;
-				}
-				else if (!string.IsNullOrEmpty (Initials)) {
+				} else if (!string.IsNullOrEmpty (Initials)) {
 					return FirstName + " " + Initials + " " + LastName;
-				}
-				else {
+				} else {
 					return FirstName + " " + LastName;
 				}
 			}
@@ -228,22 +217,20 @@ namespace EmployeeDirectory.Data
 
 		string[] SplitFirstAndLastName ()
 		{
-			var r = new [] { "", "" };
+			var r = new [] { string.Empty, string.Empty };
 			var parts = SafeDisplayName.Split (WS, StringSplitOptions.RemoveEmptyEntries);
 			if (parts.Length == 1) {
-				r[0] = parts[0];
-			}
-			else if (parts.Length == 2) {
-				r[0] = parts[0];
-				r[1] = parts[1];
-			}
-			else {
+				r [0] = parts [0];
+			} else if (parts.Length == 2) {
+				r [0] = parts [0];
+				r [1] = parts [1];
+			} else {
 				var li = parts.Length - 1;
-				while (li - 1 > 0 && char.IsLower (parts[li-1][0])) {
+				while (li - 1 > 0 && char.IsLower (parts [li - 1] [0])) {
 					li--;
 				}
-				r[0] = string.Join (" ", parts.Take (li));
-				r[1] = string.Join (" ", parts.Skip (li));
+				r [0] = string.Join (" ", parts.Take (li));
+				r [1] = string.Join (" ", parts.Skip (li));
 			}
 			return r;
 		}

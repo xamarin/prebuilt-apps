@@ -25,12 +25,12 @@ namespace EmployeeDirectory.iOS
 	{
 		SearchViewModel searchViewModel;
 
-		string lastSearchText = "";
+		string lastSearchText = string.Empty;
 		SearchProperty lastSearchProperty = SearchProperty.All;
 		UITableView lastTableView;
 
 		Lazy<ActivityView> activity = new Lazy<ActivityView> (
-			() => new ActivityView { Text = "Searching..." });
+			                              () => new ActivityView { Text = "Searching..." });
 
 		public SearchDisplayDelegate (SearchViewModel searchViewModel)
 		{
@@ -102,9 +102,9 @@ namespace EmployeeDirectory.iOS
 
 			// Display an activity indicator
 			if (lastTableView != null) {
-				if (!activity.Value.IsRunning) {
+				if (!activity.Value.IsRunning)
 					activity.Value.StartInView (lastTableView);
-				}
+
 				lastTableView.BringSubviewToFront (activity.Value);
 			}
 

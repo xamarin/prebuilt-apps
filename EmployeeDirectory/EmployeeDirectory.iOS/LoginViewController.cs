@@ -46,8 +46,7 @@ namespace EmployeeDirectory.iOS
 				if (IsViewLoaded) {
 					if (loginViewModel.IsBusy) {
 						indicator.StartAnimating ();
-					}
-					else {
+					} else {
 						indicator.StopAnimating ();
 					}
 					indicator.Hidden = !loginViewModel.IsBusy;
@@ -75,7 +74,7 @@ namespace EmployeeDirectory.iOS
 				ShouldReturn = delegate {
 					password.BecomeFirstResponder ();
 					return true;
-				},
+				}
 			};
 			AddCentered (username, 80, 200, 44);
 
@@ -94,7 +93,7 @@ namespace EmployeeDirectory.iOS
 				ShouldReturn = delegate {
 					Login ();
 					return true;
-				},
+				}
 			};
 			AddCentered (password, 132, 200, 44);
 
@@ -109,7 +108,7 @@ namespace EmployeeDirectory.iOS
 			help = UIButton.FromType (UIButtonType.Custom);
 			help.SetImage (UIImage.FromBundle ("questionmark.png"), UIControlState.Normal);
 			help.TouchUpInside += (sender, e) => {
-				new UIAlertView("Need Help?", "Enter any username or password to login.", null, "Ok").Show ();
+				new UIAlertView ("Need Help?", "Enter any username or password to login.", null, "Ok").Show ();
 			};
 			AddCentered (help, 194, 30, 31);
 			
@@ -120,7 +119,7 @@ namespace EmployeeDirectory.iOS
 
 			indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge) {
 				HidesWhenStopped = true,
-				Hidden = true,
+				Hidden = true
 			};
 			frame = indicator.Frame;
 			frame.X = login.Frame.X - indicator.Frame.Width - 8;
@@ -145,20 +144,19 @@ namespace EmployeeDirectory.iOS
 
 		void Login ()
 		{
-            if (string.IsNullOrEmpty(username.Text))
-            {
-                var view = new UIAlertView("Oops", "Please enter a username.", null, "Ok");
-                view.Dismissed += (sender, e) => username.BecomeFirstResponder();
-                view.Show();
-                return;
-            }
-            if (string.IsNullOrEmpty(password.Text))
-            {
-                var view = new UIAlertView("Oops", "Please enter a password.", null, "Ok");
-                view.Dismissed += (sender, e) => password.BecomeFirstResponder();
-                view.Show();
-                return;
-            }
+			if (string.IsNullOrEmpty (username.Text)) {
+				var view = new UIAlertView ("Oops", "Please enter a username.", null, "Ok");
+				view.Dismissed += (sender, e) => username.BecomeFirstResponder ();
+				view.Show ();
+				return;
+			}
+
+			if (string.IsNullOrEmpty (password.Text)) {
+				var view = new UIAlertView ("Oops", "Please enter a password.", null, "Ok");
+				view.Dismissed += (sender, e) => password.BecomeFirstResponder ();
+				view.Show ();
+				return;
+			}
 
 			username.ResignFirstResponder ();
 			password.ResignFirstResponder ();
@@ -167,11 +165,8 @@ namespace EmployeeDirectory.iOS
 			loginViewModel.Password = password.Text;
 
 			loginViewModel.LoginAsync (CancellationToken.None).ContinueWith (t => {
-
-				if (t.IsCompleted && !t.IsFaulted) {
+				if (t.IsCompleted && !t.IsFaulted)
 					DismissViewController (true, null);
-				}
-
 			}, TaskScheduler.FromCurrentSynchronizationContext ());
 		}
 	}

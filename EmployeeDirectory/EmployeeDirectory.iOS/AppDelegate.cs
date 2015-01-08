@@ -35,7 +35,7 @@ namespace EmployeeDirectory.iOS
 
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
-			if(!UIDevice.CurrentDevice.CheckSystemVersion(7,0))
+			if (!UIDevice.CurrentDevice.CheckSystemVersion (7, 0))
 				Theme.Apply ();
 
 			//
@@ -44,12 +44,6 @@ namespace EmployeeDirectory.iOS
 
 			// Local CSV file
 			service = MemoryDirectoryService.FromCsv ("Data/XamarinDirectory.csv");
-
-			// LDAP service - uncomment to try it out.
-			//service = new LdapDirectoryService {
-			//	Host = "ldap.mit.edu",
-			//	SearchBase = "dc=mit,dc=edu",
-			//};
 
 			//
 			// Load the favorites
@@ -67,8 +61,7 @@ namespace EmployeeDirectory.iOS
 			Search search = null;
 			try {
 				search = Search.Open ("Search.xml");
-			}
-			catch (Exception) {
+			} catch (Exception) {
 				search = new Search ("Search.xml");
 			}
 
@@ -77,8 +70,9 @@ namespace EmployeeDirectory.iOS
 			//
 			favoritesViewController = new FavoritesViewController (favoritesRepository, service, search);
 
-			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			window.RootViewController = new UINavigationController (favoritesViewController);
+			window = new UIWindow (UIScreen.MainScreen.Bounds) {
+				RootViewController = new UINavigationController (favoritesViewController)
+			};
 			window.MakeKeyAndVisible ();
 
 			//

@@ -58,12 +58,14 @@ namespace EmployeeDirectory.iOS
 			searchBar = new UISearchBar (new CGRect (0, 0, 320, 44)) {
 				ShowsScopeBar = true,
 			};
+
 			searchBar.ScopeButtonTitles = new[] { "Name", "Title", "Dept", "All" };
 			searchBar.SelectedScopeButtonIndex = (int)savedSearch.Property;
 			searchController = new UISearchDisplayController (searchBar, this) {
 				SearchResultsDataSource = new PeopleGroupsDataSource (searchViewModel.Groups),
-				Delegate = new SearchDisplayDelegate (searchViewModel),
+				Delegate = new SearchDisplayDelegate (searchViewModel)
 			};
+
 			var searchDelegate = new PeopleGroupsDelegate (searchController.SearchResultsTableView);
 			searchController.SearchResultsTableView.SectionIndexMinimumDisplayRowCount = 10;
 			searchDelegate.PersonSelected += HandleSearchPersonSelected;
@@ -91,9 +93,9 @@ namespace EmployeeDirectory.iOS
 		{
 			var personViewController = new PersonViewController (e.Person, favoritesRepository);
 
-			personViewController.NavigationItem.RightBarButtonItem =
-				new UIBarButtonItem (UIBarButtonSystemItem.Done, delegate {
+			personViewController.NavigationItem.RightBarButtonItem = new UIBarButtonItem (UIBarButtonSystemItem.Done, delegate {
 				DismissViewController (true, null);
+				searchController.SetActive (false, true);
 			});
 
 			PresentViewController (new UINavigationController (personViewController), true, null);
@@ -107,9 +109,9 @@ namespace EmployeeDirectory.iOS
 			// Deselect all cells when appearing
 			//
 			var sel = TableView.IndexPathForSelectedRow;
-			if (sel != null) {
+
+			if (sel != null)
 				TableView.DeselectRow (sel, true);
-			}
 		}
 	}
 }

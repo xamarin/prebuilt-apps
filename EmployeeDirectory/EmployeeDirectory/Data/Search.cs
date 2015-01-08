@@ -36,31 +36,27 @@ namespace EmployeeDirectory.Data
 
 		public Collection<Person> Results { get; set; }
 
-		public Search ()
-			: this ("")
+		public Search () : this (string.Empty)
 		{
 		}
 
 		public Search (string name)
 		{
-			this.Name = name;
-			this.Text = "";
-			this.Property = SearchProperty.Name;
-			this.Results = new Collection<Person> ();
+			Name = name;
+			Text = string.Empty;
+			Property = SearchProperty.Name;
+			Results = new Collection<Person> ();
 		}
 
-		public Filter Filter
-		{
-			get
-			{
+		public Filter Filter {
+			get {
 				var trimmed = Text.Trim ();
 				if (Property == SearchProperty.All) {
 					return new OrFilter (
 						new ContainsFilter ("Name", trimmed),
 						new ContainsFilter ("Title", trimmed),
 						new ContainsFilter ("Department", trimmed));
-				}
-				else {
+				} else {
 					var propName = Property.ToString ();
 					return new ContainsFilter (propName, trimmed);
 				}
@@ -69,12 +65,11 @@ namespace EmployeeDirectory.Data
 
 		public static Search Open (string name)
 		{
-			if (string.IsNullOrWhiteSpace (name)) {
+			if (string.IsNullOrWhiteSpace (name))
 				throw new ArgumentException ("Name must be given.", "name");
-			}
 
 			var store = IsolatedStorageFile.GetUserStoreForApplication ();
-			var serializer = new XmlSerializer (typeof (Search));
+			var serializer = new XmlSerializer (typeof(Search));
 			using (var stream = store.OpenFile (name, FileMode.Open)) {
 				var s = (Search)serializer.Deserialize (stream);
 				s.Name = name;
@@ -84,15 +79,14 @@ namespace EmployeeDirectory.Data
 
 		public void Save ()
 		{
-			if (string.IsNullOrWhiteSpace (Name)) {
+			if (string.IsNullOrWhiteSpace (Name))
 				throw new InvalidOperationException ("Name must be set.");
-			}
 
 			var store = IsolatedStorageFile.GetUserStoreForApplication ();
-			var serializer = new XmlSerializer (typeof (Search));
-			using (var stream = store.OpenFile (Name, FileMode.Create)) {
+			var serializer = new XmlSerializer (typeof(Search));
+
+			using (var stream = store.OpenFile (Name, FileMode.Create))
 				serializer.Serialize (stream, this);
-			}
 		}
 	}
 }

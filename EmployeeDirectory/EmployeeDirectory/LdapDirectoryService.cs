@@ -42,9 +42,9 @@ namespace EmployeeDirectory
 
 		public LdapDirectoryService ()
 		{
-			Host = "";
+			Host = string.Empty;
 			Port = 389;
-			SearchBase = "";
+			SearchBase = string.Empty;
 		}
 
 		~LdapDirectoryService ()
@@ -77,9 +77,8 @@ namespace EmployeeDirectory
 				conn = new LdapConnection ();
 				conn.Connect (Host, Port);
 
-				if (!string.IsNullOrEmpty (username)) {
+				if (!string.IsNullOrEmpty (username))
 					conn.Bind (username, password);
-				}
 
 			}, cancellationToken);
 		}
@@ -88,17 +87,15 @@ namespace EmployeeDirectory
 		{
 			ValidateConfiguration ();
 
-			if (conn == null) {
+			if (conn == null)
 				throw new InvalidOperationException ("Must Login before searching.");
-			}
 
 			//
 			// Compile the filter
 			//
 			var compiledFilter = CompileFilter (filter);
-			if (string.IsNullOrEmpty (compiledFilter)) {
+			if (string.IsNullOrEmpty (compiledFilter))
 				compiledFilter = "(objectClass=*)";
-			}
 
 			//
 			// Since the LDAP library doesn't support async, wrap it
@@ -127,53 +124,48 @@ namespace EmployeeDirectory
 		/// </param>
 		string CompileFilter (Filter filter)
 		{
-			if (filter == null) return "";
+			if (filter == null)
+				return string.Empty;
 
 			if (filter is AndFilter) {
-				return "(&" + string.Join ("", ((AndFilter)filter).Filters.Select (CompileFilter)) + ")";
-			}
-			else if (filter is OrFilter) {
-				return "(|" + string.Join ("", ((OrFilter)filter).Filters.Select (CompileFilter)) + ")";
-			}
-			else if (filter is NotFilter) {
+				return "(&" + string.Join (string.Empty, ((AndFilter)filter).Filters.Select (CompileFilter)) + ")";
+			} else if (filter is OrFilter) {
+				return "(|" + string.Join (string.Empty, ((OrFilter)filter).Filters.Select (CompileFilter)) + ")";
+			} else if (filter is NotFilter) {
 				return "(!" + CompileFilter (((NotFilter)filter).InnerFilter) + ")";
-			}
-			else if (filter is EqualsFilter) {
+			} else if (filter is EqualsFilter) {
 				var f = (EqualsFilter)filter;
 				var attrs = GetAttributeTypes (f.PropertyName);
 				var q = attrs.Select (a => "(" + a + "=" + f.Value + ")");
-				if (attrs.Length == 1) {
-					return q.First ();
-				}
-				else {
 
+				if (attrs.Length == 1)
+					return q.First ();
+				else
 					return "(|" + string.Join ("", q) + ")";
-				}
-			}
-			else if (filter is ContainsFilter) {
+
+			} else if (filter is ContainsFilter) {
 				var f = (ContainsFilter)filter;
 				var attrs = GetAttributeTypes (f.PropertyName);
 				var q = attrs.Select (a => "(" + a + "=*" + f.Value + "*)");
-				if (attrs.Length == 1) {
+
+				if (attrs.Length == 1)
 					return q.First ();
-				}
-				else {
-					
+				else
 					return "(|" + string.Join ("", q) + ")";
-				}
-			}
-			else {
+			
+			} else {
 				throw new NotSupportedException (filter.GetType ().Name);
 			}
 		}
 
 		static string[] GetAttributeTypes (string propertyName)
 		{
-			return ldapsFromProperty[propertyName]
+			return ldapsFromProperty [propertyName]
 				.Split (ldapSplits, StringSplitOptions.RemoveEmptyEntries);
 		}
 
-		static readonly Type ListType = typeof(List<string>); // For handling properties with multiple entries
+		static readonly Type ListType = typeof(List<string>);
+		// For handling properties with multiple entries
 
 		IList<Person> Search (string searchFilter, int sizeLimit)
 		{
@@ -184,12 +176,12 @@ namespace EmployeeDirectory
 				// Query the server
 				//
 				var lsc = conn.Search (
-					SearchBase,
-					LdapConnection.SCOPE_SUB,
-					searchFilter,
-					null,
-					false,
-					new LdapSearchConstraints (0, 0, LdapSearchConstraints.DEREF_NEVER, sizeLimit, false, 1, null, 10));
+					          SearchBase,
+					          LdapConnection.SCOPE_SUB,
+					          searchFilter,
+					          null,
+					          false,
+					          new LdapSearchConstraints (0, 0, LdapSearchConstraints.DEREF_NEVER, sizeLimit, false, 1, null, 10));
 
 				while (lsc.hasMore ()) {
 					var nextEntry = lsc.next ();
@@ -202,7 +194,7 @@ namespace EmployeeDirectory
 					// the static constructor of this class for details.
 					//
 					var person = new Person {
-						Id = nextEntry.DN,
+						Id = nextEntry.DN
 					};
 
 					foreach (LdapAttribute attribute in nextEntry.getAttributeSet ()) {
@@ -214,8 +206,7 @@ namespace EmployeeDirectory
 							if (ListType.IsAssignableFrom (p.PropertyType)) {
 								var list = (List<string>)p.GetValue (person, null);
 								list.Add (val);
-							}
-							else {
+							} else {
 								p.SetValue (person, val, null);
 							}
 						}
@@ -224,18 +215,12 @@ namespace EmployeeDirectory
 					//
 					// Make sure we only load people by looking for a last name
 					//
-					if (!string.IsNullOrEmpty (person.LastName)) {
+					if (!string.IsNullOrEmpty (person.LastName))
 						results.Add (person);
-					}
 				}
-			}
-			catch (LdapException e) {
-				if (e.ResultCode == 4) {
-					// More results pending...
-				}
-				else {
+			} catch (LdapException e) {
+				if (e.ResultCode != 4)
 					throw;
-				}
 			}
 
 			return results;
@@ -243,15 +228,14 @@ namespace EmployeeDirectory
 
 		void ValidateConfiguration ()
 		{
-			if (string.IsNullOrWhiteSpace (Host)) {
+			if (string.IsNullOrWhiteSpace (Host))
 				throw new InvalidOperationException ("Host must be set.");
-			}
-			if (Port == 0) {
+
+			if (Port == 0)
 				throw new InvalidOperationException ("Port must be set.");
-			}
-			if (string.IsNullOrWhiteSpace (SearchBase)) {
+
+			if (string.IsNullOrWhiteSpace (SearchBase))
 				throw new InvalidOperationException ("SearchBase must be set.");
-			}
 		}
 
 		#region LDAP <-> Property Mapping
@@ -263,22 +247,22 @@ namespace EmployeeDirectory
 		static LdapDirectoryService ()
 		{
 			var q = from p in typeof(Person).GetProperties ()
-					where p.CanWrite
-					let a = p.GetCustomAttributes (typeof (PropertyAttribute), true).Cast<PropertyAttribute> ().FirstOrDefault ()
-					where a != null
-					select new { Property = p, Info = a };
+			        where p.CanWrite
+			        let a = p.GetCustomAttributes (typeof(PropertyAttribute), true).Cast<PropertyAttribute> ().FirstOrDefault ()
+			        where a != null
+			        select new { Property = p, Info = a };
 			var props = q.ToArray ();
 
-			propertyFromLdap = new Dictionary<string, PropertyInfo>();
-			ldapsFromProperty = new Dictionary<string, string>();
+			propertyFromLdap = new Dictionary<string, PropertyInfo> ();
+			ldapsFromProperty = new Dictionary<string, string> ();
 
 			foreach (var p in props) {
 				var ldaps = p.Info.Ldap.Split (ldapSplits, StringSplitOptions.RemoveEmptyEntries);
-				foreach (var l in ldaps) {
-					propertyFromLdap[l] = p.Property;
-				}
 
-				ldapsFromProperty[p.Property.Name] = p.Info.Ldap;
+				foreach (var l in ldaps)
+					propertyFromLdap [l] = p.Property;
+
+				ldapsFromProperty [p.Property.Name] = p.Info.Ldap;
 			}
 		}
 

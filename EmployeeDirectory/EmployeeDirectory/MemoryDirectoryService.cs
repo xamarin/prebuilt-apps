@@ -35,7 +35,7 @@ namespace EmployeeDirectory
 		public MemoryDirectoryService (IEnumerable<Person> people)
 		{
 			this.people = people.ToList ();
-			this.properties = typeof (Person).GetProperties ().ToDictionary (p => p.Name);
+			this.properties = typeof(Person).GetProperties ().ToDictionary (p => p.Name);
 		}
 
 		#region IDirectoryService implementation
@@ -66,38 +66,34 @@ namespace EmployeeDirectory
 			if (filter is OrFilter) {
 				var f = (OrFilter)filter;
 				var r = Enumerable.Empty<Person> ();
-				foreach (var sf in f.Filters) {
+
+				foreach (var sf in f.Filters)
 					r = r.Concat (Search (sf));
-				}
+
 				return r.Distinct ();
-			}
-			else if (filter is AndFilter) {
+			} else if (filter is AndFilter) {
 				throw new NotImplementedException ();
-			}
-			else if (filter is NotFilter) {
+			} else if (filter is NotFilter) {
 				throw new NotImplementedException ();
-			}
-			else if (filter is EqualsFilter) {
+			} else if (filter is EqualsFilter) {
 				var f = (EqualsFilter)filter;
 				var upper = f.Value.ToUpperInvariant ();
-				var prop = properties[f.PropertyName];
+				var prop = properties [f.PropertyName];
 				var q = from p in people
-						let v = prop.GetValue (p, null)
-						where v != null && v.ToString ().ToUpperInvariant () == upper
-						select p;
+				        let v = prop.GetValue (p, null)
+				        where v != null && v.ToString ().ToUpperInvariant () == upper
+				        select p;
 				return q;
-			}
-			else if (filter is ContainsFilter) {
+			} else if (filter is ContainsFilter) {
 				var f = (ContainsFilter)filter;
-				var re = new Regex (Regex.Escape(f.Value).Replace("\\ ", "|"), RegexOptions.IgnoreCase);
-				var prop = properties[f.PropertyName];
+				var re = new Regex (Regex.Escape (f.Value).Replace ("\\ ", "|"), RegexOptions.IgnoreCase);
+				var prop = properties [f.PropertyName];
 				var q = from p in people
-						let v = prop.GetValue (p, null)
-						where v != null && re.IsMatch (v.ToString ())
-						select p;
+				        let v = prop.GetValue (p, null)
+				        where v != null && re.IsMatch (v.ToString ())
+				        select p;
 				return q;
-			}
-			else {
+			} else {
 				throw new NotSupportedException ("Unsupported filter type: " + filter.GetType ());
 			}
 		}
@@ -108,9 +104,8 @@ namespace EmployeeDirectory
 
 		public static MemoryDirectoryService FromCsv (string path)
 		{
-			using (var reader = File.OpenText (path)) {
+			using (var reader = File.OpenText (path))
 				return FromCsv (reader);
-			}
 		}
 
 		public static MemoryDirectoryService FromCsv (TextReader textReader)

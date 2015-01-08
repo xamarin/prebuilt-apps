@@ -24,7 +24,7 @@ using System.Globalization;
 namespace EmployeeDirectory
 {
 	public class CsvReader<T>
-		where T : new ()
+		where T : new()
 	{
 		IFormatProvider formatProvider;
 		TextReader reader;
@@ -46,10 +46,11 @@ namespace EmployeeDirectory
 
 			var props = new PropertyInfo[headerNames.Length];
 			for (var hi = 0; hi < props.Length; hi++) {
-				var p = typeof(T).GetProperty (headerNames[hi]);
-				if (p == null) throw new Exception (
-					"Property '" + headerNames[hi] + "' not found in " + typeof (T).Name);
-				props[hi] = p;
+				var p = typeof(T).GetProperty (headerNames [hi]);
+				if (p == null)
+					throw new Exception ("Property '" + headerNames [hi] + "' not found in " + typeof(T).Name);
+
+				props [hi] = p;
 			}
 
 			//
@@ -65,19 +66,15 @@ namespace EmployeeDirectory
 					r = new T ();
 					i = 0;
 					ch = reader.Read ();
-				}
-				else if (ch == '\r') {
+				} else if (ch == '\r') {
 					ch = reader.Read ();
-				}
-				else if (ch == '"') {
-					ch = ReadQuoted (r, props[i]);
-				}
-				else if (ch == ',') {
+				} else if (ch == '"') {
+					ch = ReadQuoted (r, props [i]);
+				} else if (ch == ',') {
 					i++;
 					ch = reader.Read ();
-				}
-				else {
-					ch = ReadNonQuoted (r, props[i], (char)ch);
+				} else {
+					ch = ReadNonQuoted (r, props [i], (char)ch);
 				}
 			}
 		}
@@ -127,17 +124,14 @@ namespace EmployeeDirectory
 					if (hasQuote) {
 						sb.Append ('"');
 						hasQuote = false;
-					}
-					else {
+					} else {
 						hasQuote = true;
 					}
-				}
-				else {
+				} else {
 					if (hasQuote) {
 						prop.SetValue (r, Convert.ChangeType (sb.ToString ().Trim (), prop.PropertyType, formatProvider), null);
 						return ch;
-					}
-					else {
+					} else {
 						sb.Append ((char)ch);
 					}
 				}

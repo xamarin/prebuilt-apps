@@ -52,39 +52,38 @@ namespace EmployeeDirectory.iOS
 		void DeselectAll ()
 		{
 			var sel = TableView.IndexPathForSelectedRow;
-			if (sel != null) {
+			if (sel != null)
 				TableView.DeselectRow (sel, true);
-			}
 		}
 
 		void OnPhoneSelected (string phoneNumber)
 		{
-            var url = NSUrl.FromString("tel:" + Uri.EscapeDataString(phoneNumber));
+			var url = NSUrl.FromString ("tel:" + Uri.EscapeDataString (phoneNumber));
 
-            if (UIApplication.SharedApplication.CanOpenUrl(url))
-                UIApplication.SharedApplication.OpenUrl(url);
-            else
-                new UIAlertView("Oops", "Phone is not available", null, "Ok").Show();
+			if (UIApplication.SharedApplication.CanOpenUrl (url))
+				UIApplication.SharedApplication.OpenUrl (url);
+			else
+				new UIAlertView ("Oops", "Phone is not available", null, "Ok").Show ();
 		}
 
 		void OnEmailSelected (string emailAddress)
 		{
 			if (MFMailComposeViewController.CanSendMail) {
-                var composer = new MFMailComposeViewController ();
-                composer.SetToRecipients(new string[] { emailAddress });
+				var composer = new MFMailComposeViewController ();
+				composer.SetToRecipients (new string[] { emailAddress });
 				composer.Finished += (sender, e) => DismissViewController (true, null);
 				PresentViewController (composer, true, null);
 			} else {
-                new UIAlertView("Oops", "Email is not available", null, "Ok").Show();
-            }
+				new UIAlertView ("Oops", "Email is not available", null, "Ok").Show ();
+			}
 		}
 
 		void OnTwitterSelected (string twitterName)
 		{
 			var name = twitterName;
-			if (name.StartsWith ("@")) {
+			if (name.StartsWith ("@"))
 				name = name.Substring (1);
-			}
+
 			UIApplication.SharedApplication.OpenUrl (
 				NSUrl.FromString ("http://twitter.com/" + Uri.EscapeDataString (name)));
 		}
@@ -126,10 +125,12 @@ namespace EmployeeDirectory.iOS
 		class PersonDelegate : UITableViewDelegate
 		{
 			PersonViewController controller;
+
 			public PersonDelegate (PersonViewController controller)
 			{
 				this.controller = controller;
 			}
+
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
 				var section = indexPath.Section;
@@ -139,20 +140,18 @@ namespace EmployeeDirectory.iOS
 
 					tableView.DeselectRow (indexPath, true);
 					tableView.ReloadRows (new [] { indexPath }, UITableViewRowAnimation.Automatic);
-				}
-				else if (section >= 2) {
-					var prop = controller.personViewModel.PropertyGroups [section-2].Properties [indexPath.Row];
+				} else if (section >= 2) {
+					var prop = controller.personViewModel.PropertyGroups [section - 2].Properties [indexPath.Row];
 					controller.OnPropertySelected (prop);
 				}
 			}
 
 			public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Section == 0) {
+				if (indexPath.Section == 0)
 					return 100;
-				} else {
+				else
 					return 44;
-				}
 			}
 		}
 
@@ -163,9 +162,9 @@ namespace EmployeeDirectory.iOS
 			const string PlaceholderImagePath = "DetailsPlaceholder.jpg";
 
 			static Lazy<UIImage> PlaceholderImage = new Lazy<UIImage> (
-				() => UIImage.FromBundle (PlaceholderImagePath));
+				                                        () => UIImage.FromBundle (PlaceholderImagePath));
 
-			const int ImageSize = 88*2;
+			const int ImageSize = 88 * 2;
 
 			PersonViewController controller;
 
@@ -184,7 +183,7 @@ namespace EmployeeDirectory.iOS
 				if (section < 2)
 					return 1;
 				else
-					return controller.personViewModel.PropertyGroups[(int)section - 2].Properties.Count;
+					return controller.personViewModel.PropertyGroups [(int)section - 2].Properties.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
@@ -197,7 +196,7 @@ namespace EmployeeDirectory.iOS
 						cell = new UITableViewCell (UITableViewCellStyle.Default, "N");
 						cell.SelectionStyle = UITableViewCellSelectionStyle.None;
 						cell.ImageView.Layer.CornerRadius = 6;
-						cell.ImageView.Layer.MasksToBounds = true;//.FillMode = 5;
+						cell.ImageView.Layer.MasksToBounds = true;
 					}
 
 					var person = controller.personViewModel.Person;
@@ -209,8 +208,7 @@ namespace EmployeeDirectory.iOS
 
 						if (imageDownloader.HasLocallyCachedCopy (imageUrl)) {
 							cell.ImageView.Image = (UIImage)imageDownloader.GetImageAsync (imageUrl).Result;
-						}
-						else {
+						} else {
 							cell.ImageView.Image = PlaceholderImage.Value;
 							imageDownloader.GetImageAsync (imageUrl).ContinueWith (t => {
 								cell.ImageView.Image = (UIImage)t.Result;
@@ -234,9 +232,9 @@ namespace EmployeeDirectory.iOS
 					return cell;
 				} else {
 					var cell = tableView.DequeueReusableCell ("C");
-					if (cell == null) {
+
+					if (cell == null)
 						cell = new UITableViewCell (UITableViewCellStyle.Value2, "C");
-					}
 
 					var prop = controller.personViewModel.PropertyGroups [section - 2].Properties [indexPath.Row];
 

@@ -33,6 +33,7 @@ namespace EmployeeDirectory.iOS
 		UILabel detailsLabel;
 
 		Person person = null;
+
 		public Person Person {
 			get { return person; }
 			set {
@@ -49,21 +50,21 @@ namespace EmployeeDirectory.iOS
 			firstNameLabel = new UILabel {
 				Font = NormalFont,
 				TextColor = UIColor.Black,
-				HighlightedTextColor = UIColor.White,
+				HighlightedTextColor = UIColor.White
 			};
 			ContentView.Add (firstNameLabel);
 
 			lastNameLabel = new UILabel {
 				Font = BoldFont,
 				TextColor = UIColor.Black,
-				HighlightedTextColor = UIColor.White,
+				HighlightedTextColor = UIColor.White
 			};
 			ContentView.Add (lastNameLabel);
 
 			detailsLabel = new UILabel {
 				Font = DetailsFont,
 				TextColor = UIColor.Gray,
-				HighlightedTextColor = UIColor.White,
+				HighlightedTextColor = UIColor.White
 			};
 			ContentView.Add (detailsLabel);
 		}
@@ -72,14 +73,14 @@ namespace EmployeeDirectory.iOS
 		{
 			var x = 44 + 6;
 
-			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0)) 
+			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0))
 				x += 15; // okay, we need a more thorough iOS 7 update than this, but for now this'll have to do
 
 			var fn = person.FirstNameAndInitials;
 			firstNameLabel.Text = fn;
 			var fnw = string.IsNullOrEmpty (fn) ? 
 				0.0f : 
-					UIStringDrawing.StringSize(fn, NormalFont).Width;
+					UIStringDrawing.StringSize (fn, NormalFont).Width;
 			var f = new CGRect (x, 4, fnw + 4, 20);
 			firstNameLabel.Frame = f;
 
@@ -92,7 +93,7 @@ namespace EmployeeDirectory.iOS
 			f.Width = lnw;
 			lastNameLabel.Frame = f;
 
-			detailsLabel.Text = person.TitleAndDepartment ?? "";
+			detailsLabel.Text = person.TitleAndDepartment ?? string.Empty;
 			detailsLabel.Frame = new CGRect (x, 25, 258, 14);
 		}
 	}

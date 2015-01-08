@@ -27,19 +27,21 @@ namespace EmployeeDirectory.iOS
 	{
 		public static void ShowError (this UIViewController vc, string title, Exception ex)
 		{
-			while (ex.InnerException != null) {
+			while (ex.InnerException != null)
 				ex = ex.InnerException;
-			}
+
 			ShowError (vc, title, ex.Message);
 		}
 
 		public static void ShowError (this UIViewController vc, string title, string message)
 		{
 			var alert = new UIAlertView (
-				title,
-				message,
-				null,
-				NSBundle.MainBundle.LocalizedString ("OK", "Error alert dimissal button title"));
+				            title,
+				            message,
+				            null,
+				            NSBundle.MainBundle.LocalizedString ("OK", "Error alert dimissal button title")
+			            );
+
 			alert.Show ();
 		}
 	}

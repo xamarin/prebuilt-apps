@@ -70,14 +70,12 @@ namespace EmployeeDirectory.Data
 			var serializer = new XmlSerializer (typeof(XmlFavoritesRepository));
 			var iso = IsolatedStorageFile.GetUserStoreForApplication ();
 
-			using (var f = iso.OpenFile (IsolatedStorageName, FileMode.Create)) {
+			using (var f = iso.OpenFile (IsolatedStorageName, FileMode.Create))
 				serializer.Serialize (f, this);
-			}
 
 			var ev = Changed;
-			if (ev != null) {
+			if (ev != null)
 				ev (this, EventArgs.Empty);
-			}
 		}
 
 		#region IFavoritesRepository implementation
@@ -100,22 +98,25 @@ namespace EmployeeDirectory.Data
 		public void InsertOrUpdate (Person person)
 		{
 			var existing = People.FirstOrDefault (x => x.Id == person.Id);
-			if (existing != null) {
+
+			if (existing != null)
 				People.Remove (existing);
-			}
+
 			People.Add (person);
 			Commit ();
 		}
 
 		public void Delete (Person person)
 		{
-			var newPeopleQ = from p in People where p.Id != person.Id select p;
+			var newPeopleQ = from p in People
+			                 where p.Id != person.Id
+			                 select p;
 			var newPeople = newPeopleQ.ToList ();
 			var n = People.Count - newPeople.Count;
 			People = newPeople;
-			if (n != 0) {
+
+			if (n != 0)
 				Commit ();
-			}
 		}
 
 		#endregion
