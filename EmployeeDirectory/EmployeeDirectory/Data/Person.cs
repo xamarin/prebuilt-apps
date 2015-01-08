@@ -154,11 +154,10 @@ namespace EmployeeDirectory.Data
 		public string FirstNameAndInitials {
 			get {
 				if (!string.IsNullOrWhiteSpace (FirstName)) {
-					if (!string.IsNullOrWhiteSpace (Initials)) {
+					if (!string.IsNullOrWhiteSpace (Initials))
 						return FirstName + " " + Initials;
-					} else {
+					else
 						return FirstName;
-					}
 				} else {
 					return SplitFirstAndLastName () [0];
 				}
