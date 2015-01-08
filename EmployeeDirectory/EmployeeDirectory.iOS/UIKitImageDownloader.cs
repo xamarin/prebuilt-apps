@@ -16,8 +16,8 @@
 using System;
 using System.IO;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 
 using EmployeeDirectory.Utilities;
 

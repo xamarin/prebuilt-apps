@@ -15,9 +15,9 @@
 //
 using System;
 
-using MonoTouch.UIKit;
+using UIKit;
 
-using System.Drawing;
+using CoreGraphics;
 
 namespace EmployeeDirectory.iOS
 {
@@ -34,7 +34,7 @@ namespace EmployeeDirectory.iOS
 		public bool IsRunning { get; private set; }
 
 		public ActivityView ()
-			: base (new RectangleF (0, 0, 88, 88))
+			: base (new CGRect (0, 0, 88, 88))
 		{
 			BackgroundColor = UIColor.Black.ColorWithAlpha (0.75f);
 			Opaque = false;
@@ -44,7 +44,7 @@ namespace EmployeeDirectory.iOS
 
 			var b = Bounds;
 
-			label = new UILabel (new RectangleF (8, b.Height - 8 - 20, b.Width - 16, 20)) {
+			label = new UILabel (new CGRect (8, b.Height - 8 - 20, b.Width - 16, 20)) {
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = UIFont.BoldSystemFontOfSize (UIFont.SmallSystemFontSize),

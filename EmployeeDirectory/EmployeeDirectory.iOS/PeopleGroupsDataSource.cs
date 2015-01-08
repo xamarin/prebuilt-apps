@@ -19,8 +19,8 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
 
-using MonoTouch.Foundation;
-using MonoTouch.UIKit;
+using Foundation;
+using UIKit;
 
 using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
@@ -58,24 +58,24 @@ namespace EmployeeDirectory.iOS
 			}
 		}
 
-		public override string TitleForHeader (UITableView tableView, int section)
+		public override string TitleForHeader (UITableView tableView, nint section)
 		{
-			return Groups [section].Title;
+			return Groups [(int)section].Title;
 		}
 
-		public override string[] SectionIndexTitles (UITableView tableView)
+		public override String[] SectionIndexTitles (UITableView tableView)
 		{
 			return Groups.Select (x => x.Title).ToArray ();
 		}
 
-		public override int NumberOfSections (UITableView tableView)
+		public override nint NumberOfSections (UITableView tableView)
 		{
 			return Groups.Count;
 		}
 
-		public override int RowsInSection (UITableView tableView, int section)
+		public override nint RowsInSection (UITableView tableView, nint section)
 		{
-			return Groups [section].People.Count;
+			return Groups [(int)section].People.Count;
 		}
 
 		public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

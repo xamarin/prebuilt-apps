@@ -15,9 +15,9 @@
 //
 using System;
 
-using MonoTouch.Foundation;
-using MonoTouch.MessageUI;
-using MonoTouch.UIKit;
+using Foundation;
+using MessageUI;
+using UIKit;
 
 using EmployeeDirectory.ViewModels;
 using EmployeeDirectory.Data;
@@ -146,7 +146,7 @@ namespace EmployeeDirectory.iOS
 				}
 			}
 
-			public override float GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
+			public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
 				if (indexPath.Section == 0) {
 					return 100;
@@ -174,17 +174,17 @@ namespace EmployeeDirectory.iOS
 				this.controller = controller;
 			}
 
-			public override int NumberOfSections (UITableView tableView)
+			public override nint NumberOfSections (UITableView tableView)
 			{
 				return controller.personViewModel.PropertyGroups.Count + 2;
 			}
 
-			public override int RowsInSection (UITableView tableView, int section)
+			public override nint RowsInSection (UITableView tableView, nint section)
 			{
 				if (section < 2)
 					return 1;
 				else
-					return controller.personViewModel.PropertyGroups[section - 2].Properties.Count;
+					return controller.personViewModel.PropertyGroups[(int)section - 2].Properties.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

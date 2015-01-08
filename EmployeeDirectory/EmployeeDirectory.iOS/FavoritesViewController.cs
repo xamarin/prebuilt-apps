@@ -14,10 +14,10 @@
 //    limitations under the License.
 //
 using System;
-using MonoTouch.UIKit;
+using UIKit;
 using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
-using System.Drawing;
+using CoreGraphics;
 
 namespace EmployeeDirectory.iOS
 {
@@ -55,7 +55,7 @@ namespace EmployeeDirectory.iOS
 			//
 			// Configure the search bar
 			//
-			searchBar = new UISearchBar (new RectangleF (0, 0, 320, 44)) {
+			searchBar = new UISearchBar (new CGRect (0, 0, 320, 44)) {
 				ShowsScopeBar = true,
 			};
 			searchBar.ScopeButtonTitles = new[] { "Name", "Title", "Dept", "All" };

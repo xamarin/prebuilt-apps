@@ -1,6 +1,6 @@
 using System;
-using MonoTouch.UIKit;
-using System.Drawing;
+using UIKit;
+using CoreGraphics;
 using System.Collections.Generic;
 
 namespace EmployeeDirectory.iOS
@@ -67,11 +67,6 @@ namespace EmployeeDirectory.iOS
 			} else {
 				view.SetBackgroundImage (navigationBarBackground.Value, UIBarMetrics.Default);
 			}
-			view.SetTitleTextAttributes (new UITextAttributes {
-				TextColor = UIColor.FromRGBA (255, 255, 255, 255),
-				TextShadowColor = UIColor.FromRGBA (0, 0, 0, 0.8f),
-				TextShadowOffset = new UIOffset (0, -1),
-			});
 		}
 
 		/// <summary>

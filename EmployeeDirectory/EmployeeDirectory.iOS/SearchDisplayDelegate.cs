@@ -15,7 +15,7 @@
 //
 using System;
 
-using MonoTouch.UIKit;
+using UIKit;
 
 using EmployeeDirectory.ViewModels;
 
@@ -72,7 +72,7 @@ namespace EmployeeDirectory.iOS
 			}
 		}
 
-		public override bool ShouldReloadForSearchScope (UISearchDisplayController controller, int forSearchOption)
+		public override bool ShouldReloadForSearchScope (UISearchDisplayController controller, nint forSearchOption)
 		{
 			switch (forSearchOption) {
 			case 0:

@@ -14,11 +14,11 @@
 //    limitations under the License.
 //
 using System;
-using System.Drawing;
+using CoreGraphics;
 using System.Threading.Tasks;
 using System.Threading;
 
-using MonoTouch.UIKit;
+using UIKit;
 
 using EmployeeDirectory.ViewModels;
 
@@ -69,7 +69,7 @@ namespace EmployeeDirectory.iOS
 				AutocapitalizationType = UITextAutocapitalizationType.None,
 				ClearButtonMode = UITextFieldViewMode.WhileEditing,
 				Background = TextFieldBackground,
-				LeftView = new UIView (new RectangleF (0, 0, 8, 8)),
+				LeftView = new UIView (new CGRect (0, 0, 8, 8)),
 				LeftViewMode = UITextFieldViewMode.Always,
 				ReturnKeyType = UIReturnKeyType.Next,
 				ShouldReturn = delegate {
@@ -88,7 +88,7 @@ namespace EmployeeDirectory.iOS
 				AutocapitalizationType = UITextAutocapitalizationType.None,
 				ClearButtonMode = UITextFieldViewMode.WhileEditing,
 				Background = TextFieldBackground,
-				LeftView = new UIView (new RectangleF (0, 0, 8, 8)),
+				LeftView = new UIView (new CGRect (0, 0, 8, 8)),
 				LeftViewMode = UITextFieldViewMode.Always,
 				ReturnKeyType = UIReturnKeyType.Go,
 				ShouldReturn = delegate {
@@ -129,9 +129,9 @@ namespace EmployeeDirectory.iOS
 			View.AddSubview (indicator);
 		}
 
-		void AddCentered (UIView view, float y, float width, float height)
+		void AddCentered (UIView view, nfloat y, nfloat width, nfloat height)
 		{
-			var f = new RectangleF ((320 - width) / 2, y, width, height);
+			var f = new CGRect ((320 - width) / 2, y, width, height);
 			view.Frame = f;
 			view.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin;
 			View.AddSubview (view);

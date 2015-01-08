@@ -14,9 +14,9 @@
 //    limitations under the License.
 //
 using System;
-using System.Drawing;
+using CoreGraphics;
 
-using MonoTouch.UIKit;
+using UIKit;
 
 using EmployeeDirectory.Data;
 
@@ -79,21 +79,21 @@ namespace EmployeeDirectory.iOS
 			firstNameLabel.Text = fn;
 			var fnw = string.IsNullOrEmpty (fn) ? 
 				0.0f : 
-					firstNameLabel.StringSize (fn, NormalFont).Width;
-			var f = new RectangleF (x, 4, fnw + 4, 20);
+					UIStringDrawing.StringSize(fn, NormalFont).Width;
+			var f = new CGRect (x, 4, fnw + 4, 20);
 			firstNameLabel.Frame = f;
 
 			var ln = person.SafeLastName;
 			lastNameLabel.Text = ln;
 			var lnw = string.IsNullOrEmpty (ln) ?
 				0.0f :
-					lastNameLabel.StringSize (ln, BoldFont).Width;
+					UIStringDrawing.StringSize (ln, BoldFont).Width;
 			f.X = f.Right;
 			f.Width = lnw;
 			lastNameLabel.Frame = f;
 
 			detailsLabel.Text = person.TitleAndDepartment ?? "";
-			detailsLabel.Frame = new RectangleF (x, 25, 258, 14);
+			detailsLabel.Frame = new CGRect (x, 25, 258, 14);
 		}
 	}
 }
