@@ -99,7 +99,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="SQLite">
-      <HintPath>..\Components\sqlite-net-1.0.1\lib\ios\SQLite.dll</HintPath>
+      <HintPath>..\Components\sqlite-net-1.0.8.2\lib\ios-unified\SQLite.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
@@ -553,7 +553,7 @@
   </ItemGroup>
   <ItemGroup>
     <XamarinComponentReference Include="sqlite-net">
-      <Version>1.0.1</Version>
+      <Version>1.0.8.2</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="signature-pad">
