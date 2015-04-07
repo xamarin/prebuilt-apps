@@ -47,7 +47,6 @@ namespace FieldService.iOS
 			frame.X = 0;
 			frame.Y = 0;
 			mapView = new MKMapView(frame);
-			mapView.ShowsUserLocation = true;
 			mapView.AutoresizingMask = UIViewAutoresizing.All;
 			mapView.Delegate = new MapViewDelegate();
 
