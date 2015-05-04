@@ -13,10 +13,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using System.Globalization;
 using Foundation;
 using UIKit;
+
 using FieldService.Utilities;
 
 namespace FieldService.iOS
@@ -28,15 +30,15 @@ namespace FieldService.iOS
 	public class HoursField : UIView
 	{
 		const int Spacing = 6;
+
+		double value = 0.0;
+		bool enabled = true;
 		UITextField textField;
 		UIStepper stepper;
 
 		public event EventHandler EditingDidBegin;
 		public event EventHandler EditingDidEnd;
 		public event EventHandler ValueChanged;
-
-		private double value = 0;
-		private bool enabled = true;
 
 		public HoursField (IntPtr handle)
 			: base(handle)
@@ -70,30 +72,33 @@ namespace FieldService.iOS
 		/// Gets or sets the TextColor for the underlying UITextField
 		/// </summary>
 		public UIColor TextColor {
-			get { return  textField.TextColor; }
-			set { textField.TextColor = value; }
+			get {
+				return  textField.TextColor;
+			}
+			set {
+				textField.TextColor = value;
+			}
 		}
 
 		/// <summary>
 		/// Gets or sets the step at which the up/down arrows work
 		/// </summary>
-		public double Step {
-			get;
-			set;
-		}
+		public double Step { get; set; }
 
 		/// <summary>
 		/// Gets or sets a value indicating whether this <see cref="FieldService.iOS.HoursField"/> is enabled.
 		/// </summary>
 		public bool Enabled {
-			get { return enabled; }
+			get {
+				return enabled;
+			}
 			set {
-				if (enabled != value) {
-					enabled = value;
+				if (enabled == value)
+					return;
 
-					textField.Enabled =
-						stepper.Enabled = enabled;
-				}
+				enabled = value;
+				textField.Enabled =
+					stepper.Enabled = enabled;
 			}
 		}
 
@@ -101,10 +106,12 @@ namespace FieldService.iOS
 		/// Gets or sets the hours
 		/// </summary>
 		public double Value {
-			get { return value; }
+			get {
+				return value;
+			}
 			set {
-				if (value < 0) {
-					value = 0;
+				if (value < 0.0) {
+					value = 0.0;
 				}
 
 				textField.Text = value.ToString ("0.##");
@@ -126,8 +133,7 @@ namespace FieldService.iOS
 		{
 			Step = 0.5f;
 
-			textField = new UITextField
-			{
+			textField = new UITextField {
 				TextAlignment = UITextAlignment.Right,
 				VerticalAlignment = UIControlContentVerticalAlignment.Center,
 				TextColor = Theme.BlueTextColor,
@@ -146,9 +152,11 @@ namespace FieldService.iOS
 					method (this, EventArgs.Empty);
 			};
 
-			stepper = new UIStepper();
-			stepper.StepValue = Step;
-			stepper.Value = 0;
+			stepper = new UIStepper {
+				StepValue = Step,
+				Value = 0.0
+			};
+
 			stepper.ValueChanged += (sender, e) => Value = stepper.Value;
 
 			AddSubview (stepper);
@@ -162,14 +170,14 @@ namespace FieldService.iOS
 		{
 			var frame = Frame;
 			frame.X =
-				frame.Y = 0;
+				frame.Y = 0f;
 			frame.Width -= stepper.Frame.Width;
-			frame.Width -= Spacing * 2;
+			frame.Width -= Spacing * 2f;
 			textField.Frame = frame;
 
 			var stepperFrame = stepper.Frame;
 			stepperFrame.X = frame.Width + Spacing;
-			stepperFrame.Y = (Frame.Height - stepperFrame.Height) / 2;
+			stepperFrame.Y = (Frame.Height - stepperFrame.Height) / 2f;
 			stepper.Frame = stepperFrame;
 		}
 	}

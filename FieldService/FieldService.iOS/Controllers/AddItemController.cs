@@ -14,9 +14,11 @@
 //    limitations under the License.
 using System;
 using System.Linq;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.ViewModels;
 using FieldService.Utilities;
@@ -28,12 +30,12 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddItemController : UIViewController
 	{
+		readonly ItemViewModel itemViewModel;
+
 		/// <summary>
 		/// Occurs when dismissed.
 		/// </summary>
 		public event EventHandler Dismissed;
-
-		readonly ItemViewModel itemViewModel;
 
 		public AddItemController (IntPtr handle) : base (handle)
 		{
@@ -45,16 +47,16 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI setup from code
-			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
+			cancel.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			var label = new UILabel (new CGRect(0, 0, 80, 36)) {
+			var label = new UILabel (new CGRect (0f, 0f, 80f, 36f)) {
 				Text = "Items",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = Theme.BoldFontOfSize (18),
 			};
-			var items = new UIBarButtonItem(label);
+			var items = new UIBarButtonItem (label);
 
 			toolbar.Items = new UIBarButtonItem[] {
 				cancel,
@@ -82,9 +84,8 @@ namespace FieldService.iOS
 			base.ViewWillDisappear (animated);
 			
 			var method = Dismissed;
-			if (method != null) {
+			if (method != null)
 				method(this, EventArgs.Empty);
-			}
 		}
 
 		/// <summary>
@@ -122,10 +123,9 @@ namespace FieldService.iOS
 				var item = GetItem (indexPath);
 				var cell = tableView.DequeueReusableCell (Identifier);
 				if (cell == null)
-				{
 					cell = new UITableViewCell(UITableViewCellStyle.Default, Identifier);
-				}
-				cell.TextLabel.Text = item.Name + " " + item.Number;
+
+				cell.TextLabel.Text = string.Format ("{0} {1}", item.Name, item.Number);
 				return cell;
 			}
 
@@ -156,16 +156,12 @@ namespace FieldService.iOS
 		/// </summary>
 		private class SearchSource : TableSource, ISearchSource
 		{
+			public string SearchText { get; set; }
+
 			public SearchSource (AddItemController controller)
 				: base(controller)
 			{
 				
-			}
-
-			public string SearchText
-			{
-				get;
-				set;
 			}
 
 			public override nint RowsInSection (UITableView tableview, nint section)

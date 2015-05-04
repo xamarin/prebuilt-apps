@@ -29,7 +29,7 @@ namespace FieldService.iOS
 	{
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
-		readonly CGSize photoSize = new CGSize(475, 410); //Used for desired size of photos
+		readonly CGSize photoSize = new CGSize (475f, 410f); //Used for desired size of photos
 		PhotoAlertSheet photoSheet;
 
 		public ConfirmationController (IntPtr handle) : base (handle)
@@ -62,11 +62,11 @@ namespace FieldService.iOS
 			addPhoto.SetTitleColor (UIColor.White, UIControlState.Normal);
 
 			//Setup our toolbar
-			var label = new UILabel (new CGRect (0, 0, 120, 36)) {
+			var label = new UILabel (new CGRect (0f, 0f, 120f, 36f)) {
 				Text = "Confirmations",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
+				Font = Theme.BoldFontOfSize (16f),
 			};
 			var descriptionButton = new UIBarButtonItem (label);
 			toolbar.Items = new UIBarButtonItem[] { descriptionButton };
@@ -74,36 +74,37 @@ namespace FieldService.iOS
 			photoTableView.Source = new PhotoTableSource (this);
 			signatureTableView.Source = new SignatureTableSource (this);
 
-			if (Theme.IsiOS7) {
-				photoTableView.RowHeight = 64;
-				addPhoto.AutoresizingMask = UIViewAutoresizing.None;
-				addPhoto.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
-				addPhoto.SetImage (Theme.ImagePlaceholder, UIControlState.Normal);
-				addPhoto.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
-				addPhoto.TitleEdgeInsets = new UIEdgeInsets (0, 18, 0, 0);
+			if (!Theme.IsiOS7)
+				return;
 
-				var frame = addPhoto.Frame;
-				frame.X = 9;
-				frame.Y += 10;
-				frame.Height = 64;
-				frame.Width = addPhoto.Superview.Frame.Width - 20;
-				addPhoto.Frame = frame;
+			photoTableView.RowHeight = 64f;
+			addPhoto.AutoresizingMask = UIViewAutoresizing.None;
+			addPhoto.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
+			addPhoto.SetImage (Theme.ImagePlaceholder, UIControlState.Normal);
+			addPhoto.HorizontalAlignment = UIControlContentHorizontalAlignment.Left;
+			addPhoto.TitleEdgeInsets = new UIEdgeInsets (0f, 18f, 0f, 0f);
 
-				frame = addPhoto.Superview.Frame;
-				frame.Height = addPhoto.Frame.Bottom;
-				addPhoto.Superview.Frame = frame;
+			var frame = addPhoto.Frame;
+			frame.X = 9f;
+			frame.Y += 10f;
+			frame.Height = 64f;
+			frame.Width = addPhoto.Superview.Frame.Width - 20f;
+			addPhoto.Frame = frame;
 
-				signature.TextColor =
-					photos.TextColor =
-					requirement.TextColor =
-					note.TextColor = Theme.LabelColor;
+			frame = addPhoto.Superview.Frame;
+			frame.Height = addPhoto.Frame.Bottom;
+			addPhoto.Superview.Frame = frame;
 
-				addPhoto.Font =
-					signature.Font =
-					photos.Font = Theme.FontOfSize (18);
-				requirement.Font =
-					note.Font = Theme.FontOfSize (12);
-			}
+			signature.TextColor =
+				photos.TextColor =
+				requirement.TextColor =
+				note.TextColor = Theme.LabelColor;
+
+			addPhoto.Font =
+				signature.Font =
+				photos.Font = Theme.FontOfSize (18f);
+			requirement.Font =
+				note.Font = Theme.FontOfSize (12f);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -118,16 +119,17 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadConfirmation ()
 		{
-			if (IsViewLoaded) {
-				var assignment = assignmentViewModel.SelectedAssignment;
-				toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
+			if (!IsViewLoaded)
+				return;
+			
+			var assignment = assignmentViewModel.SelectedAssignment;
+			toolbar.SetBackgroundImage (assignment.IsHistory ? Theme.OrangeBar : Theme.BlueBar, UIToolbarPosition.Any, UIBarMetrics.Default);
 
-				signatureTableView.ReloadData ();
+			signatureTableView.ReloadData ();
 
-				photoViewModel.LoadPhotosAsync (assignment)
-					.ContinueWith (assignmentViewModel.LoadSignatureAsync (assignment))
-					.ContinueWith (_ => BeginInvokeOnMainThread (photoTableView.ReloadData));
-			}
+			photoViewModel.LoadPhotosAsync (assignment)
+				.ContinueWith (assignmentViewModel.LoadSignatureAsync (assignment))
+				.ContinueWith (_ => BeginInvokeOnMainThread (photoTableView.ReloadData));
 		}
 
 		/// <summary>
@@ -136,14 +138,13 @@ namespace FieldService.iOS
 		partial void AddPhoto ()
 		{
 			photoViewModel.SelectedPhoto = new Photo { AssignmentId = assignmentViewModel.SelectedAssignment.Id, Date = DateTime.Now };
-
 			photoSheet.ShowFrom (addPhoto.Frame, addPhoto.Superview, true);
 		}
 
 		/// <summary>
 		/// Table source for photos
 		/// </summary>
-		private class PhotoTableSource : UITableViewSource
+		class PhotoTableSource : UITableViewSource
 		{
 			const string Identifier = "PhotoCell";
 			readonly PhotoViewModel photoViewModel;
@@ -190,7 +191,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Table source for signature
 		/// </summary>
-		private class SignatureTableSource : UITableViewSource
+		class SignatureTableSource : UITableViewSource
 		{
 			const string SignatureIdentifier = "SignatureCell";
 			const string CompleteIdentifier = "CompleteCell";

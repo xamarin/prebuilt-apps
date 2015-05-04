@@ -26,11 +26,11 @@ namespace FieldService {
     /// </summary>
     public class Catalog {
 
-        private const string UsernameValidation = "Please enter a username.";
-        private const string PasswordValidation = "Please enter a password.";
-        private const string LaborTypeHourly = "Hourly";
-        private const string LaborTypeOverTime = "Over Time";
-        private const string LaborTypeHolidayTime = "Holiday Time";
+        const string UsernameValidation = "Please enter a username.";
+        const string PasswordValidation = "Please enter a password.";
+        const string LaborTypeHourly = "Hourly";
+        const string LaborTypeOverTime = "Over Time";
+        const string LaborTypeHolidayTime = "Holiday Time";
 
         public static string GetString (string key, string comment = null)
         {

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MSBuildAllProjects>$(MSBuildAllProjects);$(MSBuildThisFileFullPath)</MSBuildAllProjects>
+    <HasSharedItems>true</HasSharedItems>
+    <SharedGUID>{2AD3BA1C-6676-4399-9F92-12DA2C35CC39}</SharedGUID>
+  </PropertyGroup>
+  <PropertyGroup Label="Configuration">
+    <Import_RootNamespace>FieldService.Shared</Import_RootNamespace>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="$(MSBuildThisFileDirectory)ServiceRegistrar.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ILoginService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)IAssignmentService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Catalog.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\AssignmentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\DocumentViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ExpenseViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\HistoryViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ItemViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LaborViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\LoginViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\MenuViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\PhotoViewModel.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ViewModels\ViewModelBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\DataExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\ServiceContainer.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Utilities\TaskExtensions.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Properties\AssemblyInfo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Assignment.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\AssignmentHistory.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\AssignmentItem.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Database.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Document.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Enumerations.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Expense.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\ExpensePhoto.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Item.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Labor.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Photo.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\PropertyChangedBase.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\SampleAssignmentService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\SampleLoginService.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\Signature.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\TestData.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)Data\TimerEntry.cs" />
+  </ItemGroup>
+</Project>

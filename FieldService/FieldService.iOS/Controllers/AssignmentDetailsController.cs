@@ -13,10 +13,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using MapKit;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -75,8 +77,7 @@ namespace FieldService.iOS
 			//Events
 			status.StatusChanged += (sender, e) => SaveAssignment ();
 
-			status.Completed += (sender, e) => 
-			{
+			status.Completed += (sender, e) => {
 				menuViewModel.MenuIndex = SectionIndex.Confirmations;
 				assignmentViewModel.SelectedAssignment = status.Assignment;
 
@@ -89,57 +90,57 @@ namespace FieldService.iOS
 			lastChildController =
 				summaryController = ChildViewControllers[0] as SummaryController;
 
-			if (Theme.IsiOS7) {
-				assignmentBackground.Image = Theme.AssignmentGrey;
-				priority.Font = Theme.FontOfSize (18);
-				startAndEnd.Font = Theme.BoldFontOfSize (10);
-				startAndEnd.TextColor = UIColor.White;
-				accept.SetTitleColor (Theme.GreenColor, UIControlState.Normal);
-				decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
-				accept.Font =
-					decline.Font = Theme.FontOfSize (16);
-
-				//Status dropdown frame
-				var frame = status.Frame;
-				frame.Width /= 2;
-				frame.X += frame.Width + 9;
-				status.Frame = frame;
-
-				//Priority frames
-				frame = priorityBackground.Frame;
-				frame.Width = frame.Height;
-				priorityBackground.Frame =
-					priority.Frame = frame;
-
-				//Start and end dates
-				frame = startAndEnd.Frame;
-				frame.X += 4;
-				startAndEnd.Frame = frame;
-
-				//Additional box for the start/end date
-				frame = startAndEnd.Frame;
-				frame.X -= 4;
-				frame.Y += 4;
-				frame.Width = 102;
-				frame.Height = 16;
-				var timeBox = new UIImageView (frame) {
-					Image = Theme.TimeBox,
-					ContentMode = UIViewContentMode.Left,
-				};
-				assignmentBackground.AddSubview (timeBox);
-				assignmentBackground.BringSubviewToFront (startAndEnd);
-
-			} else {
+			if (!Theme.IsiOS7) {
 				assignmentBackground.Image = Theme.AssignmentActive;
 				accept.SetBackgroundImage (Theme.Accept, UIControlState.Normal);
 				decline.SetBackgroundImage (Theme.Decline, UIControlState.Normal);
+				return;
 			}
+
+			assignmentBackground.Image = Theme.AssignmentGrey;
+			priority.Font = Theme.FontOfSize (18f);
+			startAndEnd.Font = Theme.BoldFontOfSize (10f);
+			startAndEnd.TextColor = UIColor.White;
+			accept.SetTitleColor (Theme.GreenColor, UIControlState.Normal);
+			decline.SetTitleColor (Theme.RedColor, UIControlState.Normal);
+			accept.Font =
+				decline.Font = Theme.FontOfSize (16f);
+
+			//Status dropdown frame
+			var frame = status.Frame;
+			frame.Width /= 2f;
+			frame.X += frame.Width + 9f;
+			status.Frame = frame;
+
+			//Priority frames
+			frame = priorityBackground.Frame;
+			frame.Width = frame.Height;
+			priorityBackground.Frame =
+				priority.Frame = frame;
+
+			//Start and end dates
+			frame = startAndEnd.Frame;
+			frame.X += 4f;
+			startAndEnd.Frame = frame;
+
+			//Additional box for the start/end date
+			frame = startAndEnd.Frame;
+			frame.X -= 4f;
+			frame.Y += 4f;
+			frame.Width = 102f;
+			frame.Height = 16f;
+			var timeBox = new UIImageView (frame) {
+				Image = Theme.TimeBox,
+				ContentMode = UIViewContentMode.Left,
+			};
+
+			assignmentBackground.AddSubview (timeBox);
+			assignmentBackground.BringSubviewToFront (startAndEnd);
 		}
 
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-
 			UpdateAssignment ();
 		}
 
@@ -216,11 +217,7 @@ namespace FieldService.iOS
 			if (assignment != null && IsViewLoaded) {
 
 				//Update font size on priority
-				if (assignment.Priority >= 10) {
-					priority.Font = Theme.FontOfSize (14);
-				} else {
-					priority.Font = Theme.FontOfSize (18);
-				}
+				priority.Font = Theme.FontOfSize (assignment.Priority >= 10 ? 14f : 18f);
 
 				var splitController = ParentViewController as SplitController;
 				if (splitController != null)
@@ -247,9 +244,8 @@ namespace FieldService.iOS
 				}
 
 				var confirmationController = ChildViewControllers[0] as ConfirmationController;
-				if (confirmationController != null) {
+				if (confirmationController != null)
 					confirmationController.ReloadConfirmation ();
-				}
 			}
 		}
 
@@ -258,11 +254,8 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Accept ()
 		{
-			if (assignmentViewModel.ActiveAssignment == null) {
-				assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Active;
-			} else {
-				assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Hold;
-			}
+			assignmentViewModel.SelectedAssignment.Status = assignmentViewModel.ActiveAssignment == null ?
+				AssignmentStatus.Active :  AssignmentStatus.Hold;
 
 			SaveAssignment ();
 		}
@@ -273,7 +266,6 @@ namespace FieldService.iOS
 		partial void Decline ()
 		{
 			assignmentViewModel.SelectedAssignment.Status = AssignmentStatus.Declined;
-			
 			SaveAssignment ();
 		}
 
@@ -289,7 +281,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Saves the assignment.
 		/// </summary>
-		private void SaveAssignment ()
+		void SaveAssignment ()
 		{
 			assignmentViewModel
 				.SaveAssignmentAsync (assignmentViewModel.SelectedAssignment)
@@ -298,9 +290,8 @@ namespace FieldService.iOS
 						UpdateAssignment ();
 
 						var method = StatusChanged;
-						if (method != null) {
+						if (method != null)
 							method(this, EventArgs.Empty);
-						}
 					});
 				});
 		}

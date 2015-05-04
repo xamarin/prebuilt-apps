@@ -13,14 +13,16 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using CoreGraphics;
 using System.Linq;
 using System.Runtime.InteropServices;
+
+using CoreGraphics;
 using AddressBook;
 using CoreLocation;
 using Foundation;
 using MapKit;
 using UIKit;
+
 using FieldService.Data;
 
 namespace FieldService.iOS
@@ -73,11 +75,13 @@ namespace FieldService.iOS
 		/// </summary>
 		public static MKPlacemark ToPlacemark (this Assignment assignment)
 		{
-			var address = new PersonAddress ();
-			address.Street = assignment.JobNumberFormatted + " - " + assignment.Address;
-			address.City = assignment.City;
-			address.State = assignment.State;
-			address.Country = string.Empty;
+			var address = new PersonAddress {
+				Street = string.Format ("{0} - {1}", assignment.JobNumberFormatted, assignment.Address),
+				City = assignment.City,
+				State = assignment.State,
+				Country = string.Empty
+			};
+
 			address.Dictionary [new NSString ("Assignment")] = assignment.WrapObject ();
 			
 			return new MKPlacemark (new CLLocationCoordinate2D (assignment.Latitude, assignment.Longitude), address.Dictionary);
@@ -99,9 +103,8 @@ namespace FieldService.iOS
 			if (bytes == null)
 				return null;
 
-			using (var data = NSData.FromArray (bytes)) {
+			using (var data = NSData.FromArray (bytes))
 				return UIImage.LoadFromData (data);
-			}
 		}
 
 		/// <summary>
@@ -112,9 +115,8 @@ namespace FieldService.iOS
 			if (stream == null)
 				return null;
 
-			using (var data = NSData.FromStream (stream)) {
+			using (var data = NSData.FromStream (stream))
 				return UIImage.LoadFromData (data);
-			}
 		}
 
 		/// <summary>
@@ -125,13 +127,12 @@ namespace FieldService.iOS
 			if (image == null)
 				return null;
 
-			using (image) {
+			using (image)
 				using (var data = image.AsJPEG ()) {
 					byte[] bytes = new byte[data.Length];
 					Marshal.Copy (data.Bytes, bytes, 0, (int)data.Length);
 					return bytes;
 				}
-			}
 		}
 
 		/// <summary>

@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.ViewModels;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -39,17 +41,18 @@ namespace FieldService.iOS
 			loginViewModel.IsValidChanged += OnIsValidChanged;
 		}
 
-		private void OnIsBusyChanged (object sender, EventArgs e)
+		void OnIsBusyChanged (object sender, EventArgs e)
 		{
-			if (IsViewLoaded) {
-				View.UserInteractionEnabled =
-					indicator.Hidden = !loginViewModel.IsBusy;
-				login.Hidden = loginViewModel.IsBusy;
+			if (!IsViewLoaded)
+				return;
 
-				if (Theme.IsiOS7) {
-					username.Hidden =
-						password.Hidden = loginViewModel.IsBusy;
-				}
+			View.UserInteractionEnabled =
+				indicator.Hidden = !loginViewModel.IsBusy;
+			login.Hidden = loginViewModel.IsBusy;
+
+			if (Theme.IsiOS7) {
+				username.Hidden =
+					password.Hidden = loginViewModel.IsBusy;
 			}
 		}
 
@@ -101,79 +104,77 @@ namespace FieldService.iOS
 			password.TextColor = Theme.LabelColor;
 			password.SetDidChangeNotification (text => loginViewModel.Password = text.Text);
 			password.ShouldReturn = _ => {
-				if (loginViewModel.IsValid) {
+				if (loginViewModel.IsValid)
 					Login ();
-				}
 				return false;
 			};
 
-			if (Theme.IsiOS7) {
-				companyName.Hidden = true;
-				username.LeftView = new UIView (new CGRect (0, 0, 20, 20));
-				password.LeftView = new UIView (new CGRect (0, 0, 20, 20));
-				login.Font = 
-					username.Font =
-					password.Font = Theme.FontOfSize (18);
-				hexagons.Image = UIImage.FromFile ("Images/iOS7/hexagons.png");
-
-				//Add light gray lines
-				var view = new UIView (new CGRect (0, 0, container.Frame.Width, 1)) {
-					BackgroundColor = Theme.LightGrayColor,
-				};
-				username.AddSubview (view);
-
-				view = new UIView (new CGRect (0, 0, container.Frame.Width, 1)) {
-					BackgroundColor = Theme.LightGrayColor,
-				};
-				password.AddSubview (view);
-
-				//Resize the container
-				var frame = container.Frame;
-				frame.Width = 400;
-				frame.Height = 300;
-				frame.X = (View.Frame.Width - frame.Width) / 2;
-				frame.Y = (View.Frame.Height - frame.Height) / 2;
-				container.Frame = frame;
-
-				//Move up the logo
-				frame = logo.Frame;
-				frame.Y -= 10;
-				frame.Width = 172;
-				frame.Height = 48;
-				logo.Frame = frame;
-
-				//Move the login button
-				frame = login.Frame;
-				frame.X = 0;
-				frame.Y = container.Frame.Height - frame.Height;
-				frame.Width = container.Frame.Width;
-				login.Frame = frame;
-
-				//Move the indicator
-				frame = indicator.Frame;
-				frame.Y = (container.Frame.Height - frame.Height) / 2;
-				indicator.Frame = frame;
-
-				//Move the username and password
-				frame = username.Frame;
-				frame.X = 0;
-				frame.Y -= 60;
-				frame.Width = container.Frame.Width;
-				username.Frame = frame;
-
-				frame = password.Frame;
-				frame.X = 0;
-				frame.Y -= 80;
-				frame.Width = container.Frame.Width;
-				password.Frame = frame;
-
-
-			} else {
+			if (!Theme.IsiOS7) {
 				username.Background =
 					password.Background = Theme.LoginTextField;
-				username.LeftView = new UIView (new CGRect (0, 0, 10, 10));
-				password.LeftView = new UIView (new CGRect (0, 0, 10, 10));
+				username.LeftView = new UIView (new CGRect (0f, 0f, 10f, 10f));
+				password.LeftView = new UIView (new CGRect (0f, 0f, 10f, 10f));
+				return;
 			}
+
+			companyName.Hidden = true;
+			username.LeftView = new UIView (new CGRect (0f, 0f, 20f, 20f));
+			password.LeftView = new UIView (new CGRect (0f, 0f, 20f, 20f));
+			login.Font =
+				username.Font =
+				password.Font = Theme.FontOfSize (18f);
+			hexagons.Image = UIImage.FromFile ("Images/iOS7/hexagons.png");
+
+			//Add light gray lines
+			var view = new UIView (new CGRect (0f, 0f, container.Frame.Width, 1f)) {
+				BackgroundColor = Theme.LightGrayColor,
+			};
+			username.AddSubview (view);
+
+			view = new UIView (new CGRect (0f, 0f, container.Frame.Width, 1f)) {
+				BackgroundColor = Theme.LightGrayColor,
+			};
+			password.AddSubview (view);
+
+			//Resize the container
+			var frame = container.Frame;
+			frame.Width = 400f;
+			frame.Height = 300f;
+			frame.X = (View.Frame.Width - frame.Width) / 2f;
+			frame.Y = (View.Frame.Height - frame.Height) / 2f;
+			container.Frame = frame;
+
+			//Move up the logo
+			frame = logo.Frame;
+			frame.Y -= 10f;
+			frame.Width = 172f;
+			frame.Height = 48f;
+			logo.Frame = frame;
+
+			//Move the login button
+			frame = login.Frame;
+			frame.X = 0f;
+			frame.Y = container.Frame.Height - frame.Height;
+			frame.Width = container.Frame.Width;
+			login.Frame = frame;
+
+			//Move the indicator
+			frame = indicator.Frame;
+			frame.Y = (container.Frame.Height - frame.Height) / 2f;
+			indicator.Frame = frame;
+
+			//Move the username and password
+			frame = username.Frame;
+			frame.X = 0f;
+			frame.Y -= 60f;
+			frame.Width = container.Frame.Width;
+			username.Frame = frame;
+
+			frame = password.Frame;
+			frame.X = 0f;
+			frame.Y -= 80f;
+			frame.Width = container.Frame.Width;
+			password.Frame = frame;
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -185,8 +186,8 @@ namespace FieldService.iOS
 			password.Text = string.Empty;
 
 			//Animate the login box
-			container.Alpha = 0;
-			UIView.Animate (.3, 0, UIViewAnimationOptions.CurveEaseInOut, () => container.Alpha = 1, null);
+			container.Alpha = 0f;
+			UIView.Animate (.3, 0f, UIViewAnimationOptions.CurveEaseInOut, () => container.Alpha = 1f, null);
 		}
 
 		partial void Login ()
@@ -215,10 +216,11 @@ namespace FieldService.iOS
 		{
 			//We "center" the popup when the keyboard appears/disappears
 			var frame = container.Frame;
+
 			if (visible)
-				frame.Y -= height / 2;
+				frame.Y -= height / 2f;
 			else
-				frame.Y += height / 2;
+				frame.Y += height / 2f;
 			container.Frame = frame;
 		}
 	}

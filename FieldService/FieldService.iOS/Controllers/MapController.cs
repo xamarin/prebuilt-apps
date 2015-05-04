@@ -15,10 +15,12 @@
 using System;
 using System.Linq;
 using System.Text;
+
 using Foundation;
 using UIKit;
 using MapKit;
 using CoreLocation;
+
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -71,7 +73,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Delegate for the map view
 		/// </summary>
-		private class MapViewDelegate : MKMapViewDelegate
+		class MapViewDelegate : MKMapViewDelegate
 		{
 			const string Identifier = "AssignmentAnnotation";
 			readonly UIPopoverController popoverController;
@@ -79,7 +81,7 @@ namespace FieldService.iOS
 			public MapViewDelegate ()
 			{
 				popoverController = new UIPopoverController(new UIViewController());
-				popoverController.PopoverContentSize = new CoreGraphics.CGSize(100, 100);
+				popoverController.PopoverContentSize = new CoreGraphics.CGSize (100f, 100f);
 			}
 
 			/// <summary>
@@ -89,19 +91,20 @@ namespace FieldService.iOS
 			{
 				if (annotation is MKUserLocation) {
 					return null;
-				} else {
-					var annotationView = mapView.DequeueReusableAnnotation (Identifier) as MKPinAnnotationView;
-					if (annotationView == null) {
-						annotationView = new MKPinAnnotationView(annotation, Identifier);
-						annotationView.PinColor = MKPinAnnotationColor.Green;
-						annotationView.AnimatesDrop = true;
-						annotationView.CanShowCallout = true;
-						annotationView.RightCalloutAccessoryView = UIButton.FromType (UIButtonType.DetailDisclosure);
-					} else {
-						annotationView.Annotation = annotation;
-					}
-					return annotationView;
 				}
+
+				var annotationView = mapView.DequeueReusableAnnotation (Identifier) as MKPinAnnotationView;
+				if (annotationView == null)
+					annotationView = new MKPinAnnotationView(annotation, Identifier) {
+						PinColor = MKPinAnnotationColor.Green,
+						AnimatesDrop = true,
+						CanShowCallout = true,
+						RightCalloutAccessoryView = UIButton.FromType (UIButtonType.DetailDisclosure)
+					};
+				else
+					annotationView.Annotation = annotation;
+
+				return annotationView;
 			}
 
 			/// <summary>
@@ -110,8 +113,7 @@ namespace FieldService.iOS
 			public override void DidUpdateUserLocation (MKMapView mapView, MKUserLocation userLocation)
 			{
 				var placemark = mapView.Annotations.OfType<MKPlacemark>().FirstOrDefault ();
-				if (placemark != null && userLocation.Location != null)
-				{
+				if (placemark != null && userLocation.Location != null) {
 					//Calculate the mid point between 2 locations
 					double latitude = Math.Min (userLocation.Coordinate.Latitude, placemark.Coordinate.Latitude) +
 						Math.Abs (userLocation.Coordinate.Latitude - placemark.Coordinate.Latitude) / 2;
@@ -144,15 +146,14 @@ namespace FieldService.iOS
 				builder.Append (assignment.Zip);
 				builder.Append ('+');
 
-				using (var url = NSUrl.FromString (builder.ToString ())) {
+				using (var url = NSUrl.FromString (builder.ToString ()))
 					UIApplication.SharedApplication.OpenUrl (url);
-				}
 			}
 
 			/// <summary>
 			/// This pulls out an assignment we placed in a MKPlacemark
 			/// </summary>
-			private Assignment GetAssignment(MKPlacemark annotation)
+			Assignment GetAssignment (MKPlacemark annotation)
 			{
 				return annotation.AddressDictionary[new NSString("Assignment")].UnwrapObject<Assignment>();
 			}

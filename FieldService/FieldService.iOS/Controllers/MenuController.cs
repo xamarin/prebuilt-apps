@@ -14,9 +14,11 @@
 //    limitations under the License.
 using System;
 using System.Collections.Generic;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using FieldService.Data;
@@ -57,25 +59,22 @@ namespace FieldService.iOS
 			menuViewModel.MenuIndexChanged += OnMenuIndexChanged;
 		}
 
-		private void OnMenuIndexChanged (object sender, EventArgs e)
+		void OnMenuIndexChanged (object sender, EventArgs e)
 		{
-			if (IsViewLoaded) {
+			if (IsViewLoaded)
 				ChangeSelection (menuViewModel.MenuIndex);
-			}
 		}
 
-		private void OnRecordingChanged (object sender, EventArgs e)
+		void OnRecordingChanged (object sender, EventArgs e)
 		{
-			if (IsViewLoaded) {
+			if (IsViewLoaded)
 				record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
-			}
 		}
 
-		private void OnHoursChanged (object sender, EventArgs e)
+		void OnHoursChanged (object sender, EventArgs e)
 		{
-			if (IsViewLoaded) {
+			if (IsViewLoaded)
 				timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-			}
 		}
 
 		protected override void Dispose (bool disposing)
@@ -103,62 +102,61 @@ namespace FieldService.iOS
 				assignmentViewModel.SelectedAssignment = status.Assignment;
 
 				var method = AssignmentCompleted;
-				if (method != null) {
-					method(this, EventArgs.Empty);
-				}
+				if (method != null)
+					method (this, EventArgs.Empty);
 			};
 
-			if (Theme.IsiOS7) {
-				//NOTE: tableView.Style is readonly, so we have to do a little work to make our iOS 7 tableView not look like a grouped tableView
-				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
-				tableView.BackgroundColor = Theme.LinenPattern;
-				tableView.RowHeight = 50;
-
-				timerBackground.BackgroundColor = UIColor.White;
-				timerLabel.Font = Theme.FontOfSize (24);
-
-				//Move the table around
-				var frame = View.Frame;
-				frame.X = 0;
-				frame.Y = -2;
-				frame.Height += 2;
-				tableView.Frame = frame;
-
-				//Move the timer
-				frame = timerBackground.Frame;
-				frame.Y += frame.Height - 80;
-				frame.Height = 80;
-				timerBackground.Frame = frame;
-
-				//Move the status dropdown
-				frame = status.Frame;
-				frame.X += 185;
-				frame.Y += 55;
-				frame.Width = 90;
-				status.Frame = frame;
-
-				//Move the timer label
-				frame = timerLabel.Frame;
-				frame.X -= 60;
-				timerLabel.Frame = frame;
-
-				//Move the record button
-				frame = record.Frame;
-				frame.X = (float)Math.Floor((timerBackground.Frame.Width - frame.Width) / 2);
-				record.Frame = frame;
-
-				//Additional green rectangle on the right
-				var statusView = new UIView (new CGRect (timerBackground.Frame.Width - 8, 0, 8, timerBackground.Frame.Height)) {
-					BackgroundColor = Theme.GreenColor,
-					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
-				};
-				timerBackground.AddSubview (statusView);
-
-			} else {
+			if (!Theme.IsiOS7) {
 				timerBackground.Image = Theme.TimerBackground;
 				View.BackgroundColor = Theme.LeftMenuColor;
 				timerLabelBackground.Image = Theme.TimerField;
+				return;
 			}
+
+			//NOTE: tableView.Style is readonly, so we have to do a little work to make our iOS 7 tableView not look like a grouped tableView
+			tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+			tableView.BackgroundColor = Theme.LinenPattern;
+			tableView.RowHeight = 50f;
+
+			timerBackground.BackgroundColor = UIColor.White;
+			timerLabel.Font = Theme.FontOfSize (24f);
+
+			//Move the table around
+			var frame = View.Frame;
+			frame.X = 0f;
+			frame.Y = -2f;
+			frame.Height += 2f;
+			tableView.Frame = frame;
+
+			//Move the timer
+			frame = timerBackground.Frame;
+			frame.Y += frame.Height - 80f;
+			frame.Height = 80f;
+			timerBackground.Frame = frame;
+
+			//Move the status dropdown
+			frame = status.Frame;
+			frame.X += 185f;
+			frame.Y += 55f;
+			frame.Width = 90f;
+			status.Frame = frame;
+
+			//Move the timer label
+			frame = timerLabel.Frame;
+			frame.X -= 60f;
+			timerLabel.Frame = frame;
+
+			//Move the record button
+			frame = record.Frame;
+			frame.X = (float)Math.Floor((timerBackground.Frame.Width - frame.Width) / 2f);
+			record.Frame = frame;
+
+			//Additional green rectangle on the right
+			var statusView = new UIView (new CGRect (timerBackground.Frame.Width - 8f, 0f, 8f, timerBackground.Frame.Height)) {
+				BackgroundColor = Theme.GreenColor,
+				AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
+			};
+			timerBackground.AddSubview (statusView);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -174,18 +172,16 @@ namespace FieldService.iOS
 			base.ViewDidAppear (animated);
 
 			var selected = tableView.IndexPathForSelectedRow;
-			if (selected == null || selected.Row != menuViewModel.MenuIndex) {
+			if (selected == null || selected.Row != menuViewModel.MenuIndex)
 				ChangeSelection (menuViewModel.MenuIndex, false);
-			}
 		}
 
-		private void ChangeSelection (int index, bool animated = true)
+		void ChangeSelection (int index, bool animated = true)
 		{
 			nint count = tableView.NumberOfRowsInSection (0);
 			if (index < count) {
 				using (var indexPath = NSIndexPath.FromRowSection (index, 0)) {
 					tableView.SelectRow (indexPath, animated, UITableViewScrollPosition.Top);
-				
 					OnMenuChanged (new MenuEventArgs { TableView = tableView, IndexPath = indexPath, Animated = false });
 				}
 			}
@@ -196,39 +192,40 @@ namespace FieldService.iOS
 		/// </summary>
 		public void UpdateAssignment()
 		{
-			if (IsViewLoaded) {
-				if (assignmentViewModel.SelectedAssignment.Status == AssignmentStatus.Active) {
-					status.Assignment = assignmentViewModel.ActiveAssignment;
-					timerView.Hidden = false;
-					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-					record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+			if (!IsViewLoaded)
+				return;
 
-					//Animate the timeView on screen and set its alpha to 1
-					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
-						() => {
-							var frame = timerView.Frame;
-							frame.Y = View.Frame.Height - frame.Height;
-							timerView.Frame = frame;
-							timerView.Alpha = 1;
-						}, null);
-				} else {
-					//Animate the timeView off screen and set its alpha to 0
-					UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut, 
-					        () => {
-							var frame = timerView.Frame;
-							frame.Y = View.Frame.Height;
-							timerView.Frame = frame;
-							timerView.Alpha = 0;
-						},
-						() => timerView.Hidden = true);
-				}
+			if (assignmentViewModel.SelectedAssignment.Status == AssignmentStatus.Active) {
+				status.Assignment = assignmentViewModel.ActiveAssignment;
+				timerView.Hidden = false;
+				timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+				record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
+
+				//Animate the timeView on screen and set its alpha to 1
+				UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut,
+					() => {
+						var frame = timerView.Frame;
+						frame.Y = View.Frame.Height - frame.Height;
+						timerView.Frame = frame;
+						timerView.Alpha = 1f;
+					}, null);
+			} else {
+				//Animate the timeView off screen and set its alpha to 0
+				UIView.Transition (timerView, .3, UIViewAnimationOptions.CurveEaseInOut,
+				        () => {
+						var frame = timerView.Frame;
+						frame.Y = View.Frame.Height;
+						timerView.Frame = frame;
+						timerView.Alpha = 0f;
+					},
+					() => timerView.Hidden = true);
 			}
 		}
 
 		/// <summary>
 		/// Saves the assignment.
 		/// </summary>
-		private void SaveAssignment ()
+		void SaveAssignment ()
 		{
 			assignmentViewModel
 				.SaveAssignmentAsync (assignmentViewModel.ActiveAssignment)
@@ -261,18 +258,17 @@ namespace FieldService.iOS
 			}
 		}
 
-		private void OnMenuChanged (MenuEventArgs args)
+		void OnMenuChanged (MenuEventArgs args)
 		{
 			var method = MenuChanged;
-			if (method != null) {
+			if (method != null)
 				method (this, args);
-			}
 		}
 
 		/// <summary>
 		/// The table source - has static cells
 		/// </summary>
-		private class TableSource : UITableViewSource
+		class TableSource : UITableViewSource
 		{
 			readonly UITableViewCell summaryCell, mapCell, itemsCell, laborCell, expensesCell, documentsCell, confirmationCell, historyCell;
 			readonly List<UITableViewCell> cells = new List<UITableViewCell>();
@@ -317,7 +313,7 @@ namespace FieldService.iOS
 				SetupCell (historyCell, end: true);
 			}
 
-			private void SetupCell (UITableViewCell cell, bool start = false, bool end = false)
+			void SetupCell (UITableViewCell cell, bool start = false, bool end = false)
 			{
 				if (!Theme.IsiOS7) {
 					cell.TextLabel.TextColor = Theme.LabelColor;
@@ -353,7 +349,7 @@ namespace FieldService.iOS
 			public override nfloat GetHeightForHeader (UITableView tableView, nint section)
 			{
 				//NOTE: 1 is the minimum height for a header
-				return Theme.IsiOS7 ? 1 : 20;
+				return Theme.IsiOS7 ? 1f : 20f;
 			}
 
 			public override nint RowsInSection (UITableView tableview, nint section)
@@ -384,9 +380,9 @@ namespace FieldService.iOS
 
 			protected override void Dispose (bool disposing)
 			{
-				foreach (var cell in cells) {
+				foreach (var cell in cells)
 					cell.Dispose();
-				}
+				
 				cells.Clear ();
 
 				base.Dispose (disposing);

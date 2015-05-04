@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using UIKit;
 
 namespace FieldService.iOS
@@ -22,8 +23,8 @@ namespace FieldService.iOS
 	/// </summary>
 	public class SearchDisplay : UISearchDisplayDelegate
 	{
-		private readonly UITableView tableView;
-		private readonly ISearchSource dataSource;
+		readonly UITableView tableView;
+		readonly ISearchSource dataSource;
 		
 		public SearchDisplay (UITableView tableView, ISearchSource dataSource)
 		{

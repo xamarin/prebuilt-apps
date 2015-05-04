@@ -14,9 +14,11 @@
 //    limitations under the License.using System;
 using System;
 using System.Linq;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using FieldService.Data;
@@ -44,10 +46,10 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI to setup from code
-			title = new UILabel (new CGRect (0, 0, 160, 36)) {
+			title = new UILabel (new CGRect (0f, 0f, 160f, 36f)) {
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
+				Font = Theme.BoldFontOfSize (16f),
 				Text = "Labor Hours",
 			};
 			titleButton = new UIBarButtonItem (title);
@@ -102,23 +104,24 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadLabor ()
 		{
-			if (IsViewLoaded) {
-				UpdateToolbar ();
+			if (!IsViewLoaded)
+				return;
 
-				laborViewModel.LoadLaborHoursAsync (assignmentViewModel.SelectedAssignment)
-					.ContinueWith (_ => {
-						BeginInvokeOnMainThread (() => {
-							UpdateToolbar ();
-							tableView.ReloadData ();
-						});
+			UpdateToolbar ();
+
+			laborViewModel.LoadLaborHoursAsync (assignmentViewModel.SelectedAssignment)
+				.ContinueWith (_ => {
+					BeginInvokeOnMainThread (() => {
+						UpdateToolbar ();
+						tableView.ReloadData ();
 					});
-			}
+				});
 		}
 
 		/// <summary>
 		/// Refreshes toolbar items and updates text
 		/// </summary>
-		private void UpdateToolbar()
+		void UpdateToolbar ()
 		{
 			var assignment = assignmentViewModel.SelectedAssignment;
 			if (assignment.IsReadonly) {
@@ -146,7 +149,7 @@ namespace FieldService.iOS
 				title.Text = string.Format ("Labor Hours ({0:0.0})", laborViewModel.LaborHours.Sum (l => l.Hours.TotalHours));
 		}
 
-		private void OnAddLabor(object sender, EventArgs e)
+		void OnAddLabor (object sender, EventArgs e)
 		{
 			laborViewModel.SelectedLabor = new Labor {
 				Type = LaborType.Hourly,
@@ -161,7 +164,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Table source for labor hours
 		/// </summary>
-		private class TableSource : UITableViewSource
+		class TableSource : UITableViewSource
 		{
 			readonly LaborController controller;
 			readonly LaborViewModel laborViewModel;

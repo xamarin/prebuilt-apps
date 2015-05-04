@@ -29,6 +29,10 @@
 	<string>MainStoryboard</string>
 	<key>CFBundleIdentifier</key>
 	<string>com.xamarin.sample.fieldservice</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>This string is stored in the info.plist file.</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>This string is stored in the info.plist file.</string>
 	<key>CFBundleVersion</key>
 	<string></string>
 	<key>NSMainNibFile~ipad</key>

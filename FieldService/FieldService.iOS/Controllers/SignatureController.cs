@@ -13,10 +13,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using SignaturePad;
+
 using FieldService.Data;
 using FieldService.ViewModels;
 using FieldService.Utilities;
@@ -46,9 +49,8 @@ namespace FieldService.iOS
 			base.Dismiss (animated);
 
 			var method = Dismissed;
-			if (method != null) {
+			if (method != null)
 				method(this, EventArgs.Empty);
-			}
 		}
 
 		/// <summary>
@@ -88,9 +90,9 @@ namespace FieldService.iOS
 						return;
 					}
 
-					if (assignmentViewModel.Signature == null) {
+					if (assignmentViewModel.Signature == null)
 						assignmentViewModel.Signature = new Data.Signature { AssignmentId = assignmentViewModel.SelectedAssignment.Id };
-					}
+
 					assignmentViewModel.Signature.Image = signatureView.GetImage ().ToByteArray ();
 
 					assignmentViewModel.SaveSignatureAsync ()
@@ -106,9 +108,8 @@ namespace FieldService.iOS
 				NavigationItem.RightBarButtonItem = save;
 				NavigationController.NavigationBar.SetBackgroundImage (null, UIBarMetrics.Default);
 
-				signatureView = new SignaturePadView(View.Frame)
-				{
-					AutoresizingMask = UIViewAutoresizing.All,
+				signatureView = new SignaturePadView (View.Frame) {
+					AutoresizingMask = UIViewAutoresizing.All
 				};
 				View.AddSubview (signatureView);
 			}

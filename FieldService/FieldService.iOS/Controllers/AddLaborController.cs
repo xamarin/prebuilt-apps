@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Utilities;
 using FieldService.Data;
 using FieldService.ViewModels;
@@ -27,15 +29,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddLaborController : BaseController
 	{
-		/// <summary>
-		/// Occurs when dismissed.
-		/// </summary>
-		public event EventHandler Dismissed;
-
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly LaborViewModel laborViewModel;
 		UIBarButtonItem labor, space1, space2, done;
 		TableSource tableSource;
+
+		/// <summary>
+		/// Occurs when dismissed.
+		/// </summary>
+		public event EventHandler Dismissed;
 
 		public AddLaborController (IntPtr handle) : base (handle)
 		{
@@ -48,13 +50,13 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI setup from code
-			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
+			cancel.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			
-			var label = new UILabel (new CGRect(0, 0, 80, 36)) { 
+			var label = new UILabel (new CGRect (0f, 0f, 80f, 36f)) { 
 				Text = "Labor",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (18),
+				Font = Theme.BoldFontOfSize (18f),
 			};
 			labor = new UIBarButtonItem(label);
 
@@ -66,11 +68,11 @@ namespace FieldService.iOS
 			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
 			done.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			
-			space1 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
-			space2 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
+			space1 = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
+			space2 = new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace);
 
 			tableView.Source = 
-				tableSource = new TableSource();
+				tableSource = new TableSource ();
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -102,9 +104,8 @@ namespace FieldService.iOS
 			base.ViewWillDisappear (animated);
 
 			var method = Dismissed;
-			if (method != null) {
+			if (method != null)
 				method(this, EventArgs.Empty);
-			}
 		}
 
 		/// <summary>
@@ -140,40 +141,38 @@ namespace FieldService.iOS
 			{
 				laborViewModel = ServiceContainer.Resolve<LaborViewModel>();
 
-				typeCell = new UITableViewCell (UITableViewCellStyle.Default, null);
+				typeCell = new UITableViewCell (UITableViewCellStyle.Default, null) {
+					SelectionStyle = UITableViewCellSelectionStyle.None
+				};
 				typeCell.TextLabel.Text = "Type";
-				typeCell.AccessoryView = type = new LaborTypeTextField (new CGRect(0, 0, 200, 36))
-				{
+				typeCell.AccessoryView = type = new LaborTypeTextField (new CGRect (0f, 0f, 200f, 36f)) {
 					TextAlignment = UITextAlignment.Right,
 					VerticalAlignment = UIControlContentVerticalAlignment.Center,
 					BackgroundColor = UIColor.Clear,
 				};
-				typeCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+
 				type.EditingDidEnd += (sender, e) => {
 					laborViewModel.SelectedLabor.Type = type.LaborType;
 				};
 
-				hoursCell = new UITableViewCell (UITableViewCellStyle.Default, null);
+				hoursCell = new UITableViewCell (UITableViewCellStyle.Default, null) {
+					SelectionStyle = UITableViewCellSelectionStyle.None
+				};
 				hoursCell.TextLabel.Text = "Hours";
-				hoursCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				hoursCell.AccessoryView = hours = new HoursField(new CGRect(0, 0, 200, 44));
+				hoursCell.AccessoryView = hours = new HoursField (new CGRect (0f, 0f, 200f, 44f));
 				hours.ValueChanged += (sender, e) => laborViewModel.SelectedLabor.Hours = TimeSpan.FromHours (hours.Value);
 
-				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new PlaceholderTextView(new CGRect(0, 0, Theme.IsiOS7 ? 515 : 470, 400))
-				{
+				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null) {
+					SelectionStyle = UITableViewCellSelectionStyle.None
+				};
+				descriptionCell.AccessoryView = description = new PlaceholderTextView(new CGRect (0f, 0f, Theme.IsiOS7 ? 515f : 470f, 400f)) {
 					BackgroundColor = UIColor.Clear,
 					TextColor = Theme.BlueTextColor,
 					Placeholder = "Please enter notes here",
 				};
-				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				description.SetDidChangeNotification (d => {
-					if (description.Text != description.Placeholder) {
-						laborViewModel.SelectedLabor.Description = d.Text;
-					} else {
-						laborViewModel.SelectedLabor.Description = string.Empty;
-					}
-				});
+				description.SetDidChangeNotification (d =>
+					laborViewModel.SelectedLabor.Description = description.Text != description.Placeholder ? d.Text : string.Empty
+				);
 			}
 
 			public void Load (bool enabled)
@@ -195,7 +194,7 @@ namespace FieldService.iOS
 
 			public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				return indexPath.Section == 1 ? 410 : 44;
+				return indexPath.Section == 1 ? 410f : 44f;
 			}
 
 			public override nint NumberOfSections (UITableView tableView)
@@ -210,29 +209,29 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (enabled) {
-					if (indexPath.Section == 0) {
-						if (indexPath.Row == 0) {
-							//Give type "focus"
-							type.BecomeFirstResponder ();
-						} else {
-							//Give hours "focus"
-							hours.BecomeFirstResponder ();
-						}
+				if (!enabled)
+					return;
+				
+				if (indexPath.Section == 0) {
+					if (indexPath.Row == 0) {
+						//Give type "focus"
+						type.BecomeFirstResponder ();
 					} else {
-						//Give description "focus"
-						description.BecomeFirstResponder ();
+						//Give hours "focus"
+						hours.BecomeFirstResponder ();
 					}
+				} else {
+					//Give description "focus"
+					description.BecomeFirstResponder ();
 				}
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Section == 0) {
+				if (indexPath.Section == 0)
 					return indexPath.Row == 0 ? typeCell : hoursCell;
-				} else {
+				else
 					return descriptionCell;
-				}
 			}
 			
 			protected override void Dispose (bool disposing)

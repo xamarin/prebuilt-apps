@@ -13,8 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.ViewModels;
 using FieldService.Utilities;
@@ -28,9 +30,9 @@ namespace FieldService.iOS
 	{
 		public AssignmentItemCell (IntPtr handle) : base (handle)
 		{
-			if (!Theme.IsiOS7) {
+			if (!Theme.IsiOS7)
 				BackgroundView = new UIImageView { Image = Theme.Row };
-			}
+
 			SelectionStyle = UITableViewCellSelectionStyle.None; //Shouldn't be clickable
 		}
 
@@ -40,23 +42,21 @@ namespace FieldService.iOS
 
 			label.TextColor = Theme.LabelColor;
 
-			if (Theme.IsiOS7) {
+			if (Theme.IsiOS7)
 				label.Font = Theme.FontOfSize (18);
-			}
 		}
 
 		/// <summary>
 		/// Sets the current assignment item
 		/// </summary>
-		public void SetItem(AssignmentItem item)
+		public void SetItem (AssignmentItem item)
 		{
-			label.Text = item.Name + " " + item.Number;
+			label.Text = string.Format ("{0} {1}", item.Name, item.Number);
 		}
 
 		protected override void Dispose (bool disposing)
 		{
 			ReleaseDesignerOutlets ();
-
 			base.Dispose (disposing);
 		}
 	}

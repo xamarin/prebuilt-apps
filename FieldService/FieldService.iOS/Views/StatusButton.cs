@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.Utilities;
 
@@ -40,9 +42,22 @@ namespace FieldService.iOS
 		/// </summary>
 		public event EventHandler Completed;
 
+		/// <summary>
+		/// The current assignment
+		/// </summary>
+		public Assignment Assignment {
+			get {
+				return assignment;
+			}
+			set {
+				assignment = value;
+				UpdateButton ();
+			}
+		}
+
 		public StatusButton (IntPtr handle) : base (handle)
 		{
-			AddSubview (statusImage = new UIImageView (new CGRect (12, (Frame.Height - 16) / 2, 16, 16)));
+			AddSubview (statusImage = new UIImageView (new CGRect (12f, (Frame.Height - 16f) / 2f, 16f, 16f)));
 
 			SetTitleColor (Theme.LabelColor, UIControlState.Normal);
 			SetBackgroundImage (Theme.DropDown, UIControlState.Normal);
@@ -52,56 +67,35 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				ContentEdgeInsets = new UIEdgeInsets ();
 				HorizontalAlignment = UIControlContentHorizontalAlignment.Center;
-				Font = Theme.FontOfSize (16);
+				Font = Theme.FontOfSize (16f);
 			} else {
-				ContentEdgeInsets = new UIEdgeInsets (0, 38, 0, 0);
-			}
-		}
-
-		/// <summary>
-		/// The current assignment
-		/// </summary>
-		public Assignment Assignment
-		{
-			get { return assignment; }
-			set
-			{
-				assignment = value;
-				
-				//Update the button
-				statusImage.Image = ImageForStatus (assignment.Status);
-				if (assignment.Status == AssignmentStatus.Hold)
-					SetTitle ("On Hold", UIControlState.Normal);
-				else
-					SetTitle (assignment.Status.ToString (), UIControlState.Normal);
+				ContentEdgeInsets = new UIEdgeInsets (0f, 38f, 0f, 0f);
 			}
 		}
 
 		/// <summary>
 		/// Event when clicked
 		/// </summary>
-		private void OnTouchUpInside(object sender, EventArgs e)
+		void OnTouchUpInside(object sender, EventArgs e)
 		{
 			statusSheet = new AssignmentStatusSheet ();
 			statusSheet.Dismissed += OnStatusSheetDismissed;
 			statusSheet.ShowFrom (Frame, Superview, true);
 		}
 
-		private void OnStatusSheetDismissed(object sender, UIButtonEventArgs e)
+		void OnStatusSheetDismissed(object sender, UIButtonEventArgs e)
 		{
 			if (statusSheet.Status.HasValue && assignment != null && assignment.Status != statusSheet.Status) {
 				if (statusSheet.Status != AssignmentStatus.Complete) {
 					assignment.Status = statusSheet.Status.Value;
 
 					var method = StatusChanged;
-					if (method != null) {
+					if (method != null)
 						method(this, EventArgs.Empty);
-					}
 				} else {
 					var method = Completed;
-					if (method != null) {
+					if (method != null)
 						method(this, EventArgs.Empty);
-					}
 				}
 			}
 
@@ -113,7 +107,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Returns appropriate image for each status
 		/// </summary>
-		private UIImage ImageForStatus (AssignmentStatus status)
+		UIImage ImageForStatus (AssignmentStatus status)
 		{
 			if (Theme.IsiOS7)
 				return null;
@@ -130,6 +124,14 @@ namespace FieldService.iOS
 			default:
 				throw new InvalidOperationException ("No picture for status: " + status);
 			}
+		}
+
+		void UpdateButton ()
+		{
+			//Update the button
+			statusImage.Image = ImageForStatus (assignment.Status);
+			SetTitle (assignment.Status == AssignmentStatus.Hold ? "On Hold" :
+				assignment.Status.ToString (), UIControlState.Normal);
 		}
 	}
 }

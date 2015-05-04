@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -28,56 +29,27 @@ namespace FieldService.iOS
 		const int IconBackgroundSize = 30;
 		readonly UIButton icon;
 
-		public TextButton (IntPtr handle) : base (handle)
-		{
-			icon = UIButton.FromType (UIButtonType.Custom);
-			icon.Frame = new CGRect (Spacing, Spacing, IconBackgroundSize, IconBackgroundSize);
-			icon.UserInteractionEnabled = false;
-			AddSubview (icon);
-
-			TopLabel = new UILabel { 
-				BackgroundColor = UIColor.Clear, 
-				Font = Theme.BoldFontOfSize (11), 
-				TextColor = Theme.LabelColor,
-				HighlightedTextColor = UIColor.Black,
-			};
-			AddSubview (TopLabel);
-
-			BottomLabel = new UILabel { 
-				BackgroundColor = UIColor.Clear, 
-				Font = Theme.FontOfSize (11), 
-				TextColor = Theme.LabelColor,
-				HighlightedTextColor = UIColor.Black,
-			};
-			AddSubview (BottomLabel);
-
-			if (!Theme.IsiOS7)
-				icon.SetBackgroundImage (Theme.SmallGreyButton, UIControlState.Normal);
-		}
-
 		/// <summary>
 		/// Icon image used on the button to the left
 		/// </summary>
 		public UIImage IconImage {
-			get { return icon.CurrentImage; }
-			set { icon.SetImage (value, UIControlState.Normal); }
+			get {
+				return icon.CurrentImage;
+			}
+			set {
+				icon.SetImage (value, UIControlState.Normal);
+			}
 		}
 
 		/// <summary>
 		/// Top label text
 		/// </summary>
-		public UILabel TopLabel {
-			get;
-			private set;
-		}
+		public UILabel TopLabel { get; private set; }
 
 		/// <summary>
 		/// Second label text
 		/// </summary>
-		public UILabel BottomLabel {
-			get;
-			private set;
-		}
+		public UILabel BottomLabel { get; private set; }
 
 		/// <summary>
 		/// Override Highlighted so that the child controls function correctly
@@ -89,9 +61,36 @@ namespace FieldService.iOS
 			set {
 				base.Highlighted = 
 					icon.Highlighted =
-					TopLabel.Highlighted =
-					BottomLabel.Highlighted = value;
+						TopLabel.Highlighted =
+							BottomLabel.Highlighted = value;
 			}
+		}
+
+		public TextButton (IntPtr handle) : base (handle)
+		{
+			icon = UIButton.FromType (UIButtonType.Custom);
+			icon.Frame = new CGRect (Spacing, Spacing, IconBackgroundSize, IconBackgroundSize);
+			icon.UserInteractionEnabled = false;
+			AddSubview (icon);
+
+			TopLabel = new UILabel {
+				BackgroundColor = UIColor.Clear,
+				Font = Theme.BoldFontOfSize (11f),
+				TextColor = Theme.LabelColor,
+				HighlightedTextColor = UIColor.Black
+			};
+			AddSubview (TopLabel);
+
+			BottomLabel = new UILabel {
+				BackgroundColor = UIColor.Clear,
+				Font = Theme.FontOfSize (11f),
+				TextColor = Theme.LabelColor,
+				HighlightedTextColor = UIColor.Black
+			};
+			AddSubview (BottomLabel);
+
+			if (!Theme.IsiOS7)
+				icon.SetBackgroundImage (Theme.SmallGreyButton, UIControlState.Normal);
 		}
 
 		/// <summary>
@@ -102,11 +101,11 @@ namespace FieldService.iOS
 			base.LayoutSubviews ();
 
 			var frame = Frame;
-			nfloat x = IconBackgroundSize + Spacing * 2,
+			nfloat x = IconBackgroundSize + Spacing * 2f,
 				width = frame.Width - x - Spacing,
-				height = frame.Height / 2 - Spacing;
+				height = frame.Height / 2f - Spacing;
 			TopLabel.Frame = new CGRect(x, Spacing, width, height);
-			BottomLabel.Frame = new CGRect(x, frame.Height - height - Spacing / 2, width, height);
+			BottomLabel.Frame = new CGRect(x, frame.Height - height - Spacing / 2f, width, height);
 		}
 
 		protected override void Dispose (bool disposing)

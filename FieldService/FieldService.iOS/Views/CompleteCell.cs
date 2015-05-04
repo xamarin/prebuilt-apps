@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.ViewModels;
 using FieldService.Utilities;
@@ -79,7 +81,7 @@ namespace FieldService.iOS
 				return;
 			}
 
-			alertView = new UIAlertView("Complete?", "Are you sure?", null, "Yes", "No");
+			alertView = new UIAlertView ("Complete?", "Are you sure?", null, "Yes", "No");
 			alertView.Dismissed += (sender, e) => {
 				alertView.Dispose ();
 				alertView = null;

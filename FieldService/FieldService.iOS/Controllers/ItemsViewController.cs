@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.ViewModels;
 using FieldService.Utilities;
 using FieldService.Data;
@@ -43,10 +45,10 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI that must be setup from code
-			title = new UILabel (new CGRect (0, 0, 100, 36)) {
+			title = new UILabel (new CGRect (0f, 0f, 100f, 36f)) {
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
+				Font = Theme.BoldFontOfSize (16f),
 				Text = "Items",
 			};
 			titleButton = new UIBarButtonItem (title);
@@ -102,23 +104,24 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadItems ()
 		{
-			if (IsViewLoaded) {
-				UpdateToolbar ();
+			if (!IsViewLoaded)
+				return;
 
-				itemViewModel.LoadAssignmentItemsAsync (assignmentViewModel.SelectedAssignment)
-					.ContinueWith (_ => {
-						BeginInvokeOnMainThread (() => {
-							UpdateToolbar ();
-							tableView.ReloadData ();
-						});
+			UpdateToolbar ();
+
+			itemViewModel.LoadAssignmentItemsAsync (assignmentViewModel.SelectedAssignment)
+				.ContinueWith (_ => {
+					BeginInvokeOnMainThread (() => {
+						UpdateToolbar ();
+						tableView.ReloadData ();
 					});
-			}
+				});
 		}
 
 		/// <summary>
 		/// Refreshes toolbar items and updates text
 		/// </summary>
-		private void UpdateToolbar()
+		void UpdateToolbar ()
 		{
 			var assignment = assignmentViewModel.SelectedAssignment;
 			if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
@@ -146,7 +149,7 @@ namespace FieldService.iOS
 				title.Text = string.Format ("Items ({0})", itemViewModel.AssignmentItems.Count);
 		}
 
-		private void OnAddItem(object sender, EventArgs e)
+		void OnAddItem (object sender, EventArgs e)
 		{
 			var addItemController = Storyboard.InstantiateViewController<AddItemController>();
 			addItemController.Dismissed += (a, b) => ReloadItems();
@@ -156,7 +159,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Table source of items
 		/// </summary>
-		private class TableSource : UITableViewSource
+		class TableSource : UITableViewSource
 		{
 			readonly AssignmentViewModel assignmentViewModel;
 			readonly ItemViewModel itemViewModel;

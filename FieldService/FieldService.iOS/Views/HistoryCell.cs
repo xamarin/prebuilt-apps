@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 
 namespace FieldService.iOS
@@ -29,10 +31,11 @@ namespace FieldService.iOS
 
 		public HistoryCell (IntPtr handle) : base (handle)
 		{
-			if (!Theme.IsiOS7) {
-				BackgroundView = new UIImageView { Image = Theme.Row };
-				SelectedBackgroundView = new UIImageView { Image = Theme.ShortRowPress };
-			}
+			if (Theme.IsiOS7)
+				return;
+
+			BackgroundView = new UIImageView { Image = Theme.Row };
+			SelectedBackgroundView = new UIImageView { Image = Theme.ShortRowPress };
 		}
 
 		/// <summary>
@@ -86,7 +89,6 @@ namespace FieldService.iOS
 		protected override void Dispose (bool disposing)
 		{
 			ReleaseDesignerOutlets ();
-
 			base.Dispose (disposing);
 		}
 	}

@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using Foundation;
 
 namespace FieldService.iOS
@@ -22,12 +23,12 @@ namespace FieldService.iOS
 	/// </summary>
 	public class ClrWrapper : NSObject
 	{
+		public object Value { get; private set; }
+
 		public ClrWrapper (object value)
 		{
 			Value = value;
 		}
-
-		public object Value { get; private set; }
 	}
 
 	/// <summary>

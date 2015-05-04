@@ -15,8 +15,10 @@
 using System;
 using CoreGraphics;
 using System.Linq;
+
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.ViewModels;
 using FieldService.Utilities;
@@ -139,11 +141,7 @@ namespace FieldService.iOS
 			this.indexPath = indexPath;
 
 			//Update font size on priority
-			if (assignment.Priority >= 10) {
-				priority.Font = Theme.FontOfSize (14);
-			} else {
-				priority.Font = Theme.FontOfSize (18);
-			}
+			priority.Font = assignment.Priority >= 10 ? Theme.FontOfSize (14f) : Theme.FontOfSize (18f);
 
 			//Now make any changes dependant on the assignment passed in
 			((UIImageView)BackgroundView).Image = Theme.AssignmentGrey;
@@ -199,12 +197,7 @@ namespace FieldService.iOS
 		/// </summary>
 		partial void Accept ()
 		{
-			if (assignmentViewModel.ActiveAssignment == null) {
-				assignment.Status = AssignmentStatus.Active;
-			} else {
-				assignment.Status = AssignmentStatus.Hold;
-			}
-
+			assignment.Status = assignmentViewModel.ActiveAssignment == null ? AssignmentStatus.Active : AssignmentStatus.Hold;
 			SaveAssignment ();
 		}
 
@@ -217,7 +210,6 @@ namespace FieldService.iOS
 			alertView.Dismissed += (sender, e) => {
 				if (e.ButtonIndex == 0) {
 					assignment.Status = AssignmentStatus.Declined;
-
 					SaveAssignment ();
 				}
 
@@ -246,11 +238,10 @@ namespace FieldService.iOS
 			assignmentViewModel.SaveAssignmentAsync (assignment)
 				.ContinueWith (_ => {
 					BeginInvokeOnMainThread (() => {
-						if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined) {
+						if (assignment.Status == AssignmentStatus.Active || assignment.Status == AssignmentStatus.Declined)
 							controller.ReloadAssignments ();
-						} else {
+						else
 							controller.ReloadSingleRow (indexPath);
-						}
 					});
 				});
 		}
@@ -275,7 +266,6 @@ namespace FieldService.iOS
 		protected override void Dispose (bool disposing)
 		{
 			ReleaseDesignerOutlets ();
-
 			base.Dispose (disposing);
 		}
 	}

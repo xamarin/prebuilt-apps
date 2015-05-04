@@ -24,11 +24,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Gets or sets the search text the user entered
 		/// </summary>
-		string SearchText
-		{
-			get;
-			set;
-		}
+		string SearchText { get; set; }
 	}
 }
 

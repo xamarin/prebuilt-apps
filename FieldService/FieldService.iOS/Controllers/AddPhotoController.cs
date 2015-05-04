@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Utilities;
 using FieldService.Data;
 using FieldService.ViewModels;
@@ -27,15 +29,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddPhotoController : BaseController
 	{
-		/// <summary>
-		/// Occurs when dismissed.
-		/// </summary>
-		public event EventHandler Dismissed;
-
 		readonly AssignmentViewModel assignmentViewModel;
 		readonly PhotoViewModel photoViewModel;
 		UIImage image;
 		UIAlertView alertView;
+
+		/// <summary>
+		/// Occurs when dismissed.
+		/// </summary>
+		public event EventHandler Dismissed;
 
 		public AddPhotoController (IntPtr handle) : base (handle)
 		{
@@ -55,11 +57,11 @@ namespace FieldService.iOS
 			cancel.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
 			cancel.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			var label = new UILabel (new CGRect (0, 0, 80, 36)) {
+			var label = new UILabel (new CGRect (0f, 0f, 80f, 36f)) {
 				Text = "Photo",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (18),
+				Font = Theme.BoldFontOfSize (18f),
 			};
 			var labor = new UIBarButtonItem (label);
 
@@ -78,9 +80,9 @@ namespace FieldService.iOS
 			if (Theme.IsiOS7) {
 				photo.Frame = photoFrame.Frame;
 
-				date.Font = Theme.BoldFontOfSize (18);
+				date.Font = Theme.BoldFontOfSize (18f);
 				time.Font =
-					deleteButton.Font = Theme.FontOfSize (18);
+					deleteButton.Font = Theme.FontOfSize (18f);
 
 				deleteButton.SetTitleColor (Theme.RedColor, UIControlState.Normal);
 			} else {
@@ -116,27 +118,26 @@ namespace FieldService.iOS
 			base.ViewWillDisappear (animated);
 			
 			var method = Dismissed;
-			if (method != null) {
+			if (method != null)
 				method(this, EventArgs.Empty);
-			}
 		}
 
 		public override void ViewDidDisappear (bool animated)
 		{
 			base.ViewDidDisappear (animated);
 
+			if (image == null)
+				return;
 			//Free up memory when the screen is dismissed
-			if (image != null) {
-				image.Dispose ();
-				photo.Image =
-					image = null;
-			}
+			image.Dispose ();
+			photo.Image =
+				image = null;
 		}
 
 		/// <summary>
 		/// Called to save the photo
 		/// </summary>
-		private void Save()
+		void Save ()
 		{
 			var photo = photoViewModel.SelectedPhoto;
 

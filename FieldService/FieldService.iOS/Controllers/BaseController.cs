@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using Foundation;
 using UIKit;
 
@@ -35,9 +36,8 @@ namespace FieldService.iOS
 		{
 			base.ViewDidLoad ();
 
-			if (Theme.IsiOS7) {
+			if (Theme.IsiOS7)
 				EdgesForExtendedLayout = UIRectEdge.None;
-			}
 		}
 
 		/// <summary>
@@ -55,9 +55,10 @@ namespace FieldService.iOS
 			}
 		}
 
-		public virtual bool HandlesKeyboardNotifications
-		{
-			get { return false; }
+		public virtual bool HandlesKeyboardNotifications {
+			get {
+				return false;
+			}
 		}
 
 		/// <summary>
@@ -76,34 +77,32 @@ namespace FieldService.iOS
 			return UIInterfaceOrientationMask.All;
 		}
 
-		private void OnKeyboardNotification (NSNotification notification)
+		void OnKeyboardNotification (NSNotification notification)
 		{
-			if (IsViewLoaded) {
+			if (!IsViewLoaded)
+				return;
 
-				//Check if the keyboard is becoming visible
-				bool visible = notification.Name == UIKeyboard.WillShowNotification;
+			//Check if the keyboard is becoming visible
+			bool visible = notification.Name == UIKeyboard.WillShowNotification;
 
-				//Start an animation, using values from the keyboard
-				UIView.BeginAnimations ("AnimateForKeyboard");
-				UIView.SetAnimationBeginsFromCurrentState (true);
-				UIView.SetAnimationDuration (UIKeyboard.AnimationDurationFromNotification (notification));
-				UIView.SetAnimationCurve ((UIViewAnimationCurve)UIKeyboard.AnimationCurveFromNotification (notification));
+			//Start an animation, using values from the keyboard
+			UIView.BeginAnimations ("AnimateForKeyboard");
+			UIView.SetAnimationBeginsFromCurrentState (true);
+			UIView.SetAnimationDuration (UIKeyboard.AnimationDurationFromNotification (notification));
+			UIView.SetAnimationCurve ((UIViewAnimationCurve)UIKeyboard.AnimationCurveFromNotification (notification));
 
-				//Pass the notification, calculating keyboard height, etc.
-				bool landscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight;
-				if (visible) {
-					var keyboardFrame = UIKeyboard.FrameEndFromNotification (notification);
-
-					OnKeyboardChanged (visible, landscape ? keyboardFrame.Width : keyboardFrame.Height);
-				} else {
-					var keyboardFrame = UIKeyboard.FrameBeginFromNotification (notification);
-
-					OnKeyboardChanged (visible, landscape ? keyboardFrame.Width : keyboardFrame.Height);
-				}
-
-				//Commit the animation
-				UIView.CommitAnimations ();	
+			//Pass the notification, calculating keyboard height, etc.
+			bool landscape = InterfaceOrientation == UIInterfaceOrientation.LandscapeLeft || InterfaceOrientation == UIInterfaceOrientation.LandscapeRight;
+			if (visible) {
+				var keyboardFrame = UIKeyboard.FrameEndFromNotification (notification);
+				OnKeyboardChanged (visible, landscape ? keyboardFrame.Width : keyboardFrame.Height);
+			} else {
+				var keyboardFrame = UIKeyboard.FrameBeginFromNotification (notification);
+				OnKeyboardChanged (visible, landscape ? keyboardFrame.Width : keyboardFrame.Height);
 			}
+
+			//Commit the animation
+			UIView.CommitAnimations ();
 		}
 
 		/// <summary>

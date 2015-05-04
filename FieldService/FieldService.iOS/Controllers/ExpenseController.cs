@@ -13,10 +13,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using CoreGraphics;
 using System.Linq;
+
+using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Utilities;
 using FieldService.ViewModels;
 using FieldService.Data;
@@ -44,10 +46,10 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI to setup from code
-			title = new UILabel (new CGRect (0, 0, 160, 36)) {
+			title = new UILabel (new CGRect (0f, 0f, 160f, 36f)) {
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
+				Font = Theme.BoldFontOfSize (16f),
 				Text = "Expenses",
 			};
 			titleButton = new UIBarButtonItem (title);
@@ -102,23 +104,24 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ReloadExpenses ()
 		{
-			if (IsViewLoaded) {
-				UpdateToolbar ();
+			if (!IsViewLoaded)
+				return;
 
-				expenseViewModel.LoadExpensesAsync (assignmentViewModel.SelectedAssignment)
-					.ContinueWith (_ => {
-						BeginInvokeOnMainThread (() => {
-							UpdateToolbar ();
-							tableView.ReloadData ();
-						});
+			UpdateToolbar ();
+
+			expenseViewModel.LoadExpensesAsync (assignmentViewModel.SelectedAssignment)
+				.ContinueWith (_ => {
+					BeginInvokeOnMainThread (() => {
+						UpdateToolbar ();
+						tableView.ReloadData ();
 					});
-			}
+				});
 		}
 
 		/// <summary>
 		/// Refreshes toolbar items and updates text
 		/// </summary>
-		private void UpdateToolbar()
+		void UpdateToolbar ()
 		{
 			var assignment = assignmentViewModel.SelectedAssignment;
 			if (assignment.Status == AssignmentStatus.Complete || assignment.IsHistory) {
@@ -146,7 +149,7 @@ namespace FieldService.iOS
 				title.Text = string.Format ("Expenses (${0:0.00})", expenseViewModel.Expenses.Sum (e => e.Cost));
 		}
 
-		private void OnAddExpense (object sender, EventArgs e)
+		void OnAddExpense (object sender, EventArgs e)
 		{
 			expenseViewModel.SelectedExpense = new Expense {
 				AssignmentId = assignmentViewModel.SelectedAssignment.Id,
@@ -160,7 +163,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Table source for expenses
 		/// </summary>
-		private class TableSource : UITableViewSource
+		class TableSource : UITableViewSource
 		{
 			readonly ExpenseController controller;
 			readonly ExpenseViewModel expenseViewModel;

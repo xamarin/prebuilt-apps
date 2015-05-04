@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
@@ -25,6 +26,11 @@ namespace FieldService.iOS
 	[Register("PlaceholderTextView")]
 	public class PlaceholderTextView : UITextView
 	{
+		/// <summary>
+		/// Gets or sets the placeholder to show prior to editing - doesn't exist on UITextView by default
+		/// </summary>
+		public string Placeholder { get; set; }
+
 		public PlaceholderTextView ()
 		{
 			Initialize ();
@@ -42,30 +48,22 @@ namespace FieldService.iOS
 			Initialize ();
 		}
 
-		private void Initialize()
+		void Initialize ()
 		{
 			Placeholder = "Please enter text";
 
 			ShouldBeginEditing = t => {
-				if (Text == Placeholder) {
+				if (Text == Placeholder)
 					Text = string.Empty;
-				}
+
 				return true;
 			};
 			ShouldEndEditing = t => {
-				if (string.IsNullOrEmpty (Text)) {
+				if (string.IsNullOrEmpty (Text))
 					Text = Placeholder;
-				}
+
 				return true;
 			};
-		}
-
-		/// <summary>
-		/// Gets or sets the placeholder to show prior to editing - doesn't exist on UITextView by default
-		/// </summary>
-		public string Placeholder {
-			get;
-			set;
 		}
 	}
 }

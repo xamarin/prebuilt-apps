@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.Utilities;
 
@@ -35,21 +37,20 @@ namespace FieldService.iOS
 		{
 			base.AwakeFromNib ();
 
-			if (Theme.IsiOS7) {
-				BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
-
-				addSignature.SetImage (UIImage.FromFile ("Images/iOS7/iconsignature.png"), UIControlState.Normal);
-				addSignature.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
-				addSignature.BackgroundColor = UIColor.White;
-				addSignature.Font = Theme.FontOfSize (18);
-				addSignature.ImageEdgeInsets = new UIEdgeInsets (0, -10, 0, 0);
-
-				addSignature.Frame = new CGRect (CGPoint.Empty, Frame.Size);
-			} else {
+			if (!Theme.IsiOS7) {
 				BackgroundView = new UIImageView { Image = Theme.Inlay };
-
 				addSignature.SetTitleColor (UIColor.White, UIControlState.Normal);
 			}
+
+			BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
+
+			addSignature.SetImage (UIImage.FromFile ("Images/iOS7/iconsignature.png"), UIControlState.Normal);
+			addSignature.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
+			addSignature.BackgroundColor = UIColor.White;
+			addSignature.Font = Theme.FontOfSize (18f);
+			addSignature.ImageEdgeInsets = new UIEdgeInsets (0f, -10f, 0f, 0f);
+
+			addSignature.Frame = new CGRect (CGPoint.Empty, Frame.Size);
 		}
 
 		/// <summary>

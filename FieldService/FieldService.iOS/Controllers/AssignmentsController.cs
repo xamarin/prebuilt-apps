@@ -13,12 +13,14 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using CoreGraphics;
 using System.Threading.Tasks;
 using System.Linq;
 using System.Collections.Generic;
+
+using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.ViewModels;
 using FieldService.Data;
 using FieldService.Utilities;
@@ -41,18 +43,16 @@ namespace FieldService.iOS
 			assignmentViewModel.RecordingChanged += OnRecordingChanged;
 		}
 
-		private void OnHoursChanged (object sender, EventArgs e)
+		void OnHoursChanged (object sender, EventArgs e)
 		{
-			if (IsViewLoaded) {
+			if (IsViewLoaded)
 				timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-			}
 		}
 
-		private void OnRecordingChanged (object sender, EventArgs e)
+		void OnRecordingChanged (object sender, EventArgs e)
 		{
-			if (IsViewLoaded) {
+			if (IsViewLoaded)
 				record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
-			}
 		}
 
 		protected override void Dispose (bool disposing)
@@ -103,100 +103,99 @@ namespace FieldService.iOS
 			assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
 				BeginInvokeOnMainThread (() => {
 					record.Enabled = true;
-					if (assignmentViewModel.Recording) {
+					if (assignmentViewModel.Recording)
 						record.SetImage (Theme.RecordActive, UIControlState.Normal);
-					} else {
+					else
 						record.SetImage (Theme.Record, UIControlState.Normal);
-					}
 				});
 			});
 
-			if (Theme.IsiOS7) {
-				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
-				timerLabel.Font = Theme.FontOfSize (16);
-				startAndEnd.Font = Theme.BoldFontOfSize (10);
-				startAndEnd.TextColor = UIColor.White;
-
-				//Shadow frame
-				var frame = toolbarShadow.Frame;
-				frame.Height = 1;
-				toolbarShadow.Frame = frame;
-				toolbarShadow.Image = UIColor.LightGray.ToImage ();
-
-				//Status dropdown frame
-				frame = status.Frame;
-				frame.Width /= 2;
-				frame.X += frame.Width + 9;
-				status.Frame = frame;
-
-				const float offset = 100;
-
-				//Timer frame
-				frame = timerLabel.Frame;
-				frame.X += offset + 35;
-				timerLabel.Frame = frame;
-
-				//Record (play/pause) button frame
-				frame = record.Frame;
-				frame.X += offset;
-				record.Frame = frame;
-
-				//Priority frames
-				frame = priorityBackground.Frame;
-				frame.X -= 10;
-				frame.Width = frame.Height;
-				priorityBackground.Frame =
-					priority.Frame = frame;
-
-				//Info frames
-				frame = numberAndDate.Frame;
-				frame.X -= 10;
-				numberAndDate.Frame = frame;
-
-				frame = titleLabel.Frame;
-				frame.X -= 10;
-				titleLabel.Frame = frame;
-
-				frame = startAndEnd.Frame;
-				frame.X -= 6;
-				startAndEnd.Frame = frame;
-
-				//Address frame
-				frame = address.Frame;
-				frame.X -= 10;
-				address.Frame = frame;
-
-				//Contact frame
-				frame = contact.Frame;
-				frame.X -= 10;
-				contact.Frame = frame;
-
-				//Additional green rectangle on the right
-				var statusView = new UIView (new CGRect (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {
-					BackgroundColor = Theme.GreenColor,
-					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
-				};
-				activeAssignment.AddSubview (statusView);
-
-				//Additional box for the start/end date
-				frame = startAndEnd.Frame;
-				frame.X -= 4;
-				frame.Y += 4;
-				frame.Width = 102;
-				frame.Height = 16;
-				var timeBox = new UIImageView (frame) {
-					Image = Theme.TimeBox,
-					ContentMode = UIViewContentMode.Left,
-				};
-				activeAssignment.AddSubview (timeBox);
-				activeAssignment.BringSubviewToFront (startAndEnd);
-
-			} else {
+			if (!Theme.IsiOS7) {
 				tableView.BackgroundColor = Theme.BackgroundColor;
 				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 				toolbarShadow.Image = Theme.ToolbarShadow;
 				timerBackgroundImage.Image = Theme.TimerField;
+				return;
 			}
+
+			tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
+			timerLabel.Font = Theme.FontOfSize (16f);
+			startAndEnd.Font = Theme.BoldFontOfSize (10f);
+			startAndEnd.TextColor = UIColor.White;
+
+			//Shadow frame
+			var frame = toolbarShadow.Frame;
+			frame.Height = 1f;
+			toolbarShadow.Frame = frame;
+			toolbarShadow.Image = UIColor.LightGray.ToImage ();
+
+			//Status dropdown frame
+			frame = status.Frame;
+			frame.Width /= 2f;
+			frame.X += frame.Width + 9f;
+			status.Frame = frame;
+
+			const float offset = 100f;
+
+			//Timer frame
+			frame = timerLabel.Frame;
+			frame.X += offset + 35f;
+			timerLabel.Frame = frame;
+
+			//Record (play/pause) button frame
+			frame = record.Frame;
+			frame.X += offset;
+			record.Frame = frame;
+
+			//Priority frames
+			frame = priorityBackground.Frame;
+			frame.X -= 10f;
+			frame.Width = frame.Height;
+			priorityBackground.Frame =
+				priority.Frame = frame;
+
+			//Info frames
+			frame = numberAndDate.Frame;
+			frame.X -= 10f;
+			numberAndDate.Frame = frame;
+
+			frame = titleLabel.Frame;
+			frame.X -= 10f;
+			titleLabel.Frame = frame;
+
+			frame = startAndEnd.Frame;
+			frame.X -= 6f;
+			startAndEnd.Frame = frame;
+
+			//Address frame
+			frame = address.Frame;
+			frame.X -= 10f;
+			address.Frame = frame;
+
+			//Contact frame
+			frame = contact.Frame;
+			frame.X -= 10f;
+			contact.Frame = frame;
+
+			//Additional green rectangle on the right
+			var statusView = new UIView (new CGRect (activeAssignment.Frame.Width - 8f, 0f, 8f, activeAssignment.Frame.Height)) {
+				BackgroundColor = Theme.GreenColor,
+				AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
+			};
+			activeAssignment.AddSubview (statusView);
+
+			//Additional box for the start/end date
+			frame = startAndEnd.Frame;
+			frame.X -= 4f;
+			frame.Y += 4f;
+			frame.Width = 102f;
+			frame.Height = 16f;
+			var timeBox = new UIImageView (frame) {
+				Image = Theme.TimeBox,
+				ContentMode = UIViewContentMode.Left,
+			};
+			activeAssignment.AddSubview (timeBox);
+			activeAssignment.BringSubviewToFront (startAndEnd);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -225,11 +224,10 @@ namespace FieldService.iOS
 			bool wasLandscape = InterfaceOrientation.IsLandscape ();
 			bool willBeLandscape = toInterfaceOrientation.IsLandscape ();
 
-			if (wasPortrait && willBeLandscape) {
+			if (wasPortrait && willBeLandscape)
 				SetContactVisible (true, duration);
-			} else if (wasLandscape && willBePortrait) {
+			else if (wasLandscape && willBePortrait)
 				SetContactVisible (false, duration);
-			}
 
 			base.WillRotate (toInterfaceOrientation, duration);
 		}
@@ -237,7 +235,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// This is uses to show/hide contact and address on rotation
 		/// </summary>
-		private void SetContactVisible (bool visible, double duration)
+		void SetContactVisible (bool visible, double duration)
 		{
 			UIView.BeginAnimations ("SetContactVisible");
 			UIView.SetAnimationDuration (duration);
@@ -295,65 +293,62 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets the visibility of the active assignment, with a nice animation
 		/// </summary>
-		private void SetActiveAssignmentVisible (bool visible, bool animate = true)
+		void SetActiveAssignmentVisible (bool visible, bool animate = true)
 		{
-			if (visible != activeAssignmentVisible) {
-				if (animate) {
-					UIView.BeginAnimations ("ChangeActiveAssignment");
-					UIView.SetAnimationDuration (.3);
-					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
-				}
+			if (visible == activeAssignmentVisible)
+				return;
 
-				//Modify the tableView's frame
-				float height = 95;
-				var frame = tableView.Frame;
-				if (visible) {
-					frame.Y += height;
-					frame.Height -= height;
-				} else {
-					frame.Y -= height;
-					frame.Height += height;
-				}
-				tableView.Frame = frame;
-
-				//Modify the active assignment's frame
-				frame = activeAssignment.Frame;
-				if (visible) {
-					frame.Y += height;
-				} else {
-					frame.Y -= height;
-				}
-				activeAssignment.Frame = frame;
-
-				//Modify the toolbar shadow's frame
-				frame = toolbarShadow.Frame;
-				if (visible) {
-					frame.Y += height;
-				} else {
-					frame.Y -= height;
-				}
-				toolbarShadow.Frame = frame;
-
-				if (animate) {
-					UIView.CommitAnimations ();
-				}
-				activeAssignmentVisible = visible;
+			if (animate) {
+				UIView.BeginAnimations ("ChangeActiveAssignment");
+				UIView.SetAnimationDuration (.3);
+				UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
 			}
+
+			//Modify the tableView's frame
+			float height = 95;
+			var frame = tableView.Frame;
+			if (visible) {
+				frame.Y += height;
+				frame.Height -= height;
+			} else {
+				frame.Y -= height;
+				frame.Height += height;
+			}
+			tableView.Frame = frame;
+
+			//Modify the active assignment's frame
+			frame = activeAssignment.Frame;
+			if (visible)
+				frame.Y += height;
+			else
+				frame.Y -= height;
+
+			activeAssignment.Frame = frame;
+
+			//Modify the toolbar shadow's frame
+			frame = toolbarShadow.Frame;
+			if (visible)
+				frame.Y += height;
+			else
+				frame.Y -= height;
+
+			toolbarShadow.Frame = frame;
+
+			if (animate)
+				UIView.CommitAnimations ();
+
+			activeAssignmentVisible = visible;
 		}
 
 		/// <summary>
 		/// Sets the active assignment's views
 		/// </summary>
-		private void LoadActiveAssignment ()
+		void LoadActiveAssignment ()
 		{
 			var assignment = assignmentViewModel.ActiveAssignment;
 
 			//Update font size on priority
-			if (assignment.Priority >= 10) {
-				priority.Font = Theme.FontOfSize (14);
-			} else {
-				priority.Font = Theme.FontOfSize (18);
-			}
+			priority.Font = Theme.FontOfSize (assignment.Priority >= 10 ? 14f : 18f);
 
 			priority.Text = assignment.Priority.ToString ();
 			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
@@ -372,12 +367,7 @@ namespace FieldService.iOS
 		partial void Record ()
 		{
 			record.Enabled = false;
-			Task task;
-			if (assignmentViewModel.Recording) {
-				task = assignmentViewModel.PauseAsync ();
-			} else {
-				task = assignmentViewModel.RecordAsync ();
-			}
+			Task task = assignmentViewModel.Recording ? assignmentViewModel.PauseAsync () : assignmentViewModel.RecordAsync ();
 			task.ContinueWith (_ => BeginInvokeOnMainThread (() => record.Enabled = true));
 		}
 
@@ -396,7 +386,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Data source for the tableView of assignments
 		/// </summary>
-		private class TableSource : UITableViewSource
+		class TableSource : UITableViewSource
 		{
 			readonly AssignmentsController controller;
 			readonly AssignmentViewModel assignmentViewModel;

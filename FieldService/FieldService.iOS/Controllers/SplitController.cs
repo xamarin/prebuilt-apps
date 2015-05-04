@@ -13,8 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using UIKit;
 using Foundation;
+
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
@@ -32,7 +34,7 @@ namespace FieldService.iOS
 		AssignmentDetailsController detailsController;
 		UIBarButtonItem menu, hide;
 		bool wasLandscape = true, masterPopoverShown = false, isHistory = false;
-		const float masterWidth = 321;
+		const float masterWidth = 321f;
 
 		public SplitController (IntPtr handle) : base(handle)
 		{
@@ -45,9 +47,9 @@ namespace FieldService.iOS
 
 			//Setup some of our UI
 			NavigationItem.LeftItemsSupplementBackButton = true;
-			menu = new UIBarButtonItem("Menu", UIBarButtonItemStyle.Bordered, (sender, e) => ShowPopover ());
+			menu = new UIBarButtonItem ("Menu", UIBarButtonItemStyle.Bordered, (sender, e) => ShowPopover ());
 			menu.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
-			hide = new UIBarButtonItem("Hide", UIBarButtonItemStyle.Bordered, (sender, e) => HidePopover ());
+			hide = new UIBarButtonItem ("Hide", UIBarButtonItemStyle.Bordered, (sender, e) => HidePopover ());
 			hide.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 			SwitchOrientation (InterfaceOrientation, false);
 
@@ -60,18 +62,16 @@ namespace FieldService.iOS
 			};
 			detailsController.Completed += (sender, e) => {
 				//Only perform the Seque if the screen is not already visible
-				if (!detailsController.IsViewLoaded || detailsController.View.Window == null) {
+				if (!detailsController.IsViewLoaded || detailsController.View.Window == null)
 					PerformSegue ("AssignmentDetails", this);
-				}
 			};
 			menuController.MenuChanged += (sender, e) => {
 				detailsController.SectionSelected (e.TableView, e.IndexPath, e.Animated);
 			};
 			menuController.AssignmentCompleted += (sender, e) => {
 				//Only perform the Seque if the screen is not already visible
-				if (!detailsController.IsViewLoaded || detailsController.View.Window == null) {
+				if (!detailsController.IsViewLoaded || detailsController.View.Window == null)
 					PerformSegue ("AssignmentDetails", this);
-				}
 			};
 			menuController.StatusChanged += (sender, e) => detailsController.UpdateAssignment ();
 		}
@@ -79,7 +79,6 @@ namespace FieldService.iOS
 		public override void ViewWillAppear (bool animated)
 		{
 			base.ViewWillAppear (animated);
-
 			isHistory = assignmentViewModel.SelectedAssignment.IsHistory;
 		}
 
@@ -109,13 +108,12 @@ namespace FieldService.iOS
 		/// </summary>
 		public void ShowPopover()
 		{
-			if (!masterPopoverShown)
-			{
-				if (Theme.IsiOS7) {
+			if (!masterPopoverShown) {
+				if (Theme.IsiOS7)
 					NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { hide }, true);
-				} else {
+				else
 					NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { hide }, true);
-				}
+
 				AnimateMasterView (true);
 			}
 		}
@@ -125,13 +123,12 @@ namespace FieldService.iOS
 		/// </summary>
 		public void HidePopover()
 		{
-			if (masterPopoverShown)
-			{
-				if (Theme.IsiOS7) {
+			if (masterPopoverShown) {
+				if (Theme.IsiOS7)
 					NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { menu }, true);
-				} else {
+				else
 					NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { menu }, true);
-				}
+
 				AnimateMasterView (false);
 			}
 		}
@@ -139,7 +136,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Animates the master view for when the toolbar button is clicked
 		/// </summary>
-		private void AnimateMasterView(bool visible)
+		void AnimateMasterView(bool visible)
 		{
 			UIView.BeginAnimations ("SwitchOrientation");
 			UIView.SetAnimationDuration (.3);
@@ -156,26 +153,21 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Performs the work for animating the orientation
 		/// </summary>
-		private void SwitchOrientation(UIInterfaceOrientation orientation, bool animated, double duration = .5)
+		void SwitchOrientation(UIInterfaceOrientation orientation, bool animated, double duration = .5)
 		{
-			if (orientation.IsLandscape ())
-			{
-				if (!wasLandscape)
-				{
+			if (orientation.IsLandscape ()) {
+				if (!wasLandscape) {
 					//Set the navbar to have only the back button
-					if (Theme.IsiOS7) {
+					if (Theme.IsiOS7)
 						NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[0], true);
-					} else {
+					else
 						NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[0], true);
-					}
 
 					//Hide the master view if needed
-					if (masterPopoverShown) {
+					if (masterPopoverShown)
 						AnimateMasterView (false);
-					}
 
-					if (animated)
-					{
+					if (animated) {
 						UIView.BeginAnimations ("SwitchOrientation");
 						UIView.SetAnimationDuration (duration);
 						UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
@@ -193,47 +185,38 @@ namespace FieldService.iOS
 					detailView.Frame = frame;
 
 					if (animated)
-					{
 						UIView.CommitAnimations ();
-					}
+
 					wasLandscape = true;
 				}
-			}
-			else
-			{
-				if (wasLandscape)
-				{
-					//Set the nav bar to include the menu button
-					if (Theme.IsiOS7) {
-						NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { menu }, true);
-					} else {
-						NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { menu }, true);
-					}
+			} else if (wasLandscape) {
+				//Set the nav bar to include the menu button
+				if (Theme.IsiOS7)
+					NavigationItem.SetRightBarButtonItems (new UIBarButtonItem[] { menu }, true);
+				else
+					NavigationItem.SetLeftBarButtonItems (new UIBarButtonItem[] { menu }, true);
 
-					if (animated)
-					{
-						UIView.BeginAnimations ("SwitchOrientation");
-						UIView.SetAnimationDuration (duration);
-						UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
-					}
-
-					//Slide the masterView off screen
-					var frame = masterView.Frame;
-					frame.X = -frame.Width;
-					masterView.Frame = frame;
-
-					//Grow the detailView
-					frame = detailView.Frame;
-					frame.X -= masterWidth;
-					frame.Width += masterWidth;
-					detailView.Frame = frame;
-
-					if (animated)
-					{
-						UIView.CommitAnimations ();
-					}
-					wasLandscape = false;
+				if (animated) {
+					UIView.BeginAnimations ("SwitchOrientation");
+					UIView.SetAnimationDuration (duration);
+					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
 				}
+
+				//Slide the masterView off screen
+				var frame = masterView.Frame;
+				frame.X = -frame.Width;
+				masterView.Frame = frame;
+
+				//Grow the detailView
+				frame = detailView.Frame;
+				frame.X -= masterWidth;
+				frame.Width += masterWidth;
+				detailView.Frame = frame;
+
+				if (animated)
+					UIView.CommitAnimations ();
+
+				wasLandscape = false;
 			}
 		}
 
@@ -245,9 +228,7 @@ namespace FieldService.iOS
 			base.TouchesEnded (touches, evt);
 
 			if (masterPopoverShown && evt.TouchesForView (masterView) == null)
-			{
 				HidePopover ();
-			}
 		}
 	}
 }

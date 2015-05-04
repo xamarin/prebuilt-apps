@@ -13,8 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
@@ -27,6 +29,11 @@ namespace FieldService.iOS
 	public class AssignmentStatusSheet : UIActionSheet
 	{
 		readonly AssignmentViewModel assignmentViewModel;
+
+		/// <summary>
+		/// The selected status
+		/// </summary>
+		public AssignmentStatus? Status { get; private set; }
 
 		public AssignmentStatusSheet ()
 		{
@@ -44,14 +51,6 @@ namespace FieldService.iOS
 				if (e.ButtonIndex != -1)
 					Status = assignmentViewModel.AvailableStatuses[e.ButtonIndex];
 			};
-		}
-		
-		/// <summary>
-		/// The selected status
-		/// </summary>
-		public AssignmentStatus? Status {
-			get;
-			private set;
 		}
 	}
 }

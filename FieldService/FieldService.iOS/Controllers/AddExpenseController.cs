@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.ViewModels;
 using FieldService.Utilities;
 using FieldService.Data;
@@ -27,15 +29,16 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class AddExpenseController : BaseController
 	{
+		readonly AssignmentViewModel assignmentViewModel;
+		readonly ExpenseViewModel expenseViewModel;
+
+		UIBarButtonItem expense, space1, space2, done;
+		TableSource tableSource;
+
 		/// <summary>
 		/// Occurs when dismissed.
 		/// </summary>
 		public event EventHandler Dismissed;
-
-		readonly AssignmentViewModel assignmentViewModel;
-		readonly ExpenseViewModel expenseViewModel;
-		UIBarButtonItem expense, space1, space2, done;
-		TableSource tableSource;
 
 		public AddExpenseController (IntPtr handle) : base (handle)
 		{
@@ -48,13 +51,13 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI setup from code
-			cancel.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
+			cancel.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 
-			var label = new UILabel (new CGRect(0, 0, 80, 36)) {
+			var label = new UILabel (new CGRect(0f, 0f, 80f, 36f)) {
 				Text = "Expense",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (18),
+				Font = Theme.BoldFontOfSize (18f),
 			};
 			expense = new UIBarButtonItem(label);
 
@@ -62,15 +65,15 @@ namespace FieldService.iOS
 				//Save the expense
 				var task = expenseViewModel.SaveExpenseAsync (assignmentViewModel.SelectedAssignment, expenseViewModel.SelectedExpense);
 				//Save the photo if we need to
-				if (expenseViewModel.Photo != null) {
+				if (expenseViewModel.Photo != null)
 					task = task
 						.ContinueWith (_ => expenseViewModel.Photo.ExpenseId = expenseViewModel.SelectedExpense.Id)
 						.ContinueWith (expenseViewModel.SavePhotoAsync ());
-				}
+
 				//Dismiss the controller after the other tasks
-				task.ContinueWith (_ => BeginInvokeOnMainThread(() => DismissViewController (true, null)));
+				task.ContinueWith (_ => BeginInvokeOnMainThread (() => DismissViewController (true, null)));
 			});
-			done.SetTitleTextAttributes (new UITextAttributes() { TextColor = UIColor.White }, UIControlState.Normal);
+			done.SetTitleTextAttributes (new UITextAttributes () { TextColor = UIColor.White }, UIControlState.Normal);
 			done.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 			space1 = new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace);
@@ -116,9 +119,9 @@ namespace FieldService.iOS
 			base.ViewWillDisappear (animated);
 			
 			var method = Dismissed;
-			if (method != null) {
+
+			if (method != null)
 				method(this, EventArgs.Empty);
-			}
 		}
 
 		/// <summary>
@@ -141,6 +144,7 @@ namespace FieldService.iOS
 			readonly PlaceholderTextView description;
 			readonly UIButton photoButton;
 			readonly UIImageView photo;
+
 			ExpenseCategorySheet expenseSheet;
 			PhotoAlertSheet photoSheet;
 			bool enabled;
@@ -151,17 +155,16 @@ namespace FieldService.iOS
 
 				categoryCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				categoryCell.TextLabel.Text = "Category";
-				categoryCell.AccessoryView = category = new UILabel (new CGRect(0, 0, 200, 36))
-				{
+				categoryCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				categoryCell.AccessoryView = category = new UILabel (new CGRect(0f, 0f, 200f, 36f)) {
 					TextAlignment = UITextAlignment.Right,
 					BackgroundColor = UIColor.Clear,
 				};
-				categoryCell.SelectionStyle = UITableViewCellSelectionStyle.None;
 
 				costCell = new UITableViewCell (UITableViewCellStyle.Default, null);
 				costCell.TextLabel.Text = "Cost";
 				costCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				costCell.AccessoryView = cost = new UITextField(new CGRect(0, 0, 200, 36))
+				costCell.AccessoryView = cost = new UITextField(new CGRect (0f, 0f, 200f, 36f))
 				{
 					VerticalAlignment = UIControlContentVerticalAlignment.Center,
 					TextAlignment = UITextAlignment.Right,
@@ -170,36 +173,30 @@ namespace FieldService.iOS
 				{
 					string text = c.Text.Replace ("$", string.Empty);
 					decimal value;
-					if (decimal.TryParse (text, out value)) {
-						expenseViewModel.SelectedExpense.Cost = Math.Abs (value);
-					} else {
-						expenseViewModel.SelectedExpense.Cost = 0;
-					}
+					expenseViewModel.SelectedExpense.Cost = decimal.TryParse (text, out value) ? Math.Abs (value) : 0;
 				});
 
-				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				descriptionCell.AccessoryView = description = new PlaceholderTextView(new CGRect(0, 0, Theme.IsiOS7 ? 515 : 470, 90))
-				{
+				descriptionCell = new UITableViewCell (UITableViewCellStyle.Default, null) {
+					SelectionStyle = UITableViewCellSelectionStyle.None
+				};
+				descriptionCell.AccessoryView = description = new PlaceholderTextView (new CGRect (0f, 0f, Theme.IsiOS7 ? 515f : 470f, 90f)) {
 					BackgroundColor = UIColor.Clear,
 					Placeholder = "Please enter notes here",
 				};
-				descriptionCell.SelectionStyle = UITableViewCellSelectionStyle.None;
-				description.SetDidChangeNotification (d => {
-					if (description.Text != description.Placeholder) {
-						expenseViewModel.SelectedExpense.Description = d.Text;
-					} else {
-						expenseViewModel.SelectedExpense.Description = string.Empty;
-					}
-				});
+				description.SetDidChangeNotification (d =>
+					expenseViewModel.SelectedExpense.Description = description.Text != description.Placeholder ? d.Text : string.Empty
+				);
 
-				photoCell = new UITableViewCell(UITableViewCellStyle.Default, null);
-				photoCell.SelectionStyle = UITableViewCellSelectionStyle.None;
+				photoCell = new UITableViewCell(UITableViewCellStyle.Default, null) {
+					SelectionStyle = UITableViewCellSelectionStyle.None
+				};
+
 				photoButton = UIButton.FromType (UIButtonType.Custom);
 				photoButton.SetBackgroundImage (Theme.AddPhoto, UIControlState.Normal);
 				photoButton.SetTitle ("Add Photo", UIControlState.Normal);
 				photoButton.SetTitleColor (Theme.LabelColor, UIControlState.Normal);
-				photoButton.ContentEdgeInsets = new UIEdgeInsets(0, 0, 2, 0);
-				photoButton.Frame = new CGRect(210, 130, 115, 40);
+				photoButton.ContentEdgeInsets = new UIEdgeInsets (0f, 0f, 2f, 0f);
+				photoButton.Frame = new CGRect (210f, 130f, 115f, 40f);
 				photoButton.TouchUpInside += (sender, e) => {
 					if (photoSheet == null) {
 						photoSheet = new PhotoAlertSheet();
@@ -214,7 +211,8 @@ namespace FieldService.iOS
 						//Set the callback for when the image is selected
 						photoSheet.Callback = image => { 
 							if (expenseViewModel.Photo == null)
-							expenseViewModel.Photo = new ExpensePhoto { ExpenseId = expenseViewModel.SelectedExpense.Id };
+								expenseViewModel.Photo = new ExpensePhoto { ExpenseId = expenseViewModel.SelectedExpense.Id };
+
 							expenseViewModel.Photo.Image = image.ToByteArray ();
 							Load (enabled);
 						};
@@ -223,14 +221,17 @@ namespace FieldService.iOS
 				};
 				photoCell.AddSubview (photoButton);
 				var frame = photoCell.Frame;
-				frame.X = 18;
-				frame.Width -= 34;
-				photo = new UIImageView(frame);
-				photo.AutoresizingMask = UIViewAutoresizing.All;
-				photo.ContentMode = UIViewContentMode.ScaleAspectFit;
-				photo.Layer.BorderWidth = 1;
-				photo.Layer.BorderColor = new CGColor(0xcf, 0xcf, 0xcf, 0x7f);
-				photo.Layer.CornerRadius = 10;
+				frame.X = 18f;
+				frame.Width -= 34f;
+
+				photo = new UIImageView (frame) {
+					AutoresizingMask = UIViewAutoresizing.All,
+					ContentMode = UIViewContentMode.ScaleAspectFit
+				};
+
+				photo.Layer.BorderWidth = 1f;
+				photo.Layer.BorderColor = new CGColor (0xcf, 0xcf, 0xcf, 0x7f);
+				photo.Layer.CornerRadius = 10f;
 				photo.Layer.MasksToBounds = true;
 				photoCell.AddSubview (photo);
 			}
@@ -248,6 +249,7 @@ namespace FieldService.iOS
 
 				category.Text = expense.Category.ToString ();
 				cost.Text = expense.Cost.ToString ("$0.00");
+
 				if (enabled)
 					description.Text = string.IsNullOrEmpty (expense.Description) ? description.Placeholder : expense.Description;
 				else
@@ -257,6 +259,7 @@ namespace FieldService.iOS
 					photo.Image.Dispose ();
 					photo.Image = null;
 				}
+
 				if (expenseViewModel.Photo != null) {
 					photo.Hidden = false;
 					photoButton.Hidden = true;
@@ -271,11 +274,11 @@ namespace FieldService.iOS
 			{
 				switch (indexPath.Section) {
 				case 1:
-					return 100;
+					return 100f;
 				case 2:
-					return 290;
+					return 290f;
 				default:
-					return 44;
+					return 44f;
 				}
 			}
 
@@ -291,43 +294,43 @@ namespace FieldService.iOS
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (enabled) {
-					if (indexPath.Section == 0) {
-						if (indexPath.Row == 0) {
-							//Category changed
-							expenseSheet = new ExpenseCategorySheet ();
-							expenseSheet.Dismissed += (sender, e) => {
-								var expense = expenseViewModel.SelectedExpense;
-								if (expenseSheet.Category.HasValue && expense.Category != expenseSheet.Category) {
-									expense.Category = expenseSheet.Category.Value;
+				if (!enabled)
+					return;
 
-									Load (enabled);
-								}
+				if (indexPath.Section == 0) {
+					if (indexPath.Row == 0) {
+						//Category changed
+						expenseSheet = new ExpenseCategorySheet ();
+						expenseSheet.Dismissed += (sender, e) => {
+							var expense = expenseViewModel.SelectedExpense;
+							if (expenseSheet.Category.HasValue && expense.Category != expenseSheet.Category) {
+								expense.Category = expenseSheet.Category.Value;
 
-								expenseSheet.Dispose ();
-								expenseSheet = null;
-							};
-							expenseSheet.ShowFrom (categoryCell.Frame, tableView, true);
-						} else {
-							//Give hours "focus"
-							cost.BecomeFirstResponder ();
-						}
-					} else if (indexPath.Section == 1) {
-						//Give description "focus"
-						description.BecomeFirstResponder ();
+								Load (enabled);
+							}
+
+							expenseSheet.Dispose ();
+							expenseSheet = null;
+						};
+						expenseSheet.ShowFrom (categoryCell.Frame, tableView, true);
+					} else {
+						//Give hours "focus"
+						cost.BecomeFirstResponder ();
 					}
+				} else if (indexPath.Section == 1) {
+					//Give description "focus"
+					description.BecomeFirstResponder ();
 				}
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Section == 0) {
+				if (indexPath.Section == 0)
 					return indexPath.Row == 0 ? categoryCell : costCell;
-				} else if (indexPath.Section == 1) {
+				else if (indexPath.Section == 1)
 					return descriptionCell;
-				} else {
+				else
 					return photoCell;
-				}
 			}
 			
 			protected override void Dispose (bool disposing)

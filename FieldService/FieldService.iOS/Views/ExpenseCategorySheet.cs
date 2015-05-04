@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 
 namespace FieldService.iOS
@@ -24,28 +26,23 @@ namespace FieldService.iOS
 	{
 		readonly ExpenseCategory[] categories;
 
+		/// <summary>
+		/// The category the user selected, or null if none
+		/// </summary>
+		public ExpenseCategory? Category { get; private set; }
+
 		public ExpenseCategorySheet ()
 		{
 			//Pull out all ExpenseCategory values
 			categories = (ExpenseCategory[])Enum.GetValues (typeof(ExpenseCategory));
 
-			foreach (ExpenseCategory type in categories) {
+			foreach (ExpenseCategory type in categories)
 				AddButton (type.ToString ());
-			}
 
 			Dismissed += (sender, e) => {
 				if (e.ButtonIndex != -1)
 					Category = categories[e.ButtonIndex];
 			};
-		}
-
-		/// <summary>
-		/// The category the user selected, or null if none
-		/// </summary>
-		public ExpenseCategory? Category
-		{
-			get; 
-			private set;
 		}
 	}
 }

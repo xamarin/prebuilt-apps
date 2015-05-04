@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 
 namespace FieldService.iOS
@@ -33,36 +35,36 @@ namespace FieldService.iOS
 		{
 			base.AwakeFromNib ();
 
-			if (Theme.IsiOS7) {
-				SelectionStyle = UITableViewCellSelectionStyle.Blue;
-				SelectedBackgroundView = new UIView { BackgroundColor = UIColor.Clear };
-				BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
-
-				date.TextColor =
-					description.TextColor = Theme.LabelColor;
-				date.Font = Theme.FontOfSize (18);
-				description.Font = Theme.FontOfSize (14);
-
-				//Change the image frame
-				var frame = photoFrame.Frame;
-				frame.Y = 0;
-				frame.Height = Frame.Height;
-				frame.Width -= 12;
-				photo.Frame = frame;
-
-				//Changes to widths on text
-				frame = date.Frame;
-				frame.Width -= 15;
-				date.Frame = frame;
-
-				frame = description.Frame;
-				frame.Width -= 15;
-				description.Frame = frame;
-
-			} else {
+			if (!Theme.IsiOS7) {
 				BackgroundView = new UIImageView { Image = Theme.Inlay };
 				photoFrame.Image = Theme.PhotoFrame;
+				return;
 			}
+
+			SelectionStyle = UITableViewCellSelectionStyle.Blue;
+			SelectedBackgroundView = new UIView { BackgroundColor = UIColor.Clear };
+			BackgroundView = new UIView { BackgroundColor = Theme.BackgroundColor };
+
+			date.TextColor =
+				description.TextColor = Theme.LabelColor;
+			date.Font = Theme.FontOfSize (18);
+			description.Font = Theme.FontOfSize (14);
+
+			//Change the image frame
+			var frame = photoFrame.Frame;
+			frame.Y = 0;
+			frame.Height = Frame.Height;
+			frame.Width -= 12;
+			photo.Frame = frame;
+
+			//Changes to widths on text
+			frame = date.Frame;
+			frame.Width -= 15;
+			date.Frame = frame;
+
+			frame = description.Frame;
+			frame.Width -= 15;
+			description.Frame = frame;
 		}
 
 		/// <summary>

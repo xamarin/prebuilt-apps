@@ -13,8 +13,10 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using Foundation;
 using UIKit;
+
 using FieldService.Utilities;
 
 namespace FieldService.iOS

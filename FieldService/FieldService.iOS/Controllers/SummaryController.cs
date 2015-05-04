@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
@@ -44,78 +46,80 @@ namespace FieldService.iOS
 				descriptionTitle.TextColor = Theme.LabelColor;
 
 			//Setup our toolbar
-			var label = new UILabel (new CGRect(0, 0, 100, 36)) {
+			var label = new UILabel (new CGRect (0f, 0f, 100f, 36f)) {
 				Text = "Description",
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
+				Font = Theme.BoldFontOfSize (16f),
 			};
+
 			descriptionButton = new UIBarButtonItem(label);
 
 			viewHistory = new UIBarButtonItem("View History", UIBarButtonItemStyle.Bordered, (sender, e) => {
 				var menuViewModel = ServiceContainer.Resolve<MenuViewModel>();
 				menuViewModel.MenuIndex = SectionIndex.History;
 			});
+
 			viewHistory.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
 			viewHistory.SetBackgroundImage (Theme.BlueBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-			if (Theme.IsiOS7) {
-				descriptionBackground.BackgroundColor = UIColor.White;
-
-				itemsLabel.Font =
-					items.Font =
-					hoursLabel.Font = 
-					hours.Font =
-					expensesLabel.Font =
-					expenses.Font = Theme.FontOfSize (18);
-
-				itemsLabel.TextColor =
-					items.TextColor =
-					hoursLabel.TextColor = 
-					hours.TextColor =
-					expensesLabel.TextColor =
-					expenses.TextColor = Theme.LabelColor;
-
-				itemsBackground.BackgroundColor = 
-					hoursBackground.BackgroundColor = 
-					expensesBackground.BackgroundColor = Theme.LightGrayColor;
-
-				//Move backgrounds around to appear as lines
-				var frame = itemsBackground.Frame;
-				frame.X = 0;
-				frame.Y += frame.Height - 1;
-				frame.Height = 1;
-				frame.Width = View.Frame.Width;
-				itemsBackground.Frame = frame;
-
-				frame = hoursBackground.Frame;
-				frame.X = 0;
-				frame.Y += frame.Height - 1;
-				frame.Height = 1;
-				frame.Width = View.Frame.Width;
-				hoursBackground.Frame = frame;
-
-				frame = expensesBackground.Frame;
-				frame.X = 0;
-				frame.Y += frame.Height - 1;
-				frame.Height = 1;
-				frame.Width = View.Frame.Width;
-				expensesBackground.Frame = frame;
-
-			} else {
+			if (!Theme.IsiOS7) {
 				descriptionBackground.Image = Theme.RowEnd;
 
 				itemsBackground.Image = 
 					hoursBackground.Image = 
-					expensesBackground.Image = Theme.Inlay;
+						expensesBackground.Image = Theme.Inlay;
 
 				itemsLabel.TextColor =
 					items.TextColor =
-					hoursLabel.TextColor = 
-					hours.TextColor =
-					expensesLabel.TextColor =
-					expenses.TextColor = UIColor.White;
+						hoursLabel.TextColor =
+							hours.TextColor =
+								expensesLabel.TextColor =
+									expenses.TextColor = UIColor.White;
+				return;
 			}
+
+			descriptionBackground.BackgroundColor = UIColor.White;
+
+			itemsLabel.Font =
+				items.Font =
+				hoursLabel.Font =
+				hours.Font =
+				expensesLabel.Font =
+				expenses.Font = Theme.FontOfSize (18f);
+
+			itemsLabel.TextColor =
+				items.TextColor =
+				hoursLabel.TextColor =
+				hours.TextColor =
+				expensesLabel.TextColor =
+				expenses.TextColor = Theme.LabelColor;
+
+			itemsBackground.BackgroundColor =
+				hoursBackground.BackgroundColor =
+				expensesBackground.BackgroundColor = Theme.LightGrayColor;
+
+			//Move backgrounds around to appear as lines
+			var frame = itemsBackground.Frame;
+			frame.X = 0f;
+			frame.Y += frame.Height - 1f;
+			frame.Height = 1f;
+			frame.Width = View.Frame.Width;
+			itemsBackground.Frame = frame;
+
+			frame = hoursBackground.Frame;
+			frame.X = 0f;
+			frame.Y += frame.Height - 1f;
+			frame.Height = 1f;
+			frame.Width = View.Frame.Width;
+			hoursBackground.Frame = frame;
+
+			frame = expensesBackground.Frame;
+			frame.X = 0f;
+			frame.Y += frame.Height - 1f;
+			frame.Height = 1f;
+			frame.Width = View.Frame.Width;
+			expensesBackground.Frame = frame;
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -142,7 +146,6 @@ namespace FieldService.iOS
 					descriptionButton, 
 				};
 			}
-
 		}
 	}
 }

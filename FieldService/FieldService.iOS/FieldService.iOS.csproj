@@ -26,9 +26,10 @@
     <MtouchDebug>True</MtouchDebug>
     <MtouchProfiling>True</MtouchProfiling>
     <MtouchLink>None</MtouchLink>
-    <MtouchArch>ARMv7</MtouchArch>
+    <MtouchArch>i386, x86_64</MtouchArch>
     <MtouchI18n>
     </MtouchI18n>
+    <MtouchUseRefCounting>true</MtouchUseRefCounting>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
     <DebugType>none</DebugType>
@@ -108,6 +109,9 @@
     <Reference Include="Xamarin.Mobile">
       <HintPath>..\Components\xamarin.mobile-0.7.5\lib\ios-unified\Xamarin.Mobile.dll</HintPath>
     </Reference>
+    <Reference Include="SQLite">
+      <HintPath>..\Components\sqlite-net-1.0.8.3\lib\ios-unified\SQLite.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\contract.pdf" />
@@ -119,84 +123,12 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="..\FieldService\Catalog.cs">
-      <Link>FieldService\Catalog.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
-      <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\ViewModelBase.cs">
-      <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
-    </Compile>
     <Compile Include="Utilities\Theme.cs" />
-    <Compile Include="..\FieldService\ILoginService.cs">
-      <Link>FieldService\ILoginService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\SampleLoginService.cs">
-      <Link>FieldService\Data\SampleLoginService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
-      <Link>FieldService\Utilities\TaskExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Assignment.cs">
-      <Link>FieldService\Data\Assignment.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\AssignmentItem.cs">
-      <Link>FieldService\Data\AssignmentItem.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Database.cs">
-      <Link>FieldService\Data\Database.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Enumerations.cs">
-      <Link>FieldService\Data\Enumerations.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\IAssignmentService.cs">
-      <Link>FieldService\IAssignmentService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Item.cs">
-      <Link>FieldService\Data\Item.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\SampleAssignmentService.cs">
-      <Link>FieldService\Data\SampleAssignmentService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\AssignmentViewModel.cs">
-      <Link>FieldService\ViewModels\AssignmentViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ServiceRegistrar.cs">
-      <Link>FieldService\ServiceRegistrar.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
-      <Link>FieldService\Utilities\ServiceContainer.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Utilities\DataExtensions.cs">
-      <Link>FieldService\Utilities\DataExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Labor.cs">
-      <Link>FieldService\Data\Labor.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Expense.cs">
-      <Link>FieldService\Data\Expense.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\TimerEntry.cs">
-      <Link>FieldService\Data\TimerEntry.cs</Link>
-    </Compile>
     <Compile Include="Utilities\SynchronizeInvoke.cs" />
     <Compile Include="Utilities\UIKitExtensions.cs" />
     <Compile Include="Utilities\ClrWrapper.cs" />
-    <Compile Include="..\FieldService\ViewModels\ItemViewModel.cs">
-      <Link>FieldService\ViewModels\ItemViewModel.cs</Link>
-    </Compile>
     <Compile Include="Utilities\ISearchSource.cs" />
     <Compile Include="Utilities\SearchDisplay.cs" />
-    <Compile Include="..\FieldService\ViewModels\LaborViewModel.cs">
-      <Link>FieldService\ViewModels\LaborViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\PhotoViewModel.cs">
-      <Link>FieldService\ViewModels\PhotoViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Photo.cs">
-      <Link>FieldService\Data\Photo.cs</Link>
-    </Compile>
     <Compile Include="Controllers\AddItemController.cs" />
     <Compile Include="Controllers\AddItemController.designer.cs">
       <DependentUpon>AddItemController.cs</DependentUpon>
@@ -278,9 +210,6 @@
     </Compile>
     <Compile Include="Views\AssignmentStatusSheet.cs" />
     <Compile Include="Views\PhotoAlertSheet.cs" />
-    <Compile Include="..\FieldService\Data\PropertyChangedBase.cs">
-      <Link>FieldService\Data\PropertyChangedBase.cs</Link>
-    </Compile>
     <Compile Include="Views\ExpenseCell.cs" />
     <Compile Include="Views\ExpenseCell.designer.cs">
       <DependentUpon>ExpenseCell.cs</DependentUpon>
@@ -289,31 +218,16 @@
     <Compile Include="Controllers\ExpenseController.designer.cs">
       <DependentUpon>ExpenseController.cs</DependentUpon>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\ExpenseViewModel.cs">
-      <Link>FieldService\ViewModels\ExpenseViewModel.cs</Link>
-    </Compile>
     <Compile Include="Controllers\AddExpenseController.cs" />
     <Compile Include="Controllers\AddExpenseController.designer.cs">
       <DependentUpon>AddExpenseController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\ExpenseCategorySheet.cs" />
-    <Compile Include="..\FieldService\Data\Document.cs">
-      <Link>FieldService\Data\Document.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\DocumentViewModel.cs">
-      <Link>FieldService\ViewModels\DocumentViewModel.cs</Link>
-    </Compile>
     <Compile Include="Controllers\DocumentController.cs" />
     <Compile Include="Controllers\DocumentController.designer.cs">
       <DependentUpon>DocumentController.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\DocumentCell.cs" />
-    <Compile Include="..\FieldService\Data\AssignmentHistory.cs">
-      <Link>FieldService\Data\AssignmentHistory.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\HistoryViewModel.cs">
-      <Link>FieldService\ViewModels\HistoryViewModel.cs</Link>
-    </Compile>
     <Compile Include="Controllers\HistoryController.cs" />
     <Compile Include="Controllers\HistoryController.designer.cs">
       <DependentUpon>HistoryController.cs</DependentUpon>
@@ -323,15 +237,6 @@
       <DependentUpon>HistoryCell.cs</DependentUpon>
     </Compile>
     <Compile Include="Views\PlaceholderTextView.cs" />
-    <Compile Include="..\FieldService\Data\TestData.cs">
-      <Link>FieldService\Data\TestData.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Signature.cs">
-      <Link>FieldService\Data\Signature.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\ExpensePhoto.cs">
-      <Link>FieldService\Data\ExpensePhoto.cs</Link>
-    </Compile>
     <Compile Include="Controllers\SplitController.cs" />
     <Compile Include="Controllers\SplitController.designer.cs">
       <DependentUpon>SplitController.cs</DependentUpon>
@@ -351,16 +256,7 @@
     </Compile>
     <Compile Include="Controllers\BaseNavigationController.cs" />
     <Compile Include="Utilities\MenuEventArgs.cs" />
-    <Compile Include="..\FieldService\ViewModels\MenuViewModel.cs">
-      <Link>FieldService\ViewModels\MenuViewModel.cs</Link>
-    </Compile>
     <Compile Include="Utilities\SectionIndex.cs" />
-    <Compile Include="..\Dependencies\sqlite-net\src\SQLite.cs">
-      <Link>Sql\SQLite.cs</Link>
-    </Compile>
-    <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
-      <Link>Sql\SQLiteAsync.cs</Link>
-    </Compile>
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="MainStoryboard.storyboard" />
@@ -563,9 +459,11 @@
       <Version>0.7.5</Version>
       <Visible>False</Visible>
     </XamarinComponentReference>
+    <XamarinComponentReference Include="sqlite-net">
+      <Version>1.0.8.3</Version>
+      <Visible>False</Visible>
+    </XamarinComponentReference>
   </ItemGroup>
+  <Import Project="..\FieldService.Shared\FieldService.Shared.projitems" Label="Shared" Condition="Exists('..\FieldService.Shared\FieldService.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
-  <ItemGroup>
-    <Folder Include="Sql\" />
-  </ItemGroup>
 </Project>

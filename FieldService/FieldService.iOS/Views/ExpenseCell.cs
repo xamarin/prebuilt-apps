@@ -13,10 +13,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using CoreGraphics;
 using System.Linq;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 
 namespace FieldService.iOS
@@ -101,7 +103,6 @@ namespace FieldService.iOS
 		protected override void Dispose (bool disposing)
 		{
 			ReleaseDesignerOutlets ();
-
 			base.Dispose (disposing);
 		}
 	}

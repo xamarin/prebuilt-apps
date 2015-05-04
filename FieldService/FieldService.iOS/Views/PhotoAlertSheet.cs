@@ -13,13 +13,16 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
-using CoreGraphics;
 using System.IO;
 using System.Threading.Tasks;
+
+using CoreGraphics;
 using Foundation;
 using UIKit;
-using FieldService.Utilities;
+
 using Xamarin.Media;
+
+using FieldService.Utilities;
 
 namespace FieldService.iOS
 {
@@ -30,6 +33,16 @@ namespace FieldService.iOS
 	{
 		readonly MediaPicker picker;
 
+		/// <summary>
+		/// Gets or sets the size to scale the image to, SizeF.Zero turns off sizing
+		/// </summary>
+		public CGSize DesiredSize { get; set; }
+
+		/// <summary>
+		/// Gets or sets the callback for when an image is selected and resized
+		/// </summary>
+		public Action<UIImage> Callback { get; set; }
+
 		public PhotoAlertSheet ()
 		{
 			picker = new MediaPicker ();
@@ -38,56 +51,43 @@ namespace FieldService.iOS
 			if (picker.IsCameraAvailable)
 				AddButton ("Camera");
 
-			Dismissed += (sender, e) => {
-				switch (e.ButtonIndex) {
-				case 0:
-					picker.PickPhotoAsync ()
-						.ContinueWith (t => {
-
-							if (t.IsCanceled)
-								return null;
-
-							SetImage(t.Result.GetStream());
-							return t.Result;
-						});
-					break;
-				case 1:
-					picker.TakePhotoAsync (new StoreCameraMediaOptions())
-						.ContinueWith (t => {
-
-							if (t.IsCanceled)
-								return t.Result;
-
-							SetImage(t.Result.GetStream());
-							return t.Result;
-						});
-					break;
-				default:
-					break;
-				}
-			};
+			Dismissed += OnAlertDismissed;
 		}
 
-		/// <summary>
-		/// Gets or sets the size to scale the image to, SizeF.Zero turns off sizing
-		/// </summary>
-		public CGSize DesiredSize {
-			get;
-			set;
-		}
+		void OnAlertDismissed (object sender, UIButtonEventArgs e)
+		{
+			switch (e.ButtonIndex) {
+			case 0:
+				picker.PickPhotoAsync ()
+					.ContinueWith (t => {
 
-		/// <summary>
-		/// Gets or sets the callback for when an image is selected and resized
-		/// </summary>
-		public Action<UIImage> Callback {
-			get;
-			set;
+						if (t.IsCanceled)
+							return null;
+
+						SetImage(t.Result.GetStream());
+						return t.Result;
+					});
+				break;
+			case 1:
+				picker.TakePhotoAsync (new StoreCameraMediaOptions())
+					.ContinueWith (t => {
+
+						if (t.IsCanceled)
+							return t.Result;
+
+						SetImage(t.Result.GetStream());
+						return t.Result;
+					});
+				break;
+			default:
+				break;
+			}
 		}
 
 		/// <summary>
 		/// Helper method to read the stream coming back from Xamarin.Mobile
 		/// </summary>
-		private void SetImage(Stream stream)
+		void SetImage(Stream stream)
 		{
 			using (stream) {
 				using (var data = NSData.FromStream (stream)) {
@@ -97,15 +97,8 @@ namespace FieldService.iOS
 						BeginInvokeOnMainThread (() => Callback(image));
 					} else {
 						//Some math to scale the image to the DesiredSize
-						nfloat scale = 1;
-						if (image.Size.Width / image.Size.Height < DesiredSize.Width / DesiredSize.Height)
-						{
-							scale = DesiredSize.Height / image.Size.Height;
-						}
-						else
-						{
-							scale = DesiredSize.Width / image.Size.Width;
-						}
+						nfloat scale = image.Size.Width / image.Size.Height < DesiredSize.Width / DesiredSize.Height ?
+							DesiredSize.Height / image.Size.Height : DesiredSize.Width / image.Size.Width;
 
 						//Scale the image
 						var newSize = image.Size;

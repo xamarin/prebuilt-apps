@@ -13,9 +13,11 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 using System;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 using FieldService.Utilities;
 
@@ -52,7 +54,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Sets up the text field, toolbar, input accessory view, etc.
 		/// </summary>
-		private void Initialize ()
+		void Initialize ()
 		{
 			toolbar = new UIToolbar (new CGRect (0, 0, UIScreen.MainScreen.Bounds.Width, 44));
 			done = new UIBarButtonItem (UIBarButtonSystemItem.Done, (sender, e) => ResignFirstResponder ());
@@ -60,30 +62,30 @@ namespace FieldService.iOS
 				new UIBarButtonItem (UIBarButtonSystemItem.FlexibleSpace),
 				done
 			};
+
 			picker = new UIPickerView {
 				ShowSelectionIndicator = true,
+				Model = new PickerModel(this)
 			};
-			picker.Model = new PickerModel(this);
 			
 			InputView = picker;
 			InputAccessoryView = toolbar;
 			TextAlignment = UITextAlignment.Left;
 
-			if (Theme.IsiOS7) {
+			if (Theme.IsiOS7)
 				done.TintColor = UIColor.White;
-			}
 		}
 
 		/// <summary>
 		/// Gets or sets the current labor type
 		/// </summary>
-		public LaborType LaborType
-		{
-			get { return laborType; }
+		public LaborType LaborType {
+			get {
+				return laborType;
+			}
 			set
 			{
-				if (laborType != value)
-				{
+				if (laborType != value) {
 					laborType = value;
 					picker.Select ((int)value, 0, false);
 				}
@@ -103,7 +105,7 @@ namespace FieldService.iOS
 		///<summary>
 		/// Sets up the "delegate" for the UIPickerView - not sure why Apple chose "ViewModel" as their wording here
 		/// </summary>			
-		private class PickerModel : UIPickerViewModel
+		class PickerModel : UIPickerViewModel
 		{
 			readonly LaborTypeTextField textField;
 			readonly LaborType[] types;

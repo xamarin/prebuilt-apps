@@ -15,10 +15,13 @@
 using System;
 using System.Threading.Tasks;
 using System.Collections.Generic;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
 using MapKit;
+using CoreLocation;
+
 using FieldService.Utilities;
 using FieldService.Data;
 using FieldService.ViewModels;
@@ -30,6 +33,10 @@ namespace FieldService.iOS
 	/// </summary>
 	public partial class MainMapController : BaseController
 	{
+		CLLocationManager locationManager;
+		CLLocationCoordinate2D locationCoordinate;
+		CLAuthorizationStatus authorizationStatus;
+
 		bool activeAssignmentVisible = true;
 		readonly AssignmentViewModel assignmentViewModel;
 
@@ -42,18 +49,16 @@ namespace FieldService.iOS
 			assignmentViewModel.RecordingChanged += OnRecordingChanged;
 		}
 
-		private void OnHoursChanged (object sender, EventArgs e)
+		void OnHoursChanged (object sender, EventArgs e)
 		{
-			if (IsViewLoaded) {
+			if (IsViewLoaded)
 				timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-			}
 		}
 
-		private void OnRecordingChanged (object sender, EventArgs e)
+		void OnRecordingChanged (object sender, EventArgs e)
 		{
-			if (IsViewLoaded) {
+			if (IsViewLoaded)
 				record.SetImage (assignmentViewModel.Recording ? Theme.RecordActive : Theme.Record, UIControlState.Normal);
-			}
 		}
 
 		protected override void Dispose (bool disposing)
@@ -68,6 +73,8 @@ namespace FieldService.iOS
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();
+
+			SetupLocationManager ();
 
 			//Setup mapView
 			mapView.Delegate = new MapViewDelegate(this);
@@ -94,96 +101,96 @@ namespace FieldService.iOS
 			//Start the active assignment out as not visible
 			SetActiveAssignmentVisible (false, false);
 
-			if (Theme.IsiOS7) {
-				timerLabel.Font = Theme.FontOfSize (16);
-				priority.Font = Theme.FontOfSize (18);
-				startAndEnd.Font = Theme.BoldFontOfSize (10);
-				startAndEnd.TextColor = UIColor.White;
-
-				//Shadow frame
-				var frame = toolbarShadow.Frame;
-				frame.Height = 1;
-				toolbarShadow.Frame = frame;
-				toolbarShadow.Image = UIColor.LightGray.ToImage ();
-
-				//Status dropdown frame
-				frame = status.Frame;
-				frame.Width /= 2;
-				frame.X += frame.Width + 9;
-				status.Frame = frame;
-
-				const float offset = 100;
-
-				//Timer frame
-				frame = timerLabel.Frame;
-				frame.X += offset + 35;
-				timerLabel.Frame = frame;
-
-				//Record (play/pause) button frame
-				frame = record.Frame;
-				frame.X += offset;
-				record.Frame = frame;
-
-				//Priority frames
-				frame = priorityBackground.Frame;
-				frame.X -= 10;
-				frame.Width = frame.Height;
-				priorityBackground.Frame =
-					priority.Frame = frame;
-
-				//Info frames
-				frame = numberAndDate.Frame;
-				frame.X -= 10;
-				numberAndDate.Frame = frame;
-
-				frame = titleLabel.Frame;
-				frame.X -= 10;
-				titleLabel.Frame = frame;
-
-				frame = startAndEnd.Frame;
-				frame.X -= 6;
-				startAndEnd.Frame = frame;
-
-				//Address frame
-				frame = address.Frame;
-				frame.X -= 10;
-				address.Frame = frame;
-
-				//Contact frame
-				frame = contact.Frame;
-				frame.X -= 10;
-				contact.Frame = frame;
-
-				//Assignment
-				frame = activeAssignment.Frame;
-				frame.Height -= 5;
-				activeAssignment.Frame = frame;
-
-				//Additional green rectangle on the right
-				var statusView = new UIView (new CGRect (activeAssignment.Frame.Width - 8, 0, 8, activeAssignment.Frame.Height)) {
-					BackgroundColor = Theme.GreenColor,
-					AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
-				};
-				activeAssignment.AddSubview (statusView);
-
-				//Additional box for the start/end date
-				frame = startAndEnd.Frame;
-				frame.X -= 4;
-				frame.Y += 4;
-				frame.Width = 102;
-				frame.Height = 16;
-				var timeBox = new UIImageView (frame) {
-					Image = Theme.TimeBox,
-					ContentMode = UIViewContentMode.Left,
-				};
-				activeAssignment.AddSubview (timeBox);
-				activeAssignment.BringSubviewToFront (startAndEnd);
-
-			} else {
+			if (!Theme.IsiOS7) {
 				assignmentButton.SetBackgroundImage (Theme.AssignmentActiveBlue, UIControlState.Highlighted);
 				toolbarShadow.Image = Theme.ToolbarShadow;
 				timerBackgroundImage.Image = Theme.TimerField;
+				return;
 			}
+
+			timerLabel.Font = Theme.FontOfSize (16f);
+			priority.Font = Theme.FontOfSize (18f);
+			startAndEnd.Font = Theme.BoldFontOfSize (10f);
+			startAndEnd.TextColor = UIColor.White;
+
+			//Shadow frame
+			var frame = toolbarShadow.Frame;
+			frame.Height = 1f;
+			toolbarShadow.Frame = frame;
+			toolbarShadow.Image = UIColor.LightGray.ToImage ();
+
+			//Status dropdown frame
+			frame = status.Frame;
+			frame.Width /= 2f;
+			frame.X += frame.Width + 9f;
+			status.Frame = frame;
+
+			const float offset = 100f;
+
+			//Timer frame
+			frame = timerLabel.Frame;
+			frame.X += offset + 35f;
+			timerLabel.Frame = frame;
+
+			//Record (play/pause) button frame
+			frame = record.Frame;
+			frame.X += offset;
+			record.Frame = frame;
+
+			//Priority frames
+			frame = priorityBackground.Frame;
+			frame.X -= 10f;
+			frame.Width = frame.Height;
+			priorityBackground.Frame =
+				priority.Frame = frame;
+
+			//Info frames
+			frame = numberAndDate.Frame;
+			frame.X -= 10f;
+			numberAndDate.Frame = frame;
+
+			frame = titleLabel.Frame;
+			frame.X -= 10f;
+			titleLabel.Frame = frame;
+
+			frame = startAndEnd.Frame;
+			frame.X -= 6f;
+			startAndEnd.Frame = frame;
+
+			//Address frame
+			frame = address.Frame;
+			frame.X -= 10f;
+			address.Frame = frame;
+
+			//Contact frame
+			frame = contact.Frame;
+			frame.X -= 10f;
+			contact.Frame = frame;
+
+			//Assignment
+			frame = activeAssignment.Frame;
+			frame.Height -= 5f;
+			activeAssignment.Frame = frame;
+
+			//Additional green rectangle on the right
+			var statusView = new UIView (new CGRect (activeAssignment.Frame.Width - 8f, 0f, 8f, activeAssignment.Frame.Height)) {
+				BackgroundColor = Theme.GreenColor,
+				AutoresizingMask = UIViewAutoresizing.FlexibleHeight | UIViewAutoresizing.FlexibleLeftMargin,
+			};
+			activeAssignment.AddSubview (statusView);
+
+			//Additional box for the start/end date
+			frame = startAndEnd.Frame;
+			frame.X -= 4f;
+			frame.Y += 4f;
+			frame.Width = 102f;
+			frame.Height = 16f;
+			var timeBox = new UIImageView (frame) {
+				Image = Theme.TimeBox,
+				ContentMode = UIViewContentMode.Left,
+			};
+			activeAssignment.AddSubview (timeBox);
+			activeAssignment.BringSubviewToFront (startAndEnd);
 		}
 
 		public override void ViewWillAppear (bool animated)
@@ -200,10 +207,9 @@ namespace FieldService.iOS
 					placemarks.Add (assignment.ToPlacemark ());
 			}
 			
-			foreach (var assignment in assignmentViewModel.Assignments) {
+			foreach (var assignment in assignmentViewModel.Assignments)
 				if (assignment.Latitude != 0 && assignment.Longitude != 0)
 					placemarks.Add (assignment.ToPlacemark ());
-			}
 			
 			if (placemarks.Count > 0)
 				mapView.AddAnnotations (placemarks.ToArray ());
@@ -221,83 +227,108 @@ namespace FieldService.iOS
 			}
 		}
 
+		void SetupLocationManager ()
+		{
+			if (locationManager != null)
+				return;
+
+			locationManager = new CLLocationManager ();
+			locationManager.AuthorizationChanged += OnAuthorizationChanged;
+		}
+
+		void OnAuthorizationChanged (object sender, CLAuthorizationChangedEventArgs e)
+		{
+			authorizationStatus = e.Status;
+
+			switch (authorizationStatus) {
+			case CLAuthorizationStatus.AuthorizedAlways:
+				locationManager.StartUpdatingLocation ();
+				break;
+
+			case CLAuthorizationStatus.NotDetermined:
+				locationManager.RequestAlwaysAuthorization ();
+				break;
+
+			default:
+				break;
+			}
+		}
+
 		/// <summary>
 		/// Sets the visibility of the active assignment, with a nice animation
 		/// </summary>
-		private void SetActiveAssignmentVisible (bool visible, bool animate = true)
+		void SetActiveAssignmentVisible (bool visible, bool animate = true)
 		{
-			if (visible != activeAssignmentVisible) {
-				if (animate) {
-					UIView.BeginAnimations ("ChangeActiveAssignment");
-					UIView.SetAnimationDuration (.3);
-					UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
-				}
-				
-				//Modify the mapViews's frame
-				float height = 95;
-				var frame = mapView.Frame;
-				if (visible) {
-					frame.Y += height;
-					frame.Height -= height;
-				} else {
-					frame.Y -= height;
-					frame.Height += height;
-				}
-				mapView.Frame = frame;
-				
-				//Modify the active assignment's frame
-				frame = activeAssignment.Frame;
-				if (visible) {
-					frame.Y += height;
-				} else {
-					frame.Y -= height;
-				}
-				activeAssignment.Frame = frame;
-				
-				//Modify the toolbar shadow's frame
-				frame = toolbarShadow.Frame;
-				if (visible) {
-					frame.Y += height;
-				} else {
-					frame.Y -= height;
-				}
-				toolbarShadow.Frame = frame;
-				
-				if (animate) {
-					UIView.CommitAnimations ();
-				}
-				activeAssignmentVisible = visible;
+			if (visible == activeAssignmentVisible)
+				return;
+
+			if (animate) {
+				UIView.BeginAnimations ("ChangeActiveAssignment");
+				UIView.SetAnimationDuration (.3);
+				UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
 			}
+
+			//Modify the mapViews's frame
+			float height = 95f;
+			var frame = mapView.Frame;
+			if (visible) {
+				frame.Y += height;
+				frame.Height -= height;
+			} else {
+				frame.Y -= height;
+				frame.Height += height;
+			}
+			mapView.Frame = frame;
+
+			//Modify the active assignment's frame
+			frame = activeAssignment.Frame;
+			if (visible)
+				frame.Y += height;
+			else
+				frame.Y -= height;
+
+			activeAssignment.Frame = frame;
+
+			//Modify the toolbar shadow's frame
+			frame = toolbarShadow.Frame;
+			if (visible)
+				frame.Y += height;
+			else
+				frame.Y -= height;
+
+			toolbarShadow.Frame = frame;
+
+			if (animate)
+				UIView.CommitAnimations ();
+
+			activeAssignmentVisible = visible;
 		}
 
 		/// <summary>
 		/// Sets the active assignment's views
 		/// </summary>
-		private void LoadActiveAssignment ()
+		void LoadActiveAssignment ()
 		{
 			if (assignmentViewModel.ActiveAssignment == null) {
 				SetActiveAssignmentVisible (false);
-			} else {
-				SetActiveAssignmentVisible (true);
-				var assignment = assignmentViewModel.ActiveAssignment;
-
-				//Update font size on priority
-				if (assignment.Priority >= 10) {
-					priority.Font = Theme.FontOfSize (14);
-				} else {
-					priority.Font = Theme.FontOfSize (18);
-				}
-
-				priority.Text = assignment.Priority.ToString ();
-				numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
-				titleLabel.Text = assignment.CompanyName;
-				startAndEnd.Text = assignment.FormatStartEndDates ();
-				contact.TopLabel.Text = assignment.ContactName;
-				contact.BottomLabel.Text = assignment.ContactPhone;
-				address.TopLabel.Text = assignment.Address;
-				address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
-				status.Assignment = assignment;
+				return;
 			}
+
+			SetActiveAssignmentVisible (true);
+			var assignment = assignmentViewModel.ActiveAssignment;
+
+			//Update font size on priority
+			priority.Font = Theme.FontOfSize (assignment.Priority >= 10 ? 14f : 18f);
+
+			priority.Text = assignment.Priority.ToString ();
+			numberAndDate.Text = string.Format ("#{0} {1}", assignment.JobNumber, assignment.StartDate.Date.ToShortDateString ());
+			titleLabel.Text = assignment.CompanyName;
+			startAndEnd.Text = assignment.FormatStartEndDates ();
+			contact.TopLabel.Text = assignment.ContactName;
+			contact.BottomLabel.Text = assignment.ContactPhone;
+			address.TopLabel.Text = assignment.Address;
+			address.BottomLabel.Text = string.Format ("{0}, {1} {2}", assignment.City, assignment.State, assignment.Zip);
+			status.Assignment = assignment;
 		}
 
 		/// <summary>
@@ -310,11 +341,10 @@ namespace FieldService.iOS
 			bool wasLandscape = InterfaceOrientation.IsLandscape ();
 			bool willBeLandscape = toInterfaceOrientation.IsLandscape ();
 			
-			if (wasPortrait && willBeLandscape) {
+			if (wasPortrait && willBeLandscape)
 				SetContactVisible (true, duration);
-			} else if (wasLandscape && willBePortrait) {
+			else if (wasLandscape && willBePortrait)
 				SetContactVisible (false, duration);
-			}
 			
 			base.WillRotate (toInterfaceOrientation, duration);
 		}
@@ -322,7 +352,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// This is uses to show/hide contact and address on rotation
 		/// </summary>
-		private void SetContactVisible (bool visible, double duration)
+		void SetContactVisible (bool visible, double duration)
 		{
 			UIView.BeginAnimations ("SetContactVisible");
 			UIView.SetAnimationDuration (duration);
@@ -345,12 +375,7 @@ namespace FieldService.iOS
 		partial void Record ()
 		{
 			record.Enabled = false;
-			Task task;
-			if (assignmentViewModel.Recording) {
-				task = assignmentViewModel.PauseAsync ();
-			} else {
-				task = assignmentViewModel.RecordAsync ();
-			}
+			Task task = assignmentViewModel.Recording ? assignmentViewModel.PauseAsync () : assignmentViewModel.RecordAsync ();
 			task.ContinueWith (_ => BeginInvokeOnMainThread (() => record.Enabled = true));
 		}
 		
@@ -379,7 +404,7 @@ namespace FieldService.iOS
 		/// <summary>
 		/// Delegate for the map view
 		/// </summary>
-		private class MapViewDelegate : MKMapViewDelegate
+		class MapViewDelegate : MKMapViewDelegate
 		{
 			const string Identifier = "AssignmentAnnotation";
 			readonly MainMapController controller;
@@ -396,21 +421,21 @@ namespace FieldService.iOS
 			/// </summary>
 			public override MKAnnotationView GetViewForAnnotation (MKMapView mapView, IMKAnnotation annotation)
 			{
-				if (annotation is MKUserLocation) {
+				if (annotation is MKUserLocation)
 					return null;
-				} else {
-					var annotationView = mapView.DequeueReusableAnnotation (Identifier) as MKPinAnnotationView;
-					if (annotationView == null) {
-						annotationView = new MKPinAnnotationView(annotation, Identifier);
-						annotationView.PinColor = MKPinAnnotationColor.Green;
-						annotationView.AnimatesDrop = true;
-						annotationView.CanShowCallout = true;
-						annotationView.RightCalloutAccessoryView = UIButton.FromType (UIButtonType.DetailDisclosure);
-					} else {
-						annotationView.Annotation = annotation;
-					}
-					return annotationView;
-				}
+
+				var annotationView = mapView.DequeueReusableAnnotation (Identifier) as MKPinAnnotationView;
+				if (annotationView == null)
+					annotationView = new MKPinAnnotationView (annotation, Identifier) {
+						PinColor = MKPinAnnotationColor.Green,
+						AnimatesDrop = true,
+						CanShowCallout = true,
+						RightCalloutAccessoryView = UIButton.FromType (UIButtonType.DetailDisclosure)
+					};
+				else
+					annotationView.Annotation = annotation;
+
+				return annotationView;
 			}
 			
 			/// <summary>
@@ -439,7 +464,7 @@ namespace FieldService.iOS
 			/// <summary>
 			/// This pulls out an assignment we placed in a MKPlacemark
 			/// </summary>
-			private Assignment GetAssignment(MKPlacemark annotation)
+			Assignment GetAssignment (MKPlacemark annotation)
 			{
 				return annotation.AddressDictionary[new NSString("Assignment")].UnwrapObject<Assignment>();
 			}

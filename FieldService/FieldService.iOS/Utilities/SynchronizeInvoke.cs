@@ -27,28 +27,24 @@ namespace FieldService.iOS
 		/// <summary>
 		/// IAsyncResult implementation
 		/// </summary>
-		class AsyncResult : IAsyncResult {
-			public object AsyncState
-			{
-				get;
-				set;
+		class AsyncResult : IAsyncResult
+		{
+			public object AsyncState { get; set; }
+			
+			public WaitHandle AsyncWaitHandle { get; set; }
+			
+			public bool CompletedSynchronously {
+				get {
+					return IsCompleted;
+				}
 			}
 			
-			public WaitHandle AsyncWaitHandle
-			{
-				get;
-				set;
-			}
-			
-			public bool CompletedSynchronously
-			{
-				get { return IsCompleted; }
-			}
-			
-			public bool IsCompleted
-			{
-				get;
-				set;
+			public bool IsCompleted { get; set; }
+		}
+
+		public bool InvokeRequired {
+			get {
+				return !NSThread.IsMain;
 			}
 		}
 		
@@ -68,24 +64,18 @@ namespace FieldService.iOS
 		
 		public object EndInvoke (IAsyncResult result)
 		{
-			if (!result.IsCompleted) {
+			if (!result.IsCompleted)
 				result.AsyncWaitHandle.WaitOne ();
-			}
 			
 			return result.AsyncState;
 		}
 		
-		public object Invoke (Delegate method, object [] args)
+		public object Invoke (Delegate method, object[] args)
 		{
 			//Uses NSObject.InvokeOnMainThread
 			object result = null;
 			InvokeOnMainThread (() => result = method.DynamicInvoke (args));
 			return result;
-		}
-		
-		public bool InvokeRequired
-		{
-			get { return !NSThread.IsMain; }
 		}
 	}
 }

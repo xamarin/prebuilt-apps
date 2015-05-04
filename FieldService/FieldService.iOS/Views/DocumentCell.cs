@@ -14,9 +14,11 @@
 //    limitations under the License.
 using System;
 using System.IO;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 
 namespace FieldService.iOS
@@ -30,6 +32,8 @@ namespace FieldService.iOS
 		static readonly string tempPath;
 
 		Document document;
+
+		public UIDocumentInteractionController DocumentController { get; set; }
 
 		static DocumentCell ()
 		{
@@ -50,11 +54,6 @@ namespace FieldService.iOS
 			Accessory = UITableViewCellAccessory.DisclosureIndicator;
 		}
 
-		public UIDocumentInteractionController DocumentController {
-			get;
-			set;
-		}
-
 		public override void LayoutSubviews ()
 		{
 			base.LayoutSubviews ();
@@ -68,7 +67,7 @@ namespace FieldService.iOS
 			TextLabel.Frame = frame;
 		}
 
-		public void SetDocument(Document document)
+		public void SetDocument (Document document)
 		{
 			this.document = document;
 			TextLabel.Text = document.Title;
@@ -83,9 +82,7 @@ namespace FieldService.iOS
 
 				DocumentController.Url = NSUrl.FromFilename (tempPath);
 				if (!DocumentController.PresentOpenInMenu (Frame, Superview, true))
-				{
-					new UIAlertView("Error", "Sorry, there is not an app installed that can view PDFs.", null, "Ok").Show ();
-				}
+					new UIAlertView ("Error", "Sorry, there is not an app installed that can view PDFs.", null, "Ok").Show ();
 			}
 
 			//Deselect the cell, a bug in Apple's UITableView requires BeginInvoke

@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldService.iOS", "FieldService.iOS\FieldService.iOS.csproj", "{51E5A2E8-A8CE-42D0-A445-EE8B43E08B76}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldService", "FieldService\FieldService.csproj", "{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FieldService.Android", "FieldService.Android\FieldService.Android.csproj", "{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}"
+EndProject
+Project("{D954291E-2A0B-460D-934E-DC6B0785DB48}") = "FieldService.Shared", "FieldService.Shared\FieldService.Shared.shproj", "{2AD3BA1C-6676-4399-9F92-12DA2C35CC39}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,21 +41,8 @@ Global
 		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|iPhone.Build.0 = Release|Any CPU
 		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
 		{99059E7A-2890-4B1D-B3BD-6F7C05D9C5A1}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Ad-Hoc|iPhone.ActiveCfg = Debug|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Ad-Hoc|iPhone.Build.0 = Debug|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.AppStore|iPhone.ActiveCfg = Debug|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.AppStore|iPhone.Build.0 = Debug|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Release|iPhone.Build.0 = Release|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{F7D8232D-888B-4D40-84F2-EABD83E4D2B1}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
-		StartupItem = FieldService.iOS\FieldService.iOS.csproj
 		Policies = $0
 		$0.TextStylePolicy = $1
 		$1.inheritsSet = Mono

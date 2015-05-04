@@ -13,12 +13,14 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+using System.IO;
+
 using CoreGraphics;
 using Foundation;
 using UIKit;
+
 using FieldService.ViewModels;
 using FieldService.Utilities;
-using System.IO;
 
 namespace FieldService.iOS
 {
@@ -39,10 +41,10 @@ namespace FieldService.iOS
 			base.ViewDidLoad ();
 
 			//UI to setup from code
-			title = new UILabel (new CGRect (0, 0, 160, 36)) {
+			title = new UILabel (new CGRect (0f, 0f, 160f, 36f)) {
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
-				Font = Theme.BoldFontOfSize (16),
+				Font = Theme.BoldFontOfSize (16f),
 			};
 			var titleButton = new UIBarButtonItem (title);
 			
@@ -52,7 +54,7 @@ namespace FieldService.iOS
 
 			if (Theme.IsiOS7) {
 				tableView.SeparatorStyle = UITableViewCellSeparatorStyle.SingleLine;
-				tableView.SeparatorInset = new UIEdgeInsets (0, 40, 0, 0);
+				tableView.SeparatorInset = new UIEdgeInsets (0f, 40f, 0f, 0f);
 			} else {
 				View.BackgroundColor = Theme.BackgroundColor;
 			}

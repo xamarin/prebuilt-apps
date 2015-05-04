@@ -13,6 +13,7 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 using System;
+
 using Foundation;
 using UIKit;
 
@@ -23,24 +24,15 @@ namespace FieldService.iOS
 	/// </summary>
 	public class MenuEventArgs : EventArgs
 	{
+		public UITableView TableView { get; set; }
+
+		public NSIndexPath IndexPath { get; set; }
+
+		public bool Animated { get; set; }
+
 		public MenuEventArgs ()
 		{
 			Animated = true;
-		}
-
-		public UITableView TableView {
-			get;
-			set;
-		}
-
-		public NSIndexPath IndexPath {
-			get;
-			set;
-		}
-
-		public bool Animated {
-			get;
-			set;
 		}
 	}
 }

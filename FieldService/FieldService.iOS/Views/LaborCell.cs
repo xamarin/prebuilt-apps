@@ -13,10 +13,12 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.using System;
 using System;
+
 using CoreGraphics;
 using System.Linq;
 using Foundation;
 using UIKit;
+
 using FieldService.Data;
 
 namespace FieldService.iOS
@@ -28,10 +30,11 @@ namespace FieldService.iOS
 	{
 		public LaborCell (IntPtr handle) : base (handle)
 		{
-			if (!Theme.IsiOS7) {
-				BackgroundView = new UIImageView { Image = Theme.Row };
-				SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
-			}
+			if (Theme.IsiOS7)
+				return;
+
+			BackgroundView = new UIImageView { Image = Theme.Row };
+			SelectedBackgroundView = new UIImageView { Image = Theme.RowPress };
 		}
 
 		/// <summary>
@@ -59,7 +62,7 @@ namespace FieldService.iOS
 			//If the "delete" button is appearing, set the alpha to 0 so it is invisible
 			if (!Theme.IsiOS7 && (mask & UITableViewCellState.ShowingDeleteConfirmationMask) != 0) {
 				var deleteButton = Subviews.Last();
-				deleteButton.Alpha = 0;
+				deleteButton.Alpha = 0f;
 			}
 		}
 
@@ -73,14 +76,14 @@ namespace FieldService.iOS
 
 				//Position the button
 				var frame = deleteButton.Frame;
-				frame.X -= 45;
+				frame.X -= 45f;
 				deleteButton.Frame = frame;
 
 				//Animate the button "fading" in
 				UIView.BeginAnimations ("ShowDeleteButton");
 				UIView.SetAnimationDuration (.3);
 				UIView.SetAnimationCurve (UIViewAnimationCurve.EaseInOut);
-				deleteButton.Alpha = 1;
+				deleteButton.Alpha = 1f;
 				UIView.CommitAnimations ();
 			}
 		}
@@ -88,7 +91,6 @@ namespace FieldService.iOS
 		protected override void Dispose (bool disposing)
 		{
 			ReleaseDesignerOutlets ();
-
 			base.Dispose (disposing);
 		}
 	}
