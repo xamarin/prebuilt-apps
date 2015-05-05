@@ -17,7 +17,6 @@ using System;
 using System.ComponentModel;
 using Android.App;
 using Android.Content;
-using Android.GoogleMaps;
 using Android.OS;
 using Android.Util;
 using Android.Views;
@@ -136,7 +135,7 @@ namespace FieldService.Android {
         public class MapDataWrapper : Java.Lang.Object, Java.IO.ISerializable {
             public int Zoom { get; set; }
             public View OverlayBubble { get; set; }
-            public GeoPoint OverlayPoint { get; set; }
+//            public GeoPoint OverlayPoint { get; set; }
         }
     }
 }

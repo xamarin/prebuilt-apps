@@ -16,9 +16,8 @@
     <AndroidResgenFile>Resources\Resource.Designer.cs</AndroidResgenFile>
     <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
     <AndroidManifest>Properties\AndroidManifest.xml</AndroidManifest>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v5.0</TargetFrameworkVersion>
     <AndroidSupportedAbis>armeabi%3bx86</AndroidSupportedAbis>
-    <AndroidStoreUncompressedFileExtensions />
     <MandroidI18n />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
@@ -39,10 +38,11 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
     <AndroidUseSharedRuntime>False</AndroidUseSharedRuntime>
+    <AndroidStoreUncompressedFileExtensions>
+    </AndroidStoreUncompressedFileExtensions>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
-    <Reference Include="Mono.Android.GoogleMaps" />
     <Reference Include="mscorlib" />
     <Reference Include="SQLite">
       <HintPath>..\Components\sqlite-net-1.0.1\lib\android\SQLite.dll</HintPath>
@@ -57,110 +57,23 @@
     <Reference Include="Xamarin.Mobile">
       <HintPath>..\Components\xamarin.mobile-0.6.1\lib\android\Xamarin.Mobile.dll</HintPath>
     </Reference>
+    <Reference Include="Xamarin.Android.Support.v4">
+      <HintPath>..\packages\Xamarin.Android.Support.v4.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.CardView">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.CardView.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.CardView.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.AppCompat">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.AppCompat.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.AppCompat.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Android.Support.v7.MediaRouter">
+      <HintPath>..\packages\Xamarin.Android.Support.v7.MediaRouter.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v7.MediaRouter.dll</HintPath>
+    </Reference>
+    <Reference Include="GooglePlayServicesLib">
+      <HintPath>..\packages\Xamarin.GooglePlayServices.22.0.0.2\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\FieldService\Data\ExpensePhoto.cs">
-      <Link>FieldService\Data\ExpensePhoto.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Signature.cs">
-      <Link>FieldService\Data\Signature.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\TestData.cs">
-      <Link>FieldService\Data\TestData.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ServiceRegistrar.cs">
-      <Link>FieldService\ServiceRegistrar.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Assignment.cs">
-      <Link>FieldService\Data\Assignment.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\AssignmentHistory.cs">
-      <Link>FieldService\Data\AssignmentHistory.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\AssignmentItem.cs">
-      <Link>FieldService\Data\AssignmentItem.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Database.cs">
-      <Link>FieldService\Data\Database.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Document.cs">
-      <Link>FieldService\Data\Document.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Enumerations.cs">
-      <Link>FieldService\Data\Enumerations.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Expense.cs">
-      <Link>FieldService\Data\Expense.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\IAssignmentService.cs">
-      <Link>FieldService\IAssignmentService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ILoginService.cs">
-      <Link>FieldService\ILoginService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Item.cs">
-      <Link>FieldService\Data\Item.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Labor.cs">
-      <Link>FieldService\Data\Labor.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Photo.cs">
-      <Link>FieldService\Data\Photo.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\PropertyChangedBase.cs">
-      <Link>FieldService\Data\PropertyChangedBase.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\SampleAssignmentService.cs">
-      <Link>FieldService\Data\SampleAssignmentService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\SampleLoginService.cs">
-      <Link>FieldService\Data\SampleLoginService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\TimerEntry.cs">
-      <Link>FieldService\Data\TimerEntry.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Catalog.cs">
-      <Link>FieldService\Catalog.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Utilities\DataExtensions.cs">
-      <Link>FieldService\Utilities\DataExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
-      <Link>FieldService\Utilities\ServiceContainer.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
-      <Link>FieldService\Utilities\TaskExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\AssignmentViewModel.cs">
-      <Link>FieldService\ViewModels\AssignmentViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\DocumentViewModel.cs">
-      <Link>FieldService\ViewModels\DocumentViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\ExpenseViewModel.cs">
-      <Link>FieldService\ViewModels\ExpenseViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\HistoryViewModel.cs">
-      <Link>FieldService\ViewModels\HistoryViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\ItemViewModel.cs">
-      <Link>FieldService\ViewModels\ItemViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\LaborViewModel.cs">
-      <Link>FieldService\ViewModels\LaborViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
-      <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\MenuViewModel.cs">
-      <Link>FieldService\ViewModels\MenuViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\PhotoViewModel.cs">
-      <Link>FieldService\ViewModels\PhotoViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ViewModels\ViewModelBase.cs">
-      <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
-    </Compile>
     <Compile Include="Activities\AssignmentsActivity.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
     <Compile Include="Activities\BaseMapActivity.cs" />
@@ -424,6 +337,7 @@
     <AndroidResource Include="Resources\Layout-port\HistoryFragmentLayout.axml">
       <SubType>AndroidResource</SubType>
     </AndroidResource>
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\Values\Strings.xml" />
@@ -607,6 +521,7 @@
     <AndroidResource Include="Resources\Drawable-mdpi\questionmark.png" />
   </ItemGroup>
   <ItemGroup />
+  <Import Project="..\FieldService.Shared\FieldService.Shared.projitems" Label="Shared" Condition="Exists('..\FieldService.Shared\FieldService.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
@@ -621,8 +536,8 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="sqlite-net">
-      <Visible>False</Visible>
       <Version>1.0.1</Version>
+      <Visible>False</Visible>
     </XamarinComponentReference>
     <XamarinComponentReference Include="xamarin.mobile">
       <Version>0.6.1</Version>
