@@ -12,93 +12,89 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System.Collections.Generic;
 using System.Linq;
+
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+
 using FieldService.Data;
 using FieldService.Utilities;
 
-namespace FieldService.Android {
-    /// <summary>
-    /// Adapter for a spinner for selecting LaborType
-    /// </summary>
-    public class LaborTypeSpinnerAdapter : BaseAdapter, ISpinnerAdapter {
-        List<string> items;
-        Context context;
-        int resourceId;
-        public LaborTypeSpinnerAdapter (LaborType[] items, Context context, int resourceId)
-            : base ()
-        {
-            this.items = new List<string> ();
-            foreach (var item in items) {
-                this.items.Add (item.ToUserString ());
-            }
-            this.context = context;
-            this.resourceId = resourceId;
-        }
+namespace FieldService.Android
+{
+	/// <summary>
+	/// Adapter for a spinner for selecting LaborType
+	/// </summary>
+	public class LaborTypeSpinnerAdapter : BaseAdapter, ISpinnerAdapter
+	{
+		List<string> items;
+		Context context;
+		int resourceId;
 
-        public override Java.Lang.Object GetItem (int position)
-        {
-            return items [position];
-        }
+		public override int Count {
+			get {
+				return items.Count;
+			}
+		}
 
-        public override int Count
-        {
-            get { return items.Count; }
-        }
+		/// <summary>
+		/// Text color for the item
+		/// </summary>
+		public Color TextColor { get; set; }
 
-        public override long GetItemId (int position)
-        {
-            return (long)position;
-        }
+		/// <summary>
+		/// Background color of the text view
+		/// </summary>
+		public Color Background { get; set; }
 
-        /// <summary>
-        /// Text color for the item
-        /// </summary>
-        public Color TextColor
-        {
-            get;
-            set;
-        }
+		public LaborTypeSpinnerAdapter (LaborType[] items, Context context, int resourceId)
+			: base ()
+		{
+			this.items = new List<string> ();
+			foreach (var item in items)
+				this.items.Add (item.ToUserString ());
 
-        /// <summary>
-        /// Background color of the text view
-        /// </summary>
-        public Color Background
-        {
-            get;
-            set;
-        }
+			this.context = context;
+			this.resourceId = resourceId;
+		}
 
-        public override View GetView (int position, View convertView, ViewGroup parent)
-        {
-            var view = convertView;
-            if (view == null) {
-		var inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
-		view = inflator.Inflate (resourceId, parent, false);
-            }
+		public override Java.Lang.Object GetItem (int position)
+		{
+			return items [position];
+		}
 
-            var item = items.ElementAtOrDefault (position);
-            if (item == null) {
-                return view;
-            }
+		public override long GetItemId (int position)
+		{
+			return (long)position;
+		}
 
-            var textView = view.FindViewById<TextView> (Resource.Id.simpleSpinnerTextView);
-            textView.Text = item;
-            textView.SetTextColor (TextColor);
-            textView.SetBackgroundColor (Background);
+		public override View GetView (int position, View convertView, ViewGroup parent)
+		{
+			var view = convertView;
+			if (view == null) {
+				var inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
+				view = inflator.Inflate (resourceId, parent, false);
+			}
 
-            return view;
-        }
+			var item = items.ElementAtOrDefault (position);
+			if (item == null)
+				return view;
 
-        protected override void Dispose (bool disposing)
-        {
-            context = null;
-            base.Dispose (disposing);
-        }
-    }
+			var textView = view.FindViewById<TextView> (Resource.Id.simpleSpinnerTextView);
+			textView.Text = item;
+			textView.SetTextColor (TextColor);
+			textView.SetBackgroundColor (Background);
+
+			return view;
+		}
+
+		protected override void Dispose (bool disposing)
+		{
+			context = null;
+			base.Dispose (disposing);
+		}
+	}
 }

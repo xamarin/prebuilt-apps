@@ -12,72 +12,70 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System;
 using System.Collections.Generic;
 using System.Linq;
+
 using Android.OS;
 using Android.Content;
 using Android.Graphics;
 using Android.Text;
 using Android.Views;
 using Android.Widget;
+
 using FieldService.Data;
 
-namespace FieldService.Android {
-    /// <summary>
-    /// Generic adapter for Spinners throughout the app
-    /// </summary>
-    public class SpinnerAdapter<T> : BaseAdapter, ISpinnerAdapter {
-        List<string> items;
-        Context context;
-        int resourceId;
-        public SpinnerAdapter (T[] items, Context context, int resourceId)
-            : base ()
-        {
-            this.items = new List<string> ();
-            foreach (var item in items) {
-                this.items.Add (item.ToString());
-            }
-            this.context = context;
-            this.resourceId = resourceId;
-        }
+namespace FieldService.Android
+{
+	/// <summary>
+	/// Generic adapter for Spinners throughout the app
+	/// </summary>
+	public class SpinnerAdapter<T> : BaseAdapter, ISpinnerAdapter
+	{
+		List<string> items;
+		Context context;
+		int resourceId;
 
-        public override Java.Lang.Object GetItem (int position)
-        {
-            return items [position];
-        }
+		public override int Count {
+			get {
+				return items.Count;
+			}
+		}
 
-        public override int Count
-        {
-            get { return items.Count; }
-        }
+		/// <summary>
+		/// Text color for the item
+		/// </summary>
+		public Color TextColor { get; set; }
 
-        public override long GetItemId (int position)
-        {
-            return (long)position;
-        }
+		/// <summary>
+		/// Background color of the text view
+		/// </summary>
+		public Color Background { get; set; }
 
-        /// <summary>
-        /// Text color for the item
-        /// </summary>
-        public Color TextColor
-        {
-            get;
-            set;
-        }
+		public SpinnerAdapter (T[] items, Context context, int resourceId)
+			: base ()
+		{
+			this.items = new List<string> ();
 
-        /// <summary>
-        /// Background color of the text view
-        /// </summary>
-        public Color Background
-        {
-            get;
-            set;
-        }
+			foreach (var item in items)
+				this.items.Add (item.ToString ());
+			
+			this.context = context;
+			this.resourceId = resourceId;
+		}
 
-        public override View GetView (int position, View convertView, ViewGroup parent)
-        {
+		public override Java.Lang.Object GetItem (int position)
+		{
+			return items [position];
+		}
+
+		public override long GetItemId (int position)
+		{
+			return (long)position;
+		}
+
+		public override View GetView (int position, View convertView, ViewGroup parent)
+		{
 			var item = items.ElementAtOrDefault (position);
 			//In order to avoid an error in inflating the spinner objects in 4.4+ make them here.
 			if ((int)Build.VERSION.SdkInt >= 19) {
@@ -89,7 +87,7 @@ namespace FieldService.Android {
 				var linLay = new LinearLayout (context);
 				var textView = new TextView (context);
 				textView.Text = item;
-				textView.TextSize = 18;
+				textView.TextSize = 18f;
 				textView.SetTextColor (TextColor);
 				textView.Selected = true;
 				textView.FocusChange += new EventHandler<View.FocusChangeEventArgs> ((sender, e) => {
@@ -112,8 +110,9 @@ namespace FieldService.Android {
 				if (view == null) {
 					LayoutInflater inflator = (LayoutInflater)context.GetSystemService (Context.LayoutInflaterService);
 					view = inflator.Inflate (resourceId, null);
-				} else
+				} else {
 					return view;
+				}
 				var textView = view.FindViewById<TextView> (Resource.Id.simpleSpinnerTextView);
 				textView.Selected = true;
 				textView.Text = item;
@@ -121,12 +120,12 @@ namespace FieldService.Android {
 				textView.SetBackgroundColor (Background);
 				return view;
 			}
-        }
+		}
 
-        protected override void Dispose (bool disposing)
-        {
-            context = null;
-            base.Dispose (disposing);
-        }
-    }
+		protected override void Dispose (bool disposing)
+		{
+			context = null;
+			base.Dispose (disposing);
+		}
+	}
 }

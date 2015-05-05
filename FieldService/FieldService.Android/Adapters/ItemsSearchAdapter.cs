@@ -12,75 +12,73 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System.Collections.Generic;
 using System.Linq;
+
 using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+
 using FieldService.Data;
 
-namespace FieldService.Android {
-    /// <summary>
-    /// Adapter for searching through a list of items
-    /// </summary>
-    public class ItemsSearchAdapter : ArrayAdapter<Item>{
+namespace FieldService.Android
+{
+	/// <summary>
+	/// Adapter for searching through a list of items
+	/// </summary>
+	public class ItemsSearchAdapter : ArrayAdapter<Item>
+	{
         
-        IList<Item> items;
-        IList<Item> non_filtered;
-        int resourceId;
+		IList<Item> items;
+		IList<Item> non_filtered;
+		int resourceId;
 
-        public ItemsSearchAdapter (Context context, int resourceId, IList<Item> items)
-            : base (context, resourceId, items)
-        {
-            non_filtered = new List<Item> (items);
-            this.items = new List<Item> (items);
-            this.resourceId = resourceId;
-        }
+		public override int Count {
+			get {
+				return items.Count;
+			}
+		}
 
-        public override View GetView (int position, View convertView, ViewGroup parent)
-        {
-            Item item = null;
-            if (items != null && items.Count > position) {
-                item = items [position];
-            }
+		public ItemsSearchAdapter (Context context, int resourceId, IList<Item> items)
+			: base (context, resourceId, items)
+		{
+			non_filtered = new List<Item> (items);
+			this.items = new List<Item> (items);
+			this.resourceId = resourceId;
+		}
 
-            LayoutInflater inflator = (LayoutInflater)Context.GetSystemService (Context.LayoutInflaterService);
-            var view = inflator.Inflate (resourceId, null);
+		public override View GetView (int position, View convertView, ViewGroup parent)
+		{
+			Item item = null;
+			if (items != null && items.Count > position)
+				item = items [position];
 
-            var text = view.FindViewById<TextView> (Resource.Id.itemsListItemText);
-            if (item != null) {
-                text.Text = string.Format ("#{0} {1}", item.Number, item.Name);
-            }
+			LayoutInflater inflator = (LayoutInflater)Context.GetSystemService (Context.LayoutInflaterService);
+			var view = inflator.Inflate (resourceId, null);
 
-            return view;
-        }
+			var text = view.FindViewById<TextView> (Resource.Id.itemsListItemText);
+			if (item != null)
+				text.Text = string.Format ("#{0} {1}", item.Number, item.Name);
 
-        public override int Count
-        {
-            get
-            {
-                return items.Count;
-            }
-        }
+			return view;
+		}
 
-        public void FilterItems (string filter)
-        {
-            var filtered = new List<Item> ();
+		public void FilterItems (string filter)
+		{
+			var filtered = new List<Item> ();
 
-            foreach (var item in non_filtered) {
-                if (item.Name.ToLower().Contains (filter) || item.Number.ToLower().Contains (filter)) {
-                    filtered.Add (item);
-                }
-            }
+			foreach (var item in non_filtered) {
+				if (item.Name.ToLower ().Contains (filter) || item.Number.ToLower ().Contains (filter))
+					filtered.Add (item);
+			}
 
-            this.items = filtered;
-        }
+			this.items = filtered;
+		}
 
-        public Item GetAssignmentItem (int position)
-        {
-            return items.ElementAtOrDefault (position);
-        }
-    }
+		public Item GetAssignmentItem (int position)
+		{
+			return items.ElementAtOrDefault (position);
+		}
+	}
 }

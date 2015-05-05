@@ -12,116 +12,111 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System;
 using System.Linq;
 using System.Collections.Generic;
+
 using Android.Content;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using Android.App;
+
 using FieldService.Android.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Android.App;
 
-namespace FieldService.Android {
-    /// <summary>
-    /// Adapter for a list of labor entries
-    /// </summary>
-    public class LaborHoursAdapter : ArrayAdapter<Labor>, AdapterView.IOnItemSelectedListener {
-        readonly Activity activity;
-        readonly LaborViewModel laborViewModel;
-        List<Labor> laborHours;
-        LaborType [] laborTypes;
-        int resourceId;
+namespace FieldService.Android
+{
+	/// <summary>
+	/// Adapter for a list of labor entries
+	/// </summary>
+	public class LaborHoursAdapter : ArrayAdapter<Labor>, AdapterView.IOnItemSelectedListener
+	{
+		readonly Activity activity;
+		readonly LaborViewModel laborViewModel;
 
-        public LaborHoursAdapter (Activity activity, int resourceId, List<Labor> laborHours)
-            : base (activity, resourceId, laborHours)
-        {
-            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
-            this.activity = activity;
-            this.laborHours = laborHours;
-            this.resourceId = resourceId;
-            laborTypes = new LaborType []
-            {
-                LaborType.Hourly,
-                LaborType.OverTime,
-                LaborType.HolidayTime,
-            };
-        }
+		List<Labor> laborHours;
+		LaborType[] laborTypes;
+		int resourceId;
 
-        public Assignment Assignment
-        {
-            get;
-            set;
-        }
+		public Assignment Assignment { get; set; }
 
-        public LaborHourFragment Fragment
-        {
-            get;
-            set;
-        }
+		public LaborHourFragment Fragment { get; set; }
 
-        public override View GetView (int position, View convertView, ViewGroup parent)
-        {
-            Labor labor = null;
-            var view = convertView;
-            if (view == null) {
-                LayoutInflater inflator = (LayoutInflater)Context.GetSystemService (Context.LayoutInflaterService);
-                view = inflator.Inflate (resourceId, null);
-            }
+		public LaborHoursAdapter (Activity activity, int resourceId, List<Labor> laborHours)
+			: base (activity, resourceId, laborHours)
+		{
+			laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+			this.activity = activity;
+			this.laborHours = laborHours;
+			this.resourceId = resourceId;
+			laborTypes = new LaborType [] {
+				LaborType.Hourly,
+				LaborType.OverTime,
+				LaborType.HolidayTime,
+			};
+		}
 
-            if (laborHours != null && laborHours.Count > position) {
-                labor = laborHours [position];
-            }
+		public override View GetView (int position, View convertView, ViewGroup parent)
+		{
+			Labor labor = null;
+			var view = convertView;
+			if (view == null) {
+				LayoutInflater inflator = (LayoutInflater)Context.GetSystemService (Context.LayoutInflaterService);
+				view = inflator.Inflate (resourceId, null);
+			}
 
-            if (labor == null) {
-                return view;
-            }
+			if (laborHours != null && laborHours.Count > position) {
+				labor = laborHours [position];
+			}
 
-            var description = view.FindViewById<TextView> (Resource.Id.laborDescription);
-            var hours = view.FindViewById<TextView> (Resource.Id.laborHours);
-            var laborType = view.FindViewById<Spinner> (Resource.Id.laborType);
+			if (labor == null) {
+				return view;
+			}
 
-            var adapter = new LaborTypeSpinnerAdapter (laborTypes, Context, Resource.Layout.SimpleSpinnerItem);
-            adapter.TextColor = Color.Black;
-            adapter.Background = Color.White;
-            laborType.Adapter = adapter;
+			var description = view.FindViewById<TextView> (Resource.Id.laborDescription);
+			var hours = view.FindViewById<TextView> (Resource.Id.laborHours);
+			var laborType = view.FindViewById<Spinner> (Resource.Id.laborType);
 
-            laborType.OnItemSelectedListener = this;
-            laborType.Tag = position;
-            laborType.SetSelection (laborTypes.ToList ().IndexOf (labor.Type));
-            hours.Text = string.Format ("{0} hrs", labor.Hours.TotalHours.ToString ("0.0"));
-            description.Text = labor.Description;
+			var adapter = new LaborTypeSpinnerAdapter (laborTypes, Context, Resource.Layout.SimpleSpinnerItem);
+			adapter.TextColor = Color.Black;
+			adapter.Background = Color.White;
+			laborType.Adapter = adapter;
 
-            hours.Tag = position;
+			laborType.OnItemSelectedListener = this;
+			laborType.Tag = position;
+			laborType.SetSelection (laborTypes.ToList ().IndexOf (labor.Type));
+			hours.Text = string.Format ("{0} hrs", labor.Hours.TotalHours.ToString ("0.0"));
+			description.Text = labor.Description;
 
-            laborType.Enabled = !Assignment.IsHistory;
-            laborType.Focusable = false;
+			hours.Tag = position;
 
-            return view;
-        }
+			laborType.Enabled = !Assignment.IsHistory;
+			laborType.Focusable = false;
 
-        public void OnItemSelected (AdapterView parent, View view, int position, long id)
-        {
-            var status = laborTypes [position];
-            var index = (int)parent.Tag;
-            var currentLabor = GetItem (index);
-            if (status != currentLabor.Type) {
-                currentLabor.Type = status;
-                laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueWith (_ => {
-                    activity.RunOnUiThread (() => {
-                        Fragment.ReloadSingleListItem (position);
-                    });
-                });
-            }
-        }
+			return view;
+		}
 
-        public void OnNothingSelected (AdapterView parent)
-        {
-            //do nothing
-        }
-    }
+		public void OnItemSelected (AdapterView parent, View view, int position, long id)
+		{
+			var status = laborTypes [position];
+			var index = (int)parent.Tag;
+			var currentLabor = GetItem (index);
+			if (status != currentLabor.Type) {
+				currentLabor.Type = status;
+				laborViewModel.SaveLaborAsync (Assignment, currentLabor).ContinueWith (_ => {
+					activity.RunOnUiThread (() => {
+						Fragment.ReloadSingleListItem (position);
+					});
+				});
+			}
+		}
+
+		public void OnNothingSelected (AdapterView parent)
+		{
+			//do nothing
+		}
+	}
 }

@@ -12,179 +12,164 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System;
 using System.Globalization;
 using System.Linq;
+
 using Android.App;
 using Android.Content;
 using Android.Graphics;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+
 using FieldService.Android.Fragments;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
-namespace FieldService.Android.Dialogs {
-    /// <summary>
-    /// Dialog for adding labor entries
-    /// </summary>
-    public class AddLaborDialog : BaseDialog {
-        readonly Activity activity;
-        readonly LaborType [] laborTypes;
-        readonly LaborViewModel laborViewModel;
-        EditText description;
-        TextView hours;
-        Spinner type;
-        Button delete;
+namespace FieldService.Android.Dialogs
+{
+	/// <summary>
+	/// Dialog for adding labor entries
+	/// </summary>
+	public class AddLaborDialog : BaseDialog
+	{
+		readonly Activity activity;
+		readonly LaborType[] laborTypes;
+		readonly LaborViewModel laborViewModel;
 
-        public AddLaborDialog (Activity activity)
-            : base (activity)
-        {
-            this.activity = activity;
-            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
-            laborTypes = new LaborType []
-            {
-                LaborType.Hourly,
-                LaborType.OverTime,
-                LaborType.HolidayTime,
-            };
-        }
+		EditText description;
+		TextView hours;
+		Spinner type;
+		Button delete;
 
-        protected override void OnCreate (Bundle savedInstanceState)
-        {
-            base.OnCreate (savedInstanceState);
+		/// <summary>
+		/// Selected labor entry
+		/// </summary>
+		public Labor CurrentLabor { get; set; }
 
-            SetContentView (Resource.Layout.AddLaborPopUpLayout);
-            SetCancelable (true);
+		/// <summary>
+		/// The selected assignment
+		/// </summary>
+		public Assignment Assignment { get; set; }
 
-            var cancel = (Button)FindViewById (Resource.Id.cancelAddLabor);
-            cancel.Click += (sender, e) => Dismiss ();
+		public AddLaborDialog (Activity activity)
+			: base (activity)
+		{
+			this.activity = activity;
+			laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+			laborTypes = new LaborType [] {
+				LaborType.Hourly,
+				LaborType.OverTime,
+				LaborType.HolidayTime,
+			};
+		}
 
-            delete = (Button)FindViewById (Resource.Id.deleteAddLabor);
-            delete.Enabled = !Assignment.IsHistory;
-            delete.Click += (sender, e) => {
-                //delete & reload
-                if (CurrentLabor != null && CurrentLabor.Id != -1) {
-                    DeleteLabor ();
-                } else {
-                    Dismiss ();
-                }
-            };
+		protected override void OnCreate (Bundle savedInstanceState)
+		{
+			base.OnCreate (savedInstanceState);
 
-            var save = (Button)FindViewById (Resource.Id.saveAddLabor);
-            save.Enabled = !Assignment.IsHistory;
-            save.Click += (sender, e) => SaveLabor ();
+			SetContentView (Resource.Layout.AddLaborPopUpLayout);
+			SetCancelable (true);
 
-            var addHours = (ImageButton)FindViewById (Resource.Id.addLaborHours);
-            addHours.Enabled = !Assignment.IsHistory;
-            addHours.Click += (sender, e) => {
-                //add to the hours
-                double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
-                total += .5;
-                CurrentLabor.Hours = TimeSpan.FromHours (total);
-                hours.Text = total.ToString ("0.0");
-            };
+			var cancel = (Button)FindViewById (Resource.Id.cancelAddLabor);
+			cancel.Click += (sender, e) => Dismiss ();
 
-            var subtractHours = (ImageButton)FindViewById (Resource.Id.subtractLaborHours);
-            subtractHours.Enabled = !Assignment.IsHistory;
-            subtractHours.Click += (sender, e) => {
-                //subtract the hours
-                double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
-                total -= .5;
-                total = total < 0 ? 0 : total;
-                CurrentLabor.Hours = TimeSpan.FromHours (total);
-                hours.Text = total.ToString ("0.0");
-            };
+			delete = (Button)FindViewById (Resource.Id.deleteAddLabor);
+			delete.Enabled = !Assignment.IsHistory;
+			delete.Click += (sender, e) => {
+				//delete & reload
+				if (CurrentLabor != null && CurrentLabor.Id != -1)
+					DeleteLabor ();
+				else
+					Dismiss ();
+			};
 
-            type = (Spinner)FindViewById (Resource.Id.addLaborHoursType);
-            type.Enabled = !Assignment.IsHistory;
-            description = (EditText)FindViewById (Resource.Id.addLaborDescription);
-            description.Enabled = !Assignment.IsHistory;
-            hours = (TextView)FindViewById (Resource.Id.addLaborHoursText);
-            hours.Enabled = !Assignment.IsHistory;
+			var save = (Button)FindViewById (Resource.Id.saveAddLabor);
+			save.Enabled = !Assignment.IsHistory;
+			save.Click += (sender, e) => SaveLabor ();
 
-            var adapter = new LaborTypeSpinnerAdapter (laborTypes, Context, Resource.Layout.SimpleSpinnerItem);
-            adapter.TextColor = Color.Black;
-            type.Adapter = adapter;
+			var addHours = (ImageButton)FindViewById (Resource.Id.addLaborHours);
+			addHours.Enabled = !Assignment.IsHistory;
+			addHours.Click += (sender, e) => {
+				//add to the hours
+				double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
+				total += .5;
+				CurrentLabor.Hours = TimeSpan.FromHours (total);
+				hours.Text = total.ToString ("0.0");
+			};
 
-            if (CurrentLabor != null) {
-                type.SetSelection (laborTypes.ToList ().IndexOf (CurrentLabor.Type));
-            }
+			var subtractHours = (ImageButton)FindViewById (Resource.Id.subtractLaborHours);
+			subtractHours.Enabled = !Assignment.IsHistory;
+			subtractHours.Click += (sender, e) => {
+				//subtract the hours
+				double total = hours.Text.ToDouble (CultureInfo.InvariantCulture);
+				total -= .5;
+				total = total < 0.0 ? 0.0 : total;
+				CurrentLabor.Hours = TimeSpan.FromHours (total);
+				hours.Text = total.ToString ("0.0");
+			};
 
-            type.ItemSelected += (sender, e) => {
-                var laborType = laborTypes [e.Position];
-                if (CurrentLabor.Type != laborType)
-                    CurrentLabor.Type = laborType;
-            };
-        }
+			type = (Spinner)FindViewById (Resource.Id.addLaborHoursType);
+			type.Enabled = !Assignment.IsHistory;
+			description = (EditText)FindViewById (Resource.Id.addLaborDescription);
+			description.Enabled = !Assignment.IsHistory;
+			hours = (TextView)FindViewById (Resource.Id.addLaborHoursText);
+			hours.Enabled = !Assignment.IsHistory;
 
-        public override void OnAttachedToWindow ()
-        {
-            description.Text = CurrentLabor != null ? CurrentLabor.Description : string.Empty;
-            hours.Text = CurrentLabor != null ? CurrentLabor.Hours.TotalHours.ToString ("0.0") : string.Empty;
-            if (CurrentLabor != null && CurrentLabor.Id != 0) {
-                delete.Visibility = ViewStates.Visible;
-            } else {
-                delete.Visibility = ViewStates.Gone;
-            }
-            base.OnAttachedToWindow ();
-        }
+			var adapter = new LaborTypeSpinnerAdapter (laborTypes, Context, Resource.Layout.SimpleSpinnerItem);
+			adapter.TextColor = Color.Black;
+			type.Adapter = adapter;
 
-        /// <summary>
-        /// Selected labor entry
-        /// </summary>
-        public Labor CurrentLabor
-        {
-            get;
-            set;
-        }
+			if (CurrentLabor != null)
+				type.SetSelection (laborTypes.ToList ().IndexOf (CurrentLabor.Type));
 
-        /// <summary>
-        /// The selected assignment
-        /// </summary>
-        public Assignment Assignment
-        {
-            get;
-            set;
-        }
-        
-        /// <summary>
-        /// Deletes the labor entry
-        /// </summary>
-        private void DeleteLabor ()
-        {
-            laborViewModel
-                .DeleteLaborAsync (Assignment, CurrentLabor)
-                .ContinueWith (_ => {
-                    activity.RunOnUiThread (() => {
-                        var fragment = activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
-                        fragment.ReloadHours ();
-                        Dismiss ();
-                    });
-                });
-        }
+			type.ItemSelected += (sender, e) => {
+				var laborType = laborTypes [e.Position];
+				if (CurrentLabor.Type != laborType)
+					CurrentLabor.Type = laborType;
+			};
+		}
 
-        /// <summary>
-        /// Saves the labor entry
-        /// </summary>
-        private void SaveLabor ()
-        {
-            CurrentLabor.Hours = TimeSpan.FromHours (hours.Text.ToDouble (CultureInfo.InvariantCulture));
-            CurrentLabor.Description = description.Text;
-            CurrentLabor.AssignmentId = Assignment.Id;
+		public override void OnAttachedToWindow ()
+		{
+			description.Text = CurrentLabor != null ? CurrentLabor.Description : string.Empty;
+			hours.Text = CurrentLabor != null ? CurrentLabor.Hours.TotalHours.ToString ("0.0") : string.Empty;
+			delete.Visibility = (CurrentLabor != null && CurrentLabor.Id != 0) ? ViewStates.Visible : ViewStates.Gone;
+			base.OnAttachedToWindow ();
+		}
 
-            laborViewModel
-                .SaveLaborAsync (Assignment, CurrentLabor)
-                .ContinueWith (_ => {
-                    activity.RunOnUiThread (() => {
-                        var fragment = activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
-                        fragment.ReloadHours ();
-                        Dismiss ();
-                    });
-                });
-        }
-    }
+		/// <summary>
+		/// Deletes the labor entry
+		/// </summary>
+		void DeleteLabor ()
+		{
+			laborViewModel .DeleteLaborAsync (Assignment, CurrentLabor).ContinueWith (_ => {
+				activity.RunOnUiThread (() => {
+					var fragment = activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+					fragment.ReloadHours ();
+					Dismiss ();
+				});
+			});
+		}
+
+		/// <summary>
+		/// Saves the labor entry
+		/// </summary>
+		void SaveLabor ()
+		{
+			CurrentLabor.Hours = TimeSpan.FromHours (hours.Text.ToDouble (CultureInfo.InvariantCulture));
+			CurrentLabor.Description = description.Text;
+			CurrentLabor.AssignmentId = Assignment.Id;
+
+			laborViewModel.SaveLaborAsync (Assignment, CurrentLabor).ContinueWith (_ => {
+				activity.RunOnUiThread (() => {
+					var fragment = activity.FragmentManager.FindFragmentById<LaborHourFragment> (Resource.Id.contentFrame);
+					fragment.ReloadHours ();
+					Dismiss ();
+				});
+			});
+		}
+	}
 }
