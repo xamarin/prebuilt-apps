@@ -76,7 +76,6 @@
   <ItemGroup>
     <Compile Include="Activities\AssignmentsActivity.cs" />
     <Compile Include="Activities\BaseActivity.cs" />
-    <Compile Include="Activities\BaseMapActivity.cs" />
     <Compile Include="Activities\MapFragmentActivity.cs" />
     <Compile Include="Activities\SummaryActivity.cs" />
     <Compile Include="Activities\SummaryHistoryActivity.cs" />
@@ -544,4 +543,15 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
+  <ProjectExtensions>
+    <MonoDevelop>
+      <Properties>
+        <Policies>
+          <TextStylePolicy inheritsSet="Mono" inheritsScope="text/plain" scope="text/plain" />
+          <TextStylePolicy inheritsSet="Mono" inheritsScope="text/plain" scope="application/xml" />
+          <XmlFormattingPolicy inheritsSet="Mono" inheritsScope="application/xml" scope="application/xml" />
+        </Policies>
+      </Properties>
+    </MonoDevelop>
+  </ProjectExtensions>
 </Project>

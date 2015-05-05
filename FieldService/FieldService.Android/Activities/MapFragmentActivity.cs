@@ -16,6 +16,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+
 using Android.App;
 using Android.Content;
 using Android.Locations;
@@ -23,88 +24,103 @@ using Android.OS;
 using Android.Runtime;
 using Android.Views;
 using Android.Widget;
+using Android.Gms.Maps;
+using Android.Gms.Maps.Model;
+using Android.Gms.Common;
+using Java.Util;
+
 using FieldService.Android.Utilities;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.ViewModels;
-using Java.Util;
-using Android.Gms.Maps;
 
-namespace FieldService.Android {
-    /// <summary>
-    /// "Fragment" for the map - it is required to be an activity although used as a fragment
-    /// </summary>
-    [Activity (Label = "Map View Fragment", Theme = "@style/CustomHoloTheme")]
-    public class MapFragmentActivity : BaseActivity {
+namespace FieldService.Android
+{
+	/// <summary>
+	/// "Fragment" for the map - it is required to be an activity although used as a fragment
+	/// </summary>
+	[Activity (Label = "Map View Fragment", Theme = "@style/CustomHoloTheme")]
+	public class MapFragmentActivity : BaseActivity, IOnMapReadyCallback
+	{
+		
+		readonly AssignmentViewModel assignmentViewModel;
+		MapView mapView;
+		Assignment assignment;
+		GoogleMap googleMap;
 
-        readonly AssignmentViewModel assignmentViewModel;
-        MapView mapView;
-//        MyLocationOverlay myLocation;
-        Assignment assignment;
+		public MapFragmentActivity ()
+		{
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+			assignment = assignmentViewModel.SelectedAssignment;
+		}
 
-        public MapFragmentActivity ()
-        {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
-            assignment = assignmentViewModel.SelectedAssignment;
-        }
+		public void OnMapReady (GoogleMap map)
+		{
+			googleMap = map;
+			googleMap.UiSettings.CompassEnabled = false;
+			googleMap.UiSettings.MyLocationButtonEnabled = false;
+			googleMap.UiSettings.MapToolbarEnabled = false;
 
-        protected override void OnCreate (Bundle bundle)
-        {
-            base.OnCreate (bundle);
+			if (googleMap == null)
+				return;
 
-            SetContentView (Resource.Layout.MapFragmentLayout);
+			googleMap.Clear ();
 
-            mapView = FindViewById<MapView> (Resource.Id.fragmentMapView);
-//            myLocation = new MyLocationOverlay (this, mapView);
-//            myLocation.RunOnFirstFix (() => {
-//                //mapView.Controller.AnimateTo (myLocation.MyLocation);
-//
-//                var maxLat = Math.Max (myLocation.MyLocation.LatitudeE6, assignment.Latitude.ToIntE6 ());
-//                var minLat = Math.Min (myLocation.MyLocation.LatitudeE6, assignment.Latitude.ToIntE6 ());
-//                var maxLong = Math.Max (myLocation.MyLocation.LongitudeE6, assignment.Longitude.ToIntE6 ());
-//                var minLong = Math.Min (myLocation.MyLocation.LongitudeE6, assignment.Longitude.ToIntE6 ());
-//
-//                mapView.Controller.ZoomToSpan (Math.Abs (maxLat - minLat), Math.Abs (maxLong - minLong));
-//
-//                mapView.Controller.AnimateTo (new GeoPoint ((maxLat + minLat) / 2, (maxLong + minLong) / 2));
-//            });
-//
-//            mapView.Overlays.Add (myLocation);
-//            mapView.Controller.SetZoom (5);
-//            mapView.Clickable = true;
-//            mapView.Enabled = true;
-//            mapView.SetBuiltInZoomControls (true);
-        }
+			try {
+				MapsInitializer.Initialize (this);
+			} catch (GooglePlayServicesNotAvailableException e) {
+				Console.WriteLine ("Google Play Services not available:" + e);
+				return;
+			}
 
-        /// <summary>
-        /// Enable location tracking and place any overlays
-        /// </summary>
-        protected override void OnResume ()
-        {
-            base.OnResume ();
-//            myLocation.EnableMyLocation ();
-//            if (assignment != null) {
-//                var overlayItem = new OverlayItem (new GeoPoint (assignment.Latitude.ToIntE6 (), assignment.Longitude.ToIntE6 ()), assignment.CompanyName,
-//                    string.Format ("{0} {1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip));
-//                MapOverlayItem overlay = new MapOverlayItem (this, Resources.GetDrawable (Resource.Drawable.ActiveAssignmentIcon), overlayItem, mapView, true);
-//                mapView.Overlays.Add (overlay);
-//            }
+			if (assignment == null)
+				return;
+			
+			var markerOptions = GetMarkerOptionsForAssignment (assignment);
+			googleMap.AddMarker (markerOptions).ShowInfoWindow ();
+			googleMap.CameraPosition.Target = markerOptions.Position;
 
-            var dialog = new AlertDialog.Builder (this)
-                .SetTitle ("Google Maps")
-                .SetMessage (Resources.GetString (Resource.String.GoogleMapsKeyIssue))
-                .SetPositiveButton ("Ok", (sender, e) => { })
-                .Show ();
-        }
+			googleMap.MoveCamera (CameraUpdateFactory.NewLatLngZoom (markerOptions.Position, 15f));
+		}
 
-        /// <summary>
-        /// Clear overlays and disable location tracking
-        /// </summary>
-        protected override void OnPause ()
-        {
-//            myLocation.DisableMyLocation ();
-//            mapView.Overlays.Clear ();
-            base.OnPause ();
-        }
-    }
+		protected override void OnCreate (Bundle bundle)
+		{
+			base.OnCreate (bundle);
+
+			SetContentView (Resource.Layout.MapFragmentLayout);
+
+			mapView = FindViewById<MapView> (Resource.Id.fragmentMapView);
+			mapView.OnCreate (bundle);
+			mapView.GetMapAsync (this);
+		}
+
+		/// <summary>
+		/// Enable location tracking and place any overlays
+		/// </summary>
+		protected override void OnResume ()
+		{
+			base.OnResume ();
+			mapView.OnResume ();
+		}
+
+		/// <summary>
+		/// Clear overlays and disable location tracking
+		/// </summary>
+		protected override void OnPause ()
+		{
+			base.OnPause ();
+			mapView.OnPause ();
+		}
+
+		MarkerOptions GetMarkerOptionsForAssignment (Assignment assignment)
+		{
+			var markerOptions = new MarkerOptions ();
+			markerOptions.SetPosition (new LatLng (assignment.Latitude, assignment.Longitude));
+			markerOptions.SetTitle (assignment.CompanyName);
+			markerOptions.SetSnippet (string.Format ("{0} {1}, {2} {3}",
+				assignment.Address, assignment.City, assignment.State, assignment.Zip));
+
+			return markerOptions;
+		}
+	}
 }
