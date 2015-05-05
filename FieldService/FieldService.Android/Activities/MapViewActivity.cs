@@ -295,10 +295,12 @@ namespace FieldService.Android
 		/// </summary>
 		void HoursChanged (object sender, EventArgs e)
 		{
-			if (timerText != null)
-				RunOnUiThread (() => {
-					timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
-				});
+			if (timerText == null)
+				return;
+
+			RunOnUiThread (() => {
+				timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+			});
 		}
 
 		/// <summary>

@@ -543,15 +543,4 @@
       <Visible>False</Visible>
     </XamarinComponentReference>
   </ItemGroup>
-  <ProjectExtensions>
-    <MonoDevelop>
-      <Properties>
-        <Policies>
-          <TextStylePolicy inheritsSet="Mono" inheritsScope="text/plain" scope="text/plain" />
-          <TextStylePolicy inheritsSet="Mono" inheritsScope="text/plain" scope="application/xml" />
-          <XmlFormattingPolicy inheritsSet="Mono" inheritsScope="application/xml" scope="application/xml" />
-        </Policies>
-      </Properties>
-    </MonoDevelop>
-  </ProjectExtensions>
 </Project>

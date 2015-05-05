@@ -12,9 +12,9 @@
 //    WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
-
 using System;
 using System.Threading;
+
 using Android.App;
 using Android.Content;
 using Android.Graphics;
@@ -23,6 +23,7 @@ using Android.OS;
 using Android.Util;
 using Android.Views;
 using Android.Widget;
+
 using FieldService.Android.Dialogs;
 using FieldService.Android.Fragments;
 using FieldService.Android.Utilities;
@@ -31,343 +32,303 @@ using FieldService.Utilities;
 using FieldService.ViewModels;
 using Orientation = Android.Content.Res.Orientation;
 
-namespace FieldService.Android {
-    /// <summary>
-    /// Activity for the summary screen
-    /// </summary>
-    [Activity (Label = "Summary", Theme = "@android:style/Theme.Holo")]
-    public class SummaryActivity : BaseActivity, PopupMenu.IOnMenuItemClickListener {
-        readonly ItemViewModel itemViewModel;
-        readonly LaborViewModel laborViewModel;
-        readonly PhotoViewModel photoViewModel;
-        readonly ExpenseViewModel expenseViewModel;
-        readonly DocumentViewModel documentViewModel;
-        readonly HistoryViewModel historyViewModel;
-        readonly AssignmentViewModel assignmentViewModel;
-        readonly MenuViewModel menuViewModel;
-        NavigationFragment navigationFragment;
-        FrameLayout navigationFragmentContainer;
-        TextView number, name, phone, address, items;
-        Button addItems, addLabor, addExpense;
-        ItemsDialog itemDialog;
-        AddLaborDialog laborDialog;
-        ExpenseDialog expenseDialog;
-        LinearLayout mapButton, phoneButton;
-        Assignment assignment;
+namespace FieldService.Android
+{
+	/// <summary>
+	/// Activity for the summary screen
+	/// </summary>
+	[Activity (Label = "Summary", Theme = "@android:style/Theme.Holo")]
+	public class SummaryActivity : BaseActivity, PopupMenu.IOnMenuItemClickListener
+	{
+		readonly ItemViewModel itemViewModel;
+		readonly LaborViewModel laborViewModel;
+		readonly PhotoViewModel photoViewModel;
+		readonly ExpenseViewModel expenseViewModel;
+		readonly DocumentViewModel documentViewModel;
+		readonly HistoryViewModel historyViewModel;
+		readonly AssignmentViewModel assignmentViewModel;
+		readonly MenuViewModel menuViewModel;
 
-        public SummaryActivity ()
-        {
-            assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
-            itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
-            laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
-            photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
-            expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
-            documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
-            historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
-            menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
+		NavigationFragment navigationFragment;
+		FrameLayout navigationFragmentContainer;
+		TextView number, name, phone, address, items;
+		Button addItems, addLabor, addExpense;
+		ItemsDialog itemDialog;
+		AddLaborDialog laborDialog;
+		ExpenseDialog expenseDialog;
+		LinearLayout mapButton, phoneButton;
+		Assignment assignment;
 
-            assignment = assignmentViewModel.SelectedAssignment;
-        }
+		public SummaryActivity ()
+		{
+			assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
+			itemViewModel = ServiceContainer.Resolve<ItemViewModel> ();
+			laborViewModel = ServiceContainer.Resolve<LaborViewModel> ();
+			photoViewModel = ServiceContainer.Resolve<PhotoViewModel> ();
+			expenseViewModel = ServiceContainer.Resolve<ExpenseViewModel> ();
+			documentViewModel = ServiceContainer.Resolve<DocumentViewModel> ();
+			historyViewModel = ServiceContainer.Resolve<HistoryViewModel> ();
+			menuViewModel = ServiceContainer.Resolve<MenuViewModel> ();
 
-        protected override void OnCreate (Bundle bundle)
-        {
-            base.OnCreate (bundle);
+			assignment = assignmentViewModel.SelectedAssignment;
+		}
 
-            Window.RequestFeature (WindowFeatures.ActionBar);
+		protected override void OnCreate (Bundle bundle)
+		{
+			base.OnCreate (bundle);
 
-            SetContentView (Resource.Layout.SummaryFragmentLayout);
+			Window.RequestFeature (WindowFeatures.ActionBar);
 
-            number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
-            name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
-            phone = FindViewById<TextView> (Resource.Id.selectedAssignmentPhoneNumber);
-            address = FindViewById<TextView> (Resource.Id.selectedAssignmentAddress);
-            items = FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
-            addItems = FindViewById<Button> (Resource.Id.selectedAssignmentAddItem);
-            addLabor = FindViewById<Button> (Resource.Id.selectedAssignmentAddLabor);
-            addExpense = FindViewById<Button> (Resource.Id.selectedAssignmentAddExpense);
-            navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
-            mapButton = FindViewById<LinearLayout> (Resource.Id.summaryMapIconLayout);
-            phoneButton = FindViewById<LinearLayout> (Resource.Id.summaryPhoneIconLayout);
+			SetContentView (Resource.Layout.SummaryFragmentLayout);
 
-            phoneButton.Click += (sender, e) => {
-                AndroidExtensions.MakePhoneCall (this, phone.Text);
-            };
-            mapButton.Click += (sender, e) => {
-                var navFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);
-                var index = Constants.Navigation.IndexOf ("Map");
-                navFragment.SetNavigation (index);
-            };
+			number = FindViewById<TextView> (Resource.Id.selectedAssignmentNumber);
+			name = FindViewById<TextView> (Resource.Id.selectedAssignmentContactName);
+			phone = FindViewById<TextView> (Resource.Id.selectedAssignmentPhoneNumber);
+			address = FindViewById<TextView> (Resource.Id.selectedAssignmentAddress);
+			items = FindViewById<TextView> (Resource.Id.selectedAssignmentTotalItems);
+			addItems = FindViewById<Button> (Resource.Id.selectedAssignmentAddItem);
+			addLabor = FindViewById<Button> (Resource.Id.selectedAssignmentAddLabor);
+			addExpense = FindViewById<Button> (Resource.Id.selectedAssignmentAddExpense);
+			navigationFragmentContainer = FindViewById<FrameLayout> (Resource.Id.navigationFragmentContainer);
+			mapButton = FindViewById<LinearLayout> (Resource.Id.summaryMapIconLayout);
+			phoneButton = FindViewById<LinearLayout> (Resource.Id.summaryPhoneIconLayout);
 
-            if (assignment != null) {
-                ActionBar.Title = string.Format ("#{0} {1} {2}", assignment.JobNumber, "Summary", assignment.StartDate.ToShortDateString ());
+			phoneButton.Click += (sender, e) => {
+				AndroidExtensions.MakePhoneCall (this, phone.Text);
+			};
+			mapButton.Click += (sender, e) => {
+				var navFragment = FragmentManager.FindFragmentById<NavigationFragment> (Resource.Id.navigationFragmentContainer);
+				var index = Constants.Navigation.IndexOf ("Map");
+				navFragment.SetNavigation (index);
+			};
 
-                number.Text = assignment.Priority.ToString ();
-                name.Text = assignment.ContactName;
-                phone.Text = assignment.ContactPhone;
-                address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
-            }
+			if (assignment != null) {
+				ActionBar.Title = string.Format ("#{0} {1} {2}", assignment.JobNumber, "Summary", assignment.StartDate.ToShortDateString ());
 
-            //portrait mode, flip back and forth when selecting the navigation menu.
-            if (Resources.Configuration.Orientation == Orientation.Landscape) {
-                navigationFragmentContainer.Visibility = ViewStates.Visible;
-            } else {
-                navigationFragmentContainer.Visibility = ViewStates.Invisible;
-            }
+				number.Text = assignment.Priority.ToString ();
+				name.Text = assignment.ContactName;
+				phone.Text = assignment.ContactPhone;
+				address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
+			}
 
-            //setting up default fragments
-            var transaction = FragmentManager.BeginTransaction ();
-            navigationFragment = new NavigationFragment ();
-            navigationFragment.Assignment = assignment;
-            transaction.SetTransition (FragmentTransit.FragmentOpen);
-            transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
-            transaction.Commit ();
+			//portrait mode, flip back and forth when selecting the navigation menu.
+			navigationFragmentContainer.Visibility = Resources.Configuration.Orientation == Orientation.Landscape ?
+				ViewStates.Visible : ViewStates.Invisible;
 
-            items.Visibility =
-                 addItems.Visibility = ViewStates.Invisible;
-            addLabor.Visibility = ViewStates.Gone;
+			//setting up default fragments
+			var transaction = FragmentManager.BeginTransaction ();
+			navigationFragment = new NavigationFragment ();
+			navigationFragment.Assignment = assignment;
+			transaction.SetTransition (FragmentTransit.FragmentOpen);
+			transaction.Replace (Resource.Id.navigationFragmentContainer, navigationFragment);
+			transaction.Commit ();
 
-            addItems.Click += (sender, e) => {
-                itemDialog = new ItemsDialog (this);
-                itemDialog.Assignment = assignment;
-                itemDialog.Show ();
-            };
-            addLabor.Click += (sender, e) => {
-                laborDialog = new AddLaborDialog (this);
-                laborDialog.Assignment = assignment;
-                laborDialog.CurrentLabor = new Labor ();
-                laborDialog.Show ();
-            };
-            addExpense.Click += (sender, e) => {
-                //show add expense dialog;
-                expenseDialog = new ExpenseDialog (this);
-                expenseDialog.Assignment = assignment;
-                expenseDialog.CurrentExpense = new Expense ();
-                expenseDialog.Show ();
-            };
+			items.Visibility = addItems.Visibility = ViewStates.Invisible;
+			addLabor.Visibility = ViewStates.Gone;
 
-            ActionBar.SetLogo (Resource.Drawable.XamarinTitle);
-            ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));
-            ActionBar.SetDisplayHomeAsUpEnabled (true);
-        }
+			addItems.Click += (sender, e) => {
+				itemDialog = new ItemsDialog (this);
+				itemDialog.Assignment = assignment;
+				itemDialog.Show ();
+			};
 
-        private void NavigationSelected (object sender, EventArgs<int> e)
-        {
-            SetFrameFragment (e.Value);
-            if (Resources.Configuration.Orientation == Orientation.Portrait) {
-                navigationFragmentContainer.Visibility = ViewStates.Invisible;
-            }
-            menuViewModel.MenuIndex = e.Value;
-            var screen = Constants.Navigation [e.Value];
-            ActionBar.Title = string.Format ("#{0} {1} {2}", assignment.JobNumber, screen, assignment.StartDate.ToShortDateString ());
-        }
+			addLabor.Click += (sender, e) => {
+				laborDialog = new AddLaborDialog (this);
+				laborDialog.Assignment = assignment;
+				laborDialog.CurrentLabor = new Labor ();
+				laborDialog.Show ();
+			};
 
-        protected override void OnResume ()
-        {
-            base.OnResume ();
-            if (navigationFragment != null) {
-                navigationFragment.NavigationSelected += NavigationSelected;
-            }
-            SetFrameFragment (menuViewModel.MenuIndex);
-        }
+			addExpense.Click += (sender, e) => {
+				//show add expense dialog;
+				expenseDialog = new ExpenseDialog (this);
+				expenseDialog.Assignment = assignment;
+				expenseDialog.CurrentExpense = new Expense ();
+				expenseDialog.Show ();
+			};
 
-        protected override void OnPause ()
-        {
-            base.OnPause ();
-            if (navigationFragment != null) {
-                navigationFragment.NavigationSelected -= NavigationSelected;
-            }
+			ActionBar.SetLogo (Resource.Drawable.XamarinTitle);
+			ActionBar.SetBackgroundDrawable (Resources.GetDrawable (Resource.Drawable.actionbar));
+			ActionBar.SetDisplayHomeAsUpEnabled (true);
+		}
 
-            if (itemDialog != null) {
-                if (itemDialog.IsShowing) {
-                    itemDialog.Dismiss ();
-                }
-            }
+		void NavigationSelected (object sender, EventArgs<int> e)
+		{
+			SetFrameFragment (e.Value);
+			if (Resources.Configuration.Orientation == Orientation.Portrait)
+				navigationFragmentContainer.Visibility = ViewStates.Invisible;
 
-            if (laborDialog != null) {
-                if (laborDialog.IsShowing) {
-                    laborDialog.Dismiss ();
-                }
-            }
-        }
+			menuViewModel.MenuIndex = e.Value;
+			var screen = Constants.Navigation [e.Value];
+			ActionBar.Title = string.Format ("#{0} {1} {2}", assignment.JobNumber, screen, assignment.StartDate.ToShortDateString ());
+		}
 
-        public override bool OnCreateOptionsMenu (IMenu menu)
-        {
-            if (Resources.Configuration.Orientation == Orientation.Portrait) {
-                var inflater = MenuInflater;
-                inflater.Inflate (Resource.Menu.SummaryMenu, menu);
-                return true;
-            }
-            return false;
-        }
+		protected override void OnResume ()
+		{
+			base.OnResume ();
+			if (navigationFragment != null)
+				navigationFragment.NavigationSelected += NavigationSelected;
 
-        public override bool OnOptionsItemSelected (IMenuItem item)
-        {
-            switch (item.ItemId) {
-                case Resource.Id.navigationMenu:
-                    var popup = new PopupMenu (this, FindViewById<TextView> (Resource.Id.selectedAssignmentAnchor));
-                    MenuInflater.Inflate (Resource.Menu.FragmentNavigationMenu, popup.Menu);
-                    popup.SetOnMenuItemClickListener (this);
-                    popup.Show ();
-                    return true;
-                default:
-                    OnBackPressed ();
-                    return true;
-            }
-        }
+			SetFrameFragment (menuViewModel.MenuIndex);
+		}
 
-        public bool OnMenuItemClick (IMenuItem item)
-        {
-            switch (item.ItemId) {
-                default:
-                    navigationFragment.SetNavigation (Constants.Navigation.IndexOf (item.TitleFormatted.ToString ()));
-                    return true;
-            }
-        }
+		protected override void OnPause ()
+		{
+			base.OnPause ();
+			if (navigationFragment != null)
+				navigationFragment.NavigationSelected -= NavigationSelected;
 
-        /// <summary>
-        /// Sets the child fragment for when each navigation item is selected
-        /// </summary>
-        private void SetFrameFragment (int index)
-        {
-            assignment = assignmentViewModel.SelectedAssignment;
-            var transaction = FragmentManager.BeginTransaction ();
-            var screen = Constants.Navigation [index];
-            switch (screen) {
-                case "Summary": {
-                        var fragment = new SummaryFragment ();
-                        fragment.Assignment = assignment;
-                        transaction.SetTransition (FragmentTransit.FragmentOpen);
-                        transaction.Replace (Resource.Id.contentFrame, fragment);
-                        transaction.Commit ();
-                        items.Visibility =
-                            addItems.Visibility = ViewStates.Invisible;
-                        addExpense.Visibility =
-                            addLabor.Visibility = ViewStates.Gone;
-                    }
-                    break;
-                case "Map": {
-                        var fragment = new MapFragment ();
-                        transaction.SetTransition (FragmentTransit.FragmentOpen);
-                        transaction.Replace (Resource.Id.contentFrame, fragment);
-                        transaction.Commit ();
-                        items.Visibility =
-                            addItems.Visibility = ViewStates.Invisible;
-                        addExpense.Visibility =
-                            addLabor.Visibility = ViewStates.Gone;
-                    }
-                    break;
-                case "Items": {
-                        var fragment = new ItemFragment ();
-                        fragment.Assignment = assignment;
-                        itemViewModel.LoadAssignmentItemsAsync (assignment).ContinueWith (_ => {
-                            RunOnUiThread (() => {
-                                fragment.AssignmentItems = itemViewModel.AssignmentItems;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
-                                items.Visibility =
-                                    addItems.Visibility = ViewStates.Visible;
-                                addExpense.Visibility =
-                                    addLabor.Visibility = ViewStates.Gone;
-                                items.Text = string.Format ("({0}) Items", assignment.TotalItems.ToString ());
-                            });
-                        });
-                    }
-                    break;
-                case "Labor Hours": {
-                        var fragment = new LaborHourFragment ();
-                        laborViewModel.LoadLaborHoursAsync (assignment).ContinueWith (_ => {
-                            RunOnUiThread (() => {
-                                fragment.LaborHours = laborViewModel.LaborHours;
-                                fragment.Assignment = assignment;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
-                                addLabor.Visibility =
-                                    items.Visibility = ViewStates.Visible;
-                                addExpense.Visibility =
-                                    addItems.Visibility = ViewStates.Gone;
-                                items.Text = string.Format ("{0} hrs", assignment.TotalHours.TotalHours.ToString ("0.0"));
-                            });
-                        });
-                    }
-                    break;
-                case "Confirmations": {
-                        var fragment = new ConfirmationFragment ();
-                        photoViewModel.LoadPhotosAsync (assignment).ContinueWith (_ => {
-                            RunOnUiThread (() => {
-                                fragment.Photos = photoViewModel.Photos;
-                                fragment.Assignment = assignment;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
-                                addLabor.Visibility =
-                                    items.Visibility = ViewStates.Invisible;
-                                addExpense.Visibility =
-                                    addItems.Visibility = ViewStates.Gone;
-                            });
-                        });
-                    }
-                    break;
-                case "Expenses": {
-                        var fragment = new ExpenseFragment ();
-                        expenseViewModel.LoadExpensesAsync (assignment).ContinueWith (_ => {
-                            RunOnUiThread (() => {
-                                fragment.Expenses = expenseViewModel.Expenses;
-                                fragment.Assignment = assignment;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
-                                addLabor.Visibility =
-                                    addItems.Visibility = ViewStates.Gone;
-                                items.Visibility =
-                                    addExpense.Visibility = ViewStates.Visible;
-                                items.Text = assignment.TotalExpenses.ToString ("$0.00");
-                            });
-                        });
-                    }
-                    break;
-                case "Documents": {
-                        var fragment = new DocumentFragment ();
-                        documentViewModel.LoadDocumentsAsync ().ContinueWith (_ => {
-                            RunOnUiThread (() => {
-                                fragment.Documents = documentViewModel.Documents;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
-                                items.Visibility =
-                                    addItems.Visibility = ViewStates.Invisible;
-                                addExpense.Visibility =
-                                    addLabor.Visibility = ViewStates.Gone;
-                            });
-                        });
-                    }
-                    break;
-                case "History": {
-                        var fragment = new HistoryFragment ();
-                        historyViewModel.LoadHistoryAsync (assignment).ContinueWith (_ => {
-                            RunOnUiThread (() => {
-                                fragment.History = historyViewModel.History;
-                                fragment.Assignment = assignment;
-                                transaction.SetTransition (FragmentTransit.FragmentOpen);
-                                transaction.Replace (Resource.Id.contentFrame, fragment);
-                                transaction.Commit ();
-                                items.Visibility =
-                                    addItems.Visibility = ViewStates.Invisible;
-                                addExpense.Visibility =
-                                    addLabor.Visibility = ViewStates.Gone;
-                            });
-                        });
-                    }
-                    break;
-                default:
-                    break;
-            }
-        }
+			if (itemDialog != null && itemDialog.IsShowing)
+				itemDialog.Dismiss ();
 
-        public override void OnBackPressed ()
-        {
-            Finish ();
-        }
-    }
+			if (laborDialog != null && laborDialog.IsShowing)
+				laborDialog.Dismiss ();
+		}
+
+		public override bool OnCreateOptionsMenu (IMenu menu)
+		{
+			if (Resources.Configuration.Orientation == Orientation.Portrait) {
+				var inflater = MenuInflater;
+				inflater.Inflate (Resource.Menu.SummaryMenu, menu);
+				return true;
+			}
+			return false;
+		}
+
+		public override bool OnOptionsItemSelected (IMenuItem item)
+		{
+			switch (item.ItemId) {
+			case Resource.Id.navigationMenu:
+				var popup = new PopupMenu (this, FindViewById<TextView> (Resource.Id.selectedAssignmentAnchor));
+				MenuInflater.Inflate (Resource.Menu.FragmentNavigationMenu, popup.Menu);
+				popup.SetOnMenuItemClickListener (this);
+				popup.Show ();
+				return true;
+			default:
+				OnBackPressed ();
+				return true;
+			}
+		}
+
+		public bool OnMenuItemClick (IMenuItem item)
+		{
+			navigationFragment.SetNavigation (Constants.Navigation.IndexOf (item.TitleFormatted.ToString ()));
+			return true;
+		}
+
+		/// <summary>
+		/// Sets the child fragment for when each navigation item is selected
+		/// </summary>
+		async void SetFrameFragment (int index)
+		{
+			assignment = assignmentViewModel.SelectedAssignment;
+			var transaction = FragmentManager.BeginTransaction ();
+			var screen = Constants.Navigation [index];
+			switch (screen) {
+			case "Summary":
+				var summaryFragment = new SummaryFragment ();
+				summaryFragment.Assignment = assignment;
+				transaction.SetTransition (FragmentTransit.FragmentOpen);
+				transaction.Replace (Resource.Id.contentFrame, summaryFragment);
+				transaction.Commit ();
+				items.Visibility = addItems.Visibility = ViewStates.Invisible;
+				addExpense.Visibility = addLabor.Visibility = ViewStates.Gone;
+				break;
+			case "Map":
+				var mapFragment = new MapFragment ();
+				transaction.SetTransition (FragmentTransit.FragmentOpen);
+				transaction.Replace (Resource.Id.contentFrame, mapFragment);
+				transaction.Commit ();
+				items.Visibility = addItems.Visibility = ViewStates.Invisible;
+				addExpense.Visibility = addLabor.Visibility = ViewStates.Gone;
+				break;
+			case "Items":
+				var itemFragment = new ItemFragment ();
+				itemFragment.Assignment = assignment;
+				itemViewModel.LoadAssignmentItemsAsync (assignment).ContinueWith (_ => {
+					RunOnUiThread (() => {
+						itemFragment.AssignmentItems = itemViewModel.AssignmentItems;
+						transaction.SetTransition (FragmentTransit.FragmentOpen);
+						transaction.Replace (Resource.Id.contentFrame, itemFragment);
+						transaction.Commit ();
+						items.Visibility = addItems.Visibility = ViewStates.Visible;
+						addExpense.Visibility = addLabor.Visibility = ViewStates.Gone;
+						items.Text = string.Format ("({0}) Items", assignment.TotalItems.ToString ());
+					});
+				});
+				break;
+			case "Labor Hours":
+				var laborHourFragment = new LaborHourFragment ();
+				await laborViewModel.LoadLaborHoursAsync (assignment);
+				RunOnUiThread (() => {
+					laborHourFragment.LaborHours = laborViewModel.LaborHours;
+					laborHourFragment.Assignment = assignment;
+					transaction.SetTransition (FragmentTransit.FragmentOpen);
+					transaction.Replace (Resource.Id.contentFrame, laborHourFragment);
+					transaction.Commit ();
+					addLabor.Visibility = items.Visibility = ViewStates.Visible;
+					addExpense.Visibility = addItems.Visibility = ViewStates.Gone;
+					items.Text = string.Format ("{0} hrs", assignment.TotalHours.TotalHours.ToString ("0.0"));
+				});
+				break;
+			case "Confirmations":
+				var confirmationFragment = new ConfirmationFragment ();
+				await photoViewModel.LoadPhotosAsync (assignment);
+				RunOnUiThread (() => {
+					confirmationFragment.Photos = photoViewModel.Photos;
+					confirmationFragment.Assignment = assignment;
+					transaction.SetTransition (FragmentTransit.FragmentOpen);
+					transaction.Replace (Resource.Id.contentFrame, confirmationFragment);
+					transaction.Commit ();
+					addLabor.Visibility = items.Visibility = ViewStates.Invisible;
+					addExpense.Visibility = addItems.Visibility = ViewStates.Gone;
+				});
+				break;
+			case "Expenses":
+				var expenseFragment = new ExpenseFragment ();
+				await expenseViewModel.LoadExpensesAsync (assignment);
+				RunOnUiThread (() => {
+					expenseFragment.Expenses = expenseViewModel.Expenses;
+					expenseFragment.Assignment = assignment;
+					transaction.SetTransition (FragmentTransit.FragmentOpen);
+					transaction.Replace (Resource.Id.contentFrame, expenseFragment);
+					transaction.Commit ();
+					addLabor.Visibility = addItems.Visibility = ViewStates.Gone;
+					items.Visibility = addExpense.Visibility = ViewStates.Visible;
+					items.Text = assignment.TotalExpenses.ToString ("$0.00");
+				});
+				break;
+			case "Documents":
+				var documentFragment = new DocumentFragment ();
+				documentViewModel.LoadDocumentsAsync ();
+				RunOnUiThread (() => {
+					documentFragment.Documents = documentViewModel.Documents;
+					transaction.SetTransition (FragmentTransit.FragmentOpen);
+					transaction.Replace (Resource.Id.contentFrame, documentFragment);
+					transaction.Commit ();
+					items.Visibility = addItems.Visibility = ViewStates.Invisible;
+					addExpense.Visibility = addLabor.Visibility = ViewStates.Gone;
+				});
+				break;
+			case "History":
+				var historyFragment = new HistoryFragment ();
+				await historyViewModel.LoadHistoryAsync (assignment);
+				RunOnUiThread (() => {
+					historyFragment.History = historyViewModel.History;
+					historyFragment.Assignment = assignment;
+					transaction.SetTransition (FragmentTransit.FragmentOpen);
+					transaction.Replace (Resource.Id.contentFrame, historyFragment);
+					transaction.Commit ();
+					items.Visibility = addItems.Visibility = ViewStates.Invisible;
+					addExpense.Visibility =  addLabor.Visibility = ViewStates.Gone;
+				});
+				break;
+			}
+		}
+
+		public override void OnBackPressed ()
+		{
+			Finish ();
+		}
+	}
 }
