@@ -139,7 +139,9 @@ namespace FieldService.iOS
 				toolbar.Items = new UIBarButtonItem[] { 
 					descriptionButton, 
 					new UIBarButtonItem(UIBarButtonSystemItem.FlexibleSpace), 
-					viewHistory 
+					// TODO: phone call functiality should be implemented first
+					// now user can't make calls
+//					viewHistory
 				};
 			} else {
 				toolbar.Items = new UIBarButtonItem[] { 

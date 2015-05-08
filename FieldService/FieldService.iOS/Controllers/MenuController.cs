@@ -309,7 +309,11 @@ namespace FieldService.iOS
 				SetupCell (confirmationCell);
 
 				historyCell = new UITableViewCell (UITableViewCellStyle.Default, null);
-				historyCell.TextLabel.Text = "History";
+				// TODO: phone call functiality should be implemented first
+				// user can't make calls and history page have no sence
+				// that's why this section of menu is disabled
+				historyCell.UserInteractionEnabled = false;
+				historyCell.TextLabel.Text = "History(Coming soon!)";
 				SetupCell (historyCell, end: true);
 			}
 
