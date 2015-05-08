@@ -37,11 +37,11 @@ namespace FieldService.iOS
 		public event EventHandler Dismissed;
 
 		public SignatureController ()
-			: base(new UINavigationController())
+			: base (new UINavigationController ())
 		{
 			var navController = ContentViewController as UINavigationController;
-			navController.ViewControllers = new UIViewController[] { new ContentController(this) };
-			PopoverContentSize = new CGSize(665, 400);
+			navController.ViewControllers = new UIViewController[] { new ContentController (this) };
+			PopoverContentSize = new CGSize (665, 400);
 		}
 
 		public override void Dismiss (bool animated)
@@ -50,24 +50,25 @@ namespace FieldService.iOS
 
 			var method = Dismissed;
 			if (method != null)
-				method(this, EventArgs.Empty);
+				method (this, EventArgs.Empty);
 		}
 
 		/// <summary>
 		/// Internal controller for setting up the SignatureView
 		/// </summary>
-		private class ContentController : UIViewController
+		class ContentController : UIViewController
 		{
 			readonly SignatureController controller;
 			readonly AssignmentViewModel assignmentViewModel;
 			SignaturePadView signatureView;
 			UIBarButtonItem cancel;
 			UIBarButtonItem save;
+			UIBarButtonItem clear;
 
 			public ContentController (SignatureController controller)
 			{
 				this.controller = controller;
-				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+				assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel> ();
 
 				Title = "Add Signature";
 			}
@@ -76,17 +77,24 @@ namespace FieldService.iOS
 			{
 				base.ViewDidLoad ();
 
-				cancel = new UIBarButtonItem("Cancel", UIBarButtonItemStyle.Bordered, (sender, e) => {
+				clear = new UIBarButtonItem ("Clear", UIBarButtonItemStyle.Bordered, (sender, e) => {
+					signatureView.Clear ();
+				});
+				clear.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.Blue }, UIControlState.Normal);
+				clear.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
+
+
+				cancel = new UIBarButtonItem ("Cancel", UIBarButtonItemStyle.Bordered, (sender, e) => {
 					controller.Dismiss (true);
 				});
-				cancel.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
+				cancel.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.Blue }, UIControlState.Normal);
 				cancel.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-				save = new UIBarButtonItem("Save", UIBarButtonItemStyle.Bordered, (sender, e) => {
+				save = new UIBarButtonItem ("Save", UIBarButtonItemStyle.Bordered, (sender, e) => {
 
 					//If blank, return
 					if (signatureView.IsBlank) {
-						new UIAlertView(string.Empty, "No signature!", null, "Ok").Show ();
+						new UIAlertView (string.Empty, "No signature!", null, "Ok").Show ();
 						return;
 					}
 
@@ -97,20 +105,25 @@ namespace FieldService.iOS
 
 					assignmentViewModel.SaveSignatureAsync ()
 						.ContinueWith (_ => {
-							BeginInvokeOnMainThread (() => controller.Dismiss (true));
-						});
+						BeginInvokeOnMainThread (() => controller.Dismiss (true));
+					});
 				});
 
-				save.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.White }, UIControlState.Normal);
+				save.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.Blue }, UIControlState.Normal);
 				save.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 				NavigationItem.LeftBarButtonItem = cancel;
-				NavigationItem.RightBarButtonItem = save;
+				NavigationItem.SetRightBarButtonItems (new UIBarButtonItem [] {
+					save,
+					clear
+				}, false);
+
 				NavigationController.NavigationBar.SetBackgroundImage (null, UIBarMetrics.Default);
 
 				signatureView = new SignaturePadView (View.Frame) {
 					AutoresizingMask = UIViewAutoresizing.All
 				};
+
 				View.AddSubview (signatureView);
 			}
 
