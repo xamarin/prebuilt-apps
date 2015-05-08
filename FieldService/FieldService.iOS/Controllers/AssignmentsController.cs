@@ -338,6 +338,7 @@ namespace FieldService.iOS
 				UIView.CommitAnimations ();
 
 			activeAssignmentVisible = visible;
+			activeAssignment.Hidden = !visible;
 		}
 
 		/// <summary>
