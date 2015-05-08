@@ -36,8 +36,6 @@ namespace FieldService.ViewModels {
     public class AssignmentViewModel : ViewModelBase {
         readonly IAssignmentService service;
         readonly Timer timer;
-        TimeSpan hours = TimeSpan.Zero;
-        TimeSpan currentHours = TimeSpan.Zero;
         List<Assignment> assignments;
 	Assignment activeAssignment, selectedAssignment, lastAssignment;
         Data.Signature signature;
@@ -71,8 +69,8 @@ namespace FieldService.ViewModels {
             timer.SynchronizingObject = ServiceContainer.Resolve<ISynchronizeInvoke> ();
 #endif
             timer.Elapsed += (sender, e) => {
-                CurrentHours = currentHours.Add (TimeSpan.FromSeconds (1));
-                Hours = hours.Add (TimeSpan.FromSeconds (1));
+		Hours = Hours.Add (TimeSpan.FromSeconds (1));
+		SaveAssignmentAsync (ActiveAssignment);
             };
         }
 
@@ -124,21 +122,12 @@ namespace FieldService.ViewModels {
         }
 
         /// <summary>
-        /// Number of hours for the current record session on the active assignment
-        /// </summary>
-        public TimeSpan CurrentHours
-        {
-            get { return currentHours; }
-            set { currentHours = value; OnPropertyChanged ("CurrentHours"); }
-        }
-
-        /// <summary>
         /// Number of accumulated hours on the active assignment
         /// </summary>
         public TimeSpan Hours
         {
-            get { return hours; }
-            set { hours = value; OnHoursChanged (); }
+		get { return ActiveAssignment.TotalHours; }
+		set { ActiveAssignment.TotalHours = value; OnHoursChanged (); }
         }
 
         /// <summary>
@@ -189,7 +178,11 @@ namespace FieldService.ViewModels {
                 .GetAssignmentsAsync ()
                 .ContinueOnCurrentThread (t => {
                     //Grab the active assignment
-                    ActiveAssignment = t.Result.FirstOrDefault (a => a.Status == AssignmentStatus.Active);
+			var activeAssignment = t.Result.FirstOrDefault (a => a.Status == AssignmentStatus.Active);
+			if (ActiveAssignment == null)
+				ActiveAssignment = activeAssignment;
+			else if (ActiveAssignment.Id != activeAssignment.Id)
+				ActiveAssignment = activeAssignment;
                     //Grab everything besides the active assignment
                     Assignments = t.Result.Where (a => a.Status != AssignmentStatus.Active).ToList ();
                     return t.Result;
@@ -207,8 +200,6 @@ namespace FieldService.ViewModels {
                     timerEntry = t.Result;
                     if (timerEntry != null) {
                         Recording = true;
-                        CurrentHours =
-                            Hours = (DateTime.Now - timerEntry.Date);
                         timer.Enabled = true;
                     }
                     return timerEntry;
@@ -310,7 +301,6 @@ namespace FieldService.ViewModels {
                 .SaveLaborAsync (labor)
                 .ContinueWith (service.DeleteTimerEntryAsync (timerEntry))
                 .ContinueOnCurrentThread (_ => {
-                    CurrentHours = TimeSpan.Zero;
                     IsBusy = false;
                 });
         }

@@ -103,6 +103,7 @@ namespace FieldService.iOS
 			assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
 				BeginInvokeOnMainThread (() => {
 					record.Enabled = true;
+					timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 					if (assignmentViewModel.Recording)
 						record.SetImage (Theme.RecordActive, UIControlState.Normal);
 					else
@@ -262,6 +263,7 @@ namespace FieldService.iOS
 					if (assignmentViewModel.ActiveAssignment == null) {
 						SetActiveAssignmentVisible (false);
 					} else {
+						timerLabel.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
 						SetActiveAssignmentVisible (true);
 						LoadActiveAssignment ();
 					}
