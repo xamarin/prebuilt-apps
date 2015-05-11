@@ -33,13 +33,12 @@ namespace EmployeeDirectory.Data
 
 		public string Id {
 			get {
-				if (!string.IsNullOrEmpty (id)) {
+				if (!string.IsNullOrEmpty (id))
 					return id;
-				} else if (!string.IsNullOrEmpty (Email)) {
+				else if (!string.IsNullOrEmpty (Email))
 					return Email;
-				} else {
+				else
 					return Name;
-				}
 			}
 			set {
 				id = value;
@@ -63,8 +62,6 @@ namespace EmployeeDirectory.Data
 
 		[Property (Group = "General", Ldap = "description")]
 		public string Description { get; set; }
-
-
 
 		[Property (Group = "Contact", Ldap = "physicalDeliveryOfficeName,roomNumber")]
 		public string Office { get; set; }
@@ -90,7 +87,6 @@ namespace EmployeeDirectory.Data
 		[Property (Group = "Contact", Ldap = "twitter")]
 		public string Twitter { get; set; }
 
-
 		[Property (Group = "Address", Ldap = "street,streetAddress")]
 		public string Street { get; set; }
 
@@ -108,8 +104,6 @@ namespace EmployeeDirectory.Data
 
 		[Property (Group = "Address", Ldap = "c,co,countryCode")]
 		public string Country { get; set; }
-
-
 
 		[Property (Group = "Organization", Ldap = "title")]
 		public string Title { get; set; }
@@ -132,32 +126,31 @@ namespace EmployeeDirectory.Data
 		}
 
 		public bool HasEmail {
-			get { return !string.IsNullOrWhiteSpace (Email); }
+			get {
+				return !string.IsNullOrWhiteSpace (Email);
+			}
 		}
 
 		public string TitleAndDepartment {
 			get {
 				var hasTitle = !string.IsNullOrEmpty (Title);
 				var hasDepartment = !string.IsNullOrEmpty (Department);
-				if (hasTitle && hasDepartment) {
-					return (Title + " - " + Department).Trim ();
-				} else if (hasTitle && !hasDepartment) {
+
+				if (hasTitle && hasDepartment)
+					return string.Format ("{0} - {1}", Title, Department).Trim ();
+				else if (hasTitle && !hasDepartment)
 					return Title.Trim ();
-				} else if (!hasTitle && hasDepartment) {
+				else if (!hasTitle && hasDepartment)
 					return Department.Trim ();
-				} else {
+				else
 					return string.Empty;
-				}
 			}
 		}
 
 		public string FirstNameAndInitials {
 			get {
 				if (!string.IsNullOrWhiteSpace (FirstName)) {
-					if (!string.IsNullOrWhiteSpace (Initials))
-						return FirstName + " " + Initials;
-					else
-						return FirstName;
+					return !string.IsNullOrWhiteSpace (Initials) ? string.Format ("{0} {1}", FirstName, Initials) : FirstName;
 				} else {
 					return SplitFirstAndLastName () [0];
 				}
@@ -166,35 +159,26 @@ namespace EmployeeDirectory.Data
 
 		public string SafeFirstName {
 			get {
-				if (!string.IsNullOrWhiteSpace (FirstName)) {
-					return FirstName;
-				} else {
-					return SplitFirstAndLastName () [0];
-				}
+				return !string.IsNullOrWhiteSpace (FirstName) ? FirstName : SplitFirstAndLastName () [0];
 			}
 		}
 
 		public string SafeLastName {
 			get {
-				if (!string.IsNullOrWhiteSpace (LastName)) {
-					return LastName;
-				} else {
-					return SplitFirstAndLastName () [1];
-				}
+				return !string.IsNullOrWhiteSpace (LastName) ? LastName : SplitFirstAndLastName () [1];
 			}
 		}
 
 		public string SafeDisplayName {
 			get {
-				if (!string.IsNullOrWhiteSpace (DisplayName)) {
+				if (!string.IsNullOrWhiteSpace (DisplayName))
 					return DisplayName;
-				} else if (!string.IsNullOrWhiteSpace (Name)) {
+				else if (!string.IsNullOrWhiteSpace (Name))
 					return Name;
-				} else if (!string.IsNullOrEmpty (Initials)) {
-					return FirstName + " " + Initials + " " + LastName;
-				} else {
-					return FirstName + " " + LastName;
-				}
+				else if (!string.IsNullOrEmpty (Initials))
+					return string.Format ("{0} {1} {2}", FirstName, Initials, LastName);
+				else
+					return string.Format ("{0} {1}", FirstName, LastName);
 			}
 		}
 

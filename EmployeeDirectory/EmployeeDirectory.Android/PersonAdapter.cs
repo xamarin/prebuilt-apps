@@ -20,10 +20,13 @@ using Android.App;
 using Android.Content;
 using Android.Views;
 using Android.Widget;
+
 using EmployeeDirectory.ViewModels;
 
-namespace EmployeeDirectory.Android {
-    public class PersonAdapter : BaseAdapter {
+namespace EmployeeDirectory.Android
+{
+    public class PersonAdapter : BaseAdapter
+	{
         List<Item> items;
 
         public PersonAdapter (PersonViewModel viewModel)
@@ -36,17 +39,23 @@ namespace EmployeeDirectory.Android {
 
                     PropertyItem item;
 
-                    if (p.Type == PersonViewModel.PropertyType.Phone) {
-                        item = new PhonePropertyItem (p);
-                    } else if (p.Type == PersonViewModel.PropertyType.Email) {
-                        item = new EmailPropertyItem (p);
-                    } else if (p.Type == PersonViewModel.PropertyType.Url) {
-                        item = new UrlPropertyItem (p);
-                    } else if (p.Type == PersonViewModel.PropertyType.Twitter) {
-                        item = new TwitterPropertyItem (p);
-                    } else {
-                        item = new PropertyItem (p);
-                    }
+					switch (p.Type) {
+					case PersonViewModel.PropertyType.Phone:
+						item = new PhonePropertyItem (p);
+						break;
+					case PersonViewModel.PropertyType.Email:
+						item = new EmailPropertyItem (p);
+						break;
+					case PersonViewModel.PropertyType.Url:
+						item = new UrlPropertyItem (p);
+						break;
+					case PersonViewModel.PropertyType.Twitter:
+						item = new TwitterPropertyItem (p);
+						break;
+					default:
+						item = new PropertyItem (p);
+						break;
+					}
 
                     items.Add (item);
                 }
@@ -55,15 +64,12 @@ namespace EmployeeDirectory.Android {
 
         public void OnItemClick (int position, View v)
         {
-            if (0 <= position && position < items.Count) {
+            if (0 <= position && position < items.Count)
                 items [position].OnClick (v);
-            }
         }
 
-        public override int ViewTypeCount
-        {
-            get
-            {
+        public override int ViewTypeCount {
+            get {
                 // This is the number of different ViewTypes used in the Items
                 return 7;
             }
@@ -89,17 +95,16 @@ namespace EmployeeDirectory.Android {
             return items [position].GetView (convertView, parent);
         }
 
-        public override int Count
-        {
-            get
-            {
+        public override int Count {
+            get {
                 return items.Count;
             }
         }
 
         #region Item types
 
-        abstract class Item : Java.Lang.Object {
+        abstract class Item : Java.Lang.Object
+		{
             public int ViewType { get; private set; }
 
             public Item (int viewType)
@@ -114,7 +119,8 @@ namespace EmployeeDirectory.Android {
             }
         }
 
-        class MainHeaderItem : Item {
+        class MainHeaderItem : Item
+		{
             string text;
 
             public MainHeaderItem (string text)
@@ -138,7 +144,8 @@ namespace EmployeeDirectory.Android {
             }
         }
 
-        class PropertyItem : Item {
+        class PropertyItem : Item
+		{
             public PersonViewModel.Property Property { get; private set; }
 
             public PropertyItem (PersonViewModel.Property property)
@@ -172,16 +179,15 @@ namespace EmployeeDirectory.Android {
             }
         }
 
-        class PhonePropertyItem : PropertyItem {
+        class PhonePropertyItem : PropertyItem
+		{
             public PhonePropertyItem (PersonViewModel.Property property)
                 : base (property, 3)
             {
             }
 
-            protected override int LayoutId
-            {
-                get
-                {
+            protected override int LayoutId {
+                get {
                     return Resource.Layout.PhonePropertyListItem;
                 }
             }
@@ -189,21 +195,20 @@ namespace EmployeeDirectory.Android {
             public override void OnClick (View v)
             {
                 var intent = new Intent (Intent.ActionCall, global::Android.Net.Uri.Parse (
-                        "tel:" + Uri.EscapeDataString (Property.Value)));
+					string.Format ("tel:{0}", Uri.EscapeDataString (Property.Value))));
                 v.Context.StartActivity (intent);
             }
         }
 
-        class EmailPropertyItem : PropertyItem {
+        class EmailPropertyItem : PropertyItem
+		{
             public EmailPropertyItem (PersonViewModel.Property property)
                 : base (property, 4)
             {
             }
 
-            protected override int LayoutId
-            {
-                get
-                {
+            protected override int LayoutId {
+                get {
                     return Resource.Layout.EmailPropertyListItem;
                 }
             }
@@ -217,7 +222,8 @@ namespace EmployeeDirectory.Android {
             }
         }
 
-        class UrlPropertyItem : PropertyItem {
+        class UrlPropertyItem : PropertyItem
+		{
             public UrlPropertyItem (PersonViewModel.Property property)
                 : this (property, 5)
             {
@@ -228,21 +234,17 @@ namespace EmployeeDirectory.Android {
             {
             }
 
-            protected override int LayoutId
-            {
-                get
-                {
+            protected override int LayoutId {
+                get {
                     return Resource.Layout.UrlPropertyListItem;
                 }
             }
 
-            protected virtual Uri Url
-            {
-                get
-                {
+            protected virtual Uri Url {
+                get {
                     return new Uri (Property.Value.ToUpperInvariant ().StartsWith ("HTTP") ?
                                     Property.Value :
-                                    "http://" + Property.Value);
+									string.Format ("http://{0}", Property.Value));
                 }
             }
 
@@ -254,29 +256,26 @@ namespace EmployeeDirectory.Android {
             }
         }
 
-        class TwitterPropertyItem : UrlPropertyItem {
+        class TwitterPropertyItem : UrlPropertyItem
+		{
             public TwitterPropertyItem (PersonViewModel.Property property)
                 : base (property, 6)
             {
             }
 
-            protected override int LayoutId
-            {
-                get
-                {
+            protected override int LayoutId {
+                get {
                     return Resource.Layout.TwitterPropertyListItem;
                 }
             }
 
-            protected override Uri Url
-            {
-                get
-                {
+            protected override Uri Url {
+                get {
                     var username = Property.Value.Trim ();
-                    if (username.StartsWith ("@")) {
+                    if (username.StartsWith ("@"))
                         username = username.Substring (1);
-                    }
-                    return new Uri ("http://twitter.com/" + username);
+
+					return new Uri (string.Format ("http://twitter.com/{0}", username));
                 }
             }
         }

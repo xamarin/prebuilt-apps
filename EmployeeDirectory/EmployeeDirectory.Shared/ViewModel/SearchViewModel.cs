@@ -14,12 +14,14 @@
 //    limitations under the License.
 //
 using System;
-using System.Threading.Tasks;
+using System.IO;
 using System.Collections.Generic;
-using EmployeeDirectory.Data;
+using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading;
-using System.Collections.ObjectModel;
+using System.Threading.Tasks;
+
+using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory.ViewModels
 {
@@ -45,29 +47,37 @@ namespace EmployeeDirectory.ViewModels
 
 		public string Title {
 			get {
-				if (string.IsNullOrEmpty (search.Name))
-					return "Search";
-				else
-					return System.IO.Path.GetFileName (search.Name);
+				return string.IsNullOrEmpty (search.Name) ? "Search" :
+					Path.GetFileName (search.Name);
 			}
 		}
 
 		public ObservableCollection<PeopleGroup> Groups { get; private set; }
 
 		public SearchProperty SearchProperty {
-			get { return search.Property; }
-			set { search.Property = value; }
+			get {
+				return search.Property;
+			}
+			set {
+				search.Property = value;
+			}
 		}
 
 		public string SearchText {
-			get { return search.Text; }
-			set { search.Text = value ?? string.Empty; }
+			get {
+				return search.Text;
+			}
+			set {
+				search.Text = value ?? string.Empty;
+			}
 		}
 
 		bool groupByLastName = true;
 
 		public bool GroupByLastName {
-			get { return groupByLastName; }
+			get {
+				return groupByLastName;
+			}
 			set {
 				if (groupByLastName != value) {
 					groupByLastName = value;
@@ -84,15 +94,11 @@ namespace EmployeeDirectory.ViewModels
 
 		public void Search ()
 		{
-			//
 			// Stop previous search
-			//
 			if (lastCancelSource != null)
 				lastCancelSource.Cancel ();
 
-			//
 			// Perform the search
-			//
 			lastCancelSource = new CancellationTokenSource ();
 			var token = lastCancelSource.Token;
 			service.SearchAsync (search.Filter, 200, token).ContinueWith (

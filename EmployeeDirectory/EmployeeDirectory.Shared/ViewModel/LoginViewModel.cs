@@ -21,13 +21,12 @@ namespace EmployeeDirectory.ViewModels
 {
 	public class LoginViewModel : ViewModelBase
 	{
+		IDirectoryService service;
+		static readonly TimeSpan ForceLoginTimespan = TimeSpan.FromMinutes (5);
+
 		public string Username { get; set; }
 
 		public string Password { get; set; }
-
-		IDirectoryService service;
-
-		static readonly TimeSpan ForceLoginTimespan = TimeSpan.FromMinutes (5);
 
 		public LoginViewModel (IDirectoryService service)
 		{

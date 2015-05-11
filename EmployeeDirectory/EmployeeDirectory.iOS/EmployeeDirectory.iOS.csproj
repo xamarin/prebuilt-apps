@@ -3,7 +3,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
-    <ProductVersion>10.0.0</ProductVersion>
+    <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>{8735A806-2338-4494-944F-5439944AFFB4}</ProjectGuid>
     <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -107,90 +107,19 @@
   <ItemGroup>
     <Compile Include="AppDelegate.cs" />
     <Compile Include="UIViewControllerEx.cs" />
-    <Compile Include="..\EmployeeDirectory\Filter.cs">
-      <Link>EmployeeDirectory\Filter.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\IDirectoryService.cs">
-      <Link>EmployeeDirectory\IDirectoryService.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\LdapDirectoryService.cs">
-      <Link>EmployeeDirectory\LdapDirectoryService.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\Person.cs">
-      <Link>EmployeeDirectory\Data\Person.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\PropertyAttribute.cs">
-      <Link>EmployeeDirectory\Data\PropertyAttribute.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\Search.cs">
-      <Link>EmployeeDirectory\Data\Search.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Utilities\ImageDownloader.cs">
-      <Link>EmployeeDirectory\Utilities\ImageDownloader.cs</Link>
-    </Compile>
     <Compile Include="UIKitImageDownloader.cs" />
-    <Compile Include="..\EmployeeDirectory\Data\SearchProperty.cs">
-      <Link>EmployeeDirectory\Data\SearchProperty.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\ErrorEventArgs.cs">
-      <Link>EmployeeDirectory\ViewModels\ErrorEventArgs.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\PersonViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\PersonViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\SearchViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\SearchViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Utilities\Gravatar.cs">
-      <Link>EmployeeDirectory\Utilities\Gravatar.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\MemoryDirectoryService.cs">
-      <Link>EmployeeDirectory\MemoryDirectoryService.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Utilities\CsvReader.cs">
-      <Link>EmployeeDirectory\Utilities\CsvReader.cs</Link>
-    </Compile>
     <Compile Include="PersonViewController.cs" />
     <Compile Include="FavoritesViewController.cs" />
-    <Compile Include="..\EmployeeDirectory\ViewModels\PeopleGroup.cs">
-      <Link>EmployeeDirectory\ViewModels\PeopleGroup.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Utilities\ThrottledHttp.cs">
-      <Link>EmployeeDirectory\Utilities\ThrottledHttp.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\IFavoritesRepository.cs">
-      <Link>EmployeeDirectory\Data\IFavoritesRepository.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\XmlFavoritesRepository.cs">
-      <Link>EmployeeDirectory\Data\XmlFavoritesRepository.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\FavoritesViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\FavoritesViewModel.cs</Link>
-    </Compile>
     <Compile Include="PersonCell.cs" />
     <Compile Include="PeopleGroupsDataSource.cs" />
     <Compile Include="PeopleGroupsDelegate.cs" />
     <Compile Include="SearchDisplayDelegate.cs" />
     <Compile Include="ActivityView.cs" />
     <Compile Include="LoginViewController.cs" />
-    <Compile Include="..\EmployeeDirectory\ViewModels\LoginViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\LoginViewModel.cs</Link>
-    </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\ViewModelBase.cs">
-      <Link>EmployeeDirectory\ViewModels\ViewModelBase.cs</Link>
-    </Compile>
     <Compile Include="Settings.cs" />
     <Compile Include="Theme.cs" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <Content Include="..\Data\XamarinDirectory.csv">
-      <Link>Data\XamarinDirectory.csv</Link>
-    </Content>
-    <Content Include="..\Data\XamarinFavorites.xml">
-      <Link>Data\XamarinFavorites.xml</Link>
-    </Content>
-  </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\backbutton.png" />
     <BundleResource Include="Resources\backbutton%402x.png" />
@@ -229,6 +158,16 @@
     <BundleResource Include="Resources\Default%402x.png" />
     <BundleResource Include="Resources\60.png" />
     <BundleResource Include="Resources\120.png" />
+    <BundleResource Include="..\Data\XamarinDirectory.csv">
+      <Link>Resources\Data\XamarinDirectory.csv</Link>
+    </BundleResource>
+    <BundleResource Include="..\Data\XamarinFavorites.xml">
+      <Link>Resources\Data\XamarinFavorites.xml</Link>
+    </BundleResource>
   </ItemGroup>
+  <Import Project="..\EmployeeDirectory.Shared\EmployeeDirectory.Shared.projitems" Label="Shared" Condition="Exists('..\EmployeeDirectory.Shared\EmployeeDirectory.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+  <ItemGroup>
+    <Folder Include="Resources\Data\" />
+  </ItemGroup>
 </Project>

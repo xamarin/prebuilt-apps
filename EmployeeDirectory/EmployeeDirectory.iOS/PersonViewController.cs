@@ -14,6 +14,7 @@
 //    limitations under the License.
 //
 using System;
+using System.Threading.Tasks;
 
 using Foundation;
 using MessageUI;
@@ -22,7 +23,6 @@ using UIKit;
 using EmployeeDirectory.ViewModels;
 using EmployeeDirectory.Data;
 using EmployeeDirectory.Utilities;
-using System.Threading.Tasks;
 
 namespace EmployeeDirectory.iOS
 {
@@ -58,7 +58,7 @@ namespace EmployeeDirectory.iOS
 
 		void OnPhoneSelected (string phoneNumber)
 		{
-			var url = NSUrl.FromString ("tel:" + Uri.EscapeDataString (phoneNumber));
+			var url = NSUrl.FromString (string.Format ("tel:{0}", Uri.EscapeDataString (phoneNumber)));
 
 			if (UIApplication.SharedApplication.CanOpenUrl (url))
 				UIApplication.SharedApplication.OpenUrl (url);
@@ -148,10 +148,7 @@ namespace EmployeeDirectory.iOS
 
 			public override nfloat GetHeightForRow (UITableView tableView, NSIndexPath indexPath)
 			{
-				if (indexPath.Section == 0)
-					return 100;
-				else
-					return 44;
+				return indexPath.Section == 0 ? 100f : 44f;
 			}
 		}
 
@@ -180,10 +177,8 @@ namespace EmployeeDirectory.iOS
 
 			public override nint RowsInSection (UITableView tableView, nint section)
 			{
-				if (section < 2)
-					return 1;
-				else
-					return controller.personViewModel.PropertyGroups [(int)section - 2].Properties.Count;
+				return section < 2 ? 1 :
+					controller.personViewModel.PropertyGroups [(int)section - 2].Properties.Count;
 			}
 
 			public override UITableViewCell GetCell (UITableView tableView, NSIndexPath indexPath)

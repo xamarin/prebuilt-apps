@@ -14,19 +14,23 @@
 //    limitations under the License.
 //
 using System;
+
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+
 using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
 
-namespace EmployeeDirectory.Android {
+namespace EmployeeDirectory.Android
+{
     [Activity (Label = "Search")]
     [IntentFilter (new [] { "android.intent.action.SEARCH" })]
     [MetaData ("android.app.searchable", Resource = "@xml/searchable")]
-    public class SearchActivity : BaseListActivity {
+    public class SearchActivity : BaseListActivity
+	{
         SearchViewModel searchViewModel;
         ProgressBar progressBar;
         TextView searchingText;
@@ -37,14 +41,6 @@ namespace EmployeeDirectory.Android {
 
             SetContentView (Resource.Layout.SearchActivity);
 
-            //
-            // Initialize the service
-            //
-            //var service = new LdapDirectoryService {
-            //        Host = "ldap.mit.edu",
-            //        SearchBase = "dc=mit,dc=edu",
-            //};
-
             searchViewModel = new SearchViewModel (Android.Application.Service, new Search ("Default")) {
                 GroupByLastName = false,
             };
@@ -53,27 +49,18 @@ namespace EmployeeDirectory.Android {
             progressBar = FindViewById<ProgressBar> (Resource.Id.progressBar1);
             searchingText = FindViewById<TextView> (Resource.Id.emptyTextView);
 
-            //
-            // Construct the UI
-            //
-
-
             ListAdapter = new PeopleGroupsAdapter () {
                 ItemsSource = searchViewModel.Groups,
             };
 
-            //
-            // Start the search
-            //
+			// Start the search
             var intent = Intent;
-            if (Intent.ActionSearch.Equals (intent.Action)) {
-                var query = intent.GetStringExtra (SearchManager.Query);
+			if (!Intent.ActionSearch.Equals (intent.Action))
+				return;
 
-                searchViewModel.SearchText = query;
-                searchViewModel.SearchProperty = SearchProperty.All;
-
-                searchViewModel.Search ();
-            }
+			searchViewModel.SearchText = intent.GetStringExtra (SearchManager.Query);
+            searchViewModel.SearchProperty = SearchProperty.All;
+            searchViewModel.Search ();
         }
 
         void HandleSearchCompleted (object sender, EventArgs e)
@@ -88,9 +75,9 @@ namespace EmployeeDirectory.Android {
         protected override void OnListItemClick (ListView l, View v, int position, long id)
         {
             var person = ((PeopleGroupsAdapter)ListAdapter).GetPerson (position);
-            if (person != null) {
+
+            if (person != null)
                 StartActivity (PersonActivity.CreateIntent (this, person));
-            }
         }
     }
 }

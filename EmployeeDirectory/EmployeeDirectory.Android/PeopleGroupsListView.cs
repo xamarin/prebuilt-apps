@@ -18,8 +18,10 @@ using Android.Content;
 using Android.Util;
 using Android.Widget;
 
-namespace EmployeeDirectory.Android {
-    public class PeopleGroupsListView : ListView {
+namespace EmployeeDirectory.Android
+{
+    public class PeopleGroupsListView : ListView
+	{
         public ScrollState ScrollState { get; private set; }
 
         public PeopleGroupsListView (Context context, IAttributeSet attrs) :
@@ -45,9 +47,8 @@ namespace EmployeeDirectory.Android {
         {
             ScrollState = e.ScrollState;
 
-            if (e.ScrollState == ScrollState.Idle) {
+            if (e.ScrollState == ScrollState.Idle)
                 ((PeopleGroupsAdapter)Adapter).LoadImagesForOnscreenRows (this);
-            }
         }
     }
 }

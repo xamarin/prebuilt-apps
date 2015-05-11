@@ -57,14 +57,18 @@ namespace EmployeeDirectory.ViewModels
 		/// Returns true if the current state of the ViewModel is valid
 		/// </summary>
 		public bool IsValid {
-			get { return errors.Count == 0; }
+			get {
+				return errors.Count == 0;
+			}
 		}
 
 		/// <summary>
 		/// A list of errors if IsValid is false
 		/// </summary>
 		protected List<string> Errors {
-			get { return errors; }
+			get {
+				return errors;
+			}
 		}
 
 		/// <summary>
@@ -107,7 +111,9 @@ namespace EmployeeDirectory.ViewModels
 		/// Value inidicating if a spinner should be shown
 		/// </summary>
 		public bool IsBusy {
-			get { return isBusy; }
+			get {
+				return isBusy;
+			}
 			set {
 				if (isBusy != value) {
 					isBusy = value;

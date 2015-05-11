@@ -131,6 +131,7 @@ namespace EmployeeDirectory
 	public class EqualsFilter : Filter
 	{
 		public string PropertyName { get; set; }
+
 		public string Value { get; set; }
 
 		public EqualsFilter ()
@@ -149,6 +150,7 @@ namespace EmployeeDirectory
 	public class ContainsFilter : Filter
 	{
 		public string PropertyName { get; set; }
+
 		public string Value { get; set; }
 
 		public ContainsFilter ()

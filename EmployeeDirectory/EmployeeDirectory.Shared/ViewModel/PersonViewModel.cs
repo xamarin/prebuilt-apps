@@ -14,10 +14,11 @@
 //    limitations under the License.
 //
 using System;
-using EmployeeDirectory.Data;
-using System.Collections.ObjectModel;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.Text;
+
+using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory.ViewModels
 {
@@ -83,10 +84,8 @@ namespace EmployeeDirectory.ViewModels
 				return string.Empty;
 
 			var upper = trimmed.ToUpperInvariant ();
-			if (!upper.StartsWith ("HTTP"))
-				return "http://" + trimmed;
-			else
-				return trimmed;
+			return !upper.StartsWith ("HTTP") ?
+				string.Format ("http://{0}", trimmed) : trimmed;
 		}
 
 		static string CleanTwitter (string username)
@@ -95,10 +94,8 @@ namespace EmployeeDirectory.ViewModels
 			if (trimmed.Length == 0)
 				return string.Empty;
 
-			if (!trimmed.StartsWith ("@"))
-				return "@" + trimmed;
-			else
-				return trimmed;
+			return !trimmed.StartsWith ("@") ?
+				string.Format ("@{0}", trimmed) : trimmed;
 		}
 
 		#region View Data
@@ -108,7 +105,9 @@ namespace EmployeeDirectory.ViewModels
 		public ObservableCollection<PropertyGroup> PropertyGroups { get; private set; }
 
 		public bool IsFavorite {
-			get { return favoritesRepository.IsFavorite (Person); }
+			get {
+				return favoritesRepository.IsFavorite (Person);
+			}
 		}
 
 		string AddressString {
@@ -186,9 +185,8 @@ namespace EmployeeDirectory.ViewModels
 			}
 		}
 
-		public enum PropertyType
-		{
-			Generic,
+		public enum PropertyType {
+			Generic = 0,
 			Phone,
 			Email,
 			Url,

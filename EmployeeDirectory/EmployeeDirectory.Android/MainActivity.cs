@@ -19,21 +19,22 @@ using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+
 using EmployeeDirectory.ViewModels;
 
-namespace EmployeeDirectory.Android {
+namespace EmployeeDirectory.Android
+{
     [Activity (Label = "@string/app_name")]
     [MetaData ("android.app.default_searchable", Value = "employeedirectory.android.SearchActivity")]
-    public class MainActivity : BaseListActivity {
-
+    public class MainActivity : BaseListActivity
+	{
         FavoritesViewModel viewModel;
 
         protected override void OnCreate (Bundle bundle)
         {
             base.OnCreate (bundle);
-            //
+
             // Load the UI
-            //
             SetContentView (Resource.Layout.MainActivity);
         }
 
@@ -44,7 +45,7 @@ namespace EmployeeDirectory.Android {
             viewModel = new FavoritesViewModel (Android.Application.SharedFavoritesRepository, groupByLastName: false);
 
             ListAdapter = new PeopleGroupsAdapter () {
-                ItemsSource = viewModel.Groups,
+                ItemsSource = viewModel.Groups
             };
         }
 
@@ -61,9 +62,8 @@ namespace EmployeeDirectory.Android {
         protected override void OnListItemClick (ListView l, View v, int position, long id)
         {
             var person = ((PeopleGroupsAdapter)ListAdapter).GetPerson (position);
-            if (person != null) {
+            if (person != null)
                 StartActivity (PersonActivity.CreateIntent (this, person));
-            }
         }
     }
 }

@@ -36,11 +36,9 @@ namespace EmployeeDirectory.iOS
 		public static void ShowError (this UIViewController vc, string title, string message)
 		{
 			var alert = new UIAlertView (
-				            title,
-				            message,
-				            null,
-				            NSBundle.MainBundle.LocalizedString ("OK", "Error alert dimissal button title")
-			            );
+	            title, message, null,
+	            NSBundle.MainBundle.LocalizedString ("OK", "Error alert dimissal button title")
+            );
 
 			alert.Show ();
 		}

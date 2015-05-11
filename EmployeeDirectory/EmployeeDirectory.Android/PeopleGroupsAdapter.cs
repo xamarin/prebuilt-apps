@@ -17,17 +17,21 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Threading.Tasks;
+
 using Android.App;
 using Android.Graphics;
 using Android.Views;
 using Android.Widget;
+using Android.Runtime;
+
 using EmployeeDirectory.Data;
 using EmployeeDirectory.Utilities;
 using EmployeeDirectory.ViewModels;
-using Android.Runtime;
 
-namespace EmployeeDirectory.Android {
-    public class PeopleGroupsAdapter : BaseAdapter, ISectionIndexer {
+namespace EmployeeDirectory.Android
+{
+    public class PeopleGroupsAdapter : BaseAdapter, ISectionIndexer
+	{
         readonly ImageDownloader imageDownloader = new AndroidImageDownloader ();
 
         ICollection<PeopleGroup> itemsSource = new ObservableCollection<PeopleGroup> ();
@@ -36,14 +40,11 @@ namespace EmployeeDirectory.Android {
         List<string> sections = new List<string> ();
         Dictionary<int, string> alphaIndexer = new Dictionary<int, string> ();
 
-        public ICollection<PeopleGroup> ItemsSource
-        {
-            get
-            {
+        public ICollection<PeopleGroup> ItemsSource {
+            get {
                 return itemsSource;
             }
-            set
-            {
+            set {
                 if (itemsSource != value && value != null) {
                     itemsSource = value;
                     int i = 0;
@@ -53,9 +54,8 @@ namespace EmployeeDirectory.Android {
                         sections.Add (g.Title);
                         alphaIndexer [i] = g.Title;
                         var lastPerson = g.People.LastOrDefault ();
-                        foreach (var p in g.People) {
+                        foreach (var p in g.People)
                             items.Add (new PersonItem (p, p == lastPerson));
-                        }
                         i++;
                     }
 
@@ -64,10 +64,8 @@ namespace EmployeeDirectory.Android {
             }
         }
 
-        public override int ViewTypeCount
-        {
-            get
-            {
+        public override int ViewTypeCount {
+            get {
                 return 2;
             }
         }
@@ -87,9 +85,8 @@ namespace EmployeeDirectory.Android {
             Person person = null;
             if (0 <= position && position < items.Count) {
                 var personItem = items [position] as PersonItem;
-                if (personItem != null) {
+                if (personItem != null)
                     person = personItem.Person;
-                }
             }
             return person;
         }
@@ -111,9 +108,8 @@ namespace EmployeeDirectory.Android {
                 var person = personItem.Person;
 
                 var v = convertView;
-                if (v == null) {
+                if (v == null)
                     v = layoutInflater.Inflate (Resource.Layout.PersonListItem, null);
-                }
 
                 var nameTextView = v.FindViewById<TextView> (Resource.Id.NameTextView);
                 var detailsTextView = v.FindViewById<TextView> (Resource.Id.DetailsTextView);
@@ -130,31 +126,28 @@ namespace EmployeeDirectory.Android {
                     imageButton.SetImageBitmap (images [person.Id]);
                 } else {
                     var listView = (PeopleGroupsListView)parent;
-                    if (person.HasEmail && listView.ScrollState == ScrollState.Idle) {
+
+                    if (person.HasEmail && listView.ScrollState == ScrollState.Idle)
                         StartImageDownload (listView, position, person);
-                    } else {
+                    else
                         imageButton.SetImageResource (Resource.Drawable.Placeholder);
-                    }
                 }
 
                 return v;
             } else {
                 var v = convertView;
-                if (v == null) {
+                if (v == null)
                     v = layoutInflater.Inflate (Resource.Layout.GroupHeaderListItem, null);
-                }
-                var headerTextView = v.FindViewById<TextView> (Resource.Id.HeaderTextView);
 
-                headerTextView.Text = ((GroupHeaderItem)item).Group.Title;
+				var headerTextView = v.FindViewById<TextView> (Resource.Id.HeaderTextView);
+				headerTextView.Text = ((GroupHeaderItem)item).Group.Title;
 
                 return v;
             }
         }
 
-        public override int Count
-        {
-            get
-            {
+        public override int Count {
+            get {
                 return items.Count;
             }
         }
@@ -214,9 +207,8 @@ namespace EmployeeDirectory.Android {
                 imageDownloadsInProgress.Add (person.Id);
 
                 imageDownloader.GetImageAsync (url).ContinueWith (t => {
-                    if (!t.IsFaulted) {
+                    if (!t.IsFaulted)
                         FinishImageDownload (listView, position, person, (Bitmap)t.Result);
-                    }
                 }, TaskScheduler.FromCurrentSynchronizationContext ());
             }
         }
@@ -245,7 +237,8 @@ namespace EmployeeDirectory.Android {
 
         #endregion
 
-        class GroupHeaderItem : Java.Lang.Object {
+        class GroupHeaderItem : Java.Lang.Object
+		{
             public PeopleGroup Group { get; private set; }
 
             public GroupHeaderItem (PeopleGroup group)
@@ -259,8 +252,10 @@ namespace EmployeeDirectory.Android {
             }
         }
 
-        class PersonItem : Java.Lang.Object {
+        class PersonItem : Java.Lang.Object
+		{
             public Person Person { get; private set; }
+
             public bool IsLastPersonInGroup { get; private set; }
 
             public PersonItem (Person person, bool isLastPersonInGroup)

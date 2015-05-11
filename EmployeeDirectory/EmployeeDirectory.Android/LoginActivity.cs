@@ -20,12 +20,15 @@ using Android.OS;
 using Android.Views;
 using Android.Views.InputMethods;
 using Android.Widget;
+
 using EmployeeDirectory.ViewModels;
 
-namespace EmployeeDirectory.Android {
+namespace EmployeeDirectory.Android
+{
     [Activity (Label = "@string/app_name", LaunchMode = LaunchMode.SingleTop, MainLauncher = true)]
-    public class LoginActivity : Activity, TextView.IOnEditorActionListener {
-        private readonly LoginViewModel loginViewModel;
+    public class LoginActivity : Activity, TextView.IOnEditorActionListener
+	{
+        readonly LoginViewModel loginViewModel;
         EditText password, userName;
         Button login;
         ProgressBar progressIndicator;
@@ -84,24 +87,23 @@ namespace EmployeeDirectory.Android {
         /// <summary>
         /// Perform the login and dismiss the keyboard
         /// </summary>
-        private void Login ()
+        void Login ()
         {
-            if (!string.IsNullOrEmpty (userName.Text) && !string.IsNullOrEmpty (password.Text)) {
-                //this hides the keyboard
-                var imm = (InputMethodManager)GetSystemService (Context.InputMethodService);
-                imm.HideSoftInputFromWindow (password.WindowToken, HideSoftInputFlags.NotAlways);
-                login.Visibility = ViewStates.Invisible;
-                progressIndicator.Visibility = ViewStates.Visible;
+			if (string.IsNullOrEmpty (userName.Text) && string.IsNullOrEmpty (password.Text))
+				return;
+            
+			//this hides the keyboard
+            var imm = (InputMethodManager)GetSystemService (Context.InputMethodService);
+            imm.HideSoftInputFromWindow (password.WindowToken, HideSoftInputFlags.NotAlways);
+            login.Visibility = ViewStates.Invisible;
+            progressIndicator.Visibility = ViewStates.Visible;
 
-                loginViewModel
-                    .LoginAsync (System.Threading.CancellationToken.None)
-                    .ContinueWith (_ => {
-                        Android.Application.LastUseTime = System.DateTime.UtcNow;
-                        RunOnUiThread (() => {
-                            StartActivity (typeof (MainActivity));
-                        });
+            loginViewModel.LoginAsync (System.Threading.CancellationToken.None).ContinueWith (_ => {
+                    Android.Application.LastUseTime = System.DateTime.UtcNow;
+                    RunOnUiThread (() => {
+                        StartActivity (typeof (MainActivity));
                     });
-            }
+               	});
         }
 
         protected override void OnResume ()
@@ -122,20 +124,20 @@ namespace EmployeeDirectory.Android {
         {
             //go edit action will login
             if (actionId == ImeAction.Go) {
-                if (!string.IsNullOrEmpty (userName.Text) && !string.IsNullOrEmpty (password.Text)) {
+                if (!string.IsNullOrEmpty (userName.Text) && !string.IsNullOrEmpty (password.Text))
                     Login ();
-                } else if (string.IsNullOrEmpty (userName.Text)) {
+                else if (string.IsNullOrEmpty (userName.Text))
                     userName.RequestFocus ();
-                } else {
+                else
                     password.RequestFocus ();
-                }
-                return true;
+
+				return true;
                 //next action will set focus to password edit text.
             } else if (actionId == ImeAction.Next) {
-                if (!string.IsNullOrEmpty (userName.Text)) {
+                if (!string.IsNullOrEmpty (userName.Text))
                     password.RequestFocus ();
-                }
-                return true;
+
+				return true;
             }
             return false;
         }

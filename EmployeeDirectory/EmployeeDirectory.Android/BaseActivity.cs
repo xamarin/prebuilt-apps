@@ -17,10 +17,13 @@ using System;
 
 using Android.App;
 using Android.Content;
+
 using EmployeeDirectory.ViewModels;
 
-namespace EmployeeDirectory.Android {
-    public class BaseListActivity : ListActivity {
+namespace EmployeeDirectory.Android
+{
+    public class BaseListActivity : ListActivity
+	{
 
         protected override void OnPause ()
         {

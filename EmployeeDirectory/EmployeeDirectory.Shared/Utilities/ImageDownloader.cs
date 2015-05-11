@@ -14,19 +14,17 @@
 //    limitations under the License.
 //
 using System;
+using System.IO;
 using System.IO.IsolatedStorage;
 using System.Net;
 using System.Threading.Tasks;
-using System.IO;
 
 namespace EmployeeDirectory.Utilities
 {
 	public abstract class ImageDownloader
 	{
 		readonly IsolatedStorageFile store = IsolatedStorageFile.GetUserStoreForApplication ();
-
 		readonly ThrottledHttp http;
-
 		readonly TimeSpan cacheDuration;
 
 		public ImageDownloader (int maxConcurrentDownloads = 2)
@@ -46,13 +44,10 @@ namespace EmployeeDirectory.Utilities
 		public bool HasLocallyCachedCopy (Uri uri)
 		{
 			var now = DateTime.UtcNow;
-
 			var filename = Uri.EscapeDataString (uri.AbsoluteUri);
-
 			var lastWriteTime = GetLastWriteTimeUtc (filename);
 
-			return lastWriteTime.HasValue &&
-			(now - lastWriteTime.Value) < cacheDuration;
+			return lastWriteTime.HasValue && ((now - lastWriteTime.Value) < cacheDuration);
 		}
 
 		public Task<object> GetImageAsync (Uri uri)
@@ -70,11 +65,9 @@ namespace EmployeeDirectory.Utilities
 				using (var o = OpenStorage (filename, FileMode.Open))
 					return LoadImage (o);
 			} else {
-				using (var d = http.Get (uri)) {
-					using (var o = OpenStorage (filename, FileMode.Create)) {
+				using (var d = http.Get (uri))
+					using (var o = OpenStorage (filename, FileMode.Create))
 						d.CopyTo (o);
-					}
-				}
 
 				using (var o = OpenStorage (filename, FileMode.Open))
 					return LoadImage (o);

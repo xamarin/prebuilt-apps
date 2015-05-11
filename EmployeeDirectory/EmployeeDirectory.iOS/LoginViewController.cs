@@ -43,22 +43,23 @@ namespace EmployeeDirectory.iOS
 			loginViewModel = new LoginViewModel (service);
 
 			loginViewModel.IsBusyChanged += (sender, e) => {
-				if (IsViewLoaded) {
-					if (loginViewModel.IsBusy) {
-						indicator.StartAnimating ();
-					} else {
-						indicator.StopAnimating ();
-					}
-					indicator.Hidden = !loginViewModel.IsBusy;
-					login.Enabled = !loginViewModel.IsBusy;
-				}
+				if (!IsViewLoaded)
+					return;
+
+				if (loginViewModel.IsBusy)
+					indicator.StartAnimating ();
+				else
+					indicator.StopAnimating ();
+
+				indicator.Hidden = !loginViewModel.IsBusy;
+				login.Enabled = !loginViewModel.IsBusy;
 			};
 
 			//
 			// Create the UI
 			//
 			var logo = new UIImageView (UIImage.FromBundle ("logo.png"));
-			AddCentered (logo, 33, logo.Image.Size.Width, logo.Image.Size.Height);
+			AddCentered (logo, 33f, logo.Image.Size.Width, logo.Image.Size.Height);
 
 			username = new UITextField {
 				Placeholder = "Username",
@@ -68,7 +69,7 @@ namespace EmployeeDirectory.iOS
 				AutocapitalizationType = UITextAutocapitalizationType.None,
 				ClearButtonMode = UITextFieldViewMode.WhileEditing,
 				Background = TextFieldBackground,
-				LeftView = new UIView (new CGRect (0, 0, 8, 8)),
+				LeftView = new UIView (new CGRect (0f, 0f, 8f, 8f)),
 				LeftViewMode = UITextFieldViewMode.Always,
 				ReturnKeyType = UIReturnKeyType.Next,
 				ShouldReturn = delegate {
@@ -76,7 +77,7 @@ namespace EmployeeDirectory.iOS
 					return true;
 				}
 			};
-			AddCentered (username, 80, 200, 44);
+			AddCentered (username, 80f, 200f, 44f);
 
 			password = new UITextField {
 				Placeholder = "Password",
@@ -87,7 +88,7 @@ namespace EmployeeDirectory.iOS
 				AutocapitalizationType = UITextAutocapitalizationType.None,
 				ClearButtonMode = UITextFieldViewMode.WhileEditing,
 				Background = TextFieldBackground,
-				LeftView = new UIView (new CGRect (0, 0, 8, 8)),
+				LeftView = new UIView (new CGRect (0f, 0f, 8f, 8f)),
 				LeftViewMode = UITextFieldViewMode.Always,
 				ReturnKeyType = UIReturnKeyType.Go,
 				ShouldReturn = delegate {
@@ -95,7 +96,7 @@ namespace EmployeeDirectory.iOS
 					return true;
 				}
 			};
-			AddCentered (password, 132, 200, 44);
+			AddCentered (password, 132f, 200f, 44f);
 
 			login = UIButton.FromType (UIButtonType.Custom);
 			login.SetTitle ("Login", UIControlState.Normal);
@@ -103,18 +104,18 @@ namespace EmployeeDirectory.iOS
 			login.TouchUpInside += delegate {
 				Login ();
 			};
-			AddCentered (login, 184, 100, 51);
+			AddCentered (login, 184f, 100f, 51f);
 
 			help = UIButton.FromType (UIButtonType.Custom);
 			help.SetImage (UIImage.FromBundle ("questionmark.png"), UIControlState.Normal);
 			help.TouchUpInside += (sender, e) => {
 				new UIAlertView ("Need Help?", "Enter any username or password to login.", null, "Ok").Show ();
 			};
-			AddCentered (help, 194, 30, 31);
+			AddCentered (help, 194f, 30f, 31f);
 			
 			//Adjust frame of help button
 			var frame = help.Frame;
-			frame.X = login.Frame.Right + 8;
+			frame.X = login.Frame.Right + 8f;
 			help.Frame = frame;
 
 			indicator = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge) {
@@ -122,15 +123,15 @@ namespace EmployeeDirectory.iOS
 				Hidden = true
 			};
 			frame = indicator.Frame;
-			frame.X = login.Frame.X - indicator.Frame.Width - 8;
-			frame.Y = login.Frame.Y + 6;
+			frame.X = login.Frame.X - indicator.Frame.Width - 8f;
+			frame.Y = login.Frame.Y + 6f;
 			indicator.Frame = frame;
 			View.AddSubview (indicator);
 		}
 
 		void AddCentered (UIView view, nfloat y, nfloat width, nfloat height)
 		{
-			var f = new CGRect ((320 - width) / 2, y, width, height);
+			var f = new CGRect ((320f - width) / 2f, y, width, height);
 			view.Frame = f;
 			view.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin;
 			View.AddSubview (view);

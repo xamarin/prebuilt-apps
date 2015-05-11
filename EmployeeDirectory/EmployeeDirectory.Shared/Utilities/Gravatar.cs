@@ -41,8 +41,9 @@ namespace EmployeeDirectory.Utilities
 				throw new ArgumentException ("Size must be greater than 0.", "size");
 
 			var hash = md5 (Encoding.UTF8.GetBytes (email.Trim ()));
-			var hashString = string.Join ("", hash.Select (x => x.ToString ("x2")));
-			return new Uri ("http://www.gravatar.com/avatar/" + hashString + ".jpg?s=" + size + "&d=mm");
+			var hashString = string.Join (string.Empty, hash.Select (x => x.ToString ("x2")));
+			var uri = string.Format ("http://www.gravatar.com/avatar/{0}.jpg?s={1}&d=mm", hashString, size);
+			return new Uri (uri);
 		}
 	}
 }

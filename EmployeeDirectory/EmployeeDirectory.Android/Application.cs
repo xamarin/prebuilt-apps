@@ -15,14 +15,18 @@
 //
 using System;
 using System.IO;
+
 using Android.App;
 using Android.Runtime;
+
 using EmployeeDirectory.Data;
 
-namespace EmployeeDirectory.Android {
+namespace EmployeeDirectory.Android
+{
     [Application (Label = "Employees", Theme = "@style/CustomHoloTheme", Icon="@drawable/Icon")]
-    public class Application : global::Android.App.Application {
-        private static IFavoritesRepository repo;
+    public class Application : global::Android.App.Application
+	{
+        static IFavoritesRepository repo;
 
         public Application (IntPtr javaReference, JniHandleOwnership transfer)
             :base(javaReference, transfer)
@@ -34,27 +38,21 @@ namespace EmployeeDirectory.Android {
         {
             base.OnCreate ();
 
-            using (var reader = new System.IO.StreamReader (Assets.Open ("XamarinDirectory.csv"))) {
+            using (var reader = new System.IO.StreamReader (Assets.Open ("XamarinDirectory.csv")))
                 Service = new MemoryDirectoryService (new CsvReader<Person> (reader).ReadAll ());
-            }
 
             var filePath = Path.Combine (System.Environment.GetFolderPath (System.Environment.SpecialFolder.Personal), "XamarinFavorites.xml");
-            using (var stream = Assets.Open ("XamarinFavorites.xml")) {
-                using (var filestream = File.Open (filePath, FileMode.Create)) {
+            using (var stream = Assets.Open ("XamarinFavorites.xml"))
+                using (var filestream = File.Open (filePath, FileMode.Create))
                     stream.CopyTo (filestream);
-                }
-            }
-            repo = XmlFavoritesRepository.OpenFile (filePath);
+
+			repo = XmlFavoritesRepository.OpenFile (filePath);
         }
 
-        public static IDirectoryService Service
-        {
-            get;
-            set;
-        }
+        public static IDirectoryService Service { get; set; }
         
         /// <summary>
-        /// last time the device was used.
+        /// Last time the device was used.
         /// </summary>
         public static DateTime LastUseTime { get; set; }
 

@@ -114,16 +114,13 @@ namespace EmployeeDirectory.iOS
 
 				foreach (var indexPath in visiblePaths) {
 					var person = ((PeopleGroupsDataSource)tableView.DataSource).GetPerson (indexPath);
-					if (person != null) {
-						if (person.HasEmail) {
-							if (!images.ContainsKey (person.Id)) {
-								StartImageDownload (tableView, indexPath, person);
-							}
-						}
-						else {
-							FinishImageDownload (tableView, indexPath, person, UIImage.FromBundle (PlaceholderImagePath));
-						}
-					}
+					if (person == null)
+						return;
+
+					if (person.HasEmail && !images.ContainsKey (person.Id))
+						StartImageDownload (tableView, indexPath, person);
+					else
+						FinishImageDownload (tableView, indexPath, person, UIImage.FromBundle (PlaceholderImagePath));
 				}
 			}
 		}

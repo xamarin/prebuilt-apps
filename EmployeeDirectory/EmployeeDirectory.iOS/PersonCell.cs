@@ -24,9 +24,9 @@ namespace EmployeeDirectory.iOS
 {
 	public class PersonCell : UITableViewCell
 	{
-		static readonly UIFont NormalFont = UIFont.SystemFontOfSize (16);
-		static readonly UIFont BoldFont = UIFont.BoldSystemFontOfSize (16);
-		static readonly UIFont DetailsFont = UIFont.SystemFontOfSize (12);
+		static readonly UIFont NormalFont = UIFont.SystemFontOfSize (16f);
+		static readonly UIFont BoldFont = UIFont.BoldSystemFontOfSize (16f);
+		static readonly UIFont DetailsFont = UIFont.SystemFontOfSize (12f);
 
 		UILabel firstNameLabel;
 		UILabel lastNameLabel;
@@ -35,7 +35,9 @@ namespace EmployeeDirectory.iOS
 		Person person = null;
 
 		public Person Person {
-			get { return person; }
+			get {
+				return person;
+			}
 			set {
 				if (person != value) {
 					person = value;
@@ -71,30 +73,29 @@ namespace EmployeeDirectory.iOS
 
 		void UpdateUI ()
 		{
-			var x = 44 + 6;
+			var x = 44f + 6f;
 
 			if (UIDevice.CurrentDevice.CheckSystemVersion (7, 0))
-				x += 15; // okay, we need a more thorough iOS 7 update than this, but for now this'll have to do
+				x += 15f; // okay, we need a more thorough iOS 7 update than this, but for now this'll have to do
 
 			var fn = person.FirstNameAndInitials;
 			firstNameLabel.Text = fn;
 			var fnw = string.IsNullOrEmpty (fn) ? 
 				0.0f : 
 					UIStringDrawing.StringSize (fn, NormalFont).Width;
-			var f = new CGRect (x, 4, fnw + 4, 20);
+			var f = new CGRect (x, 4f, fnw + 4f, 20f);
 			firstNameLabel.Frame = f;
 
 			var ln = person.SafeLastName;
 			lastNameLabel.Text = ln;
 			var lnw = string.IsNullOrEmpty (ln) ?
-				0.0f :
-					UIStringDrawing.StringSize (ln, BoldFont).Width;
+				0f : UIStringDrawing.StringSize (ln, BoldFont).Width;
 			f.X = f.Right;
 			f.Width = lnw;
 			lastNameLabel.Frame = f;
 
 			detailsLabel.Text = person.TitleAndDepartment ?? string.Empty;
-			detailsLabel.Frame = new CGRect (x, 25, 258, 14);
+			detailsLabel.Frame = new CGRect (x, 25f, 258f, 14f);
 		}
 	}
 }

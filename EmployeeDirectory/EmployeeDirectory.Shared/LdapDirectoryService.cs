@@ -89,22 +89,15 @@ namespace EmployeeDirectory
 
 			if (conn == null)
 				throw new InvalidOperationException ("Must Login before searching.");
-
-			//
+			
 			// Compile the filter
-			//
 			var compiledFilter = CompileFilter (filter);
 			if (string.IsNullOrEmpty (compiledFilter))
 				compiledFilter = "(objectClass=*)";
 
-			//
-			// Since the LDAP library doesn't support async, wrap it
-			// in a new task.
-			//
+			// Since the LDAP library doesn't support async, wrap it in a new task.
 			return Task.Factory.StartNew (() => {
-				//
 				// Search
-				//
 				return Search (compiledFilter, sizeLimit);
 			}, cancellationToken);
 		}
@@ -172,9 +165,7 @@ namespace EmployeeDirectory
 			var results = new List<Person> ();
 
 			try {
-				//
 				// Query the server
-				//
 				var lsc = conn.Search (
 					          SearchBase,
 					          LdapConnection.SCOPE_SUB,
@@ -186,13 +177,11 @@ namespace EmployeeDirectory
 				while (lsc.hasMore ()) {
 					var nextEntry = lsc.next ();
 
-					//
 					// Create the person and load all their properties
 					//
 					// This code uses Reflection to create a mapping between LDAP
 					// attribute types and .NET properties. See PropertyAttribute and
 					// the static constructor of this class for details.
-					//
 					var person = new Person {
 						Id = nextEntry.DN
 					};
@@ -212,9 +201,7 @@ namespace EmployeeDirectory
 						}
 					}
 
-					//
 					// Make sure we only load people by looking for a last name
-					//
 					if (!string.IsNullOrEmpty (person.LastName))
 						results.Add (person);
 				}

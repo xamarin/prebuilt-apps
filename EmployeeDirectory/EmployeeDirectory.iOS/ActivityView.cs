@@ -16,7 +16,6 @@
 using System;
 
 using UIKit;
-
 using CoreGraphics;
 
 namespace EmployeeDirectory.iOS
@@ -27,24 +26,28 @@ namespace EmployeeDirectory.iOS
 		UILabel label;
 
 		public string Text {
-			get { return label.Text; }
-			set { label.Text = value; }
+			get {
+				return label.Text;
+			}
+			set {
+				label.Text = value;
+			}
 		}
 
 		public bool IsRunning { get; private set; }
 
 		public ActivityView ()
-			: base (new CGRect (0, 0, 88, 88))
+			: base (new CGRect (0f, 0f, 88f, 88f))
 		{
 			BackgroundColor = UIColor.Black.ColorWithAlpha (0.75f);
 			Opaque = false;
 			IsRunning = false;
-			Layer.CornerRadius = 8;
+			Layer.CornerRadius = 8f;
 			AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin;
 
 			var b = Bounds;
 
-			label = new UILabel (new CGRect (8, b.Height - 8 - 20, b.Width - 16, 20)) {
+			label = new UILabel (new CGRect (8f, b.Height - 28f, b.Width - 16f, 20f)) {
 				TextColor = UIColor.White,
 				BackgroundColor = UIColor.Clear,
 				Font = UIFont.BoldSystemFontOfSize (UIFont.SmallSystemFontSize),
@@ -53,8 +56,8 @@ namespace EmployeeDirectory.iOS
 
 			activity = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.WhiteLarge);
 			var af = activity.Frame;
-			af.X = (b.Width - af.Width) / 2;
-			af.Y = 12;
+			af.X = (b.Width - af.Width) / 2f;
+			af.Y = 12f;
 			activity.Frame = af;
 			AddSubview (activity);
 		}
@@ -63,8 +66,8 @@ namespace EmployeeDirectory.iOS
 		{
 			var b = superview.Bounds;
 			var f = Frame;
-			f.X = (b.Width - f.Width) / 2;
-			f.Y = 33;
+			f.X = (b.Width - f.Width) / 2f;
+			f.Y = 33f;
 			Frame = f;
 
 			activity.StartAnimating ();

@@ -50,9 +50,10 @@ namespace EmployeeDirectory.iOS
 		#region UINavigationBar
 
 		static Lazy<UIImage> navigationBarBackground = new Lazy<UIImage> (
-			                                               () => UIImage.FromBundle ("topnav.png"));
+			() => UIImage.FromBundle ("topnav.png"));
+
 		static Lazy<UIImage> blueNavigationBarBackground = new Lazy<UIImage> (
-			                                                   () => UIImage.FromBundle ("bluebar.png"));
+			() => UIImage.FromBundle ("bluebar.png"));
 
 		/// <summary>
 		/// Apply this theme to a specific view.
@@ -83,8 +84,8 @@ namespace EmployeeDirectory.iOS
 
 			appearance.SetTitleTextAttributes (new UITextAttributes {
 				TextColor = UIColor.FromRGBA (255, 255, 255, 255),
-				TextShadowColor = UIColor.FromRGBA (0, 0, 0, 0.8f),
-				TextShadowOffset = new UIOffset (0, -1)
+				TextShadowColor = UIColor.FromRGBA (0f, 0f, 0f, 0.8f),
+				TextShadowOffset = new UIOffset (0f, -1f)
 			});
 		}
 
@@ -142,10 +143,14 @@ namespace EmployeeDirectory.iOS
 
 		#region UIBarButtonItem
 
-		static Lazy<UIImage> barButtonBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("topnavbtn.png").CreateResizableImage (new UIEdgeInsets (0, 4, 0, 4)));
-		static Lazy<UIImage> backButtonBackBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("backbutton.png").CreateResizableImage (new UIEdgeInsets (0, 14, 0, 4)));
-		static Lazy<UIImage> blueBarButtonBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("bluenavbtn.png").CreateResizableImage (new UIEdgeInsets (0, 4, 0, 4)));
-		static Lazy<UIImage> blueBackButtonBackBackground = new Lazy<UIImage> (() => UIImage.FromBundle ("backbutton.png").CreateResizableImage (new UIEdgeInsets (0, 14, 0, 4)));
+		static Lazy<UIImage> barButtonBackground = new Lazy<UIImage> (
+			() => UIImage.FromBundle ("topnavbtn.png").CreateResizableImage (new UIEdgeInsets (0f, 4f, 0f, 4f)));
+		static Lazy<UIImage> backButtonBackBackground = new Lazy<UIImage> (
+			() => UIImage.FromBundle ("backbutton.png").CreateResizableImage (new UIEdgeInsets (0f, 14f, 0f, 4f)));
+		static Lazy<UIImage> blueBarButtonBackground = new Lazy<UIImage> (
+			() => UIImage.FromBundle ("bluenavbtn.png").CreateResizableImage (new UIEdgeInsets (0f, 4f, 0f, 4f)));
+		static Lazy<UIImage> blueBackButtonBackBackground = new Lazy<UIImage> (
+			() => UIImage.FromBundle ("backbutton.png").CreateResizableImage (new UIEdgeInsets (0f, 14f, 0f, 4f)));
 
 		/// <summary>
 		/// Apply this theme to a specific view.

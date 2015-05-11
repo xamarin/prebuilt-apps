@@ -17,12 +17,11 @@ using System;
 
 namespace EmployeeDirectory
 {
-	public enum SearchProperty : int
-	{
+	public enum SearchProperty {
 		Name = 0,
 		Title = 1,
 		Department = 2,
-		All = 3,
+		All = 3
 	}
 }
 

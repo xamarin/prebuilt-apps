@@ -14,10 +14,12 @@
 //    limitations under the License.
 //
 using System;
+
+using CoreGraphics;
 using UIKit;
+
 using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
-using CoreGraphics;
 
 namespace EmployeeDirectory.iOS
 {
@@ -55,7 +57,7 @@ namespace EmployeeDirectory.iOS
 			//
 			// Configure the search bar
 			//
-			searchBar = new UISearchBar (new CGRect (0, 0, 320, 44)) {
+			searchBar = new UISearchBar (new CGRect (0f, 0f, 320f, 44f)) {
 				ShowsScopeBar = true,
 			};
 

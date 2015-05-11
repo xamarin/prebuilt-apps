@@ -14,8 +14,9 @@
 //    limitations under the License.
 //
 using System;
-using EmployeeDirectory.Data;
 using System.Collections.ObjectModel;
+
+using EmployeeDirectory.Data;
 
 namespace EmployeeDirectory.ViewModels
 {

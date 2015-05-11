@@ -15,28 +15,29 @@
 //
 using System.ComponentModel;
 using System.IO;
+
 using Android.App;
 using Android.Content;
 using Android.OS;
 using Android.Views;
 using Android.Widget;
+
 using EmployeeDirectory.Data;
 using EmployeeDirectory.ViewModels;
 
-namespace EmployeeDirectory.Android {
+namespace EmployeeDirectory.Android
+{
     [Activity (Label = "Person")]
-    public class PersonActivity : BaseListActivity {
+    public class PersonActivity : BaseListActivity
+	{
         PersonViewModel viewModel;
-
         IMenuItem favoriteItem;
 
         protected override void OnCreate (Bundle bundle)
         {
             base.OnCreate (bundle);
 
-            //
             // Get the person object from the intent
-            //
             Person person;
             if (Intent.HasExtra ("Person")) {
                 var serializer = new System.Xml.Serialization.XmlSerializer (typeof (Person));
@@ -46,18 +47,13 @@ namespace EmployeeDirectory.Android {
                 person = new Person ();
             }
 
-            //
             // Load the View Model
-            //
             viewModel = new PersonViewModel (person, Android.Application.SharedFavoritesRepository);
             viewModel.PropertyChanged += HandleViewModelPropertyChanged;
 
-            //
             // Setup the UI
-            //
             ListView.Divider = null;
             ListAdapter = new PersonAdapter (viewModel);
-
             Title = person.SafeDisplayName;
         }
 
@@ -83,16 +79,14 @@ namespace EmployeeDirectory.Android {
 
         void HandleViewModelPropertyChanged (object sender, PropertyChangedEventArgs e)
         {
-            if (e.PropertyName == "IsFavorite") {
+            if (e.PropertyName == "IsFavorite")
                 UpdateFavoriteIcon ();
-            }
         }
 
         void UpdateFavoriteIcon ()
         {
             if (favoriteItem != null) {
-                favoriteItem.SetIcon (
-                        viewModel.IsFavorite ?
+                favoriteItem.SetIcon (viewModel.IsFavorite ?
                         Resource.Drawable.btn_rating_star_on_normal_holo_light :
                         Resource.Drawable.btn_rating_star_off_normal_holo_light);
             }
