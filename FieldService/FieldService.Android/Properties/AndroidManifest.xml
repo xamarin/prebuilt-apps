@@ -10,5 +10,5 @@
 	<application android:label="Field Service">
 		<meta-data android:name="com.google.android.maps.v2.API_KEY" android:value="AIzaSyCFbMZNx1QEECkHKkdFaV4cXBJMjgEMWIY" />
 	</application>
-	<supports-screens android:smallScreens="false" android:normalScreens="false" android:largeScreens="true" android:xlargeScreens="true" android:anyDensity="true" />
+	<supports-screens android:smallScreens="false" android:normalScreens="false" android:largeScreens="true" android:xlargeScreens="true" android:requiresSmallestWidthDp="1200" />
 </manifest>
