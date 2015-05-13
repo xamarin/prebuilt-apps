@@ -44,19 +44,10 @@
   <ItemGroup>
     <Reference Include="Mono.Android" />
     <Reference Include="mscorlib" />
-    <Reference Include="SQLite">
-      <HintPath>..\Components\sqlite-net-1.0.1\lib\android\SQLite.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Xml" />
-    <Reference Include="SignaturePad.Android">
-      <HintPath>..\Components\signature-pad-1.2\lib\android\SignaturePad.Android.dll</HintPath>
-    </Reference>
-    <Reference Include="Xamarin.Mobile">
-      <HintPath>..\Components\xamarin.mobile-0.6.1\lib\android\Xamarin.Mobile.dll</HintPath>
-    </Reference>
     <Reference Include="Xamarin.Android.Support.v4">
       <HintPath>..\packages\Xamarin.Android.Support.v4.22.1.1.1\lib\MonoAndroid403\Xamarin.Android.Support.v4.dll</HintPath>
     </Reference>
@@ -71,6 +62,15 @@
     </Reference>
     <Reference Include="GooglePlayServicesLib">
       <HintPath>..\packages\Xamarin.GooglePlayServices.22.0.0.2\lib\MonoAndroid41\GooglePlayServicesLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Xamarin.Mobile">
+      <HintPath>..\Components\xamarin.mobile-0.6.1\lib\android\Xamarin.Mobile.dll</HintPath>
+    </Reference>
+    <Reference Include="SQLite">
+      <HintPath>..\Components\sqlite-net-1.0.1\lib\android\SQLite.dll</HintPath>
+    </Reference>
+    <Reference Include="SignaturePad.Android">
+      <HintPath>..\Components\signature-pad-1.2\lib\android\SignaturePad.Android.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -522,6 +522,7 @@
   <ItemGroup />
   <Import Project="..\FieldService.Shared\FieldService.Shared.projitems" Label="Shared" Condition="Exists('..\FieldService.Shared\FieldService.Shared.projitems')" />
   <Import Project="$(MSBuildExtensionsPath)\Novell\Novell.MonoDroid.CSharp.targets" />
+  <Import Project="..\packages\xamstore-xamarin.mobile.0.7.1\build\monoandroid\xamstore-xamarin.mobile.props" Condition="Exists('..\packages\xamstore-xamarin.mobile.0.7.1\build\monoandroid\xamstore-xamarin.mobile.props')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
      Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">
