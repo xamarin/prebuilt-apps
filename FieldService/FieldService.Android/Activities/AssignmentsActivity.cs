@@ -88,19 +88,12 @@ namespace FieldService.Android
 			phoneButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentPhoneLayout);
 			mapButton = view.FindViewById<RelativeLayout> (Resource.Id.assignmentAddressLayout);
 
-			assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
-				RunOnUiThread (() => {
-					timer.Checked = assignmentViewModel.Recording;
-				});
-			});
-
 			timer.CheckedChange += (sender, e) => {
 				if (e.IsChecked != assignmentViewModel.Recording) {
-					if (assignmentViewModel.Recording) {
+					if (assignmentViewModel.Recording)
 						assignmentViewModel.PauseAsync ();
-					} else {
+					else
 						assignmentViewModel.RecordAsync ();
-					}
 				}
 			};
 
@@ -110,6 +103,7 @@ namespace FieldService.Android
 					if (selected != assignment.Status) {
 						switch (selected) {
 						case AssignmentStatus.Hold:
+							timer.Checked = false;
 							assignment.Status = selected;
 							assignmentViewModel.SaveAssignmentAsync (assignment).ContinueWith (_ => RunOnUiThread (ReloadAssignments));
 							break;
@@ -221,6 +215,12 @@ namespace FieldService.Android
 			phone.Text = assignment.ContactPhone;
 			address.Text = string.Format ("{0}\n{1}, {2} {3}", assignment.Address, assignment.City, assignment.State, assignment.Zip);
 			timerText.Text = assignmentViewModel.Hours.ToString (@"hh\:mm\:ss");
+
+			assignmentViewModel.LoadTimerEntryAsync ().ContinueWith (_ => {
+				RunOnUiThread (() => {
+					timer.Checked = assignmentViewModel.Recording;
+				});
+			});
 		}
 
 		/// <summary>

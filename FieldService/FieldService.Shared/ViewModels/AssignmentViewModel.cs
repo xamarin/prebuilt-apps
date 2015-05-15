@@ -179,7 +179,7 @@ namespace FieldService.ViewModels {
                 .ContinueOnCurrentThread (t => {
                     //Grab the active assignment
 			var activeAssignment = t.Result.FirstOrDefault (a => a.Status == AssignmentStatus.Active);
-			if (ActiveAssignment == null)
+			if (ActiveAssignment == null || activeAssignment == null)
 				ActiveAssignment = activeAssignment;
 			else if (ActiveAssignment.Id != activeAssignment.Id)
 				ActiveAssignment = activeAssignment;
