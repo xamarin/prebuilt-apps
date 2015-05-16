@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project ToolsVersion="12.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -13,9 +13,12 @@
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
     <PackageCertificateKeyFile>FieldService.WinRT_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <TargetPlatformVersion>8.1</TargetPlatformVersion>
+    <MinimumVisualStudioVersion>12</MinimumVisualStudioVersion>
+    <TargetFrameworkVersion />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
-    <PlatformTarget>x86</PlatformTarget>
+    <PlatformTarget>x64</PlatformTarget>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>full</DebugType>
     <Optimize>false</Optimize>
@@ -100,114 +103,113 @@
     <Prefer32Bit>true</Prefer32Bit>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="..\Dependencies\sqlite-net\src\SQLite.cs">
-      <Link>FieldService\Data\SQLite.cs</Link>
-    </Compile>
-    <Compile Include="..\Dependencies\sqlite-net\src\SQLiteAsync.cs">
-      <Link>FieldService\Data\SQLiteAsync.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\ExpensePhoto.cs">
-      <Link>FieldService\Data\ExpensePhoto.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Signature.cs">
-      <Link>FieldService\Data\Signature.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\TestData.cs">
-      <Link>FieldService\Data\TestData.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ServiceRegistrar.cs">
-      <Link>FieldService\ServiceRegistrar.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Assignment.cs">
-      <Link>FieldService\Data\Assignment.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\AssignmentHistory.cs">
-      <Link>FieldService\Data\AssignmentHistory.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\AssignmentItem.cs">
-      <Link>FieldService\Data\AssignmentItem.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Database.cs">
-      <Link>FieldService\Data\Database.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Document.cs">
-      <Link>FieldService\Data\Document.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Enumerations.cs">
-      <Link>FieldService\Data\Enumerations.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Expense.cs">
-      <Link>FieldService\Data\Expense.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\IAssignmentService.cs">
-      <Link>FieldService\IAssignmentService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\ILoginService.cs">
-      <Link>FieldService\ILoginService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Item.cs">
-      <Link>FieldService\Data\Item.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Labor.cs">
-      <Link>FieldService\Data\Labor.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\Photo.cs">
-      <Link>FieldService\Data\Photo.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\PropertyChangedBase.cs">
-      <Link>FieldService\Data\PropertyChangedBase.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\SampleAssignmentService.cs">
-      <Link>FieldService\Data\SampleAssignmentService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\SampleLoginService.cs">
-      <Link>FieldService\Data\SampleLoginService.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Data\TimerEntry.cs">
-      <Link>FieldService\Data\TimerEntry.cs</Link>
-    </Compile>
-    <Compile Include="..\FieldService\Catalog.cs">
+    <Compile Include="..\FieldService.Shared\Catalog.cs">
       <Link>FieldService\Catalog.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Utilities\DataExtensions.cs">
+    <Compile Include="..\FieldService.Shared\Data\Assignment.cs">
+      <Link>FieldService\Data\Assignment.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\AssignmentHistory.cs">
+      <Link>FieldService\Data\AssignmentHistory.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\AssignmentItem.cs">
+      <Link>FieldService\Data\AssignmentItem.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\Database.cs">
+      <Link>FieldService\Data\Database.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\Document.cs">
+      <Link>FieldService\Data\Document.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\Enumerations.cs">
+      <Link>FieldService\Data\Enumerations.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\Expense.cs">
+      <Link>FieldService\Data\Expense.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\ExpensePhoto.cs">
+      <Link>FieldService\Data\ExpensePhoto.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\Item.cs">
+      <Link>FieldService\Data\Item.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\Labor.cs">
+      <Link>FieldService\Data\Labor.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\Photo.cs">
+      <Link>FieldService\Data\Photo.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\PropertyChangedBase.cs">
+      <Link>FieldService\Data\PropertyChangedBase.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\SampleAssignmentService.cs">
+      <Link>FieldService\Data\SampleAssignmentService.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\SampleLoginService.cs">
+      <Link>FieldService\Data\SampleLoginService.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\Signature.cs">
+      <Link>FieldService\Data\Signature.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\TestData.cs">
+      <Link>FieldService\Data\TestData.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Data\TimerEntry.cs">
+      <Link>FieldService\Data\TimerEntry.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\IAssignmentService.cs">
+      <Link>FieldService\IAssignmentService.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\ILoginService.cs">
+      <Link>FieldService\ILoginService.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\ServiceRegistrar.cs">
+      <Link>FieldService\ServiceRegistrar.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\Utilities\DataExtensions.cs">
       <Link>FieldService\Utilities\DataExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Utilities\ServiceContainer.cs">
+    <Compile Include="..\FieldService.Shared\Utilities\ServiceContainer.cs">
       <Link>FieldService\Utilities\ServiceContainer.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\Utilities\TaskExtensions.cs">
+    <Compile Include="..\FieldService.Shared\Utilities\TaskExtensions.cs">
       <Link>FieldService\Utilities\TaskExtensions.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\AssignmentViewModel.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\AssignmentViewModel.cs">
       <Link>FieldService\ViewModels\AssignmentViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\DocumentViewModel.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\DocumentViewModel.cs">
       <Link>FieldService\ViewModels\DocumentViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\ExpenseViewModel.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\ExpenseViewModel.cs">
       <Link>FieldService\ViewModels\ExpenseViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\HistoryViewModel.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\HistoryViewModel.cs">
       <Link>FieldService\ViewModels\HistoryViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\ItemViewModel.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\ItemViewModel.cs">
       <Link>FieldService\ViewModels\ItemViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\LaborViewModel.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\LaborViewModel.cs">
       <Link>FieldService\ViewModels\LaborViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\LoginViewModel.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\LoginViewModel.cs">
       <Link>FieldService\ViewModels\LoginViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\PhotoViewModel.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\MenuViewModel.cs">
+      <Link>FieldService\ViewModels\MenuViewModel.cs</Link>
+    </Compile>
+    <Compile Include="..\FieldService.Shared\ViewModels\PhotoViewModel.cs">
       <Link>FieldService\ViewModels\PhotoViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\FieldService\ViewModels\ViewModelBase.cs">
+    <Compile Include="..\FieldService.Shared\ViewModels\ViewModelBase.cs">
       <Link>FieldService\ViewModels\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="SQLite.cs" />
+    <Compile Include="SQLiteAsync.cs" />
     <Compile Include="Utilities\BooleanToVisibilityConverter.cs" />
     <Compile Include="Utilities\Constants.cs" />
     <Compile Include="Utilities\DelegateCommand.cs" />
@@ -310,11 +312,12 @@
       <Link>Data\valuableinformation.pdf</Link>
     </Content>
     <None Include="FieldService.WinRT_TemporaryKey.pfx" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="..\Dependencies\sqlite\WinRT\x86\sqlite3.dll" Condition="'$(PlatformTarget)' == 'x86' or '$(PlatformTarget)' == 'AnyCPU'">
       <Link>sqlite3.dll</Link>
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="..\Dependencies\sqlite\WinRT\x64\sqlite3.dll" Condition="'$(PlatformTarget)' == 'x64'">
       <Link>sqlite3.dll</Link>
@@ -442,15 +445,18 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <SDKReference Include="Bing.Maps.Xaml, Version=1.0">
+    <SDKReference Include="Bing.Maps.Xaml, Version=1.313.0825.0">
       <Name>Bing Maps for C#, C++, or Visual Basic</Name>
     </SDKReference>
     <SDKReference Include="Microsoft.VCLibs, Version=11.0">
       <Name>Microsoft Visual C++ Runtime Package</Name>
     </SDKReference>
+    <SDKReference Include="Microsoft.VCLibs, version=12.0">
+      <Name>Microsoft Visual C++ 2013 Runtime Package for Windows</Name>
+    </SDKReference>
   </ItemGroup>
-  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
-    <VisualStudioVersion>11.0</VisualStudioVersion>
+  <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
+    <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
   <Import Project="$(MSBuildExtensionsPath)\Microsoft\WindowsXaml\v$(VisualStudioVersion)\Microsoft.Windows.UI.Xaml.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

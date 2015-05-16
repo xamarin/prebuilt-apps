@@ -126,8 +126,8 @@ namespace FieldService.ViewModels {
         /// </summary>
         public TimeSpan Hours
         {
-		get { return ActiveAssignment.TotalHours; }
-		set { ActiveAssignment.TotalHours = value; OnHoursChanged (); }
+		    get { return ActiveAssignment == null ? TimeSpan.Zero : ActiveAssignment.TotalHours; }
+		    set { ActiveAssignment.TotalHours = value; OnHoursChanged (); }
         }
 
         /// <summary>

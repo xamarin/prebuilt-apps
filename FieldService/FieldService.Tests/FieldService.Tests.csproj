@@ -57,12 +57,6 @@
     <Compile Include="ViewModels\PhotoViewModelTests.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\FieldService\FieldService.csproj">
-      <Project>{f7d8232d-888b-4d40-84f2-eabd83e4d2b1}</Project>
-      <Name>FieldService</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <Content Include="..\Dependencies\sqlite\Windows\sqlite3.dll">
       <Link>sqlite3.dll</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
