@@ -1,5 +1,12 @@
 # Xamarin Prebuilt Apps
 
+Make sure you check this module and its dependencies:
+
+```shell
+git submodule init --recursive
+git submodule update --recursive
+```
+
 To build all apps:
 
 ```shell
