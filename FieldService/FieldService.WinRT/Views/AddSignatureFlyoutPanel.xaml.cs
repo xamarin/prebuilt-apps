@@ -21,12 +21,14 @@ using System.Linq;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Xaml;
+using Windows.UI;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
 using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.UI.Xaml.Media.Imaging;
 using FieldService.WinRT.ViewModels;
 
 namespace FieldService.WinRT.Views
@@ -36,6 +38,13 @@ namespace FieldService.WinRT.Views
     /// </summary>
     public sealed partial class AddSignatureFlyoutPanel : UserControl {
         AssignmentViewModel assignmentViewModel;
+
+        public SignatureBoxControl.SignatureBox SignaturePad {
+            get {
+                return Signature;
+            }
+        }
+
         public AddSignatureFlyoutPanel ()
         {
             this.InitializeComponent ();

@@ -5,15 +5,36 @@
     xmlns:local="using:FieldService.WinRT.Views"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:sb="using:SignatureBoxControl"
     mc:Ignorable="d">
+
+    <!--<Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid Background="{StaticResource ItemsBrush}">
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,30,0">
+                    <TextBlock Text="Add Signature" Foreground="White" FontSize="24" Margin="30,0,0,0" VerticalAlignment="Center"/>
+                    <Button BorderThickness="2" Width="93" BorderBrush="{StaticResource DarkBlueButtonBorderBrush}"
+            	    Background="{StaticResource DarkBlueButtonBrush}" Command="{Binding CancelAddSignatureCommand}" VerticalAlignment="Center">
+                        <TextBlock Text="Cancel" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+                    <Button BorderThickness="2" Width="93" BorderBrush="{StaticResource DarkBlueButtonBorderBrush}"
+            	    Background="{StaticResource DarkBlueButtonBrush}" Command="{Binding CancelAddSignatureCommand}"
+                    VerticalAlignment="Center" Margin="10,0,0,0">
+                        <TextBlock Text="Save" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    </Button>
+                </StackPanel>
+        </Grid>-->
 
     <Grid Background="White">
         <Grid.RowDefinitions>
             <RowDefinition Height="80"/>
-            <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-        <Grid Background="{StaticResource ItemsBrush}">            
+
+        <Grid Background="{StaticResource ItemsBrush}" Grid.Row="0">
             <TextBlock Text="Add Signature" Foreground="White" FontSize="24" Margin="30,0,0,0" VerticalAlignment="Center"/>
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,30,0">
                 <Button BorderThickness="2" Width="93" BorderBrush="{StaticResource DarkBlueButtonBorderBrush}"
@@ -21,12 +42,17 @@
                     <TextBlock Text="Cancel" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Button>
                 <Button BorderThickness="2" Width="93" BorderBrush="{StaticResource DarkBlueButtonBorderBrush}"
-            	    Background="{StaticResource DarkBlueButtonBrush}" Command="{Binding CancelAddSignatureCommand}"
+            	    Background="{StaticResource DarkBlueButtonBrush}" Command="{Binding ClearAddSignatureCommand}"
+                    VerticalAlignment="Center" Margin="10,0,0,0">
+                    <TextBlock Text="Clear" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                </Button>
+                <Button BorderThickness="2" Width="93" BorderBrush="{StaticResource DarkBlueButtonBorderBrush}"
+            	    Background="{StaticResource DarkBlueButtonBrush}" Command="{Binding SaveAddSignatureCommand}"
                     VerticalAlignment="Center" Margin="10,0,0,0">
                     <TextBlock Text="Save" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                 </Button>
             </StackPanel>
         </Grid>
-        
+        <sb:SignatureBox x:Name="Signature" InkThickness="2" InkColor="DarkBlue" IncludeBackground="True" Grid.Row="1" />
     </Grid>
 </UserControl>

@@ -17,8 +17,8 @@ using System;
 using System.Diagnostics;
 using FieldService.Data;
 using FieldService.Utilities;
-using FieldService.WinRT.Utilities;
 using FieldService.WinRT.ViewModels;
+using FieldService.WinRT.Utilities;
 using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
@@ -70,10 +70,10 @@ namespace FieldService.WinRT.Views {
                     assignmentViewModel.AddSignatureCommand.Invoke ();
                     break;
                 case "markComplete": {
-                        //signature control does not work at the moment, just allow it to proceed w/o signature for now.
-                        //if (assignmentViewModel.Signature == null) {
-                        //    await new MessageDialog ("No signature!").ShowAsync ();
-                        //}
+                        if (assignmentViewModel.Signature == null) {
+                            await new MessageDialog ("No signature!").ShowAsync ();
+                            return;
+                        }
                         var dialog = new MessageDialog ("Are you sure?", "Complete?");
                         bool yesComplete = false;
                         dialog.Commands.Add (new UICommand ("Yes", _ => yesComplete = true));

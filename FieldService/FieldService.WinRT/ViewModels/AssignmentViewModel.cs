@@ -13,10 +13,13 @@
 //    See the License for the specific language governing permissions and
 //    limitations under the License.
 
+using System;
 using FieldService.Data;
 using FieldService.Utilities;
 using FieldService.WinRT.Utilities;
 using FieldService.WinRT.Views;
+using System.IO;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -25,10 +28,12 @@ using Windows.UI.Xaml.Media.Imaging;
 
 namespace FieldService.WinRT.ViewModels {
     public class AssignmentViewModel : FieldService.ViewModels.AssignmentViewModel {
-        readonly DelegateCommand recordCommand, mapsCommand, assignmentMapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, cancelAddSignatureCommand,
-            addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand, goBackHistoryCommand, completeCommand;
+        readonly DelegateCommand recordCommand, mapsCommand, assignmentMapsCommand, goBackCommand, itemsCommand, laborCommand, confirmationsCommand, saveAddSignatureCommand,
+            clearAddSignatureCommand, cancelAddSignatureCommand, addSignatureCommand, expensesCommand, documentsCommand, historyCommand, declineCommand, acceptCommand, goBackHistoryCommand, completeCommand;
         Assignment previousAssignment;
+
         Popup addSignaturePopup;
+        AddSignatureFlyoutPanel flyoutpanel;
 
         public AssignmentViewModel ()
         {
@@ -71,7 +76,33 @@ namespace FieldService.WinRT.ViewModels {
                 }
             });
 
-            cancelAddSignatureCommand = new DelegateCommand (_ => { addSignaturePopup.IsOpen = false; });
+            cancelAddSignatureCommand = new DelegateCommand (_ => {
+                if (flyoutpanel != null)
+                    flyoutpanel.SignaturePad.Clear ();
+
+                addSignaturePopup.IsOpen = false;
+            });
+
+            saveAddSignatureCommand = new DelegateCommand(async _ => {
+                if (flyoutpanel == null)
+                    return;
+
+                using (var signatureStream = await flyoutpanel.SignaturePad.GetSignaturePngStreamAsync ()) {
+                    using (var binaryReader = new BinaryReader (signatureStream)) {
+                      var signatureBytes = binaryReader.ReadBytes ((int)signatureStream.Length);
+                      Signature = new Signature { Image = signatureBytes };
+                      await SaveSignatureAsync ();
+                      addSignaturePopup.IsOpen = false;
+                    }
+                }
+
+            });
+
+            clearAddSignatureCommand = new DelegateCommand(_ =>
+            {
+                if (flyoutpanel != null)
+                    flyoutpanel.SignaturePad.Clear();
+            });
 
             declineCommand = new DelegateCommand (async _ => {
                 SelectedAssignment.Status = AssignmentStatus.Declined;
@@ -92,14 +123,19 @@ namespace FieldService.WinRT.ViewModels {
                 Helpers.NavigateTo<AssignmentPage>();
             });
 
-            addSignatureCommand = new DelegateCommand (_ => {
-                if (addSignaturePopup != null && addSignaturePopup.IsOpen) {
-                    addSignaturePopup.IsOpen = false;
+            addSignatureCommand = new DelegateCommand (async _ => {
+                if (Signature != null) {
+                    await new MessageDialog ("Signature already added").ShowAsync ();
+                    return;
                 }
+
+                if (addSignaturePopup != null && addSignaturePopup.IsOpen)
+                    addSignaturePopup.IsOpen = false;
+
                 addSignaturePopup = new Popup ();
                 addSignaturePopup.Height = Window.Current.Bounds.Height;
                 addSignaturePopup.Width = Constants.SignaturePopUpWidth;
-                AddSignatureFlyoutPanel flyoutpanel = new AddSignatureFlyoutPanel ();
+                flyoutpanel = new AddSignatureFlyoutPanel ();
                 flyoutpanel.Width = addSignaturePopup.Width;
                 flyoutpanel.Height = addSignaturePopup.Height;
                 addSignaturePopup.Child = flyoutpanel;
@@ -210,6 +246,22 @@ namespace FieldService.WinRT.ViewModels {
         public DelegateCommand CancelAddSignatureCommand
         {
             get { return cancelAddSignatureCommand; }
+        }
+
+        /// <summary>
+        /// Command for save the add signature flyout.
+        /// </summary>
+        public DelegateCommand SaveAddSignatureCommand
+        {
+            get { return saveAddSignatureCommand; }
+        }
+
+        /// <summary>
+        /// Command for clear the signature flyout.
+        /// </summary>
+        public DelegateCommand ClearAddSignatureCommand
+        {
+            get { return clearAddSignatureCommand; }
         }
 
         /// <summary>
