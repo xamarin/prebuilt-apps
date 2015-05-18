@@ -6,6 +6,7 @@ Thumbs.db
 *.quicktest
 bin
 obj
+packages
 test-results
 Resource.Designer.cs
 [Cc]omponents
