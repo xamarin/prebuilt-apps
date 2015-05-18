@@ -83,7 +83,6 @@ namespace FieldService.iOS
 				clear.SetTitleTextAttributes (new UITextAttributes { TextColor = UIColor.Blue }, UIControlState.Normal);
 				clear.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
-
 				cancel = new UIBarButtonItem ("Cancel", UIBarButtonItemStyle.Bordered, (sender, e) => {
 					controller.Dismiss (true);
 				});
@@ -113,10 +112,10 @@ namespace FieldService.iOS
 				save.SetBackgroundImage (Theme.DarkBarButtonItem, UIControlState.Normal, UIBarMetrics.Default);
 
 				NavigationItem.LeftBarButtonItem = cancel;
-				NavigationItem.SetRightBarButtonItems (new UIBarButtonItem [] {
-					save,
-					clear
-				}, false);
+				NavigationItem.SetRightBarButtonItems (UIDevice.CurrentDevice.CheckSystemVersion (8, 0) ?
+					new UIBarButtonItem [] { save, clear } :
+					new UIBarButtonItem [] { save },
+				false);
 
 				NavigationController.NavigationBar.SetBackgroundImage (null, UIBarMetrics.Default);
 

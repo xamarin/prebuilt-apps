@@ -110,6 +110,7 @@ namespace FieldService.Android
 						case AssignmentStatus.Complete:
                                				//go to confirmations, this is getting called multiple times.
 							var intent = new Intent (this, typeof(SummaryActivity));
+							assignmentViewModel.SelectedAssignment = assignment;
 							menuViewModel.MenuIndex = Constants.Navigation.IndexOf (Constants.Confirmations);
 							StartActivity (intent);
 							break;
