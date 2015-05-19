@@ -27,7 +27,7 @@ using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.Android
 {
-    [Activity (Label = "Person")]
+    [Activity (Label = "Person", Name = "employeedirectory.android.PersonActivity")]
     public class PersonActivity : BaseListActivity
 	{
         PersonViewModel viewModel;

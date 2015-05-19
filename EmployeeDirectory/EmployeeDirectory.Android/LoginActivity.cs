@@ -25,7 +25,8 @@ using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.Android
 {
-    [Activity (Label = "@string/app_name", LaunchMode = LaunchMode.SingleTop, MainLauncher = true)]
+    [Activity (Label = "@string/app_name", Name = "employeedirectory.android.LoginActivity",
+        LaunchMode = LaunchMode.SingleTop, MainLauncher = true)]
     public class LoginActivity : Activity, TextView.IOnEditorActionListener
 	{
         readonly LoginViewModel loginViewModel;

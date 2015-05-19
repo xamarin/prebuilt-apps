@@ -65,65 +65,65 @@
     <Reference Include="System.Xml.Serialization" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\EmployeeDirectory\Data\IFavoritesRepository.cs">
-      <Link>EmployeeDirectory\Data\IFavoritesRepository.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Data\IFavoritesRepository.cs">
+      <Link>EmployeeDirectory.Shared\Data\IFavoritesRepository.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\Person.cs">
-      <Link>EmployeeDirectory\Data\Person.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Data\Person.cs">
+      <Link>EmployeeDirectory.Shared\Data\Person.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\PropertyAttribute.cs">
-      <Link>EmployeeDirectory\Data\PropertyAttribute.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Data\PropertyAttribute.cs">
+      <Link>EmployeeDirectory.Shared\Data\PropertyAttribute.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\Search.cs">
-      <Link>EmployeeDirectory\Data\Search.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Data\Search.cs">
+      <Link>EmployeeDirectory.Shared\Data\Search.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\SearchProperty.cs">
-      <Link>EmployeeDirectory\Data\SearchProperty.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Data\SearchProperty.cs">
+      <Link>EmployeeDirectory.Shared\Data\SearchProperty.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Data\XmlFavoritesRepository.cs">
-      <Link>EmployeeDirectory\Data\XmlFavoritesRepository.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Data\XmlFavoritesRepository.cs">
+      <Link>EmployeeDirectory.Shared\Data\XmlFavoritesRepository.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Filter.cs">
-      <Link>EmployeeDirectory\Filter.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Filter.cs">
+      <Link>EmployeeDirectory.Shared\Filter.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\IDirectoryService.cs">
-      <Link>EmployeeDirectory\IDirectoryService.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\IDirectoryService.cs">
+      <Link>EmployeeDirectory.Shared\IDirectoryService.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\MemoryDirectoryService.cs">
-      <Link>EmployeeDirectory\MemoryDirectoryService.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\MemoryDirectoryService.cs">
+      <Link>EmployeeDirectory.Shared\MemoryDirectoryService.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Utilities\CsvReader.cs">
-      <Link>EmployeeDirectory\Utilities\CsvReader.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Utilities\CsvReader.cs">
+      <Link>EmployeeDirectory.Shared\Utilities\CsvReader.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Utilities\Gravatar.cs">
-      <Link>EmployeeDirectory\Utilities\Gravatar.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Utilities\Gravatar.cs">
+      <Link>EmployeeDirectory.Shared\Utilities\Gravatar.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Utilities\ImageDownloader.cs">
-      <Link>EmployeeDirectory\Utilities\ImageDownloader.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Utilities\ImageDownloader.cs">
+      <Link>EmployeeDirectory.Shared\Utilities\ImageDownloader.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\Utilities\ThrottledHttp.cs">
-      <Link>EmployeeDirectory\Utilities\ThrottledHttp.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\Utilities\ThrottledHttp.cs">
+      <Link>EmployeeDirectory.Shared\Utilities\ThrottledHttp.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\ErrorEventArgs.cs">
-      <Link>EmployeeDirectory\ViewModels\ErrorEventArgs.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\ViewModel\ErrorEventArgs.cs">
+      <Link>EmployeeDirectory.Shared\ViewModel\ErrorEventArgs.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\FavoritesViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\FavoritesViewModel.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\ViewModel\FavoritesViewModel.cs">
+      <Link>EmployeeDirectory.Shared\ViewModel\FavoritesViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\LoginViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\LoginViewModel.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\ViewModel\LoginViewModel.cs">
+      <Link>EmployeeDirectory.Shared\ViewModel\LoginViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\PeopleGroup.cs">
-      <Link>EmployeeDirectory\ViewModels\PeopleGroup.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\ViewModel\PeopleGroup.cs">
+      <Link>EmployeeDirectory.Shared\ViewModel\PeopleGroup.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\PersonViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\PersonViewModel.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\ViewModel\PersonViewModel.cs">
+      <Link>EmployeeDirectory.Shared\ViewModel\PersonViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\SearchViewModel.cs">
-      <Link>EmployeeDirectory\ViewModels\SearchViewModel.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\ViewModel\SearchViewModel.cs">
+      <Link>EmployeeDirectory.Shared\ViewModel\SearchViewModel.cs</Link>
     </Compile>
-    <Compile Include="..\EmployeeDirectory\ViewModels\ViewModelBase.cs">
-      <Link>EmployeeDirectory\ViewModels\ViewModelBase.cs</Link>
+    <Compile Include="..\EmployeeDirectory.Shared\ViewModel\ViewModelBase.cs">
+      <Link>EmployeeDirectory.Shared\ViewModel\ViewModelBase.cs</Link>
     </Compile>
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>

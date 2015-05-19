@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDirectory", "EmployeeDirectory\EmployeeDirectory.csproj", "{647E7295-2DAB-4C3B-8CA5-86C60AF89B1A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDirectory.Shared", "EmployeeDirectory.Shared\EmployeeDirectory.Shared.shproj", "{45DDE5CD-A713-4F30-995B-F16FF546281B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EmployeeDirectory.Android", "EmployeeDirectory.Android\EmployeeDirectory.Android.csproj", "{1F970077-7126-4E41-901F-DDEE795B32FC}"
 EndProject

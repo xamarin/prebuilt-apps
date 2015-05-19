@@ -26,7 +26,7 @@ using EmployeeDirectory.ViewModels;
 
 namespace EmployeeDirectory.Android
 {
-    [Activity (Label = "Search")]
+    [Activity (Label = "Search", Name = "employeedirectory.android.SearchActivity")]
     [IntentFilter (new [] { "android.intent.action.SEARCH" })]
     [MetaData ("android.app.searchable", Resource = "@xml/searchable")]
     public class SearchActivity : BaseListActivity
