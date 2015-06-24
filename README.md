@@ -41,3 +41,5 @@ There are two solutions for each application: **Xamarin.sln** and **VisualStudio
 Alternatively you can open any of the individual platform project files, or you can choose to add the existing iOS project to your Visual Studio solution.
 
 * To get the WinRT version working you need to install the Bing Maps VS extension: http://visualstudiogallery.msdn.microsoft.com/ebc98390-5320-4088-a2b5-8f276e4530f9
+
+* Both samples utilize [Shared Projects](http://developer.xamarin.com/guides/cross-platform/application_fundamentals/shared_projects/), make sure that you use Visual Studio 2013 Update 2 or higher.
