@@ -1,5 +1,9 @@
 # Xamarin Prebuilt Apps
 
+Visit the [pre-built apps page](http://xamarin.com/prebuilt/) on xamarin.com.
+
+---------------
+
 Make sure you check this module and its dependencies:
 
 ```shell
