@@ -4,11 +4,10 @@ Visit the [pre-built apps page](http://xamarin.com/prebuilt/) on xamarin.com.
 
 ---------------
 
-Make sure you check this module and its dependencies:
+To download this repository and and its dependencies:
 
 ```shell
-git submodule init --recursive
-git submodule update --recursive
+git clone --recursive git@github.com:xamarin/prebuilt-apps.git
 ```
 
 To build all apps:
