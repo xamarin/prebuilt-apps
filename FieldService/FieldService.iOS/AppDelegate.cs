@@ -24,6 +24,14 @@ using UIKit;
 using FieldService.Utilities;
 using FieldService.ViewModels;
 
+using Oracle.Cloud.Mobile;
+using Oracle.Cloud.Mobile.MobileBackend;
+using System.Reflection;
+using Oracle.Cloud.Mobile.Configuration;
+using Oracle.Cloud.Mobile.Notifications;
+using System.Threading.Tasks;
+using PushNotification.Plugin;
+
 namespace FieldService.iOS
 {
 	/// <summary>
@@ -49,13 +57,35 @@ namespace FieldService.iOS
 			ServiceContainer.Register (Window);
 			ServiceContainer.Register <ISynchronizeInvoke>(() => new SynchronizeInvoke());
 
+			//Register for Oracle MCS services
+			var json = ResourceLoader.GetEmbeddedResourceStream(Assembly.GetAssembly(typeof(Application)),
+				"McsConfiguration.json");
+			MobileBackendManager.Manager.Configuration = new MobileBackendManagerConfiguration(json);
+
+			//You must authenticate first
+			Task.Run(async () => {
+				bool result = await MobileBackendManager.Manager.DefaultMobileBackend.Authorization.AuthenticateAsync("fieldmanager", "p9_Qjore");
+				if (!result)
+					System.Diagnostics.Debug.WriteLine("Login failed.");
+			}).Wait();
+
+			//Consider inizializing before application initialization, if using any CrossPushNotification method during application initialization.
+			CrossPushNotification.Initialize<FieldService.Shared.FieldServicePushNotificationListener> ();
+			CrossPushNotification.Current.Register ();
+
+
 			//Apply our UI theme
 			Theme.Apply ();
 
 			//Load our storyboard and setup our UIWindow and first view controller
 			storyboard = UIStoryboard.FromName ("MainStoryboard", null);
-			loginController = storyboard.InstantiateInitialViewController () as LoginController;
-			Window.RootViewController = loginController;
+
+			//loginController = storyboard.InstantiateInitialViewController () as LoginController;
+			//Window.RootViewController = loginController;
+
+			var tabController = storyboard.InstantiateViewController<TabController>();
+			Window.RootViewController = tabController;
+
 			Window.MakeKeyAndVisible ();
 
 			return true;
@@ -89,6 +119,46 @@ namespace FieldService.iOS
 
 			//Let's reset the time, just to be safe
 			loginViewModel.ResetInactiveTime ();
+		}
+
+
+		//Push Notification Events
+		public override void FailedToRegisterForRemoteNotifications(UIApplication application, NSError error)
+		{
+			if (CrossPushNotification.Current is IPushNotificationHandler) 
+			{
+				((IPushNotificationHandler)CrossPushNotification.Current).OnErrorReceived(error);
+			}
+		}
+
+		public override void RegisteredForRemoteNotifications(UIApplication application, NSData deviceToken)
+		{
+			if (CrossPushNotification.Current is IPushNotificationHandler) 
+			{
+				((IPushNotificationHandler)CrossPushNotification.Current).OnRegisteredSuccess(deviceToken);
+			}
+		}
+
+		public override void DidRegisterUserNotificationSettings(UIApplication application, UIUserNotificationSettings notificationSettings)
+		{
+			application.RegisterForRemoteNotifications();
+		}
+
+		public override void DidReceiveRemoteNotification (UIApplication application, NSDictionary userInfo, Action<UIBackgroundFetchResult> completionHandler)
+		{
+			if (CrossPushNotification.Current is IPushNotificationHandler) 
+			{
+				((IPushNotificationHandler)CrossPushNotification.Current).OnMessageReceived(userInfo);
+			}		
+		}
+
+
+		public override void ReceivedRemoteNotification(UIApplication application, NSDictionary userInfo)
+		{ 
+			if (CrossPushNotification.Current is IPushNotificationHandler) 
+			{
+				((IPushNotificationHandler)CrossPushNotification.Current).OnMessageReceived(userInfo);
+			}
 		}
 	}
 }

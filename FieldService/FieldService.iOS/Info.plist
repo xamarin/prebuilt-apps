@@ -14,7 +14,7 @@
 		<string>58.png</string>
 	</array>
 	<key>MinimumOSVersion</key>
-	<string>6.0</string>
+	<string>8.0</string>
 	<key>UIDeviceFamily</key>
 	<array>
 		<integer>2</integer>
@@ -31,14 +31,16 @@
 	<key>UIMainStoryboardFile~ipad</key>
 	<string>MainStoryboard</string>
 	<key>CFBundleIdentifier</key>
-	<string>com.xamarin.sample.fieldservice</string>
+	<string>com.xamarin.fieldmanager</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>This string is stored in the info.plist file.</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This string is stored in the info.plist file.</string>
 	<key>CFBundleVersion</key>
-	<string></string>
+	<string>1.0</string>
 	<key>NSMainNibFile~ipad</key>
 	<string></string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
 </dict>
 </plist>

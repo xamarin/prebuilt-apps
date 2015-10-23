@@ -44,5 +44,7 @@
     <Compile Include="$(MSBuildThisFileDirectory)Data\Signature.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\TestData.cs" />
     <Compile Include="$(MSBuildThisFileDirectory)Data\TimerEntry.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)ResourceLoader.cs" />
+    <Compile Include="$(MSBuildThisFileDirectory)FieldServicePushNotificationListener.cs" />
   </ItemGroup>
 </Project>

@@ -1,0 +1,17 @@
+﻿{
+    "mobileBackends": {
+        "WinBackend": {
+            "default": true,
+            "baseUri": "https://mobileportalsetrial0009dev-mcsdem0009.mobileenv.us2.oraclecloud.com:443",
+            "applicationKey": "8ec4d943-6965-4e37-a26e-16ed21fdd469",
+            "authorization": {
+                "basicAuth": {
+                    "backendId": "498ef6ca-b76f-4452-be9e-3d1a9734d1d7",
+                    "anonymousToken": "TUNTREVNMDAwOV9NT0JJTEVQT1JUQUxTRVRSSUFMMDAwOURFVl9NT0JJTEVfQU5PTllNT1VTX0FQUElEOlZiaXVlcjUuM2xuZnlt"
+                }
+            }
+        }
+    },
+    "logLevel": "Verbose"
+}
+ 
