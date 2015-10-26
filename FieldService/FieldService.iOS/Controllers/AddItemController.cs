@@ -81,21 +81,41 @@ namespace FieldService.iOS
 				//Send API call to Oracle MCS to request Manager Approval
 
 				var approvalsURI = new Uri(MobileBackendManager.Manager.DefaultMobileBackend.CustomCodeUri + "/FieldServiceAPI/workorderapprovals");
+				Item item = (Item)sender;
 
 				using (var client = MobileBackendManager.Manager.DefaultMobileBackend.CreateHttpClient())
 				{
-					Item item = (Item)sender;
-					var jsonContent = String.Format("{{\"CustomerName\": \"{0}\",\"Status\": \"Open\",\"Description\": \"Item approval required\",\"RequestDate\": \"{1}\",\"Part\": \"{2}\",\"PartDescription\": \"Flux Capacitor\",\"Price\": 8888.88,\"StatusDescription\": null}}", "NEED COMPNAME", DateTime.Now.ToShortDateString(), item.Name);
+					var assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
+
+					//JSON brackets need to be doubled in order to escape them {{ = {
+					var jsonContent = String.Format("{{\"CustomerName\": \"{0}\",\"Status\": \"Open\",\"Description\": \"Item approval required\",\"RequestDate\": \"{1}\",\"Part\": \"{2}\",\"PartDescription\": \"Flux Capacitor\",\"Price\": 8888.88,\"StatusDescription\": null}}", assignmentViewModel.ActiveAssignment.CompanyName, DateTime.Now.ToShortDateString(), item.Name);
 					//string jsonContent = "";
 					HttpContent content = new StringContent(jsonContent);
-
 
 					var contentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 					content.Headers.ContentType = contentType;
 
 					var httpResponseMsg = await client.PostAsync(approvalsURI, content).ConfigureAwait(false);
 				}
+
+				using (var client = new HttpClient())
+				{
+					//Send Push Notification request
+					var pushURI = new Uri(MobileBackendManager.Manager.DefaultMobileBackend.BaseUri + "/mobile/system/notifications/notifications");
+					HttpContent pushContent = new StringContent("{\"message\" : \"Approval required for " + item.Name + "\"}");
+					var contentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
+					var authType = new System.Net.Http.Headers.AuthenticationHeaderValue("basic", "c3RldmUuaGFsbEB4YW1hcmluLmNvbTo4VlMtcUd6LWNCcC1GWE0=");
+					pushContent.Headers.ContentType = contentType;
+					client.DefaultRequestHeaders.Authorization = authType;
+
+					pushContent.Headers.Add("Oracle-Mobile-Backend-ID", "498ef6ca-b76f-4452-be9e-3d1a9734d1d7");
+
+					var pushResponseMsg = await client.PostAsync(pushURI, pushContent).ConfigureAwait(false);
+					//pushResponseMsg = await client.PostAsync(pushURI, pushContent).ConfigureAwait(false);
+					Console.WriteLine("Push status code: " + pushResponseMsg.StatusCode.ToString());
+				}
 			};
+
 
 			SearchDisplayController.SearchResultsSource = searchDataSource;
 			SearchDisplayController.Delegate = new SearchDisplay (tableView, searchDataSource);

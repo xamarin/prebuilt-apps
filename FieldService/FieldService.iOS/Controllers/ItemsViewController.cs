@@ -196,6 +196,19 @@ namespace FieldService.iOS
 				cell.SetItem (itemViewModel.AssignmentItems [indexPath.Row]);
 				return cell;
 			}
+
+			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			{
+				var clickedItem = itemViewModel.AssignmentItems [indexPath.Row];
+				if (clickedItem.Number == "1009") {
+					clickedItem.Number = "10099";
+
+					BeginInvokeOnMainThread (() => {
+						tableView.ReloadData ();
+					});
+				}
+					
+			}
 		}
 	}
 }

@@ -53,6 +53,6 @@ namespace FieldService.Data {
         /// <summary>
         /// The item's number
         /// </summary>
-        public string Number { get; private set; }
+        public string Number { get; set; }
     }
 }

@@ -52,6 +52,12 @@ namespace FieldService.iOS
 		public void SetItem (AssignmentItem item)
 		{
 			label.Text = string.Format ("{0} {1}", item.Name, item.Number);
+			if (item.Number == "1009")
+				label.TextColor = UIColor.Red;
+			else if (item.Number == "10099")
+				label.TextColor = UIColor.Green;
+			else
+				label.TextColor = Theme.LabelColor;
 		}
 
 		protected override void Dispose (bool disposing)
