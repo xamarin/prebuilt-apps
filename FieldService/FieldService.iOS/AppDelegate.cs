@@ -64,7 +64,7 @@ namespace FieldService.iOS
 
 			//You must authenticate first
 			Task.Run(async () => {
-				bool result = await MobileBackendManager.Manager.DefaultMobileBackend.Authorization.AuthenticateAsync("fieldmanager", "p9_Qjore");
+				bool result = await MobileBackendManager.Manager.DefaultMobileBackend.Authorization.AuthenticateAsync("fieldmanager", "qR3ctrnk");
 				if (!result)
 					System.Diagnostics.Debug.WriteLine("Login failed.");
 			}).Wait();

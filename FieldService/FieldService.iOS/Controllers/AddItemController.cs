@@ -26,6 +26,7 @@ using Oracle.Cloud.Mobile;
 using Oracle.Cloud.Mobile.MobileBackend;
 using System.Net.Http;
 using Newtonsoft.Json;
+using Oracle.Cloud.Mobile.Storage;
 
 namespace FieldService.iOS
 {
@@ -87,22 +88,27 @@ namespace FieldService.iOS
 				{
 					var assignmentViewModel = ServiceContainer.Resolve<AssignmentViewModel>();
 
-					//JSON brackets need to be doubled in order to escape them {{ = {
-					var jsonContent = String.Format("{{\"CustomerName\": \"{0}\",\"Status\": \"Open\",\"Description\": \"Item approval required\",\"RequestDate\": \"{1}\",\"Part\": \"{2}\",\"PartDescription\": \"Flux Capacitor\",\"Price\": 8888.88,\"StatusDescription\": null}}", assignmentViewModel.ActiveAssignment.CompanyName, DateTime.Now.ToShortDateString(), item.Name);
-					//string jsonContent = "";
-					HttpContent content = new StringContent(jsonContent);
 
-					var contentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
-					content.Headers.ContentType = contentType;
+					var backend = MobileBackendManager.Manager.DefaultMobileBackend;
+					var storage = backend.GetService<Storage> ();
+					var collection = await storage.GetCollectionAsync ("WorkOrderApprovals");
 
-					var httpResponseMsg = await client.PostAsync(approvalsURI, content).ConfigureAwait(false);
+					var storageObject = await collection.GetObjectAsync ("e4919820-3cd5-476b-9cc9-11d91c8e5633");
+
+					var json = await storageObject.ReadAsStringAsync ();
+					var jsonContent = String.Format ("{{'CustomerName': '{0}','Status': 'Open','Description': 'Item approval required','RequestDate': '{1}','Part': '{2}','PartDescription': 'Flux Capacitor','Price': 8888.88,'StatusDescription': null}},", assignmentViewModel.ActiveAssignment.CompanyName, DateTime.Now.ToShortDateString (), item.Name);
+					json = json.Insert (json.IndexOf ('[') + 1, jsonContent);
+
+					storageObject.LoadPayload (json, "plain/text");
+
+					storageObject = await collection.PutObjectAsync (storageObject);
 				}
 
 				using (var client = new HttpClient())
 				{
 					//Send Push Notification request
 					var pushURI = new Uri(MobileBackendManager.Manager.DefaultMobileBackend.BaseUri + "/mobile/system/notifications/notifications");
-					HttpContent pushContent = new StringContent("{\"message\" : \"Approval required for " + item.Name + "\"}");
+					HttpContent pushContent = new StringContent("{'message' : 'Approval required for " + item.Name + "'}");
 					var contentType = new System.Net.Http.Headers.MediaTypeHeaderValue("application/json");
 					var authType = new System.Net.Http.Headers.AuthenticationHeaderValue("basic", "c3RldmUuaGFsbEB4YW1hcmluLmNvbTo4VlMtcUd6LWNCcC1GWE0=");
 					pushContent.Headers.ContentType = contentType;
