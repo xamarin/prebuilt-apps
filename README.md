@@ -33,7 +33,7 @@ Available for iOS, Android and as a Windows Store app (Windows 8 and Windows RT)
 http://xamarin.com/prebuilt/fieldservice
 
 
-###Note on the included solutions and projects
+### Note on the included solutions and projects
 
 There are two solutions for each application: **Xamarin.sln** and **VisualStudio.sln**.
 
