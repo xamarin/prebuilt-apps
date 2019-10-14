@@ -1,0 +1,26 @@
+﻿<Properties StartupConfiguration="{8735A806-2338-4494-944F-5439944AFFB4}|Default">
+  <MonoDevelop.Ide.ItemProperties.EmployeeDirectory.iOS PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.D9A5D9F1-6307-45BB-B60B-C9ACD4AA305C" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="EmployeeDirectory.iOS/LoginViewController.cs">
+    <Files>
+      <File FileName="../../Xamarin-Local/xamarin-macios/src/ObjCRuntime/Runtime.cs" Line="406" Column="1" />
+      <File FileName="EmployeeDirectory.iOS/LoginViewController.cs" Line="168" Column="65" />
+    </Files>
+    <Pads>
+      <Pad Id="ProjectPad">
+        <State name="__root__">
+          <Node name="EmployeeDirectory.Xamarin" expanded="True">
+            <Node name="EmployeeDirectory.iOS" expanded="True">
+              <Node name="LoginViewController.cs" selected="True" />
+            </Node>
+          </Node>
+        </State>
+      </Pad>
+    </Pads>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MultiItemStartupConfigurations />
+</Properties>

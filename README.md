@@ -20,9 +20,12 @@ rake build
 
 Prototypical contacts application that can talk LDAP.
 
-Available for iOS, Android and Windows Phone.
+Available for Android and Windows Phone.
 
 http://xamarin.com/prebuilt/employeedirectory
+
+This sample has been removed for iOS because the "UISearchDisplayController" API was depercated in IOS 7+ and replaced with "UISearchController".
+Please see [this sample](https://github.com/xamarin/ios-samples/tree/061e5fd5a05c0f2d26ae27ef156b1d92c0deba5f/ios8/TableSearch) for an example of working with "UISearchController".
 
 ## Field Service
 
